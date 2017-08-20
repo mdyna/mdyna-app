@@ -4,10 +4,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/index.js',
+  entry: [
+    'react-hot-loader/patch',
+    './src/index.js',
     './src/style.scss',
     'babel-polyfill',
-    'react-hot-loader',
     'webpack-dev-server/client?http://localhost:8080'],
   output: {
     filename: 'index.js',

@@ -1,17 +1,17 @@
 {
   "name": "react-webpack-boilerplate",
   "version": "1.0.0",
-  "description": "Minimal boilerplate for developing projects with React, Sass, React Toolbox and Webpack 2",
+  "description": "Minimal boilerplate for developing projects with React, Sass, MUI CSS and Webpack 3",
   "main": "index.js",
   "scripts": {
-    "build": "webpack webpack.config.js",
-    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "build": "webpack --optimize-minimize git --config webpack.config.js",
     "start": "webpack-dev-server --progress --colors --inline --hot"
   },
   "author": "David Morais",
   "license": "MIT",
   "dependencies": {
     "cross-env": "5.0.0",
+    "muicss": "^0.9.20",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-hot-loader": "3.0.0-beta.6",
@@ -53,7 +53,7 @@
     "sass-loader": "^6.0.4",
     "style-loader": "^0.18.1",
     "url-loader": "0.5.8",
-    "webpack": "2.6.0",
+    "webpack": "3.3.0",
     "webpack-dev-server": "2.4.5"
   },
   "repository": {
@@ -61,6 +61,11 @@
     "url": "git+git@github.com:cyborkonline/react-webpack-boilerplate.git"
   },
   "keywords": [
-    "react"
+    "react",
+    "webpack",
+    "boilerplate",
+    "webpack 3.3",
+    "babel",
+    "es6"
   ]
 }
