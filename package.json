@@ -12,7 +12,7 @@
   "dependencies": {
     "cross-env": "5.0.0",
     "muicss": "^0.9.20",
-    "react": "15.5.4",
+    "react": "^15.5.4",
     "react-dom": "15.5.4",
     "react-hot-loader": "3.0.0-beta.6",
     "react-router-dom": "4.1.1",
