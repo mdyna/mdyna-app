@@ -62,6 +62,12 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
     }),
+    new webpack.LoaderOptionsPlugin({ test: /\.scss/,
+      options: {
+        outputStyle: 'compressed',
+        includePaths: ['./node_modules'],
+      },
+    }),
   ],
   stats: {
     colors: true,

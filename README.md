@@ -1,19 +1,10 @@
-# React Minimal Toolbox
+# Dinagram
 
-### React + Webpack + MUICSS + SCSS
+### A task notification and productivity app.
 
-Supports ES6 syntax aswell as JSX and comes with ES-Lint.
-Comes with Hot Module Reload
-Integrated with Google's Progressive Web Apps. manifest.json, registerServiceWorker.js included.
+![Dinagram Logo](https://github.com/cyborkonline/dinagram/blob/master/assets/android-icon-36x36.png?raw=true)
 
-##### To start the dev environment use
-```
-npm start
-```
+Built with React+Redux+Electron
 
-##### To build production code use
-```
-npm run build
-```
 
 
