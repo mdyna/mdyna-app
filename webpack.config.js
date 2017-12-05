@@ -9,7 +9,7 @@ module.exports = {
     './src/index.js',
     './src/style.scss',
     'babel-polyfill',
-    'webpack-dev-server/client?http://localhost:8080'],
+  ],
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
