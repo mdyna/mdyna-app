@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const port = process.env.PORT || '8080';
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -12,6 +13,7 @@ module.exports = {
   ],
   output: {
     filename: 'index.js',
+    publicPath: `http://localhost:${port}/dist/`,
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: 'source-map',
@@ -22,7 +24,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015'],
+          presets: ['es2015', 'react', 'react-hmre'],
         },
       },
       {
@@ -35,7 +37,7 @@ module.exports = {
 
       {
         test: /\.css$/,
-        use: [
+        loader: [
           'style-loader',
           {
             loader: 'css-loader',

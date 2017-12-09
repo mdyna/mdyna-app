@@ -4,8 +4,10 @@
   "description": "Task notification and productivity app",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --optimize-minimize --config webpack.config.js",
-    "start": "npm run build; electron ./main.js"
+    "build-webpack": "rm -rf ./dist && webpack --optimize-minimize --config webpack.config.js",
+    "start": "rm -rf ./dist && NODE_ENV=DEV concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
+    "watch": "webpack-dev-server --hot --inline",
+    "build-electron": "NODE_ENV=PROD webpack --config webpack.config.electron.js;"
   },
   "author": "David Morais",
   "license": "MIT",
@@ -19,7 +21,8 @@
     "react-hot-loader": "3.0.0-beta.6",
     "react-router-dom": "4.1.1",
     "react-toolbox": "^2.0.0-beta.12",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
@@ -31,6 +34,7 @@
     "babel-preset-react-boilerplate": "1.1.1",
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-2": "6.24.1",
+    "concurrently": "^3.5.1",
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "^0.28.3",
     "eslint": "^3.19.0",
