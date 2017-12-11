@@ -1,18 +1,20 @@
 $background-color: #4e636e;
 $font-stroke: #3e4f57;
 $font-color: #f5f5f5;
-$logo-color: #5ca960;
-$logo-stroke: #283837;
+$logo-color: #69f0ae;
+$logo-stroke: #37474f;
+
 
 body {
   margin: 0;
   padding: 0;
   font-family: Roboto sans-serif;
-  background-color: $background-color; 
-}
- .App-header {
-      color: $font-color;
-      .App-logo {
-        height: 250px;
-      }
+  background-color: $background-color;
+  
+  header {
+    background-color: $logo-color;
   }
+  article {
+    background-color: $font-stroke;
+  }
+}
