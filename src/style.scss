@@ -13,6 +13,10 @@ body {
   
   header {
     background-color: $logo-color;
+
+    img {
+      margin: 20px;
+    }
   }
   article {
     background-color: $font-stroke;
