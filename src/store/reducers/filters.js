@@ -1,5 +1,5 @@
-import { VisibilityFilters } from '../actions/actions';
-import { ACTION_TYPES } from '../actions/actionTypes';
+import { VisibilityFilters } from '../actions/';
+import ACTION_TYPES from '../actions/actionTypes';
 
 const { SET_VISIBILITY_FILTER } = ACTION_TYPES;
 const { SHOW_ALL } = VisibilityFilters;

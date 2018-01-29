@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import logo from '../../assets/DinagramLogo.png';
 import TEST_DATA from '../dev/testData.json';
-import AddTaskButton from './AddTaskButton'
+import AddTaskButton from './common/AddTaskButton'
+import TodoList from './common/TodoList'
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
@@ -29,18 +30,25 @@ class Dinagram extends Component {
               size="small"
             />
             <Heading
-              size="small"
+              size="large"
               align="center"
-              strong
               tag="h1"
             >
-              Making the most of your free time
+              Dinagram
             </Heading>
+            <Heading
+            size="small"
+            align="end"
+            tag="h2"
+          > 
+            Making the most of your free time
+          </Heading>
           </Header>
         <Section
           align="center"
           
         >
+          <TodoList/>
           <AddTaskButton/>
         </Section>
       </Article>
