@@ -1,14 +1,14 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
 const {
-  ADD_TODO,
-  TOGGLE_TODO,
+  ADD_TASK,
+  TOGGLE_TASK,
 } = ACTION_TYPES;
 
 
 export default function tasks(state = [], action) {
   switch (action.type) {
-    case ADD_TODO:
+    case ADD_TASK:
       return Object.assign({}, state, {
         tasks: [
           ...state,
@@ -18,7 +18,7 @@ export default function tasks(state = [], action) {
           },
         ],
       });
-    case TOGGLE_TODO:
+    case TOGGLE_TASK:
       return Object.assign({}, state, {
         tasks: state.map((task, index) => {
           if (index === action.index) {

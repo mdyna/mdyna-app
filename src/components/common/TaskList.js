@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Section from 'grommet/components/Section';
 import Headline from 'grommet/components/Headline';
-import VisibleTasks from '../../containers/visibleTasks';
+import AddTaskButton from '../../containers/AddTaskButton';
+import VisibleTasks from '../../containers/VisibleTasks';
 
-import '!style-loader!css-loader!sass-loader!./TodoList.scss'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
 
 export default class TodoList extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class TodoList extends Component {
           Task list
         </Headline>
         <VisibleTasks />
+        <AddTaskButton />
       </Section>
     );
   }

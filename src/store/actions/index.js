@@ -6,7 +6,7 @@ export const VisibilityFilters = {
 };
 
 let nextTodoId = 0;
-export const addTodo = (text) => {
+export const addTask = (text) => {
   nextTodoId += 1;
   return {
     type: 'ADD_TASK',
@@ -20,7 +20,7 @@ export const setVisibilityFilter = filter => ({
   filter,
 });
 
-export const toggleTodo = id => ({
+export const toggleTask = id => ({
   type: 'TOGGLE_TASK',
   id,
 });
