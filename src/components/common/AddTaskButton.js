@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/Pulse';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { addTodo } from '../../store/actions/';
 
 const testTodo = '# hey sister';
-class AddTaskButton extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default class AddTaskButton extends Component {
   render() {
     return (
       <Button
         onClick={(e) => {
-          e.preventDefault();
-          this.props.dispatch(addTodo(testTodo));
+          this.props.addTask(testTodo);
         }}
         className="add-task-btn"
       >
@@ -25,7 +19,6 @@ class AddTaskButton extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return { tasks: bindActionCreators(addTodo, dispatch) };
-}
-export default connect(mapDispatchToProps)(AddTaskButton);
+AddTaskButton.propTypes = {
+  addTask: PropTypes.func.isRequired,
+};
