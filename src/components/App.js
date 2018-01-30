@@ -6,8 +6,7 @@ import TaskList from './common/TaskList'
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
-import Header from 'grommet/components/Header';
-import Heading from 'grommet/components/Heading';
+import Header from './Header';
 import Image from 'grommet/components/Image';
 
 
@@ -19,36 +18,13 @@ class Dinagram extends Component {
     return (
       <App className="dinagram-app">
         <Article>
-          <Header
-            size="small"
+          <Header/>
+          <Section
+            align="center"
+            
           >
-            <Image
-              src={logo}
-              className="App-logo"
-              alt="dinagram logo"
-              size="small"
-            />
-            <Heading
-              size="large"
-              align="center"
-              tag="h1"
-            >
-              Dinagram
-            </Heading>
-            <Heading
-            size="small"
-            align="end"
-            tag="h2"
-          > 
-            Making the most of your free time
-          </Heading>
-          </Header>
-        <Section
-          align="center"
-          
-        >
-          <TaskList/>
-        </Section>
+            <TaskList/>
+          </Section>
       </Article>
       </App>
     );
