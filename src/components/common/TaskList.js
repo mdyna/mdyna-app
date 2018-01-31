@@ -29,6 +29,7 @@ export default class TodoList extends Component {
             console.log(this);
           }}
           key={i}
+          className="task-item"
           heading={task.title}
           style={{
             backgroundColor: task.color,
@@ -47,15 +48,23 @@ export default class TodoList extends Component {
   render() {
     return (
       <Section
-        className="todo-list"
+        className="task-list"
         responsive
+        direction="row"
+        full="horizontal"
       >
         <Headline
-          size="small"
+          align="center"
+          size="merdium"
         >
-          Task list
+          TASKS
         </Headline>
-        { this.visibleTasks() }
+        <Section
+          direction="row"
+          className="visible-tasks"
+        >
+          { this.visibleTasks() }
+        </Section>
         <AddTaskButton
           addTask={this.props.addTask}
         />
