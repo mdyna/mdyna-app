@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import logo from '../../assets/DinagramLogo.png';
 import TEST_DATA from '../dev/testData.json';
-import TaskList from './common/TaskList'
+import TaskList from '../containers/TaskList'
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import TaskList from '../components/common/TaskList';
 import { addTask } from '../store/actions/';
-import AddTaskButton from '../components/common/AddTaskButton';
 
 function mapDispatchToProps(dispatch) {
   return { addTask: (todoProps) => {
@@ -9,7 +9,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    tasks: state,
+    tasks: state.tasks,
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AddTaskButton);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

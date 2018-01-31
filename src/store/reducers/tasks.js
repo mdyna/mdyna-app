@@ -1,4 +1,5 @@
 import ACTION_TYPES from '../actions/actionTypes';
+import TEST_DATA from '../../dev/testData.json';
 
 const {
   ADD_TASK,
@@ -6,18 +7,20 @@ const {
 } = ACTION_TYPES;
 
 
-export default function tasks(state = [], action) {
+export default function tasks(state = TEST_DATA.tasks, action) {
+  console.log('ACTION: ', action.type);
+  console.log('STATE:', state);
   switch (action.type) {
     case ADD_TASK:
-      return Object.assign({}, state, {
-        tasks: [
-          ...state,
-          {
-            text: action.text,
-            completed: false,
-          },
-        ],
-      });
+      return [
+        ...state,
+        {
+          title: action.task.title,
+          color: action.task.color,
+          text: action.task.text,
+          completed: false,
+        },
+      ];
     case TOGGLE_TASK:
       return Object.assign({}, state, {
         tasks: state.map((task, index) => {

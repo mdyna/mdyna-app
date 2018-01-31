@@ -6,12 +6,12 @@ export const VisibilityFilters = {
 };
 
 let nextTodoId = 0;
-export const addTask = (text) => {
+export const addTask = (task) => {
   nextTodoId += 1;
   return {
     type: 'ADD_TASK',
     id: nextTodoId,
-    text,
+    task,
   };
 };
 
