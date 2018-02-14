@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Section from 'grommet/components/Section';
+import Layer from 'grommet/components/Layer';
 import Headline from 'grommet/components/Headline';
+import Form from 'grommet/components/Form';
 import Card from 'grommet/components/Card';
-import AddTaskButton from './AddTaskButton';
+import Button from 'grommet/components/Button';
+import Pulse from 'grommet/components/icons/Pulse';
 import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
 
-export default class TodoList extends Component {
+export default class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: this.props.tasks,
+      modalOpen: false,
     };
   }
 
@@ -19,14 +23,21 @@ export default class TodoList extends Component {
       tasks: newProps.tasks,
     });
   }
+
+  toggleModal() {
+    this.setState({
+      modalOpen: !this.state.modalOpen,
+    });
+  }
+
   visibleTasks() {
     const tasks = [];
     for (let i = 0; i < this.state.tasks.length; i += 1) {
       const task = this.state.tasks[i];
       tasks.push(
         <Card
-          onClick={() => {
-            console.log(this);
+          onClick={(e) => {
+            console.log('placeholder for toggling cardss', e);
           }}
           key={i}
           className="task-item"
@@ -55,7 +66,7 @@ export default class TodoList extends Component {
       >
         <Headline
           align="center"
-          size="merdium"
+          size="medium"
         >
           TASKS
         </Headline>
@@ -65,18 +76,38 @@ export default class TodoList extends Component {
         >
           { this.visibleTasks() }
         </Section>
-        <AddTaskButton
-          addTask={this.props.addTask}
-        />
+        <Button
+          onClick={() => {
+            this.toggleModal();
+          }}
+          className="add-task-btn"
+        >
+          <Layer
+            hidden={!this.state.modalOpen}
+            overlayClose
+            closer
+            onClose={() => {
+              this.toggleModal();
+            }}
+          >
+            <Section>
+              <Headline>
+              NEW TASK
+              </Headline>
+            </Section>
+          </Layer>
+          <Pulse />
+        </Button>
       </Section>
     );
   }
 }
 
-TodoList.propTypes = {
+TaskList.propTypes = {
   addTask: PropTypes.func.isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object),
 };
-TodoList.defaultProps = {
+
+TaskList.defaultProps = {
   tasks: [],
 };

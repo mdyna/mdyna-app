@@ -1,0 +1,28 @@
+{
+  "id": "/Task",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string",
+      "uiSchema": "color"
+    },
+    "category": {
+      "type": "enum",
+      "minimum": 1
+    },
+    "schedule": {
+      "type": "string",
+      "format": "date"
+    },
+    "repeat": {
+      "type":"bool"
+    },
+    "description": {
+      "type":"string",
+      "uiSchema": "textarea"
+    }
+  }
+}

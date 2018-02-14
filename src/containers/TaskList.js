@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TaskList from '../components/common/TaskList';
+import TaskList from '../components/TaskList/TaskList';
 import { addTask } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {

@@ -17,6 +17,7 @@
     "electron": "^1.7.11",
     "electron-reload": "^1.2.2",
     "grommet": "^1.9.0",
+    "jsonschema": "^1.2.2",
     "prop-types": "^15.6.0",
     "react": "^15.5.4",
     "react-dom": "15.5.4",
