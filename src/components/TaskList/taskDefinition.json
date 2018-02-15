@@ -2,11 +2,13 @@
   "id": "/Task",
   "type": "object",
   "properties": {
-    "name": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "required": true
     },
     "color": {
       "type": "string",
+      "format":"color",
       "uiSchema": "color"
     },
     "category": {
@@ -15,7 +17,8 @@
     },
     "schedule": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "uiSchema": "date"
     },
     "repeat": {
       "type":"bool"

@@ -20,8 +20,7 @@ class Dinagram extends Component {
         <Article>
           <Header/>
           <Section
-            align="center"
-            
+            align="center" 
           >
             <TaskList/>
           </Section>

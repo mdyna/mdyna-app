@@ -3,21 +3,12 @@ $font-color: #f5f5f5;
 $task-font-color: #333333;
 $logo-stroke: #37474f;
 
-.task-list {
-  background-color: $logo-stroke;
-  color: $font-color;
+.task-editor {
   padding: 10px;
-  flex-wrap:wrap;
 
   .add-task-btn {
     align-self: center;
     margin: 20px 0 0 0;
   }
 
-  .task-item {
-    color:$task-font-color;
-    width: calc((100%/3) - 10px);
-    margin: 5px;
-  }
-  
 }

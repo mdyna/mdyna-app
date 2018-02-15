@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Section from 'grommet/components/Section';
 import Layer from 'grommet/components/Layer';
 import Headline from 'grommet/components/Headline';
-import Form from 'grommet/components/Form';
 import Card from 'grommet/components/Card';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/Pulse';
+import TaskEditor from './TaskEditor';
 import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
 
 export default class TaskList extends Component {
@@ -82,22 +82,24 @@ export default class TaskList extends Component {
           }}
           className="add-task-btn"
         >
-          <Layer
-            hidden={!this.state.modalOpen}
-            overlayClose
-            closer
-            onClose={() => {
-              this.toggleModal();
-            }}
-          >
-            <Section>
-              <Headline>
-              NEW TASK
-              </Headline>
-            </Section>
-          </Layer>
           <Pulse />
         </Button>
+        {
+          this.state.modalOpen ?
+            <Layer
+              overlayClose
+              closer
+              flush
+              onClose={() => {
+                this.toggleModal();
+              }}
+            >
+              <TaskEditor
+                addTask={(...args) => this.props.addTask(...args)}
+              />
+            </Layer> :
+        ''
+        }
       </Section>
     );
   }
