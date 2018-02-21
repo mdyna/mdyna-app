@@ -1,0 +1,25 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+
+  "extends": ["eslint:recommended", "airbnb"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["react", "jsx-a11y", "import"],
+  "rules": {
+    "space-before-function-paren": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "global-require": 0,
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  }
+}

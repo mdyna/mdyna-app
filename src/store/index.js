@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import dinagramApp from './reducers';
+import dynaApp from './reducers';
 
-const store = createStore(dinagramApp);
+const store = createStore(dynaApp);
 
 export default store;

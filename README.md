@@ -1,10 +1,7 @@
-# Dinagram
+# Dyna
 
 ### A task notification and productivity app.
 
-![Dinagram Logo](https://github.com/cyborkonline/dinagram/blob/master/assets/android-icon-36x36.png?raw=true)
+![dyna Logo](https://github.com/cyborkonline/dyna/blob/master/assets/android-icon-36x36.png?raw=true)
 
 Built with React+Redux+Electron
-
-
-

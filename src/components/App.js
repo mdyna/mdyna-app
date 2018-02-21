@@ -2,32 +2,28 @@
 import React, { Component } from 'react';
 import logo from '../../assets/DinagramLogo.png';
 import TEST_DATA from '../dev/testData.json';
-import TaskList from '../containers/TaskList'
+import TaskList from '../containers/TaskList';
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
 import Header from './Header';
 import Image from 'grommet/components/Image';
 
+import '!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-hpe.min.css';
 
-
-import "!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-hpe.min.css"; 
-
-class Dinagram extends Component {
+class Dyna extends Component {
   render() {
     return (
-      <App className="dinagram-app">
+      <App className="dyna-app">
         <Article>
-          <Header/>
-          <Section
-            align="center" 
-          >
-            <TaskList/>
+          <Header />
+          <Section align="center">
+            <TaskList />
           </Section>
-      </Article>
+        </Article>
       </App>
     );
   }
-} 
+}
 
-export default Dinagram;
+export default Dyna;

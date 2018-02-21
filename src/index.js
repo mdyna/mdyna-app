@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import registerServiceWorker from './config/registerServiceWorker';
 import Root from './config/Root';
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import store from './store'
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import store from './store';
 
-let dinagramStore = store;
+let dynaStore = store;
 
-const render = (Component) => {
-  store.getState()
+const render = Component => {
+  store.getState();
   ReactDOM.render(
     <AppContainer>
-      <Provider store={dinagramStore}>
+      <Provider store={dynaStore}>
         <Component />
       </Provider>
     </AppContainer>,

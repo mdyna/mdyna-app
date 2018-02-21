@@ -12,7 +12,13 @@ import taskValidator from './taskValidator';
 import taskDefinition from './taskDefinition';
 
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
-
+const renderTaskForm = components => (
+  <Form plain>
+    <Section direction="column" alignContent="center">
+      {components}
+    </Section>
+  </Form>
+);
 export default class TaskEditor extends Component {
   constructor(props) {
     super(props);
@@ -45,35 +51,14 @@ export default class TaskEditor extends Component {
         }
       });
     }
-    return (
-      <Form
-        plain
-      >
-        <Section
-          direction="column"
-          alignContent="center"
-        >
-          {components}
-        </Section>
-      </Form>
-    );
+    return renderTaskForm(components);
   }
-
   render() {
     return (
-      <Article
-        direction="column"
-        alignContent="center"
-        pad="large"
-        className="task-editor"
-        colorIndex="neutral-1-a"
-      >
-        <Headline>
-              NEW TASK
-        </Headline>
+      <Article direction="column" alignContent="center" pad="large" className="task-editor" s>
+        <Headline>NEW TASK</Headline>
         {this.generateComponentsFromSchema(taskDefinition)}
       </Article>
-
     );
   }
 }
@@ -86,3 +71,4 @@ TaskEditor.propTypes = {
 TaskEditor.defaultProps = {
   tasks: [],
 };
+;
