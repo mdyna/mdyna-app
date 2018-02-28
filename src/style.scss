@@ -14,6 +14,10 @@ body {
   header {
     background-color: $logo-color;
 
+    h2 {
+      margin: 0;
+    }
+
     img {
       margin: 20px;
     }

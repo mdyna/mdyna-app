@@ -1,11 +1,9 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import logo from '../../assets/DinagramLogo.png';
+import logo from '../../assets/dynaLogo.png';
 import Header from 'grommet/components/Header';
 import Heading from 'grommet/components/Heading';
 import Image from 'grommet/components/Image';
-
-import '!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-hpe.min.css';
 
 class AppHeader extends Component {
   render() {
@@ -13,10 +11,10 @@ class AppHeader extends Component {
       <Header size="small">
         <Image src={logo} className="App-logo" alt="dyna" size="small" />
         <Heading size="large" align="center" tag="h1">
-          dyna
+          yna
         </Heading>
         <Heading size="small" align="end" tag="h2">
-          Making the most of your free time
+          myze
         </Heading>
       </Header>
     );
