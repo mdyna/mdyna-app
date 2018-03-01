@@ -6,7 +6,7 @@ import Headline from 'grommet/components/Headline';
 import Card from 'grommet/components/Card';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/Pulse';
-import TaskEditor from './TaskEditor';
+import TaskEditor from '../../containers/TaskEditor';
 import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
 
 export default class TaskList extends Component {

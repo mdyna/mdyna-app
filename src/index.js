@@ -5,7 +5,6 @@ import { AppContainer } from 'react-hot-loader';
 import registerServiceWorker from './config/registerServiceWorker';
 import Root from './config/Root';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import store from './store';
 
 let dynaStore = store;

@@ -23,7 +23,7 @@
     "repeat": {
       "type":"bool"
     },
-    "description": {
+    "text": {
       "type":"string",
       "uiSchema": "textarea"
     }

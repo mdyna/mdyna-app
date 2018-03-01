@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-webpack": "rm -rf ./dist && webpack --optimize-minimize --config webpack.config.js",
-    "start":
-      "rm -rf ./dist && NODE_ENV=DEV concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
+    "start": "rm -rf ./dist && NODE_ENV=DEV concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "watch": "webpack-dev-server --hot --inline",
     "build-electron": "NODE_ENV=PROD webpack --config webpack.config.electron.js;"
   },
@@ -27,6 +26,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "4.1.1",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
@@ -73,5 +73,12 @@
     "type": "git",
     "url": "git+git@github.com:cyborkonline/dyna.git"
   },
-  "keywords": ["react", "webpack", "boilerplate", "webpack 3.3", "babel", "es6"]
+  "keywords": [
+    "react",
+    "webpack",
+    "boilerplate",
+    "webpack 3.3",
+    "babel",
+    "es6"
+  ]
 }

@@ -8,8 +8,6 @@ const {
 
 
 export default function tasks(state = TEST_DATA.tasks, action) {
-  console.log('ACTION: ', action.type);
-  console.log('STATE:', state);
   switch (action.type) {
     case ADD_TASK:
       return [
