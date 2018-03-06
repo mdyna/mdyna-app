@@ -11,9 +11,39 @@
       "color":"#0dcfec"
     },
     {
-      "title":"third task",
+      "title":"example task",
       "color":"#ff7d28",
+      "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
+    },
+    {
+      "title":"another task",
+      "color":"#E040FB",
       "text":"## Markdown test"
+    },
+    {
+      "title":"third task",
+      "color":"#FF8A80",
+      "text":"## Markdown test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut "
+    },
+    {
+      "title":"more tasks",
+      "color":"#00ACC1",
+      "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut "
+    },
+    {
+      "title":"another task",
+      "color":"#B9F6CA",
+      "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
+    },
+    {
+      "title":"another task",
+      "color":"#FFE57F",
+      "text":"## Markdown test"
+    },
+    {
+      "title":"another task",
+      "color":"#009688",
+      "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
     }
   ]
 }

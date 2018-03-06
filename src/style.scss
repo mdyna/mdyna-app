@@ -1,7 +1,7 @@
 $background-color: #4e636e;
 $font-stroke: #3e4f57;
 $font-color: #f5f5f5;
-$logo-color: #69f0ae;
+$logo-color: #00E676;
 $logo-stroke: #37474f;
 
 
@@ -12,16 +12,18 @@ body {
   background-color: $background-color;
   
   header {
-    background-color: $logo-color;
-
-    h2 {
-      margin: 0;
-    }
+    background-color: $font-stroke !important;
+    color: $logo-color;
+    padding: 20px 0 10px 10px !important;
 
     img {
-      margin: 20px;
+      margin: 0;
+      width: 100px !important;
+      box-shadow: 0px 3px 10px 4px #4cec54;
+      border-radius: 50%;
     }
   }
+
   article {
     background-color: $font-stroke;
   }

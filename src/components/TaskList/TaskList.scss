@@ -7,7 +7,13 @@ $logo-stroke: #37474f;
   background-color: $logo-stroke;
   color: $font-color;
   padding: 10px;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
+
+  .visible-tasks {
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+  }
 
   .add-task-btn {
     align-self: center;
