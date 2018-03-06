@@ -9,8 +9,7 @@ import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
-import Pulse from 'grommet/components/icons/Pulse';
-import taskValidator from './taskValidator';
+// import taskValidator from './taskValidator';
 import taskDefinition from './taskDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
@@ -20,39 +19,24 @@ export default class TaskEditor extends Component {
     super(props);
     this.state = {
       modalOpen: false,
-      editor: this.props.currentTask,
+      editorSettings: this.props.editorSettings,
     };
   }
 
-  changeEditorProp(prop, value) {
-    if (value) {
-      const newEditorState = { ...this.state.editor };
-      newEditorState[prop] = value;
+  componentWillReceiveProps(newProps) {
+    if (newProps !== this.props) {
       this.setState({
-        editor: newEditorState,
+        editorSettings: newProps.editorSettings,
       });
     }
   }
 
-  renderTaskForm(components, addTask) {
-    return (
-      <Form
-        plain
-      >
-        <Section direction="column" alignContent="center">
-          <FormFields>{components}</FormFields>
-        </Section>
-        <Button
-          label="Submit"
-          primary
-          onClick={() => this.props.addTask(this.state.editor)}
-        />
-      </Form>
-    );
+  shouldComponentUpdate(newProps) {
+    return newProps.editorSettings.id !== this.props.editorSettings.id;
   }
 
   generateComponentsFromSchema(definition) {
-    const { changeTaskProp, addTask } = this.props;
+    const { changeTaskSetting } = this.props;
     const schema = definition.properties;
     const settings = _.keys(schema);
     let components = [];
@@ -63,12 +47,16 @@ export default class TaskEditor extends Component {
         switch (settingType) {
           case 'string':
             return (
-              <FormField label={_.startCase(settingName)} htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
+              <FormField
+                label={_.startCase(settingName)}
+                htmlFor={_.snakeCase(settingName)}
+                key={_.startCase(settingName)}
+              >
                 <TextInput
                   key={settingName}
                   id={_.snakeCase(settingName)}
                   placeHolder={_.startCase(settingName)}
-                  onDOMChange={e => this.changeEditorProp(_.snakeCase(settingName), e.target.value)}
+                  onDOMChange={e => changeTaskSetting(_.snakeCase(settingName), e.target.value)}
                 />
               </FormField>
             );
@@ -79,6 +67,21 @@ export default class TaskEditor extends Component {
       });
     }
     return this.renderTaskForm(components);
+  }
+
+  renderTaskForm(components) {
+    return (
+      <Form plain>
+        <Section direction="column" alignContent="center">
+          <FormFields>{components}</FormFields>
+        </Section>
+        <Button
+          label="Submit"
+          primary
+          onClick={() => this.props.addTask(this.state.editorSettings)}
+        />
+      </Form>
+    );
   }
 
   render() {
@@ -93,6 +96,6 @@ export default class TaskEditor extends Component {
 
 TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
-  changeTaskProp: PropTypes.func.isRequired,
-  currentTask: PropTypes.shape(),
+  changeTaskSetting: PropTypes.func.isRequired,
+  editorSettings: PropTypes.shape().isRequired,
 };

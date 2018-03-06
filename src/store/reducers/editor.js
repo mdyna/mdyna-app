@@ -10,6 +10,7 @@ export default function editor(
     schedule: '',
     repeat: undefined,
     text: '',
+    id: 0,
   },
   action,
 ) {

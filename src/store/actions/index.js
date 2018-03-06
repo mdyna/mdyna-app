@@ -6,15 +6,10 @@ export const VisibilityFilters = {
   SHOW_ACTIVE: 'SHOW_ACTIVE',
 };
 
-let nextTodoId = 0;
-export const addTask = (task) => {
-  nextTodoId += 1;
-  return {
-    type: ACTION_TYPES.ADD_TASK,
-    id: nextTodoId,
-    task,
-  };
-};
+export const addTask = task => ({
+  type: ACTION_TYPES.ADD_TASK,
+  task,
+});
 
 export const setVisibilityFilter = filter => ({
   type: ACTION_TYPES.SET_VISIBILITY_FILTER,
@@ -26,8 +21,7 @@ export const toggleTask = id => ({
   id,
 });
 
-
-export const changeTaskProp = (prop, value) => ({
+export const changeTaskSetting = (prop, value) => ({
   type: ACTION_TYPES.TASK_EDITOR.ON_CHANGE,
   prop,
   value,

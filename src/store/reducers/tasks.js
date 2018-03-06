@@ -13,6 +13,7 @@ export default function tasks(state = TEST_DATA.tasks, action) {
       return [
         ...state,
         {
+          id: state.length + 1,
           title: action.task.title,
           color: action.task.color,
           text: action.task.text,
