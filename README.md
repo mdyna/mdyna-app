@@ -2,6 +2,6 @@
 
 ### A task notification and productivity app.
 
-![dyna Logo](https://github.com/cyborkonline/dyna/blob/master/assets/android-icon-36x36.png?raw=true)
+![dyna Logo](https://github.com/cyborkonline/dyna/blob/master/assets/apple-touch-icon.png?raw=true)
 
 Built with React+Redux+Electron

@@ -16,7 +16,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname, 'assets/ms-icon-70x70.png'),
+    icon: path.join(__dirname, 'assets/icon.png'),
   });
   if (process.env.NODE_ENV === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/index.html`);

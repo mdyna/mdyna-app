@@ -1,0 +1,29 @@
+$background-color: #4e636e;
+$font-color: #f5f5f5;
+$accent-color: #01a982;
+$task-font-color: #333333;
+$logo-stroke: #37474f;
+
+.task-item {
+  color:$task-font-color;
+  flex-basis: calc((100%/3) - 10px);
+  margin: 5px;
+  .task-card-content {
+    p {
+      color: $task-font-color !important;
+    }
+    pre {
+      background-color: #333;
+      code {
+        font-size: 14px;
+        color: #4e636e;
+        padding: 2px;
+      }
+    }
+    blockquote {
+      p {
+        color: $accent-color !important;
+      }
+    }
+  }
+}

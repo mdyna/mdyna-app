@@ -1,0 +1,62 @@
+$background-color: #4e636e;
+$font-color: #f5f5f5;
+$accent-color: #01a982;
+$task-font-color: #333333;
+$logo-stroke: #37474f;
+
+.task-layer > .grommetux-layer__container {
+  display: block !important;
+  background-color: $logo-stroke !important;
+}
+
+.task-editor {
+  padding: 10px;
+
+  .add-task-btn {
+    align-self: center;
+    margin: 20px 0 0 0;
+  }
+  .editor-with-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+    > div {
+      margin-top: 10px;
+    }
+    .task-preview {
+      min-height: 245px;
+      color: $task-font-color !important;
+      flex-basis: 35%;
+
+    }
+
+    .task-text-editor {
+      flex-basis: 63%;
+
+      .mde-header {
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+      }
+
+      > * {
+        textarea {
+          background-color: white;
+          resize: none;
+          &:focus {
+            border-color: transparent !important;
+          }
+        }
+        button {
+          background-color: transparent !important;
+          border: none !important;
+          border-radius: 0 !important;
+          text-align: center !important;
+          outline: none !important;
+          min-width: auto !important;
+          max-width: auto !important;
+        }
+      }
+    }
+  }
+}
