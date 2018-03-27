@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TaskEditor from '../components/Tasks/TaskEditor';
+import MarkdownEditor from '../components/Tasks/MarkdownEditor';
 import { changeTaskSetting } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -9,8 +9,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    editorSettings: state.editor,
-    categories: state.categories,
+    text: state.editor.text,
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TaskEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(MarkdownEditor);
