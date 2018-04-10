@@ -1,5 +1,4 @@
 import ACTION_TYPES from '../actions/actionTypes';
-import TEST_DATA from '../../dev/testData.json';
 
 const {
   ADD_TASK,
@@ -7,7 +6,7 @@ const {
 } = ACTION_TYPES;
 
 
-export default function tasks(state = TEST_DATA.tasks, action) {
+export default function tasks(state = [], action) {
   switch (action.type) {
     case ADD_TASK:
       return [
