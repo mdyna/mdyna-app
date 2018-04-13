@@ -37,6 +37,7 @@ export default class TaskList extends Component {
       const task = this.state.tasks[i];
       tasks.push(
         <TaskItem
+          generateTaskLink={this.props.generateTaskLink}
           task={task}
           key={i}
         />,
@@ -84,6 +85,7 @@ export default class TaskList extends Component {
 
 TaskList.propTypes = {
   addTask: PropTypes.func.isRequired,
+  generateTaskLink: PropTypes.func.isRequired,
   tasks: PropTypes.array,
 };
 

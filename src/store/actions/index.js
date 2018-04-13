@@ -7,7 +7,7 @@ export const VisibilityFilters = {
 };
 
 export const addTask = task => ({
-  type: ACTION_TYPES.ADD_TASK,
+  type: ACTION_TYPES.TASK.ADD_TASK,
   task,
 });
 
@@ -17,8 +17,14 @@ export const setVisibilityFilter = filter => ({
 });
 
 export const toggleTask = id => ({
-  type: ACTION_TYPES.TOGGLE_TASK,
+  type: ACTION_TYPES.TASK.TOGGLE_TASK,
   id,
+});
+
+export const generateTaskLink = (keys, index) => ({
+  type: ACTION_TYPES.TASK.GENERATE_LINK,
+  keys,
+  index,
 });
 
 export const changeTaskSetting = (prop, value) => ({

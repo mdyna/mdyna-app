@@ -3,7 +3,8 @@ import ACTION_TYPES from '../actions/actionTypes';
 const {
   ADD_TASK,
   TOGGLE_TASK,
-} = ACTION_TYPES;
+  GENERATE_LINK,
+} = ACTION_TYPES.TASK;
 
 
 export default function tasks(state = [], action) {
@@ -12,7 +13,7 @@ export default function tasks(state = [], action) {
       return [
         ...state,
         {
-          id: state.length + 1,
+          taskId: (state.length + 1) || 1,
           title: action.task.title,
           color: action.task.color,
           text: action.task.text,
@@ -29,6 +30,17 @@ export default function tasks(state = [], action) {
           }
           return tasks;
         }),
+      });
+    case GENERATE_LINK:
+      return state.map((task) => {
+        if (task.taskId === action.index) {
+          return {
+            ...task,
+            taskId: action.keys.taskId,
+            shortLink: action.keys.shortLink,
+          };
+        }
+        return task;
       });
     default:
       return state;

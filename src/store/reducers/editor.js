@@ -10,7 +10,7 @@ export default function editor(
     schedule: '',
     repeat: undefined,
     text: '',
-    id: 0,
+    taskId: 0,
   },
   action,
 ) {

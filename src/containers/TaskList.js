@@ -1,11 +1,16 @@
 import { connect } from 'react-redux';
 import TaskList from '../components/Tasks/TaskList';
-import { addTask } from '../store/actions/';
+import { addTask, generateTaskLink } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
-  return { addTask: (todoProps) => {
-    dispatch(addTask(todoProps));
-  } };
+  return {
+    addTask: (todoProps) => {
+      dispatch(addTask(todoProps));
+    },
+    generateTaskLink: (task, taskId) => {
+      dispatch(generateTaskLink(task, taskId));
+    },
+  };
 }
 function mapStateToProps(state) {
   return {
@@ -13,4 +18,5 @@ function mapStateToProps(state) {
     categories: state.categories,
   };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

@@ -42,7 +42,7 @@ export default class TaskEditor extends Component {
     return (
       newEditorSettings.schedule !== editorSettings.schedule ||
       newEditorSettings.color !== editorSettings.color ||
-      newEditorSettings.id !== editorSettings.id
+      newEditorSettings.taskId !== editorSettings.taskId
     );
   }
 
