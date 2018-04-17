@@ -22,6 +22,10 @@
   -->
   <link rel="manifest" href="./config/manifest.json">
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script>
+        var electron = require('electron');
+        var serverHost = electron.remote.getGlobal('serverHost')
+  </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

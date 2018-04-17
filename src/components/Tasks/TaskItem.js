@@ -8,11 +8,8 @@ import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
 
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
-
 class Task extends Component {
-
   shouldComponentUpdate(nextProps) {
-    console.log(nextProps);
     if (nextProps.task && this.props.task) {
       return (nextProps.task.shortLink !== this.props.task.shortLink);
     }
@@ -37,7 +34,7 @@ class Task extends Component {
       >
         <Button
           onClick={() =>
-            fetch('http://localhost:7000/addTask/', {
+            fetch(`${window.localHost}/addTask`, {
               method: 'POST',
               headers: {
                 Accept: 'application/json',
