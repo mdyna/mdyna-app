@@ -9,7 +9,7 @@ class AppHeader extends Component {
   render() {
     return (
       <Header size="small">
-        <Image src={logo} className="App-logo" alt="dyna" size="small" />
+        <Image src={logo} className="App-logo" alt="dyna"Asize="small" />
       </Header>
     );
   }
