@@ -16,6 +16,9 @@ module.exports = {
     publicPath: `http://localhost:${port}/dist/`,
     path: path.resolve(__dirname, 'dist'),
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   devtool: 'source-map',
   module: {
     rules: [
@@ -31,7 +34,14 @@ module.exports = {
           loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader',
         }),
       },
-
+      {
+        test: /.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
       {
         test: /\.css$/,
         loader: [

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Section from 'grommet/components/Section';
+import Columns from 'grommet/components/Columns';
 import Layer from 'grommet/components/Layer';
 import Headline from 'grommet/components/Headline';
+import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
-import Pulse from 'grommet/components/icons/Pulse';
+import Pulse from 'grommet/components/icons/base/Add';
 import TaskEditor from '../../containers/TaskEditor';
-import TaskItem from './TaskItem';
+import TaskItem from '../../containers/TaskItem';
 
 import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
 
@@ -15,7 +17,6 @@ export default class TaskList extends Component {
     super(props);
     this.state = {
       tasks: this.props.tasks,
-      modalOpen: false,
     };
   }
 
@@ -25,25 +26,19 @@ export default class TaskList extends Component {
     });
   }
 
-  toggleModal() {
-    this.setState({
-      modalOpen: !this.state.modalOpen,
-    });
-  }
-
   visibleTasks() {
     const tasks = [];
     for (let i = 0; i < this.state.tasks.length; i += 1) {
       const task = this.state.tasks[i];
       tasks.push(
         <TaskItem
-          generateTaskLink={this.props.generateTaskLink}
+          hasTaskBar
           task={task}
           key={i}
         />,
       );
     }
-    return tasks;
+    return tasks.reverse();
   }
 
   render() {
@@ -52,28 +47,41 @@ export default class TaskList extends Component {
         <Headline align="center" size="medium">
           TASKS
         </Headline>
-        <Section direction="row" className="visible-tasks">
-          {this.visibleTasks()}
-        </Section>
+        {
+          this.state.tasks.length ?
+            <Columns
+              masonry
+              responsive
+              maxCount={3}
+              justify={'center'}
+              className="visible-tasks"
+            >
+              {this.visibleTasks()}
+            </Columns> :
+            <Heading align="center" tag="h3">
+              Click to add new task
+            </Heading>
+
+        }
         <Button
           onClick={() => {
-            this.toggleModal();
+            this.props.toggleEditor();
           }}
           className="add-task-btn"
         >
           <Pulse />
         </Button>
-        {this.state.modalOpen ? (
+        {this.props.modalOpen ? (
           <Layer
             overlayClose
             closer
             flush
-            onClose={() => {
-              this.toggleModal();
-            }}
+            onClose={() => this.props.toggleEditor()}
             className="task-layer"
           >
-            <TaskEditor addTask={(...args) => this.props.addTask(...args)} />
+            <TaskEditor
+              toggleEditor={this.props.toggleEditor}
+            />
           </Layer>
         ) : (
           ''
@@ -84,11 +92,12 @@ export default class TaskList extends Component {
 }
 
 TaskList.propTypes = {
-  addTask: PropTypes.func.isRequired,
-  generateTaskLink: PropTypes.func.isRequired,
+  toggleEditor: PropTypes.func.isRequired,
+  modalOpen: PropTypes.bool,
   tasks: PropTypes.array,
 };
 
 TaskList.defaultProps = {
+  modalOpen: false,
   tasks: [],
 };

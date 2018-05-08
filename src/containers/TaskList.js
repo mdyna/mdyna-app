@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
 import TaskList from '../components/Tasks/TaskList';
-import { addTask, generateTaskLink } from '../store/actions/';
+import { toggleEditor } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addTask: (todoProps) => {
-      dispatch(addTask(todoProps));
-    },
-    generateTaskLink: (task, taskId) => {
-      dispatch(generateTaskLink(task, taskId));
+    toggleEditor: () => {
+      dispatch(toggleEditor());
     },
   };
 }
 function mapStateToProps(state) {
   return {
     tasks: state.tasks,
+    modalOpen: state.editor.toggleEditor,
     categories: state.categories,
   };
 }

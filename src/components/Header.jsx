@@ -8,8 +8,9 @@ import Image from 'grommet/components/Image';
 class AppHeader extends Component {
   render() {
     return (
-      <Header size="small">
-        <Image src={logo} className="App-logo" alt="dyna"Asize="small" />
+      <Header size="small" justify="around">
+        <Image src={logo} className="App-logo" alt="dyna" size="small" />
+        <Heading>dyna</Heading>
       </Header>
     );
   }

@@ -32,6 +32,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "showdown-htmlescape": "^0.1.9",
+    "tinycolor2": "^1.4.1",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
