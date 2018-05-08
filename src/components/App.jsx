@@ -13,7 +13,7 @@ import '!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-
 class Dyna extends Component {
   render() {
     return (
-      <App className="dyna-app">
+      <App className="dyna-app" style={{ maxWidth: '1240px' }}>
         <Article>
           <Header />
           <Section align="center">

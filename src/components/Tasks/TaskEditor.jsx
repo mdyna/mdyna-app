@@ -23,8 +23,8 @@ export default class TaskEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false,
       editorSettings: this.props.editorSettings,
+      newTask: this.props.editorSettings.newTask,
     };
   }
 
@@ -102,6 +102,7 @@ export default class TaskEditor extends Component {
             <TextInput
               key={settingName}
               id={_.snakeCase(settingName)}
+              defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
               onDOMChange={e => changeTaskSetting(_.snakeCase(settingName), e.target.value)}
             />
@@ -161,14 +162,24 @@ export default class TaskEditor extends Component {
 
   renderTaskForm(components) {
     return (
-      <Form plain>
+      <Form
+        plain
+      >
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
         <Button
           label="Submit"
           primary
-          onClick={() => this.props.addTask(this.state.editorSettings)}
+          onClick={() => {
+            this.props.toggleEditor();
+            console.log(this.state.newTask)
+            if (this.state.newTask) {
+              this.props.addTask(this.state.editorSettings);
+            } else {
+              this.props.saveTask(this.state.editorSettings);
+            }
+          }}
         />
       </Form>
     );
@@ -183,7 +194,7 @@ export default class TaskEditor extends Component {
         className="task-editor"
         full={'horizontal'}
       >
-        <Headline>NEW TASK</Headline>
+        <Headline>{this.state.newTask ? 'NEW TASK' : 'EDIT TASK'}</Headline>
         {this.generateComponentsFromType(taskDefinition)}
       </Article>
     );
@@ -192,6 +203,8 @@ export default class TaskEditor extends Component {
 
 TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
+  saveTask: PropTypes.func.isRequired,
+  toggleEditor: PropTypes.func.isRequired,
   changeTaskSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   categories: PropTypes.array,

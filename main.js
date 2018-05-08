@@ -15,7 +15,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname, 'assets/icon.png'),
+    icon: path.join(__dirname, 'assets/dynaLogo.png'),
   });
 
   global.serverHost = 'http://localhost:7000';
