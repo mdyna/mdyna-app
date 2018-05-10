@@ -6,6 +6,7 @@ import Headline from 'grommet/components/Headline';
 import Form from 'grommet/components/Form';
 import CheckBox from 'grommet/components/CheckBox';
 import Select from 'grommet/components/Select';
+import RadioButton from 'grommet/components/RadioButton';
 import FormFields from 'grommet/components/FormFields';
 import DateTime from 'grommet/components/DateTime';
 import FormField from 'grommet/components/FormField';
@@ -42,8 +43,71 @@ export default class TaskEditor extends Component {
     return (
       newEditorSettings.schedule !== editorSettings.schedule ||
       newEditorSettings.color !== editorSettings.color ||
+      newEditorSettings.repeat !== editorSettings.repeat ||
+      newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
       newEditorSettings.taskId !== editorSettings.taskId
     );
+  }
+
+  getSettingsComponent(settings, schema) {
+    return settings.map((settingName) => {
+      const setting = schema[settingName];
+      const settingType = setting.type;
+      const settingUiSchema = setting.uiSchema;
+      const { changeTaskSetting } = this.props;
+      const enums = (setting.enums && [...setting.enums]) || null;
+      switch (settingType) {
+        case 'enum':
+          return (
+            <FormField
+              label={_.startCase(settingName)}
+              htmlFor={_.snakeCase(settingName)}
+              key={_.startCase(settingName)}
+            >
+              {
+                enums ?
+                  enums.map(enumSetting => (
+                    <RadioButton
+                      key={`${settingName}-${enumSetting}`}
+                      id={_.snakeCase(settingName)}
+                      checked={this.state.editorSettings[settingName] === enumSetting}
+                      label={enumSetting}
+                      onChange={() => changeTaskSetting(_.camelCase(settingName), enumSetting)}
+                    />
+                  )) :
+                  <Select
+                    key={settingName}
+                    id={_.snakeCase(settingName)}
+                    onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
+                    placeHolder={_.startCase(settingName)}
+                    options={[...this.props.categories, 'Create New']}
+                  />
+              }
+            </FormField>
+          );
+        case 'string':
+          return this.generateComponentsFromUiSchema(settingName, settingUiSchema);
+        case 'bool':
+          return (
+            <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
+              <CheckBox
+                key={settingName}
+                defaultChecked={this.state.editorSettings[settingName]}
+                id={_.snakeCase(settingName)}
+                label={_.startCase(settingName)}
+                onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
+              />
+              {
+                setting.dependencies && this.state.editorSettings[settingName] ?
+                this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies) : ''
+              }
+            </FormField>
+          );
+        default:
+          console.warn('Unknown setting', settingName); // eslint-disable-line no-console
+          return '';
+      }
+    });
   }
 
   generateComponentsFromUiSchema(settingName, settingUiSchema) {
@@ -61,7 +125,7 @@ export default class TaskEditor extends Component {
               key={settingName}
               id={_.snakeCase(settingName)}
               step={1}
-              onChange={e => changeTaskSetting(_.snakeCase(settingName), e)}
+              onChange={e => changeTaskSetting(_.camelCase(settingName), e)}
               value={settingValue || new Date()}
             />
           </FormField>
@@ -88,7 +152,7 @@ export default class TaskEditor extends Component {
               id={_.snakeCase(settingName)}
               type="color"
               value={settingValue || '#4e636e'}
-              onChange={e => changeTaskSetting(_.snakeCase(settingName), e.target.value)}
+              onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
@@ -104,7 +168,7 @@ export default class TaskEditor extends Component {
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeTaskSetting(_.snakeCase(settingName), e.target.value)}
+              onDOMChange={e => changeTaskSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
@@ -112,50 +176,11 @@ export default class TaskEditor extends Component {
   }
 
   generateComponentsFromType(definition) {
-    const { changeTaskSetting } = this.props;
     const schema = definition.properties;
     const settings = _.keys(schema);
     let components = [];
     if (schema && settings) {
-      components = settings.map((settingName) => {
-        const setting = schema[settingName];
-        const settingType = setting.type;
-        const settingUiSchema = setting.uiSchema;
-        switch (settingType) {
-          case 'enum':
-            return (
-              <FormField
-                label={_.startCase(settingName)}
-                htmlFor={_.snakeCase(settingName)}
-                key={_.startCase(settingName)}
-              >
-                <Select
-                  key={settingName}
-                  id={_.snakeCase(settingName)}
-                  placeHolder={_.startCase(settingName)}
-                  options={[...this.props.categories, 'Create New']}
-                />
-              </FormField>
-            );
-          case 'string':
-            return this.generateComponentsFromUiSchema(settingName, settingUiSchema);
-          case 'bool':
-            return (
-              <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
-                <CheckBox
-                  key={settingName}
-                  toggle
-                  id={_.snakeCase(settingName)}
-                  label={_.startCase(settingName)}
-                  onChange={e => changeTaskSetting(_.snakeCase(settingName), e.target.checked)}
-                />
-              </FormField>
-            );
-          default:
-            console.warn('Unknown setting', settingName); // eslint-disable-line no-console
-            return '';
-        }
-      });
+      components = this.getSettingsComponent(settings, schema);
     }
     return this.renderTaskForm(components);
   }
@@ -173,7 +198,6 @@ export default class TaskEditor extends Component {
           primary
           onClick={() => {
             this.props.toggleEditor();
-            console.log(this.state.newTask)
             if (this.state.newTask) {
               this.props.addTask(this.state.editorSettings);
             } else {
