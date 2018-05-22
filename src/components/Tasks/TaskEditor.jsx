@@ -6,7 +6,7 @@ import Headline from 'grommet/components/Headline';
 import Form from 'grommet/components/Form';
 import CheckBox from 'grommet/components/CheckBox';
 import Select from 'grommet/components/Select';
-import RadioButton from 'grommet/components/RadioButton';
+// import RadioButton from 'grommet/components/RadioButton';
 import FormFields from 'grommet/components/FormFields';
 import DateTime from 'grommet/components/DateTime';
 import FormField from 'grommet/components/FormField';
@@ -25,7 +25,6 @@ export default class TaskEditor extends Component {
     super(props);
     this.state = {
       editorSettings: this.props.editorSettings,
-      newTask: this.props.editorSettings.newTask,
     };
   }
 
@@ -66,15 +65,15 @@ export default class TaskEditor extends Component {
             >
               {
                 enums ?
-                  enums.map(enumSetting => (
-                    <RadioButton
-                      key={`${settingName}-${enumSetting}`}
-                      id={_.snakeCase(settingName)}
-                      checked={this.state.editorSettings[settingName] === enumSetting}
-                      label={enumSetting}
-                      onChange={() => changeTaskSetting(_.camelCase(settingName), enumSetting)}
-                    />
-                  )) :
+                  <Select
+                    key={settingName}
+                    id={_.snakeCase(settingName)}
+                    onChange={e => changeTaskSetting(_.camelCase(settingName), e.option)}
+                    placeHolder={_.startCase(settingName)}
+                    value={this.state.editorSettings[settingName]}
+                    options={[...enums]}
+                  />
+                    :
                   <Select
                     key={settingName}
                     id={_.snakeCase(settingName)}
@@ -198,7 +197,7 @@ export default class TaskEditor extends Component {
           primary
           onClick={() => {
             this.props.toggleEditor();
-            if (this.state.newTask) {
+            if (this.props.editorSettings.newTask) {
               this.props.addTask(this.state.editorSettings);
             } else {
               this.props.saveTask(this.state.editorSettings);
