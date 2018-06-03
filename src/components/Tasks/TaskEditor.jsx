@@ -20,6 +20,7 @@ import taskDefinition from './taskDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
 
+const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
 export default class TaskEditor extends Component {
   constructor(props) {
     super(props);
@@ -184,6 +185,21 @@ export default class TaskEditor extends Component {
     return this.renderTaskForm(components);
   }
 
+  updateTask(task) {
+    if (task.shortLink) {
+      fetch(EDIT_TASK(task.shortLink), {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(task),
+      })
+        .catch(error => console.log(error));
+    }
+    this.props.saveTask(task);
+  }
+
   renderTaskForm(components) {
     return (
       <Form
@@ -197,10 +213,10 @@ export default class TaskEditor extends Component {
           primary
           onClick={() => {
             this.props.toggleEditor();
-            if (this.props.editorSettings.newTask) {
+            if (this.state.editorSettings.newTask) {
               this.props.addTask(this.state.editorSettings);
             } else {
-              this.props.saveTask(this.state.editorSettings);
+              this.updateTAsk(this.state.editorSettings);
             }
           }}
         />
