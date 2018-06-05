@@ -1,12 +1,10 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "env"
+    "@babel/react",
+    "@babel/preset-env"
   ],
-
   "plugins": [
-    "react-hot-loader/babel",
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-optional-chaining",
+    "react-hot-loader/babel"
   ]
 }
