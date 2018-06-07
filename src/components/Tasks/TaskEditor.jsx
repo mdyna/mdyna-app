@@ -30,6 +30,7 @@ export default class TaskEditor extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps, 'newProps')
     if (newProps !== this.props) {
       this.setState({
         editorSettings: newProps.editorSettings,
@@ -74,7 +75,7 @@ export default class TaskEditor extends Component {
                     value={this.state.editorSettings[settingName]}
                     options={[...enums]}
                   />
-                    :
+                  :
                   <Select
                     key={settingName}
                     id={_.snakeCase(settingName)}
@@ -99,7 +100,7 @@ export default class TaskEditor extends Component {
               />
               {
                 setting.dependencies && this.state.editorSettings[settingName] ?
-                this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies) : ''
+                  this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies) : ''
               }
             </FormField>
           );
@@ -214,9 +215,13 @@ export default class TaskEditor extends Component {
           onClick={() => {
             this.props.toggleEditor();
             if (this.state.editorSettings.newTask) {
-              this.props.addTask(this.state.editorSettings);
+              const newTask = { ...this.state.editorSettings, startDate: new Date() };
+              this.props.addTask(newTask);
+              if (this.state.editorSettings.repeat) {
+                this.props.addReminder(newTask);
+              }
             } else {
-              this.updateTAsk(this.state.editorSettings);
+              this.updateTask(this.state.editorSettings);
             }
           }}
         />
@@ -243,6 +248,7 @@ export default class TaskEditor extends Component {
 TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
   saveTask: PropTypes.func.isRequired,
+  addReminder: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeTaskSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
