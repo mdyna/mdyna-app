@@ -11,6 +11,11 @@ export const addTask = task => ({
   task,
 });
 
+export const addReminder = task => ({
+  type: ACTION_TYPES.REMINDER.ADD_REMINDER,
+  task,
+});
+
 export const removeTask = task => ({
   type: ACTION_TYPES.TASK.REMOVE_TASK,
   task,

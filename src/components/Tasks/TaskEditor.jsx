@@ -30,7 +30,6 @@ export default class TaskEditor extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps, 'newProps')
     if (newProps !== this.props) {
       this.setState({
         editorSettings: newProps.editorSettings,
@@ -214,14 +213,14 @@ export default class TaskEditor extends Component {
           primary
           onClick={() => {
             this.props.toggleEditor();
+            const newTask = { ...this.state.editorSettings, startDate: new Date() };
             if (this.state.editorSettings.newTask) {
-              const newTask = { ...this.state.editorSettings, startDate: new Date() };
               this.props.addTask(newTask);
-              if (this.state.editorSettings.repeat) {
-                this.props.addReminder(newTask);
-              }
             } else {
               this.updateTask(this.state.editorSettings);
+            }
+            if (this.state.editorSettings.repeat) {
+              this.props.addReminder(newTask);
             }
           }}
         />

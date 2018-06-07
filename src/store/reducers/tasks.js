@@ -16,10 +16,8 @@ export default function tasks(state = [], action) {
         ...state,
         {
           taskId: (state && state[state.length - 1] && state[state.length - 1].taskId + 1) || 1,
-          title: action.task.title,
-          color: action.task.color,
-          text: action.task.text,
           completed: false,
+          ...action.task,
         },
       ];
     case REMOVE_TASK:
