@@ -36,9 +36,8 @@ body {
   }
 
   header {
-    @include neon-glow($accent-color);
     background-color: $secondary-background !important;
-    color: $background-color;
+    color: $secondary-accent;
     padding: 20px 0 10px 10px !important;
 
     img {

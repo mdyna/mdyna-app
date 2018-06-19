@@ -13,9 +13,7 @@ export default function reminders(state = {
   weekly: [],
   monthly: [],
 }, action) {
-  /* eslint-disable */
-  const reminderFrequency = action?.task?.repeatAlert.toLowerCase();
-  /* eslint-enable */
+  const reminderFrequency = action?.task?.repeatAlert?.toLowerCase() || 'Weekly';
   const reminderId =
   (
     state &&

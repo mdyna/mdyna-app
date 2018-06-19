@@ -4,12 +4,8 @@
   background-color: $task-list-background;
   color: $font-color;
   padding: 10px;
+  margin: 10px;
   flex-flow: column wrap !important;
-
-  .grommetux-headline {
-    @include neon-glow($accent-color);
-    filter: drop-shadow(6px 3px 6px $accent-color)
-  }
 
   .visible-tasks {
     flex-wrap: wrap;
@@ -17,7 +13,7 @@
   }
 
   .add-task-btn {
-    @include normalize-button-icons()
+    @include normalize-button-icons();
     margin: 10px auto;
   }
 }

@@ -43,7 +43,7 @@ export default class TaskList extends Component {
 
   render() {
     return (
-      <Section className="task-list" responsive direction="row" full="horizontal">
+      <Section className="task-list" responsive direction="row">
         <Headline align="center" size="medium">
           TASKS
         </Headline>
