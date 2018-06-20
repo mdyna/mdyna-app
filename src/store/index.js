@@ -6,13 +6,14 @@ import { getLocalState, saveState } from './localStorage';
 
 const localState = getLocalState();
 const store = createStore(
-    dynaApp,
-    localState,
-    applyMiddleware(logger),
+  dynaApp,
+  localState,
+  applyMiddleware(logger),
 );
 
 store.subscribe(throttle(() => {
   saveState({
+    reminders: store.getState().reminders,
     tasks: store.getState().tasks,
   });
 }), 1000);

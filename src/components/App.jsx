@@ -18,7 +18,7 @@ class Dyna extends Component {
       <App className="dyna-app" style={{ maxWidth: '1240px' }}>
           <Article>
             <Header />
-            <Split flex="right">
+            <Split flex="right" fixed={false}>
               <ReminderList />
               <TaskList />
             </Split>
