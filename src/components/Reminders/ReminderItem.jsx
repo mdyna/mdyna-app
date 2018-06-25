@@ -5,14 +5,11 @@ import Sidebar from 'grommet/components/Sidebar';
 import Toast from 'grommet/components/Toast';
 
 import '!style-loader!css-loader!sass-loader!./ReminderList.scss'; // eslint-disable-line
-import unNest from '../../utils/nest';
 
 
 function checkUncompletedReminders(reminderList) {
   for (let i = 0; i < reminderList.length; i += 1) {
-    const reminderStats = unNest(reminderList[i], 'reminderStats');
-    const startDate = unNest(reminderList[i], 'startDate');
-
+    console.log(reminderList[i]);
   }
 }
 export default class ReminderList extends Component {
@@ -30,7 +27,7 @@ export default class ReminderList extends Component {
       <Toast status="warning">
         Pending reminders need to be validated
       </Toast>
-    );
+    )
   }
 
   render() {
