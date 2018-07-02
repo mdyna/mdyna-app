@@ -5,9 +5,10 @@ export default function unNest(object, properties) {
     const prop = propsArray[i];
     if (object[prop]) {
       result = object[prop];
-    }
-    if (result[prop]) {
+    } else if (result && result[prop]) {
       result = result[prop];
+    } else {
+      result = null;
     }
   }
   return result;

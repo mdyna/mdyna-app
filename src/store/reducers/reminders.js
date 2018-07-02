@@ -14,9 +14,11 @@ export default function reminders(state = {
   weekly: [],
   monthly: [],
 }, action) {
-  const reminderFrequency = unNest(action, 'task.repeatAlert').toLowerCase() || 'weekly';
+  let reminderFrequency = unNest(action, 'task.repeatAlert') || 'weekly';
+  reminderFrequency = reminderFrequency.toLowerCase();
   const startDate = unNest(action, 'task.startDate') || new Date();
   const text = unNest(action, 'task.text') || '';
+  const color = unNest(action, 'task.color') || '#1DE9B6';
   const reminderStats = unNest(action, 'task.reminderStats') || {};
   const reminderId =
   (
@@ -28,6 +30,7 @@ export default function reminders(state = {
   const reminder = {
     reminderId,
     startDate,
+    color,
     reminderFrequency,
     text,
     reminderStats,

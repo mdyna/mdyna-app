@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Headline from 'grommet/components/Headline';
-import Sidebar from 'grommet/components/Sidebar';
-import Toast from 'grommet/components/Toast';
+import tinycolor from 'tinycolor2';
+import Card from 'grommet/components/Card';
+
 
 import '!style-loader!css-loader!sass-loader!./ReminderList.scss'; // eslint-disable-line
 
-
-function checkUncompletedReminders(reminderList) {
-  for (let i = 0; i < reminderList.length; i += 1) {
-    console.log(reminderList[i]);
-  }
-}
-export default class ReminderList extends Component {
+export default class ReminderItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,21 +25,21 @@ export default class ReminderList extends Component {
   }
 
   render() {
+    const { color } = this.props;
     return (
-      <Sidebar className="reminder-list" size="small" full={false}>
-        {this.reminderNotification()}
-        <Headline align="center" size="small">
-          Reminders
-        </Headline>
-      </Sidebar>
+      <Card
+        className={'reminder-item'}
+        style={{
+          filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
+          backgroundColor: color || '#4e636e',
+        }}
+      >
+
+      </Card>
     );
   }
 }
 
-ReminderList.propTypes = {
-  reminders: PropTypes.object,
-};
-
-ReminderList.defaultProps = {
-  reminders: {},
+ReminderItem.propTypes = {
+  color: PropTypes.string.isRequired,
 };
