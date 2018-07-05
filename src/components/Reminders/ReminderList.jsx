@@ -3,24 +3,16 @@ import PropTypes from 'prop-types';
 import Headline from 'grommet/components/Headline';
 import Section from 'grommet/components/Section';
 import Sidebar from 'grommet/components/Sidebar';
-import ReminderItem from './ReminderItem'
+import _ from 'lodash';
+import ReminderItem from './ReminderItem';
 
 import '!style-loader!css-loader!sass-loader!./ReminderList.scss'; // eslint-disable-line
-import unNest from '../../utils/nest';
-
-
-function checkUncompletedReminders(reminderList) {
-  for (let i = 0; i < reminderList.length; i += 1) {
-    const reminderStats = unNest(reminderList[i], 'reminderStats');
-    const startDate = unNest(reminderList[i], 'startDate');
-
-  }
-}
 
 function renderReminderItems(reminders) {
   const reminderItems = [];
   for (let index = 0; index < reminders.length; index += 1) {
     const reminderProps = reminders[index];
+    console.log(reminderProps)
     if (reminderProps) {
       reminderItems.push(
         <ReminderItem key={index} {...reminderProps} />,
@@ -37,49 +29,36 @@ export default class ReminderList extends Component {
     };
   }
 
-  reminderNotification() {
+  renderReminderSection() {
     const { reminders } = this.props;
-    const { daily, weekly, monthly } = reminders;
+    const reminderTypes = Object.keys(reminders);
+    const reminderSections = [];
+    let count = 0;
+    reminderTypes.forEach((remindersType) => {
+      const scheduledReminders = reminders[remindersType];
+      if (scheduledReminders.length) {
+        reminderSections.push(
+          <Section key={count}>
+            <Headline align="center" size="small">
+              {_.capitalize(remindersType)}
+            </Headline>
+            {renderReminderItems(scheduledReminders)}
+          </Section>,
+        );
+      }
+      count += 1;
+    });
+    return reminderSections;
   }
 
   render() {
-    const { reminders } = this.props;
-    const { daily, weekly, monthly } = reminders;
     return (
       <Sidebar className="reminder-list" size="small" full={false}>
-        {this.reminderNotification()}
         <Headline align="center" size="small">
           Reminders
         </Headline>
         {
-          daily.length ?
-            <Section>
-              <Headline align="center" size="small">
-                Daily
-              </Headline>
-              {renderReminderItems(daily)}
-            </Section> :
-            ''
-        }
-        {
-          weekly.length ?
-            <Section>
-              <Headline align="center" size="small">
-                  Weekly
-              </Headline>
-              {renderReminderItems(weekly)}
-            </Section> :
-            ''
-        }
-        {
-          monthly.length ?
-            <Section>
-              <Headline align="center" size="small">
-                  Monthly
-              </Headline>
-              {renderReminderItems(monthly)}
-            </Section> :
-            ''
+          this.renderReminderSection()
         }
       </Sidebar>
     );

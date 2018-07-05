@@ -18,6 +18,7 @@ export default function reminders(state = {
   reminderFrequency = reminderFrequency.toLowerCase();
   const startDate = unNest(action, 'task.startDate') || new Date();
   const text = unNest(action, 'task.text') || '';
+  const title = unNest(action, 'task.title') || 'Reminder';
   const color = unNest(action, 'task.color') || '#1DE9B6';
   const reminderStats = unNest(action, 'task.reminderStats') || {};
   const reminderId =
@@ -33,6 +34,7 @@ export default function reminders(state = {
     color,
     reminderFrequency,
     text,
+    title,
     reminderStats,
   };
   switch (action.type) {

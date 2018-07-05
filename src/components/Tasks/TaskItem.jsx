@@ -8,6 +8,7 @@ import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
 import TaskBar from './TaskBar';
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
+import unNest from '../../utils/nest';
 
 export function assertTaskChanges(newTask, oldTask) {
   const taskProps = Object.keys(newTask);
@@ -20,7 +21,6 @@ export function assertTaskChanges(newTask, oldTask) {
   return false;
 }
 class Task extends Component {
-
   shouldComponentUpdate(nextProps) {
     if (nextProps.task && this.props.task) {
       return assertTaskChanges(nextProps.task, this.props.task);
@@ -34,14 +34,16 @@ class Task extends Component {
       headerLevelStart: 3,
       extensions: [htmlescape],
     });
-    const taskText = (task && task.text && converter.convert(task.text)) || '';
+    const rawText = task.text;
+    const color = task.color || '#1DE9B6';
+    const taskText = converter.convert(rawText) || '';
     return (
       <Card
         key={i}
         className={classnames(className, 'task-item')}
         style={{
-          filter: `drop-shadow(3px -6px 3px ${tinycolor(task.color).darken(25)})`,
-          backgroundColor: (task && task.color) || '#4e636e',
+          filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
+          backgroundColor: task.color || '#4e636e',
         }}
       >
         {
@@ -57,7 +59,7 @@ class Task extends Component {
         }
         <Heading
           align="start"
-          size="small"
+          tag="h1"
           strong
         >
           {task.title}
