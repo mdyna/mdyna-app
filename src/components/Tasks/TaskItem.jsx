@@ -8,7 +8,6 @@ import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
 import TaskBar from './TaskBar';
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
-import unNest from '../../utils/nest';
 
 export function assertTaskChanges(newTask, oldTask) {
   const taskProps = Object.keys(newTask);
@@ -34,8 +33,8 @@ class Task extends Component {
       headerLevelStart: 3,
       extensions: [htmlescape],
     });
-    const rawText = task.text;
-    const color = task.color || '#1DE9B6';
+    const rawText = (task && task.text);
+    const color = (task && task.color) || '#1DE9B6';
     const taskText = converter.convert(rawText) || '';
     return (
       <Card
