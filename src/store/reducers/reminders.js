@@ -6,6 +6,8 @@ const {
   REMOVE_REMINDER,
   COMPLETE_REMINDER,
   FAIL_REMINDER,
+  SAVE_REMINDER,
+  SNOOZE_REMINDER,
 } = ACTION_TYPES.REMINDER;
 
 
@@ -21,13 +23,15 @@ export default function reminders(state = {
   const title = unNest(action, 'task.title') || 'Reminder';
   const color = unNest(action, 'task.color') || '#1DE9B6';
   const reminderStats = unNest(action, 'task.reminderStats') || {};
+  console.log(unNest(action, 'task.id'))
   const reminderId =
   (
     state &&
     state[reminderFrequency] &&
     state[reminderFrequency][state.length - 1] &&
-    state[reminderFrequency][state.length - 1].taskId + 1
+    state[reminderFrequency][state.length - 1].reminderId + 1
   ) || 1;
+  console.log(reminderId)
   const reminder = {
     reminderId,
     startDate,
@@ -62,6 +66,26 @@ export default function reminders(state = {
             ...state.monthly,
             reminder,
           ],
+        };
+      }
+      break;
+    case SAVE_REMINDER:
+      if (reminderFrequency === 'daily') {
+        return {
+          ...state,
+          daily: [...state.daily.filter(d => d.reminderId !== unNest(action, 'task.reminderId')), reminder],
+        };
+      }
+      if (reminderFrequency === 'weekly') {
+        return {
+          ...state,
+          weekly: [...state.weekly.filter(d => d.reminderId !== unNest(action, 'task.reminderId')), reminder],
+        };
+      }
+      if (reminderFrequency === 'monthly') {
+        return {
+          ...state,
+          monthly: [...state.monthly.filter(d => d.reminderId !== unNest(action, 'task.reminderId')), reminder],
         };
       }
       break;

@@ -200,6 +200,25 @@ export default class TaskEditor extends Component {
     this.props.saveTask(task);
   }
 
+  updateReminder(reminder) {
+    this.props.saveReminder(reminder);
+  }
+
+  removeTask(task) {
+    if (task.shortLink) {
+      fetch(REMOVE_TASK_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(task),
+      })
+        .catch(error => console.log(error));
+    }
+    this.props.removeTask(task);
+  }
+
   renderTaskForm(components) {
     return (
       <Form
@@ -215,12 +234,17 @@ export default class TaskEditor extends Component {
             this.props.toggleEditor();
             const newTask = { ...this.state.editorSettings, startDate: new Date() };
             if (this.state.editorSettings.newTask) {
-              this.props.addTask(newTask);
+              if (this.state.editorSettings.repeat) {
+                this.props.addReminder(newTask);
+              } else {
+                this.props.addTask(newTask);
+              }
             } else {
+              if (this.state.editorSettings.repeat) {
+                this.updateReminder(this.state.editorSettings);
+                this.removeTask(this.state.editorSettings);
+              }
               this.updateTask(this.state.editorSettings);
-            }
-            if (this.state.editorSettings.repeat) {
-              this.props.addReminder(newTask);
             }
           }}
         />
@@ -248,6 +272,7 @@ TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
   saveTask: PropTypes.func.isRequired,
   addReminder: PropTypes.func.isRequired,
+  saveReminder: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeTaskSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,

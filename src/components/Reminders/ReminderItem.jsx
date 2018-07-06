@@ -17,8 +17,8 @@ const testStats = {
   snooze: 7,
   consecutive: 0,
   record: 26,
-  lastCompletedDate: new Date(new Date().getTime() - (toMilliSeconds.month * 2)),
-  lastAlertDate: new Date(new Date().getTime() - (toMilliSeconds.month)),
+  lastCompletedDate: new Date(new Date().getTime() - (toMilliSeconds.day * 2)),
+  lastAlertDate: new Date(new Date().getTime() - (toMilliSeconds.day)),
 };
 
 const alertTime = {
