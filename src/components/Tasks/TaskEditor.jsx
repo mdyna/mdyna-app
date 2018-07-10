@@ -21,6 +21,7 @@ import taskDefinition from './taskDefinition.json';
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
 
 const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
+const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
 export default class TaskEditor extends Component {
   constructor(props) {
     super(props);
@@ -271,6 +272,7 @@ export default class TaskEditor extends Component {
 TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
   saveTask: PropTypes.func.isRequired,
+  removeTask: PropTypes.func.isRequired,
   addReminder: PropTypes.func.isRequired,
   saveReminder: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
