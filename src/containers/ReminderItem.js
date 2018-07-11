@@ -1,20 +1,23 @@
 import { connect } from 'react-redux';
 import ReminderItem from '../components/Reminders/ReminderItem';
-import { generateTaskLink, removeTask, toggleTask, editTask } from '../store/actions/';
+import { snoozeReminder, removeReminder, completeReminder, failReminder, editTask } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeTask: (task) => {
-      dispatch(removeTask(task));
+    removeReminder: (reminder) => {
+      dispatch(removeReminder(reminder));
     },
-    editTask: (task) => {
-      dispatch(editTask(task));
+    editReminder: (reminder) => {
+      dispatch(editTask(reminder));
     },
-    generateTaskLink: (task, taskId) => {
-      dispatch(generateTaskLink(task, taskId));
+    snoozeReminder: (reminder, taskId) => {
+      dispatch(snoozeReminder(reminder, taskId));
     },
-    toggleTask: (task) => {
-      dispatch(toggleTask(task));
+    failReminder: (reminder) => {
+      dispatch(failReminder(reminder));
+    },
+    completeReminder: (reminder) => {
+      dispatch(completeReminder(reminder));
     },
   };
 }

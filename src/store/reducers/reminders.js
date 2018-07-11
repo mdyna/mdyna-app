@@ -20,20 +20,20 @@ export default function reminders(state = {
   }
 
   function saveReminder(subState, reminder) {
-    return [...subState.filter(d => d.reminderId !== unNest(action, 'task.reminderId')), reminder];
+    return [...subState.filter(d => d.reminderId !== unNest(action, 'reminder.reminderId')), reminder];
   }
 
   function completeReminder(subState, reminder, reminderStats) {
     return [
-      ...subState.filter(d => d.reminderId !== unNest(action, 'task.reminderId')),
+      ...subState.filter(d => d.reminderId !== unNest(action, 'reminder.reminderId')),
       {
         ...reminder,
         reminderStats: {
           ...reminderStats,
-          completed: reminderStats.completed + 1,
-          consecutive: reminderStats.consecutive + 1,
+          completed: reminderStats.completed + 1 || 1,
+          consecutive: reminderStats.consecutive + 1 || 1,
           record: reminderStats.record > reminderStats.consecutive + 1 ?
-            reminderStats.record : reminderStats.consecutive + 1,
+            reminderStats.record : (reminderStats.consecutive + 1 || 1),
           lastCompletedDate: new Date(),
           lastAlertDate: new Date(),
         },
@@ -43,12 +43,12 @@ export default function reminders(state = {
 
   function failReminder(subState, reminder, reminderStats) {
     return [
-      ...subState.filter(d => d.reminderId !== unNest(action, 'task.reminderId')),
+      ...subState.filter(d => d.reminderId !== unNest(action, 'reminder.reminderId')),
       {
         ...reminder,
         reminderStats: {
           ...reminderStats,
-          failed: reminderStats.failed + 1,
+          failed: reminderStats.failed + 1 || 1,
           consecutive: 0,
           lastAlertDate: new Date(),
         },
@@ -58,7 +58,7 @@ export default function reminders(state = {
 
   function snoozeReminder(subState, reminder, reminderStats) {
     return [
-      ...subState.filter(d => d.reminderId !== unNest(action, 'task.reminderId')),
+      ...subState.filter(d => d.reminderId !== unNest(action, 'reminder.reminderId')),
       {
         ...reminder,
         reminderStats: {
@@ -70,13 +70,13 @@ export default function reminders(state = {
     ];
   }
 
-  let reminderFrequency = unNest(action, 'task.repeatAlert') || 'weekly';
+  let reminderFrequency = unNest(action, 'reminder.repeatAlert') || 'weekly';
   reminderFrequency = reminderFrequency.toLowerCase();
-  const startDate = unNest(action, 'task.startDate') || new Date();
-  const text = unNest(action, 'task.text') || '';
-  const title = unNest(action, 'task.title') || 'Reminder';
-  const color = unNest(action, 'task.color') || '#1DE9B6';
-  const reminderStats = unNest(action, 'task.reminderStats') || {};
+  const startDate = unNest(action, 'reminder.startDate') || new Date();
+  const text = unNest(action, 'reminder.text') || '';
+  const title = unNest(action, 'reminder.title') || 'Reminder';
+  const color = unNest(action, 'reminder.color') || '#1DE9B6';
+  const reminderStats = unNest(action, 'reminder.reminderStats') || {};
   const reminderId =
   (
     state &&

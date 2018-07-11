@@ -12,7 +12,6 @@ function renderReminderItems(reminders) {
   const reminderItems = [];
   for (let index = 0; index < reminders.length; index += 1) {
     const reminderProps = reminders[index];
-    console.log(reminderProps)
     if (reminderProps) {
       reminderItems.push(
         <ReminderItem key={index} {...reminderProps} />,

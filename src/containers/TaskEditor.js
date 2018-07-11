@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskEditor from '../components/Tasks/TaskEditor';
-import { changeTaskSetting, saveTask, addTask, removeTask, addReminder, saveReminder } from '../store/actions/';
+import { changeTaskSetting, saveTask, addTask, removeTask, addReminder, saveReminder, removeReminder } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -21,6 +21,9 @@ function mapDispatchToProps(dispatch) {
     },
     saveReminder: (todoProps) => {
       dispatch(saveReminder(todoProps));
+    },
+    removeReminder: (todoProps) => {
+      dispatch(removeReminder(todoProps));
     },
   };
 }

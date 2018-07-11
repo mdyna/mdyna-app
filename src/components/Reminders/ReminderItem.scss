@@ -1,7 +1,36 @@
 @import '../../style.scss';
+$share-color: #26A69A;
+$share-accent: #80CBC4;
+$share-text: #4DB6AC;
+$fail-color: #c62828;
+$close-accent: #ff5f52;
+$snooze-color: #fbc02d;
+$edit-accent: #fff263;
+$complete-color: #1976d2;
+$checkmark-accent: #63a4ff;
+$completed-color: #607D8B;
+$completed-accent: #78909C;
+$background-color: #333333;
 
 .reminder-item {
   width: fit-content !important;
   padding: 5px !important;
-  margin: 0 auto !important;
+  margin: 10px auto !important;
+  
+  .grommetux-meter__graphic {
+    height: 150px !important;
+    width: 150px !important;
+  }
+
+  .grommetux-color-index-accent-2 {
+    stroke: $fail-color !important;
+  }
+
+  .grommetux-color-index-neutral-2 {
+    stroke: $snooze-color !important;
+  }
+  
+  .grommetux-color-index-accent-1 {
+    stroke: $complete-color !important;
+  }
 }

@@ -18,6 +18,7 @@
     "electron": "^1.7.11",
     "electron-reload": "^1.2.2",
     "grommet": "^1.10.1",
+    "grommet-addons": "^0.6.0",
     "jsonschema": "^1.2.2",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",

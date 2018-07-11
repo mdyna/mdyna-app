@@ -220,6 +220,11 @@ export default class TaskEditor extends Component {
     this.props.removeTask(task);
   }
 
+  removeReminder(task) {
+    this.props.removeReminder(task);
+  }
+
+
   renderTaskForm(components) {
     return (
       <Form
@@ -246,6 +251,7 @@ export default class TaskEditor extends Component {
                 this.removeTask(this.state.editorSettings);
               }
               this.updateTask(this.state.editorSettings);
+              this.removeReminder(this.state.editorSettings);
             }
           }}
         />
@@ -275,6 +281,7 @@ TaskEditor.propTypes = {
   removeTask: PropTypes.func.isRequired,
   addReminder: PropTypes.func.isRequired,
   saveReminder: PropTypes.func.isRequired,
+  removeReminder: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeTaskSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
