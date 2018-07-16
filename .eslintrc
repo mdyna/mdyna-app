@@ -15,12 +15,13 @@
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
     "space-before-function-paren": 0,
+    "no-mixed-operators": "off",
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "global-require": 0,
     "guard-for-in": 0,
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/forbid-prop-types":"off"
+    "react/forbid-prop-types": "off"
   }
 }

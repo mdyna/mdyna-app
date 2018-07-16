@@ -19,6 +19,7 @@ import MarkdownEditor from '../../containers/MarkdownEditor';
 import taskDefinition from './taskDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
+import { isObject } from 'util';
 
 const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
 const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
@@ -46,6 +47,7 @@ export default class TaskEditor extends Component {
       newEditorSettings.color !== editorSettings.color ||
       newEditorSettings.repeat !== editorSettings.repeat ||
       newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
+      newEditorSettings.reminderFrequency !== editorSettings.reminderFrequency ||
       newEditorSettings.taskId !== editorSettings.taskId
     );
   }
@@ -245,13 +247,20 @@ export default class TaskEditor extends Component {
               } else {
                 this.props.addTask(newTask);
               }
-            } else {
+            } else if (!this.state.editorSettings.newTask) {
               if (this.state.editorSettings.repeat) {
-                this.updateReminder(this.state.editorSettings);
+                if (this.state.editorSettings.reminderId) {
+                  this.updateReminder(this.state.editorSettings);
+                } else {
+                  this.props.addReminder(newTask);
+                }
                 this.removeTask(this.state.editorSettings);
+              } else if (this.state.editorSettings.reminderId) {
+                this.removeReminder(this.state.editorSettings);
+                this.props.addTask(newTask);
+              } else {
+                this.updateTask(this.state.editorSettings);
               }
-              this.updateTask(this.state.editorSettings);
-              this.removeReminder(this.state.editorSettings);
             }
           }}
         />

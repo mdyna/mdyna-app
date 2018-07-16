@@ -4,7 +4,7 @@ import Headline from 'grommet/components/Headline';
 import Section from 'grommet/components/Section';
 import Sidebar from 'grommet/components/Sidebar';
 import _ from 'lodash';
-import ReminderItem from './ReminderItem';
+import ReminderItem from '../../containers/ReminderItem';
 
 import '!style-loader!css-loader!sass-loader!./ReminderList.scss'; // eslint-disable-line
 
@@ -13,9 +13,7 @@ function renderReminderItems(reminders) {
   for (let index = 0; index < reminders.length; index += 1) {
     const reminderProps = reminders[index];
     if (reminderProps) {
-      reminderItems.push(
-        <ReminderItem key={index} {...reminderProps} />,
-      );
+      reminderItems.push(<ReminderItem key={index} reminder={reminderProps} />);
     }
   }
   return reminderItems;
@@ -56,9 +54,7 @@ export default class ReminderList extends Component {
         <Headline align="center" size="small">
           Reminders
         </Headline>
-        {
-          this.renderReminderSection()
-        }
+        {this.renderReminderSection()}
       </Sidebar>
     );
   }

@@ -6,11 +6,10 @@ import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 
-
 import '!style-loader!css-loader!sass-loader!./ReminderItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
 import toMilliSeconds from '../../utils/time';
-
+import ReminderBar from './ReminderBar';
 
 const testStats = {
   completed: 43,
@@ -18,8 +17,8 @@ const testStats = {
   snooze: 7,
   consecutive: 0,
   record: 26,
-  lastCompletedDate: new Date(new Date().getTime() - (toMilliSeconds.day * 2)),
-  lastAlertDate: new Date(new Date().getTime() - (toMilliSeconds.day)),
+  lastCompletedDate: new Date(new Date().getTime() - toMilliSeconds.day * 2),
+  lastAlertDate: new Date(new Date().getTime() - toMilliSeconds.day),
 };
 
 const alertTime = {
@@ -49,41 +48,55 @@ function buildReminderSeries(reminderStats) {
     },
   ];
 }
-
+export function reminderNeedsAlert(lastAlert, frequency) {
+  const currentDate = new Date().getTime();
+  const reminderAlertTime = alertTime[frequency];
+  const needsAlert = currentDate - lastAlert.getTime() > reminderAlertTime;
+  return needsAlert;
+}
 export default class ReminderItem extends Component {
   getReminderStats() {
-    const { reminderStats } = this.props;
+    const { reminder } = this.props;
+    const { reminderStats } = reminder;
     return {
-      completed: reminderStats.completed || Math.floor(Math.random() * 100),
-      failed: reminderStats.failed || Math.floor(Math.random() * 100),
-      snooze: reminderStats.snooze || Math.floor(Math.random() * 100),
-      consecutive: reminderStats.consecutive || 0,
-      record: reminderStats.record || 0,
+      completed: (reminderStats && reminderStats.completed) || Math.floor(Math.random() * 100),
+      failed: (reminderStats && reminderStats.failed) || Math.floor(Math.random() * 100),
+      snooze: (reminderStats && reminderStats.snooze) || Math.floor(Math.random() * 100),
+      consecutive: (reminderStats && reminderStats.consecutive) || 0,
+      record: (reminderStats && reminderStats.record) || 0,
       ...reminderStats,
     };
   }
 
   toastNotification() {
-    const { reminderFrequency, title } = this.props;
-    const reminderAlertTime = alertTime[reminderFrequency];
+    const { reminder } = this.props;
+    const { reminderFrequency } = reminder;
     const reminderStats = testStats;
     const { lastAlertDate } = reminderStats;
-    const currentDate = new Date().getTime();
-    const needsReminder = currentDate - lastAlertDate.getTime() > reminderAlertTime;
-    if (needsReminder) {
-      return (
-        <Toast status="warning">
-          {title} needs to confirmed
-        </Toast>
-      );
+    if (reminderNeedsAlert(lastAlertDate, reminderFrequency)) {
+      return <Toast status="warning">{reminder.title} needs to confirmed</Toast>;
     }
     return '';
   }
 
   render() {
-    const color = unNest(this, 'props.color') || '#1DE9B6';
-    const { title } = this.props;
+    const color = unNest(this, 'props.reminder.color') || '#1DE9B6';
+    const {
+      reminder,
+      removeReminder,
+      editReminder,
+      snoozeReminder,
+      failReminder,
+      completeReminder,
+    } = this.props;
     const stats = this.getReminderStats();
+    const reminderActions = {
+      removeReminder,
+      editReminder,
+      snoozeReminder,
+      failReminder,
+      completeReminder,
+    };
     const series = buildReminderSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
     return (
@@ -95,13 +108,10 @@ export default class ReminderItem extends Component {
           color: tinycolor(color).darken(40),
         }}
       >
-        { this.toastNotification() }
-        <Heading
-          align="start"
-          tag="h3"
-          strong
-        >
-          {title}
+        {this.toastNotification()}
+        <ReminderBar reminderActions={reminderActions} reminder={reminder} />
+        <Heading align="start" tag="h3" strong>
+          {reminder.title}
         </Heading>
         <AnnotatedMeter type="circle" size="small" series={series} legend max={max} />
       </Card>
@@ -110,7 +120,10 @@ export default class ReminderItem extends Component {
 }
 
 ReminderItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  reminderFrequency: PropTypes.string.isRequired,
-  reminderStats: PropTypes.object.isRequired,
+  reminder: PropTypes.object.isRequired,
+  removeReminder: PropTypes.func.isRequired,
+  editReminder: PropTypes.func.isRequired,
+  snoozeReminder: PropTypes.func.isRequired,
+  failReminder: PropTypes.func.isRequired,
+  completeReminder: PropTypes.func.isRequired,
 };
