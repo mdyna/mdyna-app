@@ -19,7 +19,6 @@ import MarkdownEditor from '../../containers/MarkdownEditor';
 import taskDefinition from './taskDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
-import { isObject } from 'util';
 
 const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
 const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
@@ -238,7 +237,7 @@ export default class TaskEditor extends Component {
         <Button
           label="Submit"
           primary
-          onClick={() => {
+          onClick={() => { // TODO: Improve readability in these nested ifs
             this.props.toggleEditor();
             const newTask = { ...this.state.editorSettings, startDate: new Date() };
             if (this.state.editorSettings.newTask) {

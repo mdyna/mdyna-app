@@ -31,7 +31,7 @@ export const failReminder = reminder => ({
   reminder,
 });
 
-export const snoozeREminder = reminder => ({
+export const snoozeReminder = reminder => ({
   type: ACTION_TYPES.REMINDER.SNOOZE_REMINDER,
   reminder,
 });

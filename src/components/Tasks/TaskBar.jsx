@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Share from 'grommet/components/icons/base/Share';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
-import CloseIcon from 'grommet/components/icons/base/Close';
+import TrashIcon from 'grommet/components/icons/base/Trash';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import Button from 'grommet/components/Button';
 import PropTypes from 'prop-types';
@@ -10,7 +10,6 @@ import tinycolor from 'tinycolor2';
 
 import '!style-loader!css-loader!sass-loader!./TaskBar.scss'; // eslint-disable-line
 import { assertTaskChanges } from './TaskItem';
-
 
 const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
 const ADD_TASK_ENDPOINT = `${window.serverHost}/addTask/`;
@@ -54,8 +53,7 @@ class TaskBar extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(task),
-      })
-        .catch(error => console.log(error));
+      }).catch(error => console.log(error));
     }
     this.props.removeTask(task);
   }
@@ -63,15 +61,20 @@ class TaskBar extends Component {
   render() {
     const { task, editTask, toggleTask } = this.props;
     return (
-      <div className="task-bar" style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(task.color).darken(25)})` }}>
+      <div
+        className="task-bar"
+        style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(task.color).darken(25)})` }}
+      >
         <Button onClick={() => toggleTask(task)}>
-          <CheckmarkIcon className={classnames({ 'checkmark-icon': true, completed: task.completed })} />
+          <CheckmarkIcon
+            className={classnames({ 'checkmark-icon': true, completed: task.completed })}
+          />
         </Button>
         <Button onClick={() => editTask(task)}>
           <EditIcon className="edit-icon" />
         </Button>
         <Button onClick={() => this.removeTask(task)}>
-          <CloseIcon className="close-icon" />
+          <TrashIcon className="close-icon" />
         </Button>
         <div className={classnames('share-box', { sharing: task.shortLink })}>
           <Button onClick={() => this.getTaskShortLink(task)}>

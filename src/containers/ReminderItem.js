@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import ReminderItem from '../components/Reminders/ReminderItem';
-import { snoozeReminder, removeReminder, completeReminder, failReminder, editTask } from '../store/actions/';
+import {
+  snoozeReminder,
+  removeReminder,
+  completeReminder,
+  failReminder,
+  editTask,
+} from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -21,8 +27,11 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-function mapStateToProps(state) {
-  return state;
+function mapStateToProps() {
+  return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReminderItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ReminderItem);

@@ -18,8 +18,11 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-function mapStateToProps(state) {
-  return state;
+function mapStateToProps() {
+  return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TaskItem);

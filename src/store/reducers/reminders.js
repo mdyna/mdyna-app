@@ -71,7 +71,7 @@ export default function reminders(
         ...reminder,
         reminderStats: {
           ...reminderStats,
-          snooze: reminderStats.snooze + 1,
+          snooze: reminderStats.snooze + 1 || 1,
           lastAlertDate: new Date(),
         },
       },
@@ -109,7 +109,7 @@ export default function reminders(
           ...state,
           daily: addReminder(state.daily, reminder),
         };
-      } else if (reminderFrequency === 'weekly') {
+      } else if (reminderFrequency === 'weekly' || !reminderFrequency) {
         return {
           ...state,
           weekly: addReminder(state.weekly, reminder),

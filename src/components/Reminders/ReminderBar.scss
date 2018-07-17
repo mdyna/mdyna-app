@@ -1,26 +1,74 @@
-$share-color: #26a69a;
-$share-accent: #80cbc4;
-$share-text: #4db6ac;
 $close-color: #c62828;
 $close-accent: #ff5f52;
 $edit-color: #fbc02d;
 $edit-accent: #fff263;
-$checkmark-color: #1976d2;
-$checkmark-accent: #63a4ff;
-$completed-color: #607d8b;
-$completed-accent: #78909c;
+
+$complete-color: #1976d2;
+$complete-accent: #63a4ff;
+$snooze-accent: #ffc400;
+$snooze-color: #ffa000;
+$fail-color: #e65100;
+$fail-accent: #f57c00;
+
 $background-color: #333333;
 @import "../../style.scss";
 
 .reminder-bar {
   background-color: $background-color;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
+  flex-flow: column nowrap;
   opacity: 0.9;
   min-height: 50px;
-  margin: -10px 0 10px;
+  margin: -5px 0 5px;
+  justify-content: center;
+  margin: -5px 0 5px;
+  align-items: center;
+  width: fit-content;
+  align-self: center;
+  padding: 5px 30px;
 
+  .alert-actions {
+    .notification-icon {
+      position: relative;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+
+      path {
+        stroke: $accent-color !important;
+      }
+
+      &:hover {
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+
+        20%,
+        80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-3px, 0, 0);
+        }
+
+        40%,
+        60% {
+          transform: translate3d(3px, 0, 0);
+        }
+      }
+    }
+  }
   button {
     svg {
       width: 18px;
@@ -28,11 +76,6 @@ $background-color: #333333;
       margin: 5px;
     }
     @include normalize-button-icons();
-    svg.share-icon {
-      path {
-        stroke: $share-color !important;
-      }
-    }
     svg.edit-icon {
       path {
         stroke: $edit-color !important;
@@ -43,23 +86,24 @@ $background-color: #333333;
         stroke: $close-color !important;
       }
     }
-    svg.checkmark-icon {
+    svg.complete-reminder-icon {
       polyline {
-        stroke: $checkmark-color !important;
+        stroke: $complete-color !important;
       }
-      &.completed {
-        polyline {
-          stroke: $completed-color !important;
-        }
+    }
+    svg.snooze-reminder-icon {
+      path {
+        stroke: $snooze-color !important;
+      }
+    }
+
+    svg.fail-reminder-icon {
+      path {
+        stroke: $fail-color !important;
       }
     }
 
     &:hover {
-      svg.share-icon {
-        path {
-          stroke: $share-accent !important;
-        }
-      }
       svg.edit-icon {
         path {
           stroke: $edit-accent !important;
@@ -70,34 +114,21 @@ $background-color: #333333;
           stroke: $close-accent !important;
         }
       }
-      svg.checkmark-icon {
+      svg.complete-reminder-icon {
         polyline {
-          stroke: $checkmark-accent !important;
-        }
-        &.completed {
-          polyline {
-            stroke: $completed-accent !important;
-          }
+          stroke: $complete-accent !important;
         }
       }
-    }
-  }
-
-  .share-box {
-    color: $share-text;
-    display: flex;
-    flex-direction: column;
-
-    button {
-      position: relative;
-      top: 5px;
-    }
-  }
-
-  .share-box.sharing {
-    button {
-      position: relative;
-      top: 9px;
+      svg.snooze-reminder-icon {
+        path {
+          stroke: $snooze-accent !important;
+        }
+      }
+      svg.fail-reminder-icon {
+        path {
+          stroke: $fail-accent !important;
+        }
+      }
     }
   }
 }

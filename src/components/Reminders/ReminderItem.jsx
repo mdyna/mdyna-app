@@ -11,17 +11,7 @@ import unNest from '../../utils/nest';
 import toMilliSeconds from '../../utils/time';
 import ReminderBar from './ReminderBar';
 
-const testStats = {
-  completed: 43,
-  failed: 3,
-  snooze: 7,
-  consecutive: 0,
-  record: 26,
-  lastCompletedDate: new Date(new Date().getTime() - toMilliSeconds.day * 2),
-  lastAlertDate: new Date(new Date().getTime() - toMilliSeconds.day),
-};
-
-const alertTime = {
+const ALERT_TIMES = {
   daily: toMilliSeconds.day,
   weekly: toMilliSeconds.week,
   monthly: toMilliSeconds.month,
@@ -33,26 +23,29 @@ function buildReminderSeries(reminderStats) {
   return [
     {
       label: 'Completed',
-      value: completed,
+      value: completed || 0,
       colorIndex: 'accent-1',
     },
     {
       label: 'Failed',
-      value: failed,
+      value: failed || 0,
       colorIndex: 'accent-2',
     },
     {
       label: 'Snoozed',
-      value: snooze,
+      value: snooze || 0,
       colorIndex: 'neutral-2',
     },
   ];
 }
 export function reminderNeedsAlert(lastAlert, frequency) {
   const currentDate = new Date().getTime();
-  const reminderAlertTime = alertTime[frequency];
-  const needsAlert = currentDate - lastAlert.getTime() > reminderAlertTime;
-  return needsAlert;
+  const reminderAlertTime = ALERT_TIMES[frequency];
+  if (lastAlert) {
+    const needsAlert = currentDate - new Date(lastAlert).getTime() > reminderAlertTime;
+    return needsAlert;
+  }
+  return true;
 }
 export default class ReminderItem extends Component {
   getReminderStats() {
@@ -70,8 +63,7 @@ export default class ReminderItem extends Component {
 
   toastNotification() {
     const { reminder } = this.props;
-    const { reminderFrequency } = reminder;
-    const reminderStats = testStats;
+    const { reminderFrequency, reminderStats } = reminder;
     const { lastAlertDate } = reminderStats;
     if (reminderNeedsAlert(lastAlertDate, reminderFrequency)) {
       return <Toast status="warning">{reminder.title} needs to confirmed</Toast>;
