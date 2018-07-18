@@ -3,15 +3,9 @@ $close-accent: #ff5f52;
 $edit-color: #fbc02d;
 $edit-accent: #fff263;
 
-$complete-color: #1976d2;
-$complete-accent: #63a4ff;
-$snooze-accent: #ffc400;
-$snooze-color: #ffa000;
-$fail-color: #e65100;
-$fail-accent: #f57c00;
-
 $background-color: #333333;
 @import "../../style.scss";
+@import "./ReminderItem.scss";
 
 .reminder-bar {
   background-color: $background-color;
@@ -34,7 +28,7 @@ $background-color: #333333;
       width: 30px;
       height: 30px;
 
-      path {
+      > path {
         stroke: $accent-color !important;
       }
 
@@ -75,7 +69,6 @@ $background-color: #333333;
       height: 18px;
       margin: 5px;
     }
-    @include normalize-button-icons();
     svg.edit-icon {
       path {
         stroke: $edit-color !important;
@@ -84,22 +77,6 @@ $background-color: #333333;
     svg.close-icon {
       path {
         stroke: $close-color !important;
-      }
-    }
-    svg.complete-reminder-icon {
-      polyline {
-        stroke: $complete-color !important;
-      }
-    }
-    svg.snooze-reminder-icon {
-      path {
-        stroke: $snooze-color !important;
-      }
-    }
-
-    svg.fail-reminder-icon {
-      path {
-        stroke: $fail-color !important;
       }
     }
 
@@ -112,21 +89,6 @@ $background-color: #333333;
       svg.close-icon {
         path {
           stroke: $close-accent !important;
-        }
-      }
-      svg.complete-reminder-icon {
-        polyline {
-          stroke: $complete-accent !important;
-        }
-      }
-      svg.snooze-reminder-icon {
-        path {
-          stroke: $snooze-accent !important;
-        }
-      }
-      svg.fail-reminder-icon {
-        path {
-          stroke: $fail-accent !important;
         }
       }
     }

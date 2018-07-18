@@ -14,10 +14,10 @@ import { reminderNeedsAlert } from './ReminderItem';
 import unNest from '../../utils/nest';
 
 class ReminderBar extends Component {
-  static alertBar(completeReminder, reminder, snoozeReminder, failReminder) {
+  static alertBar(completeReminder, reminder, snoozeReminder, failReminder, showNotificationIcon) {
     return (
       <div className="alert-actions">
-        <NotificationIcon className="notification-icon" />
+        {showNotificationIcon ? <NotificationIcon className="notification-icon" /> : ''}
         <Button onClick={() => completeReminder(reminder)}>
           <CheckmarkIcon className="complete-reminder-icon" />
         </Button>
@@ -60,7 +60,7 @@ class ReminderBar extends Component {
           </Button>
         </div>
         {reminderNeedsAlert(lastAlertDate, reminderFrequency)
-          ? ReminderBar.alertBar(completeReminder, reminder, snoozeReminder, failReminder)
+          ? ReminderBar.alertBar(completeReminder, reminder, snoozeReminder, failReminder, true)
           : ''}
       </div>
     );

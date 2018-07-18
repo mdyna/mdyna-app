@@ -62,11 +62,16 @@ export default class ReminderItem extends Component {
   }
 
   toastNotification() {
-    const { reminder } = this.props;
+    const { reminder, snoozeReminder, failReminder, completeReminder } = this.props;
     const { reminderFrequency, reminderStats } = reminder;
     const { lastAlertDate } = reminderStats;
     if (reminderNeedsAlert(lastAlertDate, reminderFrequency)) {
-      return <Toast status="warning">{reminder.title} needs to confirmed</Toast>;
+      return (
+        <Toast status="warning" style={{ color: '#64ffda' }}>
+          {reminder.title} needs to confirmed
+          {ReminderBar.alertBar(completeReminder, reminder, snoozeReminder, failReminder, false)}
+        </Toast>
+      );
     }
     return '';
   }

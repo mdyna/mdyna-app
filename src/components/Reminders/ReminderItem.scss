@@ -6,6 +6,48 @@ $snooze-color: #ffa000;
 $fail-color: #e65100;
 $fail-accent: #f57c00;
 
+button {
+  margin: 5px;
+  @include normalize-button-icons();
+  svg.complete-reminder-icon {
+    margin: 5px !important;
+    polyline {
+      stroke: $complete-color !important;
+    }
+  }
+  svg.snooze-reminder-icon {
+    margin: 5px !important;
+    path {
+      stroke: $snooze-color !important;
+    }
+  }
+
+  svg.fail-reminder-icon {
+    margin: 5px !important;
+    path {
+      stroke: $fail-color !important;
+    }
+  }
+
+  &:hover {
+    svg.complete-reminder-icon {
+      polyline {
+        stroke: $complete-accent !important;
+      }
+    }
+    svg.snooze-reminder-icon {
+      path {
+        stroke: $snooze-accent !important;
+      }
+    }
+    svg.fail-reminder-icon {
+      path {
+        stroke: $fail-accent !important;
+      }
+    }
+  }
+}
+
 .reminder-item {
   width: fit-content !important;
   padding: 5px !important;
