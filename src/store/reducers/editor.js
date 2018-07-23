@@ -9,6 +9,9 @@ export default function editor(
     category: '',
     schedule: '',
     repeat: undefined,
+    newTask: true,
+    shortLink: '',
+    startDate: '',
     text: '',
     taskId: 0,
   },
@@ -25,6 +28,7 @@ export default function editor(
     if (state.newTask) {
       return {
         toggleEditor: !state.toggleEditor,
+        newTask: true,
       };
     }
     newState.newTask = true;

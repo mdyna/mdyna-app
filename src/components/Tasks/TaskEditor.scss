@@ -7,14 +7,35 @@
   button {
     @include normalize-button-icons()
   }
-
 }
+
+
+.grommet.grommetux-drop {
+  background-color: $font-color !important;
+  
+  div {
+    width: 100%;
+    color: $task-font-color !important;
+
+    ol {
+      flex-flow: row nowrap;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+
 
 .task-editor {
   padding: 10px;
 
   > div {
     color: $accent-color;
+  }
+
+  .grommetux-check-box__control-check {
+    position: absolute;
+    stroke: $accent-color;
   }
 
   .editor-with-preview {

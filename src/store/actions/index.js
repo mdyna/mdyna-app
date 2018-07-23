@@ -11,6 +11,36 @@ export const addTask = task => ({
   task,
 });
 
+export const addReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.ADD_REMINDER,
+  reminder,
+});
+
+export const saveReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.SAVE_REMINDER,
+  reminder,
+});
+
+export const completeReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.COMPLETE_REMINDER,
+  reminder,
+});
+
+export const failReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.FAIL_REMINDER,
+  reminder,
+});
+
+export const snoozeReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.SNOOZE_REMINDER,
+  reminder,
+});
+
+export const removeReminder = reminder => ({
+  type: ACTION_TYPES.REMINDER.REMOVE_REMINDER,
+  reminder,
+});
+
 export const removeTask = task => ({
   type: ACTION_TYPES.TASK.REMOVE_TASK,
   task,

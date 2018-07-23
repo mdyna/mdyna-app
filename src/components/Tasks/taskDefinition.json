@@ -21,7 +21,13 @@
       "uiSchema": "date"
     },
     "repeat": {
-      "type":"bool"
+      "type":"bool",
+      "dependencies": {
+        "repeatAlert": {
+          "type":"enum",
+          "enums":["Daily", "Weekly", "Monthly"]
+        }
+      }
     },
     "text": {
       "type":"string",

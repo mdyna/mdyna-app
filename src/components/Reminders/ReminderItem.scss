@@ -1,0 +1,81 @@
+@import "../../style.scss";
+$complete-color: #1976d2;
+$complete-accent: #63a4ff;
+$snooze-accent: #ffc400;
+$snooze-color: #ffa000;
+$fail-color: #e65100;
+$fail-accent: #f57c00;
+
+button {
+  margin: 5px;
+  @include normalize-button-icons();
+  svg.complete-reminder-icon {
+    margin: 5px !important;
+    polyline {
+      stroke: $complete-color !important;
+    }
+  }
+  svg.snooze-reminder-icon {
+    margin: 5px !important;
+    path {
+      stroke: $snooze-color !important;
+    }
+  }
+
+  svg.fail-reminder-icon {
+    margin: 5px !important;
+    path {
+      stroke: $fail-color !important;
+    }
+  }
+
+  &:hover {
+    svg.complete-reminder-icon {
+      polyline {
+        stroke: $complete-accent !important;
+      }
+    }
+    svg.snooze-reminder-icon {
+      path {
+        stroke: $snooze-accent !important;
+      }
+    }
+    svg.fail-reminder-icon {
+      path {
+        stroke: $fail-accent !important;
+      }
+    }
+  }
+}
+
+.reminder-item {
+  width: fit-content !important;
+  padding: 5px !important;
+  margin: 10px auto !important;
+
+  .grommetux-meter__graphic {
+    height: 150px !important;
+    width: 150px !important;
+  }
+
+  .grommetux-color-index-accent-2 {
+    stroke: $fail-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $fail-accent !important;
+    }
+  }
+
+  .grommetux-color-index-neutral-2 {
+    stroke: $snooze-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $snooze-accent !important;
+    }
+  }
+
+  .grommetux-color-index-accent-1 {
+    stroke: $complete-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $complete-accent !important;
+    }
+  }
+}

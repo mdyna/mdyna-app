@@ -1,0 +1,96 @@
+$close-color: #c62828;
+$close-accent: #ff5f52;
+$edit-color: #fbc02d;
+$edit-accent: #fff263;
+
+$background-color: #333333;
+@import "../../style.scss";
+@import "./ReminderItem.scss";
+
+.reminder-bar {
+  background-color: $background-color;
+  display: flex;
+  flex-flow: column nowrap;
+  opacity: 0.9;
+  min-height: 50px;
+  margin: -5px 0 5px;
+  justify-content: center;
+  margin: -5px 0 5px;
+  align-items: center;
+  width: fit-content;
+  align-self: center;
+  padding: 5px 30px;
+
+  .alert-actions {
+    .notification-icon {
+      position: relative;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+
+      > path {
+        stroke: $accent-color !important;
+      }
+
+      &:hover {
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+
+        20%,
+        80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-3px, 0, 0);
+        }
+
+        40%,
+        60% {
+          transform: translate3d(3px, 0, 0);
+        }
+      }
+    }
+  }
+  button {
+    svg {
+      width: 18px;
+      height: 18px;
+      margin: 5px;
+    }
+    svg.edit-icon {
+      path {
+        stroke: $edit-color !important;
+      }
+    }
+    svg.close-icon {
+      path {
+        stroke: $close-color !important;
+      }
+    }
+
+    &:hover {
+      svg.edit-icon {
+        path {
+          stroke: $edit-accent !important;
+        }
+      }
+      svg.close-icon {
+        path {
+          stroke: $close-accent !important;
+        }
+      }
+    }
+  }
+}
