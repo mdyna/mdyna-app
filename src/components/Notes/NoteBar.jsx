@@ -78,7 +78,7 @@ class NoteBar extends Component {
           <TrashIcon className="close-icon" />
         </Button>
         {note.shortLink ? (
-          <a href={`${NOTE_ENDPOINT}${note.shortLink}&_blank`}>
+          <a href={`${NOTE_ENDPOINT}${note.shortLink}`} target="_blank">
             <div className={classnames('share-box', { sharing: note.shortLink })}>
               <Button onClick={() => this.getNoteShortLink(note)}>
                 <Share className="share-icon" />
