@@ -1,18 +1,17 @@
-@import '../../style.scss';
+@import "../../style.scss";
 
 .task-layer > .grommetux-layer__container {
   display: block !important;
   background-color: $secondary-background !important;
-  
+
   button {
-    @include normalize-button-icons()
+    @include normalize-button-icons();
   }
 }
 
-
 .grommet.grommetux-drop {
   background-color: $font-color !important;
-  
+
   div {
     width: 100%;
     color: $task-font-color !important;
@@ -24,7 +23,6 @@
     }
   }
 }
-
 
 .task-editor {
   padding: 10px;
@@ -38,11 +36,25 @@
     stroke: $accent-color;
   }
 
+  .color-options {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    svg {
+      width: 30px !important;
+      height: 45px !important;
+      circle {
+        transform: translate(50%, 75%);
+      }
+    }
+  }
+
   .editor-with-preview {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
+
     > div {
       margin-top: 10px;
     }
@@ -50,7 +62,6 @@
       min-height: 245px;
       color: $task-font-color !important;
       flex-basis: 35%;
-
     }
 
     .task-text-editor {

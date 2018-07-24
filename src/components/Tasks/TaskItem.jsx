@@ -6,8 +6,22 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
+import _ from 'lodash';
 import TaskBar from './TaskBar';
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
+
+const COLOR_SAMPLES = [
+  '#9FA8DA',
+  '#0D47A1',
+  'rgb(78, 99, 110)',
+  '#64ffda',
+  '#4CAF50',
+  '#B2FF59',
+  '#FFEB3B',
+  '#FF7043',
+  '#F44336',
+  '#F48FB',
+];
 
 export function assertTaskChanges(newTask, oldTask) {
   const taskProps = Object.keys(newTask);
@@ -33,8 +47,9 @@ class Task extends Component {
       headerLevelStart: 3,
       extensions: [htmlescape],
     });
-    const rawText = (task && task.text);
-    const color = (task && task.color) || '#1DE9B6';
+    const rawText = task && task.text;
+    const color =
+      (task && task.color) || this.props.changeTaskSetting('color', _.sample(COLOR_SAMPLES));
     const taskText = converter.convert(rawText) || '';
     return (
       <Card
@@ -42,25 +57,21 @@ class Task extends Component {
         className={classnames(className, 'task-item')}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
-          backgroundColor: task.color || '#4e636e',
+          backgroundColor: color || '#4e636e',
         }}
       >
-        {
-          hasTaskBar ?
-            <TaskBar
-              task={task}
-              generateTaskLink={this.props.generateTaskLink}
-              toggleTask={this.props.toggleTask}
-              removeTask={this.props.removeTask}
-              editTask={this.props.editTask}
-            /> :
-            ''
-        }
-        <Heading
-          align="start"
-          tag="h1"
-          strong
-        >
+        {hasTaskBar ? (
+          <TaskBar
+            task={task}
+            generateTaskLink={this.props.generateTaskLink}
+            toggleTask={this.props.toggleTask}
+            removeTask={this.props.removeTask}
+            editTask={this.props.editTask}
+          />
+        ) : (
+          ''
+        )}
+        <Heading align="start" tag="h1" strong>
           {task.title}
         </Heading>
         <div className="task-card-content">{taskText}</div>
@@ -79,6 +90,7 @@ Task.propTypes = {
   removeTask: PropTypes.func,
   toggleTask: PropTypes.func,
   generateTaskLink: PropTypes.func,
+  changeTaskSetting: PropTypes.func.isRequired,
   i: PropTypes.number,
 };
 

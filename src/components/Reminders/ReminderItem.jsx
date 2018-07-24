@@ -52,9 +52,9 @@ export default class ReminderItem extends Component {
     const { reminder } = this.props;
     const { reminderStats } = reminder;
     return {
-      completed: (reminderStats && reminderStats.completed) || Math.floor(Math.random() * 100),
-      failed: (reminderStats && reminderStats.failed) || Math.floor(Math.random() * 100),
-      snooze: (reminderStats && reminderStats.snooze) || Math.floor(Math.random() * 100),
+      completed: (reminderStats && reminderStats.completed) || 0,
+      failed: (reminderStats && reminderStats.failed) || 0,
+      snooze: (reminderStats && reminderStats.snooze) || 0,
       consecutive: (reminderStats && reminderStats.consecutive) || 0,
       record: (reminderStats && reminderStats.record) || 0,
       ...reminderStats,
@@ -96,13 +96,14 @@ export default class ReminderItem extends Component {
     };
     const series = buildReminderSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
+    const fontColor = tinycolor(color).darken(50);
     return (
       <Card
         className={'reminder-item'}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
           backgroundColor: color,
-          color: tinycolor(color).darken(40),
+          color: fontColor,
         }}
       >
         {this.toastNotification()}
@@ -110,7 +111,21 @@ export default class ReminderItem extends Component {
         <Heading align="start" tag="h3" strong>
           {reminder.title}
         </Heading>
-        <AnnotatedMeter type="circle" size="small" series={series} legend max={max} />
+        <div
+          className="reminder-chart"
+          style={{
+            color: fontColor,
+          }}
+        >
+          <AnnotatedMeter
+            type="circle"
+            size="small"
+            series={series}
+            legend
+            max={max}
+            className="reminder-chart"
+          />
+        </div>
       </Card>
     );
   }

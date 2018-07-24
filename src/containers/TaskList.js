@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
 import TaskList from '../components/Tasks/TaskList';
-import { toggleEditor } from '../store/actions/';
+import { toggleEditor, toggleWhiteMode } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleEditor: () => {
       dispatch(toggleEditor());
+    },
+    toggleWhiteMode: () => {
+      dispatch(toggleWhiteMode());
     },
   };
 }
@@ -14,7 +17,11 @@ function mapStateToProps(state) {
     tasks: state.tasks,
     modalOpen: state.editor.toggleEditor,
     categories: state.categories,
+    whiteMode: state.style.whiteMode,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TaskList);

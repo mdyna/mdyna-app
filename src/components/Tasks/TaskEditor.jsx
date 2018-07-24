@@ -22,22 +22,8 @@ import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disab
 
 const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
 const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
+
 export default class TaskEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorSettings: this.props.editorSettings,
-    };
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps !== this.props) {
-      this.setState({
-        editorSettings: newProps.editorSettings,
-      });
-    }
-  }
-
   shouldComponentUpdate(newProps) {
     const newEditorSettings = newProps && newProps.editorSettings;
     const { editorSettings } = this.props;
@@ -47,7 +33,8 @@ export default class TaskEditor extends Component {
       newEditorSettings.repeat !== editorSettings.repeat ||
       newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
       newEditorSettings.reminderFrequency !== editorSettings.reminderFrequency ||
-      newEditorSettings.taskId !== editorSettings.taskId
+      newEditorSettings.taskId !== editorSettings.taskId ||
+      newEditorSettings.reminderId !== editorSettings.reminderId
     );
   }
 
@@ -60,31 +47,55 @@ export default class TaskEditor extends Component {
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
+          if (settingUiSchema === 'color') {
+            return (
+              <FormField
+                label={_.startCase(settingName)}
+                htmlFor={_.snakeCase(settingName)}
+                key={_.startCase(settingName)}
+              >
+                {enums ? (
+                  <div className="color-options">
+                    {enums.map(color => (
+                      <svg
+                        onClick={() => changeTaskSetting(_.camelCase(settingName), color)}
+                        value={this.props.editorSettings[settingName]}
+                        key={color}
+                      >
+                        <circle r="15" fill={color} />
+                      </svg>
+                    ))}
+                  </div>
+                ) : (
+                  ''
+                )}
+              </FormField>
+            );
+          }
           return (
             <FormField
               label={_.startCase(settingName)}
               htmlFor={_.snakeCase(settingName)}
               key={_.startCase(settingName)}
             >
-              {
-                enums ?
-                  <Select
-                    key={settingName}
-                    id={_.snakeCase(settingName)}
-                    onChange={e => changeTaskSetting(_.camelCase(settingName), e.option)}
-                    placeHolder={_.startCase(settingName)}
-                    value={this.state.editorSettings[settingName]}
-                    options={[...enums]}
-                  />
-                  :
-                  <Select
-                    key={settingName}
-                    id={_.snakeCase(settingName)}
-                    onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
-                    placeHolder={_.startCase(settingName)}
-                    options={[...this.props.categories, 'Create New']}
-                  />
-              }
+              {enums ? (
+                <Select
+                  key={settingName}
+                  id={_.snakeCase(settingName)}
+                  onChange={e => changeTaskSetting(_.camelCase(settingName), e.option)}
+                  placeHolder={_.startCase(settingName)}
+                  value={this.props.editorSettings[settingName]}
+                  options={[...enums]}
+                />
+              ) : (
+                <Select
+                  key={settingName}
+                  id={_.snakeCase(settingName)}
+                  onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
+                  placeHolder={_.startCase(settingName)}
+                  options={[...this.props.categories, 'Create New']}
+                />
+              )}
             </FormField>
           );
         case 'string':
@@ -94,15 +105,14 @@ export default class TaskEditor extends Component {
             <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
               <CheckBox
                 key={settingName}
-                defaultChecked={this.state.editorSettings[settingName]}
+                defaultChecked={this.props.editorSettings[settingName]}
                 id={_.snakeCase(settingName)}
                 label={_.startCase(settingName)}
                 onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
               />
-              {
-                setting.dependencies && this.state.editorSettings[settingName] ?
-                  this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies) : ''
-              }
+              {setting.dependencies && this.props.editorSettings[settingName]
+                ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
+                : ''}
             </FormField>
           );
         default:
@@ -114,7 +124,7 @@ export default class TaskEditor extends Component {
 
   generateComponentsFromUiSchema(settingName, settingUiSchema) {
     const { changeTaskSetting } = this.props;
-    const settingValue = this.state.editorSettings[settingName];
+    const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
         return (
@@ -135,28 +145,9 @@ export default class TaskEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor
-              className={'task-text-editor'}
-              visibility={{ preview: false }}
-            />
-            <TaskPreview />
+            <MarkdownEditor className={'task-text-editor'} visibility={{ preview: false }} />
+            <TaskPreview changeTaskSetting={changeTaskSetting} />
           </div>
-        );
-      case 'color':
-        return (
-          <FormField
-            label={_.startCase(settingName)}
-            htmlFor={_.snakeCase(settingName)}
-            key={_.startCase(settingName)}
-          >
-            <input
-              key={settingName}
-              id={_.snakeCase(settingName)}
-              type="color"
-              value={settingValue || '#4e636e'}
-              onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.value)}
-            />
-          </FormField>
         );
       default:
         return (
@@ -196,8 +187,7 @@ export default class TaskEditor extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(task),
-      })
-        .catch(error => console.log(error));
+      }).catch(error => console.log(error));
     }
     this.props.saveTask(task);
   }
@@ -215,8 +205,7 @@ export default class TaskEditor extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(task),
-      })
-        .catch(error => console.log(error));
+      }).catch(error => console.log(error));
     }
     this.props.removeTask(task);
   }
@@ -225,40 +214,38 @@ export default class TaskEditor extends Component {
     this.props.removeReminder(task);
   }
 
-
   renderTaskForm(components) {
     return (
-      <Form
-        plain
-      >
+      <Form plain>
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
         <Button
           label="Submit"
           primary
-          onClick={() => { // TODO: Improve readability in these nested ifs
+          onClick={() => {
+            // TODO: Improve readability in these nested ifs
             this.props.toggleEditor();
-            const newTask = { ...this.state.editorSettings, startDate: new Date() };
-            if (this.state.editorSettings.newTask) {
-              if (this.state.editorSettings.repeat) {
+            const newTask = { ...this.props.editorSettings, startDate: new Date() };
+            if (this.props.editorSettings.newTask) {
+              if (this.props.editorSettings.repeat) {
                 this.props.addReminder(newTask);
               } else {
                 this.props.addTask(newTask);
               }
-            } else if (!this.state.editorSettings.newTask) {
-              if (this.state.editorSettings.repeat) {
-                if (this.state.editorSettings.reminderId) {
-                  this.updateReminder(this.state.editorSettings);
+            } else if (!this.props.editorSettings.newTask) {
+              if (this.props.editorSettings.repeat) {
+                if (this.props.editorSettings.reminderId) {
+                  this.updateReminder(this.props.editorSettings);
                 } else {
                   this.props.addReminder(newTask);
+                  this.removeTask(this.props.editorSettings);
                 }
-                this.removeTask(this.state.editorSettings);
-              } else if (this.state.editorSettings.reminderId) {
-                this.removeReminder(this.state.editorSettings);
+              } else if (this.props.editorSettings.reminderId) {
                 this.props.addTask(newTask);
+                this.removeReminder(this.props.editorSettings);
               } else {
-                this.updateTask(this.state.editorSettings);
+                this.updateTask(this.props.editorSettings);
               }
             }
           }}
@@ -276,7 +263,7 @@ export default class TaskEditor extends Component {
         className="task-editor"
         full={'horizontal'}
       >
-        <Headline>{this.state.newTask ? 'NEW TASK' : 'EDIT TASK'}</Headline>
+        <Headline>{this.props.editorSettings.newTask ? 'NEW TASK' : 'EDIT TASK'}</Headline>
         {this.generateComponentsFromType(taskDefinition)}
       </Article>
     );

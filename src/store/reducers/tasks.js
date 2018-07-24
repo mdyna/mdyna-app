@@ -1,13 +1,6 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const {
-  ADD_TASK,
-  REMOVE_TASK,
-  TOGGLE_TASK,
-  GENERATE_LINK,
-  SAVE_TASK,
-} = ACTION_TYPES.TASK;
-
+const { ADD_TASK, REMOVE_TASK, TOGGLE_TASK, GENERATE_LINK, SAVE_TASK } = ACTION_TYPES.TASK;
 
 export default function tasks(state = [], action) {
   switch (action.type) {
@@ -27,7 +20,7 @@ export default function tasks(state = [], action) {
         if (task.taskId === action.task.taskId) {
           return action.task;
         }
-        return task;
+        return { ...task, reminderId: null };
       });
     case TOGGLE_TASK:
       return state.map((task) => {

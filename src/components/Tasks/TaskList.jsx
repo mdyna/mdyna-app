@@ -7,6 +7,7 @@ import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
+import classnames from 'classnames';
 import TaskEditor from '../../containers/TaskEditor';
 import TaskItem from '../../containers/TaskItem';
 
@@ -17,12 +18,14 @@ export default class TaskList extends Component {
     super(props);
     this.state = {
       tasks: this.props.tasks,
+      whiteMode: this.props.whiteMode,
     };
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
       tasks: newProps.tasks,
+      whiteMode: newProps.whiteMode,
     });
   }
 
@@ -30,42 +33,33 @@ export default class TaskList extends Component {
     const tasks = [];
     for (let i = 0; i < this.state.tasks.length; i += 1) {
       const task = this.state.tasks[i];
-      tasks.push(
-        <TaskItem
-          hasTaskBar
-          task={task}
-          key={i}
-        />,
-      );
+      tasks.push(<TaskItem hasTaskBar task={task} key={i} />);
     }
     return tasks.reverse();
   }
 
   render() {
     return (
-      <Section className="task-list" responsive direction="row">
+      <Section
+        className={classnames({ 'task-list': true, 'white-mode': this.props.whiteMode })}
+        responsive
+        direction="row"
+      >
         <Headline align="center" size="medium">
           TASKS
         </Headline>
-        {
-          this.state.tasks.length ?
-            <Columns
-              masonry
-              responsive
-              maxCount={3}
-              justify={'center'}
-              className="visible-tasks"
-            >
-              {this.visibleTasks()}
-            </Columns> :
-            <Heading align="center" tag="h3">
-              Click to add new task
-            </Heading>
-
-        }
+        {this.state.tasks.length ? (
+          <Columns masonry responsive maxCount={3} justify={'center'} className="visible-tasks">
+            {this.visibleTasks()}
+          </Columns>
+        ) : (
+          <Heading align="center" tag="h3">
+            Click to add new task
+          </Heading>
+        )}
         <Button
           onClick={() => {
-            this.props.toggleEditor();
+            this.props.toggleEditor(true);
           }}
           className="add-task-btn"
         >
@@ -79,9 +73,7 @@ export default class TaskList extends Component {
             onClose={() => this.props.toggleEditor()}
             className="task-layer"
           >
-            <TaskEditor
-              toggleEditor={this.props.toggleEditor}
-            />
+            <TaskEditor toggleEditor={this.props.toggleEditor} />
           </Layer>
         ) : (
           ''
@@ -94,10 +86,13 @@ export default class TaskList extends Component {
 TaskList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
+  whiteMode: PropTypes.bool,
+  toggleWhiteMode: PropTypes.func.isRequired,
   tasks: PropTypes.array,
 };
 
 TaskList.defaultProps = {
   modalOpen: false,
+  whiteMode: false,
   tasks: [],
 };
