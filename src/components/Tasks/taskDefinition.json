@@ -7,30 +7,37 @@
       "required": true
     },
     "color": {
-      "type": "string",
-      "format":"color",
-      "uiSchema": "color"
+      "type": "enum",
+      "format": "color",
+      "uiSchema": "color",
+      "enums": [
+        "#9FA8DA",
+        "#0D47A1",
+        "rgb(78, 99, 110)",
+        "#64ffda",
+        "#4CAF50",
+        "#B2FF59",
+        "#FFEB3B",
+        "#FF7043",
+        "#F44336",
+        "#F48FB1"
+      ]
     },
     "category": {
       "type": "enum",
       "minimum": 1
     },
-    "schedule": {
-      "type": "string",
-      "format": "date",
-      "uiSchema": "date"
-    },
     "repeat": {
-      "type":"bool",
+      "type": "bool",
       "dependencies": {
         "repeatAlert": {
-          "type":"enum",
-          "enums":["Daily", "Weekly", "Monthly"]
+          "type": "enum",
+          "enums": ["daily", "weekly", "monthly"]
         }
       }
     },
     "text": {
-      "type":"string",
+      "type": "string",
       "uiSchema": "textarea"
     }
   }

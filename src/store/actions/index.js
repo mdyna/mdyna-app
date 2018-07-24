@@ -81,3 +81,7 @@ export const editTask = task => ({
   type: ACTION_TYPES.TASK_EDITOR.EDIT_TASK,
   task,
 });
+
+export const toggleWhiteMode = () => ({
+  type: ACTION_TYPES.TOGGLE_WHITE_MODE,
+});

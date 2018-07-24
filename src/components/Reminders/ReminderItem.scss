@@ -53,6 +53,19 @@ button {
   padding: 5px !important;
   margin: 10px auto !important;
 
+  .reminder-chart {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    > div {
+      align-items: center;
+    }
+  }
+
+  .grommetux-legend__item,
+  .grommetux-legend__total {
+    color: #333 !important;
+  }
+
   .grommetux-meter__graphic {
     height: 150px !important;
     width: 150px !important;

@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import TaskItem from '../components/Tasks/TaskItem';
-import { generateTaskLink, removeTask, toggleTask, editTask } from '../store/actions/';
+import {
+  generateTaskLink,
+  removeTask,
+  toggleTask,
+  editTask,
+  changeTaskSetting,
+} from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -15,6 +21,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleTask: (task) => {
       dispatch(toggleTask(task));
+    },
+    changeTaskSetting: (prop, value) => {
+      dispatch(changeTaskSetting(prop, value));
     },
   };
 }

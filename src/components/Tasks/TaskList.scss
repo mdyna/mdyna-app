@@ -1,4 +1,12 @@
-@import '../../style.scss';
+@import "../../style.scss";
+
+$background-color: #15171f;
+$secondary-background: #181f27;
+$font-color: #c5c6c7;
+$accent-color: #1de9b6;
+$secondary-accent: #64ffda;
+$task-font-color: #333333;
+$task-list-background: #1f2833;
 
 .task-list {
   background-color: $task-list-background;
@@ -6,6 +14,11 @@
   padding: 10px;
   margin: 10px;
   flex-flow: column wrap !important;
+
+  &.white-mode {
+    color: $background-color;
+    background-color: $font-color;
+  }
 
   .visible-tasks {
     flex-wrap: wrap;
