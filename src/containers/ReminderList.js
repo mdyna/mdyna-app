@@ -11,6 +11,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
+    whiteMode: state.style.whiteMode,
     reminders: state.reminders,
   };
 }

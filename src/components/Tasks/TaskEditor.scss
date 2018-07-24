@@ -31,9 +31,22 @@
     color: $accent-color;
   }
 
+  button {
+    background-color: $accent-color;
+    &:hover {
+      background-color: $secondary-accent;
+    }
+  }
+
   .grommetux-check-box__control-check {
     position: absolute;
-    stroke: $accent-color;
+    path {
+      stroke: $accent-color;
+    }
+  }
+
+  .grommetux-select__control {
+    background-color: transparent;
   }
 
   .color-options {
@@ -90,6 +103,16 @@
           max-width: auto !important;
         }
       }
+    }
+  }
+}
+
+.task-layer.white-mode > .grommetux-layer__container {
+  display: block !important;
+  background-color: $white-secondary-background !important;
+  .task-editor {
+    > div {
+      color: $white-font-color !important;
     }
   }
 }

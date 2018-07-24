@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Article from 'grommet/components/Article';
 import Headline from 'grommet/components/Headline';
 import Form from 'grommet/components/Form';
+import classnames from 'classnames';
 import CheckBox from 'grommet/components/CheckBox';
 import Select from 'grommet/components/Select';
 // import RadioButton from 'grommet/components/RadioButton';
@@ -260,7 +261,7 @@ export default class TaskEditor extends Component {
         direction="column"
         alignContent="center"
         pad="large"
-        className="task-editor"
+        className={classnames('task-editor', { 'white-mode': this.props.whiteMode })}
         full={'horizontal'}
       >
         <Headline>{this.props.editorSettings.newTask ? 'NEW TASK' : 'EDIT TASK'}</Headline>
@@ -273,6 +274,7 @@ export default class TaskEditor extends Component {
 TaskEditor.propTypes = {
   addTask: PropTypes.func.isRequired,
   saveTask: PropTypes.func.isRequired,
+  whiteMode: PropTypes.bool,
   removeTask: PropTypes.func.isRequired,
   addReminder: PropTypes.func.isRequired,
   saveReminder: PropTypes.func.isRequired,
@@ -285,4 +287,5 @@ TaskEditor.propTypes = {
 
 TaskEditor.defaultProps = {
   categories: [],
+  whiteMode: false,
 };

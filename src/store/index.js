@@ -11,6 +11,7 @@ store.subscribe(
   throttle(() => {
     saveState({
       reminders: store.getState().reminders,
+      style: store.getState().style,
       tasks: store.getState().tasks,
     });
   }),

@@ -8,7 +8,6 @@ function toggleWhiteMode(
   },
   action,
 ) {
-  console.log(state);
   switch (action.type) {
     case TOGGLE_WHITE_MODE:
       return {
