@@ -1,0 +1,28 @@
+@import "../style.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto sans-serif;
+  background-color: $background-color;
+
+  .grommet {
+    background-color: $background-color !important;
+  }
+
+  header {
+    background-color: $secondary-background !important;
+    color: $secondary-accent;
+    padding: 20px 0 10px 10px !important;
+
+    img {
+      width: 100px !important;
+      box-shadow: 0 3px 10px 4px $accent-color;
+      border-radius: 50%;
+    }
+  }
+
+  article {
+    background-color: $secondary-background;
+  }
+}

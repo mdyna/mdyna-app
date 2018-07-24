@@ -79,7 +79,9 @@ export default function reminders(
   }
 
   let reminderFrequency =
-    unNest(action, 'reminder.reminderFrequency') || unNest(action, 'reminder.repeatAlert') || '';
+    unNest(action, 'reminder.reminderFrequency') ||
+    unNest(action, 'reminder.repeatAlert') ||
+    'weekly';
   reminderFrequency = reminderFrequency.toLowerCase();
   const startDate = unNest(action, 'reminder.startDate') || new Date();
   const text = unNest(action, 'reminder.text') || '';
