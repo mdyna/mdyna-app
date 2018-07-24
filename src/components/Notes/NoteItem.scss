@@ -1,11 +1,11 @@
 @import '../../style.scss';
 
-.task-item {
-  color:$task-font-color;
+.note-item {
+  color:$note-font-color;
   margin: 5px;
-  .task-card-content {
+  .note-card-content {
     p {
-      color: $task-font-color !important;
+      color: $note-font-color !important;
     }
     pre {
       background-color: #333;

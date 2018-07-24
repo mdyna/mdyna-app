@@ -1,7 +1,7 @@
 {
   "name": "dyna",
   "version": "1.0.0",
-  "description": "Task notification and productivity app",
+  "description": "Note notification and productivity app",
   "main": "index.js",
   "scripts": {
     "build-webpack": "rm -rf ./dist && webpack --optimize-minimize --config webpack.config.js",

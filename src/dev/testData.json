@@ -1,47 +1,47 @@
 {
-  "tasks": [
+  "notes": [
     {
-      "title":"My first task",
+      "title":"My first note",
       "color":"#5929b8",
       "text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
-      "title":"Second task",
+      "title":"Second note",
       "text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "color":"#0dcfec"
     },
     {
-      "title":"example task",
+      "title":"example note",
       "color":"#ff7d28",
       "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
     },
     {
-      "title":"another task",
+      "title":"another note",
       "color":"#E040FB",
       "text":"## Markdown test"
     },
     {
-      "title":"third task",
+      "title":"third note",
       "color":"#FF8A80",
       "text":"## Markdown test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut "
     },
     {
-      "title":"more tasks",
+      "title":"more notes",
       "color":"#00ACC1",
       "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut "
     },
     {
-      "title":"another task",
+      "title":"another note",
       "color":"#B9F6CA",
       "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
     },
     {
-      "title":"another task",
+      "title":"another note",
       "color":"#FFE57F",
       "text":"## Markdown test"
     },
     {
-      "title":"another task",
+      "title":"another note",
       "color":"#009688",
       "text":"## Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  test"
     }

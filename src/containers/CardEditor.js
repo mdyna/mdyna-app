@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import TaskEditor from '../components/Tasks/TaskEditor';
+import CardEditor from '../components/CardEditor';
 import {
-  changeTaskSetting,
-  saveTask,
-  addTask,
-  removeTask,
+  changeNoteSetting,
+  saveNote,
+  addNote,
+  removeNote,
   addReminder,
   saveReminder,
   removeReminder,
@@ -12,17 +12,17 @@ import {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeTaskSetting: (prop, value) => {
-      dispatch(changeTaskSetting(prop, value));
+    changeNoteSetting: (prop, value) => {
+      dispatch(changeNoteSetting(prop, value));
     },
-    saveTask: (task) => {
-      dispatch(saveTask(task));
+    saveNote: (note) => {
+      dispatch(saveNote(note));
     },
-    addTask: (todoProps) => {
-      dispatch(addTask(todoProps));
+    addNote: (todoProps) => {
+      dispatch(addNote(todoProps));
     },
-    removeTask: (todoProps) => {
-      dispatch(removeTask(todoProps));
+    removeNote: (todoProps) => {
+      dispatch(removeNote(todoProps));
     },
     addReminder: (todoProps) => {
       dispatch(addReminder(todoProps));
@@ -45,4 +45,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TaskEditor);
+)(CardEditor);

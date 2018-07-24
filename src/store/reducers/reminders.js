@@ -103,7 +103,7 @@ export default function reminders(
     text,
     title,
     reminderStats,
-    taskId: null,
+    noteId: null,
   };
   switch (action.type) {
     case ADD_REMINDER:

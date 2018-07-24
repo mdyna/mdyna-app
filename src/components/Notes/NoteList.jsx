@@ -8,60 +8,60 @@ import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
 import classnames from 'classnames';
-import TaskEditor from '../../containers/TaskEditor';
-import TaskItem from '../../containers/TaskItem';
+import NoteEditor from '../../containers/CardEditor';
+import NoteItem from '../../containers/NoteItem';
 
-import '!style-loader!css-loader!sass-loader!./TaskList.scss'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!./NoteList.scss'; // eslint-disable-line
 
-export default class TaskList extends Component {
+export default class NoteList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: this.props.tasks,
+      notes: this.props.notes,
       whiteMode: this.props.whiteMode,
     };
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      tasks: newProps.tasks,
+      notes: newProps.notes,
       whiteMode: newProps.whiteMode,
     });
   }
 
-  visibleTasks() {
-    const tasks = [];
-    for (let i = 0; i < this.state.tasks.length; i += 1) {
-      const task = this.state.tasks[i];
-      tasks.push(<TaskItem hasTaskBar task={task} key={i} />);
+  visibleNotes() {
+    const notes = [];
+    for (let i = 0; i < this.state.notes.length; i += 1) {
+      const note = this.state.notes[i];
+      notes.push(<NoteItem hasNoteBar note={note} key={i} />);
     }
-    return tasks.reverse();
+    return notes.reverse();
   }
 
   render() {
     return (
       <Section
-        className={classnames({ 'task-list': true, 'white-mode': this.props.whiteMode })}
+        className={classnames({ 'note-list': true, 'white-mode': this.props.whiteMode })}
         responsive
         direction="row"
       >
         <Headline align="center" size="medium">
           TASKS
         </Headline>
-        {this.state.tasks.length ? (
-          <Columns masonry responsive maxCount={3} justify={'center'} className="visible-tasks">
-            {this.visibleTasks()}
+        {this.state.notes.length ? (
+          <Columns masonry responsive maxCount={3} justify={'center'} className="visible-notes">
+            {this.visibleNotes()}
           </Columns>
         ) : (
           <Heading align="center" tag="h3">
-            Click to add new task
+            Click to add new note
           </Heading>
         )}
         <Button
           onClick={() => {
             this.props.toggleEditor(true);
           }}
-          className="add-task-btn"
+          className="add-note-btn"
         >
           <Pulse />
         </Button>
@@ -71,9 +71,9 @@ export default class TaskList extends Component {
             closer
             flush
             onClose={() => this.props.toggleEditor()}
-            className={classnames('task-layer', { 'white-mode': this.props.whiteMode })}
+            className={classnames('note-layer', { 'white-mode': this.props.whiteMode })}
           >
-            <TaskEditor toggleEditor={this.props.toggleEditor} />
+            <NoteEditor toggleEditor={this.props.toggleEditor} />
           </Layer>
         ) : (
           ''
@@ -83,15 +83,15 @@ export default class TaskList extends Component {
   }
 }
 
-TaskList.propTypes = {
+NoteList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  tasks: PropTypes.array,
+  notes: PropTypes.array,
 };
 
-TaskList.defaultProps = {
+NoteList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
-  tasks: [],
+  notes: [],
 };

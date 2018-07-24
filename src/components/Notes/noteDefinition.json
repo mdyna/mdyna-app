@@ -1,5 +1,5 @@
 {
-  "id": "/Task",
+  "id": "/Note",
   "type": "object",
   "properties": {
     "title": {

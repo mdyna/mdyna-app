@@ -6,9 +6,9 @@ export const VisibilityFilters = {
   SHOW_ACTIVE: 'SHOW_ACTIVE',
 };
 
-export const addTask = task => ({
+export const addNote = note => ({
   type: ACTION_TYPES.TASK.ADD_TASK,
-  task,
+  note,
 });
 
 export const addReminder = reminder => ({
@@ -41,14 +41,14 @@ export const removeReminder = reminder => ({
   reminder,
 });
 
-export const removeTask = task => ({
+export const removeNote = note => ({
   type: ACTION_TYPES.TASK.REMOVE_TASK,
-  task,
+  note,
 });
 
-export const saveTask = task => ({
+export const saveNote = note => ({
   type: ACTION_TYPES.TASK.SAVE_TASK,
-  task,
+  note,
 });
 
 export const toggleEditor = () => ({
@@ -60,26 +60,26 @@ export const setVisibilityFilter = filter => ({
   filter,
 });
 
-export const toggleTask = task => ({
+export const toggleNote = note => ({
   type: ACTION_TYPES.TASK.TOGGLE_TASK,
-  task,
+  note,
 });
 
-export const generateTaskLink = (keys, index) => ({
+export const generateNoteLink = (keys, index) => ({
   type: ACTION_TYPES.TASK.GENERATE_LINK,
   keys,
   index,
 });
 
-export const changeTaskSetting = (prop, value) => ({
+export const changeNoteSetting = (prop, value) => ({
   type: ACTION_TYPES.TASK_EDITOR.ON_CHANGE,
   prop,
   value,
 });
 
-export const editTask = task => ({
+export const editNote = note => ({
   type: ACTION_TYPES.TASK_EDITOR.EDIT_TASK,
-  task,
+  note,
 });
 
 export const toggleWhiteMode = () => ({

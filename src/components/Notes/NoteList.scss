@@ -5,11 +5,11 @@ $secondary-background: #181f27;
 $font-color: #c5c6c7;
 $accent-color: #1de9b6;
 $secondary-accent: #64ffda;
-$task-font-color: #333333;
-$task-list-background: #1f2833;
+$note-font-color: #333333;
+$note-list-background: #1f2833;
 
-.task-list {
-  background-color: $task-list-background;
+.note-list {
+  background-color: $note-list-background;
   color: $font-color;
   padding: 10px;
   margin: 10px;
@@ -17,20 +17,20 @@ $task-list-background: #1f2833;
 
   &.white-mode {
     color: $white-font-color;
-    background-color: $white-task-list-background;
+    background-color: $white-note-list-background;
 
-    .add-task-btn {
+    .add-note-btn {
       background-color: $white-secondary-background;
       border-radius: 50px;
     }
   }
 
-  .visible-tasks {
+  .visible-notes {
     flex-wrap: wrap;
     align-items: center;
   }
 
-  .add-task-btn {
+  .add-note-btn {
     @include normalize-button-icons();
     margin: 10px auto;
     transform: translate(0, 2px);

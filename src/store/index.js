@@ -12,7 +12,7 @@ store.subscribe(
     saveState({
       reminders: store.getState().reminders,
       style: store.getState().style,
-      tasks: store.getState().tasks,
+      notes: store.getState().notes,
     });
   }),
   1000,

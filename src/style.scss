@@ -3,13 +3,13 @@ $secondary-background: #181f27;
 $font-color: #c5c6c7;
 $accent-color: #1de9b6;
 $secondary-accent: #64ffda;
-$task-font-color: #333333;
-$task-list-background: #1f2833;
+$note-font-color: #333333;
+$note-list-background: #1f2833;
 
 $white-background-color: #fafafa;
 $white-secondary-background: #f5f5f5;
 $white-font-color: #212121;
-$white-task-list-background: #cfd8dc;
+$white-note-list-background: #cfd8dc;
 
 @mixin neon-glow($glow-color) {
   text-shadow: 0px 0 3px #fff, 0 0 4px #fff, 0 0 5px $accent-color,

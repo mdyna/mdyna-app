@@ -12,7 +12,7 @@ $completed-accent: #78909c;
 $background-color: #333333;
 @import "../../style.scss";
 
-.task-bar {
+.note-bar {
   background-color: $background-color;
   display: flex;
   flex-flow: row nowrap;

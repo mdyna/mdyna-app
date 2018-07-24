@@ -7,7 +7,7 @@ export default function editor(
     title: '',
     color: '',
     repeat: false,
-    newTask: true,
+    newNote: true,
     shortLink: '',
     startDate: '',
     text: '',
@@ -22,20 +22,20 @@ export default function editor(
   if (action.type === TOGGLE_EDITOR) {
     const newState = { ...state };
     const newEditorState = !state.toggleEditor;
-    if (newState.newTask) {
+    if (newState.newNote) {
       return {
         toggleEditor: newEditorState,
-        newTask: true,
+        newNote: true,
       };
     }
-    newState.newTask = true;
+    newState.newNote = true;
     newState.toggleEditor = newEditorState;
     return newState;
   }
   if (action.type === EDIT_TASK) {
-    const newState = { reminderId: null, taskId: null, ...action.task };
+    const newState = { reminderId: null, noteId: null, ...action.note };
     newState.toggleEditor = true;
-    newState.newTask = false;
+    newState.newNote = false;
     return newState;
   }
   return state;

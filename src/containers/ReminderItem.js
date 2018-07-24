@@ -5,7 +5,7 @@ import {
   removeReminder,
   completeReminder,
   failReminder,
-  editTask,
+  editNote,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -14,10 +14,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(removeReminder(reminder));
     },
     editReminder: (reminder) => {
-      dispatch(editTask(reminder));
+      dispatch(editNote(reminder));
     },
-    snoozeReminder: (reminder, taskId) => {
-      dispatch(snoozeReminder(reminder, taskId));
+    snoozeReminder: (reminder, noteId) => {
+      dispatch(snoozeReminder(reminder, noteId));
     },
     failReminder: (reminder) => {
       dispatch(failReminder(reminder));

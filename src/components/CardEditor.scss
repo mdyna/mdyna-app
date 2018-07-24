@@ -1,6 +1,6 @@
-@import "../../style.scss";
+@import "../style.scss";
 
-.task-layer > .grommetux-layer__container {
+.note-layer > .grommetux-layer__container {
   display: block !important;
   background-color: $secondary-background !important;
 
@@ -14,7 +14,7 @@
 
   div {
     width: 100%;
-    color: $task-font-color !important;
+    color: $note-font-color !important;
 
     ol {
       flex-flow: row nowrap;
@@ -24,7 +24,7 @@
   }
 }
 
-.task-editor {
+.note-editor {
   padding: 10px;
 
   > div {
@@ -71,13 +71,13 @@
     > div {
       margin-top: 10px;
     }
-    .task-preview {
+    .note-preview {
       min-height: 245px;
-      color: $task-font-color !important;
+      color: $note-font-color !important;
       flex-basis: 35%;
     }
 
-    .task-text-editor {
+    .note-text-editor {
       flex-basis: 63%;
 
       .mde-header {
@@ -107,10 +107,10 @@
   }
 }
 
-.task-layer.white-mode > .grommetux-layer__container {
+.note-layer.white-mode > .grommetux-layer__container {
   display: block !important;
   background-color: $white-secondary-background !important;
-  .task-editor {
+  .note-editor {
     > div {
       color: $white-font-color !important;
     }

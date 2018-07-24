@@ -1,6 +1,6 @@
 # Dyna
 
-### A task notification and productivity app.
+### A note notification and productivity app.
 
 ![dyna Logo](https://github.com/cyborkonline/dyna/blob/master/assets/apple-touch-icon.png?raw=true)
 

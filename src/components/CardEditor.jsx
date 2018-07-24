@@ -14,17 +14,17 @@ import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
-import TaskPreview from '../../containers/TaskPreview';
-import MarkdownEditor from '../../containers/MarkdownEditor';
-// import taskValidator from './taskValidator';
-import taskDefinition from './taskDefinition.json';
+import NotePreview from '../containers/NotePreview';
+import MarkdownEditor from '../containers/MarkdownEditor';
+// import noteValidator from './noteValidator';
+import noteDefinition from './Notes/noteDefinition.json';
 
-import '!style-loader!css-loader!sass-loader!./TaskEditor.scss'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
 
-const EDIT_TASK = taskID => `${window.serverHost}/task/${taskID}/edit`;
-const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeTask/`;
+const EDIT_TASK = noteID => `${window.serverHost}/note/${noteID}/edit`;
+const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeNote/`;
 
-export default class TaskEditor extends Component {
+export default class NoteEditor extends Component {
   shouldComponentUpdate(newProps) {
     const newEditorSettings = newProps && newProps.editorSettings;
     const { editorSettings } = this.props;
@@ -34,7 +34,7 @@ export default class TaskEditor extends Component {
       newEditorSettings.repeat !== editorSettings.repeat ||
       newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
       newEditorSettings.reminderFrequency !== editorSettings.reminderFrequency ||
-      newEditorSettings.taskId !== editorSettings.taskId ||
+      newEditorSettings.noteId !== editorSettings.noteId ||
       newEditorSettings.reminderId !== editorSettings.reminderId
     );
   }
@@ -44,7 +44,7 @@ export default class TaskEditor extends Component {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const { changeTaskSetting } = this.props;
+      const { changeNoteSetting } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
@@ -59,7 +59,7 @@ export default class TaskEditor extends Component {
                   <div className="color-options">
                     {enums.map(color => (
                       <svg
-                        onClick={() => changeTaskSetting(_.camelCase(settingName), color)}
+                        onClick={() => changeNoteSetting(_.camelCase(settingName), color)}
                         value={this.props.editorSettings[settingName]}
                         key={color}
                       >
@@ -83,7 +83,7 @@ export default class TaskEditor extends Component {
                 <Select
                   key={settingName}
                   id={_.snakeCase(settingName)}
-                  onChange={e => changeTaskSetting(_.camelCase(settingName), e.option)}
+                  onChange={e => changeNoteSetting(_.camelCase(settingName), e.option)}
                   placeHolder={_.startCase(settingName)}
                   value={this.props.editorSettings[settingName]}
                   options={[...enums]}
@@ -92,7 +92,7 @@ export default class TaskEditor extends Component {
                 <Select
                   key={settingName}
                   id={_.snakeCase(settingName)}
-                  onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
+                  onChange={e => changeNoteSetting(_.camelCase(settingName), e.target.checked)}
                   placeHolder={_.startCase(settingName)}
                   options={[...this.props.categories, 'Create New']}
                 />
@@ -109,7 +109,7 @@ export default class TaskEditor extends Component {
                 defaultChecked={this.props.editorSettings[settingName]}
                 id={_.snakeCase(settingName)}
                 label={_.startCase(settingName)}
-                onChange={e => changeTaskSetting(_.camelCase(settingName), e.target.checked)}
+                onChange={e => changeNoteSetting(_.camelCase(settingName), e.target.checked)}
               />
               {setting.dependencies && this.props.editorSettings[settingName]
                 ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
@@ -124,7 +124,7 @@ export default class TaskEditor extends Component {
   }
 
   generateComponentsFromUiSchema(settingName, settingUiSchema) {
-    const { changeTaskSetting } = this.props;
+    const { changeNoteSetting } = this.props;
     const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
@@ -138,7 +138,7 @@ export default class TaskEditor extends Component {
               key={settingName}
               id={_.snakeCase(settingName)}
               step={1}
-              onChange={e => changeTaskSetting(_.camelCase(settingName), e)}
+              onChange={e => changeNoteSetting(_.camelCase(settingName), e)}
               value={settingValue || new Date()}
             />
           </FormField>
@@ -146,8 +146,8 @@ export default class TaskEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor className={'task-text-editor'} visibility={{ preview: false }} />
-            <TaskPreview changeTaskSetting={changeTaskSetting} />
+            <MarkdownEditor className={'note-text-editor'} visibility={{ preview: false }} />
+            <NotePreview changeNoteSetting={changeNoteSetting} />
           </div>
         );
       default:
@@ -162,7 +162,7 @@ export default class TaskEditor extends Component {
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeTaskSetting(_.camelCase(settingName), e.target.value)}
+              onDOMChange={e => changeNoteSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
@@ -176,46 +176,46 @@ export default class TaskEditor extends Component {
     if (schema && settings) {
       components = this.getSettingsComponent(settings, schema);
     }
-    return this.renderTaskForm(components);
+    return this.renderNoteForm(components);
   }
 
-  updateTask(task) {
-    if (task.shortLink) {
-      fetch(EDIT_TASK(task.shortLink), {
+  updateNote(note) {
+    if (note.shortLink) {
+      fetch(EDIT_TASK(note.shortLink), {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify(note),
       }).catch(error => console.log(error));
     }
-    this.props.saveTask(task);
+    this.props.saveNote(note);
   }
 
   updateReminder(reminder) {
     this.props.saveReminder(reminder);
   }
 
-  removeTask(task) {
-    if (task.shortLink) {
+  removeNote(note) {
+    if (note.shortLink) {
       fetch(REMOVE_TASK_ENDPOINT, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify(note),
       }).catch(error => console.log(error));
     }
-    this.props.removeTask(task);
+    this.props.removeNote(note);
   }
 
-  removeReminder(task) {
-    this.props.removeReminder(task);
+  removeReminder(note) {
+    this.props.removeReminder(note);
   }
 
-  renderTaskForm(components) {
+  renderNoteForm(components) {
     return (
       <Form plain>
         <Section direction="column" alignContent="center">
@@ -227,26 +227,26 @@ export default class TaskEditor extends Component {
           onClick={() => {
             // TODO: Improve readability in these nested ifs
             this.props.toggleEditor();
-            const newTask = { ...this.props.editorSettings, startDate: new Date() };
-            if (this.props.editorSettings.newTask) {
+            const newNote = { ...this.props.editorSettings, startDate: new Date() };
+            if (this.props.editorSettings.newNote) {
               if (this.props.editorSettings.repeat) {
-                this.props.addReminder(newTask);
+                this.props.addReminder(newNote);
               } else {
-                this.props.addTask(newTask);
+                this.props.addNote(newNote);
               }
-            } else if (!this.props.editorSettings.newTask) {
+            } else if (!this.props.editorSettings.newNote) {
               if (this.props.editorSettings.repeat) {
                 if (this.props.editorSettings.reminderId) {
                   this.updateReminder(this.props.editorSettings);
                 } else {
-                  this.props.addReminder(newTask);
-                  this.removeTask(this.props.editorSettings);
+                  this.props.addReminder(newNote);
+                  this.removeNote(this.props.editorSettings);
                 }
               } else if (this.props.editorSettings.reminderId) {
-                this.props.addTask(newTask);
+                this.props.addNote(newNote);
                 this.removeReminder(this.props.editorSettings);
               } else {
-                this.updateTask(this.props.editorSettings);
+                this.updateNote(this.props.editorSettings);
               }
             }
           }}
@@ -261,31 +261,31 @@ export default class TaskEditor extends Component {
         direction="column"
         alignContent="center"
         pad="large"
-        className={classnames('task-editor', { 'white-mode': this.props.whiteMode })}
+        className={classnames('note-editor', { 'white-mode': this.props.whiteMode })}
         full={'horizontal'}
       >
-        <Headline>{this.props.editorSettings.newTask ? 'NEW TASK' : 'EDIT TASK'}</Headline>
-        {this.generateComponentsFromType(taskDefinition)}
+        <Headline>{this.props.editorSettings.newNote ? 'NEW TASK' : 'EDIT TASK'}</Headline>
+        {this.generateComponentsFromType(noteDefinition)}
       </Article>
     );
   }
 }
 
-TaskEditor.propTypes = {
-  addTask: PropTypes.func.isRequired,
-  saveTask: PropTypes.func.isRequired,
+NoteEditor.propTypes = {
+  addNote: PropTypes.func.isRequired,
+  saveNote: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
-  removeTask: PropTypes.func.isRequired,
+  removeNote: PropTypes.func.isRequired,
   addReminder: PropTypes.func.isRequired,
   saveReminder: PropTypes.func.isRequired,
   removeReminder: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
-  changeTaskSetting: PropTypes.func.isRequired,
+  changeNoteSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   categories: PropTypes.array,
 };
 
-TaskEditor.defaultProps = {
+NoteEditor.defaultProps = {
   categories: [],
   whiteMode: false,
 };
