@@ -4,6 +4,7 @@ import Headline from 'grommet/components/Headline';
 import Section from 'grommet/components/Section';
 import Sidebar from 'grommet/components/Sidebar';
 import _ from 'lodash';
+import classnames from 'classnames';
 import ReminderItem from '../../containers/ReminderItem';
 
 import '!style-loader!css-loader!sass-loader!./ReminderList.scss'; // eslint-disable-line
@@ -50,9 +51,13 @@ export default class ReminderList extends Component {
 
   render() {
     return (
-      <Sidebar className="reminder-list" size="small" full={false}>
+      <Sidebar
+        className={classnames('reminder-list', { 'white-mode': this.props.whiteMode })}
+        size="small"
+        full={false}
+      >
         <Headline align="center" size="small">
-          Reminders
+          REMINDERS
         </Headline>
         {this.renderReminderSection()}
       </Sidebar>
@@ -62,8 +67,10 @@ export default class ReminderList extends Component {
 
 ReminderList.propTypes = {
   reminders: PropTypes.object,
+  whiteMode: PropTypes.bool,
 };
 
 ReminderList.defaultProps = {
   reminders: {},
+  whiteMode: false,
 };

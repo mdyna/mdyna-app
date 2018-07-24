@@ -1,12 +1,16 @@
-@import '../../style.scss';
+@import "../../style.scss";
 
 .reminder-list {
   background-color: $task-list-background;
   color: $font-color;
-  padding: 20px;
+  padding: 20px !important;
   margin: 10px;
 
-  .grommetux-headline {
-    color: $secondary-accent;
+  &.white-mode {
+    background-color: $white-task-list-background;
+    color: $white-font-color;
+    .grommetux-headline {
+      color: $white-font-color;
+    }
   }
 }

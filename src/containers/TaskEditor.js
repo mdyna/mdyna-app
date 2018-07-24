@@ -1,6 +1,14 @@
 import { connect } from 'react-redux';
 import TaskEditor from '../components/Tasks/TaskEditor';
-import { changeTaskSetting, saveTask, addTask, removeTask, addReminder, saveReminder, removeReminder } from '../store/actions/';
+import {
+  changeTaskSetting,
+  saveTask,
+  addTask,
+  removeTask,
+  addReminder,
+  saveReminder,
+  removeReminder,
+} from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -31,6 +39,10 @@ function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     categories: state.categories,
+    whiteMode: state.style.whiteMode,
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TaskEditor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TaskEditor);

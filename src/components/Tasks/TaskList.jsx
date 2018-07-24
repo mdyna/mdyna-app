@@ -71,7 +71,7 @@ export default class TaskList extends Component {
             closer
             flush
             onClose={() => this.props.toggleEditor()}
-            className="task-layer"
+            className={classnames('task-layer', { 'white-mode': this.props.whiteMode })}
           >
             <TaskEditor toggleEditor={this.props.toggleEditor} />
           </Layer>
@@ -87,7 +87,6 @@ TaskList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  toggleWhiteMode: PropTypes.func.isRequired,
   tasks: PropTypes.array,
 };
 

@@ -16,8 +16,13 @@ $task-list-background: #1f2833;
   flex-flow: column wrap !important;
 
   &.white-mode {
-    color: $background-color;
-    background-color: $font-color;
+    color: $white-font-color;
+    background-color: $white-task-list-background;
+
+    .add-task-btn {
+      background-color: $white-secondary-background;
+      border-radius: 50px;
+    }
   }
 
   .visible-tasks {
@@ -28,5 +33,6 @@ $task-list-background: #1f2833;
   .add-task-btn {
     @include normalize-button-icons();
     margin: 10px auto;
+    transform: translate(0, 2px);
   }
 }
