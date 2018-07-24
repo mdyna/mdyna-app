@@ -9,20 +9,20 @@ $fail-accent: #f57c00;
 button {
   margin: 5px;
   @include normalize-button-icons();
-  svg.complete-reminder-icon {
+  svg.complete-task-icon {
     margin: 5px !important;
     polyline {
       stroke: $complete-color !important;
     }
   }
-  svg.snooze-reminder-icon {
+  svg.snooze-task-icon {
     margin: 5px !important;
     path {
       stroke: $snooze-color !important;
     }
   }
 
-  svg.fail-reminder-icon {
+  svg.fail-task-icon {
     margin: 5px !important;
     path {
       stroke: $fail-color !important;
@@ -30,17 +30,17 @@ button {
   }
 
   &:hover {
-    svg.complete-reminder-icon {
+    svg.complete-task-icon {
       polyline {
         stroke: $complete-accent !important;
       }
     }
-    svg.snooze-reminder-icon {
+    svg.snooze-task-icon {
       path {
         stroke: $snooze-accent !important;
       }
     }
-    svg.fail-reminder-icon {
+    svg.fail-task-icon {
       path {
         stroke: $fail-accent !important;
       }
@@ -48,12 +48,12 @@ button {
   }
 }
 
-.reminder-item {
+.task-item {
   width: fit-content !important;
   padding: 5px !important;
   margin: 10px auto !important;
 
-  .reminder-chart {
+  .task-chart {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 5px;
     > div {

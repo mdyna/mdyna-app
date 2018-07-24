@@ -21,8 +21,8 @@ import noteDefinition from './Notes/noteDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
 
-const EDIT_TASK = noteID => `${window.serverHost}/note/${noteID}/edit`;
-const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeNote/`;
+const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
+const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 export default class NoteEditor extends Component {
   shouldComponentUpdate(newProps) {
@@ -33,9 +33,9 @@ export default class NoteEditor extends Component {
       newEditorSettings.color !== editorSettings.color ||
       newEditorSettings.repeat !== editorSettings.repeat ||
       newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
-      newEditorSettings.reminderFrequency !== editorSettings.reminderFrequency ||
+      newEditorSettings.taskFrequency !== editorSettings.taskFrequency ||
       newEditorSettings.noteId !== editorSettings.noteId ||
-      newEditorSettings.reminderId !== editorSettings.reminderId
+      newEditorSettings.taskId !== editorSettings.taskId
     );
   }
 
@@ -181,7 +181,7 @@ export default class NoteEditor extends Component {
 
   updateNote(note) {
     if (note.shortLink) {
-      fetch(EDIT_TASK(note.shortLink), {
+      fetch(EDIT_NOTE(note.shortLink), {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -193,13 +193,13 @@ export default class NoteEditor extends Component {
     this.props.saveNote(note);
   }
 
-  updateReminder(reminder) {
-    this.props.saveReminder(reminder);
+  updateTask(task) {
+    this.props.saveTask(task);
   }
 
   removeNote(note) {
     if (note.shortLink) {
-      fetch(REMOVE_TASK_ENDPOINT, {
+      fetch(REMOVE_NOTE_ENDPOINT, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -211,8 +211,8 @@ export default class NoteEditor extends Component {
     this.props.removeNote(note);
   }
 
-  removeReminder(note) {
-    this.props.removeReminder(note);
+  removeTask(note) {
+    this.props.removeTask(note);
   }
 
   renderNoteForm(components) {
@@ -230,21 +230,21 @@ export default class NoteEditor extends Component {
             const newNote = { ...this.props.editorSettings, startDate: new Date() };
             if (this.props.editorSettings.newNote) {
               if (this.props.editorSettings.repeat) {
-                this.props.addReminder(newNote);
+                this.props.addTask(newNote);
               } else {
                 this.props.addNote(newNote);
               }
             } else if (!this.props.editorSettings.newNote) {
               if (this.props.editorSettings.repeat) {
-                if (this.props.editorSettings.reminderId) {
-                  this.updateReminder(this.props.editorSettings);
+                if (this.props.editorSettings.taskId) {
+                  this.updateTask(this.props.editorSettings);
                 } else {
-                  this.props.addReminder(newNote);
+                  this.props.addTask(newNote);
                   this.removeNote(this.props.editorSettings);
                 }
-              } else if (this.props.editorSettings.reminderId) {
+              } else if (this.props.editorSettings.taskId) {
                 this.props.addNote(newNote);
-                this.removeReminder(this.props.editorSettings);
+                this.removeTask(this.props.editorSettings);
               } else {
                 this.updateNote(this.props.editorSettings);
               }
@@ -264,7 +264,7 @@ export default class NoteEditor extends Component {
         className={classnames('note-editor', { 'white-mode': this.props.whiteMode })}
         full={'horizontal'}
       >
-        <Headline>{this.props.editorSettings.newNote ? 'NEW TASK' : 'EDIT TASK'}</Headline>
+        <Headline>{this.props.editorSettings.newNote ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
         {this.generateComponentsFromType(noteDefinition)}
       </Article>
     );
@@ -276,9 +276,9 @@ NoteEditor.propTypes = {
   saveNote: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   removeNote: PropTypes.func.isRequired,
-  addReminder: PropTypes.func.isRequired,
-  saveReminder: PropTypes.func.isRequired,
-  removeReminder: PropTypes.func.isRequired,
+  addTask: PropTypes.func.isRequired,
+  saveTask: PropTypes.func.isRequired,
+  removeTask: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeNoteSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,

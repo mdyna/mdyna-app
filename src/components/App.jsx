@@ -6,7 +6,7 @@ import Article from 'grommet/components/Article';
 import Split from 'grommet/components/Split';
 import classnames from 'classnames';
 import NoteList from '../containers/NoteList';
-import ReminderList from '../containers/ReminderList';
+import TaskList from '../containers/TaskList';
 import Nav from './Nav';
 import Header from './Header';
 
@@ -25,7 +25,7 @@ class Dyna extends Component {
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
-            <ReminderList />
+            <TaskList />
             <NoteList />
           </Split>
         </Article>

@@ -11,8 +11,8 @@ import tinycolor from 'tinycolor2';
 import '!style-loader!css-loader!sass-loader!./NoteBar.scss'; // eslint-disable-line
 import { assertNoteChanges } from './NoteItem';
 
-const REMOVE_TASK_ENDPOINT = `${window.serverHost}/removeNote/`;
-const ADD_TASK_ENDPOINT = `${window.serverHost}/addNote/`;
+const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
+const ADD_NOTE_ENDPOINT = `${window.serverHost}/addNote/`;
 
 class NoteBar extends Component {
   shouldComponentUpdate(nextProps) {
@@ -24,7 +24,7 @@ class NoteBar extends Component {
 
   getNoteShortLink(note) {
     if (!note.shortLink) {
-      fetch(ADD_TASK_ENDPOINT, {
+      fetch(ADD_NOTE_ENDPOINT, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -46,7 +46,7 @@ class NoteBar extends Component {
 
   removeNote(note) {
     if (note.shortLink) {
-      fetch(REMOVE_TASK_ENDPOINT, {
+      fetch(REMOVE_NOTE_ENDPOINT, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

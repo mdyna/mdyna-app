@@ -5,9 +5,9 @@ import {
   saveNote,
   addNote,
   removeNote,
-  addReminder,
-  saveReminder,
-  removeReminder,
+  addTask,
+  saveTask,
+  removeTask,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -24,14 +24,14 @@ function mapDispatchToProps(dispatch) {
     removeNote: (todoProps) => {
       dispatch(removeNote(todoProps));
     },
-    addReminder: (todoProps) => {
-      dispatch(addReminder(todoProps));
+    addTask: (todoProps) => {
+      dispatch(addTask(todoProps));
     },
-    saveReminder: (todoProps) => {
-      dispatch(saveReminder(todoProps));
+    saveTask: (todoProps) => {
+      dispatch(saveTask(todoProps));
     },
-    removeReminder: (todoProps) => {
-      dispatch(removeReminder(todoProps));
+    removeTask: (todoProps) => {
+      dispatch(removeTask(todoProps));
     },
   };
 }

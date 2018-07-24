@@ -5,9 +5,9 @@ $edit-accent: #fff263;
 
 $background-color: #333333;
 @import "../../style.scss";
-@import "./ReminderItem.scss";
+@import "./TaskItem.scss";
 
-.reminder-bar {
+.task-bar {
   background-color: $background-color;
   display: flex;
   flex-flow: column nowrap;
@@ -15,11 +15,10 @@ $background-color: #333333;
   min-height: 50px;
   margin: -5px 0 5px;
   justify-content: center;
-  margin: -5px 0 5px;
   align-items: center;
   width: fit-content;
   align-self: center;
-  padding: 5px 30px;
+  padding: 5px 10px;
 
   .alert-actions {
     display: flex;
@@ -28,7 +27,7 @@ $background-color: #333333;
     .notification-icon {
       margin: 0px 5px;
       width: 30px;
-      height: 30px;
+      height: 50px;
 
       > path {
         stroke: $accent-color !important;

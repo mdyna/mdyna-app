@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import notes from './notes';
 import editor from './editor';
-import reminders from './reminders';
+import tasks from './tasks';
 import style from './style';
 // import filters from './filters';
 
@@ -9,6 +9,6 @@ const dynaApp = combineReducers({
   notes,
   editor,
   style,
-  reminders,
+  tasks,
 });
 export default dynaApp;

@@ -46,7 +46,7 @@ export default class NoteList extends Component {
         direction="row"
       >
         <Headline align="center" size="medium">
-          TASKS
+          NOTES
         </Headline>
         {this.state.notes.length ? (
           <Columns masonry responsive maxCount={3} justify={'center'} className="visible-notes">

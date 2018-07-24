@@ -10,7 +10,7 @@ const store = createStore(dynaApp, localState, applyMiddleware(logger));
 store.subscribe(
   throttle(() => {
     saveState({
-      reminders: store.getState().reminders,
+      tasks: store.getState().tasks,
       style: store.getState().style,
       notes: store.getState().notes,
     });

@@ -7,52 +7,52 @@ export const VisibilityFilters = {
 };
 
 export const addNote = note => ({
-  type: ACTION_TYPES.TASK.ADD_TASK,
+  type: ACTION_TYPES.NOTE.ADD_NOTE,
   note,
 });
 
-export const addReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.ADD_REMINDER,
-  reminder,
+export const addTask = task => ({
+  type: ACTION_TYPES.TASK.ADD_TASK,
+  task,
 });
 
-export const saveReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.SAVE_REMINDER,
-  reminder,
+export const saveTask = task => ({
+  type: ACTION_TYPES.TASK.SAVE_TASK,
+  task,
 });
 
-export const completeReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.COMPLETE_REMINDER,
-  reminder,
+export const completeTask = task => ({
+  type: ACTION_TYPES.TASK.COMPLETE_TASK,
+  task,
 });
 
-export const failReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.FAIL_REMINDER,
-  reminder,
+export const failTask = task => ({
+  type: ACTION_TYPES.TASK.FAIL_TASK,
+  task,
 });
 
-export const snoozeReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.SNOOZE_REMINDER,
-  reminder,
+export const snoozeTask = task => ({
+  type: ACTION_TYPES.TASK.SNOOZE_TASK,
+  task,
 });
 
-export const removeReminder = reminder => ({
-  type: ACTION_TYPES.REMINDER.REMOVE_REMINDER,
-  reminder,
+export const removeTask = task => ({
+  type: ACTION_TYPES.TASK.REMOVE_TASK,
+  task,
 });
 
 export const removeNote = note => ({
-  type: ACTION_TYPES.TASK.REMOVE_TASK,
+  type: ACTION_TYPES.NOTE.REMOVE_NOTE,
   note,
 });
 
 export const saveNote = note => ({
-  type: ACTION_TYPES.TASK.SAVE_TASK,
+  type: ACTION_TYPES.NOTE.SAVE_NOTE,
   note,
 });
 
 export const toggleEditor = () => ({
-  type: ACTION_TYPES.TASK_EDITOR.TOGGLE_EDITOR,
+  type: ACTION_TYPES.NOTE_EDITOR.TOGGLE_EDITOR,
 });
 
 export const setVisibilityFilter = filter => ({
@@ -61,24 +61,24 @@ export const setVisibilityFilter = filter => ({
 });
 
 export const toggleNote = note => ({
-  type: ACTION_TYPES.TASK.TOGGLE_TASK,
+  type: ACTION_TYPES.NOTE.TOGGLE_NOTE,
   note,
 });
 
 export const generateNoteLink = (keys, index) => ({
-  type: ACTION_TYPES.TASK.GENERATE_LINK,
+  type: ACTION_TYPES.NOTE.GENERATE_LINK,
   keys,
   index,
 });
 
 export const changeNoteSetting = (prop, value) => ({
-  type: ACTION_TYPES.TASK_EDITOR.ON_CHANGE,
+  type: ACTION_TYPES.NOTE_EDITOR.ON_CHANGE,
   prop,
   value,
 });
 
 export const editNote = note => ({
-  type: ACTION_TYPES.TASK_EDITOR.EDIT_TASK,
+  type: ACTION_TYPES.NOTE_EDITOR.EDIT_NOTE,
   note,
 });
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ReminderList from '../components/Reminders/ReminderList';
+import TaskList from '../components/Tasks/TaskList';
 import { toggleEditor } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -12,8 +12,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     whiteMode: state.style.whiteMode,
-    reminders: state.reminders,
+    tasks: state.tasks,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReminderList);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

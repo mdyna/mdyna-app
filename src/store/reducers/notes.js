@@ -1,6 +1,6 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { ADD_TASK, REMOVE_TASK, TOGGLE_TASK, GENERATE_LINK, SAVE_TASK } = ACTION_TYPES.TASK;
+const { ADD_NOTE, REMOVE_NOTE, TOGGLE_NOTE, GENERATE_LINK, SAVE_NOTE } = ACTION_TYPES.NOTE;
 
 const addNoteId = noteList =>
   (noteList &&
@@ -12,28 +12,28 @@ const addNoteId = noteList =>
 const saveNoteId = (note, noteList) => note.noteId || addNoteId(noteList);
 export default function notes(state = [], action) {
   switch (action.type) {
-    case ADD_TASK:
+    case ADD_NOTE:
       return [
         ...state,
         {
           ...action.note,
           noteId: addNoteId(state),
           completed: false,
-          reminderId: null,
+          taskId: null,
         },
       ];
-    case REMOVE_TASK:
+    case REMOVE_NOTE:
       return state.filter(note => note.noteId !== action.note.noteId);
-    case SAVE_TASK:
+    case SAVE_NOTE:
       return state.map((note) => {
         if (action.note.noteId) {
           if (note.noteId === action.note.noteId) {
             return action.note;
           }
         }
-        return { noteId: saveNoteId(action.note, state), reminderId: null, ...note };
+        return { noteId: saveNoteId(action.note, state), taskId: null, ...note };
       });
-    case TOGGLE_TASK:
+    case TOGGLE_NOTE:
       return state.map((note) => {
         if (note.noteId === action.note.noteId) {
           return {
