@@ -13,6 +13,7 @@ import { assertNoteChanges } from './NoteItem';
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 const ADD_NOTE_ENDPOINT = `${window.serverHost}/addNote/`;
+const NOTE_ENDPOINT = `${window.serverHost}/note/`;
 
 class NoteBar extends Component {
   shouldComponentUpdate(nextProps) {
@@ -76,12 +77,23 @@ class NoteBar extends Component {
         <Button onClick={() => this.removeNote(note)}>
           <TrashIcon className="close-icon" />
         </Button>
-        <div className={classnames('share-box', { sharing: note.shortLink })}>
-          <Button onClick={() => this.getNoteShortLink(note)}>
-            <Share className="share-icon" />
-          </Button>
-          <span>{note.shortLink}</span>
-        </div>
+        {note.shortLink ? (
+          <a href={`${NOTE_ENDPOINT}${note.shortLink}&_blank`}>
+            <div className={classnames('share-box', { sharing: note.shortLink })}>
+              <Button onClick={() => this.getNoteShortLink(note)}>
+                <Share className="share-icon" />
+              </Button>
+              <span>{note.shortLink}</span>
+            </div>
+          </a>
+        ) : (
+          <div className={classnames('share-box', { sharing: note.shortLink })}>
+            <Button onClick={() => this.getNoteShortLink(note)}>
+              <Share className="share-icon" />
+            </Button>
+            <span>{note.shortLink}</span>
+          </div>
+        )}
       </div>
     );
   }
