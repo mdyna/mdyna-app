@@ -81,6 +81,18 @@ $background-color: #333333;
       }
     }
 
+
+    svg.minimize-icon {
+      polyline {
+        stroke: $accent-color !important;
+      }
+    }
+    svg.maximize-icon {
+      polyline {
+        stroke: $accent-color !important;
+      }
+    }
+
     &:hover {
       svg.edit-icon {
         path {
@@ -90,6 +102,16 @@ $background-color: #333333;
       svg.close-icon {
         path {
           stroke: $close-accent !important;
+        }
+      }
+      svg.minimize-icon {
+        polyline {
+          stroke: $secondary-accent !important;
+        }
+      }
+      svg.maximize-icon {
+        polyline {
+          stroke: $secondary-accent !important;
         }
       }
     }

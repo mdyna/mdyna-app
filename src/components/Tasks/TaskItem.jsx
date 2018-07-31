@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import tinycolor from 'tinycolor2';
+import classnames from 'classnames';
 import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
@@ -16,6 +17,12 @@ const ALERT_TIMES = {
   weekly: toMilliSeconds.week,
   monthly: toMilliSeconds.month,
 };
+
+function minimizeTask(task) {
+  task.setState({
+    minimized: (task && task.state && !task.state.minimized) || false,
+  });
+}
 
 function buildTaskSeries(taskStats) {
   // const getRandomColor = () => `hsl(${Math.floor((Math.random() * 360) + 1)}, 70%, 70%)`;
@@ -48,6 +55,13 @@ export function taskNeedsAlert(lastAlert, frequency) {
   return true;
 }
 export default class TaskItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      minimized: false,
+    };
+  }
+
   getTaskStats() {
     const { task } = this.props;
     const { taskStats } = task;
@@ -78,14 +92,7 @@ export default class TaskItem extends Component {
 
   render() {
     const color = unNest(this, 'props.task.color') || '#1DE9B6';
-    const {
-      task,
-      removeTask,
-      editTask,
-      snoozeTask,
-      failTask,
-      completeTask,
-    } = this.props;
+    const { task, removeTask, editTask, snoozeTask, failTask, completeTask } = this.props;
     const stats = this.getTaskStats();
     const taskActions = {
       removeTask,
@@ -96,10 +103,13 @@ export default class TaskItem extends Component {
     };
     const series = buildTaskSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
+    const taskText = task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text;
     const fontColor = tinycolor(color).darken(50);
     return (
       <Card
-        className={'task-item'}
+        className={classnames('task-item', {
+          minimized: this.state.minimized,
+        })}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
           backgroundColor: color,
@@ -107,7 +117,7 @@ export default class TaskItem extends Component {
         }}
       >
         {this.toastNotification()}
-        <TaskBar taskActions={taskActions} task={task} />
+        <TaskBar taskActions={taskActions} task={task} minimizeTask={minimizeTask} taskItem={this} minimized={this.state.minimized} />
         <Heading align="start" tag="h3" strong>
           {task.title}
         </Heading>
@@ -117,14 +127,29 @@ export default class TaskItem extends Component {
             color: fontColor,
           }}
         >
-          <AnnotatedMeter
-            type="circle"
-            size="small"
-            series={series}
-            legend
-            max={max}
-            className="task-chart"
-          />
+          {
+            this.state.minimized ?
+              (
+                taskText
+              ) :
+              (
+                <AnnotatedMeter
+                  type="circle"
+                  size="small"
+                  series={series}
+                  legend
+                  max={max}
+                  className="task-chart"
+                />
+              )
+          }
+          {
+            this.state.minimized ?
+              '' :
+              <div className="task-text">
+                {task.text}
+              </div>
+          }
         </div>
       </Card>
     );
