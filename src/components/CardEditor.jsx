@@ -6,7 +6,6 @@ import Headline from 'grommet/components/Headline';
 import Form from 'grommet/components/Form';
 import classnames from 'classnames';
 import CheckBox from 'grommet/components/CheckBox';
-import Select from 'grommet/components/Select';
 // import RadioButton from 'grommet/components/RadioButton';
 import FormFields from 'grommet/components/FormFields';
 import DateTime from 'grommet/components/DateTime';
@@ -73,34 +72,9 @@ export default class NoteEditor extends Component {
               </FormField>
             );
           }
-          return (
-            <FormField
-              label={_.startCase(settingName)}
-              htmlFor={_.snakeCase(settingName)}
-              key={_.startCase(settingName)}
-            >
-              {enums ? (
-                <Select
-                  key={settingName}
-                  id={_.snakeCase(settingName)}
-                  onChange={e => changeNoteSetting(_.camelCase(settingName), e.option)}
-                  placeHolder={_.startCase(settingName)}
-                  value={this.props.editorSettings[settingName]}
-                  options={[...enums]}
-                />
-              ) : (
-                <Select
-                  key={settingName}
-                  id={_.snakeCase(settingName)}
-                  onChange={e => changeNoteSetting(_.camelCase(settingName), e.target.checked)}
-                  placeHolder={_.startCase(settingName)}
-                  options={[...this.props.categories, 'Create New']}
-                />
-              )}
-            </FormField>
-          );
+          return '';
         case 'string':
-          return this.generateComponentsFromUiSchema(settingName, settingUiSchema);
+          return this.generateComponentsFromUiSchema({ ...setting, settingUiSchema, settingName });
         case 'bool':
           return (
             <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
@@ -123,7 +97,30 @@ export default class NoteEditor extends Component {
     });
   }
 
-  generateComponentsFromUiSchema(settingName, settingUiSchema) {
+  changeStringSplit(setting, value) {
+    const { prefixer, splitters, settingName } = setting;
+    const result = [];
+    const { editorSettings, changeNoteSetting } = this.props;
+    for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
+      const splitter = splitters[splitterIndex];
+      if (
+        value[value.length - 1] === splitter ||
+        (editorSettings[settingName] && editorSettings[settingName].length)
+      ) {
+        const splitVals = value.trim().split(splitter);
+        for (let i = 0; i < splitVals.length; i += 1) {
+          const val = splitVals[i].trim();
+          if (val && splitters.indexOf(val) === -1) {
+            result.push(`${prefixer}${_.camelCase(val)}`);
+          }
+        }
+      }
+    }
+    changeNoteSetting(_.camelCase(settingName), result.join(', '));
+  }
+
+  generateComponentsFromUiSchema(setting) {
+    const { settingName, settingUiSchema } = setting;
     const { changeNoteSetting } = this.props;
     const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
@@ -143,6 +140,25 @@ export default class NoteEditor extends Component {
             />
           </FormField>
         );
+      case 'stringSplit':
+        if (settingName === 'label') {
+          return (
+            <FormField
+              label={_.startCase(settingName)}
+              htmlFor={_.snakeCase(settingName)}
+              key={_.startCase(settingName)}
+            >
+              <TextInput
+                key={settingName}
+                id={_.snakeCase(settingName)}
+                defaultValue={settingValue && `${settingValue.split(setting.prefix).join(' ').trim()}, #` || '#'}
+                placeHolder={_.startCase(settingName)}
+                onDOMChange={e => this.changeStringSplit(setting, e.target.value, this)}
+              />
+            </FormField>
+          );
+        }
+        return '';
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">

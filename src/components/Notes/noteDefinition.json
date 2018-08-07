@@ -23,8 +23,11 @@
         "#F48FB1"
       ]
     },
-    "category": {
-      "type": "enum",
+    "label": {
+      "type": "string",
+      "uiSchema": "stringSplit",
+      "splitters": [","],
+      "prefixer": "#",
       "minimum": 1
     },
     "repeat": {
