@@ -298,10 +298,10 @@ NoteEditor.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   changeNoteSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
-  categories: PropTypes.array,
+  labels: PropTypes.array,
 };
 
 NoteEditor.defaultProps = {
-  categories: [],
+  labels: [],
   whiteMode: false,
 };

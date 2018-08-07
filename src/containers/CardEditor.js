@@ -38,7 +38,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
-    categories: state.categories,
+    labels: state.labels,
     whiteMode: state.style.whiteMode,
   };
 }

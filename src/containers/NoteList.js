@@ -16,7 +16,7 @@ function mapStateToProps(state) {
   return {
     notes: state.notes,
     modalOpen: state.editor.toggleEditor,
-    categories: state.categories,
+    labels: state.labels,
     whiteMode: state.style.whiteMode,
   };
 }
