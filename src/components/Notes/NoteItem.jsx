@@ -10,7 +10,7 @@ import _ from 'lodash';
 import NoteBar from './NoteBar';
 import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
 
-const COLOR_SAMPLES = [
+export const COLOR_SAMPLES = [
   '#9FA8DA',
   '#0D47A1',
   'rgb(78, 99, 110)',

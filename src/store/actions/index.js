@@ -85,3 +85,13 @@ export const editNote = note => ({
 export const toggleWhiteMode = () => ({
   type: ACTION_TYPES.TOGGLE_WHITE_MODE,
 });
+
+export const addLabel = label => ({
+  type: ACTION_TYPES.LABEL.ADD_LABEL,
+  label,
+});
+
+export const removeLabel = label => ({
+  type: ACTION_TYPES.LABEL.REMOVE_LABEL,
+  label,
+});

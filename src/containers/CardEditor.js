@@ -8,6 +8,8 @@ import {
   addTask,
   saveTask,
   removeTask,
+  addLabel,
+  removeLabel,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -32,6 +34,12 @@ function mapDispatchToProps(dispatch) {
     },
     removeTask: (todoProps) => {
       dispatch(removeTask(todoProps));
+    },
+    addLabel: (todoProps) => {
+      dispatch(addLabel(todoProps));
+    },
+    removeLabel: (todoProps) => {
+      dispatch(removeLabel(todoProps));
     },
   };
 }

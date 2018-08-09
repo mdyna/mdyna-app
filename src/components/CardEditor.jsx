@@ -19,23 +19,17 @@ import MarkdownEditor from '../containers/MarkdownEditor';
 import noteDefinition from './Notes/noteDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
+import { randomizeLabelColor } from '../store/reducers/labels';
 
 const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 export default class NoteEditor extends Component {
-  shouldComponentUpdate(newProps) {
-    const newEditorSettings = newProps && newProps.editorSettings;
-    const { editorSettings } = this.props;
-    return (
-      newEditorSettings.schedule !== editorSettings.schedule ||
-      newEditorSettings.color !== editorSettings.color ||
-      newEditorSettings.repeat !== editorSettings.repeat ||
-      newEditorSettings.repeatAlert !== editorSettings.repeatAlert ||
-      newEditorSettings.taskFrequency !== editorSettings.taskFrequency ||
-      newEditorSettings.noteId !== editorSettings.noteId ||
-      newEditorSettings.taskId !== editorSettings.taskId
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      labels: this.props.editorSettings.labels,
+    };
   }
 
   getSettingsComponent(settings, schema) {
@@ -98,25 +92,27 @@ export default class NoteEditor extends Component {
   }
 
   changeStringSplit(setting, value) {
-    const { prefixer, splitters, settingName } = setting;
+    const { prefixer, splitters } = setting;
+    const settingName = setting.settingName || 'labels';
     const result = [];
-    const { editorSettings, changeNoteSetting } = this.props;
+    const { changeNoteSetting } = this.props;
     for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
       const splitter = splitters[splitterIndex];
-      if (
-        value[value.length - 1] === splitter ||
-        (editorSettings[settingName] && editorSettings[settingName].length)
-      ) {
-        const splitVals = value.trim().split(splitter);
-        for (let i = 0; i < splitVals.length; i += 1) {
-          const val = splitVals[i].trim();
-          if (val && splitters.indexOf(val) === -1) {
-            result.push(`${prefixer}${_.camelCase(val)}`);
-          }
+      const splitVals = value.split(splitter);
+      for (let i = 0; i < splitVals.length; i += 1) {
+        const val = splitVals[i].trim();
+        if (val && splitter !== val && val !== prefixer) {
+          result.push(`${prefixer}${_.camelCase(val)}`);
         }
       }
     }
-    changeNoteSetting(_.camelCase(settingName), result.join(', '));
+    changeNoteSetting(
+      _.camelCase(settingName),
+      result.map(d => ({
+        title: d,
+        color: randomizeLabelColor(),
+      })),
+    );
   }
 
   generateComponentsFromUiSchema(setting) {
@@ -141,7 +137,7 @@ export default class NoteEditor extends Component {
           </FormField>
         );
       case 'stringSplit':
-        if (settingName === 'label') {
+        if (settingName === 'labels') {
           return (
             <FormField
               label={_.startCase(settingName)}
@@ -151,9 +147,22 @@ export default class NoteEditor extends Component {
               <TextInput
                 key={settingName}
                 id={_.snakeCase(settingName)}
-                defaultValue={settingValue && `${settingValue.split(setting.prefix).join(' ').trim()}, #` || '#'}
+                defaultValue={
+                  settingValue
+                    ? `${settingValue
+                      .map(d => d.title)
+                      .join(' ')
+                      .trim()} #`
+                    : '#'
+                }
                 placeHolder={_.startCase(settingName)}
-                onDOMChange={e => this.changeStringSplit(setting, e.target.value, this)}
+                onDOMChange={(e) => {
+                  this.inputLabels = e.target.value;
+                  this.changeStringSplit(setting, e.target.value);
+                  this.setState({
+                    labelInput: e.target.value,
+                  });
+                }}
               />
             </FormField>
           );
@@ -231,42 +240,61 @@ export default class NoteEditor extends Component {
     this.props.removeTask(note);
   }
 
+  handleLabels() {
+    const prevLabels = this.state.labels;
+    const newLabels = this.props.editorSettings.labels || [];
+    if (prevLabels) {
+      const prevLabelTitles = prevLabels.map(d => d.title);
+      const newLabelTitles = newLabels.map(d => d.title);
+      newLabelTitles.forEach((label, index) => {
+        if (prevLabelTitles.indexOf(label) === -1) {
+          this.props.addLabel(newLabels[index]);
+        }
+      });
+      prevLabelTitles.forEach((label, index) => {
+        if (newLabelTitles.indexOf(label) === -1) {
+          this.props.removeLabel(prevLabels[index]);
+        }
+      });
+    } else {
+      newLabels.forEach(label => this.props.addLabel(label));
+    }
+  }
+
+  submitFormFields() {
+    this.handleLabels();
+    this.props.toggleEditor();
+    const newNote = { ...this.props.editorSettings, startDate: new Date() };
+    if (this.props.editorSettings.newNote) {
+      if (this.props.editorSettings.repeat) {
+        this.props.addTask(newNote);
+      } else {
+        this.props.addNote(newNote);
+      }
+    } else if (!this.props.editorSettings.newNote) {
+      if (this.props.editorSettings.repeat) {
+        if (this.props.editorSettings.taskId) {
+          this.updateTask(this.props.editorSettings);
+        } else {
+          this.props.addTask(newNote);
+          this.removeNote(this.props.editorSettings);
+        }
+      } else if (this.props.editorSettings.taskId) {
+        this.props.addNote(newNote);
+        this.removeTask(this.props.editorSettings);
+      } else {
+        this.updateNote(this.props.editorSettings);
+      }
+    }
+  }
+
   renderNoteForm(components) {
     return (
       <Form plain>
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
-        <Button
-          label="Submit"
-          primary
-          onClick={() => {
-            // TODO: Improve readability in these nested ifs
-            this.props.toggleEditor();
-            const newNote = { ...this.props.editorSettings, startDate: new Date() };
-            if (this.props.editorSettings.newNote) {
-              if (this.props.editorSettings.repeat) {
-                this.props.addTask(newNote);
-              } else {
-                this.props.addNote(newNote);
-              }
-            } else if (!this.props.editorSettings.newNote) {
-              if (this.props.editorSettings.repeat) {
-                if (this.props.editorSettings.taskId) {
-                  this.updateTask(this.props.editorSettings);
-                } else {
-                  this.props.addTask(newNote);
-                  this.removeNote(this.props.editorSettings);
-                }
-              } else if (this.props.editorSettings.taskId) {
-                this.props.addNote(newNote);
-                this.removeTask(this.props.editorSettings);
-              } else {
-                this.updateNote(this.props.editorSettings);
-              }
-            }
-          }}
-        />
+        <Button label="Submit" primary onClick={() => this.submitFormFields()} />
       </Form>
     );
   }
@@ -298,10 +326,10 @@ NoteEditor.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   changeNoteSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
-  labels: PropTypes.array,
+  addLabel: PropTypes.func.isRequired,
+  removeLabel: PropTypes.func.isRequired,
 };
 
 NoteEditor.defaultProps = {
-  labels: [],
   whiteMode: false,
 };

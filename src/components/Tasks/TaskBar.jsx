@@ -43,7 +43,7 @@ class TaskBar extends Component {
       >
         <div className="general-actions">
           <Button
-            onClick={() => editTask({ ...task, repeat: true, repeatAlert: task.taskFrequency })}
+            onClick={() => editTask({ ...task, repeat: true, taskFrequency: task.taskFrequency })}
           >
             <EditIcon className="edit-icon" />
           </Button>

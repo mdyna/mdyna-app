@@ -23,10 +23,7 @@ export default function tasks(
   }
 
   function saveTask(subState, task) {
-    return [
-      ...subState.filter(d => d.taskId !== unNest(action, 'task.taskId')),
-      task,
-    ];
+    return [...subState.filter(d => d.taskId !== unNest(action, 'task.taskId')), task];
   }
 
   function completeTask(subState, task, taskStats) {
@@ -78,15 +75,13 @@ export default function tasks(
     ];
   }
 
-  let taskFrequency =
-    unNest(action, 'task.taskFrequency') ||
-    unNest(action, 'task.repeatAlert') ||
-    'weekly';
+  let taskFrequency = unNest(action, 'task.taskFrequency') || 'weekly';
   taskFrequency = taskFrequency.toLowerCase();
   const startDate = unNest(action, 'task.startDate') || new Date();
   const text = unNest(action, 'task.text') || '';
   const title = unNest(action, 'task.title') || 'Task';
   const color = unNest(action, 'task.color') || '#1DE9B6';
+  const labels = unNest(action, 'task.labels') || [];
   const taskStats = unNest(action, 'task.taskStats') || {};
   const taskId =
     unNest(action, 'task.taskId') ||
@@ -99,6 +94,7 @@ export default function tasks(
     taskId,
     startDate,
     color,
+    labels,
     taskFrequency,
     text,
     title,
@@ -148,25 +144,19 @@ export default function tasks(
       if (taskFrequency === 'daily') {
         return {
           ...state,
-          daily: state.daily.filter(
-            savedTask => savedTask.taskId !== task.taskId,
-          ),
+          daily: state.daily.filter(savedTask => savedTask.taskId !== task.taskId),
         };
       }
       if (taskFrequency === 'weekly') {
         return {
           ...state,
-          weekly: state.weekly.filter(
-            savedTask => savedTask.taskId !== task.taskId,
-          ),
+          weekly: state.weekly.filter(savedTask => savedTask.taskId !== task.taskId),
         };
       }
       if (taskFrequency === 'monthly') {
         return {
           ...state,
-          monthly: state.monthly.filter(
-            savedTask => savedTask.taskId !== task.taskId,
-          ),
+          monthly: state.monthly.filter(savedTask => savedTask.taskId !== task.taskId),
         };
       }
       break;

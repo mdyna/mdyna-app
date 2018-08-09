@@ -13,6 +13,7 @@ store.subscribe(
       tasks: store.getState().tasks,
       style: store.getState().style,
       notes: store.getState().notes,
+      labels: store.getState().labels,
     });
   }),
   1000,

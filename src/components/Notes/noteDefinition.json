@@ -23,17 +23,17 @@
         "#F48FB1"
       ]
     },
-    "label": {
+    "labels": {
       "type": "string",
       "uiSchema": "stringSplit",
-      "splitters": [","],
+      "splitters": ["#"],
       "prefixer": "#",
       "minimum": 1
     },
     "repeat": {
       "type": "bool",
       "dependencies": {
-        "repeatAlert": {
+        "taskFrequency": {
           "type": "enum",
           "enums": ["daily", "weekly", "monthly"]
         }
