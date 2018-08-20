@@ -78,14 +78,7 @@ export default class TaskItem extends Component {
 
   render() {
     const color = unNest(this, 'props.task.color') || '#1DE9B6';
-    const {
-      task,
-      removeTask,
-      editTask,
-      snoozeTask,
-      failTask,
-      completeTask,
-    } = this.props;
+    const { task, removeTask, editTask, snoozeTask, failTask, completeTask } = this.props;
     const stats = this.getTaskStats();
     const taskActions = {
       removeTask,
@@ -111,6 +104,20 @@ export default class TaskItem extends Component {
         <Heading align="start" tag="h3" strong>
           {task.title}
         </Heading>
+        <div className="labels">
+          {task.labels.map(label => (
+            <span
+              style={{
+                backgroundColor: tinycolor(label.color).lighten(10),
+                borderRadius: '50px',
+                padding: '5px',
+              }}
+              key={`label-${label.title}`}
+            >
+              {label.title}
+            </span>
+          ))}
+        </div>
         <div
           className="task-chart"
           style={{

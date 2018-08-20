@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -99,6 +100,13 @@ export default class NoteEditor extends Component {
     for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
       const splitter = splitters[splitterIndex];
       const splitVals = value.split(splitter);
+      if (splitVals.length !== this.state.labelCount) {
+        this.handleLabels();
+        this.setState({
+          currentRandomColor: randomizeLabelColor(),
+          labelCount: splitVals.length,
+        });
+      }
       for (let i = 0; i < splitVals.length; i += 1) {
         const val = splitVals[i].trim();
         if (val && splitter !== val && val !== prefixer) {
@@ -106,12 +114,17 @@ export default class NoteEditor extends Component {
         }
       }
     }
+
+    const labels = result.map((d) => {
+      const presentLabel = _.find(this.props.labels, label => label.title === d);
+      return {
+        title: d,
+        color: (presentLabel && presentLabel.color) || this.state.currentRandomColor,
+      };
+    });
     changeNoteSetting(
       _.camelCase(settingName),
-      result.map(d => ({
-        title: d,
-        color: randomizeLabelColor(),
-      })),
+      labels,
     );
   }
 
@@ -328,8 +341,10 @@ NoteEditor.propTypes = {
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
+  labels: PropTypes.array,
 };
 
 NoteEditor.defaultProps = {
   whiteMode: false,
+  labels: [],
 };

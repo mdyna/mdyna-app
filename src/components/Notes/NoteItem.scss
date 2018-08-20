@@ -1,8 +1,20 @@
-@import '../../style.scss';
+@import "../../style.scss";
 
 .note-item {
-  color:$note-font-color;
+  color: $note-font-color;
   margin: 5px;
+
+  .labels {
+    display: flex;
+    flex-flow: row wrap;
+    span {
+      width: fit-content;
+      margin: 5px;
+      padding: 5px;
+      display: inline-block;
+    }
+  }
+
   .note-card-content {
     p {
       color: $note-font-color !important;

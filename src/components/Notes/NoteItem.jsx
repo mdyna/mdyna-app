@@ -74,6 +74,20 @@ class Note extends Component {
         <Heading align="start" tag="h1" strong>
           {note.title}
         </Heading>
+        <div className="labels">
+          {note.labels.map(label => (
+            <span
+              style={{
+                backgroundColor: tinycolor(label.color).lighten(10),
+                borderRadius: '50px',
+                padding: '5px',
+              }}
+              key={`label-${label.title}`}
+            >
+              {label.title}
+            </span>
+          ))}
+        </div>
         <div className="note-card-content">{noteText}</div>
       </Card>
     );
