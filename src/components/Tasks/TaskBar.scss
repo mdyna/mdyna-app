@@ -2,10 +2,15 @@ $close-color: #c62828;
 $close-accent: #ff5f52;
 $edit-color: #fbc02d;
 $edit-accent: #fff263;
+$complete-color: #1976d2;
+$complete-accent: #63a4ff;
+$snooze-accent: #ffc400;
+$snooze-color: #ffa000;
+$fail-color: #e65100;
+$fail-accent: #f57c00;
 
 $background-color: #333333;
 @import "../../style.scss";
-@import "./TaskItem.scss";
 
 .task-bar {
   background-color: $background-color;
@@ -80,7 +85,6 @@ $background-color: #333333;
         stroke: $close-color !important;
       }
     }
-
 
     svg.minimize-icon {
       polyline {
