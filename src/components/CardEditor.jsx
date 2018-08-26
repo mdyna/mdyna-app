@@ -91,6 +91,22 @@ export default class NoteEditor extends Component {
     });
   }
 
+
+  getSuggestions() {
+    if (this.state.labelInput) {
+      const inputLabels = this.state.labelInput.split(' ');
+      const lastLabel = inputLabels[inputLabels.length - 1];
+      const lastLabelLength = lastLabel.length;
+      const userLabels = this.props.labels && this.props.labels.map(d => d.title);
+      return userLabels
+        .filter(
+          d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1,
+        )
+        .slice(0, 5);
+    }
+    return [' '];
+  }
+
   changeStringSplit(setting, value) {
     const { prefixer, splitters } = setting;
     const settingName = setting.settingName || 'labels';
@@ -121,7 +137,7 @@ export default class NoteEditor extends Component {
 
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
-    const { changeNoteSetting } = this.props;
+    const { changeNoteSetting, labels } = this.props;
     const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
@@ -151,6 +167,7 @@ export default class NoteEditor extends Component {
               <TextInput
                 key={settingName}
                 id={_.snakeCase(settingName)}
+                suggestions={labels && this.getSuggestions(labels.map(d => d.title))}
                 defaultValue={
                   settingValue
                     ? `${settingValue
@@ -159,9 +176,18 @@ export default class NoteEditor extends Component {
                       .trim()} #`
                     : '#'
                 }
+                onSelect={
+                  (e) => {
+                    const selectedValue = `${this.state.labelInput.substring(0, this.state.labelInput.lastIndexOf(' '))} ${e.suggestion} #`;
+                    this.changeStringSplit(setting, selectedValue);
+                    this.setState({
+                      labelInput: selectedValue,
+                    });
+                    e.target.value = selectedValue;
+                  }
+                }
                 placeHolder={_.startCase(settingName)}
                 onDOMChange={(e) => {
-                  this.inputLabels = e.target.value;
                   this.changeStringSplit(setting, e.target.value);
                   this.setState({
                     labelInput: e.target.value,
