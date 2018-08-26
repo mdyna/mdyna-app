@@ -5,7 +5,9 @@ import classnames from 'classnames';
 import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
+import htmlescape from 'showdown-htmlescape';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
+import { Converter } from 'react-showdown';
 
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
@@ -103,7 +105,14 @@ export default class TaskItem extends Component {
     };
     const series = buildTaskSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
+
     const taskText = task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text;
+    const rawText = this.state.minimized ? taskText : task.text;
+    const converter = new Converter({
+      headerLevelStart: 3,
+      extensions: [htmlescape],
+    });
+    const formatedTaskText = converter.convert(rawText) || '';
     const fontColor = tinycolor(color).darken(50);
     return (
       <Card
@@ -117,23 +126,31 @@ export default class TaskItem extends Component {
         }}
       >
         {this.toastNotification()}
-        <TaskBar taskActions={taskActions} task={task} minimizeTask={minimizeTask} taskItem={this} minimized={this.state.minimized} />
+        <TaskBar
+          taskActions={taskActions}
+          task={task}
+          minimizeTask={minimizeTask}
+          taskItem={this}
+          minimized={this.state.minimized}
+        />
         <Heading align="start" tag="h3" strong>
           {task.title}
         </Heading>
         <div className="labels">
-          {task.labels.map(label => (
-            <span
-              style={{
-                backgroundColor: tinycolor(label.color).lighten(10),
-                borderRadius: '50px',
-                padding: '5px',
-              }}
-              key={`label-${label.title}`}
-            >
-              {label.title}
-            </span>
-          ))}
+          {task && task.labels
+            ? task.labels.map(label => (
+              <span
+                style={{
+                  backgroundColor: tinycolor(color).darken(30),
+                  borderRadius: '50px',
+                  padding: '5px',
+                }}
+                key={`label-${label.title}`}
+              >
+                {label.title}
+              </span>
+            ))
+            : ''}
         </div>
         <div
           className="task-chart"
@@ -141,29 +158,19 @@ export default class TaskItem extends Component {
             color: fontColor,
           }}
         >
-          {
-            this.state.minimized ?
-              (
-                taskText
-              ) :
-              (
-                <AnnotatedMeter
-                  type="circle"
-                  size="small"
-                  series={series}
-                  legend
-                  max={max}
-                  className="task-chart"
-                />
-              )
-          }
-          {
-            this.state.minimized ?
-              '' :
-              <div className="task-text">
-                {task.text}
-              </div>
-          }
+          {this.state.minimized ? '' : (
+            <AnnotatedMeter
+              type="circle"
+              size="small"
+              series={series}
+              legend
+              max={max}
+              className="task-chart"
+            />
+          )}
+        </div>
+        <div className="task-text" style={{ backgroundColor: color }}>
+          {formatedTaskText}
         </div>
       </Card>
     );

@@ -23,6 +23,7 @@ export const COLOR_SAMPLES = [
   '#F48FB',
 ];
 
+
 export function assertNoteChanges(newNote, oldNote) {
   const noteProps = Object.keys(newNote);
   for (let i = 0; i < noteProps.length; i += 1) {
@@ -75,18 +76,20 @@ class Note extends Component {
           {note.title}
         </Heading>
         <div className="labels">
-          {note.labels.map(label => (
-            <span
-              style={{
-                backgroundColor: tinycolor(label.color).lighten(10),
-                borderRadius: '50px',
-                padding: '5px',
-              }}
-              key={`label-${label.title}`}
-            >
-              {label.title}
-            </span>
-          ))}
+          {
+            note && note.labels ? note.labels.map(label => (
+              <span
+                style={{
+                  backgroundColor: tinycolor(color).darken(30),
+                  borderRadius: '50px',
+                  padding: '5px',
+                }}
+                key={`label-${label.title}`}
+              >
+                {label.title}
+              </span>
+            )) : ''
+          }
         </div>
         <div className="note-card-content">{noteText}</div>
       </Card>

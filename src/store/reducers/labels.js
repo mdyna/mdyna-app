@@ -1,9 +1,7 @@
 import _ from 'lodash';
 import ACTION_TYPES from '../actions/actionTypes';
-import { COLOR_SAMPLES } from '../../components/Notes/NoteItem';
 
 const { ADD_LABEL, REMOVE_LABEL } = ACTION_TYPES.LABEL;
-export const randomizeLabelColor = () => _.sample(COLOR_SAMPLES);
 export default function labels(state = [], action) {
   switch (action.type) {
     case ADD_LABEL:
@@ -12,7 +10,6 @@ export default function labels(state = [], action) {
           ...state,
           {
             title: action.label.title,
-            color: randomizeLabelColor(),
             count: 1,
           },
         ]

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -16,11 +15,11 @@ import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
 import NotePreview from '../containers/NotePreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
+
 // import noteValidator from './noteValidator';
 import noteDefinition from './Notes/noteDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
-import { randomizeLabelColor } from '../store/reducers/labels';
 
 const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
@@ -103,7 +102,6 @@ export default class NoteEditor extends Component {
       if (splitVals.length !== this.state.labelCount) {
         this.handleLabels();
         this.setState({
-          currentRandomColor: randomizeLabelColor(),
           labelCount: splitVals.length,
         });
       }
@@ -115,17 +113,10 @@ export default class NoteEditor extends Component {
       }
     }
 
-    const labels = result.map((d) => {
-      const presentLabel = _.find(this.props.labels, label => label.title === d);
-      return {
-        title: d,
-        color: (presentLabel && presentLabel.color) || this.state.currentRandomColor,
-      };
-    });
-    changeNoteSetting(
-      _.camelCase(settingName),
-      labels,
-    );
+    const labels = result.map(d => ({
+      title: d,
+    }));
+    changeNoteSetting(_.camelCase(settingName), labels);
   }
 
   generateComponentsFromUiSchema(setting) {
