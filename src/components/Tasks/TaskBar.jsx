@@ -16,7 +16,6 @@ import { taskNeedsAlert } from './TaskItem';
 import unNest from '../../utils/nest';
 
 class TaskBar extends Component {
-
   static alertBar(completeTask, task, snoozeTask, failTask, showNotificationIcon) {
     return (
       <div className="alert-actions">
@@ -40,7 +39,6 @@ class TaskBar extends Component {
     const { removeTask, editTask, snoozeTask, failTask, completeTask } = taskActions;
     const { taskFrequency } = task;
     const lastAlertDate = unNest(task, 'taskStats.lastAlertDate') || null;
-    console.log('rendering', this)
     return (
       <div
         className="task-bar"

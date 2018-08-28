@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -16,11 +15,11 @@ import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
 import NotePreview from '../containers/NotePreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
+
 // import noteValidator from './noteValidator';
 import noteDefinition from './Notes/noteDefinition.json';
 
 import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
-import { randomizeLabelColor } from '../store/reducers/labels';
 
 const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
@@ -92,6 +91,22 @@ export default class NoteEditor extends Component {
     });
   }
 
+
+  getSuggestions() {
+    if (this.state.labelInput) {
+      const inputLabels = this.state.labelInput.split(' ');
+      const lastLabel = inputLabels[inputLabels.length - 1];
+      const lastLabelLength = lastLabel.length;
+      const userLabels = this.props.labels && this.props.labels.map(d => d.title);
+      return userLabels
+        .filter(
+          d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1,
+        )
+        .slice(0, 5);
+    }
+    return [' '];
+  }
+
   changeStringSplit(setting, value) {
     const { prefixer, splitters } = setting;
     const settingName = setting.settingName || 'labels';
@@ -103,7 +118,6 @@ export default class NoteEditor extends Component {
       if (splitVals.length !== this.state.labelCount) {
         this.handleLabels();
         this.setState({
-          currentRandomColor: randomizeLabelColor(),
           labelCount: splitVals.length,
         });
       }
@@ -115,22 +129,15 @@ export default class NoteEditor extends Component {
       }
     }
 
-    const labels = result.map((d) => {
-      const presentLabel = _.find(this.props.labels, label => label.title === d);
-      return {
-        title: d,
-        color: (presentLabel && presentLabel.color) || this.state.currentRandomColor,
-      };
-    });
-    changeNoteSetting(
-      _.camelCase(settingName),
-      labels,
-    );
+    const labels = result.map(d => ({
+      title: d,
+    }));
+    changeNoteSetting(_.camelCase(settingName), labels);
   }
 
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
-    const { changeNoteSetting } = this.props;
+    const { changeNoteSetting, labels } = this.props;
     const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
@@ -160,6 +167,7 @@ export default class NoteEditor extends Component {
               <TextInput
                 key={settingName}
                 id={_.snakeCase(settingName)}
+                suggestions={labels && this.getSuggestions(labels.map(d => d.title))}
                 defaultValue={
                   settingValue
                     ? `${settingValue
@@ -168,9 +176,18 @@ export default class NoteEditor extends Component {
                       .trim()} #`
                     : '#'
                 }
+                onSelect={
+                  (e) => {
+                    const selectedValue = `${this.state.labelInput.substring(0, this.state.labelInput.lastIndexOf(' '))} ${e.suggestion} #`;
+                    this.changeStringSplit(setting, selectedValue);
+                    this.setState({
+                      labelInput: selectedValue,
+                    });
+                    e.target.value = selectedValue;
+                  }
+                }
                 placeHolder={_.startCase(settingName)}
                 onDOMChange={(e) => {
-                  this.inputLabels = e.target.value;
                   this.changeStringSplit(setting, e.target.value);
                   this.setState({
                     labelInput: e.target.value,
