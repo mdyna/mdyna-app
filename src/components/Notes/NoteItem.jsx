@@ -76,11 +76,11 @@ class Note extends Component {
           {note.title}
         </Heading>
         <div className="labels">
-          {
-            note && note.labels ? note.labels.map(label => (
+          {note.labels && note.labels.length
+            ? note.labels.map(label => (
               <span
                 style={{
-                  backgroundColor: tinycolor(color).darken(30),
+                  backgroundColor: tinycolor(label.color).lighten(10),
                   borderRadius: '50px',
                   padding: '5px',
                 }}
@@ -88,8 +88,8 @@ class Note extends Component {
               >
                 {label.title}
               </span>
-            )) : ''
-          }
+            ))
+            : ''}
         </div>
         <div className="note-card-content">{noteText}</div>
       </Card>

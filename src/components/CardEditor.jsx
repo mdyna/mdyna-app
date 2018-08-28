@@ -6,6 +6,7 @@ import Headline from 'grommet/components/Headline';
 import Form from 'grommet/components/Form';
 import classnames from 'classnames';
 import CheckBox from 'grommet/components/CheckBox';
+import Select from 'grommet/components/Select';
 // import RadioButton from 'grommet/components/RadioButton';
 import FormFields from 'grommet/components/FormFields';
 import DateTime from 'grommet/components/DateTime';
@@ -66,7 +67,22 @@ export default class NoteEditor extends Component {
               </FormField>
             );
           }
-          return '';
+          return (
+            <FormField
+              label={_.startCase(settingName)}
+              htmlFor={_.snakeCase(settingName)}
+              key={_.startCase(settingName)}
+            >
+              <Select
+                key={settingName}
+                id={_.snakeCase(settingName)}
+                onChange={e => changeNoteSetting(_.camelCase(settingName), e.option)}
+                placeHolder={_.startCase(settingName)}
+                value={this.props.editorSettings[settingName]}
+                options={[...enums]}
+              />
+            </FormField>
+          );
         case 'string':
           return this.generateComponentsFromUiSchema({ ...setting, settingUiSchema, settingName });
         case 'bool':
@@ -116,7 +132,7 @@ export default class NoteEditor extends Component {
       const splitter = splitters[splitterIndex];
       const splitVals = value.split(splitter);
       if (splitVals.length !== this.state.labelCount) {
-        this.handleLabels();
+        // this.handleLabels();
         this.setState({
           labelCount: splitVals.length,
         });
