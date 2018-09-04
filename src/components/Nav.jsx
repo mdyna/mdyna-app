@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Brush from 'grommet/components/icons/base/Brush';
+import Pulse from 'grommet/components/icons/base/Add';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
@@ -27,6 +28,14 @@ class NavBar extends Component {
         >
           <Brush />
         </Button>
+        <Button
+          onClick={() => {
+            this.props.toggleEditor(true);
+          }}
+          className="add-note-btn"
+        >
+          <Pulse />
+        </Button>
       </Box>
     );
   }
@@ -34,6 +43,7 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   toggleWhiteMode: PropTypes.func.isRequired,
+  toggleEditor: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
 };
 

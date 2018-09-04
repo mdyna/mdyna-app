@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { toggleWhiteMode } from '../store/actions/';
+import { toggleWhiteMode, toggleEditor } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleWhiteMode: () => {
       dispatch(toggleWhiteMode());
+    },
+    toggleEditor: () => {
+      dispatch(toggleEditor());
     },
   };
 }
