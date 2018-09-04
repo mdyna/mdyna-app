@@ -80,8 +80,9 @@ class Note extends Component {
             ? note.labels.map(label => (
               <span
                 style={{
-                  backgroundColor: tinycolor(label.color).lighten(10),
+                  backgroundColor: tinycolor(color).lighten(10),
                   borderRadius: '50px',
+                  border: `3px solid ${tinycolor(color).darken(30)}`,
                   padding: '5px',
                 }}
                 key={`label-${label.title}`}

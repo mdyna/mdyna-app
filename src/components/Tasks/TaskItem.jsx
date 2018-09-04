@@ -142,6 +142,7 @@ export default class TaskItem extends Component {
               <span
                 style={{
                   backgroundColor: tinycolor(color).darken(30),
+                  border: `3px solid ${tinycolor(color).darken(30)}`,
                   borderRadius: '50px',
                   padding: '5px',
                 }}
