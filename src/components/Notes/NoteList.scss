@@ -11,10 +11,6 @@
     color: $white-font-color;
     background-color: $white-note-list-background;
 
-    .add-note-btn {
-      background-color: $white-secondary-background;
-      border-radius: 50px;
-    }
   }
 
   .visible-notes {
@@ -24,10 +20,11 @@
 
   .add-note-btn {
     @include normalize-button-icons();
-    border-radius: 50px;
-    background-color: $background-color;
     margin: 10px auto;
-    height: 24px;
     transform: translate(0, 2px);
+    svg {
+      width: 32px;
+      height: 32px;
+    }
   }
 }

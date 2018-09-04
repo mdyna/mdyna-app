@@ -6,14 +6,34 @@
 
   button {
     @include normalize-button-icons();
+    svg {
+      border: none !important;
+      path {
+        fill: $accent-color;
+      }
+      polygon {
+        stroke: $accent-color;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: $secondary-accent;
+        }
+        polygon {
+          stroke: $secondary-accent;
+        }
+      }
+    }
   }
 }
 
+
 .grommet.grommetux-drop {
-  background-color: $font-color !important;
+  background-color: $white-secondary-background !important;
 
   div {
-    width: 100%;
+    width: 1 00%;
     color: $note-font-color !important;
 
     ol {
@@ -33,21 +53,34 @@
 
   button {
     background-color: $accent-color;
-    &:hover {
-      background-color: $secondary-accent;
-    }
   }
-
   .grommetux-check-box__control-check {
     position: absolute;
     path {
       stroke: $accent-color;
     }
   }
+  .grommetux-check-box__input:checked + .grommetux-check-box__control {
+    border-color: $accent-color;
+  }
+
+  .grommetux-form-field--focus {
+    border-color: $accent-color;
+  }
 
   .grommetux-select__control {
     background-color: transparent;
   }
+
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__label {
+    color: $secondary-accent;
+  }
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__input:checked + .grommetux-check-box__control {
+    border-color: $secondary-accent !important;
+  }
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__control {
+    border-color: $secondary-accent;
+}
 
   .color-options {
     display: flex;

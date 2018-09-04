@@ -15,13 +15,13 @@ import '!style-loader!css-loader!sass-loader!./App.scss'; // eslint-disable-line
 
 class Dyna extends Component {
   render() {
-    const { toggleWhiteMode, whiteMode } = this.props;
+    const { toggleWhiteMode, whiteMode, toggleEditor } = this.props;
     return (
       <App
         className={classnames('dyna-app', { 'white-mode': this.props.whiteMode })}
         style={{ maxWidth: '1920px' }}
       >
-        <Nav toggleWhiteMode={toggleWhiteMode} whiteMode={whiteMode} />
+        <Nav toggleWhiteMode={toggleWhiteMode} whiteMode={whiteMode} toggleEditor={toggleEditor} />
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
@@ -36,6 +36,7 @@ class Dyna extends Component {
 
 Dyna.propTypes = {
   toggleWhiteMode: PropTypes.func.isRequired,
+  toggleEditor: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
 };
 

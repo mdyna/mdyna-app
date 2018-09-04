@@ -20,13 +20,17 @@ $white-note-list-background: #cfd8dc;
   $path-color: $accent-color,
   $secondary-path-color: $secondary-accent
 ) {
+
   border: none !important;
   box-shadow: none !important;
   svg {
+    border: 2px solid $path-color;
+    border-radius: 25%;
     path {
       stroke: $path-color !important;
     }
     &:hover {
+      border: 2px solid $secondary-path-color;
       path {
         stroke: $secondary-path-color !important;
       }
