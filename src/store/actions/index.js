@@ -1,11 +1,5 @@
 import ACTION_TYPES from './actionTypes';
 
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE',
-};
-
 export const addNote = note => ({
   type: ACTION_TYPES.NOTE.ADD_NOTE,
   note,
@@ -94,4 +88,9 @@ export const addLabel = label => ({
 export const removeLabel = label => ({
   type: ACTION_TYPES.LABEL.REMOVE_LABEL,
   label,
+});
+
+export const searchCards = value => ({
+  type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
+  value,
 });

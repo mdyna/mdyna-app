@@ -1,17 +1,18 @@
-import { VisibilityFilters } from '../actions/';
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { SET_VISIBILITY_FILTER } = ACTION_TYPES;
-const { SHOW_ALL } = VisibilityFilters;
+const { SEARCH_CARDS } = ACTION_TYPES.FILTERS;
 
-function visibilityFilter(state = SHOW_ALL, action) {
+export default function notes(state = {
+  searchInput: '',
+
+}, action) {
   switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.filter;
+    case SEARCH_CARDS:
+      return {
+        ...state,
+        searchInput: action.value,
+      };
     default:
       return state;
   }
 }
-
-const filters = { visibilityFilter };
-export default filters;

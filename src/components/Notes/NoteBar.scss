@@ -23,6 +23,10 @@ $background-color: #333333;
 
   button {
     @include normalize-button-icons();
+    svg {
+      border: none;
+      border-radius: 0;
+    }
     svg.share-icon {
       path {
         stroke: $share-color !important;

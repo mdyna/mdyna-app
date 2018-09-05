@@ -54,7 +54,7 @@ export default class NoteList extends Component {
           </Columns>
         ) : (
           <Heading align="center" tag="h3">
-            Click to add new note
+            ${this.props.searchInput ? 'No results found' : 'Click to add a new note'}
           </Heading>
         )}
         <Button
@@ -87,11 +87,13 @@ NoteList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
+  searchInput: PropTypes.string,
   notes: PropTypes.array,
 };
 
 NoteList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
+  searchInput: '',
   notes: [],
 };

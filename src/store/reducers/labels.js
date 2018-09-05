@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import ACTION_TYPES from '../actions/actionTypes';
 
 const { ADD_LABEL, REMOVE_LABEL } = ACTION_TYPES.LABEL;

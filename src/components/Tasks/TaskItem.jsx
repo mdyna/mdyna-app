@@ -120,7 +120,7 @@ export default class TaskItem extends Component {
           minimized: this.state.minimized,
         })}
         style={{
-          filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
+          filter: `drop-shadow(2px -4px 2px ${tinycolor(color).darken(25)})`,
           backgroundColor: color,
           color: fontColor,
         }}
@@ -141,7 +141,7 @@ export default class TaskItem extends Component {
             ? task.labels.map(label => (
               <span
                 style={{
-                  backgroundColor: tinycolor(color).darken(30),
+                  backgroundColor: tinycolor(color).lighten(10),
                   border: `3px solid ${tinycolor(color).darken(30)}`,
                   borderRadius: '50px',
                   padding: '5px',
