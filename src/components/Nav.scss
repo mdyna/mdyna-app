@@ -16,11 +16,14 @@ $navbar-background-color: #0c1014;
   }
 
   .navbar-app-logo {
-    height: 32px;
-    width: 32px;
+    height: 42px;
+    width: 42px;
     margin: 5px 10% 5px 10px;
     box-shadow: 0px 1px 1px 1px $accent-color;
     border-radius: 50%;
+    &:hover {
+      box-shadow: 0px 1px 1px 1px $secondary-accent;
+    }
   }
   button {
     margin-right: 15px;

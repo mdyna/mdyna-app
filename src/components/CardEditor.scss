@@ -9,19 +9,19 @@
     svg {
       border: none !important;
       path {
-        fill: $accent-color;
+        fill: #666;
       }
       polygon {
-        stroke: $accent-color;
+        stroke: #666;
       }
     }
     &:hover {
       svg {
         path {
-          fill: $secondary-accent;
+          fill: $accent-color;
         }
         polygon {
-          stroke: $secondary-accent;
+          stroke: $accent-color;
         }
       }
     }

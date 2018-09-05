@@ -25,7 +25,7 @@ app.on('ready', () => {
       devTools: process.env.NODE_ENV === 'DEV',
       textAreasAreResizable: false,
     },
-    icon: path.join(__dirname, 'assets/dynaLogo.png'),
+    icon: path.join(__dirname, 'assets/dynaLogoCircle.png'),
   });
   const webContents = mainWindow.webContents;
 

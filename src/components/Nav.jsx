@@ -6,7 +6,7 @@ import Pulse from 'grommet/components/icons/base/Add';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
-import logo from '../../assets/dynaLogo.png';
+import logo from '../../assets/dynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
 class NavBar extends Component {
