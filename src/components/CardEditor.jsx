@@ -195,19 +195,23 @@ export default class NoteEditor extends Component {
                 onSelect={
                   (e) => {
                     const selectedValue = `${this.state.labelInput.substring(0, this.state.labelInput.lastIndexOf(' '))} ${e.suggestion} #`;
-                    this.changeStringSplit(setting, selectedValue);
-                    this.setState({
-                      labelInput: selectedValue,
-                    });
-                    e.target.value = selectedValue;
+                    if (selectedValue) {
+                      this.changeStringSplit(setting, selectedValue);
+                      this.setState({
+                        labelInput: selectedValue,
+                      });
+                      e.target.value = selectedValue;
+                    }
                   }
                 }
                 placeHolder={_.startCase(settingName)}
                 onDOMChange={(e) => {
-                  this.changeStringSplit(setting, e.target.value);
-                  this.setState({
-                    labelInput: e.target.value,
-                  });
+                  if (e.target.value) {
+                    this.changeStringSplit(setting, e.target.value);
+                    this.setState({
+                      labelInput: e.target.value,
+                    });
+                  }
                 }}
               />
             </FormField>

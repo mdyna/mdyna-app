@@ -27,14 +27,27 @@ export default class TaskList extends Component {
     };
   }
 
+
+  filterTasks(tasks) {
+    const { searchInput } = this.props;
+    return tasks.filter(
+      d => d.title.toLowerCase().startsWith(searchInput.toLowerCase()),
+    );
+  }
+
   renderTaskSection() {
     const { tasks } = this.props;
-    const taskTypes = Object.keys(tasks);
+    const filteredTasks = {
+      daily: tasks.daily && this.filterTasks(tasks.daily),
+      weekly: tasks.weekly && this.filterTasks(tasks.weekly),
+      monthly: tasks.monthly && this.filterTasks(tasks.monthly),
+    };
+    const taskTypes = Object.keys(filteredTasks);
     const taskSections = [];
     let count = 0;
     taskTypes.forEach((tasksType) => {
-      const scheduledTasks = tasks[tasksType];
-      if (scheduledTasks.length) {
+      const scheduledTasks = filteredTasks[tasksType];
+      if (scheduledTasks && scheduledTasks.length) {
         taskSections.push(
           <Section key={count}>
             <Headline align="center" size="small">
@@ -67,10 +80,12 @@ export default class TaskList extends Component {
 
 TaskList.propTypes = {
   tasks: PropTypes.object,
+  searchInput: PropTypes.string,
   whiteMode: PropTypes.bool,
 };
 
 TaskList.defaultProps = {
   tasks: {},
+  searchInput: '',
   whiteMode: false,
 };

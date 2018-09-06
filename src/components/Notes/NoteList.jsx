@@ -14,28 +14,17 @@ import NoteItem from '../../containers/NoteItem';
 import '!style-loader!css-loader!sass-loader!./NoteList.scss'; // eslint-disable-line
 
 export default class NoteList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notes: this.props.notes,
-      whiteMode: this.props.whiteMode,
-    };
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      notes: newProps.notes,
-      whiteMode: newProps.whiteMode,
-    });
-  }
-
-  visibleNotes() {
-    const notes = [];
-    for (let i = 0; i < this.state.notes.length; i += 1) {
-      const note = this.state.notes[i];
-      notes.push(<NoteItem hasNoteBar note={note} key={i} />);
+  renderVisibleNotes() {
+    const notes = this.props.searchInput ?
+      this.props.notes.filter(
+        d => d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase()),
+      ) : this.props.notes;
+    const visibleNotes = [];
+    for (let i = 0; i < notes.length; i += 1) {
+      const note = notes[i];
+      visibleNotes.push(<NoteItem hasNoteBar note={note} key={i} />);
     }
-    return notes.reverse();
+    return visibleNotes.reverse();
   }
 
   render() {
@@ -48,13 +37,13 @@ export default class NoteList extends Component {
         <Headline align="center" size="medium">
           NOTES
         </Headline>
-        {this.state.notes.length ? (
+        {this.props.notes.length ? (
           <Columns masonry responsive maxCount={3} justify={'center'} className="visible-notes">
-            {this.visibleNotes()}
+            {this.renderVisibleNotes()}
           </Columns>
         ) : (
           <Heading align="center" tag="h3">
-            ${this.props.searchInput ? 'No results found' : 'Click to add a new note'}
+            {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
           </Heading>
         )}
         <Button

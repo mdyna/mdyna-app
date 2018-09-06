@@ -26,6 +26,9 @@ $background-color: #333333;
     svg {
       border: none;
       border-radius: 0;
+      &:hover {
+        border: none !important;
+      }
     }
     svg.share-icon {
       path {

@@ -9,20 +9,11 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-function filterTasks(tasks, input) {
-  return tasks.filter(
-    d => d.title.toLowerCase().startsWith(input.toLowerCase()),
-  );
-}
 
 function mapStateToProps(state) {
   return {
     whiteMode: state.style.whiteMode,
-    tasks: {
-      daily: filterTasks(state.tasks.daily, state.filters.searchInput),
-      weekly: filterTasks(state.tasks.weekly, state.filters.searchInput),
-      monthly: filterTasks(state.tasks.monthly, state.filters.searchInput),
-    },
+    tasks: state.tasks,
     searchInput: state.filters.searchInput,
   };
 }

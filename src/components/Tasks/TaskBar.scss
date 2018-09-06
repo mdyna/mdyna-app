@@ -77,6 +77,9 @@ $background-color: #333333;
       border: none;
       border-radius: 0;
     }
+    &:hover {
+      border: none !important;
+    }
     svg.edit-icon {
       path {
         stroke: $edit-color !important;

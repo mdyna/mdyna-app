@@ -2,11 +2,6 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import { toggleWhiteMode, toggleEditor, searchCards } from '../store/actions/';
 
-
-function getCardTitles(cards) {
-  return cards && cards.map(d => d.title) || '';
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     toggleWhiteMode: () => {
@@ -23,13 +18,10 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     searchInput: state.filters.searchInput,
+    labels: state.labels,
     whiteMode: state.style.whiteMode,
-    titles: [
-      ...getCardTitles(state.notes),
-      ...getCardTitles(state.tasks.daily),
-      ...getCardTitles(state.tasks.weekly),
-      ...getCardTitles(state.tasks.monthly),
-    ],
+    tasks: state.tasks,
+    notes: state.notes,
   };
 }
 

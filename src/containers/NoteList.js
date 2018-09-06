@@ -14,11 +14,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    notes: state.filters.searchInput ?
-      state.notes.filter(
-        d => d.title.toLowerCase().startsWith(state.filters.searchInput.toLowerCase()),
-      ) :
-      state.notes,
+    notes: state.notes,
     searchInput: state.filters.searchInput,
     modalOpen: state.editor.toggleEditor,
     whiteMode: state.style.whiteMode,

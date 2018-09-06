@@ -14,6 +14,7 @@ import '!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-
 import '!style-loader!css-loader!sass-loader!./App.scss'; // eslint-disable-line
 
 class Dyna extends Component {
+
   render() {
     return (
       <App
