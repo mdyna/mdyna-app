@@ -26,6 +26,16 @@ $navbar-background-color: #0c1014;
     }
   }
 
+
+  .grommetux-search--inline {
+    margin-left: 10px;
+
+  .grommetux-control-icon-search {
+      position: relative;
+      right: 42px; // 32 px icon size + margin
+      top: calc(50% - 5px);
+    }
+
   .grommetux-search__input {
     border-width: 2px;
     width: 230px !important;
@@ -34,18 +44,19 @@ $navbar-background-color: #0c1014;
     padding: 10px 22px;
     height: 42px;
     position: relative;
-    top: 6px;
+    top: calc(25% - 10px);
+    right: 10px;
   }
 
   .grommetux-search__input:focus {
     border-color: $secondary-accent;
   }
 
-  .grommetux-search--inline .grommetux-control-icon-search {
-    path {
-      stroke: $accent-color;
+    .grommetux-control-icon-search {
+      path {
+        stroke: $accent-color;
+      }
     }
-
   }
 
   button {
