@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Brush from 'grommet/components/icons/base/Brush';
 import Pulse from 'grommet/components/icons/base/Add';
-import LabelFilter from './LabelFilter';
 import Search from 'grommet/components/Search';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
+import LabelFilter from './LabelFilter';
 import logo from '../../assets/dynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
@@ -70,7 +70,9 @@ class NavBar extends Component {
           onSelect={e => this.props.searchCards(e.suggestion)}
           value={this.props.searchInput}
         />
-        <LabelFilter/>
+        <LabelFilter
+          labels={this.props.labels}
+        />
       </Box>
     );
   }
@@ -82,6 +84,7 @@ NavBar.propTypes = {
   searchCards: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   whiteMode: PropTypes.bool,
+  labels: PropTypes.array,
   notes: PropTypes.array.isRequired,
   tasks: PropTypes.object.isRequired,
 };

@@ -1,0 +1,45 @@
+@import "../style.scss";
+
+$dark-accent-color: #01a982;
+
+.label-filter-box {
+  border: 2px solid $accent-color;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  max-height: 69px; // one line of content
+  padding: 5px;
+
+  .label-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    max-height: 48px;
+    overflow-y: auto;
+
+    button {
+      background-color: $accent-color;
+      border: 2px solid $dark-accent-color !important;
+      border-radius: 5px;
+      padding: 2px;
+      margin: 5px;
+
+      &:hover {
+        background-color: $secondary-accent;
+      }
+    }
+  }
+
+  svg polygon {
+    stroke: $accent-color !important;
+  }
+
+  &:hover {
+    svg polygon {
+      stroke: $secondary-accent !important;
+    }
+
+    border-color: $secondary-accent
+  }
+}

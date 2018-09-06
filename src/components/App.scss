@@ -5,10 +5,30 @@ body {
   background-color: $background-color;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0px;
+
+  background-color: $secondary-background;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $accent-color;
+  border-radius: 10px;
+}
+
+
 .dyna-app {
   margin: 0;
   padding: 0;
   background-color: $background-color;
+
 
   .grommet {
     background-color: $background-color !important;
