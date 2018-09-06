@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import sort from 'lodash/sortBy'
+import sort from 'lodash/sortBy';
 import Filter from 'grommet/components/icons/base/Filter';
 import Button from 'grommet/components/Button';
-import Box from 'grommet/components/Box';
 
 import '!style-loader!css-loader!sass-loader!./LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
@@ -34,11 +33,10 @@ class LabelFilter extends Component {
             </span>
           </Button>
         );
-        clickableLabels.push(labelElement)
+        clickableLabels.push(labelElement);
       }
-
     }
-    return clickableLabels;
+    return clickableLabels.reverse();
   }
   render() {
     return (

@@ -17,7 +17,7 @@ export default class NoteList extends Component {
   renderVisibleNotes() {
     const notes = this.props.searchInput ?
       this.props.notes.filter(
-        d => d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase()),
+        d => d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase()),
       ) : this.props.notes;
     const visibleNotes = [];
     for (let i = 0; i < notes.length; i += 1) {

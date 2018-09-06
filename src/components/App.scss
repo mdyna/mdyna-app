@@ -13,7 +13,7 @@ body {
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0px;
 
-  background-color: $secondary-background;
+  background-color: $white-secondary-background;
   border-radius: 10px;
 }
 
@@ -28,6 +28,11 @@ body {
   margin: 0;
   padding: 0;
   background-color: $background-color;
+
+  ::-webkit-scrollbar-track {
+    background-color: $secondary-background;
+  }
+
 
 
   .grommet {

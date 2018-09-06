@@ -3,6 +3,8 @@ import Share from 'grommet/components/icons/base/Share';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 import EditIcon from 'grommet/components/icons/base/Edit';
+import MinimizeIcon from 'grommet/components/icons/base/Up';
+import MaximizeIcon from 'grommet/components/icons/base/Down';
 import Button from 'grommet/components/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -59,6 +61,21 @@ class NoteBar extends Component {
     this.props.removeNote(note);
   }
 
+  renderNoteSizeControl() {
+    return (
+      this.props.minimized ?
+        (
+          <Button onClick={() => this.props.minimizeNote(this.props.noteItem)}>
+            <MaximizeIcon className="maximize-icon" />
+          </Button>
+        ) : (
+          <Button onClick={() => this.props.minimizeNote(this.props.noteItem)}>
+            <MinimizeIcon className="minimize-icon" />
+          </Button>
+        )
+    );
+  }
+
   render() {
     const { note, editNote, toggleNote } = this.props;
     return (
@@ -94,6 +111,11 @@ class NoteBar extends Component {
             <span>{note.shortLink}</span>
           </div>
         )}
+        {
+          this.props.minimizeNote ?
+            this.renderNoteSizeControl()
+            : ''
+        }
       </div>
     );
   }
@@ -105,6 +127,14 @@ NoteBar.propTypes = {
   note: PropTypes.object.isRequired,
   editNote: PropTypes.func.isRequired,
   toggleNote: PropTypes.func.isRequired,
+  noteItem: PropTypes.object.isRequired,
   generateNoteLink: PropTypes.func.isRequired,
   removeNote: PropTypes.func.isRequired,
+  minimizeNote: PropTypes.func,
+  minimized: PropTypes.bool,
+};
+
+NoteBar.defaultProps = {
+  minimized: false,
+  minimizeNote: null,
 };

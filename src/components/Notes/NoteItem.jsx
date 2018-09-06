@@ -9,6 +9,7 @@ import htmlescape from 'showdown-htmlescape';
 import _ from 'lodash';
 import NoteBar from './NoteBar';
 import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
+import unNest from '../../utils/nest';
 
 export const COLOR_SAMPLES = [
   '#9FA8DA',
@@ -23,6 +24,11 @@ export const COLOR_SAMPLES = [
   '#F48FB',
 ];
 
+function minimizeNote(note) {
+  note.setState({
+    minimized: (note && note.state && !note.state.minimized) || false,
+  });
+}
 
 export function assertNoteChanges(newNote, oldNote) {
   const noteProps = Object.keys(newNote);
@@ -35,6 +41,12 @@ export function assertNoteChanges(newNote, oldNote) {
   return false;
 }
 class Note extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      minimized: unNest(props, 'note.text') && unNest(props, 'note.text').length > 500, // automatically clip over 500 chars
+    };
+  }
   shouldComponentUpdate(nextProps) {
     if (nextProps.note && this.props.note) {
       return assertNoteChanges(nextProps.note, this.props.note);
@@ -48,14 +60,18 @@ class Note extends Component {
       headerLevelStart: 3,
       extensions: [htmlescape],
     });
-    const rawText = note && note.text;
+
+    const noteText = note && note.text && note.text.length > 300 ? `${note.text.substring(0, 300)}...` : note.text;
+    const rawText = this.state.minimized ? noteText : note.text;
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
-    const noteText = converter.convert(rawText) || '';
+    const formattedText = converter.convert(rawText) || '';
     return (
       <Card
         key={i}
-        className={classnames(className, 'note-item')}
+        className={classnames(className, 'note-item', {
+          minimized: this.state.minimized,
+        })}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
           backgroundColor: color || '#4e636e',
@@ -67,7 +83,10 @@ class Note extends Component {
             generateNoteLink={this.props.generateNoteLink}
             toggleNote={this.props.toggleNote}
             removeNote={this.props.removeNote}
+            minimizeNote={note.text && note.text.length > 300 ? minimizeNote : null}
+            noteItem={this}
             editNote={this.props.editNote}
+            minimized={this.state.minimized}
           />
         ) : (
           ''
@@ -92,7 +111,7 @@ class Note extends Component {
             ))
             : ''}
         </div>
-        <div className="note-card-content">{noteText}</div>
+        <div className="note-card-content">{formattedText}</div>
       </Card>
     );
   }
