@@ -47,6 +47,16 @@ class NoteBar extends Component {
     }
   }
 
+  handleLabels() {
+    const { note } = this.props;
+    const labels = note.labels;
+    if (labels && labels.length) {
+      labels.forEach((label) => {
+        this.props.removeLabel(label);
+      });
+    }
+  }
+
   removeNote(note) {
     if (note.shortLink) {
       fetch(REMOVE_NOTE_ENDPOINT, {
@@ -58,6 +68,7 @@ class NoteBar extends Component {
         body: JSON.stringify(note),
       }).catch(error => console.log(error));
     }
+    this.handleLabels()
     this.props.removeNote(note);
   }
 
@@ -127,6 +138,7 @@ NoteBar.propTypes = {
   note: PropTypes.object.isRequired,
   editNote: PropTypes.func.isRequired,
   toggleNote: PropTypes.func.isRequired,
+  removeLabel: PropTypes.func.isRequired,
   noteItem: PropTypes.object.isRequired,
   generateNoteLink: PropTypes.func.isRequired,
   removeNote: PropTypes.func.isRequired,

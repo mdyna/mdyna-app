@@ -5,6 +5,8 @@ import {
   removeNote,
   toggleNote,
   editNote,
+  addLabel,
+  removeLabel,
   changeNoteSetting,
 } from '../store/actions/';
 
@@ -24,6 +26,12 @@ function mapDispatchToProps(dispatch) {
     },
     changeNoteSetting: (prop, value) => {
       dispatch(changeNoteSetting(prop, value));
+    },
+    addLabel: (todoProps) => {
+      dispatch(addLabel(todoProps));
+    },
+    removeLabel: (todoProps) => {
+      dispatch(removeLabel(todoProps));
     },
   };
 }

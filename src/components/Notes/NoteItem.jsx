@@ -87,6 +87,8 @@ class Note extends Component {
             noteItem={this}
             editNote={this.props.editNote}
             minimized={this.state.minimized}
+            addLabel={this.props.addLabel}
+            removeLabel={this.props.removeLabel}
           />
         ) : (
           ''
@@ -126,6 +128,8 @@ Note.propTypes = {
   className: PropTypes.string,
   removeNote: PropTypes.func,
   toggleNote: PropTypes.func,
+  addLabel: PropTypes.func,
+  removeLabel: PropTypes.func,
   generateNoteLink: PropTypes.func,
   changeNoteSetting: PropTypes.func.isRequired,
   i: PropTypes.number,
@@ -135,6 +139,8 @@ Note.defaultProps = {
   i: 0,
   removeNote: null,
   editNote: null,
+  addLabel: null,
+  removeLabel: null,
   toggleNote: null,
   generateNoteLink: null,
   hasNoteBar: false,

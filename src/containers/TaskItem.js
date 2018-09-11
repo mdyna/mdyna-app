@@ -5,6 +5,8 @@ import {
   removeTask,
   completeTask,
   failTask,
+  addLabel,
+  removeLabel,
   editNote,
 } from '../store/actions/';
 
@@ -21,6 +23,12 @@ function mapDispatchToProps(dispatch) {
     },
     failTask: (task) => {
       dispatch(failTask(task));
+    },
+    addLabel: (todoProps) => {
+      dispatch(addLabel(todoProps));
+    },
+    removeLabel: (todoProps) => {
+      dispatch(removeLabel(todoProps));
     },
     completeTask: (task) => {
       dispatch(completeTask(task));
