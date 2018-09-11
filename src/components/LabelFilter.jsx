@@ -16,7 +16,7 @@ class LabelFilter extends Component {
   renderClickableLabels() {
     const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
-    const orderedLabels = sort(labels, d => d.count);
+    const orderedLabels = sort(labels, d => d.count).reverse();
     const clickableLabels = [];
     for (let i = 0; i < 10; i += 1) {
       const label = orderedLabels[i];
@@ -40,7 +40,7 @@ class LabelFilter extends Component {
         clickableLabels.push(labelElement);
       }
     }
-    return clickableLabels.reverse();
+    return clickableLabels;
   }
   render() {
     return (
