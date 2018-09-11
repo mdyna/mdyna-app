@@ -14,16 +14,20 @@ class LabelFilter extends Component {
   }
 
   renderClickableLabels() {
-    const { labels, onSelect } = this.props;
+    const { labels, labelFilters, labelFilterFuncs } = this.props;
+    const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
     const orderedLabels = sort(labels, d => d.count);
     const clickableLabels = [];
     for (let i = 0; i < 10; i += 1) {
       const label = orderedLabels[i];
+      const labelFilterActive = labelFilters.indexOf(label.title) !== -1;
+      const labelFunc = labelFilterActive ? removeLabelFilter : addLabelFilter;
+      const labelClassName = labelFilterActive ? 'label-button-active' : 'label-button';
       if (label && label.title) {
         const labelElement = (
           <Button
-            className="label-button"
-            onClick={() => onSelect(label)}
+            className={labelClassName}
+            onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
           >
             <span
@@ -53,13 +57,14 @@ class LabelFilter extends Component {
 }
 
 LabelFilter.propTypes = {
-  onSelect: PropTypes.func,
+  labelFilters: PropTypes.array,
+  labelFilterFuncs: PropTypes.object.isRequired,
   labels: PropTypes.array,
 };
 
 LabelFilter.defaultProps = {
   labels: [],
-  onSelect: () => console.log('selected'),
+  labelFilters: [],
 };
 
 export default LabelFilter;

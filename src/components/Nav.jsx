@@ -24,25 +24,27 @@ class NavBar extends Component {
   }
 
   render() {
-    const { notes, tasks } = this.props;
+    const { notes, tasks, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
+    const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [
       ...getCardTitles(notes),
       ...getCardTitles(tasks.daily),
       ...getCardTitles(tasks.weekly),
       ...getCardTitles(tasks.monthly),
     ];
+
     return (
       <Box
         full="horizontal"
         justify="start"
-        className={classnames('navbar', { 'white-mode': this.props.whiteMode })}
+        className={classnames('navbar', { 'white-mode': whiteMode })}
         pad="small"
         direction="row"
       >
         <Image src={logo} className="navbar-app-logo" alt="dyna" size="small" />
         <Button
           onClick={() => {
-            this.props.toggleWhiteMode(!this.props.whiteMode);
+            this.props.toggleWhiteMode(!whiteMode);
           }}
           className="white-mode-button"
         >
@@ -72,6 +74,8 @@ class NavBar extends Component {
         />
         <LabelFilter
           labels={this.props.labels}
+          labelFilters={labelFilters}
+          labelFilterFuncs={labelFilterFuncs}
         />
       </Box>
     );
@@ -79,6 +83,9 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
+  labelFilters: PropTypes.array.isRequired,
+  addLabelFilter: PropTypes.func.isRequired,
+  removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,

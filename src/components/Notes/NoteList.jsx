@@ -14,11 +14,31 @@ import NoteItem from '../../containers/NoteItem';
 import '!style-loader!css-loader!sass-loader!./NoteList.scss'; // eslint-disable-line
 
 export default class NoteList extends Component {
+  matchNoteLabelsWithLabelFilter(labels) {
+    const { labelFilters } = this.props;
+    if (labelFilters.length) {
+      for (let i = 0; i < labels.length; i += 1) {
+        if (labelFilters.indexOf(labels[i]) !== -1) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
+
   renderVisibleNotes() {
-    const notes = this.props.searchInput ?
-      this.props.notes.filter(
-        d => d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase()),
-      ) : this.props.notes;
+    const notes = this.props.notes.filter(
+      (d) => {
+        const matchesSearchInput = d.title &&
+        d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
+        const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
+          d.labels.map(label => label.title),
+        );
+        return matchesSearchInput && matchesLabelFilters;
+      },
+    );
+    console.log(notes);
     const visibleNotes = [];
     for (let i = 0; i < notes.length; i += 1) {
       const note = notes[i];
@@ -77,12 +97,14 @@ NoteList.propTypes = {
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
+  labelFilters: PropTypes.array,
   notes: PropTypes.array,
 };
 
 NoteList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
+  labelFilters: [],
   searchInput: '',
   notes: [],
 };

@@ -94,3 +94,11 @@ export const searchCards = value => ({
   type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
   value,
 });
+export const addLabelFilter = value => ({
+  type: ACTION_TYPES.FILTERS.ADD_LABEL_FILTER,
+  value,
+});
+export const removeLabelFilter = value => ({
+  type: ACTION_TYPES.FILTERS.REMOVE_LABEL_FILTER,
+  value,
+});

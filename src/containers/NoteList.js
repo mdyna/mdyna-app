@@ -18,6 +18,7 @@ function mapStateToProps(state) {
     searchInput: state.filters.searchInput,
     modalOpen: state.editor.toggleEditor,
     whiteMode: state.style.whiteMode,
+    labelFilters: state.filters.labelFilters,
   };
 }
 

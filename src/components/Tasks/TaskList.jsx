@@ -19,6 +19,7 @@ function renderTaskItems(tasks) {
   }
   return taskItems;
 }
+
 export default class TaskList extends Component {
   constructor(props) {
     super(props);
@@ -27,11 +28,30 @@ export default class TaskList extends Component {
     };
   }
 
+  matchTaskLabelsWithLabelFilter(labels) {
+    const { labelFilters } = this.props;
+    if (labelFilters.length) {
+      for (let i = 0; i < labels.length; i += 1) {
+        if (labelFilters.indexOf(labels[i]) !== -1) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
 
   filterTasks(tasks) {
     const { searchInput } = this.props;
     return tasks.filter(
-      d => d.title.toLowerCase().startsWith(searchInput.toLowerCase()),
+      (d) => {
+        const matchesSearchInput = d.title &&
+          d.title.toLowerCase().startsWith(searchInput.toLowerCase());
+        const matchesLabelFilters = this.matchTaskLabelsWithLabelFilter(
+          d.labels.map(label => label.title),
+        );
+        return matchesSearchInput && matchesLabelFilters;
+      },
     );
   }
 
@@ -81,11 +101,13 @@ export default class TaskList extends Component {
 TaskList.propTypes = {
   tasks: PropTypes.object,
   searchInput: PropTypes.string,
+  labelFilters: PropTypes.array,
   whiteMode: PropTypes.bool,
 };
 
 TaskList.defaultProps = {
   tasks: {},
+  labelFilters: [],
   searchInput: '',
   whiteMode: false,
 };

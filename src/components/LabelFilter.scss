@@ -18,7 +18,7 @@ $dark-accent-color: #01a982;
     max-height: 48px;
     overflow-y: auto;
 
-    button {
+    .label-button {
       background-color: $accent-color;
       border: 2px solid $dark-accent-color !important;
       border-radius: 5px;
@@ -29,7 +29,19 @@ $dark-accent-color: #01a982;
         background-color: $secondary-accent;
       }
     }
+    .label-button-active {
+      background-color: $secondary-accent;
+      border: 2px solid $secondary-accent !important;
+      border-radius: 5px;
+      padding: 3px;
+      margin: 5px;
+
+      &:hover {
+        background-color: $dark-accent-color;
+      }
+    }
   }
+
 
   svg polygon {
     stroke: $accent-color !important;

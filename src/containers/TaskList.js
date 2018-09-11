@@ -15,6 +15,7 @@ function mapStateToProps(state) {
     whiteMode: state.style.whiteMode,
     tasks: state.tasks,
     searchInput: state.filters.searchInput,
+    labelFilters: state.filters.labelFilters,
   };
 }
 
