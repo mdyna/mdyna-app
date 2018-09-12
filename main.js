@@ -15,9 +15,9 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 600,
-    center: true,
-    minWidth: 720,
+    minWidth: 750,
     minHeight: 600,
+    center: true,
     title: 'dyna',
     darkTheme: true,
     titleBarStyle: 'hidden',
@@ -41,7 +41,9 @@ app.on('ready', () => {
 
   const splash = new BrowserWindow({
     width: 810,
+    minWidth: 810,
     height: 610,
+    minHeight: 610,
     transparent: true,
     frame: false,
     alwaysOnTop: true,

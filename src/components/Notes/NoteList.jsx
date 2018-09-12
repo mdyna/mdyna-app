@@ -58,7 +58,7 @@ export default class NoteList extends Component {
           NOTES
         </Headline>
         {this.props.notes.length ? (
-          <Columns masonry responsive maxCount={3} justify={'center'} className="visible-notes">
+          <Columns maxCount={5} masonry responsive className="visible-notes">
             {this.renderVisibleNotes()}
           </Columns>
         ) : (

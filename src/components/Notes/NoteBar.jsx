@@ -68,7 +68,7 @@ class NoteBar extends Component {
         body: JSON.stringify(note),
       }).catch(error => console.log(error));
     }
-    this.handleLabels()
+    this.handleLabels();
     this.props.removeNote(note);
   }
 

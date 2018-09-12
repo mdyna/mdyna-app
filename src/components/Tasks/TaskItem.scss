@@ -6,9 +6,17 @@ $snooze-color: #ffa000;
 $fail-color: #e65100;
 $fail-accent: #f57c00;
 
+
 button {
   margin: 5px;
   @include normalize-button-icons();
+  svg {
+    border: none;
+    &:hover {
+      border: none;
+    }
+  }
+
   svg.complete-task-icon {
     margin: 5px !important;
     polyline {

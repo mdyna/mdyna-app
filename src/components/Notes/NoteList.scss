@@ -16,6 +16,14 @@
   .visible-notes {
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 1500px) {
+    .visible-notes {
+      justify-content: 'space-around';
+    }
+
   }
 
   .add-note-btn {
