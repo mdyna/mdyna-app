@@ -19,7 +19,6 @@ app.on('ready', () => {
     minHeight: 600,
     center: true,
     title: 'dyna',
-    darkTheme: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       devTools: process.env.NODE_ENV === 'DEV',

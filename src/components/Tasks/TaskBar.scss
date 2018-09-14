@@ -25,6 +25,10 @@ $background-color: #333333;
   align-self: center;
   padding: 5px 10px;
 
+  svg {
+    border: none !important;
+  }
+
   .alert-actions {
     display: flex;
     height: 60px;

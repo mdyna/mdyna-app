@@ -33,7 +33,7 @@ export default class NoteList extends Component {
         const matchesSearchInput = d.title &&
         d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
         const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-          d.labels.map(label => label.title),
+          d.labels && d.labels.map(label => label.title),
         );
         return matchesSearchInput && matchesLabelFilters;
       },

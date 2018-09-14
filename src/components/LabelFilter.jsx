@@ -20,7 +20,7 @@ class LabelFilter extends Component {
     const clickableLabels = [];
     for (let i = 0; i < 10; i += 1) {
       const label = orderedLabels[i];
-      const labelFilterActive = labelFilters.indexOf(label.title) !== -1;
+      const labelFilterActive = label && label.title && labelFilters.indexOf(label.title) !== -1;
       const labelFunc = labelFilterActive ? removeLabelFilter : addLabelFilter;
       const labelClassName = labelFilterActive ? 'label-button-active' : 'label-button';
       if (label && label.title) {

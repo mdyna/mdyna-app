@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Headline from 'grommet/components/Headline';
+import Heading from 'grommet/components/Heading';
 import Section from 'grommet/components/Section';
 import Sidebar from 'grommet/components/Sidebar';
 import _ from 'lodash';
@@ -48,7 +49,7 @@ export default class TaskList extends Component {
         const matchesSearchInput = d.title &&
           d.title.toLowerCase().startsWith(searchInput.toLowerCase());
         const matchesLabelFilters = this.matchTaskLabelsWithLabelFilter(
-          d.labels.map(label => label.title),
+          d.labels && d.labels.map(label => label.title),
         );
         return matchesSearchInput && matchesLabelFilters;
       },
@@ -79,7 +80,12 @@ export default class TaskList extends Component {
       }
       count += 1;
     });
-    return taskSections;
+    return taskSections.length ? taskSections :
+      (
+        <Heading align="center" tag="h4">
+          {this.props.searchInput ? 'No results found' : 'Repeatable notes which keep track of your progress.'}
+        </Heading>
+      );
   }
 
   render() {
