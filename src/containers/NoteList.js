@@ -16,6 +16,7 @@ function mapStateToProps(state) {
   return {
     notes: state.notes,
     searchInput: state.filters.searchInput,
+    completedFilterOn: state.filters.completedFilterOn,
     modalOpen: state.editor.toggleEditor,
     whiteMode: state.style.whiteMode,
     labelFilters: state.filters.labelFilters,

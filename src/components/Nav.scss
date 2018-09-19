@@ -51,6 +51,19 @@ $navbar-background-color: #0c1014;
     }
   }
 
+  .toggle-completed-button {
+    svg polyline {
+      stroke: $accent-color !important;
+    }
+
+    &.active svg {
+      background-color: $secondary-accent;
+        polyline {
+        stroke: $navbar-background-color !important;
+      }
+    }
+  }
+
   button {
     margin-right: 15px;
     svg {

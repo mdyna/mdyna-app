@@ -38,11 +38,12 @@ export default class NoteList extends Component {
         return matchesSearchInput && matchesLabelFilters;
       },
     );
-    console.log(notes);
     const visibleNotes = [];
     for (let i = 0; i < notes.length; i += 1) {
       const note = notes[i];
-      visibleNotes.push(<NoteItem hasNoteBar note={note} key={i} />);
+      if (!note.completed || this.props.completedFilterOn) {
+        visibleNotes.push(<NoteItem hasNoteBar note={note} key={i} />);
+      }
     }
     return visibleNotes.reverse();
   }
@@ -98,12 +99,14 @@ NoteList.propTypes = {
   whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
+  completedFilterOn: PropTypes.bool,
   notes: PropTypes.array,
 };
 
 NoteList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
+  completedFilterOn: false,
   labelFilters: [],
   searchInput: '',
   notes: [],

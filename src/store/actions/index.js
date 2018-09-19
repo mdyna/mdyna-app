@@ -102,3 +102,7 @@ export const removeLabelFilter = value => ({
   type: ACTION_TYPES.FILTERS.REMOVE_LABEL_FILTER,
   value,
 });
+export const toggleCompletedFilter = value => ({
+  type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
+  value,
+});

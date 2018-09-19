@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Brush from 'grommet/components/icons/base/Brush';
 import Pulse from 'grommet/components/icons/base/Add';
+import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
@@ -58,6 +59,16 @@ class NavBar extends Component {
         >
           <Pulse />
         </Button>
+        <Button
+          onClick={() => {
+            this.props.toggleCompletedFilter(!this.props.completedFilterOn);
+          }}
+          className={classnames('toggle-completed-button', {
+            active: this.props.completedFilterOn,
+          })}
+        >
+          <CheckmarkIcon />
+        </Button>
         <Search
           inline
           suggestions={titles.filter(
@@ -85,6 +96,8 @@ class NavBar extends Component {
 NavBar.propTypes = {
   labelFilters: PropTypes.array.isRequired,
   addLabelFilter: PropTypes.func.isRequired,
+  toggleCompletedFilter: PropTypes.func.isRequired,
+  completedFilterOn: PropTypes.bool,
   removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
@@ -100,6 +113,7 @@ NavBar.defaultProps = {
   searchInput: '',
   whiteMode: false,
   titles: [],
+  completedFilterOn: false,
   labels: [],
 };
 
