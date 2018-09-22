@@ -85,13 +85,14 @@
   .color-options {
     display: flex;
     flex-flow: row wrap;
+    min-height: 40px;
     justify-content: space-around;
 
     svg {
-      width: 30px !important;
-      height: 45px !important;
+      width: 30px;
+      height: 34px;
       circle {
-        transform: translate(50%, 75%);
+        transform: translate(50%, 50%);
       }
     }
   }
