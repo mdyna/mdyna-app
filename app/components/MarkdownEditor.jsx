@@ -3,9 +3,9 @@ import ReactMde from 'react-mde';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '!style-loader!css-loader!sass-loader!../../node_modules/react-mde/lib/styles/css/react-mde.css'; // eslint-disable-line
-import '!style-loader!css-loader!sass-loader!../../node_modules/react-mde/lib/styles/css/react-mde-textarea.css'; // eslint-disable-line
-import '!style-loader!css-loader!sass-loader!../../node_modules/react-mde/lib/styles/css/react-mde-toolbar.css'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde.css'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde-textarea.css'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde-toolbar.css'; // eslint-disable-line
 
 class Note extends Component {
   render() {

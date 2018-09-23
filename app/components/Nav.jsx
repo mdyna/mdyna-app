@@ -9,7 +9,7 @@ import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
 import LabelFilter from './LabelFilter';
-import logo from '../../assets/dynaLogoCircle.png';
+import logo from '../../resources/dynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
 

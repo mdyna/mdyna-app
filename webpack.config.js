@@ -5,11 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = process.env.PORT || '8080';
 module.exports = {
-  entry: ['react-hot-loader/patch', './src/index.js', './src/style.scss', '@babel/polyfill'],
+  entry: ['react-hot-loader/patch', './app/index.js', './app/style.scss', '@babel/polyfill'],
   output: {
     filename: 'index.js',
-    publicPath: `http://localhost:${port}/dist/`,
-    path: path.resolve(__dirname, 'dist'),
+    publicPath: process.env.NODE_ENV === 'PROD' ? './' : `http://localhost:${port}/dist/web`,
+    path: path.resolve(__dirname, 'dist', 'web'),
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -22,7 +22,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['@babel/preset-env']
+          presets: ['@babel/preset-env'],
         },
       },
       {
@@ -75,7 +75,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: './app/index.html',
     }),
     new webpack.LoaderOptionsPlugin({
       test: /\.scss/,

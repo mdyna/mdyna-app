@@ -10,7 +10,7 @@ import TaskList from '../containers/TaskList';
 import Nav from './Nav';
 import Header from './Header';
 
-import '!style-loader!css-loader!sass-loader!../../node_modules/grommet/grommet-hpe.min.css';
+import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
 import '!style-loader!css-loader!sass-loader!./App.scss'; // eslint-disable-line
 
 class Dyna extends Component {
