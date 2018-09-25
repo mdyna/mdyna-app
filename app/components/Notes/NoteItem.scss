@@ -3,6 +3,7 @@
 .note-item {
   color: $note-font-color;
   margin: 5px;
+  width: 375px !important;
 
   .labels {
     display: flex;

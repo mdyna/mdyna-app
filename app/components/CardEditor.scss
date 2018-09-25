@@ -99,20 +99,20 @@
 
   .editor-with-preview {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row nowrap;
     justify-content: space-between;
 
     > div {
-      margin-top: 10px;
+      margin: 10px 10px 0 0;
     }
     .note-preview {
       min-height: 245px;
       color: $note-font-color !important;
-      flex-basis: 35%;
+
     }
 
     .note-text-editor {
-      flex-basis: 63%;
+      width: calc(100% - 365px);
 
       .mde-header {
         background-color: white;
