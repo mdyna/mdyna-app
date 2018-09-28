@@ -54,6 +54,10 @@ body {
     padding-top: 76px;
     background-color: $secondary-background;
   }
+
+  section {
+    border-radius: 10px;
+  }
   &.white-mode {
     background-color: $white-background-color;
 

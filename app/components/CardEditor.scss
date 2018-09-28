@@ -46,9 +46,14 @@
 
 .note-editor {
   padding: 10px;
+  border-radius: 10px;
 
   > div {
     color: $accent-color;
+  }
+
+  .submit-btn {
+    border-radius: 10px;
   }
 
   button {
@@ -68,6 +73,10 @@
     border-color: $accent-color;
   }
 
+  .grommetux-form-field--text, .grommetux-form-field--text .grommetux-form-field__label{
+    border-radius: 10px !important;
+    margin-bottom: 5px !important;
+  }
   .grommetux-select__control {
     background-color: transparent;
   }
@@ -114,6 +123,10 @@
     .note-text-editor {
       width: calc(100% - 365px);
 
+      > div {
+        border-radius: 10px;
+      }
+
       .mde-header {
         background-color: white;
         border: 1px solid rgba(0, 0, 0, 0.15);
@@ -123,6 +136,9 @@
         textarea {
           background-color: white;
           resize: none;
+          border-radius: 10px;
+          margin-top: 5px;
+
           &:focus {
             border-color: transparent !important;
           }
