@@ -12,17 +12,28 @@ import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable
 import unNest from '../../utils/nest';
 
 export const COLOR_SAMPLES = [
-  '#9FA8DA',
+  '#03A9F4',
   '#0D47A1',
-  'rgb(78, 99, 110)',
-  '#64ffda',
+  '#4E636E',
+  '#64FFDA',
   '#4CAF50',
-  '#B2FF59',
   '#FFEB3B',
   '#FF7043',
   '#F44336',
-  '#F48FB',
+  '#F48FB0',
 ];
+
+const COLOR_LABELS = {
+  '#03A9F4': 'light-blue',
+  '#0D47A1': 'dark-blue',
+  '#4E636E': 'grey',
+  '#64FFDA': 'dyna-green',
+  '#4CAF50': 'green',
+  '#FFEB3B': 'yellow',
+  '#FF7043': 'orange',
+  '#F44336': 'red',
+  '#F48FB0': 'pink',
+};
 
 function minimizeNote(note) {
   note.setState({
@@ -69,7 +80,7 @@ class Note extends Component {
     return (
       <Card
         key={i}
-        className={classnames(className, 'note-item', {
+        className={classnames(className, COLOR_LABELS[color], 'note-item', {
           minimized: this.state.minimized,
         })}
         style={{
@@ -113,7 +124,7 @@ class Note extends Component {
             ))
             : ''}
         </div>
-        <div className="note-card-content">{formattedText}</div>
+        <div className={classnames('note-card-content', COLOR_LABELS[color])}>{formattedText}</div>
       </Card>
     );
   }
