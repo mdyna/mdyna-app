@@ -1,58 +1,58 @@
 @import "../../style.scss";
 
 $light-blue-background: #03a9f4;
-$light-blue-text: #1d1f28;
+$light-blue-text: #212121;
 $light-blue-code-background: #edeff8;
-$light-blue-list: #c62828;
-$light-blue-quote: #4a148c;
+$light-blue-list: #4A148C;
+$light-blue-quote: #00C853;
 
 $dark-blue-background: #0d47a1;
-$dark-blue-text: #02070f;
-$dark-blue-list: #0c79a0;
-$dark-blue-quote: #650ca0;
+$dark-blue-text: #212121;
+$dark-blue-list: #CDDC39;
+$dark-blue-quote: #EA80FC;
 $dark-blue-code-background: #04142c;
 
 $grey-background: #4e636e;
 $grey-text: #ced4d7;
 $grey-list: #01a982;
-$grey-quote: #7a6254;
+$grey-quote: #FFA726;
 $grey-code-background: #08090a;
 
 $dyna-green-background: #64ffda;
 $dyna-green-code-background: #0a1814;
-$dyna-green-text: #0a1814;
-$dyna-green-list: #ff8c63;
-$dyna-green-quote: #a663ff;
+$dyna-green-text: #212121;
+$dyna-green-list: #6200EA;
+$dyna-green-quote: #E65100;
 
 $green-background: #4caf50;
 $green-text: #eef7ef;
 $green-code-background: #b2b2b2;
-$green-list: #af4b7a;
-$green-quote: #a663ff;
+$green-list: #c62828;
+$green-quote: #1565C0;
 
 $yellow-background: #FFEB3B;
-$yellow-text: #eef7ef;
+$yellow-text: #212121;
 $yellow-code-background: #b2b2b2;
-$yellow-list: #af4b7a;
+$yellow-list: #388E3C;
 $yellow-quote: #a663ff;
 
 $red-background: #f44336;
-$red-text: #e9e9e9;
+$red-text: #212121  ;
 $red-code-background: #170705;
-$red-list: #f4b535;
-$red-quote: #54bc93;
+$red-list: #FDD835;
+$red-quote: #69F0AE;
 
 $orange-background: #ff7043;
-$orange-text: #111111;
+$orange-text: #212121;
 $orange-code-background: #a3a297;
-$orange-list: #4274ff;
-$orange-quote: #55ff42;
+$orange-list: #6A1B9A;
+$orange-quote: #00796B;
 
 $pink-background: #f48fb0;
-$pink-text: #d4d4d4;
+$pink-text: #FAFAFA;
 $pink-code-background: #170d10;
-$pink-list: #90e4f4;
-$pink-quote: #f4d390;
+$pink-list: #0D47A1;
+$pink-quote: #26A69A;
 
 .note-item {
   color: $note-font-color;
@@ -71,9 +71,17 @@ $pink-quote: #f4d390;
     }
   }
 
+  .grommetux-box {
+    height: fit-content;
+  }
+
   .note-card-content {
+    padding-top: 10px;
+    overflow-wrap: break-word;
+
     pre {
-      padding: 20px;
+      white-space: pre-wrap;
+      padding: 10px;
       code {
         font-size: 14px;
       }
@@ -169,7 +177,7 @@ $pink-quote: #f4d390;
         background-color: $dark-blue-code-background;
       }
       blockquote p {
-        color: $light-blue-quote !important;
+        color: $dark-blue-quote !important;
       }
     }
     &.green {
@@ -199,7 +207,7 @@ $pink-quote: #f4d390;
         background-color: $dyna-green-code-background;
       }
       blockquote p {
-        color: $light-blue-quote !important;
+        color: $dyna-green-quote !important;
       }
     }
     &.grey {
