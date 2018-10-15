@@ -8,7 +8,7 @@
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
-    "install-all": "npm install && cd app && npm install",
+    "install-all": "rm -rf ./node_modules && npm install && cd app && rm -rf ./node_modules && npm install",
     "electron-builder": "electron-builder",
     "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",

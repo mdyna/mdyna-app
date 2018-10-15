@@ -124,33 +124,18 @@
       width: calc(100% - 365px);
 
       > div {
+        background-color: #fff;
         border-radius: 10px;
-      }
-
-      .mde-header {
-        background-color: white;
-        border: 1px solid rgba(0, 0, 0, 0.15);
+        margin-bottom: 5px;
       }
 
       > * {
-        textarea {
-          background-color: white;
-          resize: none;
-          border-radius: 10px;
-          margin-top: 5px;
-
-          &:focus {
-            border-color: transparent !important;
+        svg {
+          margin: 5px;
+          &:hover {
+            cursor: pointer;
+            color: $accent-color;
           }
-        }
-        button {
-          background-color: transparent !important;
-          border: none !important;
-          border-radius: 0 !important;
-          text-align: center !important;
-          outline: none !important;
-          min-width: auto !important;
-          max-width: auto !important;
         }
       }
     }

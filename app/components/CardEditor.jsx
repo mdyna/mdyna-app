@@ -221,7 +221,7 @@ export default class NoteEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor className={'note-text-editor'} visibility={{ preview: false }} />
+            <MarkdownEditor className={'note-text-editor'} />
             <NotePreview changeNoteSetting={changeNoteSetting} />
           </div>
         );

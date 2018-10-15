@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
-import ReactMde from 'react-mde';
+import ReactSMDE from 'react-simplemde-editor';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde.css'; // eslint-disable-line
-import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde-textarea.css'; // eslint-disable-line
-import '!style-loader!css-loader!sass-loader!../node_modules/react-mde/lib/styles/css/react-mde-toolbar.css'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
 class Note extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorText: null,
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.editorText !== this.state.editorText;
+  }
+
+  handleValueChange(value) {
+    const { changeNoteSetting, settingName } = this.props;
+    if (value && value !== this.state.editorText) {
+      changeNoteSetting(_.snakeCase(settingName), value);
+      this.setState({ editorText: value });
+    }
+  }
+
   render() {
-    const { text, changeNoteSetting, settingName, className } = this.props;
+    const { className, text } = this.props;
     return (
-      <ReactMde
+      <ReactSMDE
         className={className}
-        value={{
-          text,
+        options={{
+          forceSync: true,
+          codeSyntaxHighlighting: true,
+          autofocus: true,
+          spellChecker: false,
         }}
-        textAreaProps={{
-          value: text,
-        }}
-        visibility={{ preview: false }}
-        onChange={e => changeNoteSetting(_.snakeCase(settingName), e.text)}
+        value={text}
+        onChange={e => this.handleValueChange(e)}
       />
     );
   }
