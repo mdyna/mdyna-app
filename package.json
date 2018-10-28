@@ -1,6 +1,6 @@
 {
   "name": "dyna",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Note notification and productivity app with  markdown support",
   "main": "main.js",
   "scripts": {
