@@ -127,14 +127,27 @@
         background-color: #fff;
         border-radius: 10px;
         margin-bottom: 5px;
+        opacity: 1;
+      }
+      .editor-toolbar:before {
+        margin-bottom: 5px;
+      }
+      .editor-toolbar {
+        opacity: 0.9;
+        margin-bottom: 5px !important;
+
+        &.fullscreen {
+          height: 45px !important;
+          padding-top: 5px !important;
+        }
       }
 
       > * {
-        svg {
-          margin: 5px;
+        a {
           &:hover {
             cursor: pointer;
-            color: $accent-color;
+            border-color: $note-font-color !important;
+            color: $accent-color !important;
           }
         }
       }
