@@ -1,49 +1,65 @@
 {
   "name": "dyna",
-  "version": "1.0.0",
-  "description": "Note notification and productivity app",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Note notification and productivity app with  markdown support",
+  "main": "main.js",
   "scripts": {
-    "build-webpack": "rm -rf ./dist && webpack --optimize-minimize --config webpack.config.js",
-    "start": "rm -rf ./dist && NODE_ENV=DEV concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
-    "watch": "webpack-dev-server --hot --inline",
-    "build-dist": "electron-builder",
-    "start-electron": "electron ./main.js",
-    "build-electron": "NODE_ENV=PROD webpack --config webpack.config.electron.js;"
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -l",
+    "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
+    "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
+    "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
+    "install-all": "rm -rf ./node_modules && npm install && cd app && rm -rf ./node_modules && npm install",
+    "electron-builder": "electron-builder",
+    "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
+    "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
+    "start-electron": "npm run build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
+    "watch": "webpack-dev-server --hot --inline"
   },
-  "author": "David Morais",
+  "author": {
+    "name": "David Morais",
+    "email": "davidmorais92@gmail.com"
+  },
   "license": "MIT",
   "build": {
+    "productName": "dyna",
+    "files": [
+      "dist/web/",
+      "node_modules/",
+      "splash.html",
+      "main.js",
+      "package.json",
+      "resources/icons/**"
+    ],
     "directories": {
-      "app": "./src"
+      "app": ".",
+      "buildResources": "resources"
     },
     "appId": "com.electron.dyna",
-    "asar": false,
     "win": {
-      "icon": "./assets/favicon.ico"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "resources/icons/win"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "icon": "icons/png",
+      "category": "Development"
     }
   },
   "dependencies": {
-    "babel-preset-env": "^1.6.1",
-    "classnames": "^2.2.5",
     "cross-env": "5.0.0",
-    "grommet": "^1.10.1",
-    "grommet-addons": "^0.6.0",
-    "jsonschema": "^1.2.2",
-    "lodash": "^4.17.5",
-    "moment": "^2.21.0",
-    "prop-types": "^15.6.0",
-    "react": "^15.5.4",
-    "react-dom": "15.5.4",
-    "react-hot-loader": "3.0.0-beta.6",
-    "react-mde": "^4.0.3",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "4.1.1",
-    "react-showdown": "^1.6.0",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
-    "showdown-htmlescape": "^0.1.9",
-    "tinycolor2": "^1.4.1",
+    "electron-json-storage": "^4.1.2",
+    "electron-reload": "^1.2.2",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
@@ -52,6 +68,7 @@
     "@babel/polyfill": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
+    "asar": "^0.14.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta.3",
     "concurrently": "^3.5.1",
@@ -59,8 +76,7 @@
     "css-loader": "^0.28.3",
     "electron": "3.0.0",
     "electron-builder": "^20.28.4",
-    "electron-reload": "^1.2.2",
-    "electron-winstaller": "^2.6.4",
+    "electron-icon-maker": "0.0.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.0.0",
     "eslint-config-standard": "^10.2.1",
@@ -81,6 +97,7 @@
     "postcss-loader": "^2.0.5",
     "postcss-mixins": "^6.0.0",
     "prettier-eslint": "^8.8.1",
+    "react": "^16.5.2",
     "react-addons-test-utils": "15.5.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "sass-loader": "^6.0.6",

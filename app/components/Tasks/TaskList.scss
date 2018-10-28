@@ -1,0 +1,17 @@
+@import "../../style.scss";
+
+.task-list {
+  background-color: $note-list-background;
+  border-radius: 10px;
+  color: $accent-color;
+  padding: 20px !important;
+  margin: 10px;
+
+  &.white-mode {
+    background-color: $white-note-list-background;
+    color: $white-font-color;
+    .grommetux-headline {
+      color: $white-font-color;
+    }
+  }
+}

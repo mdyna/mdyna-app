@@ -1,0 +1,166 @@
+@import "../style.scss";
+
+.note-layer > .grommetux-layer__container {
+  display: block !important;
+  background-color: $secondary-background !important;
+
+  button {
+    @include normalize-button-icons();
+    svg {
+      border: none !important;
+      path {
+        fill: #666;
+      }
+      polygon {
+        stroke: #666;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: $accent-color;
+        }
+        polygon {
+          stroke: $accent-color;
+        }
+      }
+    }
+  }
+}
+
+
+.grommet.grommetux-drop {
+  background-color: $white-secondary-background !important;
+
+  div {
+    width: 1 00%;
+    color: $note-font-color !important;
+
+    ol {
+      flex-flow: row nowrap;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+
+.note-editor {
+  padding: 10px;
+  border-radius: 10px;
+
+  > div {
+    color: $accent-color;
+  }
+
+  .submit-btn {
+    border-radius: 10px;
+  }
+
+  button {
+    background-color: $accent-color;
+  }
+  .grommetux-check-box__control-check {
+    position: absolute;
+    path {
+      stroke: $accent-color;
+    }
+  }
+  .grommetux-check-box__input:checked + .grommetux-check-box__control {
+    border-color: $accent-color;
+  }
+
+  .grommetux-form-field--focus {
+    border-color: $accent-color;
+  }
+
+  .grommetux-form-field--text, .grommetux-form-field--text .grommetux-form-field__label{
+    border-radius: 10px !important;
+    margin-bottom: 5px !important;
+  }
+  .grommetux-select__control {
+    background-color: transparent;
+  }
+
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__label {
+    color: $secondary-accent;
+  }
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__input:checked + .grommetux-check-box__control {
+    border-color: $secondary-accent !important;
+  }
+  .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__control {
+    border-color: $secondary-accent;
+}
+
+  .color-options {
+    display: flex;
+    flex-flow: row wrap;
+    min-height: 40px;
+    justify-content: space-around;
+
+    svg {
+      width: 30px;
+      height: 34px;
+      circle {
+        transform: translate(50%, 50%);
+      }
+    }
+  }
+
+  .editor-with-preview {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    > div {
+      margin: 10px 10px 0 0;
+    }
+    .note-preview {
+      min-height: 245px;
+      color: $note-font-color !important;
+
+    }
+
+    .note-text-editor {
+      width: calc(100% - 365px);
+
+      > div {
+        background-color: #fff;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        opacity: 1;
+      }
+      .editor-toolbar:before {
+        margin-bottom: 5px;
+      }
+      .editor-toolbar {
+        opacity: 0.9;
+        margin-bottom: 5px !important;
+
+        &.fullscreen {
+          height: 45px !important;
+          padding-top: 5px !important;
+        }
+      }
+
+      > * {
+        a {
+          &:hover {
+            cursor: pointer;
+            border-color: $note-font-color !important;
+            color: $accent-color !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.note-layer.white-mode > .grommetux-layer__container {
+  display: block !important;
+  background-color: $white-secondary-background !important;
+  .note-editor {
+    > div {
+      color: $white-font-color !important;
+    }
+  }
+}

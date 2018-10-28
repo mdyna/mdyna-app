@@ -1,0 +1,133 @@
+$close-color: #c62828;
+$close-accent: #ff5f52;
+$edit-color: #fbc02d;
+$edit-accent: #fff263;
+$complete-color: #1976d2;
+$complete-accent: #63a4ff;
+$snooze-accent: #ffc400;
+$snooze-color: #ffa000;
+$fail-color: #e65100;
+$fail-accent: #f57c00;
+
+$background-color: #333333;
+@import "../../style.scss";
+
+.task-bar {
+  background-color: $background-color;
+  display: flex;
+  flex-flow: column nowrap;
+  opacity: 0.9;
+  min-height: 50px;
+  margin: -5px 0 5px;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  align-self: center;
+  padding: 5px 10px;
+  border-radius: 10px;
+
+  svg {
+    border: none !important;
+  }
+
+  .alert-actions {
+    display: flex;
+    height: 60px;
+
+    .notification-icon {
+      margin: 0px 5px;
+      width: 30px;
+      height: 50px;
+
+      > path {
+        stroke: $accent-color !important;
+      }
+
+      &:hover {
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+
+        20%,
+        80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-3px, 0, 0);
+        }
+
+        40%,
+        60% {
+          transform: translate3d(3px, 0, 0);
+        }
+      }
+    }
+  }
+  button {
+    svg {
+      width: 18px;
+      height: 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 0;
+    }
+    &:hover {
+      border: none !important;
+    }
+    svg.edit-icon {
+      path {
+        stroke: $edit-color !important;
+      }
+    }
+    svg.close-icon {
+      path {
+        stroke: $close-color !important;
+      }
+    }
+
+    svg.minimize-icon {
+      polyline {
+        stroke: $accent-color !important;
+      }
+    }
+    svg.maximize-icon {
+      polyline {
+        stroke: $accent-color !important;
+      }
+    }
+
+    &:hover {
+      svg.edit-icon {
+        path {
+          stroke: $edit-accent !important;
+        }
+      }
+      svg.close-icon {
+        path {
+          stroke: $close-accent !important;
+        }
+      }
+      svg.minimize-icon {
+        polyline {
+          stroke: $secondary-accent !important;
+        }
+      }
+      svg.maximize-icon {
+        polyline {
+          stroke: $secondary-accent !important;
+        }
+      }
+    }
+  }
+}

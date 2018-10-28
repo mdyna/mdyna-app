@@ -1,0 +1,84 @@
+@import "../style.scss";
+
+body {
+  font-family: Roboto sans-serif;
+  background-color: $background-color;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0px;
+
+  background-color: $white-secondary-background;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $accent-color;
+  border-radius: 10px;
+}
+
+
+.dyna-app {
+  margin: 0;
+  padding: 0;
+  background-color: $background-color;
+  min-height: 600px;
+
+  ::-webkit-scrollbar-track {
+    background-color: $secondary-background;
+  }
+
+
+
+  .grommet {
+    background-color: $background-color !important;
+  }
+
+  header {
+    background-color: $secondary-background !important;
+    color: $secondary-accent;
+    padding: 20px 0 10px 10px !important;
+
+    img {
+      width: 100px !important;
+    }
+  }
+
+  article {
+    padding-top: 76px;
+    background-color: $secondary-background;
+  }
+
+  section {
+    border-radius: 10px;
+  }
+  &.white-mode {
+    background-color: $white-background-color;
+
+    .grommet {
+      background-color: $white-background-color !important;
+    }
+
+    header {
+      background-color: $white-secondary-background !important;
+      color: $white-font-color;
+      padding: 20px 0 10px 10px !important;
+
+      img {
+        width: 100px !important;
+        box-shadow: none;
+        border-radius: 50%;
+      }
+    }
+
+    article {
+      background-color: $white-secondary-background;
+    }
+  }
+}

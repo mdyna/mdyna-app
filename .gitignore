@@ -2,3 +2,5 @@ node_modules
 jsconfig.json
 .vscode
 dist
+github-page
+app/node_modules

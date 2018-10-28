@@ -1,0 +1,84 @@
+@import "../style.scss";
+
+$navbar-background-color: #0c1014;
+
+.navbar {
+  background-color: $navbar-background-color;
+  color: $accent-color;
+  opacity: 0.9;
+  height: 86px;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+
+  &.white-mode {
+    background-color: #757575;
+    .navbar-app-logo {
+      box-shadow: none;
+    }
+  }
+
+  .navbar-app-logo {
+    height: 42px;
+    width: 42px;
+    margin: 5px 10% 5px 10px;
+    box-shadow: 0px 1px 1px 1px $accent-color;
+    border-radius: 50%;
+    &:hover {
+      box-shadow: 0px 1px 1px 1px $secondary-accent;
+    }
+  }
+
+
+  .grommetux-search--inline {
+    margin-right: 10px;
+
+  .grommetux-search__input {
+    border-width: 2px;
+    width: 230px !important;
+    border-radius: 10px !important;
+    border-color: $accent-color;
+    padding: 10px 22px;
+    height: 42px;
+  }
+
+  .grommetux-search__input:focus {
+    border-color: $secondary-accent;
+  }
+
+    .grommetux-control-icon-search {
+      path {
+        stroke: $accent-color;
+      }
+    }
+  }
+
+  .toggle-completed-button {
+    svg polyline {
+      stroke: $accent-color !important;
+    }
+
+    &.active svg {
+      background-color: $secondary-accent;
+        polyline {
+        stroke: $navbar-background-color !important;
+      }
+    }
+  }
+
+  button {
+    margin-right: 15px;
+    svg {
+      border: 2px solid $accent-color;
+      border-radius: 10px;
+      height: 32px;
+      width: 32px;
+      padding: 5px;
+
+      &:hover {
+        border: 2px solid $secondary-accent;
+      }
+    }
+  }
+}
