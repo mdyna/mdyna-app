@@ -2,6 +2,13 @@
 // Basic init
 const electron = require('electron');
 const path = require('path');
+const os = require('os');
+const storage = require('electron-json-storage');
+
+
+const storagePath = path.join(os.homedir(), 'dyna');
+
+storage.setDataPath(storagePath);
 
 const { app, BrowserWindow } = electron;
 // Let electron reloads by itself when webpack watches changes in ./app/

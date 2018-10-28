@@ -1,8 +1,64 @@
 @import "../../style.scss";
 
+$light-blue-background: #03a9f4;
+$light-blue-text: #212121;
+$light-blue-code-background: #edeff8;
+$light-blue-list: #4A148C;
+$light-blue-quote: #00C853;
+
+$dark-blue-background: #0d47a1;
+$dark-blue-text: #212121;
+$dark-blue-list: #CDDC39;
+$dark-blue-quote: #EA80FC;
+$dark-blue-code-background: #04142c;
+
+$grey-background: #4e636e;
+$grey-text: #ced4d7;
+$grey-list: #01a982;
+$grey-quote: #FFA726;
+$grey-code-background: #08090a;
+
+$dyna-green-background: #64ffda;
+$dyna-green-code-background: #0a1814;
+$dyna-green-text: #212121;
+$dyna-green-list: #6200EA;
+$dyna-green-quote: #E65100;
+
+$green-background: #4caf50;
+$green-text: #eef7ef;
+$green-code-background: #b2b2b2;
+$green-list: #c62828;
+$green-quote: #1565C0;
+
+$yellow-background: #FFEB3B;
+$yellow-text: #212121;
+$yellow-code-background: #b2b2b2;
+$yellow-list: #388E3C;
+$yellow-quote: #a663ff;
+
+$red-background: #f44336;
+$red-text: #212121  ;
+$red-code-background: #170705;
+$red-list: #FDD835;
+$red-quote: #69F0AE;
+
+$orange-background: #ff7043;
+$orange-text: #212121;
+$orange-code-background: #a3a297;
+$orange-list: #6A1B9A;
+$orange-quote: #00796B;
+
+$pink-background: #f48fb0;
+$pink-text: #FAFAFA;
+$pink-code-background: #170d10;
+$pink-list: #0D47A1;
+$pink-quote: #26A69A;
+
 .note-item {
   color: $note-font-color;
   margin: 5px;
+  width: 375px !important;
+  border-radius: 10px;
 
   .labels {
     display: flex;
@@ -15,21 +71,158 @@
     }
   }
 
+  .grommetux-box {
+    height: fit-content;
+  }
+
   .note-card-content {
-    p {
-      color: $note-font-color !important;
-    }
+    padding-top: 10px;
+    overflow-wrap: break-word;
+
     pre {
-      background-color: #333;
+      white-space: pre-wrap;
+      padding: 10px;
       code {
         font-size: 14px;
-        color: #4e636e;
-        padding: 2px;
       }
     }
-    blockquote {
+
+    &.yellow {
+      background-color: $yellow-background;
       p {
-        color: $accent-color !important;
+        color: $yellow-text !important;
+      }
+      li {
+        color: $yellow-list;
+      }
+      pre {
+        background-color: $yellow-code-background;
+      }
+      blockquote p {
+        color: $yellow-quote !important;
+      }
+    }
+
+    &.orange {
+      background-color: $orange-background;
+      p {
+        color: $orange-text !important;
+      }
+      li {
+        color: $orange-list;
+      }
+      pre {
+        background-color: $orange-code-background;
+      }
+      blockquote p {
+        color: $orange-quote !important;
+      }
+    }
+
+    &.red {
+      background-color: $red-background;
+      p {
+        color: $red-text !important;
+      }
+      li {
+        color: $red-list;
+      }
+      pre {
+        background-color: $red-code-background;
+      }
+      blockquote p {
+        color: $red-quote !important;
+      }
+    }
+
+    &.pink {
+      background-color: $pink-background;
+      p {
+        color: $pink-text !important;
+      }
+      li {
+        color: $pink-list;
+      }
+      pre {
+        background-color: $pink-code-background;
+      }
+      blockquote p {
+        color: $pink-quote !important;
+      }
+    }
+    &.light-blue {
+      background-color: $light-blue-background;
+      p {
+        color: $light-blue-text !important;
+      }
+      li {
+        color: $light-blue-list;
+      }
+      pre {
+        background-color: $light-blue-code-background;
+      }
+      blockquote p {
+        color: $light-blue-quote !important;
+      }
+    }
+    &.dark-blue {
+      background-color: $dark-blue-background;
+      p {
+        color: $dark-blue-text !important;
+      }
+      li {
+        color: $dark-blue-list;
+      }
+      pre {
+        background-color: $dark-blue-code-background;
+      }
+      blockquote p {
+        color: $dark-blue-quote !important;
+      }
+    }
+    &.green {
+      background-color: $green-background;
+      p {
+        color: $green-text !important;
+      }
+      li {
+        color: $green-list;
+      }
+      pre {
+        background-color: $green-code-background;
+      }
+      blockquote p {
+        color: $green-quote !important;
+      }
+    }
+    &.dyna-green {
+      background-color: $dyna-green-background;
+      p {
+        color: $dyna-green-text !important;
+      }
+      li {
+        color: $dyna-green-list;
+      }
+      pre {
+        background-color: $dyna-green-code-background;
+      }
+      blockquote p {
+        color: $dyna-green-quote !important;
+      }
+    }
+    &.grey {
+      background-color: $grey-background;
+      p {
+        color: $grey-text !important;
+      }
+      li {
+        color: $grey-list;
+      }
+      pre {
+        background-color: $grey-code-background;
+      }
+      blockquote p {
+        color: $grey-quote !important;
       }
     }
   }

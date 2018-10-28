@@ -6,8 +6,11 @@ $navbar-background-color: #0c1014;
   background-color: $navbar-background-color;
   color: $accent-color;
   opacity: 0.9;
-  max-height: 200px;
+  height: 86px;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 
   &.white-mode {
     background-color: #757575;
@@ -68,7 +71,7 @@ $navbar-background-color: #0c1014;
     margin-right: 15px;
     svg {
       border: 2px solid $accent-color;
-      border-radius: 25%;
+      border-radius: 10px;
       height: 32px;
       width: 32px;
       padding: 5px;

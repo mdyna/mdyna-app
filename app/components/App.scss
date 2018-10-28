@@ -28,7 +28,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: $background-color;
-  min-height: 575px;
+  min-height: 600px;
 
   ::-webkit-scrollbar-track {
     background-color: $secondary-background;
@@ -51,7 +51,12 @@ body {
   }
 
   article {
+    padding-top: 76px;
     background-color: $secondary-background;
+  }
+
+  section {
+    border-radius: 10px;
   }
   &.white-mode {
     background-color: $white-background-color;

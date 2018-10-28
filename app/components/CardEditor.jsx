@@ -344,7 +344,7 @@ export default class NoteEditor extends Component {
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
-        <Button label="Submit" primary onClick={() => this.submitFormFields()} />
+        <Button className="submit-btn" label="Submit" primary onClick={() => this.submitFormFields()} />
       </Form>
     );
   }

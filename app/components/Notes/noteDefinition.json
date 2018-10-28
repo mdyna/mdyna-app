@@ -11,16 +11,15 @@
       "format": "color",
       "uiSchema": "color",
       "enums": [
-        "#9FA8DA",
+        "#03A9F4",
         "#0D47A1",
-        "rgb(78, 99, 110)",
-        "#64ffda",
+        "#4E636E",
+        "#64FFDA",
         "#4CAF50",
-        "#B2FF59",
         "#FFEB3B",
         "#FF7043",
         "#F44336",
-        "#F48FB1"
+        "#F48FB0"
       ]
     },
     "labels": {
