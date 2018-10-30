@@ -6,12 +6,13 @@ import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
-import MarkdownText from '../MarkdownText';
 
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
 import toMilliSeconds from '../../utils/time';
 import TaskBar from './TaskBar';
+import MarkdownText from '../MarkdownText';
+import Labels from '../Labels';
 
 const ALERT_TIMES = {
   daily: toMilliSeconds.day,
@@ -128,23 +129,7 @@ export default class TaskItem extends Component {
         <Heading align="start" tag="h3" strong>
           {task.title}
         </Heading>
-        <div className="labels">
-          {task && task.labels
-            ? task.labels.map(label => (
-              <span
-                style={{
-                  backgroundColor: tinycolor(color).lighten(10),
-                  border: `3px solid ${tinycolor(color).darken(30)}`,
-                  borderRadius: '50px',
-                  padding: '5px',
-                }}
-                key={`label-${label.title}`}
-              >
-                {label.title}
-              </span>
-            ))
-            : ''}
-        </div>
+        <Labels labels={task.labels} color={color} />
         <div
           className="task-chart"
           style={{

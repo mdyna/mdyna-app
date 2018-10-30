@@ -61,12 +61,9 @@ $pink-quote: #26A69A;
   border-radius: 10px;
 
   .labels {
-    display: flex;
-    flex-flow: row wrap;
     span {
       width: fit-content;
       margin: 5px;
-      padding: 5px;
       display: inline-block;
     }
   }

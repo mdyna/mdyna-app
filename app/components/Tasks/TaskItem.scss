@@ -71,6 +71,11 @@ button {
   }
   .labels {
     margin-bottom: 10px;
+    span {
+      width: fit-content;
+      margin: 3px;
+      display: inline-block;
+    }
   }
   .grommetux-legend__item,
   .grommetux-legend__total {

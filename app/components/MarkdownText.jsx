@@ -16,7 +16,7 @@ const COLOR_LABELS = {
   '#F48FB0': 'pink',
 };
 
-class NoteBar extends Component {
+class MarkdownText extends Component {
   render() {
     const { text, className, color, minimized } = this.props;
     const converter = new Converter({
@@ -34,15 +34,15 @@ class NoteBar extends Component {
   }
 }
 
-export default NoteBar;
+export default MarkdownText;
 
-NoteBar.propTypes = {
+MarkdownText.propTypes = {
   text: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   color: PropTypes.string.isRequired,
 };
 
-NoteBar.defaultProps = {
+MarkdownText.defaultProps = {
   minimized: false,
 };

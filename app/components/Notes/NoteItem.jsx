@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
 import NoteBar from './NoteBar';
-import MarkdownText from '../MarkdownText';
 import unNest from '../../utils/nest';
+import MarkdownText from '../MarkdownText';
+import Labels from '../Labels';
 
 import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
 
@@ -100,23 +101,7 @@ class Note extends Component {
         <Heading align="start" tag="h1" strong>
           {note.title}
         </Heading>
-        <div className="labels">
-          {note.labels && note.labels.length
-            ? note.labels.map(label => (
-              <span
-                style={{
-                  backgroundColor: tinycolor(color).lighten(10),
-                  borderRadius: '50px',
-                  border: `3px solid ${tinycolor(color).darken(30)}`,
-                  padding: '5px',
-                }}
-                key={`label-${label.title}`}
-              >
-                {label.title}
-              </span>
-            ))
-            : ''}
-        </div>
+        <Labels labels={note.labels} color={color} />
         <MarkdownText
           className="note-card-content"
           minimized={this.state.minimized}
