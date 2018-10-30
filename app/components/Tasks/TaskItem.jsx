@@ -5,9 +5,8 @@ import classnames from 'classnames';
 import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
-import htmlescape from 'showdown-htmlescape';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
-import { Converter } from 'react-showdown';
+import MarkdownText from '../MarkdownText';
 
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
@@ -106,13 +105,6 @@ export default class TaskItem extends Component {
     const series = buildTaskSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
 
-    const taskText = task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text;
-    const rawText = this.state.minimized ? taskText : task.text;
-    const converter = new Converter({
-      headerLevelStart: 3,
-      extensions: [htmlescape],
-    });
-    const formatedTaskText = converter.convert(rawText) || '';
     const fontColor = tinycolor(color).darken(50);
     return (
       <Card
@@ -170,9 +162,12 @@ export default class TaskItem extends Component {
             />
           )}
         </div>
-        <div className="task-text" style={{ backgroundColor: color }}>
-          {formatedTaskText}
-        </div>
+        <MarkdownText
+          className="task-text"
+          minimized={this.state.minimized}
+          color={color}
+          text={task.text}
+        />
       </Card>
     );
   }

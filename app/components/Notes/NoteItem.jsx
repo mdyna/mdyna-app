@@ -4,12 +4,12 @@ import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Converter } from 'react-showdown';
-import htmlescape from 'showdown-htmlescape';
 import _ from 'lodash';
 import NoteBar from './NoteBar';
-import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
+import MarkdownText from '../MarkdownText';
 import unNest from '../../utils/nest';
+
+import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
 
 export const COLOR_SAMPLES = [
   '#03A9F4',
@@ -67,16 +67,9 @@ class Note extends Component {
 
   render() {
     const { note, i, className, hasNoteBar } = this.props;
-    const converter = new Converter({
-      headerLevelStart: 3,
-      extensions: [htmlescape],
-    });
 
-    const noteText = note && note.text && note.text.length > 300 ? `${note.text.substring(0, 300)}...` : note.text;
-    const rawText = this.state.minimized ? noteText : note.text;
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
-    const formattedText = converter.convert(rawText) || '';
     return (
       <Card
         key={i}
@@ -124,7 +117,12 @@ class Note extends Component {
             ))
             : ''}
         </div>
-        <div className={classnames('note-card-content', COLOR_LABELS[color])}>{formattedText}</div>
+        <MarkdownText
+          className="note-card-content"
+          minimized={this.state.minimized}
+          color={color}
+          text={note.text}
+        />
       </Card>
     );
   }
