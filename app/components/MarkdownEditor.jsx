@@ -31,10 +31,31 @@ class Note extends Component {
       <ReactSMDE
         className={className}
         options={{
-          forceSync: true,
-          codeSyntaxHighlighting: true,
+          renderingConfig: {
+            codeSyntaxHighlighting: true,
+          },
           autofocus: true,
           spellChecker: false,
+          toolbar: [
+            'bold',
+            'italic',
+            'strikethrough',
+            '|',
+            'heading-1',
+            'heading-2',
+            'heading-3',
+            '|',
+            'code',
+            'quote',
+            'link',
+            'image',
+            'table',
+            '|',
+            'unordered-list',
+            'ordered-list',
+            '|',
+            'fullscreen',
+          ],
         }}
         value={text}
         onChange={e => this.handleValueChange(e)}
