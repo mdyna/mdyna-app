@@ -3,6 +3,10 @@ import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ReactHighlight from 'react-highlight';
+
+import '!style-loader!css-loader!sass-loader!../node_modules/highlight.js/styles/atom-one-dark.css'; // eslint-disable-line
+
 
 const COLOR_LABELS = {
   '#03A9F4': 'light-blue',
@@ -26,9 +30,12 @@ class MarkdownText extends Component {
     const noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
+
     return (
       <div className={classnames(className, COLOR_LABELS[color])}>
-        {formattedText}
+        <ReactHighlight element="div">
+          {formattedText}
+        </ReactHighlight>
       </div>
     );
   }

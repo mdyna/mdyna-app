@@ -31,9 +31,6 @@ class Note extends Component {
       <ReactSMDE
         className={className}
         options={{
-          renderingConfig: {
-            codeSyntaxHighlighting: true,
-          },
           autofocus: true,
           spellChecker: false,
           toolbar: [

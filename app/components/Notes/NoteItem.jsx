@@ -59,6 +59,7 @@ class Note extends Component {
       minimized: unNest(props, 'note.text') && unNest(props, 'note.text').length > 500, // automatically clip over 500 chars
     };
   }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.note && this.props.note) {
       return assertNoteChanges(nextProps.note, this.props.note);

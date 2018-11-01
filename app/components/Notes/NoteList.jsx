@@ -27,17 +27,28 @@ export default class NoteList extends Component {
     return true;
   }
 
-  renderVisibleNotes() {
-    const notes = this.props.notes.filter(
-      (d) => {
-        const matchesSearchInput = d.title &&
-        d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
-        const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-          d.labels && d.labels.map(label => label.title),
-        );
-        return matchesSearchInput && matchesLabelFilters;
-      },
+  renderAddNoteButton() {
+    return (
+      <Button
+        onClick={() => {
+          this.props.toggleEditor(true);
+        }}
+        className="add-note-btn"
+      >
+        <Pulse />
+      </Button>
     );
+  }
+
+  renderVisibleNotes() {
+    const notes = this.props.notes.filter((d) => {
+      const matchesSearchInput =
+        d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
+      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
+        d.labels && d.labels.map(label => label.title),
+      );
+      return matchesSearchInput && matchesLabelFilters;
+    });
     const visibleNotes = [];
     for (let i = 0; i < notes.length; i += 1) {
       const note = notes[i];
@@ -60,21 +71,15 @@ export default class NoteList extends Component {
         </Headline>
         {this.props.notes.length ? (
           <Columns maxCount={5} masonry responsive className="visible-notes">
+            {this.renderAddNoteButton()}
             {this.renderVisibleNotes()}
           </Columns>
         ) : (
           <Heading align="center" tag="h3">
             {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
+            {this.renderAddNoteButton()}
           </Heading>
         )}
-        <Button
-          onClick={() => {
-            this.props.toggleEditor(true);
-          }}
-          className="add-note-btn"
-        >
-          <Pulse />
-        </Button>
         {this.props.modalOpen ? (
           <Layer
             overlayClose
