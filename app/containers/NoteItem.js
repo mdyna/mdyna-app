@@ -35,11 +35,8 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return { whiteMode: state.style.whiteMode };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NoteItem);
+export default connect(mapStateToProps, mapDispatchToProps)(NoteItem);

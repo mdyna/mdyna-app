@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ReactHighlight from 'react-highlight';
 
-import '!style-loader!css-loader!sass-loader!../node_modules/highlight.js/styles/atom-one-dark.css'; // eslint-disable-line
-
+import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
 
 const COLOR_LABELS = {
   '#03A9F4': 'light-blue',
@@ -22,7 +21,7 @@ const COLOR_LABELS = {
 
 class MarkdownText extends Component {
   render() {
-    const { text, className, color, minimized } = this.props;
+    const { text, className, color, minimized, whiteMode } = this.props;
     const converter = new Converter({
       headerLevelStart: 3,
       extensions: [htmlescape],
@@ -32,10 +31,8 @@ class MarkdownText extends Component {
     const formattedText = converter.convert(rawText) || '';
 
     return (
-      <div className={classnames(className, COLOR_LABELS[color])}>
-        <ReactHighlight element="div">
-          {formattedText}
-        </ReactHighlight>
+      <div className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'dyna-md')}>
+        <ReactHighlight element="div">{formattedText}</ReactHighlight>
       </div>
     );
   }
@@ -47,9 +44,11 @@ MarkdownText.propTypes = {
   text: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
+  whiteMode: PropTypes.bool,
   color: PropTypes.string.isRequired,
 };
 
 MarkdownText.defaultProps = {
   minimized: false,
+  whiteMode: false,
 };

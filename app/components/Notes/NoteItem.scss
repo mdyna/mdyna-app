@@ -67,29 +67,12 @@ $pink-quote: #26A69A;
     height: fit-content;
   }
 
-  .note-card-content.white-theme {
-    padding-top: 10px;
-    overflow-wrap: break-word;
-
-    pre {
-      white-space: pre-wrap;
-      padding: 5px;
-      background-color: $white-code-background;
-      code {
-        font-size: 14px;
-      }
-    }
-  }
-
   .note-card-content {
     padding-top: 10px;
     overflow-wrap: break-word;
 
     pre {
       white-space: pre-wrap;
-      code {
-        font-size: 14px;
-      }
     }
 
     &.yellow {

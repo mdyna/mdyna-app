@@ -68,7 +68,7 @@ class Note extends Component {
   }
 
   render() {
-    const { note, i, className, hasNoteBar } = this.props;
+    const { note, i, className, hasNoteBar, whiteMode } = this.props;
 
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
@@ -104,6 +104,7 @@ class Note extends Component {
         </Heading>
         <Labels labels={note.labels} color={color} />
         <MarkdownText
+          whiteMode={whiteMode}
           className="note-card-content"
           minimized={this.state.minimized}
           color={color}
@@ -119,6 +120,7 @@ export default Note;
 Note.propTypes = {
   note: PropTypes.object.isRequired,
   hasNoteBar: PropTypes.bool,
+  whiteMode: PropTypes.bool,
   editNote: PropTypes.func,
   className: PropTypes.string,
   removeNote: PropTypes.func,
@@ -134,6 +136,7 @@ Note.defaultProps = {
   i: 0,
   removeNote: null,
   editNote: null,
+  whiteMode: false,
   addLabel: null,
   removeLabel: null,
   toggleNote: null,
