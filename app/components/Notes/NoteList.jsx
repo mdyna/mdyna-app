@@ -17,9 +17,11 @@ export default class NoteList extends Component {
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {
-      for (let i = 0; i < labels.length; i += 1) {
-        if (labelFilters.indexOf(labels[i]) !== -1) {
-          return true;
+      if (labels) {
+        for (let i = 0; i < labels.length; i += 1) {
+          if (labelFilters.indexOf(labels[i]) !== -1) {
+            return true;
+          }
         }
       }
       return false;

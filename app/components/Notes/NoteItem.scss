@@ -68,8 +68,14 @@ $pink-quote: #26A69A;
   }
 
   .note-card-content {
-    padding-top: 10px;
     overflow-wrap: break-word;
+
+    code {
+      font-size: 14px;
+      border: 1px dashed #6e6e6e;
+      padding: 1px;
+      border-radius: 5px
+    }
 
     pre {
       white-space: pre-wrap;

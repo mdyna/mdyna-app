@@ -3,7 +3,7 @@ import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ReactHighlight from 'react-highlight';
+import ReactHighlight from './CodeHighlight';
 
 import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
 
@@ -29,11 +29,14 @@ class MarkdownText extends Component {
     const noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
-
     return (
-      <div className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'dyna-md')}>
-        <ReactHighlight element="div">{formattedText}</ReactHighlight>
-      </div>
+      <ReactHighlight
+        element="div"
+        text={noteText}
+        className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'dyna-md')}
+      >
+        {formattedText}
+      </ReactHighlight>
     );
   }
 }
