@@ -5,14 +5,14 @@ import classnames from 'classnames';
 import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
-import htmlescape from 'showdown-htmlescape';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
-import { Converter } from 'react-showdown';
 
 import '!style-loader!css-loader!sass-loader!./TaskItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
 import toMilliSeconds from '../../utils/time';
 import TaskBar from './TaskBar';
+import MarkdownText from '../MarkdownText';
+import Labels from '../Labels';
 
 const ALERT_TIMES = {
   daily: toMilliSeconds.day,
@@ -106,13 +106,6 @@ export default class TaskItem extends Component {
     const series = buildTaskSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
 
-    const taskText = task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text;
-    const rawText = this.state.minimized ? taskText : task.text;
-    const converter = new Converter({
-      headerLevelStart: 3,
-      extensions: [htmlescape],
-    });
-    const formatedTaskText = converter.convert(rawText) || '';
     const fontColor = tinycolor(color).darken(50);
     return (
       <Card
@@ -136,23 +129,7 @@ export default class TaskItem extends Component {
         <Heading align="start" tag="h3" strong>
           {task.title}
         </Heading>
-        <div className="labels">
-          {task && task.labels
-            ? task.labels.map(label => (
-              <span
-                style={{
-                  backgroundColor: tinycolor(color).lighten(10),
-                  border: `3px solid ${tinycolor(color).darken(30)}`,
-                  borderRadius: '50px',
-                  padding: '5px',
-                }}
-                key={`label-${label.title}`}
-              >
-                {label.title}
-              </span>
-            ))
-            : ''}
-        </div>
+        <Labels labels={task.labels} color={color} />
         <div
           className="task-chart"
           style={{
@@ -170,9 +147,12 @@ export default class TaskItem extends Component {
             />
           )}
         </div>
-        <div className="task-text" style={{ backgroundColor: color }}>
-          {formatedTaskText}
-        </div>
+        <MarkdownText
+          className="task-text"
+          minimized={this.state.minimized}
+          color={color}
+          text={task.text}
+        />
       </Card>
     );
   }

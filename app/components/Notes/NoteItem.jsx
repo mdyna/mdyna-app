@@ -4,12 +4,13 @@ import Card from 'grommet/components/Card';
 import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Converter } from 'react-showdown';
-import htmlescape from 'showdown-htmlescape';
 import _ from 'lodash';
 import NoteBar from './NoteBar';
-import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
 import unNest from '../../utils/nest';
+import MarkdownText from '../MarkdownText';
+import Labels from '../Labels';
+
+import '!style-loader!css-loader!sass-loader!./NoteItem.scss'; // eslint-disable-line
 
 export const COLOR_SAMPLES = [
   '#03A9F4',
@@ -58,6 +59,7 @@ class Note extends Component {
       minimized: unNest(props, 'note.text') && unNest(props, 'note.text').length > 500, // automatically clip over 500 chars
     };
   }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.note && this.props.note) {
       return assertNoteChanges(nextProps.note, this.props.note);
@@ -66,17 +68,10 @@ class Note extends Component {
   }
 
   render() {
-    const { note, i, className, hasNoteBar } = this.props;
-    const converter = new Converter({
-      headerLevelStart: 3,
-      extensions: [htmlescape],
-    });
+    const { note, i, className, hasNoteBar, whiteMode } = this.props;
 
-    const noteText = note && note.text && note.text.length > 300 ? `${note.text.substring(0, 300)}...` : note.text;
-    const rawText = this.state.minimized ? noteText : note.text;
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
-    const formattedText = converter.convert(rawText) || '';
     return (
       <Card
         key={i}
@@ -107,24 +102,14 @@ class Note extends Component {
         <Heading align="start" tag="h1" strong>
           {note.title}
         </Heading>
-        <div className="labels">
-          {note.labels && note.labels.length
-            ? note.labels.map(label => (
-              <span
-                style={{
-                  backgroundColor: tinycolor(color).lighten(10),
-                  borderRadius: '50px',
-                  border: `3px solid ${tinycolor(color).darken(30)}`,
-                  padding: '5px',
-                }}
-                key={`label-${label.title}`}
-              >
-                {label.title}
-              </span>
-            ))
-            : ''}
-        </div>
-        <div className={classnames('note-card-content', COLOR_LABELS[color])}>{formattedText}</div>
+        <Labels labels={note.labels} color={color} />
+        <MarkdownText
+          whiteMode={whiteMode}
+          className="note-card-content"
+          minimized={this.state.minimized}
+          color={color}
+          text={note.text}
+        />
       </Card>
     );
   }
@@ -135,6 +120,7 @@ export default Note;
 Note.propTypes = {
   note: PropTypes.object.isRequired,
   hasNoteBar: PropTypes.bool,
+  whiteMode: PropTypes.bool,
   editNote: PropTypes.func,
   className: PropTypes.string,
   removeNote: PropTypes.func,
@@ -150,6 +136,7 @@ Note.defaultProps = {
   i: 0,
   removeNote: null,
   editNote: null,
+  whiteMode: false,
   addLabel: null,
   removeLabel: null,
   toggleNote: null,

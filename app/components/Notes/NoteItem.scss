@@ -1,8 +1,10 @@
 @import "../../style.scss";
 
+$white-code-background: #edeff8;
+$code-background: #08090a;
+
 $light-blue-background: #03a9f4;
 $light-blue-text: #212121;
-$light-blue-code-background: #edeff8;
 $light-blue-list: #4A148C;
 $light-blue-quote: #00C853;
 
@@ -10,16 +12,13 @@ $dark-blue-background: #0d47a1;
 $dark-blue-text: #212121;
 $dark-blue-list: #CDDC39;
 $dark-blue-quote: #EA80FC;
-$dark-blue-code-background: #04142c;
 
 $grey-background: #4e636e;
 $grey-text: #ced4d7;
 $grey-list: #01a982;
 $grey-quote: #FFA726;
-$grey-code-background: #08090a;
 
 $dyna-green-background: #64ffda;
-$dyna-green-code-background: #0a1814;
 $dyna-green-text: #212121;
 $dyna-green-list: #6200EA;
 $dyna-green-quote: #E65100;
@@ -32,25 +31,21 @@ $green-quote: #1565C0;
 
 $yellow-background: #FFEB3B;
 $yellow-text: #212121;
-$yellow-code-background: #b2b2b2;
 $yellow-list: #388E3C;
 $yellow-quote: #a663ff;
 
 $red-background: #f44336;
-$red-text: #212121  ;
-$red-code-background: #170705;
+$red-text: #212121;
 $red-list: #FDD835;
 $red-quote: #69F0AE;
 
 $orange-background: #ff7043;
 $orange-text: #212121;
-$orange-code-background: #a3a297;
 $orange-list: #6A1B9A;
 $orange-quote: #00796B;
 
 $pink-background: #f48fb0;
 $pink-text: #FAFAFA;
-$pink-code-background: #170d10;
 $pink-list: #0D47A1;
 $pink-quote: #26A69A;
 
@@ -61,12 +56,9 @@ $pink-quote: #26A69A;
   border-radius: 10px;
 
   .labels {
-    display: flex;
-    flex-flow: row wrap;
     span {
       width: fit-content;
       margin: 5px;
-      padding: 5px;
       display: inline-block;
     }
   }
@@ -76,15 +68,17 @@ $pink-quote: #26A69A;
   }
 
   .note-card-content {
-    padding-top: 10px;
     overflow-wrap: break-word;
+
+    code {
+      font-size: 14px;
+      border: 1px dashed #6e6e6e;
+      padding: 1px;
+      border-radius: 5px
+    }
 
     pre {
       white-space: pre-wrap;
-      padding: 10px;
-      code {
-        font-size: 14px;
-      }
     }
 
     &.yellow {
@@ -94,9 +88,6 @@ $pink-quote: #26A69A;
       }
       li {
         color: $yellow-list;
-      }
-      pre {
-        background-color: $yellow-code-background;
       }
       blockquote p {
         color: $yellow-quote !important;
@@ -111,9 +102,6 @@ $pink-quote: #26A69A;
       li {
         color: $orange-list;
       }
-      pre {
-        background-color: $orange-code-background;
-      }
       blockquote p {
         color: $orange-quote !important;
       }
@@ -126,9 +114,6 @@ $pink-quote: #26A69A;
       }
       li {
         color: $red-list;
-      }
-      pre {
-        background-color: $red-code-background;
       }
       blockquote p {
         color: $red-quote !important;
@@ -143,9 +128,6 @@ $pink-quote: #26A69A;
       li {
         color: $pink-list;
       }
-      pre {
-        background-color: $pink-code-background;
-      }
       blockquote p {
         color: $pink-quote !important;
       }
@@ -157,9 +139,6 @@ $pink-quote: #26A69A;
       }
       li {
         color: $light-blue-list;
-      }
-      pre {
-        background-color: $light-blue-code-background;
       }
       blockquote p {
         color: $light-blue-quote !important;
@@ -173,9 +152,6 @@ $pink-quote: #26A69A;
       li {
         color: $dark-blue-list;
       }
-      pre {
-        background-color: $dark-blue-code-background;
-      }
       blockquote p {
         color: $dark-blue-quote !important;
       }
@@ -187,9 +163,6 @@ $pink-quote: #26A69A;
       }
       li {
         color: $green-list;
-      }
-      pre {
-        background-color: $green-code-background;
       }
       blockquote p {
         color: $green-quote !important;
@@ -203,9 +176,6 @@ $pink-quote: #26A69A;
       li {
         color: $dyna-green-list;
       }
-      pre {
-        background-color: $dyna-green-code-background;
-      }
       blockquote p {
         color: $dyna-green-quote !important;
       }
@@ -217,9 +187,6 @@ $pink-quote: #26A69A;
       }
       li {
         color: $grey-list;
-      }
-      pre {
-        background-color: $grey-code-background;
       }
       blockquote p {
         color: $grey-quote !important;
