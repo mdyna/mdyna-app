@@ -26,7 +26,10 @@ class MarkdownText extends Component {
       headerLevelStart: 3,
       extensions: [htmlescape],
     });
-    const noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
+    let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
+
+    const codeRegexp = /(?:```[a-z])*\n([\s\S]*?\n)(?:```)/g;
+    noteText = text.match(codeRegexp).length ? `${noteText}\n\`\`\`` : noteText;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     return (
