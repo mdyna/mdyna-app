@@ -56,7 +56,7 @@ class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minimized: unNest(props, 'note.text') && unNest(props, 'note.text').length > 500, // automatically clip over 500 chars
+      minimized: unNest(props, 'note.text') && unNest(props, 'note.text').length > 300, // automatically clip over 500 chars
     };
   }
 
@@ -72,6 +72,7 @@ class Note extends Component {
 
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
+    const minimize = this.props.showAllText ? false : this.state.minimized;
     return (
       <Card
         key={i}
@@ -106,7 +107,7 @@ class Note extends Component {
         <MarkdownText
           whiteMode={whiteMode}
           className="note-card-content"
-          minimized={this.state.minimized}
+          minimized={minimize}
           color={color}
           text={note.text}
         />
@@ -121,6 +122,7 @@ Note.propTypes = {
   note: PropTypes.object.isRequired,
   hasNoteBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
+  showAllText: PropTypes.bool,
   editNote: PropTypes.func,
   className: PropTypes.string,
   removeNote: PropTypes.func,
@@ -137,6 +139,7 @@ Note.defaultProps = {
   removeNote: null,
   editNote: null,
   whiteMode: false,
+  showAllText: false,
   addLabel: null,
   removeLabel: null,
   toggleNote: null,

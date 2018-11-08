@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import '!style-loader!css-loader!sass-loader!../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
-class Note extends Component {
+class MarkdownEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,16 +61,16 @@ class Note extends Component {
   }
 }
 
-export default Note;
+export default MarkdownEditor;
 
-Note.propTypes = {
+MarkdownEditor.propTypes = {
   text: PropTypes.string,
   settingName: PropTypes.string,
   className: PropTypes.string,
   changeNoteSetting: PropTypes.func.isRequired,
 };
 
-Note.defaultProps = {
+MarkdownEditor.defaultProps = {
   text: '',
   className: 'text-editor',
   settingName: 'text',
