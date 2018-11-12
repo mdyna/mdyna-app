@@ -1,5 +1,6 @@
 import hljs from 'highlight.js';
 import React from 'react';
+import RegExp from '../utils/regexp';
 
 class Highlight extends React.Component {
   /* eslint-disable */
@@ -18,10 +19,9 @@ class Highlight extends React.Component {
   componentWillReceiveProps(newProps) {
     const { text } = this.props;
     if (text !== newProps.text) {
-      const codeRegexp = /(?:```[a-z])*\n([\s\S]*?\n)(?:```)/g;
-      const codeBlocks = newProps.text.match(codeRegexp);
+      const codeBlocks = newProps.text.match(RegExp.codeRegExp);
       this.setState({
-        codeBlocks,
+        codeBlocks: codeBlocks.map(code => code.replace(RegExp.backticksRegExp, '').trim()),
       });
     }
   }
@@ -29,7 +29,6 @@ class Highlight extends React.Component {
   componentDidUpdate() {
     this.highlightCode();
   }
-
 
   setEl(el) {
     this.el = el;
@@ -66,7 +65,6 @@ class Highlight extends React.Component {
     );
   }
 }
-
 
 Highlight.defaultProps = {
   innerHTML: false,
