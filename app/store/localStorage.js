@@ -1,21 +1,13 @@
 export const getLocalState = () => {
-  try {
-    const localState = localStorage.getItem('state');
-    if (localState === null) {
-      return undefined;
-    }
-    return JSON.parse(localState);
-  } catch (err) {
-    console.log(err);
-    return undefined;
-  }
+  const localState = window.storage.get('state');
+  return localState;
 };
 
 export const saveState = (state) => {
   try {
-    const localState = JSON.stringify(state);
-    localStorage.setItem('state', localState);
+    window.storage.set('state', state);
   } catch (err) {
+    /* eslint-disable-next-line  */
     console.log(err);
   }
 };
