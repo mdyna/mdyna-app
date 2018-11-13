@@ -5,7 +5,7 @@ import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
-import NoteBar from './NoteBar';
+import CardBar from '../Cards/CardBar';
 import unNest from '../../utils/nest';
 import MarkdownText from '../MarkdownText';
 import Labels from '../Labels';
@@ -73,6 +73,18 @@ class Note extends Component {
     const color =
       (note && note.color) || this.props.changeNoteSetting('color', _.sample(COLOR_SAMPLES));
     const minimize = this.props.showAllText ? false : this.state.minimized;
+    const noteActions = {
+      generateCardLink: this.props.generateNoteLink,
+      toggleCard: this.props.toggleNote,
+      removeCard: this.props.removeNote,
+      minimizeCard: note.text && note.text.length > 300 ? minimizeNote : null,
+      editCard: this.props.editNote,
+      removeLabel: this.props.removeLabel,
+    };
+    const cardOptions = {
+      isNote: true,
+      minimized: this.state.minimized,
+    };
     return (
       <Card
         key={i}
@@ -81,21 +93,14 @@ class Note extends Component {
         })}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
-          backgroundColor: color || '#4e636e',
+          backgroundColor: color || '#4E636E',
         }}
       >
         {hasNoteBar ? (
-          <NoteBar
-            note={note}
-            generateNoteLink={this.props.generateNoteLink}
-            toggleNote={this.props.toggleNote}
-            removeNote={this.props.removeNote}
-            minimizeNote={note.text && note.text.length > 300 ? minimizeNote : null}
-            noteItem={this}
-            editNote={this.props.editNote}
-            minimized={this.state.minimized}
-            addLabel={this.props.addLabel}
-            removeLabel={this.props.removeLabel}
+          <CardBar
+            card={note}
+            cardActions={noteActions}
+            options={cardOptions}
           />
         ) : (
           ''
@@ -127,7 +132,6 @@ Note.propTypes = {
   className: PropTypes.string,
   removeNote: PropTypes.func,
   toggleNote: PropTypes.func,
-  addLabel: PropTypes.func,
   removeLabel: PropTypes.func,
   generateNoteLink: PropTypes.func,
   changeNoteSetting: PropTypes.func.isRequired,
