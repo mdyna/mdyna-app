@@ -37,9 +37,10 @@ export default Labels;
 
 Labels.propTypes = {
   labels: PropTypes.array,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
 };
 
 Labels.defaultProps = {
+  color: '#4E636E',
   labels: [],
 };

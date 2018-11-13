@@ -21,7 +21,7 @@ class Highlight extends React.Component {
     if (text !== newProps.text) {
       const codeBlocks = newProps.text.match(RegExp.codeRegExp);
       this.setState({
-        codeBlocks: codeBlocks.map(code => code.replace(RegExp.backticksRegExp, '').trim()),
+        codeBlocks: codeBlocks && codeBlocks.map(code => code.replace(RegExp.backticksRegExp, '').trim()),
       });
     }
   }
