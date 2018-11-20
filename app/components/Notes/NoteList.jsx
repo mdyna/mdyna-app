@@ -55,7 +55,7 @@ export default class NoteList extends Component {
     for (let i = 0; i < notes.length; i += 1) {
       const note = notes[i];
       if (!note.completed || this.props.completedFilterOn) {
-        visibleNotes.push(<NoteItem hasNoteBar note={note} key={i} />);
+        visibleNotes.push(<NoteItem hasCardBar card={note} cardOptions={{isNote: true, isTask: false}} key={i} />);
       }
     }
     return visibleNotes.reverse();
