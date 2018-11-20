@@ -1,32 +1,45 @@
 import { connect } from 'react-redux';
-import NoteItem from '../components/Notes/NoteItem';
+import CardItem from '../components/Cards/CardItem';
 import {
-  generateNoteLink,
-  removeNote,
-  toggleNote,
-  editNote,
+  generateCardLink,
+  removeCard,
+  toggleCard,
+  editCard,
+  completeCard,
+  failCard,
+  snoozeCard,
   addLabel,
   removeLabel,
-  changeNoteSetting,
+  changeCardSetting,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeNote: (note) => {
-      dispatch(removeNote(note));
+    removeCard: (card) => {
+      dispatch(removeCard(card));
     },
-    editNote: (note) => {
-      dispatch(editNote(note));
+    editCard: (card) => {
+      dispatch(editCard(card));
     },
-    generateNoteLink: (note, noteId) => {
-      dispatch(generateNoteLink(note, noteId));
+    generateCardLink: (card, cardId) => {
+      dispatch(generateCardLink(card, cardId));
     },
-    toggleNote: (note) => {
-      dispatch(toggleNote(note));
+    toggleCard: (card) => {
+      dispatch(toggleCard(card));
     },
-    changeNoteSetting: (prop, value) => {
-      dispatch(changeNoteSetting(prop, value));
+    changeCardSetting: (prop, value) => {
+      dispatch(changeCardSetting(prop, value));
     },
+    snoozeCard: (card, noteId) => {
+      dispatch(snoozeCard(card, noteId));
+    },
+    failCard: (card) => {
+      dispatch(failCard(card));
+    },
+    completeCard: (card) => {
+      dispatch(completeCard(card));
+    },
+
     addLabel: (todoProps) => {
       dispatch(addLabel(todoProps));
     },
@@ -35,8 +48,9 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
 function mapStateToProps(state) {
   return { whiteMode: state.style.whiteMode };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
