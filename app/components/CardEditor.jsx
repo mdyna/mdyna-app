@@ -18,14 +18,14 @@ import NotePreview from '../containers/NotePreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
 
 // import noteValidator from './noteValidator';
-import noteDefinition from './Notes/noteDefinition.json';
+import cardDefinition from './Cards/definition.json';
 
 import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
 
 const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
-export default class NoteEditor extends Component {
+export default class CardEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ export default class NoteEditor extends Component {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const { changeNoteSetting } = this.props;
+      const { changeCardSetting } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
@@ -53,7 +53,7 @@ export default class NoteEditor extends Component {
                   <div className="color-options">
                     {enums.map(color => (
                       <svg
-                        onClick={() => changeNoteSetting(_.camelCase(settingName), color)}
+                        onClick={() => changeCardSetting(_.camelCase(settingName), color)}
                         value={this.props.editorSettings[settingName]}
                         key={color}
                       >
@@ -76,7 +76,7 @@ export default class NoteEditor extends Component {
               <Select
                 key={settingName}
                 id={_.snakeCase(settingName)}
-                onChange={e => changeNoteSetting(_.camelCase(settingName), e.option)}
+                onChange={e => changeCardSetting(_.camelCase(settingName), e.option)}
                 placeHolder={_.startCase(settingName)}
                 value={this.props.editorSettings[settingName]}
                 options={[...enums]}
@@ -93,7 +93,7 @@ export default class NoteEditor extends Component {
                 defaultChecked={this.props.editorSettings[settingName]}
                 id={_.snakeCase(settingName)}
                 label={_.startCase(settingName)}
-                onChange={e => changeNoteSetting(_.camelCase(settingName), e.target.checked)}
+                onChange={e => changeCardSetting(_.camelCase(settingName), e.target.checked)}
               />
               {setting.dependencies && this.props.editorSettings[settingName]
                 ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
@@ -107,7 +107,6 @@ export default class NoteEditor extends Component {
     });
   }
 
-
   getSuggestions() {
     if (this.state.labelInput) {
       const inputLabels = this.state.labelInput.split(' ');
@@ -115,9 +114,7 @@ export default class NoteEditor extends Component {
       const lastLabelLength = lastLabel.length;
       const userLabels = this.props.labels && this.props.labels.map(d => d.title);
       return userLabels
-        .filter(
-          d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1,
-        )
+        .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
         .slice(0, 5);
     }
     return [' '];
@@ -127,7 +124,7 @@ export default class NoteEditor extends Component {
     const { prefixer, splitters } = setting;
     const settingName = setting.settingName || 'labels';
     const result = [];
-    const { changeNoteSetting } = this.props;
+    const { changeCardSetting } = this.props;
     for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
       const splitter = splitters[splitterIndex];
       const splitVals = value.split(splitter);
@@ -148,12 +145,12 @@ export default class NoteEditor extends Component {
     const labels = result.map(d => ({
       title: d,
     }));
-    changeNoteSetting(_.camelCase(settingName), labels);
+    changeCardSetting(_.camelCase(settingName), labels);
   }
 
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
-    const { changeNoteSetting, labels } = this.props;
+    const { changeCardSetting, labels } = this.props;
     const settingValue = this.props.editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
@@ -167,7 +164,7 @@ export default class NoteEditor extends Component {
               key={settingName}
               id={_.snakeCase(settingName)}
               step={1}
-              onChange={e => changeNoteSetting(_.camelCase(settingName), e)}
+              onChange={e => changeCardSetting(_.camelCase(settingName), e)}
               value={settingValue || new Date()}
             />
           </FormField>
@@ -192,18 +189,19 @@ export default class NoteEditor extends Component {
                       .trim()} #`
                     : '#'
                 }
-                onSelect={
-                  (e) => {
-                    const selectedValue = `${this.state.labelInput.substring(0, this.state.labelInput.lastIndexOf(' '))} ${e.suggestion} #`;
-                    if (selectedValue) {
-                      this.changeStringSplit(setting, selectedValue);
-                      this.setState({
-                        labelInput: selectedValue,
-                      });
-                      e.target.value = selectedValue;
-                    }
+                onSelect={(e) => {
+                  const selectedValue = `${this.state.labelInput.substring(
+                    0,
+                    this.state.labelInput.lastIndexOf(' '),
+                  )} ${e.suggestion} #`;
+                  if (selectedValue) {
+                    this.changeStringSplit(setting, selectedValue);
+                    this.setState({
+                      labelInput: selectedValue,
+                    });
+                    e.target.value = selectedValue;
                   }
-                }
+                }}
                 placeHolder={_.startCase(settingName)}
                 onDOMChange={(e) => {
                   if (e.target.value) {
@@ -221,8 +219,8 @@ export default class NoteEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor className={'note-text-editor'} />
-            <NotePreview changeNoteSetting={changeNoteSetting} />
+            <MarkdownEditor className={'card-text-editor'} />
+            <NotePreview changeNoteSetting={changeCardSetting} />
           </div>
         );
       default:
@@ -237,7 +235,7 @@ export default class NoteEditor extends Component {
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeNoteSetting(_.camelCase(settingName), e.target.value)}
+              onDOMChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
@@ -251,43 +249,35 @@ export default class NoteEditor extends Component {
     if (schema && settings) {
       components = this.getSettingsComponent(settings, schema);
     }
-    return this.renderNoteForm(components);
+    return this.renderCardForm(components);
   }
 
-  updateNote(note) {
-    if (note.shortLink) {
-      fetch(EDIT_NOTE(note.shortLink), {
+  updateCard(card) {
+    if (card.shortLink) {
+      fetch(EDIT_NOTE(card.shortLink), {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(note),
+        body: JSON.stringify(card),
       }).catch(error => console.log(error));
     }
-    this.props.saveNote(note);
+    this.props.saveCard(card);
   }
 
-  updateTask(task) {
-    this.props.saveTask(task);
-  }
-
-  removeNote(note) {
-    if (note.shortLink) {
+  removeCard(card) {
+    if (card.shortLink) {
       fetch(REMOVE_NOTE_ENDPOINT, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(note),
+        body: JSON.stringify(card),
       }).catch(error => console.log(error));
     }
-    this.props.removeNote(note);
-  }
-
-  removeTask(note) {
-    this.props.removeTask(note);
+    this.props.removeCard(card);
   }
 
   handleLabels() {
@@ -314,37 +304,25 @@ export default class NoteEditor extends Component {
   submitFormFields() {
     this.handleLabels();
     this.props.toggleEditor();
-    const newNote = { ...this.props.editorSettings, startDate: new Date() };
+    const newCard = { ...this.props.editorSettings, startDate: new Date() };
     if (this.props.editorSettings.newNote) {
-      if (this.props.editorSettings.repeat) {
-        this.props.addTask(newNote);
-      } else {
-        this.props.addNote(newNote);
-      }
-    } else if (!this.props.editorSettings.newNote) {
-      if (this.props.editorSettings.repeat) {
-        if (this.props.editorSettings.taskId) {
-          this.updateTask(this.props.editorSettings);
-        } else {
-          this.props.addTask(newNote);
-          this.removeNote(this.props.editorSettings);
-        }
-      } else if (this.props.editorSettings.taskId) {
-        this.props.addNote(newNote);
-        this.removeTask(this.props.editorSettings);
-      } else {
-        this.updateNote(this.props.editorSettings);
-      }
+      this.props.addCard(newCard);
     }
+    this.updateCard(this.props.editorSettings);
   }
 
-  renderNoteForm(components) {
+  renderCardForm(components) {
     return (
       <Form plain>
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
-        <Button className="submit-btn" label="Submit" primary onClick={() => this.submitFormFields()} />
+        <Button
+          className="submit-btn"
+          label="Submit"
+          primary
+          onClick={() => this.submitFormFields()}
+        />
       </Form>
     );
   }
@@ -355,33 +333,30 @@ export default class NoteEditor extends Component {
         direction="column"
         alignContent="center"
         pad="large"
-        className={classnames('note-editor', { 'white-mode': this.props.whiteMode })}
+        className={classnames('card-editor', { 'white-mode': this.props.whiteMode })}
         full={'horizontal'}
       >
-        <Headline>{this.props.editorSettings.newNote ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
-        {this.generateComponentsFromType(noteDefinition)}
+        <Headline>{this.props.editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
+        {this.generateComponentsFromType(cardDefinition)}
       </Article>
     );
   }
 }
 
-NoteEditor.propTypes = {
-  addNote: PropTypes.func.isRequired,
-  saveNote: PropTypes.func.isRequired,
+CardEditor.propTypes = {
+  addCard: PropTypes.func.isRequired,
+  saveCard: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
-  removeNote: PropTypes.func.isRequired,
-  addTask: PropTypes.func.isRequired,
-  saveTask: PropTypes.func.isRequired,
-  removeTask: PropTypes.func.isRequired,
+  removeCard: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
-  changeNoteSetting: PropTypes.func.isRequired,
+  changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
   labels: PropTypes.array,
 };
 
-NoteEditor.defaultProps = {
+CardEditor.defaultProps = {
   whiteMode: false,
   labels: [],
 };

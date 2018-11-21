@@ -1,45 +1,33 @@
 import { connect } from 'react-redux';
 import CardEditor from '../components/CardEditor';
 import {
-  changeNoteSetting,
-  saveNote,
-  addNote,
-  removeNote,
-  addTask,
-  saveTask,
-  removeTask,
+  changeCardSetting,
+  saveCard,
+  addCard,
+  removeCard,
   addLabel,
   removeLabel,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeNoteSetting: (prop, value) => {
-      dispatch(changeNoteSetting(prop, value));
+    changeCardSetting: (prop, value) => {
+      dispatch(changeCardSetting(prop, value));
     },
-    saveNote: (note) => {
-      dispatch(saveNote(note));
+    saveCard: (card) => {
+      dispatch(saveCard(card));
     },
-    addNote: (todoProps) => {
-      dispatch(addNote(todoProps));
+    addCard: (card) => {
+      dispatch(addCard(card));
     },
-    removeNote: (todoProps) => {
-      dispatch(removeNote(todoProps));
+    removeCard: (card) => {
+      dispatch(removeCard(card));
     },
-    addTask: (todoProps) => {
-      dispatch(addTask(todoProps));
+    addLabel: (card) => {
+      dispatch(addLabel(card));
     },
-    saveTask: (todoProps) => {
-      dispatch(saveTask(todoProps));
-    },
-    removeTask: (todoProps) => {
-      dispatch(removeTask(todoProps));
-    },
-    addLabel: (todoProps) => {
-      dispatch(addLabel(todoProps));
-    },
-    removeLabel: (todoProps) => {
-      dispatch(removeLabel(todoProps));
+    removeLabel: (card) => {
+      dispatch(removeLabel(card));
     },
   };
 }
@@ -50,7 +38,4 @@ function mapStateToProps(state) {
     whiteMode: state.style.whiteMode,
   };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CardEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(CardEditor);

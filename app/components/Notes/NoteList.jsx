@@ -9,7 +9,7 @@ import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
 import classnames from 'classnames';
 import NoteEditor from '../../containers/CardEditor';
-import NoteItem from '../../containers/NoteItem';
+import CardItem from '../../containers/CardItem';
 
 import '!style-loader!css-loader!sass-loader!./NoteList.scss'; // eslint-disable-line
 
@@ -55,7 +55,9 @@ export default class NoteList extends Component {
     for (let i = 0; i < notes.length; i += 1) {
       const note = notes[i];
       if (!note.completed || this.props.completedFilterOn) {
-        visibleNotes.push(<NoteItem hasCardBar card={note} cardOptions={{isNote: true, isTask: false}} key={i} />);
+        visibleNotes.push(
+          <CardItem hasCardBar card={note} cardOptions={{ isNote: true, isTask: false }} key={i} />,
+        );
       }
     }
     return visibleNotes.reverse();

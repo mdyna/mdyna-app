@@ -80,7 +80,7 @@ export const saveNote = note => ({
 });
 
 export const toggleEditor = () => ({
-  type: ACTION_TYPES.NOTE_EDITOR.TOGGLE_EDITOR,
+  type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
 });
 
 export const setVisibilityFilter = filter => ({
@@ -99,14 +99,14 @@ export const generateNoteLink = (keys, index) => ({
   index,
 });
 
-export const changeNoteSetting = (prop, value) => ({
-  type: ACTION_TYPES.NOTE_EDITOR.ON_CHANGE,
+export const changeCardSetting = (prop, value) => ({
+  type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
   prop,
   value,
 });
 
 export const editNote = note => ({
-  type: ACTION_TYPES.NOTE_EDITOR.EDIT_NOTE,
+  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
   note,
 });
 
