@@ -79,27 +79,29 @@ class CardBar extends Component {
     const { cardFrequency } = card;
     const lastAlertDate = unNest(card, 'cardStats.lastAlertDate') || null;
     return (
-      <div
-        className="card-bar"
-        style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
-      >
-        {isNote ? (
-          <Button onClick={() => toggleCard(card)}>
-            <CheckmarkIcon
-              className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-            />
+      <React.Fragment>
+        <div
+          className="card-bar"
+          style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
+        >
+          {isNote ? (
+            <Button onClick={() => toggleCard(card)}>
+              <CheckmarkIcon
+                className={classnames({ 'checkmark-icon': true, completed: card.completed })}
+              />
+            </Button>
+          ) : (
+            ''
+          )}
+          <Button onClick={() => editCard(card)}>
+            <EditIcon className="edit-icon" />
           </Button>
-        ) : (
-          ''
-        )}
-        <Button onClick={() => editCard(card)}>
-          <EditIcon className="edit-icon" />
-        </Button>
-        <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-          <TrashIcon className="close-icon" />
-        </Button>
-        {isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''}
-        {minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''}
+          <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
+            <TrashIcon className="close-icon" />
+          </Button>
+          {isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''}
+          {minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''}
+        </div>
         {assertTaskAlerts(lastAlertDate, cardFrequency) && isTask ? (
           <AlertBar
             completeCard={completeCard}
@@ -111,7 +113,7 @@ class CardBar extends Component {
         ) : (
           ''
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

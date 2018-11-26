@@ -5,10 +5,16 @@ $snooze-accent: #ffc400;
 $snooze-color: #ffa000;
 $fail-color: #e65100;
 $fail-accent: #f57c00;
+$background-color: #333333;
 
 .alert-actions {
   display: flex;
   height: 60px;
+  background-color: $background-color;
+  border-radius: 10px;
+  opacity: 0.9;
+  padding: 0 15px;
+  width: fit-content;
 
   button {
     margin: 5px;

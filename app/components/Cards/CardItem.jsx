@@ -17,7 +17,6 @@ import Labels from '../Labels';
 import '!style-loader!css-loader!sass-loader!./CardItem.scss'; // eslint-disable-line
 import AlertBar from './AlertBar';
 
-
 export const COLOR_SAMPLES = [
   '#03A9F4',
   '#0D47A1',
@@ -102,10 +101,13 @@ class dynaCard extends Component {
     const { card, snoozeCard, failCard, completeCard } = this.props;
     const { cardFrequency, cardStats } = card;
     if (cardFrequency) {
-      const lastAlertDate = cardStats && cardStats.lastAlertDate || null;
+      const lastAlertDate = (cardStats && cardStats.lastAlertDate) || null;
       if (assertTaskAlerts(lastAlertDate, cardFrequency)) {
         return (
-          <Toast status="warning" style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}>
+          <Toast
+            status="warning"
+            style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}
+          >
             {card.title} needs to confirmed
             <AlertBar
               card={card}
@@ -147,6 +149,7 @@ class dynaCard extends Component {
         key={i}
         className={classnames(className, COLOR_LABELS[color], 'card-item', {
           minimized: this.state.minimized,
+          'task-item': cardOptions.isTask,
         })}
         style={{
           filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
@@ -167,6 +170,10 @@ class dynaCard extends Component {
         ) : (
           ''
         )}
+        <Heading align="start" tag="h1" strong>
+          {card.title}
+        </Heading>
+        <Labels labels={card.labels} color={color} />
         {cardOptions.isTask ? (
           <div
             className="task-chart"
@@ -190,10 +197,6 @@ class dynaCard extends Component {
         ) : (
           ''
         )}
-        <Heading align="start" tag="h1" strong>
-          {card.title}
-        </Heading>
-        <Labels labels={card.labels} color={color} />
         <MarkdownText
           whiteMode={whiteMode}
           className="note-card-content"

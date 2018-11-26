@@ -84,7 +84,6 @@ export default class CardList extends Component {
           {frequency.toUpperCase()}
         </Headline>
       );
-      cardFrequencySections.push(frequencyTitle);
       const cards = this.props.cards.filter((d) => {
         const matchesSearchInput =
           d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
@@ -106,7 +105,10 @@ export default class CardList extends Component {
           />,
         );
       }
-      cardFrequencySections.push([...sectionCards].reverse());
+      if (sectionCards && sectionCards.length) {
+        cardFrequencySections.push(frequencyTitle);
+        cardFrequencySections.push([...sectionCards].reverse());
+      }
     }
     return cardFrequencySections;
   }
@@ -114,7 +116,11 @@ export default class CardList extends Component {
   render() {
     return (
       <Section
-        className={classnames({ 'card-list': true, 'white-mode': this.props.whiteMode })}
+        className={classnames({
+          'card-list': true,
+          'task-list': this.props.isTaskList,
+          'white-mode': this.props.whiteMode,
+        })}
         responsive
         direction="row"
       >
@@ -122,15 +128,20 @@ export default class CardList extends Component {
           {this.props.isTaskList ? 'TASKS' : 'NOTES'}
         </Headline>
         {this.props.cards.length ? (
-          <Columns
-            maxCount={3}
-            masonry={!this.props.isTaskList}
-            responsive
-            className="visible-cards"
-          >
+          <React.Fragment>
             {!this.props.isTaskList && this.renderAddNoteButton()}
-            {this.props.sortByFrequency ? this.renderCardsByFrequency() : this.renderVisibleCards()}
-          </Columns>
+
+            <Columns
+              maxCount={5}
+              masonry={!this.props.isTaskList}
+              responsive
+              className="visible-cards"
+            >
+              {this.props.sortByFrequency
+                ? this.renderCardsByFrequency()
+                : this.renderVisibleCards()}
+            </Columns>
+          </React.Fragment>
         ) : (
           <React.Fragment>
             {this.renderAddNoteButton()}

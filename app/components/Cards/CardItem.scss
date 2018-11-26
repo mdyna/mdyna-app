@@ -56,11 +56,27 @@ $pink-text: #FAFAFA;
 $pink-list: #0D47A1;
 $pink-quote: #26A69A;
 
+.grommetux-toast {
+  button {
+    @include normalize-button-icons();
+    svg {
+      border: none;
+      &:hover {
+        border: none;
+      }
+    }
+  }
+}
+
 .card-item {
   color: $note-font-color;
   margin: 5px;
   width: 375px !important;
   border-radius: 10px;
+
+  &.task-item {
+    width: 250px !important;
+  }
 
   .labels {
     span {
@@ -68,6 +84,10 @@ $pink-quote: #26A69A;
       margin: 5px;
       display: inline-block;
     }
+  }
+
+  .alert-actions {
+    align-self: center;
   }
 
   .task-chart {
