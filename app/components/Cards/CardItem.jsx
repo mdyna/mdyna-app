@@ -42,9 +42,9 @@ const COLOR_LABELS = {
   '#F48FB0': 'pink',
 };
 
-function buildTaskSeries(taskStats) {
+function buildTaskSeries(cardStats) {
   // const getRandomColor = () => `hsl(${Math.floor((Math.random() * 360) + 1)}, 70%, 70%)`;
-  const { completed, failed, snooze } = taskStats;
+  const { completed, failed, snooze } = cardStats;
   return [
     {
       label: 'Completed',
@@ -85,7 +85,7 @@ class dynaCard extends Component {
     return false;
   }
 
-  getTaskStats() {
+  getCardStats() {
     const { card } = this.props;
     const { cardStats } = card;
     return {
@@ -100,21 +100,23 @@ class dynaCard extends Component {
 
   toastNotification() {
     const { card, snoozeCard, failCard, completeCard } = this.props;
-    const { taskFrequency, taskStats } = card;
-    const { lastAlertDate } = taskStats;
-    if (assertTaskAlerts(lastAlertDate, taskFrequency)) {
-      return (
-        <Toast status="warning" style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}>
-          {card.title} needs to confirmed
-          <AlertBar
-            card={card}
-            completeCard={completeCard}
-            snoozeCard={snoozeCard}
-            failCard={failCard}
-            showNotificationIcon={false}
-          />
-        </Toast>
-      );
+    const { cardFrequency, cardStats } = card;
+    if (cardFrequency) {
+      const lastAlertDate = cardStats && cardStats.lastAlertDate || null;
+      if (assertTaskAlerts(lastAlertDate, cardFrequency)) {
+        return (
+          <Toast status="warning" style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}>
+            {card.title} needs to confirmed
+            <AlertBar
+              card={card}
+              completeCard={completeCard}
+              snoozeCard={snoozeCard}
+              failCard={failCard}
+              showNotificationIcon={false}
+            />
+          </Toast>
+        );
+      }
     }
     return '';
   }
@@ -124,7 +126,7 @@ class dynaCard extends Component {
 
     const color =
       (card && card.color) || this.props.changeCardSetting('color', _.sample(COLOR_SAMPLES));
-    const stats = this.getTaskStats();
+    const stats = this.getCardStats();
     const series = buildTaskSeries(stats);
     const max = series.reduce((a, b) => a + b.value, 0);
     const minimize = this.props.showAllText ? false : this.state.minimized;
@@ -156,6 +158,7 @@ class dynaCard extends Component {
           <CardBar
             card={card}
             cardActions={noteActions}
+            cardItem={this}
             options={{
               ...cardOptions,
               minimized: this.state.minimized,

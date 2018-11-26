@@ -20,9 +20,17 @@ const addId = cardList =>
   (cardList && cardList.length) ||
   1;
 
-const saveId = (card, cardList) => card.id || addId(cardList);
+// const saveId = (card, cardList) => card.id || addId(cardList);
 
 const cardTitle = action => unNest(action, 'card.title') || 'Untitled Note';
+const getCardStats = card =>
+  (card && card.cardStats) || {
+    snooze: 0,
+    failed: 0,
+    consecutive: 0,
+    record: 0,
+    completed: 0,
+  };
 export default function cards(state = [], action) {
   switch (action.type) {
     case ADD_CARD:
@@ -39,12 +47,10 @@ export default function cards(state = [], action) {
       return state.filter(card => card.id !== action.card.id);
     case SAVE_CARD:
       return state.map((card) => {
-        if (action.card.id) {
-          if (card.id === action.card.id) {
-            return action.card;
-          }
+        if (card.id === action.card.id) {
+          return action.card;
         }
-        return { ...card, id: saveId(action.card, state) };
+        return card;
       });
     case TOGGLE_CARD:
       return state.map((card) => {
@@ -71,11 +77,12 @@ export default function cards(state = [], action) {
     case FAIL_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
+          const cardStats = getCardStats(card);
           return {
             ...card,
-            taskStats: {
-              ...card.taskStats,
-              failed: card.taskStats.failed + 1 || 1,
+            cardStats: {
+              ...cardStats,
+              failed: cardStats.failed + 1 || 1,
               consecutive: 0,
               lastAlertDate: new Date(),
             },
@@ -87,11 +94,12 @@ export default function cards(state = [], action) {
     case SNOOZE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
+          const cardStats = getCardStats(card);
           return {
             ...card,
-            taskStats: {
-              ...card.taskStats,
-              snooze: card.taskStats.snooze + 1 || 1,
+            cardStats: {
+              ...cardStats,
+              snooze: cardStats.snooze + 1 || 1,
               lastAlertDate: new Date(),
             },
           };
@@ -101,17 +109,18 @@ export default function cards(state = [], action) {
 
     case COMPLETE_CARD:
       return state.map((card) => {
-        if (card.id !== action.card.id) {
+        if (card.id === action.card.id) {
+          const cardStats = getCardStats(card);
           return {
             ...card,
-            taskStats: {
-              ...card.taskStats,
-              completed: card.taskStats.completed + 1 || 1,
-              consecutive: card.taskStats.consecutive + 1 || 1,
+            cardStats: {
+              ...cardStats,
+              completed: cardStats.completed + 1 || 1,
+              consecutive: cardStats.consecutive + 1 || 1,
               record:
-                card.taskStats.record > card.taskStats.consecutive + 1
-                  ? card.taskStats.record
-                  : card.taskStats.consecutive + 1 || 1,
+                cardStats.record > cardStats.consecutive + 1
+                  ? cardStats.record
+                  : cardStats.consecutive + 1 || 1,
               lastCompletedDate: new Date(),
               lastAlertDate: new Date(),
             },

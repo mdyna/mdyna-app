@@ -10,17 +10,17 @@ import '!style-loader!css-loader!sass-loader!./AlertBar.scss'; // eslint-disable
 
 class AlertBar extends Component {
   render() {
-    const { completeTask, task, snoozeTask, failTask, showNotificationIcon } = this.props;
+    const { completeCard, card, snoozeCard, failCard, showNotificationIcon } = this.props;
     return (
       <div className="alert-actions">
         {showNotificationIcon ? <NotificationIcon className="notification-icon" /> : ''}
-        <Button onClick={() => completeTask(task)}>
+        <Button onClick={() => completeCard(card)}>
           <CheckmarkIcon className="complete-task-icon" />
         </Button>
-        <Button onClick={() => snoozeTask(task)}>
+        <Button onClick={() => snoozeCard(card)}>
           <AlarmIcon className="snooze-task-icon" />
         </Button>
-        <Button onClick={() => failTask(task)}>
+        <Button onClick={() => failCard(card)}>
           <CloseIcon className="fail-task-icon" />
         </Button>
       </div>
@@ -31,9 +31,9 @@ class AlertBar extends Component {
 export default AlertBar;
 
 AlertBar.propTypes = {
-  completeTask: PropTypes.func.isRequired,
+  completeCard: PropTypes.func.isRequired,
   showNotificationIcon: PropTypes.bool.isRequired,
-  snoozeTask: PropTypes.func.isRequired,
-  failTask: PropTypes.func.isRequired,
-  task: PropTypes.object.isRequired,
+  snoozeCard: PropTypes.func.isRequired,
+  failCard: PropTypes.func.isRequired,
+  card: PropTypes.object.isRequired,
 };

@@ -1,6 +1,5 @@
 @import "../../style.scss";
-
-.note-list {
+.card-list {
   background-color: $note-list-background;
   color: $accent-color;
   padding: 10px;
@@ -12,14 +11,14 @@
     background-color: $white-note-list-background;
   }
 
-  .visible-notes {
+  .visible-cards {
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: center !important;
   }
 
   @media screen and (max-width: 1500px) {
-    .visible-notes {
+    .visible-cards {
       justify-content: 'space-around';
     }
 
@@ -35,3 +34,4 @@
     }
   }
 }
+

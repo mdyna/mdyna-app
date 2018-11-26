@@ -7,7 +7,7 @@ export default function editor(
     title: '',
     color: '',
     repeat: false,
-    newNote: true,
+    newCard: true,
     shortLink: '',
     startDate: '',
     text: '',
@@ -22,20 +22,20 @@ export default function editor(
   if (action.type === TOGGLE_EDITOR) {
     const newState = { ...state };
     const newEditorState = !state.toggleEditor;
-    if (newState.newNote) {
+    if (newState.newCard) {
       return {
         toggleEditor: newEditorState,
-        newNote: true,
+        newCard: true,
       };
     }
-    newState.newNote = true;
+    newState.newCard = true;
     newState.toggleEditor = newEditorState;
     return newState;
   }
   if (action.type === EDIT_CARD) {
-    const newState = { id: null, ...action.note };
+    const newState = { id: null, ...action.card };
     newState.toggleEditor = true;
-    newState.newNote = false;
+    newState.newCard = false;
     return newState;
   }
   return state;

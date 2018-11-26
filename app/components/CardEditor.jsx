@@ -14,7 +14,7 @@ import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
-import NotePreview from '../containers/NotePreview';
+import CardPreview from '../containers/CardPreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
 
 // import noteValidator from './noteValidator';
@@ -220,7 +220,7 @@ export default class CardEditor extends Component {
         return (
           <div key={settingName} className="editor-with-preview">
             <MarkdownEditor className={'card-text-editor'} />
-            <NotePreview changeNoteSetting={changeCardSetting} />
+            <CardPreview changeCardSetting={changeCardSetting} />
           </div>
         );
       default:
@@ -305,10 +305,11 @@ export default class CardEditor extends Component {
     this.handleLabels();
     this.props.toggleEditor();
     const newCard = { ...this.props.editorSettings, startDate: new Date() };
-    if (this.props.editorSettings.newNote) {
+    if (this.props.editorSettings.newCard) {
       this.props.addCard(newCard);
+    } else {
+      this.updateCard(this.props.editorSettings);
     }
-    this.updateCard(this.props.editorSettings);
   }
 
   renderCardForm(components) {

@@ -16,6 +16,10 @@ export const failCard = card => ({
   type: ACTION_TYPES.CARD.FAIL_CARD,
   card,
 });
+export const editCard = card => ({
+  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
+  card,
+});
 export const snoozeCard = card => ({
   type: ACTION_TYPES.CARD.SNOOZE_CARD,
   card,

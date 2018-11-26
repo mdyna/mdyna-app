@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import NoteList from '../components/Notes/NoteList';
-import { toggleEditor, toggleWhiteMode } from '../store/actions/';
+import CardList from '../components/Cards/CardList';
+import { toggleEditor, toggleWhiteMode } from '../store/actions';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -14,7 +14,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    notes: state.notes,
+    cards: state.cards,
     searchInput: state.filters.searchInput,
     completedFilterOn: state.filters.completedFilterOn,
     modalOpen: state.editor.toggleEditor,
@@ -26,4 +26,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(NoteList);
+)(CardList);

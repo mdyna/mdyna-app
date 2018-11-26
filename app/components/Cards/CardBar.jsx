@@ -53,11 +53,11 @@ class CardBar extends Component {
 
   renderCardControl(minimized, minimizeFunc) {
     return minimized ? (
-      <Button onClick={() => minimizeFunc(this.props.card)}>
+      <Button onClick={() => minimizeFunc(this.props.cardItem)}>
         <MaximizeIcon className="maximize-icon" />
       </Button>
     ) : (
-      <Button onClick={() => minimizeFunc(this.props.card)}>
+      <Button onClick={() => minimizeFunc(this.props.cardItem)}>
         <MinimizeIcon className="minimize-icon" />
       </Button>
     );
@@ -76,8 +76,8 @@ class CardBar extends Component {
       minimizeCard,
       generateCardLink,
     } = cardActions;
-    const { taskFrequency } = card;
-    const lastAlertDate = unNest(card, 'taskStats.lastAlertDate') || null;
+    const { cardFrequency } = card;
+    const lastAlertDate = unNest(card, 'cardStats.lastAlertDate') || null;
     return (
       <div
         className="card-bar"
@@ -95,17 +95,17 @@ class CardBar extends Component {
         <Button onClick={() => editCard(card)}>
           <EditIcon className="edit-icon" />
         </Button>
-        <Button onClick={() => this.removeCard(card, removeCard)}>
+        <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
           <TrashIcon className="close-icon" />
         </Button>
         {isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''}
         {minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''}
-        {assertTaskAlerts(lastAlertDate, taskFrequency) && isTask ? (
+        {assertTaskAlerts(lastAlertDate, cardFrequency) && isTask ? (
           <AlertBar
-            completeTask={completeCard}
-            task={card}
-            snoozeTask={snoozeCard}
-            failTask={failCard}
+            completeCard={completeCard}
+            card={card}
+            snoozeCard={snoozeCard}
+            failCard={failCard}
             showNotificationIcon
           />
         ) : (
@@ -121,5 +121,6 @@ export default CardBar;
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
   cardActions: PropTypes.object.isRequired,
+  cardItem: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
 };

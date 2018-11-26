@@ -30,8 +30,8 @@ function mapDispatchToProps(dispatch) {
     changeCardSetting: (prop, value) => {
       dispatch(changeCardSetting(prop, value));
     },
-    snoozeCard: (card, noteId) => {
-      dispatch(snoozeCard(card, noteId));
+    snoozeCard: (card) => {
+      dispatch(snoozeCard(card));
     },
     failCard: (card) => {
       dispatch(failCard(card));

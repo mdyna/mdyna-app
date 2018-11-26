@@ -5,8 +5,7 @@ import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Split from 'grommet/components/Split';
 import classnames from 'classnames';
-import NoteList from '../containers/NoteList';
-import TaskList from '../containers/TaskList';
+import CardList from '../containers/CardList';
 import Nav from './Nav';
 import Header from './Header';
 
@@ -25,8 +24,8 @@ class Dyna extends Component {
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
-            <TaskList />
-            <NoteList />
+            <CardList isTaskList={true} sortByFrequency={true}/>
+            <CardList />
           </Split>
         </Article>
       </App>

@@ -32,7 +32,7 @@
     "repeat": {
       "type": "bool",
       "dependencies": {
-        "taskFrequency": {
+        "cardFrequency": {
           "type": "enum",
           "enums": ["daily", "weekly", "monthly"]
         }
