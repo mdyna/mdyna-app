@@ -1,13 +1,13 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { ON_CHANGE, TOGGLE_EDITOR, EDIT_NOTE } = ACTION_TYPES.NOTE_EDITOR;
+const { ON_CHANGE, TOGGLE_EDITOR, EDIT_CARD } = ACTION_TYPES.CARD_EDITOR;
 
 export default function editor(
   state = {
     title: '',
     color: '',
     repeat: false,
-    newNote: true,
+    newCard: true,
     shortLink: '',
     startDate: '',
     text: '',
@@ -22,20 +22,20 @@ export default function editor(
   if (action.type === TOGGLE_EDITOR) {
     const newState = { ...state };
     const newEditorState = !state.toggleEditor;
-    if (newState.newNote) {
+    if (newState.newCard) {
       return {
         toggleEditor: newEditorState,
-        newNote: true,
+        newCard: true,
       };
     }
-    newState.newNote = true;
+    newState.newCard = true;
     newState.toggleEditor = newEditorState;
     return newState;
   }
-  if (action.type === EDIT_NOTE) {
-    const newState = { taskId: null, noteId: null, ...action.note };
+  if (action.type === EDIT_CARD) {
+    const newState = { id: null, ...action.card };
     newState.toggleEditor = true;
-    newState.newNote = false;
+    newState.newCard = false;
     return newState;
   }
   return state;

@@ -31,8 +31,7 @@ function mapStateToProps(state) {
     completedFilterOn: state.filters.completedFilterOn,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
-    tasks: state.tasks,
-    notes: state.notes,
+    cards: state.cards,
   };
 }
 

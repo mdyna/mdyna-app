@@ -30,7 +30,7 @@ class MarkdownText extends Component {
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
     noteText =
-      text.match(regExp.codeRegExp) && text.match(regExp.codeRegExp).length
+      text && text.match(regExp.codeRegExp) && text.match(regExp.codeRegExp).length
         ? `${noteText}\n\`\`\``
         : noteText;
     const rawText = minimized ? noteText : text;
@@ -50,14 +50,16 @@ class MarkdownText extends Component {
 export default MarkdownText;
 
 MarkdownText.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
 };
 
 MarkdownText.defaultProps = {
   minimized: false,
   whiteMode: false,
+  color: '#4E636E',
+  text: '',
 };

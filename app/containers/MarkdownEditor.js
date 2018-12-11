@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import MarkdownEditor from '../components/MarkdownEditor';
-import { changeNoteSetting } from '../store/actions/';
+import { changeCardSetting } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
     changeNoteSetting: (prop, value) => {
-      dispatch(changeNoteSetting(prop, value));
+      dispatch(changeCardSetting(prop, value));
     },
   };
 }

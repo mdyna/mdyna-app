@@ -69,6 +69,7 @@ $navbar-background-color: #0c1014;
 
   button {
     margin-right: 15px;
+    @include normalize-button-icons();
     svg {
       border: 2px solid $accent-color;
       border-radius: 10px;

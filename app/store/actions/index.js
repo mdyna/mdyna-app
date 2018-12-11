@@ -1,5 +1,43 @@
 import ACTION_TYPES from './actionTypes';
 
+export const addCard = card => ({
+  type: ACTION_TYPES.CARD.ADD_CARD,
+  card,
+});
+export const saveCard = card => ({
+  type: ACTION_TYPES.CARD.SAVE_CARD,
+  card,
+});
+export const completeCard = card => ({
+  type: ACTION_TYPES.CARD.COMPLETE_CARD,
+  card,
+});
+export const failCard = card => ({
+  type: ACTION_TYPES.CARD.FAIL_CARD,
+  card,
+});
+export const editCard = card => ({
+  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
+  card,
+});
+export const snoozeCard = card => ({
+  type: ACTION_TYPES.CARD.SNOOZE_CARD,
+  card,
+});
+export const removeCard = card => ({
+  type: ACTION_TYPES.CARD.REMOVE_CARD,
+  card,
+});
+export const toggleCard = card => ({
+  type: ACTION_TYPES.CARD.TOGGLE_CARD,
+  card,
+});
+export const generateCardLink = (keys, index) => ({
+  type: ACTION_TYPES.CARD.GENERATE_LINK,
+  keys,
+  index,
+});
+
 export const addNote = note => ({
   type: ACTION_TYPES.NOTE.ADD_NOTE,
   note,
@@ -46,7 +84,7 @@ export const saveNote = note => ({
 });
 
 export const toggleEditor = () => ({
-  type: ACTION_TYPES.NOTE_EDITOR.TOGGLE_EDITOR,
+  type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
 });
 
 export const setVisibilityFilter = filter => ({
@@ -65,14 +103,14 @@ export const generateNoteLink = (keys, index) => ({
   index,
 });
 
-export const changeNoteSetting = (prop, value) => ({
-  type: ACTION_TYPES.NOTE_EDITOR.ON_CHANGE,
+export const changeCardSetting = (prop, value) => ({
+  type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
   prop,
   value,
 });
 
 export const editNote = note => ({
-  type: ACTION_TYPES.NOTE_EDITOR.EDIT_NOTE,
+  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
   note,
 });
 

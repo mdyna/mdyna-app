@@ -11,8 +11,9 @@ store.subscribe(
   throttle(() => {
     saveState({
       tasks: store.getState().tasks,
-      style: store.getState().style,
       notes: store.getState().notes,
+      style: store.getState().style,
+      cards: store.getState().cards,
       labels: store.getState().labels,
     });
   }),

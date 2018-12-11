@@ -12,7 +12,7 @@ $completed-accent: #78909c;
 $background-color: #333333;
 @import "../../style.scss";
 
-.note-bar {
+.card-bar {
   background-color: $background-color;
   border-radius: 10px;
   display: flex;
@@ -46,7 +46,6 @@ $background-color: #333333;
         stroke: $close-color !important;
       }
     }
-
 
     svg.minimize-icon {
       polyline {

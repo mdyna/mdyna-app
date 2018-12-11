@@ -3,6 +3,13 @@
 $white-code-background: #edeff8;
 $code-background: #08090a;
 
+$complete-color: #1976d2;
+$complete-accent: #63a4ff;
+$snooze-accent: #ffc400;
+$snooze-color: #ffa000;
+$fail-color: #e65100;
+$fail-accent: #f57c00;
+
 $light-blue-background: #03a9f4;
 $light-blue-text: #212121;
 $light-blue-list: #4A148C;
@@ -49,17 +56,75 @@ $pink-text: #FAFAFA;
 $pink-list: #0D47A1;
 $pink-quote: #26A69A;
 
-.note-item {
+.grommetux-toast {
+  button {
+    @include normalize-button-icons();
+    svg {
+      border: none;
+      &:hover {
+        border: none;
+      }
+    }
+  }
+}
+
+.card-item {
   color: $note-font-color;
   margin: 5px;
   width: 375px !important;
   border-radius: 10px;
+
+  &.task-item {
+    width: 250px !important;
+  }
 
   .labels {
     span {
       width: fit-content;
       margin: 5px;
       display: inline-block;
+    }
+  }
+
+  .alert-actions {
+    align-self: center;
+  }
+
+  .task-chart {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 5px;
+    > div {
+      align-items: center;
+    }
+  }
+  .grommetux-legend__item,
+  .grommetux-legend__total {
+    color: #333 !important;
+  }
+
+  .grommetux-meter__graphic {
+    height: 150px !important;
+    width: 150px !important;
+  }
+
+  .grommetux-color-index-accent-2 {
+    stroke: $fail-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $fail-accent !important;
+    }
+  }
+
+  .grommetux-color-index-neutral-2 {
+    stroke: $snooze-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $snooze-accent !important;
+    }
+  }
+
+  .grommetux-color-index-accent-1 {
+    stroke: $complete-color !important;
+    & .grommetux-meter__slice--active {
+      stroke: $complete-accent !important;
     }
   }
 

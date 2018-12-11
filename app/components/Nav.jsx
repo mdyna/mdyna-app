@@ -25,13 +25,10 @@ class NavBar extends Component {
   }
 
   render() {
-    const { notes, tasks, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
+    const { cards, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [
-      ...getCardTitles(notes),
-      ...getCardTitles(tasks.daily),
-      ...getCardTitles(tasks.weekly),
-      ...getCardTitles(tasks.monthly),
+      ...getCardTitles(cards),
     ];
 
     return (
@@ -105,8 +102,7 @@ NavBar.propTypes = {
   searchInput: PropTypes.string,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
-  notes: PropTypes.array.isRequired,
-  tasks: PropTypes.object.isRequired,
+  cards: PropTypes.array.isRequired,
 };
 
 NavBar.defaultProps = {
