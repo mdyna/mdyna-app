@@ -90,7 +90,7 @@ export default class CardEditor extends Component {
             <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
               <CheckBox
                 key={settingName}
-                defaultChecked={this.props.editorSettings[settingName]}
+                checked={this.props.editorSettings[settingName]}
                 id={_.snakeCase(settingName)}
                 label={_.startCase(settingName)}
                 onChange={e => changeCardSetting(_.camelCase(settingName), e.target.checked)}
