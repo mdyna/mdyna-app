@@ -1,6 +1,6 @@
 import hljs from 'highlight.js';
 import React from 'react';
-import RegExp from '../utils/regexp';
+import regExpUtils from '../utils/regexp';
 
 class Highlight extends React.Component {
   /* eslint-disable */
@@ -19,9 +19,9 @@ class Highlight extends React.Component {
   componentWillReceiveProps(newProps) {
     const { text } = this.props;
     if (text !== newProps.text) {
-      const codeBlocks = newProps.text.match(RegExp.codeRegExp);
+      const codeBlocks = newProps.text.match(regExpUtils.codeRegExp);
       this.setState({
-        codeBlocks: codeBlocks && codeBlocks.map(code => code.replace(RegExp.backticksRegExp, '').trim()),
+        codeBlocks: codeBlocks && codeBlocks.map(code => code.replace(regExpUtils.backticksRegExp, '').trim()),
       });
     }
   }

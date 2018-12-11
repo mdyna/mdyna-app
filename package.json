@@ -12,6 +12,7 @@
     "electron-builder": "electron-builder",
     "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
+    "reset": "rm -rf ./node_modules && yarn install",
     "start-electron": "npm run build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
     "watch": "webpack-dev-server --hot --inline"
   },
