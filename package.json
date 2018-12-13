@@ -29,7 +29,8 @@
       "splash.html",
       "main.js",
       "package.json",
-      "resources/icons/**"
+      "resources/icons/**",
+      "resources/**"
     ],
     "directories": {
       "app": ".",
