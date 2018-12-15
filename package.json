@@ -4,8 +4,8 @@
   "description": "Note notification and productivity app with  markdown support",
   "main": "main.js",
   "scripts": {
-    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -l",
-    "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release",
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -lw",
+    "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
@@ -49,7 +49,7 @@
           ]
         }
       ],
-      "icon": "resources/icons/win"
+      "icon": "resources/icons/win/icon.ico"
     },
     "linux": {
       "target": [
@@ -69,6 +69,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.49",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
     "asar": "^0.14.3",
