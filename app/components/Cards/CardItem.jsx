@@ -73,6 +73,7 @@ class dynaCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isHovered: false,
       minimized: unNest(props, 'card.text') && unNest(props, 'card.text').length > 300, // automatically clip over 500 chars
     };
   }
@@ -151,9 +152,15 @@ class dynaCard extends Component {
           minimized: this.state.minimized,
           'task-item': cardOptions.isTask,
         })}
+        onMouseEnter={() => this.setState({
+          isHovered: true,
+        })}
+        onMouseLeave={() => this.setState({
+          isHovered: false,
+        })}
         style={{
-          filter: `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`,
           backgroundColor: color || '#4E636E',
+          filter: (this.state.isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
         {cardOptions.isTask ? this.toastNotification() : ''}
