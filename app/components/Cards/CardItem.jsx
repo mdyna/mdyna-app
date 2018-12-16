@@ -105,10 +105,7 @@ class dynaCard extends Component {
       const lastAlertDate = (cardStats && cardStats.lastAlertDate) || null;
       if (assertTaskAlerts(lastAlertDate, cardFrequency)) {
         return (
-          <Toast
-            status="warning"
-            style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}
-          >
+          <Toast status="warning" style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}>
             {card.title} needs to confirmed
             <AlertBar
               card={card}
@@ -152,15 +149,21 @@ class dynaCard extends Component {
           minimized: this.state.minimized,
           'task-item': cardOptions.isTask,
         })}
-        onMouseEnter={() => this.setState({
-          isHovered: true,
-        })}
-        onMouseLeave={() => this.setState({
-          isHovered: false,
-        })}
+        onMouseEnter={() =>
+          this.setState({
+            isHovered: true,
+          })
+        }
+        onMouseLeave={() =>
+          this.setState({
+            isHovered: false,
+          })
+        }
         style={{
           backgroundColor: color || '#4E636E',
-          filter: (this.state.isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
+          filter:
+            (this.state.isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) ||
+            null,
         }}
       >
         {cardOptions.isTask ? this.toastNotification() : ''}
@@ -204,13 +207,15 @@ class dynaCard extends Component {
         ) : (
           ''
         )}
-        <MarkdownText
-          whiteMode={whiteMode}
-          className="note-card-content"
-          minimized={minimize}
-          color={color}
-          text={card.text}
-        />
+        <div role="button" tabIndex={0} onClick={() => noteActions.editCard(card)}>
+          <MarkdownText
+            whiteMode={whiteMode}
+            className="note-card-content"
+            minimized={minimize}
+            color={color}
+            text={card.text}
+          />
+        </div>
       </Card>
     );
   }
