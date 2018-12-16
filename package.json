@@ -16,6 +16,9 @@
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "reset": "rm -rf ./node_modules && yarn install",
     "start-electron": "npm run build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
+    "version:patch": "npm-bump patch",
+    "version:minor": "npm-bump minor",
+    "version:major": "npm-bump major",
     "watch": "webpack-dev-server --hot --inline"
   },
   "author": {
@@ -95,6 +98,7 @@
     "html-webpack-plugin": "^2.28.0",
     "inuit-defaults": "^0.2.3",
     "node-sass": "^4.9.2",
+    "npm-bump": "0.0.25",
     "open-browser-webpack-plugin": "0.0.5",
     "postcss": "^6.0.1",
     "postcss-cssnext": "^2.11.0",

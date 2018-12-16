@@ -78,6 +78,11 @@ $pink-quote: #26A69A;
     width: 250px !important;
   }
 
+  &:hover .grommetux-card__content {
+    border-radius: 10px !important;
+    background-color: inherit;
+  }
+
   .labels {
     span {
       width: fit-content;
