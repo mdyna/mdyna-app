@@ -4,16 +4,21 @@
   "description": "Note notification and productivity app with  markdown support",
   "main": "main.js",
   "scripts": {
-    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -l",
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -lw",
+    "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
     "install-all": "rm -rf ./node_modules && npm install && cd app && rm -rf ./node_modules && npm install",
     "electron-builder": "electron-builder",
     "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
+    "pack-build": "yarn build-dist && yarn copy-package-files",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "reset": "rm -rf ./node_modules && yarn install",
     "start-electron": "npm run build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
+    "version:patch": "npm-bump patch",
+    "version:minor": "npm-bump minor",
+    "version:major": "npm-bump major",
     "watch": "webpack-dev-server --hot --inline"
   },
   "author": {
@@ -23,19 +28,20 @@
   "license": "MIT",
   "build": {
     "productName": "dyna",
+    "appId": "com.electron.dyna",
     "files": [
       "dist/web/",
       "node_modules/",
       "splash.html",
       "main.js",
       "package.json",
-      "resources/icons/**"
+      "resources/icons/**",
+      "resources/**"
     ],
     "directories": {
       "app": ".",
       "buildResources": "resources"
     },
-    "appId": "com.electron.dyna",
     "win": {
       "target": [
         {
@@ -46,7 +52,7 @@
           ]
         }
       ],
-      "icon": "resources/icons/win"
+      "icon": "resources/icons/win/icon.ico"
     },
     "linux": {
       "target": [
@@ -66,6 +72,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.49",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
     "asar": "^0.14.3",
@@ -91,6 +98,7 @@
     "html-webpack-plugin": "^2.28.0",
     "inuit-defaults": "^0.2.3",
     "node-sass": "^4.9.2",
+    "npm-bump": "0.0.25",
     "open-browser-webpack-plugin": "0.0.5",
     "postcss": "^6.0.1",
     "postcss-cssnext": "^2.11.0",

@@ -72,7 +72,7 @@ export default class CardList extends Component {
         );
       }
     }
-    return visibleCards.reverse();
+    return (visibleCards.length && visibleCards.reverse()) || null;
   }
 
   renderCardsByFrequency() {
@@ -114,6 +114,9 @@ export default class CardList extends Component {
   }
 
   render() {
+    const cardItems = this.props.sortByFrequency
+      ? this.renderCardsByFrequency()
+      : this.renderVisibleCards();
     return (
       <Section
         className={classnames({
@@ -130,17 +133,18 @@ export default class CardList extends Component {
         {this.props.cards.length ? (
           <React.Fragment>
             {!this.props.isTaskList && this.renderAddNoteButton()}
-
-            <Columns
-              maxCount={5}
-              masonry={!this.props.isTaskList}
-              responsive
-              className="visible-cards"
-            >
-              {this.props.sortByFrequency
-                ? this.renderCardsByFrequency()
-                : this.renderVisibleCards()}
-            </Columns>
+            {
+              cardItems && cardItems.length ?
+                <Columns
+                  maxCount={5}
+                  masonry={!this.props.isTaskList}
+                  responsive
+                  className="visible-cards"
+                >
+                  {cardItems}
+                </Columns>
+                : ''
+            }
           </React.Fragment>
         ) : (
           <React.Fragment>
