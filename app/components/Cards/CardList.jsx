@@ -128,7 +128,7 @@ export default class CardList extends Component {
         direction="row"
       >
         <Headline align="center" size="medium">
-          {this.props.isTaskList ? 'TASKS' : 'NOTES'}
+          {this.props.isTaskList ? 'INBOX' : 'NOTES'}
         </Headline>
         {this.props.cards.length ? (
           <React.Fragment>
