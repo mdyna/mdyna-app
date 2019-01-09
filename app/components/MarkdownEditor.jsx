@@ -31,7 +31,6 @@ class MarkdownEditor extends Component {
       <ReactSMDE
         className={className}
         options={{
-          autofocus: true,
           spellChecker: false,
           toolbar: [
             'bold',

@@ -26,6 +26,15 @@ class MarkdownText extends Component {
     const { text, className, color, minimized, whiteMode } = this.props;
     const converter = new Converter({
       headerLevelStart: 3,
+      strikethrough: true,
+      tables: true,
+      tasklists: true,
+      simpleLineBreaks: true,
+      smoothLivePreview: true,
+      smartIdentationFix: true,
+      simplifiedAutoLink: true,
+      literalMidWordUnderscores: true,
+      openLinksInNewWindow: true,
       extensions: [htmlescape],
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
