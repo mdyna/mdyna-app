@@ -61,11 +61,10 @@ class MarkdownEditor extends Component {
               className: 'fa fa-tasks',
               title: 'Tasks',
             },
-            '|',
-            'fullscreen',
           ],
           shortcuts: {
             toggleSideBySide: null,
+            fullscreen: null,
           },
         }}
         value={text}
