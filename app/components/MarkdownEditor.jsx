@@ -49,9 +49,23 @@ class MarkdownEditor extends Component {
             '|',
             'unordered-list',
             'ordered-list',
-            '|',
-            'fullscreen',
+            {
+              name: 'taskList',
+              action: (editor) => {
+                const cm = editor.codemirror;
+                const cursorPosition = cm.getCursor();
+                cm.replaceSelection('- [ ] ');
+                cm.focus();
+                cm.setCursor({ ...cursorPosition, ch: cursorPosition.ch + 6 });
+              },
+              className: 'fa fa-tasks',
+              title: 'Tasks',
+            },
           ],
+          shortcuts: {
+            toggleSideBySide: null,
+            fullscreen: null,
+          },
         }}
         value={text}
         onChange={e => this.handleValueChange(e)}
