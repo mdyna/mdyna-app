@@ -7,8 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10
-      - image: scottyhardy/docker-wine
+      - image: electronuserland/builder:wine
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -25,44 +24,34 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-      # run tests!
-      - run: yarn test
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       # install dependencies
       - run: yarn install-all
+      # run tests!
+      - run: yarn test
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
       # build step
       - run: yarn pack-build
       # store binaries
       - store_artifacts:
-          path: /release/
-          destination: release
-  publish-github-release:
-    docker:
-      - image: cibuilds/github:0.10
-    steps:
-      - attach_workspace:
-          at: ./release
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            VERSION=$(my-binary --version)
-            ghr -t ${d36b05932e4d9af0454db96f542ddd095a51c8c8} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./release/
+          path: ./release/
 workflows:
   version: 2
   main:
     jobs:
       - build:
-          filters:
-            tags:
-              only: master
-      - publish-github-release:
-          requires:
-            - build
           filters:
             branches:
               ignore: /.*/

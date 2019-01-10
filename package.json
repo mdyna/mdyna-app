@@ -4,7 +4,7 @@
   "description": "Note notification and productivity app with  markdown support",
   "main": "main.js",
   "scripts": {
-    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw",
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw --publish always",
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
@@ -59,7 +59,11 @@
           ]
         }
       ],
-      "icon": "resources/icons/win/icon.ico"
+      "icon": "resources/icons/win/icon.ico",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      }
     },
     "linux": {
       "target": [
@@ -67,6 +71,10 @@
         "AppImage"
       ],
       "icon": "icons/png",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      },
       "category": "Development"
     }
   },
@@ -90,7 +98,7 @@
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "^0.28.3",
     "electron": "3.0.0",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "^20.38.2",
     "electron-icon-maker": "0.0.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.0.0",
