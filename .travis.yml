@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- stable
+- '6'
+- '4'
+git:
+  submodules: false
+branches:
+  only:
+      -master
+install:
+  - yarn reset
+script:
+  - yarn pack-build

@@ -15,6 +15,7 @@
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "reset": "rm -rf ./node_modules && yarn install",
+    "test": "lint-staged",
     "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
     "version:patch": "npm-bump patch",
     "version:minor": "npm-bump minor",
@@ -26,6 +27,12 @@
     "email": "davidmorais92@gmail.com"
   },
   "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "build": {
     "productName": "dyna",
     "appId": "com.electron.dyna",
@@ -67,6 +74,7 @@
     "cross-env": "5.0.0",
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
+    "lint-staged": "^8.1.0",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
@@ -116,7 +124,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:cyborkonline/dyna.git"
+    "url": "git+git@github.com:psybork/dyna.git"
   },
   "keywords": [
     "react",
