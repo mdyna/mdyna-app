@@ -4,18 +4,19 @@
   "description": "Note notification and productivity app with  markdown support",
   "main": "main.js",
   "scripts": {
-    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -lw",
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw --publish always",
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
-    "install-all": "rm -rf ./node_modules && npm install && cd app && rm -rf ./node_modules && npm install",
+    "install-all": "rm -rf ./node_modules && yarn install && cd app && rm -rf ./node_modules && yarn install",
     "electron-builder": "electron-builder",
     "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "reset": "rm -rf ./node_modules && yarn install",
-    "start-electron": "npm run build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
+    "test": "lint-staged",
+    "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
     "version:patch": "npm-bump patch",
     "version:minor": "npm-bump minor",
     "version:major": "npm-bump major",
@@ -26,6 +27,12 @@
     "email": "davidmorais92@gmail.com"
   },
   "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "build": {
     "productName": "dyna",
     "appId": "com.electron.dyna",
@@ -52,7 +59,11 @@
           ]
         }
       ],
-      "icon": "resources/icons/win/icon.ico"
+      "icon": "resources/icons/win/icon.ico",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      }
     },
     "linux": {
       "target": [
@@ -60,6 +71,10 @@
         "AppImage"
       ],
       "icon": "icons/png",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      },
       "category": "Development"
     }
   },
@@ -67,6 +82,7 @@
     "cross-env": "5.0.0",
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
+    "lint-staged": "^8.1.0",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
@@ -82,7 +98,7 @@
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "^0.28.3",
     "electron": "3.0.0",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "^20.38.2",
     "electron-icon-maker": "0.0.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.0.0",
@@ -116,7 +132,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:cyborkonline/dyna.git"
+    "url": "git+git@github.com:psybork/dyna.git"
   },
   "keywords": [
     "react",

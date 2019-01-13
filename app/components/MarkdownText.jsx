@@ -9,15 +9,16 @@ import ReactHighlight from './CodeHighlight';
 import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
 
 const COLOR_LABELS = {
-  '#03A9F4': 'light-blue',
-  '#0D47A1': 'dark-blue',
-  '#4E636E': 'grey',
-  '#64FFDA': 'dyna-green',
-  '#4CAF50': 'green',
-  '#FFEB3B': 'yellow',
-  '#FF7043': 'orange',
-  '#F44336': 'red',
-  '#F48FB0': 'pink',
+  '#ff8a80': 'red',
+  '#ff80ab': 'pink',
+  '#ea80fc': 'purple',
+  '#8c9eff': 'dark-blue',
+  '#80d8ff': 'light-blue',
+  '#a7ffeb': 'dyna-green',
+  '#b9f6ca': 'green',
+  '#fff475': 'yellow',
+  '#ffd180': 'orange',
+  '#a7c0cd': 'grey',
 };
 
 class MarkdownText extends Component {
@@ -25,6 +26,15 @@ class MarkdownText extends Component {
     const { text, className, color, minimized, whiteMode } = this.props;
     const converter = new Converter({
       headerLevelStart: 3,
+      strikethrough: true,
+      tables: true,
+      tasklists: true,
+      simpleLineBreaks: true,
+      smoothLivePreview: true,
+      smartIdentationFix: true,
+      simplifiedAutoLink: true,
+      literalMidWordUnderscores: true,
+      openLinksInNewWindow: true,
       extensions: [htmlescape],
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
