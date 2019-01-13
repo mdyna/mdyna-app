@@ -4,6 +4,8 @@ const electron = require('electron');
 const path = require('path');
 const os = require('os');
 const Storage = require('electron-store');
+const logger = require('electron-timber');
+const { autoUpdater } = require('electron-updater');
 
 
 const storagePath = path.join(os.homedir(), 'dyna');
@@ -73,7 +75,9 @@ app.on('ready', () => {
   global.serverHost = 'http://localhost:7000';
   global.storage = new Storage();
   const env = process.env.NODE_ENV || 'PROD';
-  console.log('ELECTRON RUNNING IN', env, storage);
+  autoUpdater.logger = logger;
+  autoUpdater.checkForUpdatesAndNotify();
+  logger.log('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
   } else {
