@@ -117,7 +117,10 @@ export default class CardList extends Component {
     const cardItems = this.props.sortByFrequency
       ? this.renderCardsByFrequency()
       : this.renderVisibleCards();
-    return (
+    const listIsEmpty = this.props.isTaskList &&
+    this.props.cards.filter(card => card.repeat).length === 0;
+
+    return !listIsEmpty && (
       <Section
         className={classnames({
           'card-list': true,
