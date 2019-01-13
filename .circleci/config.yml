@@ -53,7 +53,5 @@ workflows:
     jobs:
       - build:
           filters:
-            branches:
-              only: prod
             tags:
               only: /^v.*//
