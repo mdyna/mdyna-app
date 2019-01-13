@@ -54,6 +54,6 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: /.*/
+              only: prod
             tags:
-              only: /^\d+\.\d+\.\d+$/
+              only: /^v.*//
