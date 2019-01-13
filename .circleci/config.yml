@@ -53,5 +53,9 @@ workflows:
     jobs:
       - build:
           filters:
+            branches:
+              only:
+                - master
+                - prod
             tags:
-              only: /^v.*//
+              only: /^v.*/
