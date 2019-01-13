@@ -82,6 +82,7 @@
     "cross-env": "5.0.0",
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
+    "electron-updater": "^4.0.6",
     "lint-staged": "^8.1.0",
     "webpack-merge": "^4.1.1"
   },
@@ -100,6 +101,7 @@
     "electron": "3.0.0",
     "electron-builder": "^20.38.2",
     "electron-icon-maker": "0.0.4",
+    "electron-timber": "^0.5.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.0.0",
     "eslint-config-standard": "^10.2.1",
