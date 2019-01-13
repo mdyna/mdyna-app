@@ -8,10 +8,10 @@
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
-    "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
+    "create-icons": "electron-icon-maker --input=./resources/MdynaLogoCircle.png --output=./resources/",
     "install-all": "rm -rf ./node_modules && yarn install && cd app && rm -rf ./node_modules && yarn install",
     "electron-builder": "electron-builder",
-    "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
+    "pack-asar": "./node_modules/.bin/asar pack mdyna app.asar",
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "reset": "rm -rf ./node_modules && yarn install",
@@ -34,8 +34,8 @@
     ]
   },
   "build": {
-    "productName": "dyna",
-    "appId": "com.electron.dyna",
+    "productName": "mdyna",
+    "appId": "com.electron.mdyna",
     "files": [
       "dist/web/",
       "node_modules/",

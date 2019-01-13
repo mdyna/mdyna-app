@@ -36,7 +36,7 @@ const COLOR_LABELS = {
   '#ea80fc': 'purple',
   '#8c9eff': 'dark-blue',
   '#80d8ff': 'light-blue',
-  '#a7ffeb': 'dyna-green',
+  '#a7ffeb': 'mdyna-green',
   '#b9f6ca': 'green',
   '#fff475': 'yellow',
   '#ffd180': 'orange',
@@ -71,7 +71,7 @@ function minimizeCard(card) {
   });
 }
 
-class dynaCard extends Component {
+class MdynaCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -223,9 +223,9 @@ class dynaCard extends Component {
   }
 }
 
-export default dynaCard;
+export default MdynaCard;
 
-dynaCard.propTypes = {
+MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   snoozeCard: PropTypes.func,
   failCard: PropTypes.func,
@@ -244,7 +244,7 @@ dynaCard.propTypes = {
   i: PropTypes.number,
 };
 
-dynaCard.defaultProps = {
+MdynaCard.defaultProps = {
   i: 0,
   removeCard: null,
   snoozeCard: null,

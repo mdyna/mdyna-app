@@ -14,7 +14,7 @@ const COLOR_LABELS = {
   '#ea80fc': 'purple',
   '#8c9eff': 'dark-blue',
   '#80d8ff': 'light-blue',
-  '#a7ffeb': 'dyna-green',
+  '#a7ffeb': 'mdyna-green',
   '#b9f6ca': 'green',
   '#fff475': 'yellow',
   '#ffd180': 'orange',
@@ -49,7 +49,7 @@ class MarkdownText extends Component {
       <ReactHighlight
         element="div"
         text={rawText}
-        className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'dyna-md')}
+        className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'mdyna-md')}
       >
         {formattedText}
       </ReactHighlight>

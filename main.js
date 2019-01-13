@@ -4,12 +4,7 @@ const electron = require('electron');
 const path = require('path');
 const os = require('os');
 const Storage = require('electron-store');
-const logger = require('electron-timber');
 const { autoUpdater } = require('electron-updater');
-
-
-const storagePath = path.join(os.homedir(), 'dyna');
-
 
 const { app, BrowserWindow } = electron;
 // Let electron reloads by itself when webpack watches changes in ./app/
@@ -28,14 +23,14 @@ app.on('ready', () => {
     minHeight: 600,
     show: false,
     center: true,
-    title: 'dyna',
+    title: 'Mdyna',
     nodeIntegrationInWorker: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       devTools: true,
       textAreasAreResizable: false,
     },
-    icon: path.join(__dirname, 'resources/dynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
   });
 
   const splash = new BrowserWindow({
@@ -46,7 +41,7 @@ app.on('ready', () => {
     transparent: true,
     frame: false,
     alwaysOnTop: true,
-    icon: path.join(__dirname, 'resources/dynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
   });
 
   splash.loadURL(`file://${__dirname}/splash.html`);
@@ -75,9 +70,8 @@ app.on('ready', () => {
   global.serverHost = 'http://localhost:7000';
   global.storage = new Storage();
   const env = process.env.NODE_ENV || 'PROD';
-  autoUpdater.logger = logger;
   autoUpdater.checkForUpdatesAndNotify();
-  logger.log('ELECTRON RUNNING IN', env);
+  console.log('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
   } else {

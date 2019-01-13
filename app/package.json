@@ -1,13 +1,13 @@
 {
-  "name": "dyna-app",
+  "name": "mdyna-app",
   "version": "0.1.0",
-  "description": "Dyna application isolated front-end",
+  "description": "Mdyna application isolated front-end",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "dyna",
+    "Mdyna",
     "productivity",
     "notes",
     "electron",

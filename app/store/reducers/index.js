@@ -6,7 +6,7 @@ import labels from './labels';
 import style from './style';
 import filters from './filters';
 
-const dynaApp = combineReducers({
+const MdynaApp = combineReducers({
   cards,
   editor,
   labels,
@@ -14,4 +14,4 @@ const dynaApp = combineReducers({
   tasks,
   filters,
 });
-export default dynaApp;
+export default MdynaApp;

@@ -7,13 +7,13 @@ import Root from './config/Root';
 import { Provider } from 'react-redux';
 import store from './store';
 
-let dynaStore = store;
+let MdynaStore = store;
 
 const render = Component => {
   store.getState();
   ReactDOM.render(
     <AppContainer>
-      <Provider store={dynaStore}>
+      <Provider store={MdynaStore}>
         <Component />
       </Provider>
     </AppContainer>,
