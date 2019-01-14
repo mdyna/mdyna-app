@@ -1,20 +1,36 @@
 # Mdyna
 
-### A note notification and productivity app.
-[![CircleCI](https://circleci.com/gh/psybork/dyna.svg?style=svg)](https://circleci.com/gh/psybork/dyna)
+### A notes app with Markdown support and code syntax highlighting
+[![CircleCI](https://circleci.com/gh/mdyna/mdyna-app.svg?style=svg)](https://circleci.com/gh/mdyna/mdyna-app);
 
-![Mdyna Logo](https://bytebucket.org/ravatar/%7B989d7431-213e-49fe-a3cb-f8902fb2992f%7D?ts=1764119)
+[![Mdyna Logo](./resources/MdynaLogo.png)](https://mdyna.github.io)
 
 _Built with React+Redux+Electron_
 
-##### Main Features
+### Main Features
 
-- Write notes with markdown support
-- Set up repeatable tasks with reminders
-- Share notes through private links
-- Dark/White theme
+- Git Flavoured Markdown (GFM) support
+- Code syntax highlighting for several languages
+- Dark Mode
+- Tag notes with labels
 
-#### How to use (for now)
+### Scripts
 
-- Clone this repo
-- Open terminal and type `npm i && npm start`
+- Install dependencies
+  `yarn install-all`
+
+- Start application
+    `yarn start`
+
+- Build binaries
+    `yarn pack-build`
+
+- Update Icons
+    `yarn create-icons`
+
+- Pack ASAR
+    `yarn pack-asar`
+
+- Publish App
+    `yarn publish-app`
+

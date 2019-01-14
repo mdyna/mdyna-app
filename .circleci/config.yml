@@ -43,7 +43,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       # build step
-      - run: yarn pack-build
+      - run: yarn publish-app
       # store binaries
       - store_artifacts:
           path: ./release/
