@@ -17,9 +17,9 @@
     "reset": "rm -rf ./node_modules && yarn install",
     "test": "lint-staged",
     "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
-    "version:patch": "npm-bump patch",
-    "version:minor": "npm-bump minor",
-    "version:major": "npm-bump major",
+    "version:patch": "yarn version --new-version patch",
+    "version:minor": "yarn version --new-version minor",
+    "version:major": "yarn version --new-version major",
     "watch": "webpack-dev-server --hot --inline"
   },
   "author": {
@@ -82,8 +82,9 @@
     "cross-env": "5.0.0",
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
-    "electron-updater": "^4.0.6",
+    "electron-timber": "^0.5.1",
     "lint-staged": "^8.1.0",
+    "update-electron-app": "^1.3.0",
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
@@ -101,7 +102,6 @@
     "electron": "3.0.0",
     "electron-builder": "^20.38.2",
     "electron-icon-maker": "0.0.4",
-    "electron-timber": "^0.5.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.0.0",
     "eslint-config-standard": "^10.2.1",
@@ -134,7 +134,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:psybork/dyna.git"
+    "url": "https://github.com/Psybork/dyna.git"
   },
   "keywords": [
     "react",

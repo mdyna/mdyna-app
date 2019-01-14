@@ -1,6 +1,7 @@
 node_modules
 jsconfig.json
 .vscode
+package.lock.json
 dist
 github-page
 app/node_modules

@@ -3,6 +3,8 @@
 const electron = require('electron');
 const path = require('path');
 const Storage = require('electron-store');
+const logger = require('electron-timber');
+
 
 
 const { app, BrowserWindow } = electron;
@@ -13,8 +15,14 @@ require('electron-reload')(__dirname, {
 
 // To avoid being garbage collected
 let mainWindow;
+require('update-electron-app')({
+  repo: 'https://github.com/Psybork/dyna.git',
+});
+
 
 app.on('ready', () => {
+  logger.log('Main Electron Logs');
+  logger.error('Main Electron Logs');
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 600,
