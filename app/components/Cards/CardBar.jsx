@@ -99,7 +99,9 @@ class CardBar extends Component {
           <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
             <TrashIcon className="close-icon" />
           </Button>
-          {isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''}
+          {
+            // isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''
+          }
           {minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''}
         </div>
         {assertTaskAlerts(lastAlertDate, cardFrequency) && isTask ? (
