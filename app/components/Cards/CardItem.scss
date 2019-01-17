@@ -28,6 +28,48 @@ $fail-accent: #f57c00;
   width: 375px !important;
   border-radius: 10px;
 
+  .card-control {
+    margin: 0px auto;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
+
+  button {
+    @include normalize-button-icons();
+    svg {
+      border: none;
+      border-radius: 0;
+      &:hover {
+        border: none !important;
+      }
+    }
+  svg.minimize-icon {
+    polyline {
+      stroke: $accent-color !important;
+    }
+  }
+  svg.maximize-icon {
+    polyline {
+      stroke: $accent-color !important;
+    }
+  }
+
+  &:hover {
+    svg.minimize-icon {
+      polyline {
+        stroke: $secondary-accent !important;
+      }
+    }
+    svg.maximize-icon {
+      polyline {
+        stroke: $secondary-accent !important;
+      }
+    }
+  }
+}
+
   h5 {
     font-size: 20px !important;
   }

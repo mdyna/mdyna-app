@@ -51,21 +51,17 @@ class CardBar extends Component {
     removeCardFunc(card);
   }
 
-  renderCardControl(minimized, minimizeFunc) {
+  static renderCardControl(minimized) {
     return minimized ? (
-      <Button onClick={() => minimizeFunc(this.props.cardItem)}>
-        <MaximizeIcon className="maximize-icon" />
-      </Button>
+      <MaximizeIcon className="maximize-icon" />
     ) : (
-      <Button onClick={() => minimizeFunc(this.props.cardItem)}>
-        <MinimizeIcon className="minimize-icon" />
-      </Button>
+      <MinimizeIcon className="minimize-icon" />
     );
   }
 
   render() {
     const { card, cardActions, options } = this.props;
-    const { isTask, isNote, minimized } = options;
+    const { isTask, isNote } = options;
     const {
       editCard,
       snoozeCard,
@@ -73,8 +69,8 @@ class CardBar extends Component {
       completeCard,
       toggleCard,
       removeCard,
-      minimizeCard,
-      generateCardLink,
+      // minimizeCard,
+      // generateCardLink,
     } = cardActions;
     const { cardFrequency } = card;
     const lastAlertDate = unNest(card, 'cardStats.lastAlertDate') || null;
@@ -102,7 +98,9 @@ class CardBar extends Component {
           {
             // isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''
           }
-          {minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''}
+          {
+            // minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''
+          }
         </div>
         {assertTaskAlerts(lastAlertDate, cardFrequency) && isTask ? (
           <AlertBar
