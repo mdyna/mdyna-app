@@ -144,7 +144,6 @@ class MdynaCard extends Component {
       failCard: this.props.failCard,
       completeCard: this.props.completeCard,
     };
-    const cardListBackground = whiteMode ? '#cfd8dc' : '#1f2833';
     return (
       <Card
         key={i}
@@ -224,7 +223,6 @@ class MdynaCard extends Component {
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
             style={{
-              backgroundColor: cardListBackground,
               opacity: 0.5,
               borderRadius: '10px',
               boxShadow: `box-shadow: 0px -2px 20px 2px ${color} !important`,
