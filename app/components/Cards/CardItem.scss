@@ -29,6 +29,7 @@ $fail-accent: #f57c00;
   border-radius: 10px;
 
   .card-control {
+    background-color: #1f2833;
     margin: 0px auto;
     width: 100%;
     display: flex;
@@ -86,13 +87,23 @@ $fail-accent: #f57c00;
     color: #333 !important;
   }
 
-  blockquote p {
-    margin-left: 15px;
-    color: #666 !important;
-  }
-
-  blockquote, p {
-    margin-top: 10px !important;
+  blockquote {
+    background-color: #333;
+    opacity: 0.8;
+    margin: 10px;
+    border-radius: 10px;
+    padding-left: 20px;
+    p {
+      ::before{
+        content: '>'
+      }
+      color: #fff !important;
+    }
+    &:hover {
+      p {
+        color: $accent-color !important;
+      }
+    }
   }
 
   h5, h4, h3, p {
