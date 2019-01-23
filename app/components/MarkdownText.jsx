@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
+import CheckBox from 'grommet/components/CheckBox';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import regExp from '../utils/regexp';
@@ -24,6 +25,17 @@ const COLOR_LABELS = {
 class MarkdownText extends Component {
   render() {
     const { text, className, color, minimized, whiteMode } = this.props;
+    /*
+    const input = () => (
+      <CheckBox
+        className="card-tasklist"
+        onClick={(e) => {
+          e.stopPropagation();
+          console.log(this, e.isPropagationStopped());
+        }}
+      />
+    );
+    */
     const converter = new Converter({
       headerLevelStart: 3,
       strikethrough: true,
@@ -36,6 +48,7 @@ class MarkdownText extends Component {
       literalMidWordUnderscores: true,
       openLinksInNewWindow: true,
       extensions: [htmlescape],
+      flavor: 'github',
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
@@ -46,13 +59,24 @@ class MarkdownText extends Component {
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     return (
-      <ReactHighlight
-        element="div"
-        text={rawText}
-        className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'mdyna-md')}
-      >
-        {formattedText}
-      </ReactHighlight>
+      <React.Fragment>
+
+        <ReactHighlight
+          element="div"
+          text={rawText}
+          className={classnames(
+            className,
+            COLOR_LABELS[color],
+            whiteMode && 'white-mode',
+            'mdyna-md',
+          )}
+        >
+          {formattedText}
+        </ReactHighlight>
+        <div>
+          {formattedText}
+        </div>
+      </React.Fragment>
     );
   }
 }
