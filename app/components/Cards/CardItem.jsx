@@ -209,7 +209,13 @@ class MdynaCard extends Component {
         ) : (
           ''
         )}
-        <div role="button" tabIndex={0} onClick={() => noteActions.editCard(card)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onDoubleClick={(e) => {
+            noteActions.editCard(card);
+          }}
+        >
           <MarkdownText
             whiteMode={whiteMode}
             className="note-card-content"
