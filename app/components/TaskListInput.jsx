@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TaskListInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: this.props[0].defaultChecked,
-    };
-  }
 
   render() {
-    const { text, editCard } = this.props;
+    const { text, editCard, defaultChecked } = this.props;
 
     return (
       <input
         className="card-tasklist"
         type="checkbox"
-        checked={this.props[0].defaultChecked === 'true'}
+        checked={defaultChecked === 'true'}
         onChange={(e) => {
           e.stopPropagation();
           const { card, saveFunc } = editCard;
@@ -47,9 +41,11 @@ export default TaskListInput;
 
 TaskListInput.propTypes = {
   text: PropTypes.string,
+  defaultChecked: PropTypes.string,
   editCard: PropTypes.object.isRequired,
 };
 
 TaskListInput.defaultProps = {
   text: '',
+  defaultChecked: 'false',
 };
