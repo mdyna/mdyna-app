@@ -62,7 +62,11 @@ app.on('ready', () => {
 
 
   autoUpdater.logger = logger
-  autoUpdater.checkForUpdatesAndNotify()
+  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall();
+  })
+
 
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
