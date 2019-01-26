@@ -8,13 +8,14 @@ import Search from 'grommet/components/Search';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import LabelFilter from './LabelFilter';
 import logo from '../../resources/MdynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
-  return cards && cards.map(d => d && d.title) || '';
+  return (cards && cards.map(d => d && d.title)) || '';
 }
 class NavBar extends Component {
   constructor(props) {
@@ -22,14 +23,13 @@ class NavBar extends Component {
     this.state = {
       searchInput: '',
     };
+    this.searchBar = React.createRef();
   }
 
   render() {
     const { cards, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
-    const titles = [
-      ...getCardTitles(cards),
-    ];
+    const titles = [...getCardTitles(cards)];
 
     return (
       <Box
@@ -39,6 +39,10 @@ class NavBar extends Component {
         pad="small"
         direction="row"
       >
+        <KeyboardEventHandler
+          handleKeys={['ctrl+p']}
+          onKeyEvent={() => this.searchBar.current.focus()}
+        />
         <Image src={logo} className="navbar-app-logo" alt="Mdyna" size="small" />
         <Button
           onClick={() => {
@@ -77,6 +81,7 @@ class NavBar extends Component {
               searchInput: e.target.value,
             });
           }}
+          ref={this.searchBar}
           onSelect={e => this.props.searchCards(e.suggestion)}
           value={this.props.searchInput}
         />

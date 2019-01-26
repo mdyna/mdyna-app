@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
+import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
 import Toast from 'grommet/components/Toast';
 import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
@@ -143,7 +144,6 @@ class MdynaCard extends Component {
       failCard: this.props.failCard,
       completeCard: this.props.completeCard,
     };
-
     return (
       <Card
         key={i}
@@ -209,15 +209,41 @@ class MdynaCard extends Component {
         ) : (
           ''
         )}
-        <div role="button" tabIndex={0} onClick={() => noteActions.editCard(card)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onDoubleClick={() => {
+            noteActions.editCard(card);
+          }}
+        >
           <MarkdownText
             whiteMode={whiteMode}
             className="note-card-content"
             minimized={minimize}
             color={color}
+            editCard={{
+              card,
+              saveFunc: this.props.saveCard,
+            }}
             text={card.text}
           />
         </div>
+        {noteActions.minimizeCard ? (
+          <Button
+            onClick={() => noteActions.minimizeCard(this)}
+            className="card-control"
+            style={{
+              opacity: 0.5,
+              borderRadius: '10px',
+              boxShadow: `box-shadow: 0px -2px 20px 2px ${color} !important`,
+              padding: 5,
+            }}
+          >
+            {CardBar.renderCardControl(this.state.minimized)}
+          </Button>
+        ) : (
+          ''
+        )}
       </Card>
     );
   }
@@ -230,6 +256,7 @@ MdynaCard.propTypes = {
   snoozeCard: PropTypes.func,
   failCard: PropTypes.func,
   toggleCard: PropTypes.func,
+  saveCard: PropTypes.func,
   completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
@@ -249,6 +276,7 @@ MdynaCard.defaultProps = {
   removeCard: null,
   snoozeCard: null,
   failCard: null,
+  saveCard: null,
   completeCard: null,
   generateCardLink: null,
   editCard: null,

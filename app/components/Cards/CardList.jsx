@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Section from 'grommet/components/Section';
 import Columns from 'grommet/components/Columns';
 import Layer from 'grommet/components/Layer';
@@ -117,27 +118,31 @@ export default class CardList extends Component {
     const cardItems = this.props.sortByFrequency
       ? this.renderCardsByFrequency()
       : this.renderVisibleCards();
-    const listIsEmpty = this.props.isTaskList &&
-    this.props.cards.filter(card => card.repeat).length === 0;
+    const listIsEmpty =
+      this.props.isTaskList && this.props.cards.filter(card => card.repeat).length === 0;
 
-    return !listIsEmpty && (
-      <Section
-        className={classnames({
-          'card-list': true,
-          'task-list': this.props.isTaskList,
-          'white-mode': this.props.whiteMode,
-        })}
-        responsive
-        direction="row"
-      >
-        <Headline align="center" size="medium">
-          {this.props.isTaskList ? 'INBOX' : 'NOTES'}
-        </Headline>
-        {this.props.cards.length ? (
-          <React.Fragment>
-            {!this.props.isTaskList && this.renderAddNoteButton()}
-            {
-              cardItems && cardItems.length ?
+    return (
+      !listIsEmpty && (
+        <Section
+          className={classnames({
+            'card-list': true,
+            'task-list': this.props.isTaskList,
+            'white-mode': this.props.whiteMode,
+          })}
+          responsive
+          direction="row"
+        >
+          <KeyboardEventHandler
+            handleKeys={['a']}
+            onKeyEvent={() => this.props.toggleEditor(true)}
+          />
+          <Headline align="center" size="medium">
+            {this.props.isTaskList ? 'INBOX' : 'NOTES'}
+          </Headline>
+          {this.props.cards.length ? (
+            <React.Fragment>
+              {!this.props.isTaskList && this.renderAddNoteButton()}
+              {cardItems && cardItems.length ? (
                 <Columns
                   maxCount={5}
                   masonry={!this.props.isTaskList}
@@ -146,31 +151,33 @@ export default class CardList extends Component {
                 >
                   {cardItems}
                 </Columns>
-                : ''
-            }
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            {this.renderAddNoteButton()}
-            <Heading align="center" tag="h3">
-              {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
-            </Heading>
-          </React.Fragment>
-        )}
-        {this.props.modalOpen ? (
-          <Layer
-            overlayClose
-            closer
-            flush
-            onClose={() => this.props.toggleEditor()}
-            className={classnames('note-layer', { 'white-mode': this.props.whiteMode })}
-          >
-            <CardEditor toggleEditor={this.props.toggleEditor} />
-          </Layer>
-        ) : (
-          ''
-        )}
-      </Section>
+              ) : (
+                ''
+              )}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {this.renderAddNoteButton()}
+              <Heading align="center" tag="h3">
+                {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
+              </Heading>
+            </React.Fragment>
+          )}
+          {this.props.modalOpen ? (
+            <Layer
+              overlayClose
+              closer
+              flush
+              onClose={() => this.props.toggleEditor()}
+              className={classnames('note-layer', { 'white-mode': this.props.whiteMode })}
+            >
+              <CardEditor toggleEditor={this.props.toggleEditor} />
+            </Layer>
+          ) : (
+            ''
+          )}
+        </Section>
+      )
     );
   }
 }

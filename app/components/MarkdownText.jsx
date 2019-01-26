@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Converter } from 'react-showdown';
+import { toClass } from 'recompose';
 import htmlescape from 'showdown-htmlescape';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import regExp from '../utils/regexp';
 import ReactHighlight from './CodeHighlight';
+import TaskListInput from './TaskListInput';
 
 import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
 
@@ -23,7 +25,10 @@ const COLOR_LABELS = {
 
 class MarkdownText extends Component {
   render() {
-    const { text, className, color, minimized, whiteMode } = this.props;
+    const { text, className, color, minimized, whiteMode, editCard } = this.props;
+    const input = toClass(otherProps => (
+      <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
+    ));
     const converter = new Converter({
       headerLevelStart: 3,
       strikethrough: true,
@@ -36,6 +41,8 @@ class MarkdownText extends Component {
       literalMidWordUnderscores: true,
       openLinksInNewWindow: true,
       extensions: [htmlescape],
+      flavor: 'github',
+      components: { input },
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
@@ -49,7 +56,12 @@ class MarkdownText extends Component {
       <ReactHighlight
         element="div"
         text={rawText}
-        className={classnames(className, COLOR_LABELS[color], whiteMode && 'white-mode', 'mdyna-md')}
+        className={classnames(
+          className,
+          COLOR_LABELS[color],
+          whiteMode && 'white-mode',
+          'mdyna-md',
+        )}
       >
         {formattedText}
       </ReactHighlight>
@@ -64,6 +76,7 @@ MarkdownText.propTypes = {
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   whiteMode: PropTypes.bool,
+  editCard: PropTypes.object.isRequired,
   color: PropTypes.string,
 };
 
