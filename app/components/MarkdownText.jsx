@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Converter } from 'react-showdown';
 import htmlescape from 'showdown-htmlescape';
-import CheckBox from 'grommet/components/CheckBox';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import regExp from '../utils/regexp';
 import ReactHighlight from './CodeHighlight';
+import TaskListInput from './TaskListInput';
 
 import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
 
@@ -24,18 +24,10 @@ const COLOR_LABELS = {
 
 class MarkdownText extends Component {
   render() {
-    const { text, className, color, minimized, whiteMode } = this.props;
-    /*
-    const input = () => (
-      <CheckBox
-        className="card-tasklist"
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log(this, e.isPropagationStopped());
-        }}
-      />
+    const { text, className, color, minimized, whiteMode, editCard } = this.props;
+    const input = (...otherProps) => (
+      <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
     );
-    */
     const converter = new Converter({
       headerLevelStart: 3,
       strikethrough: true,
@@ -49,6 +41,7 @@ class MarkdownText extends Component {
       openLinksInNewWindow: true,
       extensions: [htmlescape],
       flavor: 'github',
+      components: { input },
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
@@ -60,7 +53,6 @@ class MarkdownText extends Component {
     const formattedText = converter.convert(rawText) || '';
     return (
       <React.Fragment>
-
         <ReactHighlight
           element="div"
           text={rawText}
@@ -73,9 +65,7 @@ class MarkdownText extends Component {
         >
           {formattedText}
         </ReactHighlight>
-        <div>
-          {formattedText}
-        </div>
+        <div>{formattedText}</div>
       </React.Fragment>
     );
   }

@@ -221,7 +221,10 @@ class MdynaCard extends Component {
             className="note-card-content"
             minimized={minimize}
             color={color}
-            editCard={{ card, func: noteActions.editCard }}
+            editCard={{
+              card,
+              saveFunc: this.props.saveCard,
+            }}
             text={card.text}
           />
         </div>
@@ -253,6 +256,7 @@ MdynaCard.propTypes = {
   snoozeCard: PropTypes.func,
   failCard: PropTypes.func,
   toggleCard: PropTypes.func,
+  saveCard: PropTypes.func,
   completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
@@ -272,6 +276,7 @@ MdynaCard.defaultProps = {
   removeCard: null,
   snoozeCard: null,
   failCard: null,
+  saveCard: null,
   completeCard: null,
   generateCardLink: null,
   editCard: null,
