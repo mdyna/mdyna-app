@@ -62,10 +62,32 @@ app.on('ready', () => {
 
 
   autoUpdater.logger = logger
-  autoUpdater.checkForUpdatesAndNotify();
-  autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall();
-  })
+  autoUpdater.on('update-downloaded', info => {
+      const quitAndInstalled = autoUpdater.quitAndInstall();
+      logger.warn('quitAndInstalled');
+      logger.warn(quitAndInstalled);
+  });
+
+  autoUpdater.on('update-available', arg => {
+      logger.info('update-available');
+      logger.info(arg);
+  });
+
+  autoUpdater.on('update-not-available', arg => {
+      logger.info('update-not-available');
+      logger.info(arg);
+  });
+
+  autoUpdater.on('download-progress', arg => {
+      logger.log('download-progress');
+      logger.log(arg);
+  });
+
+  autoUpdater.on('error', error => {
+      logger.error('error');
+      logger.error(error.message);
+      logger.error(error.stack);
+  });
 
 
   webContents.on('will-navigate', handleRedirect);
@@ -75,10 +97,17 @@ app.on('ready', () => {
   mainWindow.on('ready-to-show', () => {
     splash.destroy();
     mainWindow.show();
+    logger.info(autoUpdater.checkForUpdatesAndNotify());
+    logger.info('checkForUpdatesAndNotify');
   });
   mainWindow.on('focus', () => {
     splash.destroy();
   });
+  mainWindow.on('close', () => {
+    app.quit();
+    window = null;
+  });
+
   global.serverHost = 'http://localhost:7000';
   global.storage = new Storage();
   const env = process.env.NODE_ENV || 'PROD';
