@@ -5,6 +5,11 @@ import _ from 'lodash';
 
 import '!style-loader!css-loader!sass-loader!../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
+function getInstance(editor, submitCard) {
+  // eslint-disable-next-line no-param-reassign
+  editor.codemirror.options.extraKeys['Ctrl-Enter'] = () => submitCard();
+}
+
 class MarkdownEditor extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +31,7 @@ class MarkdownEditor extends Component {
   }
 
   render() {
-    const { className, text } = this.props;
+    const { className, text, submitCard } = this.props;
     return (
       <ReactSMDE
         className={className}
@@ -62,12 +67,9 @@ class MarkdownEditor extends Component {
               title: 'Tasks',
             },
           ],
-          shortcuts: {
-            toggleSideBySide: null,
-            fullscreen: null,
-          },
         }}
         value={text}
+        getMdeInstance={instance => getInstance(instance, submitCard)}
         onChange={e => this.handleValueChange(e)}
       />
     );
@@ -78,6 +80,7 @@ export default MarkdownEditor;
 
 MarkdownEditor.propTypes = {
   text: PropTypes.string,
+  submitCard: PropTypes.func.isRequired,
   settingName: PropTypes.string,
   className: PropTypes.string,
   changeNoteSetting: PropTypes.func.isRequired,

@@ -8,8 +8,8 @@ import Search from 'grommet/components/Search';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Image from 'grommet/components/Image';
-import LabelFilter from './LabelFilter';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import LabelFilter from './LabelFilter';
 import logo from '../../resources/MdynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line

@@ -14,6 +14,7 @@ import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardPreview from '../containers/CardPreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
 
@@ -219,7 +220,7 @@ export default class CardEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor className={'card-text-editor'} />
+            <MarkdownEditor className={'card-text-editor'} submitCard={() => this.submitFormFields()} />
             <CardPreview changeCardSetting={changeCardSetting} />
           </div>
         );
@@ -231,6 +232,7 @@ export default class CardEditor extends Component {
             key={_.startCase(settingName)}
           >
             <TextInput
+              autoFocus={settingName === 'title'}
               key={settingName}
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
@@ -337,6 +339,10 @@ export default class CardEditor extends Component {
         className={classnames('card-editor', { 'white-mode': this.props.whiteMode })}
         full={'horizontal'}
       >
+        <KeyboardEventHandler
+          handleKeys={['ctrl+enter']}
+          onKeyEvent={() => this.submitFormFields()}
+        />
         <Headline>{this.props.editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
         {this.generateComponentsFromType(cardDefinition)}
       </Article>
