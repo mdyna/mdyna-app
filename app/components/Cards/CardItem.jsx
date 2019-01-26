@@ -212,7 +212,7 @@ class MdynaCard extends Component {
         <div
           role="button"
           tabIndex={0}
-          onDoubleClick={(e) => {
+          onDoubleClick={() => {
             noteActions.editCard(card);
           }}
         >
@@ -221,6 +221,7 @@ class MdynaCard extends Component {
             className="note-card-content"
             minimized={minimize}
             color={color}
+            editCard={{ card, func: noteActions.editCard }}
             text={card.text}
           />
         </div>
