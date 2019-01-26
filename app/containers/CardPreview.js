@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import cardPreview from '../components/Cards/CardPreview';
-import { saveCard } from '../store/actions/';
+import { changeCardSetting } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeCard: (card) => {
-      dispatch(saveCard(card));
+    saveCard: (card) => {
+      dispatch(changeCardSetting('text', card.text));
     },
   };
 }

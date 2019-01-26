@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Converter } from 'react-showdown';
+import { toClass } from 'recompose';
 import htmlescape from 'showdown-htmlescape';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -25,9 +26,9 @@ const COLOR_LABELS = {
 class MarkdownText extends Component {
   render() {
     const { text, className, color, minimized, whiteMode, editCard } = this.props;
-    const input = (...otherProps) => (
+    const input = toClass(otherProps => (
       <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
-    );
+    ));
     const converter = new Converter({
       headerLevelStart: 3,
       strikethrough: true,
@@ -52,21 +53,18 @@ class MarkdownText extends Component {
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     return (
-      <React.Fragment>
-        <ReactHighlight
-          element="div"
-          text={rawText}
-          className={classnames(
-            className,
-            COLOR_LABELS[color],
-            whiteMode && 'white-mode',
-            'mdyna-md',
-          )}
-        >
-          {formattedText}
-        </ReactHighlight>
-        <div>{formattedText}</div>
-      </React.Fragment>
+      <ReactHighlight
+        element="div"
+        text={rawText}
+        className={classnames(
+          className,
+          COLOR_LABELS[color],
+          whiteMode && 'white-mode',
+          'mdyna-md',
+        )}
+      >
+        {formattedText}
+      </ReactHighlight>
     );
   }
 }
@@ -78,6 +76,7 @@ MarkdownText.propTypes = {
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   whiteMode: PropTypes.bool,
+  editCard: PropTypes.object.isRequired,
   color: PropTypes.string,
 };
 
