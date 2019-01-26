@@ -19,7 +19,7 @@ class MarkdownEditor extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.editorText !== this.state.editorText;
+    return nextState.editorText !== this.state.editorText || nextProps.text !== this.props.text;
   }
 
   handleValueChange(value) {

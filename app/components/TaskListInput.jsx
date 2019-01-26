@@ -10,14 +10,14 @@ class TaskListInput extends Component {
   }
 
   render() {
-    const { text, editCard, ...otherProps } = this.props;
+    const { text, editCard } = this.props;
 
     return (
       <input
         className="card-tasklist"
         type="checkbox"
-        checked={this.props[0].defaultChecked}
-        onClick={(e) => {
+        checked={this.props[0].defaultChecked === 'true'}
+        onChange={(e) => {
           e.stopPropagation();
           const { card, saveFunc } = editCard;
           const inputTextContent = e.target.parentElement.textContent;
@@ -38,7 +38,6 @@ class TaskListInput extends Component {
             text: newText,
           });
         }}
-        {...otherProps}
       />
     );
   }
