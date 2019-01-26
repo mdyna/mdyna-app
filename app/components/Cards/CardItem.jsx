@@ -209,12 +209,22 @@ class MdynaCard extends Component {
         ) : (
           ''
         )}
-        <div role="button" tabIndex={0} onClick={() => noteActions.editCard(card)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onDoubleClick={() => {
+            noteActions.editCard(card);
+          }}
+        >
           <MarkdownText
             whiteMode={whiteMode}
             className="note-card-content"
             minimized={minimize}
             color={color}
+            editCard={{
+              card,
+              saveFunc: this.props.saveCard,
+            }}
             text={card.text}
           />
         </div>
@@ -246,6 +256,7 @@ MdynaCard.propTypes = {
   snoozeCard: PropTypes.func,
   failCard: PropTypes.func,
   toggleCard: PropTypes.func,
+  saveCard: PropTypes.func,
   completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
@@ -265,6 +276,7 @@ MdynaCard.defaultProps = {
   removeCard: null,
   snoozeCard: null,
   failCard: null,
+  saveCard: null,
   completeCard: null,
   generateCardLink: null,
   editCard: null,

@@ -11,6 +11,7 @@ import {
   addLabel,
   removeLabel,
   changeCardSetting,
+  saveCard,
 } from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -29,6 +30,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeCardSetting: (prop, value) => {
       dispatch(changeCardSetting(prop, value));
+    },
+    saveCard: (card) => {
+      dispatch(saveCard(card));
     },
     snoozeCard: (card) => {
       dispatch(snoozeCard(card));
