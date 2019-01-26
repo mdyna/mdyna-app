@@ -52,7 +52,6 @@ class MarkdownText extends Component {
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     return (
-      <React.Fragment>
         <ReactHighlight
           element="div"
           text={rawText}
@@ -65,8 +64,6 @@ class MarkdownText extends Component {
         >
           {formattedText}
         </ReactHighlight>
-        <div>{formattedText}</div>
-      </React.Fragment>
     );
   }
 }
