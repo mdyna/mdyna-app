@@ -1973,8 +1973,8 @@ react-router@^3.0.0:
     warning "^3.0.0"
 
 "react-showdown@https://github.com/psybork/react-showdown.git":
-  version "1.8.1"
-  resolved "https://github.com/psybork/react-showdown.git#08a56fee9ff82eab0f43d24b2e01106fc528faa7"
+  version "1.8.2"
+  resolved "https://github.com/psybork/react-showdown.git#329fa3e8c2672c306830c7da1b93ce43e09cadbe"
   dependencies:
     create-react-class "15.5.2"
     htmlparser2 "3.9.0"
