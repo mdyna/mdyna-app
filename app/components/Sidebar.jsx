@@ -12,7 +12,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import LabelFilter from './LabelFilter';
 import logo from '../../resources/MdynaLogoCircle.png';
 
-import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!./Sidebar.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
   return (cards && cards.map(d => d && d.title)) || '';

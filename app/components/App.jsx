@@ -5,7 +5,7 @@ import Article from 'grommet/components/Article';
 import Split from 'grommet/components/Split';
 import classnames from 'classnames';
 import CardList from '../containers/CardList';
-import Nav from './Nav';
+import SideBar from './Sidebar';
 import Header from './Header';
 
 import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
@@ -22,11 +22,11 @@ class Mdyna extends Component {
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
-        <Nav {...this.props}/>
+          <SideBar {...this.props}/>
             {
               //<CardList isTaskList={true} sortByFrequency={true}/>
             }
-            <CardList />
+          <CardList />
           </Split>
         </Article>
       </App>
