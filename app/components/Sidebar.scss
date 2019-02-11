@@ -6,7 +6,40 @@ $sidebar-background-color: #0c1014;
   background-color: $sidebar-background-color;
   color: $accent-color;
   opacity: 0.9;
+  border-radius: 0px 10px;
   max-width: 250px;
+
+  .menu-item {
+    align-items: center;
+
+    button {
+      align-items: center;
+      margin: 0;
+      padding: 5px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      &:hover {
+        background-color: $accent-color;
+        .menu-label {
+          color: $sidebar-background-color;
+        }
+      }
+
+      .menu-label {
+        color: $accent-color;
+        margin: 10px 0;
+      }
+    }
+
+    &.title {
+      color: $accent-color;
+      border-bottom: 1px solid $accent-color;
+      margin-bottom: 20px;
+    }
+  }
 
   &.white-mode {
     background-color: #757575;
@@ -26,22 +59,21 @@ $sidebar-background-color: #0c1014;
     }
   }
 
-
   .grommetux-search--inline {
     margin-right: 10px;
 
-  .grommetux-search__input {
-    border-width: 2px;
-    width: 230px !important;
-    border-radius: 10px !important;
-    border-color: $accent-color;
-    padding: 10px 22px;
-    height: 42px;
-  }
+    .grommetux-search__input {
+      border-width: 2px;
+      width: 230px !important;
+      border-radius: 10px !important;
+      border-color: $accent-color;
+      padding: 10px 22px;
+      height: 42px;
+    }
 
-  .grommetux-search__input:focus {
-    border-color: $secondary-accent;
-  }
+    .grommetux-search__input:focus {
+      border-color: $secondary-accent;
+    }
 
     .grommetux-control-icon-search {
       path {
@@ -57,14 +89,13 @@ $sidebar-background-color: #0c1014;
 
     &.active svg {
       background-color: $secondary-accent;
-        polyline {
+      polyline {
         stroke: $sidebar-background-color !important;
       }
     }
   }
 
   button {
-    margin-right: 15px;
     @include normalize-button-icons();
     svg {
       border: 2px solid $accent-color;
@@ -72,9 +103,13 @@ $sidebar-background-color: #0c1014;
       height: 32px;
       width: 32px;
       padding: 5px;
-
-      &:hover {
-        border: 2px solid $secondary-accent;
+    }
+    &:hover {
+      svg {
+        border: 2px solid $sidebar-background-color;
+        path {
+          stroke: $sidebar-background-color !important;
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
   background-color: $note-list-background;
   color: $accent-color;
   padding: 10px;
-  margin: 10px;
+  margin: 0 10px;
   flex-flow: column wrap !important;
 
   &.task-list {

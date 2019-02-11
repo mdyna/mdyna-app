@@ -7,9 +7,11 @@ import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
 import Button from 'grommet/components/Button';
 import classnames from 'classnames';
+import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import LabelFilter from './LabelFilter';
+
 import logo from '../../resources/MdynaLogoCircle.png';
 
 import '!style-loader!css-loader!sass-loader!./Sidebar.scss'; // eslint-disable-line
@@ -43,48 +45,68 @@ class Sidebar extends Component {
           handleKeys={['ctrl+p']}
           onKeyEvent={() => this.searchBar.current.focus()}
         />
-        <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
-        <Button
-          onClick={() => {
-            this.props.toggleWhiteMode(!whiteMode);
-          }}
-          className="white-mode-button"
-        >
-          <Brush />
-        </Button>
-        <Button
-          onClick={() => {
-            this.props.toggleEditor(true);
-          }}
-          className="add-note-btn"
-        >
-          <Pulse />
-        </Button>
-        <Button
-          onClick={() => {
-            this.props.toggleCompletedFilter(!this.props.completedFilterOn);
-          }}
-          className={classnames('toggle-completed-button', {
-            active: this.props.completedFilterOn,
-          })}
-        >
-          <CheckmarkIcon />
-        </Button>
-        <Search
-          inline
-          suggestions={titles.filter(
-            d => d && d.toLowerCase().startsWith(this.state.searchInput.toLowerCase()),
-          )}
-          onDOMChange={(e) => {
-            this.props.searchCards(e.target.value);
-            this.setState({
-              searchInput: e.target.value,
-            });
-          }}
-          ref={this.searchBar}
-          onSelect={e => this.props.searchCards(e.suggestion)}
-          value={this.props.searchInput}
-        />
+        <Box direction="row" justify="start" className="menu-item title">
+          <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
+          <Label size="large">mdyna</Label>
+        </Box>
+
+        <Box direction="row" justify="start" className="menu-item">
+          <Search
+            inline
+            suggestions={titles.filter(
+              d => d && d.toLowerCase().startsWith(this.state.searchInput.toLowerCase()),
+            )}
+            onDOMChange={(e) => {
+              this.props.searchCards(e.target.value);
+              this.setState({
+                searchInput: e.target.value,
+              });
+            }}
+            ref={this.searchBar}
+            onSelect={e => this.props.searchCards(e.suggestion)}
+            value={this.props.searchInput}
+          />
+        </Box>
+
+        <Box direction="row" justify="start" className="menu-item">
+          <Button
+            onClick={() => {
+              this.props.toggleWhiteMode(!whiteMode);
+            }}
+            className="white-mode-button"
+          >
+            <Brush />
+            <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
+          </Button>
+        </Box>
+        <Box direction="row" justify="start" className="menu-item">
+
+          <Button
+            onClick={() => {
+              this.props.toggleEditor(true);
+            }}
+            className="add-note-btn"
+          >
+            <Pulse />
+
+            <Label className="menu-label">Add card</Label>
+          </Button>
+        </Box>
+
+        <Box direction="row" justify="start" className="menu-item">
+          <Button
+            onClick={() => {
+              this.props.toggleCompletedFilter(!this.props.completedFilterOn);
+            }}
+            className={classnames('toggle-completed-button', {
+              active: this.props.completedFilterOn,
+            })}
+          >
+            <CheckmarkIcon />
+            <Label className="menu-label">Toggle Completed</Label>
+          </Button>
+        </Box>
+
         <LabelFilter
           labels={this.props.labels}
           labelFilters={labelFilters}
