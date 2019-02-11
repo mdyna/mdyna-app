@@ -19,11 +19,13 @@ class Mdyna extends Component {
         className={classnames('mdyna-app', { 'white-mode': this.props.whiteMode })}
         style={{ maxWidth: '1920px' }}
       >
-        <Nav {...this.props}/>
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
-            <CardList isTaskList={true} sortByFrequency={true}/>
+        <Nav {...this.props}/>
+            {
+              //<CardList isTaskList={true} sortByFrequency={true}/>
+            }
             <CardList />
           </Split>
         </Article>

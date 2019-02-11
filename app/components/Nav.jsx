@@ -17,7 +17,7 @@ import '!style-loader!css-loader!sass-loader!./Nav.scss'; // eslint-disable-line
 function getCardTitles(cards) {
   return (cards && cards.map(d => d && d.title)) || '';
 }
-class NavBar extends Component {
+class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,17 +33,17 @@ class NavBar extends Component {
 
     return (
       <Box
-        full="horizontal"
+        full="vertical"
         justify="start"
-        className={classnames('navbar', { 'white-mode': whiteMode })}
+        className={classnames('sidebar', { 'white-mode': whiteMode })}
         pad="small"
-        direction="row"
+        direction="column"
       >
         <KeyboardEventHandler
           handleKeys={['ctrl+p']}
           onKeyEvent={() => this.searchBar.current.focus()}
         />
-        <Image src={logo} className="navbar-app-logo" alt="Mdyna" size="small" />
+        <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
         <Button
           onClick={() => {
             this.props.toggleWhiteMode(!whiteMode);
@@ -95,7 +95,7 @@ class NavBar extends Component {
   }
 }
 
-NavBar.propTypes = {
+Sidebar.propTypes = {
   labelFilters: PropTypes.array.isRequired,
   addLabelFilter: PropTypes.func.isRequired,
   toggleCompletedFilter: PropTypes.func.isRequired,
@@ -110,7 +110,7 @@ NavBar.propTypes = {
   cards: PropTypes.array.isRequired,
 };
 
-NavBar.defaultProps = {
+Sidebar.defaultProps = {
   searchInput: '',
   whiteMode: false,
   titles: [],
@@ -118,4 +118,4 @@ NavBar.defaultProps = {
   labels: [],
 };
 
-export default NavBar;
+export default Sidebar;

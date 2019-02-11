@@ -1,25 +1,21 @@
 @import "../style.scss";
 
-$navbar-background-color: #0c1014;
+$sidebar-background-color: #0c1014;
 
-.navbar {
-  background-color: $navbar-background-color;
+.sidebar {
+  background-color: $sidebar-background-color;
   color: $accent-color;
   opacity: 0.9;
-  height: 86px;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 1;
+  max-width: 250px;
 
   &.white-mode {
     background-color: #757575;
-    .navbar-app-logo {
+    .sidebar-app-logo {
       box-shadow: none;
     }
   }
 
-  .navbar-app-logo {
+  .sidebar-app-logo {
     height: 42px;
     width: 42px;
     margin: 5px 10% 5px 10px;
@@ -62,7 +58,7 @@ $navbar-background-color: #0c1014;
     &.active svg {
       background-color: $secondary-accent;
         polyline {
-        stroke: $navbar-background-color !important;
+        stroke: $sidebar-background-color !important;
       }
     }
   }
