@@ -80,7 +80,6 @@ class Sidebar extends Component {
           </Button>
         </Box>
         <Box direction="row" justify="start" className="menu-item">
-
           <Button
             onClick={() => {
               this.props.toggleEditor(true);
@@ -92,7 +91,6 @@ class Sidebar extends Component {
             <Label className="menu-label">Add card</Label>
           </Button>
         </Box>
-
         <Box direction="row" justify="start" className="menu-item">
           <Button
             onClick={() => {

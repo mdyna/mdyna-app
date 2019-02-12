@@ -1,6 +1,7 @@
 @import "../style.scss";
 
 $sidebar-background-color: #0c1014;
+$white-sidebar-background-color: #ddd;
 
 .sidebar {
   background-color: $sidebar-background-color;
@@ -42,11 +43,66 @@ $sidebar-background-color: #0c1014;
   }
 
   &.white-mode {
-    background-color: #757575;
+    background-color: $white-sidebar-background-color;
+    color: $white-font-color;
+    .menu-item {
+      &.title {
+        color: $white-font-color;
+      }
+      .menu-label{
+        color: $white-font-color;
+      }
+      button {
+        &:hover {
+          background-color: $white-secondary-background;
+        }
+      }
+    }
     .sidebar-app-logo {
       box-shadow: none;
     }
+    .grommetux-control-icon-search {
+      path {
+        stroke: $white-font-color !important;
+      }
+    }
+    .grommetux-search__input {
+      border-color: $white-font-color !important;
+    }
+
+    .toggle-completed-button {
+      svg polyline {
+        stroke: $white-font-color !important;
+      }
+
+      &.active svg {
+        background-color: $secondary-accent;
+        polyline {
+          stroke: $sidebar-background-color !important;
+        }
+      }
+    }
+
+    button {
+      svg {
+        border-color: $white-font-color;
+        path {
+          stroke: $white-font-color !important;
+        }
+      }
+      &:hover {
+        svg {
+          path {
+            stroke: $white-font-color !important;
+          }
+          polyline {
+            stroke: $white-font-color !important;
+          }
+        }
+      }
   }
+  }
+
 
   .sidebar-app-logo {
     height: 42px;
@@ -60,7 +116,7 @@ $sidebar-background-color: #0c1014;
   }
 
   .grommetux-search--inline {
-    margin-right: 10px;
+    margin: 0 0 10px 0;
 
     .grommetux-search__input {
       border-width: 2px;
@@ -108,6 +164,9 @@ $sidebar-background-color: #0c1014;
       svg {
         border: 2px solid $sidebar-background-color;
         path {
+          stroke: $sidebar-background-color !important;
+        }
+        polyline {
           stroke: $sidebar-background-color !important;
         }
       }
