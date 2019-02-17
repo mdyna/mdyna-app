@@ -5,6 +5,7 @@ import Filter from 'grommet/components/icons/base/Filter';
 import Brush from 'grommet/components/icons/base/Brush';
 import FormNext from 'grommet/components/icons/base/FormNext';
 import FormPrevious from 'grommet/components/icons/base/FormPrevious';
+import SearchIcon from 'grommet/components/icons/base/Search';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -38,6 +39,12 @@ class Sidebar extends Component {
     });
   }
 
+  expandMenu() {
+    this.setState({
+      expanded: true,
+    });
+  }
+
   render() {
     const { cards, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
@@ -60,40 +67,46 @@ class Sidebar extends Component {
         />
         <Box direction="row" justify="start" className="menu-item title">
           {this.state.expanded ? (
-            <Button onClick={() => this.toggleMenuCollapse()} className="white-mode-button">
+            <Button onClick={() => this.toggleMenuCollapse()} className="title-button">
               <FormPrevious />
               <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
               <Label size="large">mdyna</Label>
             </Button>
           ) : (
-            <Button onClick={() => this.toggleMenuCollapse()} className="white-mode-button">
+            <Button onClick={() => this.toggleMenuCollapse()} className="title-button">
               <FormNext />
             </Button>
           )}
-          {this.state.expanded ? (
-            <React.Fragment>
-            </React.Fragment>
-          ) : (
-            ''
-          )}
+          {this.state.expanded ? <React.Fragment /> : ''}
         </Box>
 
         <Box direction="row" justify="start" className="menu-item">
-          <Search
-            inline
-            suggestions={titles.filter(
-              d => d && d.toLowerCase().startsWith(this.state.searchInput.toLowerCase()),
-            )}
-            onDOMChange={(e) => {
-              this.props.searchCards(e.target.value);
-              this.setState({
-                searchInput: e.target.value,
-              });
-            }}
-            ref={this.searchBar}
-            onSelect={e => this.props.searchCards(e.suggestion)}
-            value={this.props.searchInput}
-          />
+          {this.state.expanded ? (
+            <Search
+              inline
+              suggestions={titles.filter(
+                d => d && d.toLowerCase().startsWith(this.state.searchInput.toLowerCase()),
+              )}
+              onDOMChange={(e) => {
+                this.props.searchCards(e.target.value);
+                this.setState({
+                  searchInput: e.target.value,
+                });
+              }}
+              ref={this.searchBar}
+              onSelect={e => this.props.searchCards(e.suggestion)}
+              value={this.props.searchInput}
+            />
+          ) : (
+            <Button
+              onClick={() => {
+                this.expandMenu();
+                setTimeout(() => this.searchBar.current.focus(), 500)
+              }}
+            >
+              <SearchIcon />
+            </Button>
+          )}
         </Box>
 
         <Box direction="row" justify="start" className="menu-item">
@@ -138,15 +151,31 @@ class Sidebar extends Component {
 
         <Box direction="column" className="menu-item-labels">
           <Box direction="row" justify="start" className="menu-item">
-            <Filter />
-            {this.state.expanded ? <Label className="menu-label">Filter Labels</Label> : ''}
+            {this.state.expanded ? (
+              <React.Fragment>
+                <Filter />
+                <Label className="menu-label">Filter Labels</Label>
+              </React.Fragment>
+            ) : (
+              <Button
+                onClick={() => {
+                  this.expandMenu();
+                }}
+              >
+                <Filter />
+              </Button>
+            )}
           </Box>
-          <LabelFilter
-            whiteMode={whiteMode}
-            labels={this.props.labels}
-            labelFilters={labelFilters}
-            labelFilterFuncs={labelFilterFuncs}
-          />
+          {this.state.expanded ? (
+            <LabelFilter
+              whiteMode={whiteMode}
+              labels={this.props.labels}
+              labelFilters={labelFilters}
+              labelFilterFuncs={labelFilterFuncs}
+            />
+          ) : (
+            ''
+          )}
         </Box>
       </Box>
     );
