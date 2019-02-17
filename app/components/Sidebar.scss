@@ -2,6 +2,8 @@
 
 $sidebar-background-color: #0c1014;
 $white-sidebar-background-color: #bdccd3;
+$white-hover-color: #d2e3eb;
+
 
 .sidebar {
   background-color: $sidebar-background-color;
@@ -65,7 +67,7 @@ $white-sidebar-background-color: #bdccd3;
       }
       button {
         &:hover {
-          background-color: $white-secondary-background;
+          background-color: $white-hover-color;
         }
       }
     }
@@ -85,6 +87,7 @@ $white-sidebar-background-color: #bdccd3;
       }
     }
     .grommetux-search__input {
+      background-color: $white-hover-color;
       border-color: $white-font-color !important;
     }
 

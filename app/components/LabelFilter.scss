@@ -1,6 +1,8 @@
 @import "../style.scss";
 
 $dark-accent-color: #01a982;
+$white-label-background-color: #d2e3eb;
+$white-hover-color: #e9f6fc;
 
 
 .label-filter-box {
@@ -14,10 +16,10 @@ $dark-accent-color: #01a982;
     border: 2px solid $white-font-color;
     .label-box {
       .label-button {
-        background-color: #eee !important;
+        background-color: $white-label-background-color !important;
         border: 2px solid $white-font-color !important;
         &:hover {
-          background-color: $white-background-color !important;
+          background-color: $white-hover-color !important;
         }
       }
     }
