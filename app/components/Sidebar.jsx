@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
+import Filter from 'grommet/components/icons/base/Filter';
 import Brush from 'grommet/components/icons/base/Brush';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
@@ -105,11 +106,18 @@ class Sidebar extends Component {
           </Button>
         </Box>
 
-        <LabelFilter
-          labels={this.props.labels}
-          labelFilters={labelFilters}
-          labelFilterFuncs={labelFilterFuncs}
-        />
+        <Box direction="column" className="menu-item-labels">
+          <Box direction="row" justify="start" className="menu-item">
+            <Filter />
+            <Label className="menu-label">Filter Labels</Label>
+          </Box>
+          <LabelFilter
+            whiteMode={whiteMode}
+            labels={this.props.labels}
+            labelFilters={labelFilters}
+            labelFilterFuncs={labelFilterFuncs}
+          />
+        </Box>
       </Box>
     );
   }

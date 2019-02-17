@@ -1,14 +1,24 @@
 @import "../style.scss";
 
 $sidebar-background-color: #0c1014;
-$white-sidebar-background-color: #ddd;
+$white-sidebar-background-color: #bdccd3;
 
 .sidebar {
   background-color: $sidebar-background-color;
   color: $accent-color;
   opacity: 0.9;
-  border-radius: 0px 10px;
+  border-radius: 0px 10px 10px 0px;
   max-width: 250px;
+
+  .menu-item-labels {
+    align-items: flex-end;
+    svg {
+      margin: 0 5px;
+      polygon {
+        stroke: $accent-color !important;
+      }
+    }
+  }
 
   .menu-item {
     align-items: center;
@@ -48,6 +58,7 @@ $white-sidebar-background-color: #ddd;
     .menu-item {
       &.title {
         color: $white-font-color;
+        border-bottom: 1px solid $white-font-color;
       }
       .menu-label{
         color: $white-font-color;
@@ -55,6 +66,13 @@ $white-sidebar-background-color: #ddd;
       button {
         &:hover {
           background-color: $white-secondary-background;
+        }
+      }
+    }
+    .menu-item-labels {
+      svg {
+        polygon {
+          stroke: $white-font-color !important;
         }
       }
     }
