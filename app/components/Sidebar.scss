@@ -12,6 +12,11 @@ $white-hover-color: #d2e3eb;
   border-radius: 0px 10px 10px 0px;
   max-width: 250px;
 
+  &.collapsed {
+    max-width: 50px;
+    align-items: center;
+  }
+
   .menu-item-labels {
     align-items: flex-end;
     svg {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Filter from 'grommet/components/icons/base/Filter';
 import Brush from 'grommet/components/icons/base/Brush';
+import FormNext from 'grommet/components/icons/base/FormNext';
+import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -24,9 +26,16 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      expanded: true,
       searchInput: '',
     };
     this.searchBar = React.createRef();
+  }
+
+  toggleMenuCollapse() {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
   }
 
   render() {
@@ -38,7 +47,10 @@ class Sidebar extends Component {
       <Box
         full="vertical"
         justify="start"
-        className={classnames('sidebar', { 'white-mode': whiteMode })}
+        className={classnames('sidebar', {
+          'white-mode': whiteMode,
+          collapsed: !this.state.expanded,
+        })}
         pad="small"
         direction="column"
       >
@@ -47,8 +59,23 @@ class Sidebar extends Component {
           onKeyEvent={() => this.searchBar.current.focus()}
         />
         <Box direction="row" justify="start" className="menu-item title">
-          <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
-          <Label size="large">mdyna</Label>
+          {this.state.expanded ? (
+            <Button onClick={() => this.toggleMenuCollapse()} className="white-mode-button">
+              <FormPrevious />
+              <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
+              <Label size="large">mdyna</Label>
+            </Button>
+          ) : (
+            <Button onClick={() => this.toggleMenuCollapse()} className="white-mode-button">
+              <FormNext />
+            </Button>
+          )}
+          {this.state.expanded ? (
+            <React.Fragment>
+            </React.Fragment>
+          ) : (
+            ''
+          )}
         </Box>
 
         <Box direction="row" justify="start" className="menu-item">
@@ -77,7 +104,11 @@ class Sidebar extends Component {
             className="white-mode-button"
           >
             <Brush />
-            <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
+            {this.state.expanded ? (
+              <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
+            ) : (
+              ''
+            )}
           </Button>
         </Box>
         <Box direction="row" justify="start" className="menu-item">
@@ -88,8 +119,7 @@ class Sidebar extends Component {
             className="add-note-btn"
           >
             <Pulse />
-
-            <Label className="menu-label">Add card</Label>
+            {this.state.expanded ? <Label className="menu-label">Add card</Label> : ''}
           </Button>
         </Box>
         <Box direction="row" justify="start" className="menu-item">
@@ -102,14 +132,14 @@ class Sidebar extends Component {
             })}
           >
             <CheckmarkIcon />
-            <Label className="menu-label">Toggle Completed</Label>
+            {this.state.expanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
           </Button>
         </Box>
 
         <Box direction="column" className="menu-item-labels">
           <Box direction="row" justify="start" className="menu-item">
             <Filter />
-            <Label className="menu-label">Filter Labels</Label>
+            {this.state.expanded ? <Label className="menu-label">Filter Labels</Label> : ''}
           </Box>
           <LabelFilter
             whiteMode={whiteMode}
