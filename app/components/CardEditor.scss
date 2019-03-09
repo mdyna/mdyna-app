@@ -56,6 +56,23 @@
     border-radius: 10px;
   }
 
+  .grommetux-form-fields {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+
+  .grommetux-form-field {
+    background-color: $note-list-background;
+    color: $accent-color;
+    border: 1px solid $secondary-background;
+    border-radius: 10px !important;
+    max-width: 50%;
+    .grommetux-form-field__label{
+      color: $secondary-accent;
+    }
+  }
+
   button {
     background-color: $accent-color;
   }
@@ -73,12 +90,17 @@
     border-color: $accent-color;
   }
 
-  .grommetux-form-field--text, .grommetux-form-field--text .grommetux-form-field__label{
-    border-radius: 10px !important;
-    margin-bottom: 5px !important;
-  }
   .grommetux-select__control {
     background-color: transparent;
+  }
+  .grommetux-check-box {
+    .grommetux-check-box__control {
+      border-color: $secondary-accent;
+    }
+
+    .grommetux-check-box__label {
+      color: $secondary-accent;
+    }
   }
 
   .grommetux-check-box:hover:not(.grommetux-check-box--disabled) .grommetux-check-box__label {
@@ -110,6 +132,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    width: 100%;
 
     > div {
       margin: 10px 10px 0 0;
@@ -158,6 +181,27 @@
   display: block !important;
   background-color: $white-secondary-background !important;
   .card-editor {
+
+    .grommetux-form-field {
+      background-color: $white-background-color;
+      color: $white-font-color;
+      border: 1px solid $white-note-list-background;
+      .grommetux-form-field__label{
+        color: $white-font-color;
+      }
+    }
+
+  .grommetux-check-box {
+    .grommetux-check-box__control {
+      border-color: $white-font-color;
+    }
+
+    .grommetux-check-box__label {
+      color: $white-font-color;
+    }
+  }
+
+
     > div {
       color: $white-font-color !important;
     }
