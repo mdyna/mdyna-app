@@ -30,16 +30,19 @@
 
 
 .grommet.grommetux-drop {
-  background-color: $white-secondary-background !important;
+  background-color: $secondary-background !important;
 
   div {
-    width: 1 00%;
-    color: $note-font-color !important;
+    width: 100%;
 
     ol {
       flex-flow: row nowrap;
       display: flex;
       justify-content: space-around;
+      li {
+        color: $accent-color;
+
+      }
     }
   }
 }
@@ -65,11 +68,40 @@
   .grommetux-form-field {
     background-color: $note-list-background;
     color: $accent-color;
-    border: 1px solid $secondary-background;
+    border: 5px solid $secondary-background;
     border-radius: 10px !important;
     max-width: 50%;
+    padding: 0 25px;
+    overflow: hidden;
+    margin: 5px 0px;
+    justify-content: center;
+    display: flex;
+    flex-flow: column wrap;
+
+    span {
+      .grommetux-form-field {
+        border: none !important;
+      }
+    }
+
     .grommetux-form-field__label{
       color: $secondary-accent;
+    }
+
+    .grommetux-select {
+      color: $accent-color;
+      svg {
+        background-color: $note-list-background;
+        polygon {
+          stroke: $accent-color;
+        }
+      }
+      input::placeholder {
+        color: $accent-color;
+      }
+      input {
+        color: $accent-color;
+      }
     }
   }
 
@@ -117,7 +149,7 @@
     display: flex;
     flex-flow: row wrap;
     min-height: 40px;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     svg {
       width: 30px;
@@ -133,14 +165,12 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 100%;
+    margin-top: 10px;
 
-    > div {
-      margin: 10px 10px 0 0;
-    }
     .card-preview {
       min-height: 245px;
       color: $note-font-color !important;
-
+      margin: 0 0px 0 10px;
     }
 
     .card-text-editor {
@@ -187,6 +217,24 @@
       color: $white-font-color;
       border: 1px solid $white-note-list-background;
       .grommetux-form-field__label{
+        color: $white-font-color;
+      }
+    }
+
+
+
+    .grommetux-select {
+      color: $white-font-color;
+      svg {
+        background-color: $white-background-color;
+        polygon {
+          stroke: $white-font-color;
+        }
+      }
+      input::placeholder {
+        color: $white-font-color;
+      }
+      input {
         color: $white-font-color;
       }
     }
