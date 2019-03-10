@@ -18,6 +18,21 @@
   &.white-mode {
     color: $white-font-color;
     background-color: $white-note-list-background;
+
+    .add-note-btn {
+      svg {
+        border: 1px solid $white-font-color;
+        path {
+          stroke: $white-font-color !important;
+        }
+        &:hover {
+          border: 1px solid $secondary-background;
+          path {
+            stroke: $secondary-background !important;
+          }
+        }
+      }
+    }
   }
 
   .visible-cards {
@@ -30,7 +45,6 @@
     .visible-cards {
       justify-content: space-around;
     }
-
   }
 
   .add-note-btn {
@@ -43,5 +57,3 @@
     }
   }
 }
-
-
