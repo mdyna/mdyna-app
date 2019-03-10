@@ -8,7 +8,7 @@ $note-list-background: #1f2833;
 $code-mirror-background: #050a10;
 
 $white-background-color: #fafafa;
-$white-secondary-background: #f5f5f5;
+$white-secondary-background: #ddd;
 $white-font-color: #212121;
 $white-note-list-background: #cfd8dc;
 
@@ -21,7 +21,6 @@ $white-note-list-background: #cfd8dc;
   $path-color: $accent-color,
   $secondary-path-color: $secondary-accent
 ) {
-
   border: none !important;
   box-shadow: none !important;
   svg {
