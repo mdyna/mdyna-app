@@ -77,7 +77,7 @@ class MdynaCard extends Component {
   }
 
   render() {
-    const { card, i, className, hasCardBar, whiteMode, cardOptions } = this.props;
+    const { card, i, className, hasCardBar, whiteMode } = this.props;
 
     const color =
       (card && card.color) || this.props.changeCardSetting('color', _.sample(COLOR_SAMPLES));
@@ -122,7 +122,6 @@ class MdynaCard extends Component {
             cardActions={noteActions}
             cardItem={this}
             options={{
-              ...cardOptions,
               minimized: this.state.minimized,
             }}
           />
@@ -184,7 +183,6 @@ MdynaCard.propTypes = {
   completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  cardOptions: PropTypes.object,
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
   className: PropTypes.string,

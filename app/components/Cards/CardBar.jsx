@@ -10,7 +10,6 @@ import classnames from 'classnames';
 import tinycolor from 'tinycolor2';
 import assertCardChanges from '../../utils/assertChanges';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
-import unNest from '../../utils/nest';
 
 import '!style-loader!css-loader!sass-loader!./CardBar.scss'; // eslint-disable-line
 
@@ -43,7 +42,7 @@ class CardBar extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(card),
-      }).catch(error => console.log(error));
+      }).catch(error => console.error(error));
     }
     this.handleLabels(removeLabelFunc);
     removeCardFunc(card);
@@ -103,6 +102,4 @@ export default CardBar;
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
   cardActions: PropTypes.object.isRequired,
-  cardItem: PropTypes.object.isRequired,
-  options: PropTypes.object.isRequired,
 };
