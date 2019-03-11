@@ -6,15 +6,6 @@
   margin: 0 10px;
   flex-flow: column wrap !important;
 
-  &.task-list {
-    padding: 20px;
-    max-width: 300px;
-
-    .visible-cards {
-      justify-content: flex-start !important;
-    }
-  }
-
   &.white-mode {
     color: $white-font-color;
     background-color: $white-note-list-background;
@@ -33,12 +24,6 @@
         }
       }
     }
-  }
-
-  .visible-cards {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center !important;
   }
 
   @media screen and (max-width: 1500px) {

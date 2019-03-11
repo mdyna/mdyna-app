@@ -8,13 +8,11 @@ import Button from 'grommet/components/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import tinycolor from 'tinycolor2';
-import CardShareButton from './CardShareButton';
 import assertCardChanges from '../../utils/assertChanges';
-import assertTaskAlerts from '../../utils/assertTaskAlerts';
+// import assertTaskAlerts from '../../utils/assertTaskAlerts';
 import unNest from '../../utils/nest';
 
 import '!style-loader!css-loader!sass-loader!./CardBar.scss'; // eslint-disable-line
-import AlertBar from './AlertBar';
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
@@ -60,35 +58,25 @@ class CardBar extends Component {
   }
 
   render() {
-    const { card, cardActions, options } = this.props;
-    const { isTask, isNote } = options;
+    const { card, cardActions } = this.props;
     const {
       editCard,
-      snoozeCard,
-      failCard,
-      completeCard,
       toggleCard,
       removeCard,
       // minimizeCard,
       // generateCardLink,
     } = cardActions;
-    const { cardFrequency } = card;
-    const lastAlertDate = unNest(card, 'cardStats.lastAlertDate') || null;
     return (
       <React.Fragment>
         <div
           className="card-bar"
           style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
         >
-          {isNote ? (
-            <Button onClick={() => toggleCard(card)}>
-              <CheckmarkIcon
-                className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-              />
-            </Button>
-          ) : (
-            ''
-          )}
+          <Button onClick={() => toggleCard(card)}>
+            <CheckmarkIcon
+              className={classnames({ 'checkmark-icon': true, completed: card.completed })}
+            />
+          </Button>
           <Button onClick={() => editCard(card)}>
             <EditIcon className="edit-icon" />
           </Button>
@@ -102,17 +90,9 @@ class CardBar extends Component {
             // minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''
           }
         </div>
-        {assertTaskAlerts(lastAlertDate, cardFrequency) && isTask ? (
-          <AlertBar
-            completeCard={completeCard}
-            card={card}
-            snoozeCard={snoozeCard}
-            failCard={failCard}
-            showNotificationIcon
-          />
-        ) : (
-          ''
-        )}
+        {
+          // assertTaskAlerts(lastAlertDate, cardFrequency)
+        }
       </React.Fragment>
     );
   }

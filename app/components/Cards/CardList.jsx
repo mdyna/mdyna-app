@@ -13,7 +13,6 @@ import CardEditor from '../../containers/CardEditor';
 import CardItem from '../../containers/CardItem';
 
 import '!style-loader!css-loader!sass-loader!./CardList.scss'; // eslint-disable-line
-const CARD_FREQUENCIES = ['daily', 'weekly', 'monthly'];
 
 export default class CardList extends Component {
   matchNoteLabelsWithLabelFilter(labels) {
@@ -56,77 +55,25 @@ export default class CardList extends Component {
     const visibleCards = [];
     for (let i = 0; i < cards.length; i += 1) {
       const card = cards[i];
-      if (this.props.isTaskList) {
-        if (card.repeat) {
-          visibleCards.push(
-            <CardItem
-              hasCardBar
-              card={card}
-              cardOptions={{ isNote: false, isTask: true }}
-              key={i}
-            />,
-          );
-        }
-      } else if (!card.repeat && (!card.completed || this.props.completedFilterOn)) {
+      if (!card.repeat && (!card.completed || this.props.completedFilterOn)) {
         visibleCards.push(
-          <CardItem hasCardBar card={card} cardOptions={{ isNote: true, isTask: false }} key={i} />,
+          <CardItem hasCardBar card={card} key={i} />,
         );
       }
     }
     return (visibleCards.length && visibleCards.reverse()) || null;
   }
 
-  renderCardsByFrequency() {
-    const cardFrequencySections = [];
-    for (let i = 0; i < CARD_FREQUENCIES.length; i += 1) {
-      const frequency = CARD_FREQUENCIES[i];
-      const frequencyTitle = (
-        <Headline align="start" key={frequency} size="small">
-          {frequency.toUpperCase()}
-        </Headline>
-      );
-      const cards = this.props.cards.filter((d) => {
-        const matchesSearchInput =
-          d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
-        const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-          d.labels && d.labels.map(label => label.title),
-        );
-        const matchesFrequency = d.cardFrequency && d.cardFrequency === frequency;
-        return matchesSearchInput && matchesLabelFilters && matchesFrequency && d.repeat;
-      });
-      const sectionCards = [];
-      for (let cardIndex = 0; cardIndex < cards.length; cardIndex += 1) {
-        const card = cards[cardIndex];
-        sectionCards.push(
-          <CardItem
-            hasCardBar
-            card={card}
-            cardOptions={{ isNote: false, isTask: true }}
-            key={`visibile-task-${cardIndex}`}
-          />,
-        );
-      }
-      if (sectionCards && sectionCards.length) {
-        cardFrequencySections.push(frequencyTitle);
-        cardFrequencySections.push([...sectionCards].reverse());
-      }
-    }
-    return cardFrequencySections;
-  }
-
   render() {
     const cardItems = this.props.sortByFrequency
       ? this.renderCardsByFrequency()
       : this.renderVisibleCards();
-    const listIsEmpty =
-      this.props.isTaskList && this.props.cards.filter(card => card.repeat).length === 0;
 
     return (
-      !listIsEmpty && (
+      (
         <Section
           className={classnames({
             'card-list': true,
-            'task-list': this.props.isTaskList,
             'white-mode': this.props.whiteMode,
           })}
           responsive
@@ -137,15 +84,15 @@ export default class CardList extends Component {
             onKeyEvent={() => this.props.toggleEditor(true)}
           />
           <Headline align="center" size="medium">
-            {this.props.isTaskList ? 'INBOX' : 'NOTES'}
+            INBOX
           </Headline>
           {this.props.cards.length ? (
             <React.Fragment>
-              {!this.props.isTaskList && this.renderAddNoteButton()}
+              {this.renderAddNoteButton()}
               {cardItems && cardItems.length ? (
                 <Columns
-                  maxCount={5}
-                  masonry={!this.props.isTaskList}
+                  maxCount={6}
+                  masonry
                   responsive
                   className="visible-cards"
                 >
@@ -190,7 +137,6 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
-  isTaskList: PropTypes.bool,
   sortByFrequency: PropTypes.bool,
 };
 
@@ -199,7 +145,6 @@ CardList.defaultProps = {
   whiteMode: false,
   completedFilterOn: false,
   labelFilters: [],
-  isTaskList: false,
   sortByFrequency: false,
   searchInput: '',
   cards: [],

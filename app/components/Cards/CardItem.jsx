@@ -3,20 +3,17 @@ import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
 import Button from 'grommet/components/Button';
 import Heading from 'grommet/components/Heading';
-import Toast from 'grommet/components/Toast';
-import AnnotatedMeter from 'grommet-addons/components/AnnotatedMeter';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
 import CardBar from '../Cards/CardBar';
 import unNest from '../../utils/nest';
 import assertNoteChanges from '../../utils/assertChanges';
-import assertTaskAlerts from '../../utils/assertTaskAlerts';
+// import assertTaskAlerts from '../../utils/assertTaskAlerts';
 import MarkdownText from '../MarkdownText';
 import Labels from '../Labels';
 
 import '!style-loader!css-loader!sass-loader!./CardItem.scss'; // eslint-disable-line
-import AlertBar from './AlertBar';
 
 export const COLOR_SAMPLES = [
   '#ff8a80',
@@ -43,28 +40,6 @@ const COLOR_LABELS = {
   '#ffd180': 'orange',
   '#a7c0cd': 'grey',
 };
-
-function buildTaskSeries(cardStats) {
-  // const getRandomColor = () => `hsl(${Math.floor((Math.random() * 360) + 1)}, 70%, 70%)`;
-  const { completed, failed, snooze } = cardStats;
-  return [
-    {
-      label: 'Completed',
-      value: completed || 0,
-      colorIndex: 'accent-1',
-    },
-    {
-      label: 'Failed',
-      value: failed || 0,
-      colorIndex: 'accent-2',
-    },
-    {
-      label: 'Snoozed',
-      value: snooze || 0,
-      colorIndex: 'neutral-2',
-    },
-  ];
-}
 
 function minimizeCard(card) {
   card.setState({
@@ -101,37 +76,11 @@ class MdynaCard extends Component {
     };
   }
 
-  toastNotification() {
-    const { card, snoozeCard, failCard, completeCard } = this.props;
-    const { cardFrequency, cardStats } = card;
-    if (cardFrequency) {
-      const lastAlertDate = (cardStats && cardStats.lastAlertDate) || null;
-      if (assertTaskAlerts(lastAlertDate, cardFrequency)) {
-        return (
-          <Toast status="warning" style={{ color: '#64ffda', backgroundColor: 'rgba(5,7,9, 0.7)' }}>
-            {card.title} needs to confirmed
-            <AlertBar
-              card={card}
-              completeCard={completeCard}
-              snoozeCard={snoozeCard}
-              failCard={failCard}
-              showNotificationIcon={false}
-            />
-          </Toast>
-        );
-      }
-    }
-    return '';
-  }
-
   render() {
     const { card, i, className, hasCardBar, whiteMode, cardOptions } = this.props;
 
     const color =
       (card && card.color) || this.props.changeCardSetting('color', _.sample(COLOR_SAMPLES));
-    const stats = this.getCardStats();
-    const series = buildTaskSeries(stats);
-    const max = series.reduce((a, b) => a + b.value, 0);
     const minimize = this.props.showAllText ? false : this.state.minimized;
     const noteActions = {
       generateCardLink: this.props.generateCardLink,
@@ -149,7 +98,6 @@ class MdynaCard extends Component {
         key={i}
         className={classnames(className, COLOR_LABELS[color], 'card-item', {
           minimized: this.state.minimized,
-          'task-item': cardOptions.isTask,
         })}
         onMouseEnter={() =>
           this.setState({
@@ -168,7 +116,6 @@ class MdynaCard extends Component {
             null,
         }}
       >
-        {cardOptions.isTask ? this.toastNotification() : ''}
         {hasCardBar ? (
           <CardBar
             card={card}
@@ -186,29 +133,6 @@ class MdynaCard extends Component {
           {card.title}
         </Heading>
         <Labels labels={card.labels} color={color} />
-        {cardOptions.isTask ? (
-          <div
-            className="task-chart"
-            style={{
-              color: tinycolor(color).darken(50),
-            }}
-          >
-            {this.state.minimized ? (
-              ''
-            ) : (
-              <AnnotatedMeter
-                type="circle"
-                size="small"
-                series={series}
-                legend
-                max={max}
-                className="task-chart"
-              />
-            )}
-          </div>
-        ) : (
-          ''
-        )}
         <div
           role="button"
           tabIndex={0}
@@ -287,8 +211,4 @@ MdynaCard.defaultProps = {
   toggleCard: null,
   hasCardBar: false,
   className: '',
-  cardOptions: {
-    isNote: true,
-    isTask: false,
-  },
 };
