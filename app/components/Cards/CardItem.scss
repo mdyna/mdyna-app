@@ -7,7 +7,7 @@ $code-background: #08090a;
   color: $note-font-color;
   margin: 5px;
   max-height: fit-content !important;
-  width: 20vw !important;
+  min-width: 20vw !important;
   border-radius: 10px;
 
   .card-control {

@@ -83,7 +83,18 @@ export default class CardList extends Component {
         {this.props.cards.length ? (
           <React.Fragment>
             {this.renderAddNoteButton()}
-            {cardItems && cardItems.length ? <Masonry elementType={'ul'}>{cardItems}</Masonry> : ''}
+            {cardItems && cardItems.length ? (
+              <Masonry
+                options={{
+                  fitWidth: true,
+                }}
+                elementType={'ul'}
+              >
+                {cardItems}
+              </Masonry>
+            ) : (
+              ''
+            )}
           </React.Fragment>
         ) : (
           <React.Fragment>

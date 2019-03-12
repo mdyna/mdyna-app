@@ -6,6 +6,12 @@
   margin: 0 10px;
   flex-flow: column wrap !important;
 
+  ul {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+  }
+
   &.white-mode {
     color: $white-font-color;
     background-color: $white-note-list-background;
