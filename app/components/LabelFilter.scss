@@ -12,6 +12,10 @@ $white-hover-color: #e9f6fc;
   flex-flow: row nowrap;
   padding: 5px;
 
+  .label {
+    font-size: 1.25rem;
+  }
+
   &.white-mode {
     border: 2px solid $white-font-color;
     .label-box {

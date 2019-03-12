@@ -79,7 +79,6 @@ class Sidebar extends Component {
           )}
           {this.state.expanded ? <React.Fragment /> : ''}
         </Box>
-
         <Box direction="row" justify="start" className="menu-item">
           {this.state.expanded ? (
             <Search
@@ -101,7 +100,7 @@ class Sidebar extends Component {
             <Button
               onClick={() => {
                 this.expandMenu();
-                setTimeout(() => this.searchBar.current.focus(), 500)
+                setTimeout(() => this.searchBar.current.focus(), 500);
               }}
             >
               <SearchIcon />
@@ -132,7 +131,7 @@ class Sidebar extends Component {
             className="add-note-btn"
           >
             <Pulse />
-            {this.state.expanded ? <Label className="menu-label">Add card</Label> : ''}
+            {this.state.expanded ? <Label className="menu-label">Add Card</Label> : ''}
           </Button>
         </Box>
         <Box direction="row" justify="start" className="menu-item">
@@ -177,6 +176,9 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
+        <Label className="version" size="small">
+          {window.appVersion}
+        </Label>
       </Box>
     );
   }
