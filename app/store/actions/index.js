@@ -88,6 +88,10 @@ export const toggleWhiteMode = () => ({
   type: ACTION_TYPES.TOGGLE_WHITE_MODE,
 });
 
+export const toggleSidebar = () => ({
+  type: ACTION_TYPES.TOGGLE_SIDEBAR,
+});
+
 export const addLabel = label => ({
   type: ACTION_TYPES.LABEL.ADD_LABEL,
   label,

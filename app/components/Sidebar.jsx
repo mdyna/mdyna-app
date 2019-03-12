@@ -27,26 +27,24 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: true,
       searchInput: '',
     };
     this.searchBar = React.createRef();
   }
 
-  toggleMenuCollapse() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
-  }
-
   expandMenu() {
-    this.setState({
-      expanded: true,
-    });
+    this.props.toggleSidebar();
   }
 
   render() {
-    const { cards, whiteMode, labelFilters, addLabelFilter, removeLabelFilter } = this.props;
+    const {
+      cards,
+      whiteMode,
+      labelFilters,
+      addLabelFilter,
+      removeLabelFilter,
+      sidebarExpanded,
+    } = this.props;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [...getCardTitles(cards)];
 
@@ -56,7 +54,7 @@ class Sidebar extends Component {
         justify="start"
         className={classnames('sidebar', {
           'white-mode': whiteMode,
-          collapsed: !this.state.expanded,
+          collapsed: !sidebarExpanded,
         })}
         pad="small"
         direction="column"
@@ -66,21 +64,20 @@ class Sidebar extends Component {
           onKeyEvent={() => this.searchBar.current.focus()}
         />
         <Box direction="row" justify="start" className="menu-item title">
-          {this.state.expanded ? (
-            <Button onClick={() => this.toggleMenuCollapse()} className="title-button">
+          {sidebarExpanded ? (
+            <Button onClick={() => this.props.toggleSidebar()} className="title-button">
               <FormPrevious />
               <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
               <Label size="large">mdyna</Label>
             </Button>
           ) : (
-            <Button onClick={() => this.toggleMenuCollapse()} className="title-button">
+            <Button onClick={() => this.props.toggleSidebar()} className="title-button">
               <FormNext />
             </Button>
           )}
-          {this.state.expanded ? <React.Fragment /> : ''}
         </Box>
         <Box direction="row" justify="start" className="menu-item">
-          {this.state.expanded ? (
+          {sidebarExpanded ? (
             <Search
               inline
               suggestions={titles.filter(
@@ -116,7 +113,7 @@ class Sidebar extends Component {
             className="white-mode-button"
           >
             <Brush />
-            {this.state.expanded ? (
+            {sidebarExpanded ? (
               <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
             ) : (
               ''
@@ -144,13 +141,13 @@ class Sidebar extends Component {
             })}
           >
             <CheckmarkIcon />
-            {this.state.expanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
+            {sidebarExpanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
           </Button>
         </Box>
 
         <Box direction="column" className="menu-item-labels">
           <Box direction="row" justify="start" className="menu-item">
-            {this.state.expanded ? (
+            {sidebarExpanded ? (
               <React.Fragment>
                 <Filter />
                 <Label className="menu-label">Filter Labels</Label>
@@ -165,7 +162,7 @@ class Sidebar extends Component {
               </Button>
             )}
           </Box>
-          {this.state.expanded ? (
+          {sidebarExpanded ? (
             <LabelFilter
               whiteMode={whiteMode}
               labels={this.props.labels}
@@ -188,7 +185,9 @@ Sidebar.propTypes = {
   labelFilters: PropTypes.array.isRequired,
   addLabelFilter: PropTypes.func.isRequired,
   toggleCompletedFilter: PropTypes.func.isRequired,
+  sidebarExpanded: PropTypes.bool,
   completedFilterOn: PropTypes.bool,
+  toggleSidebar: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
@@ -203,6 +202,7 @@ Sidebar.defaultProps = {
   searchInput: '',
   whiteMode: false,
   titles: [],
+  sidebarExpanded: false,
   completedFilterOn: false,
   labels: [],
 };
