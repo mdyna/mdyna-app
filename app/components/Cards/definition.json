@@ -30,15 +30,6 @@
       "prefixer": "#",
       "minimum": 1
     },
-    "repeat": {
-      "type": "bool",
-      "dependencies": {
-        "cardFrequency": {
-          "type": "enum",
-          "enums": ["daily", "weekly", "monthly"]
-        }
-      }
-    },
     "text": {
       "type": "string",
       "uiSchema": "textarea"

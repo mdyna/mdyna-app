@@ -22,7 +22,6 @@ export default function notes(state = [], action) {
           title: taskTitle(action),
           noteId: addNoteId(state),
           completed: false,
-          taskId: null,
         },
       ];
     case REMOVE_NOTE:
@@ -34,7 +33,7 @@ export default function notes(state = [], action) {
             return action.note;
           }
         }
-        return { noteId: saveNoteId(action.note, state), taskId: null, ...note };
+        return { noteId: saveNoteId(action.note, state), ...note };
       });
     case TOGGLE_NOTE:
       return state.map((note) => {

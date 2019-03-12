@@ -220,7 +220,11 @@ export default class CardEditor extends Component {
       case 'textarea':
         return (
           <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor text={settingValue} className={'card-text-editor'} submitCard={() => this.submitFormFields()} />
+            <MarkdownEditor
+              text={settingValue}
+              className={'card-text-editor'}
+              submitCard={() => this.submitFormFields()}
+            />
             <CardPreview changeCardSetting={changeCardSetting} />
           </div>
         );
@@ -263,7 +267,7 @@ export default class CardEditor extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(card),
-      }).catch(error => console.log(error));
+      }).catch(error => console.error(error));
     }
     this.props.saveCard(card);
   }
@@ -277,7 +281,7 @@ export default class CardEditor extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(card),
-      }).catch(error => console.log(error));
+      }).catch(error => console.error(error));
     }
     this.props.removeCard(card);
   }

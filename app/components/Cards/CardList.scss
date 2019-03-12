@@ -6,13 +6,10 @@
   margin: 0 10px;
   flex-flow: column wrap !important;
 
-  &.task-list {
-    padding: 20px;
-    max-width: 300px;
-
-    .visible-cards {
-      justify-content: flex-start !important;
-    }
+  ul {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
   }
 
   &.white-mode {
@@ -32,18 +29,6 @@
           }
         }
       }
-    }
-  }
-
-  .visible-cards {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center !important;
-  }
-
-  @media screen and (max-width: 1500px) {
-    .visible-cards {
-      justify-content: space-around;
     }
   }
 

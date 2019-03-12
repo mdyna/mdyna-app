@@ -22,11 +22,8 @@ class Mdyna extends Component {
         <Article>
           <Header />
           <Split flex="right" fixed={false}>
-          <SideBar {...this.props}/>
-            {
-              //<CardList isTaskList={true} sortByFrequency={true}/>
-            }
-          <CardList />
+            <SideBar {...this.props}/>
+            <CardList />
           </Split>
         </Article>
       </App>

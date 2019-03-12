@@ -1,11 +1,22 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { toggleWhiteMode, toggleEditor, searchCards, addLabelFilter, removeLabelFilter, toggleCompletedFilter } from '../store/actions/';
+import {
+  toggleWhiteMode,
+  toggleSidebar,
+  toggleEditor,
+  searchCards,
+  addLabelFilter,
+  removeLabelFilter,
+  toggleCompletedFilter,
+} from '../store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
     toggleWhiteMode: () => {
       dispatch(toggleWhiteMode());
+    },
+    toggleSidebar: () => {
+      dispatch(toggleSidebar());
     },
     toggleEditor: () => {
       dispatch(toggleEditor());
@@ -29,6 +40,7 @@ function mapStateToProps(state) {
     searchInput: state.filters.searchInput,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
+    sidebarExpanded: state.style.sidebarExpanded,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
     cards: state.cards,
