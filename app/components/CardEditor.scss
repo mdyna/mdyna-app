@@ -75,8 +75,6 @@
     padding: 0 25px;
     overflow: hidden;
     margin: 5px 0px;
-    height: fit-content;
-    min-height: 70px;
     justify-content: center;
     display: flex;
     flex-flow: column wrap;
@@ -152,17 +150,19 @@
     border-color: $secondary-accent;
   }
 
-  .color-options {
-    display: flex;
-    flex-flow: row wrap;
-    min-height: 40px;
-    justify-content: space-evenly;
-
-    svg {
-      width: 30px;
-      height: 34px;
-      circle {
-        transform: translate(50%, 50%);
+  .color-form-field {
+    max-width: 100%;
+    .color-options {
+      display: flex;
+      flex-flow: row wrap;
+      min-height: 40px;
+      justify-content: space-evenly;
+      svg {
+        width: 30px;
+        height: 34px;
+        circle {
+          transform: translate(50%, 50%);
+        }
       }
     }
   }
