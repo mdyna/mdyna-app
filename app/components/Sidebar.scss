@@ -10,7 +10,8 @@ $white-hover-color: #d2e3eb;
   color: $accent-color;
   opacity: 0.9;
   border-radius: 0px 10px 10px 0px;
-  max-width: 250px;
+  width: 250px;
+  transition: width 0.25s;
   overflow: hidden !important;
 
   .version {
@@ -31,7 +32,7 @@ $white-hover-color: #d2e3eb;
   }
 
   &.collapsed {
-    max-width: 50px;
+    width: 50px;
     align-items: center;
     .menu-item-labels {
       align-items: center;
