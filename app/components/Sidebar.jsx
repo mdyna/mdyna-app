@@ -128,7 +128,7 @@ class Sidebar extends Component {
             className="add-note-btn"
           >
             <Pulse />
-            {this.state.expanded ? <Label className="menu-label">Add Card</Label> : ''}
+            {sidebarExpanded ? <Label className="menu-label">Add Card</Label> : ''}
           </Button>
         </Box>
         <Box direction="row" justify="start" className="menu-item">
@@ -173,9 +173,12 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
-        <Label className="version" size="small">
-          {window.appVersion}
-        </Label>
+        {
+          sidebarExpanded &&
+          <Label className="version" size="small">
+            {window.appVersion}
+          </Label>
+        }
       </Box>
     );
   }
