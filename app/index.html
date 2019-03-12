@@ -22,6 +22,7 @@
   <link rel="manifest" href="./config/manifest.json">
   <script>
     var electron = require('electron');
+    var appVersion = electron.remote.getGlobal('appVersion');
     var serverHost = electron.remote.getGlobal('serverHost');
     var storage = electron.remote.getGlobal('storage');
   </script>
@@ -49,6 +50,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <footer>
+    </footer>
 </body>
-
 </html>
