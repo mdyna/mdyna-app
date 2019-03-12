@@ -26,12 +26,6 @@
     }
   }
 
-  @media screen and (max-width: 1500px) {
-    .visible-cards {
-      justify-content: space-around;
-    }
-  }
-
   .add-note-btn {
     @include normalize-button-icons();
     margin: 10px auto;

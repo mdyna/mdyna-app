@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import Masonry from 'react-masonry-component';
 import Section from 'grommet/components/Section';
 import Columns from 'grommet/components/Columns';
 import Layer from 'grommet/components/Layer';
@@ -90,14 +91,9 @@ export default class CardList extends Component {
             <React.Fragment>
               {this.renderAddNoteButton()}
               {cardItems && cardItems.length ? (
-                <Columns
-                  maxCount={6}
-                  masonry
-                  responsive
-                  className="visible-cards"
-                >
+                <Masonry>
                   {cardItems}
-                </Columns>
+                </Masonry>
               ) : (
                 ''
               )}
