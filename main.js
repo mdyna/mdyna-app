@@ -109,7 +109,7 @@ app.on('ready', () => {
     window = null;
   });
 
-  global.appVersion = `v. ${app.getVersion()}`
+  global.appVersion = `v.${app.getVersion()}`
   global.serverHost = 'http://localhost:7000';
   global.storage = new Storage();
   console.log(global.appVersion)
