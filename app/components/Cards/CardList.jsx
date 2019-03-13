@@ -15,7 +15,6 @@ import CardItem from '../../containers/CardItem';
 import '!style-loader!css-loader!sass-loader!./CardList.scss'; // eslint-disable-line
 
 export default class CardList extends Component {
-
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {

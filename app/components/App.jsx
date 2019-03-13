@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
-import Split from 'grommet/components/Split';
+import Box from 'grommet/components/Box';
 import classnames from 'classnames';
 import CardList from '../containers/CardList';
 import SideBar from './Sidebar';
@@ -21,10 +21,10 @@ class Mdyna extends Component {
       >
         <Article>
           <Header />
-          <Split flex="right" fixed={false} className="split" >
+          <Box flex="right" fixed={false} className="split" >
             <SideBar {...this.props}/>
             <CardList />
-          </Split>
+          </Box>
         </Article>
       </App>
     );
