@@ -88,6 +88,7 @@ export default class CardList extends Component {
                 options={{
                   fitWidth: true,
                 }}
+                enableResizableChildren
                 elementType={'ul'}
               >
                 {cardItems}
