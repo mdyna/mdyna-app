@@ -15,6 +15,7 @@ import CardItem from '../../containers/CardItem';
 import '!style-loader!css-loader!sass-loader!./CardList.scss'; // eslint-disable-line
 
 export default class CardList extends Component {
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {
@@ -127,7 +128,6 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  sidebarExpanded: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
@@ -139,7 +139,6 @@ CardList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
   completedFilterOn: false,
-  sidebarExpanded: false,
   labelFilters: [],
   sortByFrequency: false,
   searchInput: '',
