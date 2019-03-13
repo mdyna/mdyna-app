@@ -6,6 +6,13 @@
       "type": "string",
       "required": true
     },
+    "labels": {
+      "type": "string",
+      "uiSchema": "stringSplit",
+      "splitters": ["#"],
+      "prefixer": "#",
+      "minimum": 1
+    },
     "color": {
       "type": "enum",
       "format": "color",
@@ -22,13 +29,6 @@
         "#ffd180",
         "#a7c0cd"
       ]
-    },
-    "labels": {
-      "type": "string",
-      "uiSchema": "stringSplit",
-      "splitters": ["#"],
-      "prefixer": "#",
-      "minimum": 1
     },
     "text": {
       "type": "string",

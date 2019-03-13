@@ -21,7 +21,7 @@ class Mdyna extends Component {
       >
         <Article>
           <Header />
-          <Split flex="right" fixed={false}>
+          <Split flex="right" fixed={false} className="split" >
             <SideBar {...this.props}/>
             <CardList />
           </Split>

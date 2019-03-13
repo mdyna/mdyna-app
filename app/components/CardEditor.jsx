@@ -49,6 +49,7 @@ export default class CardEditor extends Component {
                 label={_.startCase(settingName)}
                 htmlFor={_.snakeCase(settingName)}
                 key={_.startCase(settingName)}
+                className="color-form-field"
               >
                 {enums ? (
                   <div className="color-options">
