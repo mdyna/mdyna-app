@@ -27,7 +27,7 @@ class CardShareButton extends Component {
           };
           generateCardLinkFunc(responseKeys, card.noteId);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.error(error));
     }
   }
 

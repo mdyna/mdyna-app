@@ -5,6 +5,12 @@ body {
   background-color: $background-color;
 }
 
+.split {
+  .grommetux-split__column--flex {
+    width: 100%;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -12,7 +18,6 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0px;
-
   background-color: $white-secondary-background;
   border-radius: 10px;
 }
@@ -23,7 +28,6 @@ body {
   border-radius: 10px;
 }
 
-
 .mdyna-app {
   margin: 0;
   padding: 0;
@@ -33,8 +37,6 @@ body {
   ::-webkit-scrollbar-track {
     background-color: $secondary-background;
   }
-
-
 
   .grommet {
     background-color: $background-color !important;
@@ -51,7 +53,7 @@ body {
   }
 
   article {
-    padding-top: 76px;
+    // padding-top: 76px;
     background-color: $secondary-background;
   }
 

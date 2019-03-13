@@ -97,6 +97,7 @@ app.on('ready', () => {
   mainWindow.on('ready-to-show', () => {
     splash.destroy();
     mainWindow.show();
+
     logger.info(autoUpdater.checkForUpdatesAndNotify());
     logger.info('checkForUpdatesAndNotify');
   });
@@ -108,10 +109,12 @@ app.on('ready', () => {
     window = null;
   });
 
+  global.appVersion = `v.${app.getVersion()}`
   global.serverHost = 'http://localhost:7000';
   global.storage = new Storage();
+  console.log(global.appVersion)
   const env = process.env.NODE_ENV || 'PROD';
-  console.log('ELECTRON RUNNING IN', env);
+  console.warn('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
   } else {

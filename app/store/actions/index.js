@@ -43,36 +43,6 @@ export const addNote = note => ({
   note,
 });
 
-export const addTask = task => ({
-  type: ACTION_TYPES.TASK.ADD_TASK,
-  task,
-});
-
-export const saveTask = task => ({
-  type: ACTION_TYPES.TASK.SAVE_TASK,
-  task,
-});
-
-export const completeTask = task => ({
-  type: ACTION_TYPES.TASK.COMPLETE_TASK,
-  task,
-});
-
-export const failTask = task => ({
-  type: ACTION_TYPES.TASK.FAIL_TASK,
-  task,
-});
-
-export const snoozeTask = task => ({
-  type: ACTION_TYPES.TASK.SNOOZE_TASK,
-  task,
-});
-
-export const removeTask = task => ({
-  type: ACTION_TYPES.TASK.REMOVE_TASK,
-  task,
-});
-
 export const removeNote = note => ({
   type: ACTION_TYPES.NOTE.REMOVE_NOTE,
   note,
@@ -116,6 +86,10 @@ export const editNote = note => ({
 
 export const toggleWhiteMode = () => ({
   type: ACTION_TYPES.TOGGLE_WHITE_MODE,
+});
+
+export const toggleSidebar = () => ({
+  type: ACTION_TYPES.TOGGLE_SIDEBAR,
 });
 
 export const addLabel = label => ({

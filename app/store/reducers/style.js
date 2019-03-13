@@ -1,10 +1,11 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { TOGGLE_WHITE_MODE } = ACTION_TYPES;
+const { TOGGLE_WHITE_MODE, TOGGLE_SIDEBAR } = ACTION_TYPES;
 
 function toggleWhiteMode(
   state = {
     whiteMode: false,
+    sidebarExpanded: false,
   },
   action,
 ) {
@@ -13,6 +14,11 @@ function toggleWhiteMode(
       return {
         ...state,
         whiteMode: !state.whiteMode,
+      };
+    case TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        sidebarExpanded: !state.sidebarExpanded,
       };
     default:
       return state;

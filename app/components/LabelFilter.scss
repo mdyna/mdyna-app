@@ -1,21 +1,42 @@
 @import "../style.scss";
 
 $dark-accent-color: #01a982;
+$white-label-background-color: #d2e3eb;
+$white-hover-color: #e9f6fc;
+
 
 .label-filter-box {
   border: 2px solid $accent-color;
   border-radius: 10px;
   display: flex;
   flex-flow: row nowrap;
-  max-height: 69px; // one line of content
   padding: 5px;
+
+  .label {
+    font-size: 1.25rem;
+  }
+
+  &.white-mode {
+    border: 2px solid $white-font-color;
+    .label-box {
+      .label-button {
+        background-color: $white-label-background-color !important;
+        border: 2px solid $white-font-color !important;
+        &:hover {
+          background-color: $white-hover-color !important;
+        }
+      }
+      .label-button-active {
+        background-color: $white-hover-color !important;
+      }
+    }
+  }
 
   .label-box {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: baseline;
-    max-height: 48px;
     overflow-y: auto;
 
     .label-button {
@@ -40,18 +61,5 @@ $dark-accent-color: #01a982;
         background-color: $dark-accent-color;
       }
     }
-  }
-
-
-  svg polygon {
-    stroke: $accent-color !important;
-  }
-
-  &:hover {
-    svg polygon {
-      stroke: $secondary-accent !important;
-    }
-
-    border-color: $secondary-accent
   }
 }
