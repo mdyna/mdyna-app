@@ -5,6 +5,12 @@ body {
   background-color: $background-color;
 }
 
+.split {
+  .grommetux-split__column--flex {
+    width: 100%;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }
