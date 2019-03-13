@@ -88,6 +88,7 @@ export default class CardList extends Component {
                 options={{
                   fitWidth: true,
                 }}
+                enableResizableChildren
                 elementType={'ul'}
               >
                 {cardItems}
@@ -126,7 +127,6 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  sidebarExpanded: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
@@ -138,7 +138,6 @@ CardList.defaultProps = {
   modalOpen: false,
   whiteMode: false,
   completedFilterOn: false,
-  sidebarExpanded: false,
   labelFilters: [],
   sortByFrequency: false,
   searchInput: '',
