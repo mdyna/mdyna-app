@@ -93,6 +93,7 @@ class MdynaCard extends Component {
       failCard: this.props.failCard,
       completeCard: this.props.completeCard,
     };
+    const displayControl = noteActions.minimizeCard && !this.props.showAllText;
     return (
       <Card
         key={i}
@@ -151,21 +152,20 @@ class MdynaCard extends Component {
             text={card.text}
           />
         </div>
-        {noteActions.minimizeCard ? (
+        {(
           <Button
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
             style={{
               opacity: 0.5,
               borderRadius: '10px',
-              boxShadow: `box-shadow: 0px -2px 20px 2px ${color} !important`,
               padding: 5,
+              height: !displayControl && 0,
+              visibility: (displayControl && 'initial') || 'hidden',
             }}
           >
             {CardBar.renderCardControl(this.state.minimized)}
           </Button>
-        ) : (
-          ''
         )}
       </Card>
     );

@@ -115,22 +115,30 @@ $code-background: #08090a;
 
   .grommetux-box {
     height: fit-content;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
   }
 
   .note-card-content {
     overflow-wrap: break-word;
+    div {
+      display: flex;
+      flex-flow: column wrap;
+      p {
+        margin-top: 12px !important;
+      }
+    }
 
     code {
       font-size: 14px;
       border: 1px dashed #6e6e6e;
       padding: 1px;
+      white-space: pre-wrap;
       border-radius: 5px
     }
 
     pre {
-      margin-bottom: 35px;
-      white-space: pre-wrap;
+      overflow: auto;
+      margin-bottom: 5px;
     }
   }
 }
