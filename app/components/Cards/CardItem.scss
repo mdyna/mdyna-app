@@ -115,7 +115,7 @@ $code-background: #08090a;
 
   .grommetux-box {
     height: fit-content;
-    flex-flow: column nowrap;
+    flex-flow: column wrap;
   }
 
   .note-card-content {
