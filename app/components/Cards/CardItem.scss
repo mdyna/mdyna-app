@@ -12,7 +12,7 @@ $code-background: #08090a;
 
   .card-control {
     background-color: #1f2833;
-    margin: 0px auto;
+    margin: 15px auto 0px;
     width: 100%;
     display: flex;
     flex-flow: row;
@@ -115,6 +115,7 @@ $code-background: #08090a;
 
   .grommetux-box {
     height: fit-content;
+    flex-flow: column wrap;
   }
 
   .note-card-content {
@@ -128,7 +129,7 @@ $code-background: #08090a;
     }
 
     pre {
-      margin-bottom: 15px;
+      margin-bottom: 35px;
       white-space: pre-wrap;
     }
   }

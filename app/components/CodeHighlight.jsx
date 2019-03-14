@@ -19,7 +19,7 @@ class Highlight extends React.Component {
   componentWillReceiveProps(newProps) {
     const { text } = this.props;
     if (text !== newProps.text) {
-      const codeBlocks = newProps.text.match(regExpUtils.codeRegExp);
+      const codeBlocks = newProps.text.Componentmatch(regExpUtils.codeRegExp);
       this.setState({
         codeBlocks: codeBlocks && codeBlocks.map(code => code.replace(regExpUtils.backticksRegExp, '').trim()),
       });
@@ -38,7 +38,7 @@ class Highlight extends React.Component {
     const nodes = this.el.querySelectorAll('pre code');
     const codeBlocks = this.state.codeBlocks;
     for (let i = 0; i < nodes.length; i += 1) {
-      nodes[i].textContent = (codeBlocks && codeBlocks[i]) || nodes[i].textContent;
+      nodes[i].textContent = (codeBlocks && codeBlocks[i]) || nodes[i].textContent.trim();
       hljs.highlightBlock(nodes[i]);
     }
   }
