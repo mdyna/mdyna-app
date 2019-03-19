@@ -22,7 +22,9 @@ class Mdyna extends Component {
         <Article>
           <Header />
           <Box className="split">
-            <SideBar {...this.props}/>
+            <div className="sidebar-wrapper">
+              <SideBar {...this.props}/>
+            </div>
             <CardList />
           </Box>
         </Article>
