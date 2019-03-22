@@ -9,6 +9,7 @@ $code-background: #08090a;
   max-height: fit-content !important;
   min-width: 20vw !important;
   border-radius: 10px;
+  flex-flow: column nowrap !important;
 
   .card-control {
     background-color: #1f2833;
@@ -115,7 +116,7 @@ $code-background: #08090a;
 
   .grommetux-box {
     height: fit-content;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
   }
 
   .note-card-content {
