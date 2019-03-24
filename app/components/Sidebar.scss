@@ -16,9 +16,11 @@ $white-hover-color: #d2e3eb;
   top: 50px;
   overflow: hidden !important;
 
-  .version {
+  .sidebar-footer {
     margin-top: 10vh;
     font-size: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
     color: $accent-color;
   }
 
@@ -88,6 +90,9 @@ $white-hover-color: #d2e3eb;
   &.white-mode {
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
+    .sidebar-footer {
+      color: $white-font-color;
+    }
     .title-button {
       color: $white-font-color !important;
       svg polyline {
