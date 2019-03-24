@@ -189,12 +189,13 @@ MdynaCard.propTypes = {
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
   generateCardLink: PropTypes.func,
-  changeCardSetting: PropTypes.func.isRequired,
+  changeCardSetting: PropTypes.func,
   i: PropTypes.number,
 };
 
 MdynaCard.defaultProps = {
   i: 0,
+  changeCardSetting: null,
   removeCard: null,
   snoozeCard: null,
   failCard: null,
