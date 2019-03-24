@@ -17,11 +17,18 @@ $white-hover-color: #d2e3eb;
   overflow: hidden !important;
 
   .sidebar-footer {
-    margin-top: 10vh;
+    margin-top: 5vh;
     font-size: 1rem;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     color: $accent-color;
+    label {
+      display: flex;
+      flex-flow: row nowrap;
+      svg {
+        height: 1rem;
+      }
+    }
   }
 
   .title-button {
