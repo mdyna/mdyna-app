@@ -1,6 +1,10 @@
 @import "../style.scss";
 
 .tip-icon {
+  margin-left: 5px;
+  border: 2px dotted $accent-color;
+  border-radius: 50px;
+  padding: 2px !important;
   svg {
     path {
       stroke: $accent-color !important;
@@ -14,6 +18,7 @@
     }
   }
   &.white-mode {
+    border-color: $white-font-color;
     svg {
       path {
         stroke: $white-font-color !important;
@@ -31,7 +36,16 @@
 .tooltip {
   background-color: $accent-color !important;
   color: $white-font-color !important;
+  max-width: 200px;
   border-radius: 10px;
+
+  ul {
+    li {
+      color: $white-font-color !important;
+    }
+    margin: 0 10px !important;
+  }
+
   &.white-mode {
     background-color: $white-note-list-background !important;
   }

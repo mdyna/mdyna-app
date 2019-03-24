@@ -18,6 +18,7 @@ import Tooltip from './Tooltip';
 import LabelFilter from './LabelFilter';
 
 import logo from '../../resources/MdynaLogoCircle.png';
+import TooltipData from './tooltips.json';
 
 import '!style-loader!css-loader!sass-loader!./Sidebar.scss'; // eslint-disable-line
 
@@ -178,12 +179,14 @@ class Sidebar extends Component {
         {sidebarExpanded && (
           <Box className="sidebar-footer">
             <Label size="small">
-              {window.appVersion}
+              Keyboard Shortcuts
+              <Tooltip
+                whiteMode={whiteMode}
+                text={TooltipData.keyboard.text}
+                title={TooltipData.keyboard.title}
+              />
             </Label>
-            <Label size="small">
-              Keyboard shortcuts
-              <Tooltip whiteMode={whiteMode} text="Alt + Enter => Save Draft" title="Keyboard shortcuts" />
-            </Label>
+            <Label size="small">{window.appVersion}</Label>
           </Box>
         )}
       </Box>

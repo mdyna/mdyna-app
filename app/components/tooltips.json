@@ -1,0 +1,6 @@
+{
+  "keyboard": {
+    "title": "Keyboard shortcuts",
+    "text": "<ul>\n<li>\nA => Add New Note\n</li>\n<li>\nCtrl+P => Quick Search\n</li>\n<li>\nCtrl+Enter => Submit Note <i>while in editor</i>\n</li>\n</ul>"
+  }
+}
