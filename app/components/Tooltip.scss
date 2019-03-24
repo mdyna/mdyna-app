@@ -24,12 +24,20 @@ $sidebar-background-color: #0c1014;
     &:hover {
       svg {
         path {
-          stroke: $accent-color !important;
+          stroke: $white-hover-color !important;
         }
       }
     }
   }
 }
 .tooltip {
-  position: absolute;
+  background-color: $accent-color !important;
+  color: $white-font-color !important;
+  border-radius: 10px;
+  title {
+    font-size:1.5rem;
+  }
+  &:after {
+    content: none;
+  }
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from 'grommet/components/icons/base/Help';
 import Box from 'grommet/components/Box';
-import CardItem from './Cards/CardItem';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
@@ -21,8 +20,20 @@ class Tooltip extends Component {
     this.setState({ show: false });
   }
 
+  renderTooltipContent() {
+    const { text, title } = this.props;
+    return `
+      <h3>
+        ${title}
+      </h3>
+      <div className="tooltip-text">
+        ${text}
+      </div>
+      `;
+  }
+
   render() {
-    const { text, color, title, whiteMode } = this.props;
+    const { title, whiteMode } = this.props;
 
     return (
       <React.Fragment>
@@ -35,7 +46,15 @@ class Tooltip extends Component {
         >
           <HelpIcon />
         </Box>
-        <ReactTooltip id={title} class="tooltip" />
+        <ReactTooltip
+          id={title}
+          place="top"
+          class="tooltip"
+          multiline
+          html
+        >
+          {this.renderTooltipContent()}
+        </ReactTooltip>
       </React.Fragment>
     );
   }
@@ -45,7 +64,6 @@ export default Tooltip;
 
 Tooltip.propTypes = {
   text: PropTypes.string.isRequired,
-  color: PropTypes.string,
   title: PropTypes.string,
   whiteMode: PropTypes.bool.isRequired,
 };
@@ -53,5 +71,4 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   show: false,
   title: 'help',
-  color: '#a7ffeb',
 };
