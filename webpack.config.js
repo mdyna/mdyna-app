@@ -39,7 +39,11 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           presets: ['@babel/react', '@babel/preset-env'],
-          plugins: ['@babel/plugin-proposal-optional-chaining', 'react-hot-loader/babel'],
+          plugins: [
+            '@babel/plugin-proposal-optional-chaining',
+            'react-hot-loader/babel',
+            '@babel/plugin-proposal-class-properties',
+          ],
         },
       },
       {

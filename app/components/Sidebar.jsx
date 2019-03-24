@@ -14,6 +14,7 @@ import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import Tooltip from './Tooltip';
 import LabelFilter from './LabelFilter';
 
 import logo from '../../resources/MdynaLogoCircle.png';
@@ -173,12 +174,18 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
-        {
-          sidebarExpanded &&
-          <Label className="version" size="small">
-            {window.appVersion}
-          </Label>
-        }
+
+        {sidebarExpanded && (
+          <Box className="sidebar-footer">
+            <Label size="small">
+              {window.appVersion}
+            </Label>
+            <Label size="small">
+              Keyboard shortcuts
+              <Tooltip whiteMode={whiteMode} text="Alt + Enter => Save Draft" title="Keyboard shortcuts" />
+            </Label>
+          </Box>
+        )}
       </Box>
     );
   }

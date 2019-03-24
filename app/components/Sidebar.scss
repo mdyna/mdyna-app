@@ -1,9 +1,5 @@
 @import "../style.scss";
 
-$sidebar-background-color: #0c1014;
-$white-sidebar-background-color: #bdccd3;
-$white-hover-color: #d2e3eb;
-
 
 .sidebar {
   background-color: $sidebar-background-color;
@@ -16,10 +12,19 @@ $white-hover-color: #d2e3eb;
   top: 50px;
   overflow: hidden !important;
 
-  .version {
-    margin-top: 10vh;
+  .sidebar-footer {
+    margin-top: 5vh;
     font-size: 1rem;
-    color: $accent-color;
+    display: flex;
+    flex-flow: column nowrap;
+    label {
+      color: $accent-color;
+      display: flex;
+      flex-flow: row nowrap;
+      svg {
+        height: 1rem;
+      }
+    }
   }
 
   .title-button {
@@ -88,6 +93,11 @@ $white-hover-color: #d2e3eb;
   &.white-mode {
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
+    .sidebar-footer {
+      label {
+        color: $white-font-color;
+      }
+    }
     .title-button {
       color: $white-font-color !important;
       svg polyline {

@@ -1,0 +1,44 @@
+@import "../style.scss";
+
+.tip-icon {
+  svg {
+    path {
+      stroke: $accent-color !important;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        stroke: $secondary-accent !important;
+      }
+    }
+  }
+  &.white-mode {
+    svg {
+      path {
+        stroke: $white-font-color !important;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          stroke: $white-hover-color !important;
+        }
+      }
+    }
+  }
+}
+.tooltip {
+  background-color: $accent-color !important;
+  color: $white-font-color !important;
+  border-radius: 10px;
+  &.white-mode {
+    background-color: $white-note-list-background !important;
+  }
+  title {
+    font-size:1.5rem;
+  }
+  &:after {
+    content: none;
+  }
+}
