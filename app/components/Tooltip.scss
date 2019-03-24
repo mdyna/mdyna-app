@@ -1,7 +1,5 @@
 @import "../style.scss";
 
-$sidebar-background-color: #0c1014;
-
 .tip-icon {
   svg {
     path {
@@ -34,6 +32,9 @@ $sidebar-background-color: #0c1014;
   background-color: $accent-color !important;
   color: $white-font-color !important;
   border-radius: 10px;
+  &.white-mode {
+    background-color: $white-note-list-background !important;
+  }
   title {
     font-size:1.5rem;
   }

@@ -49,7 +49,7 @@ class Tooltip extends Component {
         <ReactTooltip
           id={title}
           place="top"
-          class="tooltip"
+          class={cx('tooltip', whiteMode && 'white-mode')}
           multiline
           html
         >
