@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import HelpIcon from 'grommet/components/icons/base/Help';
 import Box from 'grommet/components/Box';
 import CardItem from './Cards/CardItem';
+import cx from 'classnames';
+import ReactTooltip from 'react-tooltip';
+
+import '!style-loader!css-loader!sass-loader!./Tooltip.scss'; // eslint-disable-line
 
 class Tooltip extends Component {
   state = {
-    show: false,
+    show: true,
   };
 
   showTooltip() {
@@ -18,18 +22,21 @@ class Tooltip extends Component {
   }
 
   render() {
-    const { text, color, title} = this.props;
-    console.log('rendering', text)
+    const { text, color, title, whiteMode } = this.props;
 
     return (
-      <Box onMouseEnter={() => this.showTooltip()} onMouseLeave={() => this.hideTooltip()} className="tip-icon">
-        <HelpIcon />
-        {this.state.show ? (
-          <CardItem className="tooltip" card={{ text, color, title }} showAllText />
-        ) : (
-          ''
-        )}
-      </Box>
+      <React.Fragment>
+        <Box
+          data-tip
+          data-for={title}
+          onMouseEnter={() => this.showTooltip()}
+          onMouseLeave={() => this.hideTooltip()}
+          className={cx('tip-icon', whiteMode && 'white-mode')}
+        >
+          <HelpIcon />
+        </Box>
+        <ReactTooltip id={title} class="tooltip" />
+      </React.Fragment>
     );
   }
 }
@@ -40,6 +47,7 @@ Tooltip.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
   title: PropTypes.string,
+  whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {

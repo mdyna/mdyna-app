@@ -21,8 +21,8 @@ $white-hover-color: #d2e3eb;
     font-size: 1rem;
     display: flex;
     flex-flow: column nowrap;
-    color: $accent-color;
     label {
+      color: $accent-color;
       display: flex;
       flex-flow: row nowrap;
       svg {
@@ -98,7 +98,9 @@ $white-hover-color: #d2e3eb;
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
     .sidebar-footer {
-      color: $white-font-color;
+      label {
+        color: $white-font-color;
+      }
     }
     .title-button {
       color: $white-font-color !important;

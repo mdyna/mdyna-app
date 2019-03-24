@@ -182,7 +182,7 @@ class Sidebar extends Component {
             </Label>
             <Label size="small">
               Keyboard shortcuts
-              <Tooltip text="Alt + Enter => Save Draft" title="Keyboard shortcuts" />
+              <Tooltip whiteMode={whiteMode} text="Alt + Enter => Save Draft" title="Keyboard shortcuts" />
             </Label>
           </Box>
         )}

@@ -1,0 +1,35 @@
+@import "../style.scss";
+
+$sidebar-background-color: #0c1014;
+
+.tip-icon {
+  svg {
+    path {
+      stroke: $accent-color !important;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        stroke: $secondary-accent !important;
+      }
+    }
+  }
+  &.white-mode {
+    svg {
+      path {
+        stroke: $white-font-color !important;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          stroke: $accent-color !important;
+        }
+      }
+    }
+  }
+}
+.tooltip {
+  position: absolute;
+}
