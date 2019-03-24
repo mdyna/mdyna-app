@@ -39,6 +39,11 @@
   max-width: 200px;
   border-radius: 10px;
 
+  h4 {
+    margin: 5px !important;
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+  }
   ul {
     li {
       color: $white-font-color !important;

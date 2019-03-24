@@ -179,6 +179,14 @@ class Sidebar extends Component {
         {sidebarExpanded && (
           <Box className="sidebar-footer">
             <Label size="small">
+              Markdown Guide
+              <Tooltip
+                whiteMode={whiteMode}
+                text={TooltipData.markdown.text}
+                title={TooltipData.markdown.title}
+              />
+            </Label>
+            <Label size="small">
               Keyboard Shortcuts
               <Tooltip
                 whiteMode={whiteMode}
