@@ -51,6 +51,9 @@ class Tooltip extends Component {
           place="top"
           class={cx('tooltip', whiteMode && 'white-mode')}
           multiline
+          offset={{
+            left: 20,
+          }}
           html
         >
           {this.renderTooltipContent()}

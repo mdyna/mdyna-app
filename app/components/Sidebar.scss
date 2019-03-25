@@ -19,10 +19,12 @@
     flex-flow: column nowrap;
     label {
       color: $accent-color;
+      align-items: center;
       display: flex;
       flex-flow: row nowrap;
       svg {
-        height: 1rem;
+        vertical-align: middle;
+        height: 1em;
       }
     }
   }
