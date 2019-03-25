@@ -14,9 +14,11 @@ import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import Tooltip from './Tooltip';
 import LabelFilter from './LabelFilter';
 
 import logo from '../../resources/MdynaLogoCircle.png';
+import TooltipData from './tooltips.json';
 
 import '!style-loader!css-loader!sass-loader!./Sidebar.scss'; // eslint-disable-line
 
@@ -173,12 +175,28 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
-        {
-          sidebarExpanded &&
-          <Label className="version" size="small">
-            {window.appVersion}
-          </Label>
-        }
+
+        {sidebarExpanded && (
+          <Box className="sidebar-footer">
+            <Label size="small">
+              Markdown Guide
+              <Tooltip
+                whiteMode={whiteMode}
+                text={TooltipData.markdown.text}
+                title={TooltipData.markdown.title}
+              />
+            </Label>
+            <Label size="small">
+              Keyboard Shortcuts
+              <Tooltip
+                whiteMode={whiteMode}
+                text={TooltipData.keyboard.text}
+                title={TooltipData.keyboard.title}
+              />
+            </Label>
+            <Label size="small">{window.appVersion}</Label>
+          </Box>
+        )}
       </Box>
     );
   }

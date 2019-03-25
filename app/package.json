@@ -32,6 +32,7 @@
     "react-router-dom": "4.1.1",
     "react-showdown": "https://github.com/psybork/react-showdown.git",
     "react-simplemde-editor": "^3.6.16",
+    "react-tooltip": "^3.10.0",
     "recompose": "^0.30.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",

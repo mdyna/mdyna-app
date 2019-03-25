@@ -76,6 +76,33 @@ class MdynaCard extends Component {
     };
   }
 
+  renderCardDate() {
+    const { card } = this.props;
+    const { startDate, lastEditDate } = card;
+    const dateOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const convertDateToLocaleString = date =>
+      new Date(date).toLocaleDateString(undefined, dateOptions);
+    if (lastEditDate) {
+      const formattedDate = convertDateToLocaleString(lastEditDate);
+      return (
+        <span className="card-date">
+          Last edit on <span>{formattedDate}</span>
+        </span>
+      );
+    }
+    const formattedDate = convertDateToLocaleString(startDate);
+    return (
+      <span className="card-date">
+        Created on <span>{formattedDate}</span>
+      </span>
+    );
+  }
   render() {
     const { card, i, className, hasCardBar, whiteMode } = this.props;
 
@@ -97,6 +124,11 @@ class MdynaCard extends Component {
     return (
       <Card
         key={i}
+        role="button"
+        tabIndex={0}
+        onDoubleClick={() => {
+          noteActions.editCard(card);
+        }}
         className={classnames(className, COLOR_LABELS[color], 'card-item', {
           minimized: this.state.minimized,
         })}
@@ -133,26 +165,19 @@ class MdynaCard extends Component {
           {card.title}
         </Heading>
         <Labels labels={card.labels} color={color} />
-        <div
-          role="button"
-          tabIndex={0}
-          onDoubleClick={() => {
-            noteActions.editCard(card);
+        {this.renderCardDate()}
+        <MarkdownText
+          whiteMode={whiteMode}
+          className="note-card-content"
+          minimized={minimize}
+          color={color}
+          editCard={{
+            card,
+            saveFunc: this.props.saveCard,
           }}
-        >
-          <MarkdownText
-            whiteMode={whiteMode}
-            className="note-card-content"
-            minimized={minimize}
-            color={color}
-            editCard={{
-              card,
-              saveFunc: this.props.saveCard,
-            }}
-            text={card.text}
-          />
-        </div>
-        {(
+          text={card.text}
+        />
+        {
           <Button
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
@@ -166,7 +191,7 @@ class MdynaCard extends Component {
           >
             {CardBar.renderCardControl(this.state.minimized)}
           </Button>
-        )}
+        }
       </Card>
     );
   }
@@ -189,12 +214,13 @@ MdynaCard.propTypes = {
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
   generateCardLink: PropTypes.func,
-  changeCardSetting: PropTypes.func.isRequired,
+  changeCardSetting: PropTypes.func,
   i: PropTypes.number,
 };
 
 MdynaCard.defaultProps = {
   i: 0,
+  changeCardSetting: null,
   removeCard: null,
   snoozeCard: null,
   failCard: null,

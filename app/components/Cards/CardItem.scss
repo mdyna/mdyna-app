@@ -9,6 +9,21 @@ $code-background: #08090a;
   max-height: fit-content !important;
   min-width: 20vw !important;
   border-radius: 10px;
+  flex-flow: column nowrap !important;
+  outline: none !important;
+
+  h1 {
+    margin-bottom: 5px !important;
+  }
+
+  span.card-date {
+    margin-top: -5px;
+    font-size: 0.85em;
+    span {
+      font-style: italic;
+    }
+  }
+
 
   .card-control {
     background-color: #1f2833;
@@ -96,7 +111,7 @@ $code-background: #08090a;
     li {
       color: #333 !important;
     }
-    margin-bottom: 10px !important;
+    margin: 10px !important;
   }
 
   &:hover .grommetux-card__content {
@@ -115,7 +130,7 @@ $code-background: #08090a;
 
   .grommetux-box {
     height: fit-content;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
   }
 
   .note-card-content {
