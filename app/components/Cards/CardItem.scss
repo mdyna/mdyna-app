@@ -10,6 +10,20 @@ $code-background: #08090a;
   min-width: 20vw !important;
   border-radius: 10px;
   flex-flow: column nowrap !important;
+  outline: none !important;
+
+  h1 {
+    margin-bottom: 5px !important;
+  }
+
+  span.card-date {
+    margin-top: -5px;
+    font-size: 0.85em;
+    span {
+      font-style: italic;
+    }
+  }
+
 
   .card-control {
     background-color: #1f2833;
