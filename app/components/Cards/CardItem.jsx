@@ -78,11 +78,30 @@ class MdynaCard extends Component {
 
   renderCardDate() {
     const { card } = this.props;
-    const { startDate } = card;
-    if (startDate) {
-      const formattedDate = new Date(startDate).toLocaleDateString();
-      return <span className="card-date">{formattedDate}</span>;
+    const { startDate, lastEditDate } = card;
+    const dateOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const convertDateToLocaleString = date =>
+      new Date(date).toLocaleDateString(undefined, dateOptions);
+    if (lastEditDate) {
+      const formattedDate = convertDateToLocaleString(lastEditDate);
+      return (
+        <span className="card-date">
+          Last edit on <span>{formattedDate}</span>
+        </span>
+      );
     }
+    const formattedDate = convertDateToLocaleString(startDate);
+    return (
+      <span className="card-date">
+        Created on <span>{formattedDate}</span>
+      </span>
+    );
   }
   render() {
     const { card, i, className, hasCardBar, whiteMode } = this.props;

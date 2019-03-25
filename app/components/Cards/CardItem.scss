@@ -16,11 +16,14 @@ $code-background: #08090a;
     margin-bottom: 5px !important;
   }
 
-  .card-date {
+  span.card-date {
     margin-top: -5px;
-    font-style: italic;
-    margin-left: 10px !important;
+    font-size: 0.85em;
+    span {
+      font-style: italic;
+    }
   }
+
 
   .card-control {
     background-color: #1f2833;
