@@ -76,6 +76,14 @@ class MdynaCard extends Component {
     };
   }
 
+  renderCardDate() {
+    const { card } = this.props;
+    const { startDate } = card;
+    if (startDate) {
+      const formattedDate = new Date(startDate).toLocaleDateString();
+      return <span className="card-date">{formattedDate}</span>;
+    }
+  }
   render() {
     const { card, i, className, hasCardBar, whiteMode } = this.props;
 
@@ -97,6 +105,11 @@ class MdynaCard extends Component {
     return (
       <Card
         key={i}
+        role="button"
+        tabIndex={0}
+        onDoubleClick={() => {
+          noteActions.editCard(card);
+        }}
         className={classnames(className, COLOR_LABELS[color], 'card-item', {
           minimized: this.state.minimized,
         })}
@@ -133,26 +146,19 @@ class MdynaCard extends Component {
           {card.title}
         </Heading>
         <Labels labels={card.labels} color={color} />
-        <div
-          role="button"
-          tabIndex={0}
-          onDoubleClick={() => {
-            noteActions.editCard(card);
+        {this.renderCardDate()}
+        <MarkdownText
+          whiteMode={whiteMode}
+          className="note-card-content"
+          minimized={minimize}
+          color={color}
+          editCard={{
+            card,
+            saveFunc: this.props.saveCard,
           }}
-        >
-          <MarkdownText
-            whiteMode={whiteMode}
-            className="note-card-content"
-            minimized={minimize}
-            color={color}
-            editCard={{
-              card,
-              saveFunc: this.props.saveCard,
-            }}
-            text={card.text}
-          />
-        </div>
-        {(
+          text={card.text}
+        />
+        {
           <Button
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
@@ -166,7 +172,7 @@ class MdynaCard extends Component {
           >
             {CardBar.renderCardControl(this.state.minimized)}
           </Button>
-        )}
+        }
       </Card>
     );
   }
