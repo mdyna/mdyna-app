@@ -86,7 +86,7 @@ class MdynaCard extends Component {
       hour: '2-digit',
       minute: '2-digit',
     };
-    const convertDateToLocaleString = date =>
+    const convertDateToLocaleString = (date = new Date()) =>
       new Date(date).toLocaleDateString(undefined, dateOptions);
     if (lastEditDate) {
       const formattedDate = convertDateToLocaleString(lastEditDate);
