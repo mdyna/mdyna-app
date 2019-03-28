@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = process.env.PORT || '8080';
 module.exports = {
+  mode: process.env.NODE_ENV === 'PROD' ? 'production' : 'development',
   entry: ['./app/index.js', './app/style.scss', '@babel/polyfill'],
   output: {
     filename: 'index.js',
