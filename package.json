@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw",
-    "build-react-app": "cd app && yarn build",
-    "build-electron": "export NODE_ENV=PROD && yarn build-react-app && webpack --config webpack.config.electron.js;",
+    "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
+    "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
     "create-icons": "electron-icon-maker --input=./resources/MdynaLogoCircle.png --output=./resources/",
     "electron-builder": "electron-builder",
@@ -14,13 +14,14 @@
     "pack-asar": "./node_modules/.bin/asar pack mdyna app.asar",
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "publish-app": "yarn build-dist --publish always",
-    "reset": "rm -rf ./node_modules && yarn install && cd app && rm -rf ./node_modules && yarn install",
+    "reset": "rm -rf ./node_modules && yarn install",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
     "test": "lint-staged",
     "version:patch": "yarn version --new-version patch",
     "version:minor": "yarn version --new-version minor",
-    "version:major": "yarn version --new-version major"
+    "version:major": "yarn version --new-version major",
+    "watch": "webpack-dev-server --hot --inline"
   },
   "author": {
     "name": "David Morais",
@@ -85,8 +86,7 @@
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
-    "lint-staged": "^8.1.0",
-    "sass-loader": "^7.1.0"
+    "lint-staged": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
@@ -121,6 +121,7 @@
     "html-webpack-plugin": "^3.2.0",
     "inuit-defaults": "^0.2.3",
     "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "4.28.3",
