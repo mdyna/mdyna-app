@@ -14,7 +14,6 @@ const webpackConfig = merge.smart(baseConfig, {
       },
     }),
   ],
-  target: 'electron',
 });
 
 module.exports = webpackConfig;

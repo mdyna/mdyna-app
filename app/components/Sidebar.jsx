@@ -20,7 +20,7 @@ import LabelFilter from './LabelFilter';
 import logo from '../../resources/MdynaLogoCircle.png';
 import TooltipData from './tooltips.json';
 
-import '!style-loader!css-loader!sass-loader!./Sidebar.scss'; // eslint-disable-line
+import './Sidebar.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
   return (cards && cards.map(d => d && d.title)) || '';

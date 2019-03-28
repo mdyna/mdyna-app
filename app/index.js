@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
 import registerServiceWorker from './config/registerServiceWorker';
 import Root from './config/Root';
 import { Provider } from 'react-redux';
@@ -12,11 +11,9 @@ let MdynaStore = store;
 const render = Component => {
   store.getState();
   ReactDOM.render(
-    <AppContainer>
       <Provider store={MdynaStore}>
         <Component />
-      </Provider>
-    </AppContainer>,
+      </Provider>,
     document.getElementById('root'),
   );
 };

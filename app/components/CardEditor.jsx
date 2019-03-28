@@ -21,7 +21,7 @@ import MarkdownEditor from '../containers/MarkdownEditor';
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
 
-import '!style-loader!css-loader!sass-loader!./CardEditor.scss'; // eslint-disable-line
+import './CardEditor.scss'; // eslint-disable-line
 
 const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;

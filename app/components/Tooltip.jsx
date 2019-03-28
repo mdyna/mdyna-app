@@ -5,7 +5,7 @@ import Box from 'grommet/components/Box';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
-import '!style-loader!css-loader!sass-loader!./Tooltip.scss'; // eslint-disable-line
+import './Tooltip.scss'; // eslint-disable-line
 
 class Tooltip extends Component {
   state = {

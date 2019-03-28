@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" type="text/css">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="./assets/favicon.ico">
   <meta name="apple-mobile-web-app-title" content="Mdyna">
   <meta name="application-name" content="Mdyna">
   <meta name="msapplication-TileColor" content="#00aba9">
-  <meta name="msapplication-config" content="/assets/browserconfig.xml">
-  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-config" content="./assets/browserconfig.xml">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#ffffff">
   <!--
     manifest.json provides metadata used when your web app is added to the
@@ -21,10 +21,12 @@
   -->
   <link rel="manifest" href="./config/manifest.json">
   <script>
-    var electron = require('electron');
-    var appVersion = electron.remote.getGlobal('appVersion');
-    var serverHost = electron.remote.getGlobal('serverHost');
-    var storage = electron.remote.getGlobal('storage');
+    if (window.require) {
+      var electron = require('electron');
+      var appVersion = electron.remote.getGlobal('appVersion');
+      var serverHost = electron.remote.getGlobal('serverHost');
+      var storage = electron.remote.getGlobal('storage');
+    }
   </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.

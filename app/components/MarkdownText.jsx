@@ -8,7 +8,7 @@ import regExp from '../utils/regexp';
 import ReactHighlight from './CodeHighlight';
 import TaskListInput from './TaskListInput';
 
-import '!style-loader!css-loader!sass-loader!./MarkdownText.scss'; // eslint-disable-line
+import './MarkdownText.scss'; // eslint-disable-line
 
 const COLOR_LABELS = {
   '#ff8a80': 'red',
