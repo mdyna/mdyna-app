@@ -13,7 +13,7 @@ import assertNoteChanges from '../../utils/assertChanges';
 import MarkdownText from '../MarkdownText';
 import Labels from '../Labels';
 
-import '!style-loader!css-loader!sass-loader!./CardItem.scss'; // eslint-disable-line
+import './CardItem.scss'; // eslint-disable-line
 
 export const COLOR_SAMPLES = [
   '#ff8a80',

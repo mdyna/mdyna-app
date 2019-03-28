@@ -3,7 +3,7 @@ import ReactSMDE from 'react-simplemde-editor';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '!style-loader!css-loader!sass-loader!../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
+import '../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
 function getInstance(editor, submitCard) {
   // eslint-disable-next-line no-param-reassign

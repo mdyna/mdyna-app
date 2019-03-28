@@ -4,7 +4,7 @@ import sort from 'lodash/sortBy';
 import cx from 'classnames';
 import Button from 'grommet/components/Button';
 
-import '!style-loader!css-loader!sass-loader!./LabelFilter.scss'; // eslint-disable-line
+import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
   constructor(props) {
     super(props);

@@ -11,7 +11,7 @@ import tinycolor from 'tinycolor2';
 import assertCardChanges from '../../utils/assertChanges';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
-import '!style-loader!css-loader!sass-loader!./CardBar.scss'; // eslint-disable-line
+import './CardBar.scss'; // eslint-disable-line
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 

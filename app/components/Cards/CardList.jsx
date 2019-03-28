@@ -12,7 +12,7 @@ import classnames from 'classnames';
 import CardEditor from '../../containers/CardEditor';
 import CardItem from '../../containers/CardItem';
 
-import '!style-loader!css-loader!sass-loader!./CardList.scss'; // eslint-disable-line
+import './CardList.scss'; // eslint-disable-line
 
 export default class CardList extends Component {
   matchNoteLabelsWithLabelFilter(labels) {

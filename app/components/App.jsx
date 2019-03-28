@@ -9,7 +9,7 @@ import SideBar from './Sidebar';
 import Header from './Header';
 
 import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
-import '!style-loader!css-loader!sass-loader!./App.scss'; // eslint-disable-line
+import './App.scss'; // eslint-disable-line
 
 class Mdyna extends Component {
 
