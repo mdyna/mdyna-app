@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = process.env.PORT || '8080';
 module.exports = {
-  entry: ['react-hot-loader/patch', './app/index.js', './app/style.scss', '@babel/polyfill'],
+  entry: ['./app/index.js', './app/style.scss', '@babel/polyfill'],
   output: {
     filename: 'index.js',
     publicPath: process.env.NODE_ENV === 'PROD' ? './' : `http://localhost:${port}/dist/web`,
@@ -27,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          loader:
-            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader',
-        }),
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          'css-loader', // translates CSS into CommonJS
+          'sass-loader', // compiles Sass to CSS, using Node Sass by default
+        ],
       },
       {
         test: /.jsx?$/,
@@ -41,7 +41,6 @@ module.exports = {
           presets: ['@babel/react', '@babel/preset-env'],
           plugins: [
             '@babel/plugin-proposal-optional-chaining',
-            'react-hot-loader/babel',
             '@babel/plugin-proposal-class-properties',
           ],
         },
@@ -75,7 +74,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin({ filename: 'style/style.css', disable: false, allChunks: true }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
