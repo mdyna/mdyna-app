@@ -39,13 +39,12 @@ app.on('ready', () => {
   });
 
   const splash = new BrowserWindow({
-    width: 810,
-    minWidth: 810,
-    height: 500,
-    minHeight: 500,
+    width: 510,
+    minWidth: 510,
+    height: 400,
+    minHeight: 400,
     transparent: true,
     frame: false,
-    alwaysOnTop: true,
     icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
   });
 
