@@ -1,7 +1,7 @@
 # Mdyna
 
 ### A notes app with Markdown support and code syntax highlighting
-[![CircleCI](https://circleci.com/gh/mdyna/mdyna-app.svg?style=svg)](https://circleci.com/gh/mdyna/mdyna-app);
+[![CircleCI](https://circleci.com/gh/mdyna/mdyna-app/tree/master.svg?style=svg)](https://circleci.com/gh/mdyna/mdyna-app/tree/master)
 
 [![Mdyna Logo](./resources/MdynaLogo.png)](https://mdyna.github.io)
 
