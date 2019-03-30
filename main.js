@@ -1,6 +1,7 @@
 /* eslint-disable */
 // Basic init
 const electron = require('electron');
+const { dialog } = require('electron');
 const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
