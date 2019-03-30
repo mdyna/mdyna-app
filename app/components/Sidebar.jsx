@@ -194,7 +194,7 @@ class Sidebar extends Component {
                 title={TooltipData.keyboard.title}
               />
             </Label>
-            <Label size="small">{window.appVersion}</Label>
+            <Label size="small">{window.appVersion}-{window.updateStatus}</Label>
           </Box>
         )}
       </Box>

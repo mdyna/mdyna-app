@@ -62,26 +62,38 @@ app.on('ready', () => {
 
 
   autoUpdater.logger = logger
-  autoUpdater.on('update-downloaded', info => {
-      const quitAndInstalled = autoUpdater.quitAndInstall();
-      logger.warn('quitAndInstalled');
-      logger.warn(quitAndInstalled);
-  });
+  let updateStatus = '';
 
   autoUpdater.on('update-available', arg => {
       logger.info('update-available');
       logger.info(arg);
+      updateStatus = 'Update available !'
   });
 
   autoUpdater.on('update-not-available', arg => {
       logger.info('update-not-available');
       logger.info(arg);
+      updateStatus = 'Latest version installed.'
   });
 
   autoUpdater.on('download-progress', arg => {
       logger.log('download-progress');
       logger.log(arg);
   });
+
+  autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+    const dialogOpts = {
+      type: 'info',
+      buttons: ['Restart', 'Later'],
+      title: 'Application Update',
+      message: releaseName,
+      detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    }
+
+    dialog.showMessageBox(dialogOpts, (response) => {
+      if (response === 0) autoUpdater.quitAndInstall()
+    })
+  })
 
   autoUpdater.on('error', error => {
       logger.error('error');
@@ -111,6 +123,7 @@ app.on('ready', () => {
 
   global.appVersion = `v.${app.getVersion()}`
   global.serverHost = 'http://localhost:7000';
+  global.updateStatus = updateStatus;
   global.storage = new Storage();
   console.log(global.appVersion)
   const env = process.env.NODE_ENV || 'PROD';
