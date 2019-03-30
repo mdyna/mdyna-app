@@ -62,18 +62,15 @@ app.on('ready', () => {
 
 
   autoUpdater.logger = logger
-  let updateStatus = '';
 
   autoUpdater.on('update-available', arg => {
       logger.info('update-available');
       logger.info(arg);
-      updateStatus = 'Update available !'
   });
 
   autoUpdater.on('update-not-available', arg => {
       logger.info('update-not-available');
       logger.info(arg);
-      updateStatus = 'Latest version installed.'
   });
 
   autoUpdater.on('download-progress', arg => {
@@ -123,7 +120,6 @@ app.on('ready', () => {
 
   global.appVersion = `v.${app.getVersion()}`
   global.serverHost = 'http://localhost:7000';
-  global.updateStatus = updateStatus;
   global.storage = new Storage();
   console.log(global.appVersion)
   const env = process.env.NODE_ENV || 'PROD';
