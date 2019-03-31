@@ -1,10 +1,21 @@
 @import "../style.scss";
 
+* {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
+html {box-sizing: border-box;}
+*, *:before, *:after {box-sizing: inherit;}
+html, body {height: 100%; margin: 0;}
+
+h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
+p {margin-top: 10px; color: rgba(255,255,255,0.4);}
+
 body {
   font-family: Roboto sans-serif;
   background-color: $background-color;
 }
-
+@font-face {
+  font-family: Segoe;
+  src: url(../assets/SegMDL2.ttf);
+}
 .split {
   display: flex;
   flex-flow: row nowrap;
@@ -29,10 +40,74 @@ body {
   background: $accent-color;
   border-radius: 10px;
 }
+#titlebar {
+  display: block;
+  position: fixed;
+  height: 32px;
+  width: calc(100% - 2px);
+  background-color: #0f1116;
+  padding: 4px;
+  color: $secondary-accent;
+  font-family: Metric;
+  #drag-region {
+
+    .title {
+      font-size: 1.2em;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      img {
+        margin-right: 12px;
+        height: 24px;
+      }
+    }
+    width: 100%;
+    height: 100%;
+    -webkit-app-region: drag;
+
+    #window-controls {
+      font-family: Segoe;
+      display: grid;
+      grid-template-columns: repeat(3, 46px);
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      font-size: 10px;
+      -webkit-app-region: no-drag;
+      .button {
+        grid-row: 1 / span 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        user-select: none;
+        cursor: default;
+        opacity: 0.8;
+        &:hover {
+          background: rgba(255,255,255,0.2);
+          opacity: 1;
+        }
+      }
+      #min-button {
+        grid-column: 1;
+      }
+      #max-button, #restore-button {
+        grid-column: 2;
+      }
+      #close-button {
+        background: #E81123;
+        grid-column: 3;
+      }
+    }
+  }
+}
 
 .mdyna-app {
   margin: 0;
   padding: 0;
+  padding-top: 32px;
   background-color: $background-color;
   min-height: 600px;
 

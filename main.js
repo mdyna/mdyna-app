@@ -28,7 +28,8 @@ app.on('ready', () => {
     minHeight: 600,
     show: false,
     center: true,
-    title: 'Mdyna',
+    frame: false,
+    title: 'mdyna',
     nodeIntegrationInWorker: true,
     titleBarStyle: 'hidden',
     webPreferences: {

@@ -1,34 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" type="text/css">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-  <link rel="shortcut icon" href="./assets/favicon.ico">
-  <meta name="apple-mobile-web-app-title" content="Mdyna">
-  <meta name="application-name" content="Mdyna">
-  <meta name="msapplication-TileColor" content="#00aba9">
-  <meta name="msapplication-config" content="./assets/browserconfig.xml">
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <!--
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700"
+      type="text/css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/favicon-16x16.png"
+    />
+    <link rel="shortcut icon" href="./assets/favicon.ico" />
+    <meta name="apple-mobile-web-app-title" content="Mdyna" />
+    <meta name="application-name" content="Mdyna" />
+    <meta name="msapplication-TileColor" content="#00aba9" />
+    <meta name="msapplication-config" content="./assets/browserconfig.xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--
     manifest.json provides metadata used when your web app is added to the
     homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
   -->
-  <link rel="manifest" href="./config/manifest.json">
-  <script>
-    if (window.require) {
-      var electron = require('electron');
-      var appVersion = electron.remote.getGlobal('appVersion');
-      var serverHost = electron.remote.getGlobal('serverHost');
-      var storage = electron.remote.getGlobal('storage');
-    }
-  </script>
-  <!--
+    <link rel="manifest" href="./config/manifest.json" />
+    <script>
+      if (window.require) {
+        var electron = require("electron");
+        var appVersion = electron.remote.getGlobal("appVersion");
+        var serverHost = electron.remote.getGlobal("serverHost");
+        var storage = electron.remote.getGlobal("storage");
+      }
+    </script>
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -37,12 +56,34 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>Mdyna</title>
-</head>
+    <title>Mdyna</title>
+  </head>
 
-<body>
-  <div id="root"></div>
-  <!--
+  <body>
+    <header id="titlebar">
+      <div id="drag-region">
+        <span class="title">
+          <img src="../resources/MdynaLogoCircle.png" style="height:24px"/>
+          mdyna
+        </span>
+        <div id="window-controls">
+          <div class="button" id="min-button">
+            <span>&#xE921;</span>
+          </div>
+          <div class="button" id="max-button">
+            <span>&#xE922;</span>
+          </div>
+          <div class="button" id="restore-button">
+            <span>&#xE923;</span>
+          </div>
+          <div class="button" id="close-button">
+            <span>&#xE8BB;</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="root"></div>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -52,7 +93,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <footer>
-    </footer>
-</body>
+    <footer></footer>
+  </body>
 </html>
