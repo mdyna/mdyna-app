@@ -16,6 +16,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devtool: 'source-map',
+  target: 'electron-renderer',
   module: {
     rules: [
       {
