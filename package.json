@@ -1,6 +1,6 @@
 {
   "name": "mdyna",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "A notes app with Markdown support",
   "main": "main.js",
   "scripts": {
