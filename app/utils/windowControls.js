@@ -1,12 +1,15 @@
+import logo from '../../resources/MdynaLogo.png';
+
 export default function handleWindowControls(remote) {
-  console.log(remote)
   function init() {
     let window = remote.getCurrentWindow();
     const minButton = document.getElementById('min-button');
     const maxButton = document.getElementById('max-button');
     const restoreButton = document.getElementById('restore-button');
     const closeButton = document.getElementById('close-button');
+    const titleBarTitle = document.getElementById('titlebar-title-logo');
 
+    titleBarTitle.setAttribute('src', logo);
     function toggleMaxRestoreButtons() {
       window = remote.getCurrentWindow();
       if (window.isMaximized()) {
