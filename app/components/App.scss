@@ -1,7 +1,7 @@
 @import "../style.scss";
 
 * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
-html {box-sizing: border-box;}
+html {box-sizing: border-box; scroll-behavior: smooth;}
 *, *:before, *:after {box-sizing: inherit;}
 html, body {height: 100%; margin: 0;}
 
@@ -44,6 +44,7 @@ body {
 }
 #titlebar {
   display: block;
+  z-index: 1;
   position: fixed;
   height: 32px;
   width: calc(100% - 2px);
@@ -106,7 +107,7 @@ body {
   }
 }
 #root {
-  margin-top: 32px;
+  margin-top: 32px !important;
   overflow-y: scroll;
   height: 100%;
 }
@@ -143,7 +144,6 @@ body {
     flex: 1 auto;
     width: 70vw;
     border-radius: 10px;
-    min-width: 400px;
   }
   &.white-mode {
     background-color: $white-background-color;
