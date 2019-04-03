@@ -6,7 +6,7 @@ import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
-import CardBar from '../Cards/CardBar';
+import CardBar from './CardBar';
 import unNest from '../../utils/nest';
 import assertNoteChanges from '../../utils/assertChanges';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
@@ -57,8 +57,9 @@ class MdynaCard extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.card && this.props.card) {
-      return assertNoteChanges(nextProps.card, this.props.card);
+    const { card } = this.props;
+    if (nextProps.card && card) {
+      return assertNoteChanges(nextProps.card, card);
     }
     return false;
   }
@@ -86,41 +87,55 @@ class MdynaCard extends Component {
       hour: '2-digit',
       minute: '2-digit',
     };
-    const convertDateToLocaleString = (date = new Date()) =>
-      new Date(date).toLocaleDateString(undefined, dateOptions);
+    // eslint-disable-next-line
+    const convertDateToLocaleString = (date = new Date()) => new Date(date).toLocaleDateString(undefined, dateOptions);
     if (lastEditDate) {
       const formattedDate = convertDateToLocaleString(lastEditDate);
       return (
         <span className="card-date">
-          Last edit on <span>{formattedDate}</span>
+          Last edit on
+          {' '}
+          <span>{formattedDate}</span>
         </span>
       );
     }
     const formattedDate = convertDateToLocaleString(startDate);
     return (
       <span className="card-date">
-        Created on <span>{formattedDate}</span>
+        Created on
+        {' '}
+        <span>{formattedDate}</span>
       </span>
     );
   }
-  render() {
-    const { card, i, className, hasCardBar, whiteMode } = this.props;
 
-    const color =
-      (card && card.color) || this.props.changeCardSetting('color', _.sample(COLOR_SAMPLES));
-    const minimize = this.props.showAllText ? false : this.state.minimized;
+  render() {
+    const {
+      card,
+      i,
+      className,
+      hasCardBar,
+      whiteMode,
+      changeCardSetting,
+      showAllText,
+      toggleCard,
+      saveCard,
+      removeCard,
+      editCard,
+      removeLabel,
+    } = this.props;
+
+    const { isHovered, minimized } = this.state;
+    const color = (card && card.color) || changeCardSetting('color', _.sample(COLOR_SAMPLES));
+    const minimize = showAllText ? false : minimized;
     const noteActions = {
-      generateCardLink: this.props.generateCardLink,
-      toggleCard: this.props.toggleCard,
-      removeCard: this.props.removeCard,
+      toggleCard,
+      removeCard,
       minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
-      editCard: this.props.editCard,
-      removeLabel: this.props.removeLabel,
-      snoozeCard: this.props.snoozeCard,
-      failCard: this.props.failCard,
-      completeCard: this.props.completeCard,
+      editCard,
+      removeLabel,
     };
-    const displayControl = noteActions.minimizeCard && !this.props.showAllText;
+    const displayControl = noteActions.minimizeCard && !showAllText;
     return (
       <Card
         key={i}
@@ -130,23 +145,21 @@ class MdynaCard extends Component {
           noteActions.editCard(card);
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item', {
-          minimized: this.state.minimized,
+          minimized,
         })}
-        onMouseEnter={() =>
-          this.setState({
-            isHovered: true,
-          })
+        onMouseEnter={() => this.setState({
+          isHovered: true,
+        })
         }
-        onMouseLeave={() =>
-          this.setState({
-            isHovered: false,
-          })
+        onMouseLeave={() => this.setState({
+          isHovered: false,
+        })
         }
         style={{
           backgroundColor: color || '#4E636E',
           filter:
-            (this.state.isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) ||
-            null,
+            (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`)
+            || null,
         }}
       >
         {hasCardBar ? (
@@ -155,7 +168,7 @@ class MdynaCard extends Component {
             cardActions={noteActions}
             cardItem={this}
             options={{
-              minimized: this.state.minimized,
+              minimized,
             }}
           />
         ) : (
@@ -173,7 +186,7 @@ class MdynaCard extends Component {
           color={color}
           editCard={{
             card,
-            saveFunc: this.props.saveCard,
+            saveFunc: saveCard,
           }}
           text={card.text}
         />
@@ -189,7 +202,7 @@ class MdynaCard extends Component {
               visibility: (displayControl && 'initial') || 'hidden',
             }}
           >
-            {CardBar.renderCardControl(this.state.minimized)}
+            {CardBar.renderCardControl(minimized)}
           </Button>
         }
       </Card>
@@ -201,11 +214,8 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
-  snoozeCard: PropTypes.func,
-  failCard: PropTypes.func,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
-  completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
   showAllText: PropTypes.bool,
@@ -213,7 +223,6 @@ MdynaCard.propTypes = {
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
-  generateCardLink: PropTypes.func,
   changeCardSetting: PropTypes.func,
   i: PropTypes.number,
 };
@@ -222,15 +231,10 @@ MdynaCard.defaultProps = {
   i: 0,
   changeCardSetting: null,
   removeCard: null,
-  snoozeCard: null,
-  failCard: null,
   saveCard: null,
-  completeCard: null,
-  generateCardLink: null,
   editCard: null,
   whiteMode: false,
   showAllText: false,
-  addLabel: null,
   removeLabel: null,
   toggleCard: null,
   hasCardBar: false,
