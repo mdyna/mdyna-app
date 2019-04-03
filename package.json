@@ -14,7 +14,7 @@
     "pack-asar": "./node_modules/.bin/asar pack mdyna app.asar",
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "publish-app": "yarn build-dist --publish always",
-    "reset": "rm -rf ./node_modules && yarn install",
+    "reset": "yarn && cd app && yarn",
     "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
     "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main.js",
     "test": "lint-staged",
