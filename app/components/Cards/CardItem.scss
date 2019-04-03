@@ -5,12 +5,29 @@ $code-background: #08090a;
 
 .card-item {
   color: $note-font-color;
-  margin: 5px;
+  margin: 5px !important;
   max-height: fit-content !important;
-  min-width: 20vw !important;
   border-radius: 10px;
   flex-flow: column nowrap !important;
   outline: none !important;
+  transition: width 0.3s ease;
+
+  @include breakpoint(small) {
+    width: 250px !important;
+  }
+  @include breakpoint(medium) {
+    width: 300px !important;
+  }
+  @include breakpoint(large) {
+    width: 380px !important;
+  }
+  @include breakpoint(xl) {
+    width: 450px !important;
+  }
+  &.expanded {
+    width: 100% !important;
+  }
+
 
   h1 {
     margin-bottom: 5px !important;
@@ -129,6 +146,7 @@ $code-background: #08090a;
   }
 
   .grommetux-box {
+    padding: 24px !important;
     height: fit-content;
     flex-flow: column nowrap;
   }

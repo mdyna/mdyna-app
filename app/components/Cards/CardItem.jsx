@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
 import Button from 'grommet/components/Button';
@@ -45,16 +46,18 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
+  setTimeout(() => card.scrollToCard(), 700);
 }
 
 class MdynaCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovered: false,
-      minimized: unNest(props, 'card.text') && unNest(props, 'card.text').length > 300, // automatically clip over 500 chars
-    };
-  }
+  state = {
+    isHovered: false,
+    minimized: unNest(this.props, 'card.text') && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
+  };
+
+  name = 'Mdyna Card';
+
+  cardTitleRef = React.createRef();
 
   shouldComponentUpdate(nextProps) {
     const { card } = this.props;
@@ -64,17 +67,12 @@ class MdynaCard extends Component {
     return false;
   }
 
-  getCardStats() {
-    const { card } = this.props;
-    const { cardStats } = card;
-    return {
-      completed: (cardStats && cardStats.completed) || 0,
-      failed: (cardStats && cardStats.failed) || 0,
-      snooze: (cardStats && cardStats.snooze) || 0,
-      consecutive: (cardStats && cardStats.consecutive) || 0,
-      record: (cardStats && cardStats.record) || 0,
-      ...cardStats,
-    };
+  scrollToCard() {
+    // eslint-disable-next-line
+    ReactDOM.findDOMNode(this).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
   }
 
   renderCardDate() {
@@ -144,9 +142,12 @@ class MdynaCard extends Component {
         onDoubleClick={() => {
           noteActions.editCard(card);
         }}
-        className={classnames(className, COLOR_LABELS[color], 'card-item', {
-          minimized,
-        })}
+        className={classnames(
+          className,
+          COLOR_LABELS[color],
+          'card-item',
+          noteActions.minimizeCard && !minimized && 'expanded',
+        )}
         onMouseEnter={() => this.setState({
           isHovered: true,
         })
@@ -157,9 +158,7 @@ class MdynaCard extends Component {
         }
         style={{
           backgroundColor: color || '#4E636E',
-          filter:
-            (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`)
-            || null,
+          filter: (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
         {hasCardBar ? (
@@ -174,7 +173,7 @@ class MdynaCard extends Component {
         ) : (
           ''
         )}
-        <Heading align="start" tag="h1" strong>
+        <Heading align="start" tag="h1" strong ref={this.cardTitleRef}>
           {card.title}
         </Heading>
         <Labels labels={card.labels} color={color} />
