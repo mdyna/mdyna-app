@@ -17,6 +17,7 @@ import Button from 'grommet/components/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardPreview from '../containers/CardPreview';
 import MarkdownEditor from '../containers/MarkdownEditor';
+import ErrorBoundary from './Error';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
@@ -337,20 +338,22 @@ export default class CardEditor extends Component {
 
   render() {
     return (
-      <Article
-        direction="column"
-        alignContent="center"
-        pad="large"
-        className={classnames('card-editor', { 'white-mode': this.props.whiteMode })}
-        full={'horizontal'}
-      >
-        <KeyboardEventHandler
-          handleKeys={['ctrl+enter']}
-          onKeyEvent={() => this.submitFormFields()}
-        />
-        <Headline>{this.props.editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
-        {this.generateComponentsFromType(cardDefinition)}
-      </Article>
+      <ErrorBoundary>
+        <Article
+          direction="column"
+          alignContent="center"
+          pad="large"
+          className={classnames('card-editor', { 'white-mode': this.props.whiteMode })}
+          full={'horizontal'}
+        >
+          <KeyboardEventHandler
+            handleKeys={['ctrl+enter']}
+            onKeyEvent={() => this.submitFormFields()}
+          />
+          <Headline>{this.props.editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
+          {this.generateComponentsFromType(cardDefinition)}
+        </Article>
+      </ErrorBoundary>
     );
   }
 }
