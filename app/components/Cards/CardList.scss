@@ -6,9 +6,8 @@
   margin: 0 10px;
   flex-flow: column wrap !important;
 
-  ul {
-    margin-right: auto;
-    margin-left: auto;
+  > ul {
+    margin: 0 auto !important;
   }
 
   &.white-mode {

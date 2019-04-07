@@ -3,6 +3,7 @@
     "browser": true,
     "es6": true
   },
+  "parser": "babel-eslint",
   "extends": ["eslint:recommended", "airbnb"],
   "parserOptions": {
     "ecmaFeatures": {
@@ -11,7 +12,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "import"],
+  "plugins": ["react", "import"],
   "rules": {
     "space-before-function-paren": 0,
     "no-mixed-operators": "off",
