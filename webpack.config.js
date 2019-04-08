@@ -14,6 +14,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      Components: path.resolve(__dirname, 'app/components'),
+      Containers: path.resolve(__dirname, 'app/containers'),
+      UI: path.resolve(__dirname, 'app/components/UI'),
+      Store: path.resolve(__dirname, 'app/store'),
+      Utils: path.resolve(__dirname, 'app/utils'),
+    },
   },
   devtool: 'source-map',
   target: 'electron-renderer',

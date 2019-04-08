@@ -22,6 +22,20 @@
     "guard-for-in": 0,
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["Components", "./app/components"],
+          ["Containers", "./app/containers"],
+          ["Store","./app/store"],
+          ["Utils","./app/utils"],
+          ["UI", "./app/components/UI"]
+        ],
+        "extensions": [".jsx", ".ks"]
+      }
+    }
   }
 }
