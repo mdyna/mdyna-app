@@ -20,7 +20,7 @@ class Mdyna extends Component {
         className={classnames('mdyna-app', { 'white-mode': this.props.whiteMode })}
         style={{ maxWidth: '1920px' }}
       >
-      <ErrorBoundary>
+      <ErrorBoundary whiteMode={this.props.whiteMode}>
         <Article>
           <Header />
           <Box className="split">
