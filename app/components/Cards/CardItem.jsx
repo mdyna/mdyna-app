@@ -7,12 +7,12 @@ import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
+import Labels from 'UI/Labels';
+import MarkdownText from 'UI/MarkdownText';
+import unNest from 'Utils/nest';
+import assertNoteChanges from 'Utils/assertChanges';
 import CardBar from './CardBar';
-import unNest from '../../utils/nest';
-import assertNoteChanges from '../../utils/assertChanges';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
-import MarkdownText from '../MarkdownText';
-import Labels from '../Labels';
 
 import './CardItem.scss'; // eslint-disable-line
 
@@ -46,7 +46,7 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
-  setTimeout(() => card.scrollToCard(), 700);
+  setTimeout(() => card.scrollToCard(), 500);
 }
 
 class MdynaCard extends Component {

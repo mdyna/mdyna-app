@@ -4,9 +4,9 @@ import { toClass } from 'recompose';
 import htmlescape from 'showdown-htmlescape';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import regExp from '../utils/regexp';
+import TaskListInput from 'UI/TaskListInput';
+import regExp from 'Utils/regexp';
 import ReactHighlight from './CodeHighlight';
-import TaskListInput from './TaskListInput';
 
 import './MarkdownText.scss'; // eslint-disable-line
 
@@ -25,7 +25,9 @@ const COLOR_LABELS = {
 
 class MarkdownText extends Component {
   render() {
-    const { text, className, color, minimized, whiteMode, editCard } = this.props;
+    const {
+      text, className, color, minimized, whiteMode, editCard,
+    } = this.props;
     const input = toClass(otherProps => (
       <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
     ));
@@ -46,10 +48,9 @@ class MarkdownText extends Component {
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
-    noteText =
-      text && text.match(regExp.codeRegExp) && text.match(regExp.codeRegExp).length
-        ? `${noteText}\n\`\`\``
-        : noteText;
+    noteText = text && text.match(regExp.codeRegExp) && text.match(regExp.codeRegExp).length
+      ? `${noteText}\n\`\`\``
+      : noteText;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     return (

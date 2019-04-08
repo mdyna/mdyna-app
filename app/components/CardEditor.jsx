@@ -15,32 +15,27 @@ import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
 import Button from 'grommet/components/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import CardPreview from '../containers/CardPreview';
-import MarkdownEditor from '../containers/MarkdownEditor';
-import ErrorBoundary from './Error';
+import ErrorBoundary from 'UI/Error';
+import CardPreview from 'Containers/CardPreview';
+import MarkdownEditor from 'Containers/MarkdownEditor';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
 
 import './CardEditor.scss'; // eslint-disable-line
 
-const EDIT_NOTE = noteID => `${window.serverHost}/note/${noteID}/edit`;
-const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
-
 export default class CardEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      labels: this.props.editorSettings.labels,
-    };
-  }
+  state = {
+    // eslint-disable-next-line
+    labels: this.props.editorSettings.labels,
+  };
 
   getSettingsComponent(settings, schema) {
     return settings.map((settingName) => {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const { changeCardSetting } = this.props;
+      const { changeCardSetting, editorSettings } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
@@ -57,7 +52,7 @@ export default class CardEditor extends Component {
                     {enums.map(color => (
                       <svg
                         onClick={() => changeCardSetting(_.camelCase(settingName), color)}
-                        value={this.props.editorSettings[settingName]}
+                        value={editorSettings[settingName]}
                         key={color}
                       >
                         <circle r="15" fill={color} />
@@ -81,7 +76,7 @@ export default class CardEditor extends Component {
                 id={_.snakeCase(settingName)}
                 onChange={e => changeCardSetting(_.camelCase(settingName), e.option)}
                 placeHolder={_.startCase(settingName)}
-                value={this.props.editorSettings[settingName]}
+                value={editorSettings[settingName]}
                 options={[...enums]}
               />
             </FormField>
@@ -93,12 +88,12 @@ export default class CardEditor extends Component {
             <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
               <CheckBox
                 key={settingName}
-                checked={this.props.editorSettings[settingName]}
+                checked={editorSettings[settingName]}
                 id={_.snakeCase(settingName)}
                 label={_.startCase(settingName)}
                 onChange={e => changeCardSetting(_.camelCase(settingName), e.target.checked)}
               />
-              {setting.dependencies && this.props.editorSettings[settingName]
+              {setting.dependencies && editorSettings[settingName]
                 ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
                 : ''}
             </FormField>
@@ -111,11 +106,13 @@ export default class CardEditor extends Component {
   }
 
   getSuggestions() {
-    if (this.state.labelInput) {
-      const inputLabels = this.state.labelInput.split(' ');
+    const { labels } = this.props;
+    const { labelInput } = this.state;
+    if (labelInput) {
+      const inputLabels = labelInput.split(' ');
       const lastLabel = inputLabels[inputLabels.length - 1];
       const lastLabelLength = lastLabel.length;
-      const userLabels = this.props.labels && this.props.labels.map(d => d.title);
+      const userLabels = labels && labels.map(d => d.title);
       return userLabels
         .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
         .slice(0, 5);
@@ -123,7 +120,13 @@ export default class CardEditor extends Component {
     return [' '];
   }
 
+  updateCard(card) {
+    const { saveCard } = this.props;
+    saveCard(card);
+  }
+
   changeStringSplit(setting, value) {
+    const { labelCount } = this.state;
     const { prefixer, splitters } = setting;
     const settingName = setting.settingName || 'labels';
     const result = [];
@@ -131,7 +134,7 @@ export default class CardEditor extends Component {
     for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
       const splitter = splitters[splitterIndex];
       const splitVals = value.split(splitter);
-      if (splitVals.length !== this.state.labelCount) {
+      if (splitVals.length !== labelCount) {
         // this.handleLabels();
         this.setState({
           labelCount: splitVals.length,
@@ -153,8 +156,9 @@ export default class CardEditor extends Component {
 
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
-    const { changeCardSetting, labels } = this.props;
-    const settingValue = this.props.editorSettings[settingName];
+    const { changeCardSetting, labels, editorSettings } = this.props;
+    const { labelInput } = this.state;
+    const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
       case 'date':
         return (
@@ -193,9 +197,9 @@ export default class CardEditor extends Component {
                     : '#'
                 }
                 onSelect={(e) => {
-                  const selectedValue = `${this.state.labelInput.substring(
+                  const selectedValue = `${labelInput.substring(
                     0,
-                    this.state.labelInput.lastIndexOf(' '),
+                    labelInput.lastIndexOf(' '),
                   )} ${e.suggestion} #`;
                   if (selectedValue) {
                     this.changeStringSplit(setting, selectedValue);
@@ -224,7 +228,7 @@ export default class CardEditor extends Component {
           <div key={settingName} className="editor-with-preview">
             <MarkdownEditor
               text={settingValue}
-              className={'card-text-editor'}
+              className="card-text-editor"
               submitCard={() => this.submitFormFields()}
             />
             <CardPreview changeCardSetting={changeCardSetting} />
@@ -260,63 +264,38 @@ export default class CardEditor extends Component {
     return this.renderCardForm(components);
   }
 
-  updateCard(card) {
-    if (card.shortLink) {
-      fetch(EDIT_NOTE(card.shortLink), {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(card),
-      }).catch(error => console.error(error));
-    }
-    this.props.saveCard(card);
-  }
-
-  removeCard(card) {
-    if (card.shortLink) {
-      fetch(REMOVE_NOTE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(card),
-      }).catch(error => console.error(error));
-    }
-    this.props.removeCard(card);
-  }
-
   handleLabels() {
-    const prevLabels = this.state.labels;
-    const newLabels = this.props.editorSettings.labels || [];
+    const { labels } = this.state;
+    const { editorSettings, addLabel, removeLabel } = this.props;
+    const prevLabels = labels;
+    const newLabels = editorSettings.labels || [];
     if (prevLabels) {
       const prevLabelTitles = prevLabels.map(d => d.title);
       const newLabelTitles = newLabels.map(d => d.title);
       newLabelTitles.forEach((label, index) => {
         if (prevLabelTitles.indexOf(label) === -1) {
-          this.props.addLabel(newLabels[index]);
+          addLabel(newLabels[index]);
         }
       });
       prevLabelTitles.forEach((label, index) => {
         if (newLabelTitles.indexOf(label) === -1) {
-          this.props.removeLabel(prevLabels[index]);
+          removeLabel(prevLabels[index]);
         }
       });
     } else {
-      newLabels.forEach(label => this.props.addLabel(label));
+      newLabels.forEach(label => addLabel(label));
     }
   }
 
   submitFormFields() {
+    const { editorSettings, addCard, toggleEditor } = this.props;
     this.handleLabels();
-    this.props.toggleEditor();
-    const newCard = { ...this.props.editorSettings, startDate: new Date() };
-    if (this.props.editorSettings.newCard) {
-      this.props.addCard(newCard);
+    toggleEditor();
+    const newCard = { ...editorSettings, startDate: new Date() };
+    if (editorSettings.newCard) {
+      addCard(newCard);
     } else {
-      this.updateCard(this.props.editorSettings);
+      this.updateCard(editorSettings);
     }
   }
 
@@ -337,20 +316,21 @@ export default class CardEditor extends Component {
   }
 
   render() {
+    const { editorSettings, whiteMode } = this.props;
     return (
       <ErrorBoundary>
         <Article
           direction="column"
           alignContent="center"
           pad="large"
-          className={classnames('card-editor', { 'white-mode': this.props.whiteMode })}
-          full={'horizontal'}
+          className={classnames('card-editor', { 'white-mode': whiteMode })}
+          full="horizontal"
         >
           <KeyboardEventHandler
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline>{this.props.editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
+          <Headline>{editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
           {this.generateComponentsFromType(cardDefinition)}
         </Article>
       </ErrorBoundary>
@@ -360,13 +340,12 @@ export default class CardEditor extends Component {
 
 CardEditor.propTypes = {
   addCard: PropTypes.func.isRequired,
-  saveCard: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
-  removeCard: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
+  saveCard: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
   labels: PropTypes.array,
 };

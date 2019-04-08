@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toast from 'grommet/components/Toast';
 import cx from 'classnames';
 
 import './Error.scss';

@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactSMDE from 'react-simplemde-editor';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import '!style-loader!css-loader!sass-loader!../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
+import '!style-loader!css-loader!sass-loader!../../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
 function getInstance(editor, submitCard) {
   // eslint-disable-next-line no-param-reassign
   editor.codemirror.options.extraKeys['Ctrl-Enter'] = () => submitCard();
 }
 
-class MarkdownEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorText: null,
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.editorText !== this.state.editorText || nextProps.text !== this.props.text;
-  }
+class MarkdownEditor extends PureComponent {
+  state = {
+    editorText: null,
+  };
 
   handleValueChange(value) {
     const { changeNoteSetting, settingName } = this.props;
-    if (value && value !== this.state.editorText) {
+    const { editorText } = this.state;
+    if (value && value !== editorText) {
       changeNoteSetting(_.snakeCase(settingName), value);
       this.setState({ editorText: value });
     }

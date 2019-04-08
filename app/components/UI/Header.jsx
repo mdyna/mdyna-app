@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import logo from '../../resources/MdynaLogo.png';
+import logo from '../../../resources/MdynaLogo.png';
 import Header from 'grommet/components/Header';
 import Heading from 'grommet/components/Heading';
 import Image from 'grommet/components/Image';

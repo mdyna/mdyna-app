@@ -1,6 +1,6 @@
 import hljs from 'highlight.js';
 import React from 'react';
-import regExpUtils from '../utils/regexp';
+import regExpUtils from 'Utils/regexp';
 
 class Highlight extends React.Component {
   /* eslint-disable */
