@@ -6,6 +6,7 @@ import Box from 'grommet/components/Box';
 import classnames from 'classnames';
 import CardList from '../containers/CardList';
 import SideBar from './Sidebar';
+import ErrorBoundary from './Error';
 import Header from './Header';
 
 import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
@@ -19,6 +20,7 @@ class Mdyna extends Component {
         className={classnames('mdyna-app', { 'white-mode': this.props.whiteMode })}
         style={{ maxWidth: '1920px' }}
       >
+      <ErrorBoundary whiteMode={this.props.whiteMode}>
         <Article>
           <Header />
           <Box className="split">
@@ -28,6 +30,7 @@ class Mdyna extends Component {
             <CardList />
           </Box>
         </Article>
+      </ErrorBoundary>
       </App>
     );
   }
