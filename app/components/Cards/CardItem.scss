@@ -10,7 +10,6 @@ $code-background: #08090a;
   border-radius: 10px;
   flex-flow: column nowrap !important;
   outline: none !important;
-  transition: all 0.3s ease;
 
   @include breakpoint(small) {
     width: 250px !important;
@@ -25,7 +24,7 @@ $code-background: #08090a;
     width: 450px !important;
   }
   &.expanded {
-    width: 100% !important;
+    width: 600px !important;
     max-width: 100% !important;
   }
 
