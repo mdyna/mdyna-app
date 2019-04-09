@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Converter } from 'react-showdown';
 import { toClass } from 'recompose';
 import htmlescape from 'showdown-htmlescape';
@@ -23,7 +23,7 @@ const COLOR_LABELS = {
   '#a7c0cd': 'grey',
 };
 
-class MarkdownText extends Component {
+class MarkdownText extends PureComponent {
   render() {
     const {
       text, className, color, minimized, whiteMode, editCard,
