@@ -39,7 +39,10 @@ class Highlight extends React.Component {
     const codeBlocks = this.state.codeBlocks;
     for (let i = 0; i < nodes.length; i += 1) {
       nodes[i].textContent = (codeBlocks && codeBlocks[i]) || nodes[i].textContent.trim();
-      hljs.highlightBlock(nodes[i]);
+      hljs.configure({
+        tabReplace: '  ',
+      })
+      hljs.highlightBlock(nodes[i])
     }
   }
 
