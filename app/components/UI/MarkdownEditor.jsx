@@ -18,7 +18,7 @@ class MarkdownEditor extends PureComponent {
   handleValueChange(value) {
     const { changeNoteSetting, settingName } = this.props;
     const { editorText } = this.state;
-    if (value && value !== editorText) {
+    if ((value || value === '') && value !== editorText) {
       changeNoteSetting(_.snakeCase(settingName), value);
       this.setState({ editorText: value });
     }
