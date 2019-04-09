@@ -154,6 +154,33 @@ $code-background: #08090a;
 
   .note-card-content {
     overflow-wrap: break-word;
+    p {
+      max-width: 100% !important;
+    }
+    table {
+      border: 2px solid $note-font-color;
+      thead {
+        th {
+          background-color:rgba(255,255,255,0.8);
+        }
+      }
+      tbody {
+        tr {
+          text-align: center;
+          background-color:rgba(255,255,255,0.4);
+          &:nth-child(2n) {
+            background-color:rgba(255,255,255,0.6);
+            &:hover {
+              background-color:rgba(255,255,255,0.8);
+            }
+          }
+          &:hover {
+            background-color:rgba(255,255,255,0.8);
+          }
+        }
+      }
+
+    }
     div {
       display: flex;
       flex-flow: column wrap;

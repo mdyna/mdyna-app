@@ -159,6 +159,10 @@ class MdynaCard extends Component {
         style={{
           backgroundColor: color || '#4E636E',
           filter: (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
+          '& table': {
+            backgroundColor: 'red !important',
+          },
+
         }}
       >
         {hasCardBar ? (
