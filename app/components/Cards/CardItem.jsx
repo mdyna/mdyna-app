@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
@@ -10,7 +10,6 @@ import _ from 'lodash';
 import Labels from 'UI/Labels';
 import MarkdownText from 'UI/MarkdownText';
 import unNest from 'Utils/nest';
-import assertNoteChanges from 'Utils/assertChanges';
 import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
@@ -49,7 +48,7 @@ function minimizeCard(card) {
   setTimeout(() => card.scrollToCard(), 500);
 }
 
-class MdynaCard extends Component {
+class MdynaCard extends PureComponent {
   state = {
     isHovered: false,
     minimized: unNest(this.props, 'card.text') && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
@@ -58,14 +57,6 @@ class MdynaCard extends Component {
   name = 'Mdyna Card';
 
   cardTitleRef = React.createRef();
-
-  shouldComponentUpdate(nextProps) {
-    const { card } = this.props;
-    if (nextProps.card && card) {
-      return assertNoteChanges(nextProps.card, card);
-    }
-    return false;
-  }
 
   scrollToCard() {
     // eslint-disable-next-line
