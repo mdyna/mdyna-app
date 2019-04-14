@@ -72,7 +72,8 @@ export default class CardList extends Component {
   renderVisibleCards() {
     const { searchInput, completedFilterOn, cards } = this.props;
     const filteredCards = cards.filter((d) => {
-      const matchesSearchInput = d.title && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
+      const matchesSearchInput = d.title
+        && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
@@ -90,12 +91,13 @@ export default class CardList extends Component {
 
   render() {
     const {
-      sortByFrequency, whiteMode, cards, toggleEditor, searchInput, modalOpen,
+      whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
     const { pageIndex } = this.state;
-    const cardItems = sortByFrequency ? this.renderCardsByFrequency() : this.renderVisibleCards();
-    const visibleCards = cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
-    const hasMore = cardItems.length > pageIndex + PAGE_SIZE;
+    const cardItems = this.renderVisibleCards();
+    const visibleCards = cardItems && cardItems.length
+      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
 
     return (
       <Section
@@ -187,7 +189,6 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
-  sortByFrequency: PropTypes.bool,
 };
 
 CardList.defaultProps = {
@@ -195,7 +196,6 @@ CardList.defaultProps = {
   whiteMode: false,
   completedFilterOn: false,
   labelFilters: [],
-  sortByFrequency: false,
   searchInput: '',
   cards: [],
 };

@@ -72,8 +72,10 @@ class Sidebar extends Component {
         <KeyboardEventHandler
           handleKeys={['ctrl+p']}
           onKeyEvent={() => {
-            this.expandMenu();
-            setTimeout(() => this.searchBar.current.focus(), 500);
+            if (!sidebarExpanded) {
+              this.expandMenu();
+            }
+            setTimeout(() => this.searchBar.current.focus(), 300);
           }}
         />
         <Box direction="row" justify="start" className="menu-item title">
@@ -230,7 +232,6 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-  searchInput: '',
   whiteMode: false,
   sidebarExpanded: false,
   completedFilterOn: false,
