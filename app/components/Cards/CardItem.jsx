@@ -45,7 +45,7 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
-  setTimeout(() => card.scrollToCard(), 500);
+  setTimeout(() => card.scrollToCard(), 600);
 }
 
 class MdynaCard extends PureComponent {

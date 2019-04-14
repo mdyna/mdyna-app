@@ -24,7 +24,8 @@ $code-background: #08090a;
     width: 450px !important;
   }
   &.expanded {
-    width: 600px !important;
+    width: fit-content !important;
+    min-width: 450px;
     max-width: 100% !important;
   }
 

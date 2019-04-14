@@ -8,13 +8,37 @@ import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
+import LeftIcon from 'grommet/components/icons/base/Previous';
+import RightIcon from 'grommet/components/icons/base/Next';
 import classnames from 'classnames';
-import CardEditor from '../../containers/CardEditor';
-import CardItem from '../../containers/CardItem';
+import CardEditor from 'Containers/CardEditor';
+import CardItem from 'Containers/CardItem';
 
 import './CardList.scss'; // eslint-disable-line
 
+const PAGE_SIZE = 6;
+
 export default class CardList extends Component {
+  state = {
+    pageIndex: 0,
+  };
+
+  getNextCards() {
+    const { pageIndex } = this.state;
+
+    this.setState({
+      pageIndex: pageIndex + PAGE_SIZE,
+    });
+  }
+
+  getPreviousCards() {
+    const { pageIndex } = this.state;
+
+    this.setState({
+      pageIndex: pageIndex - PAGE_SIZE,
+    });
+  }
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {
@@ -31,10 +55,12 @@ export default class CardList extends Component {
   }
 
   renderAddNoteButton() {
+    const { toggleEditor } = this.props;
+
     return (
       <Button
         onClick={() => {
-          this.props.toggleEditor(true);
+          toggleEditor(true);
         }}
         className="add-note-btn"
       >
@@ -44,18 +70,18 @@ export default class CardList extends Component {
   }
 
   renderVisibleCards() {
-    const cards = this.props.cards.filter((d) => {
-      const matchesSearchInput =
-        d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
+    const { searchInput, completedFilterOn, cards } = this.props;
+    const filteredCards = cards.filter((d) => {
+      const matchesSearchInput = d.title && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
       return matchesSearchInput && matchesLabelFilters;
     });
     const visibleCards = [];
-    for (let i = 0; i < cards.length; i += 1) {
-      const card = cards[i];
-      if (!card.repeat && (!card.completed || this.props.completedFilterOn)) {
+    for (let i = 0; i < filteredCards.length; i += 1) {
+      const card = filteredCards[i];
+      if (!card.repeat && (!card.completed || completedFilterOn)) {
         visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
       }
     }
@@ -63,36 +89,66 @@ export default class CardList extends Component {
   }
 
   render() {
-    const cardItems = this.props.sortByFrequency
-      ? this.renderCardsByFrequency()
-      : this.renderVisibleCards();
+    const {
+      sortByFrequency, whiteMode, cards, toggleEditor, searchInput, modalOpen,
+    } = this.props;
+    const { pageIndex } = this.state;
+    const cardItems = sortByFrequency ? this.renderCardsByFrequency() : this.renderVisibleCards();
+    const visibleCards = cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const hasMore = cardItems.length > pageIndex + PAGE_SIZE;
 
     return (
       <Section
         className={classnames({
           'card-list': true,
-          'white-mode': this.props.whiteMode,
+          'white-mode': whiteMode,
         })}
         responsive
         direction="row"
       >
-        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => this.props.toggleEditor(true)} />
+        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
         <Headline align="center" size="medium">
           INBOX
         </Headline>
-        {this.props.cards.length ? (
+        {cards.length ? (
           <React.Fragment>
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
-              <Masonry
-                options={{
-                  fitWidth: true,
-                }}
-                enableResizableChildren
-                elementType={'ul'}
-              >
-                {cardItems}
-              </Masonry>
+              <div className="card-list-pagination">
+                {pageIndex !== 0 && (
+                  <button
+                    className="page-control"
+                    type="button"
+                    onClick={() => this.getPreviousCards()}
+                  >
+                    <KeyboardEventHandler handleKeys={['left']} onKeyEvent={() => this.getPreviousCards()} />
+                    <LeftIcon />
+                  </button>
+                )}
+                <Masonry
+                  options={{
+                    fitWidth: true,
+                    horizontalOrder: true,
+                    transitionDuration: 300,
+                    gutter: 10,
+                    resize: true,
+                  }}
+                  enableResizableChildren
+                  elementType="ul"
+                >
+                  {visibleCards}
+                </Masonry>
+                {hasMore && (
+                  <button
+                    onClick={() => this.getNextCards()}
+                    type="button"
+                    className="page-control"
+                  >
+                    <KeyboardEventHandler handleKeys={['right']} onKeyEvent={() => this.getNextCards()} />
+                    <RightIcon />
+                  </button>
+                )}
+              </div>
             ) : (
               ''
             )}
@@ -101,19 +157,19 @@ export default class CardList extends Component {
           <React.Fragment>
             {this.renderAddNoteButton()}
             <Heading align="center" tag="h3">
-              {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
+              {searchInput ? 'No results found' : 'Click to add a new note'}
             </Heading>
           </React.Fragment>
         )}
-        {this.props.modalOpen ? (
+        {modalOpen ? (
           <Layer
             overlayClose
             closer
             flush
-            onClose={() => this.props.toggleEditor()}
-            className={classnames('note-layer', { 'white-mode': this.props.whiteMode })}
+            onClose={() => toggleEditor()}
+            className={classnames('note-layer', { 'white-mode': whiteMode })}
           >
-            <CardEditor toggleEditor={this.props.toggleEditor} />
+            <CardEditor toggleEditor={toggleEditor} />
           </Layer>
         ) : (
           ''
