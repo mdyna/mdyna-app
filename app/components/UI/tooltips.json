@@ -1,7 +1,7 @@
 {
   "keyboard": {
     "title": "Keyboard Shortcuts",
-    "text": "<ul>\n<li>\n<b>A</b> - Add New Note\n</li>\n<li>\n<b>Ctrl+P</b> - Quick Search\n</li>\n<li>\n<b>Ctrl+Enter</b> - Submit Note <i>while in editor</i>\n</li>\n</ul>"
+    "text": "<ul>\n<li>\n<b>A</b> - Add New Note\n</li>\n<li>\n<b>Left Arrow</b> - Previous Cards\n</li>\n<li>\n<b>Right Arrow</b> - Next Cards\n</li>\n<li>\n<b>Ctrl+P</b> - Quick Search\n</li>\n<li>\n<b>Ctrl+Enter</b> - Submit Note <i>while in editor</i>\n</li>\n</ul>"
   },
   "markdown": {
     "title": "Markdown Guide",

@@ -3,6 +3,7 @@
     "browser": true,
     "es6": true
   },
+  "parser": "babel-eslint",
   "extends": ["eslint:recommended", "airbnb"],
   "parserOptions": {
     "ecmaFeatures": {
@@ -11,7 +12,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "import"],
+  "plugins": ["react", "import"],
   "rules": {
     "space-before-function-paren": 0,
     "no-mixed-operators": "off",
@@ -22,5 +23,20 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/forbid-prop-types": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["Containers", "./app/containers"],
+          ["Components", "./app/components"],
+          ["Resources", "./resources"],
+          ["Store","./app/store"],
+          ["Utils","./app/utils"],
+          ["UI", "./app/components/UI"]
+        ],
+        "extensions": [".jsx", ".js"]
+      }
+    }
   }
 }

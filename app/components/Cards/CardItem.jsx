@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
 import Button from 'grommet/components/Button';
@@ -6,12 +7,11 @@ import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
-import CardBar from '../Cards/CardBar';
-import unNest from '../../utils/nest';
-import assertNoteChanges from '../../utils/assertChanges';
+import Labels from 'UI/Labels';
+import MarkdownText from 'UI/MarkdownText';
+import unNest from 'Utils/nest';
+import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
-import MarkdownText from '../MarkdownText';
-import Labels from '../Labels';
 
 import './CardItem.scss'; // eslint-disable-line
 
@@ -45,35 +45,25 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
+  setTimeout(() => card.scrollToCard(), 600);
 }
 
-class MdynaCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovered: false,
-      minimized: unNest(props, 'card.text') && unNest(props, 'card.text').length > 300, // automatically clip over 500 chars
-    };
-  }
+class MdynaCard extends PureComponent {
+  state = {
+    isHovered: false,
+    minimized: unNest(this.props, 'card.text') && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
+  };
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.card && this.props.card) {
-      return assertNoteChanges(nextProps.card, this.props.card);
-    }
-    return false;
-  }
+  name = 'Mdyna Card';
 
-  getCardStats() {
-    const { card } = this.props;
-    const { cardStats } = card;
-    return {
-      completed: (cardStats && cardStats.completed) || 0,
-      failed: (cardStats && cardStats.failed) || 0,
-      snooze: (cardStats && cardStats.snooze) || 0,
-      consecutive: (cardStats && cardStats.consecutive) || 0,
-      record: (cardStats && cardStats.record) || 0,
-      ...cardStats,
-    };
+  cardTitleRef = React.createRef();
+
+  scrollToCard() {
+    // eslint-disable-next-line
+    ReactDOM.findDOMNode(this).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
   }
 
   renderCardDate() {
@@ -86,41 +76,55 @@ class MdynaCard extends Component {
       hour: '2-digit',
       minute: '2-digit',
     };
-    const convertDateToLocaleString = (date = new Date()) =>
-      new Date(date).toLocaleDateString(undefined, dateOptions);
+    // eslint-disable-next-line
+    const convertDateToLocaleString = (date = new Date()) => new Date(date).toLocaleDateString(undefined, dateOptions);
     if (lastEditDate) {
       const formattedDate = convertDateToLocaleString(lastEditDate);
       return (
         <span className="card-date">
-          Last edit on <span>{formattedDate}</span>
+          Last edit on
+          {' '}
+          <span>{formattedDate}</span>
         </span>
       );
     }
     const formattedDate = convertDateToLocaleString(startDate);
     return (
       <span className="card-date">
-        Created on <span>{formattedDate}</span>
+        Created on
+        {' '}
+        <span>{formattedDate}</span>
       </span>
     );
   }
-  render() {
-    const { card, i, className, hasCardBar, whiteMode } = this.props;
 
-    const color =
-      (card && card.color) || this.props.changeCardSetting('color', _.sample(COLOR_SAMPLES));
-    const minimize = this.props.showAllText ? false : this.state.minimized;
+  render() {
+    const {
+      card,
+      i,
+      className,
+      hasCardBar,
+      whiteMode,
+      changeCardSetting,
+      showAllText,
+      toggleCard,
+      saveCard,
+      removeCard,
+      editCard,
+      removeLabel,
+    } = this.props;
+
+    const { isHovered, minimized } = this.state;
+    const color = (card && card.color) || changeCardSetting('color', _.sample(COLOR_SAMPLES));
+    const minimize = showAllText ? false : minimized;
     const noteActions = {
-      generateCardLink: this.props.generateCardLink,
-      toggleCard: this.props.toggleCard,
-      removeCard: this.props.removeCard,
+      toggleCard,
+      removeCard,
       minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
-      editCard: this.props.editCard,
-      removeLabel: this.props.removeLabel,
-      snoozeCard: this.props.snoozeCard,
-      failCard: this.props.failCard,
-      completeCard: this.props.completeCard,
+      editCard,
+      removeLabel,
     };
-    const displayControl = noteActions.minimizeCard && !this.props.showAllText;
+    const displayControl = noteActions.minimizeCard && !showAllText;
     return (
       <Card
         key={i}
@@ -129,24 +133,27 @@ class MdynaCard extends Component {
         onDoubleClick={() => {
           noteActions.editCard(card);
         }}
-        className={classnames(className, COLOR_LABELS[color], 'card-item', {
-          minimized: this.state.minimized,
-        })}
-        onMouseEnter={() =>
-          this.setState({
-            isHovered: true,
-          })
+        className={classnames(
+          className,
+          COLOR_LABELS[color],
+          'card-item',
+          noteActions.minimizeCard && !minimized && 'expanded',
+        )}
+        onMouseEnter={() => this.setState({
+          isHovered: true,
+        })
         }
-        onMouseLeave={() =>
-          this.setState({
-            isHovered: false,
-          })
+        onMouseLeave={() => this.setState({
+          isHovered: false,
+        })
         }
         style={{
           backgroundColor: color || '#4E636E',
-          filter:
-            (this.state.isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) ||
-            null,
+          filter: (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
+          '& table': {
+            backgroundColor: 'red !important',
+          },
+
         }}
       >
         {hasCardBar ? (
@@ -155,13 +162,13 @@ class MdynaCard extends Component {
             cardActions={noteActions}
             cardItem={this}
             options={{
-              minimized: this.state.minimized,
+              minimized,
             }}
           />
         ) : (
           ''
         )}
-        <Heading align="start" tag="h1" strong>
+        <Heading align="start" tag="h1" strong ref={this.cardTitleRef}>
           {card.title}
         </Heading>
         <Labels labels={card.labels} color={color} />
@@ -173,7 +180,7 @@ class MdynaCard extends Component {
           color={color}
           editCard={{
             card,
-            saveFunc: this.props.saveCard,
+            saveFunc: saveCard,
           }}
           text={card.text}
         />
@@ -189,7 +196,7 @@ class MdynaCard extends Component {
               visibility: (displayControl && 'initial') || 'hidden',
             }}
           >
-            {CardBar.renderCardControl(this.state.minimized)}
+            {CardBar.renderCardControl(minimized)}
           </Button>
         }
       </Card>
@@ -201,11 +208,8 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
-  snoozeCard: PropTypes.func,
-  failCard: PropTypes.func,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
-  completeCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   whiteMode: PropTypes.bool,
   showAllText: PropTypes.bool,
@@ -213,7 +217,6 @@ MdynaCard.propTypes = {
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
-  generateCardLink: PropTypes.func,
   changeCardSetting: PropTypes.func,
   i: PropTypes.number,
 };
@@ -222,15 +225,10 @@ MdynaCard.defaultProps = {
   i: 0,
   changeCardSetting: null,
   removeCard: null,
-  snoozeCard: null,
-  failCard: null,
   saveCard: null,
-  completeCard: null,
-  generateCardLink: null,
   editCard: null,
   whiteMode: false,
   showAllText: false,
-  addLabel: null,
   removeLabel: null,
   toggleCard: null,
   hasCardBar: false,

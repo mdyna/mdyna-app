@@ -14,11 +14,11 @@ import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Tooltip from './Tooltip';
-import LabelFilter from './LabelFilter';
+import Tooltip from 'UI/Tooltip';
+import TooltipData from 'UI/tooltips.json';
+import LabelFilter from 'UI/LabelFilter';
 
 import logo from '../../resources/MdynaLogoCircle.png';
-import TooltipData from './tooltips.json';
 
 import './Sidebar.scss'; // eslint-disable-line
 
@@ -26,16 +26,16 @@ function getCardTitles(cards) {
   return (cards && cards.map(d => d && d.title)) || '';
 }
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchInput: '',
-    };
-    this.searchBar = React.createRef();
-  }
+  state = {
+    searchInput: '',
+  };
+
+  searchBar = React.createRef();
 
   expandMenu() {
-    this.props.toggleSidebar();
+    const { toggleSidebar } = this.props;
+
+    toggleSidebar();
   }
 
   render() {
@@ -46,7 +46,15 @@ class Sidebar extends Component {
       addLabelFilter,
       removeLabelFilter,
       sidebarExpanded,
+      toggleSidebar,
+      toggleWhiteMode,
+      toggleEditor,
+      toggleCompletedFilter,
+      completedFilterOn,
+      labels,
+      searchCards,
     } = this.props;
+    const { searchInput } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [...getCardTitles(cards)];
 
@@ -63,17 +71,22 @@ class Sidebar extends Component {
       >
         <KeyboardEventHandler
           handleKeys={['ctrl+p']}
-          onKeyEvent={() => this.searchBar.current.focus()}
+          onKeyEvent={() => {
+            if (!sidebarExpanded) {
+              this.expandMenu();
+            }
+            setTimeout(() => this.searchBar.current.focus(), 300);
+          }}
         />
         <Box direction="row" justify="start" className="menu-item title">
           {sidebarExpanded ? (
-            <Button onClick={() => this.props.toggleSidebar()} className="title-button">
+            <Button onClick={() => toggleSidebar()} className="title-button">
               <FormPrevious />
               <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
               <Label size="large">mdyna</Label>
             </Button>
           ) : (
-            <Button onClick={() => this.props.toggleSidebar()} className="title-button">
+            <Button onClick={() => toggleSidebar()} className="title-button">
               <FormNext />
             </Button>
           )}
@@ -83,23 +96,23 @@ class Sidebar extends Component {
             <Search
               inline
               suggestions={titles.filter(
-                d => d && d.toLowerCase().startsWith(this.state.searchInput.toLowerCase()),
+                d => d && d.toLowerCase().startsWith(searchInput.toLowerCase()),
               )}
               onDOMChange={(e) => {
-                this.props.searchCards(e.target.value);
+                searchCards(e.target.value);
                 this.setState({
                   searchInput: e.target.value,
                 });
               }}
               ref={this.searchBar}
-              onSelect={e => this.props.searchCards(e.suggestion)}
-              value={this.props.searchInput}
+              onSelect={e => searchCards(e.suggestion)}
+              value={searchInput}
             />
           ) : (
             <Button
               onClick={() => {
                 this.expandMenu();
-                setTimeout(() => this.searchBar.current.focus(), 500);
+                setTimeout(() => this.searchBar.current.focus(), 300);
               }}
             >
               <SearchIcon />
@@ -110,7 +123,7 @@ class Sidebar extends Component {
         <Box direction="row" justify="start" className="menu-item">
           <Button
             onClick={() => {
-              this.props.toggleWhiteMode(!whiteMode);
+              toggleWhiteMode(!whiteMode);
             }}
             className="white-mode-button"
           >
@@ -125,7 +138,7 @@ class Sidebar extends Component {
         <Box direction="row" justify="start" className="menu-item">
           <Button
             onClick={() => {
-              this.props.toggleEditor(true);
+              toggleEditor(true);
             }}
             className="add-note-btn"
           >
@@ -136,10 +149,10 @@ class Sidebar extends Component {
         <Box direction="row" justify="start" className="menu-item">
           <Button
             onClick={() => {
-              this.props.toggleCompletedFilter(!this.props.completedFilterOn);
+              toggleCompletedFilter(!completedFilterOn);
             }}
             className={classnames('toggle-completed-button', {
-              active: this.props.completedFilterOn,
+              active: completedFilterOn,
             })}
           >
             <CheckmarkIcon />
@@ -167,7 +180,7 @@ class Sidebar extends Component {
           {sidebarExpanded ? (
             <LabelFilter
               whiteMode={whiteMode}
-              labels={this.props.labels}
+              labels={labels}
               labelFilters={labelFilters}
               labelFilterFuncs={labelFilterFuncs}
             />
@@ -213,16 +226,13 @@ Sidebar.propTypes = {
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,
-  searchInput: PropTypes.string,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
   cards: PropTypes.array.isRequired,
 };
 
 Sidebar.defaultProps = {
-  searchInput: '',
   whiteMode: false,
-  titles: [],
   sidebarExpanded: false,
   completedFilterOn: false,
   labels: [],

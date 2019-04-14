@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import MarkdownEditor from '../components/MarkdownEditor';
-import { changeCardSetting } from '../store/actions/';
+import { changeCardSetting } from 'Store/actions';
+import MarkdownEditor from 'UI/MarkdownEditor';
 
 function mapDispatchToProps(dispatch) {
   return {

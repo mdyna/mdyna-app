@@ -5,12 +5,30 @@ $code-background: #08090a;
 
 .card-item {
   color: $note-font-color;
-  margin: 5px;
+  margin: 5px !important;
   max-height: fit-content !important;
-  min-width: 20vw !important;
   border-radius: 10px;
   flex-flow: column nowrap !important;
   outline: none !important;
+
+  @include breakpoint(small) {
+    width: 250px !important;
+  }
+  @include breakpoint(medium) {
+    width: 300px !important;
+  }
+  @include breakpoint(large) {
+    width: 380px !important;
+  }
+  @include breakpoint(xl) {
+    width: 450px !important;
+  }
+  &.expanded {
+    width: fit-content !important;
+    min-width: 450px;
+    max-width: 100% !important;
+  }
+
 
   h1 {
     margin-bottom: 5px !important;
@@ -129,12 +147,40 @@ $code-background: #08090a;
   }
 
   .grommetux-box {
+    padding: 24px !important;
     height: fit-content;
     flex-flow: column nowrap;
   }
 
   .note-card-content {
     overflow-wrap: break-word;
+    p {
+      max-width: 100% !important;
+    }
+    table {
+      border: 2px solid $note-font-color;
+      thead {
+        th {
+          background-color:rgba(255,255,255,0.8);
+        }
+      }
+      tbody {
+        tr {
+          text-align: center;
+          background-color:rgba(255,255,255,0.4);
+          &:nth-child(2n) {
+            background-color:rgba(255,255,255,0.6);
+            &:hover {
+              background-color:rgba(255,255,255,0.8);
+            }
+          }
+          &:hover {
+            background-color:rgba(255,255,255,0.8);
+          }
+        }
+      }
+
+    }
     div {
       display: flex;
       flex-flow: column wrap;

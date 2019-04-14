@@ -6,13 +6,6 @@ import Button from 'grommet/components/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchInput: '',
-    };
-  }
-
   renderClickableLabels() {
     const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
@@ -38,6 +31,7 @@ class LabelFilter extends Component {
     }
     return clickableLabels;
   }
+
   render() {
     const { whiteMode } = this.props;
     return (
