@@ -7,10 +7,36 @@
   margin-bottom: 10vh;
   flex-flow: column wrap !important;
 
-  > ul {
-    max-width: calc(100% - 20px);
-    margin: 0 auto !important;
+  .card-list-pagination {
+    display: flex;
+    flex-flow: row nowrap;
+    .page-control {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $accent-color;
+        svg {
+          > * {
+            stroke: $note-list-background;
+          }
+        }
+      }
+      svg {
+        > * {
+          stroke: $accent-color;
+        }
+      }
+    }
+    > ul {
+      max-width: calc(100% - 20px);
+      margin: 0 auto !important;
+    }
   }
+
 
   &.white-mode {
     color: $white-font-color;
