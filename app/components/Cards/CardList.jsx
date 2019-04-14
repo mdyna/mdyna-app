@@ -31,10 +31,12 @@ export default class CardList extends Component {
   }
 
   renderAddNoteButton() {
+    const { toggleEditor } = this.props;
+
     return (
       <Button
         onClick={() => {
-          this.props.toggleEditor(true);
+          toggleEditor(true);
         }}
         className="add-note-btn"
       >
@@ -44,17 +46,19 @@ export default class CardList extends Component {
   }
 
   renderVisibleCards() {
-    const cards = this.props.cards.filter((d) => {
-      const matchesSearchInput = d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
+    const { searchInput, completedFilterOn, cards } = this.props;
+    const filteredCards = cards.filter((d) => {
+      const matchesSearchInput = d.title
+        && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
       return matchesSearchInput && matchesLabelFilters;
     });
     const visibleCards = [];
-    for (let i = 0; i < cards.length; i += 1) {
-      const card = cards[i];
-      if (!card.repeat && (!card.completed || this.props.completedFilterOn)) {
+    for (let i = 0; i < filteredCards.length; i += 1) {
+      const card = filteredCards[i];
+      if (!card.repeat && (!card.completed || completedFilterOn)) {
         visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
       }
     }
@@ -62,7 +66,10 @@ export default class CardList extends Component {
   }
 
   render() {
-    const cardItems = this.props.sortByFrequency
+    const {
+      sortByFrequency, whiteMode, cards, toggleEditor, searchInput, modalOpen,
+    } = this.props;
+    const cardItems = sortByFrequency
       ? this.renderCardsByFrequency()
       : this.renderVisibleCards();
 
@@ -70,16 +77,16 @@ export default class CardList extends Component {
       <Section
         className={classnames({
           'card-list': true,
-          'white-mode': this.props.whiteMode,
+          'white-mode': whiteMode,
         })}
         responsive
         direction="row"
       >
-        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => this.props.toggleEditor(true)} />
+        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
         <Headline align="center" size="medium">
           INBOX
         </Headline>
-        {this.props.cards.length ? (
+        {cards.length ? (
           <React.Fragment>
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
@@ -103,19 +110,19 @@ export default class CardList extends Component {
           <React.Fragment>
             {this.renderAddNoteButton()}
             <Heading align="center" tag="h3">
-              {this.props.searchInput ? 'No results found' : 'Click to add a new note'}
+              {searchInput ? 'No results found' : 'Click to add a new note'}
             </Heading>
           </React.Fragment>
         )}
-        {this.props.modalOpen ? (
+        {modalOpen ? (
           <Layer
             overlayClose
             closer
             flush
-            onClose={() => this.props.toggleEditor()}
-            className={classnames('note-layer', { 'white-mode': this.props.whiteMode })}
+            onClose={() => toggleEditor()}
+            className={classnames('note-layer', { 'white-mode': whiteMode })}
           >
-            <CardEditor toggleEditor={this.props.toggleEditor} />
+            <CardEditor toggleEditor={toggleEditor} />
           </Layer>
         ) : (
           ''
