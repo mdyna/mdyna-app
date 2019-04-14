@@ -16,6 +16,11 @@
       justify-content: center;
       border-radius: 10px;
       cursor: pointer;
+      min-width: unset;
+      outline: none !important;
+      border: none !important;
+      padding: 5px !important;
+      box-shadow: none !important;
 
       &:hover {
         background-color: $accent-color;

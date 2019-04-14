@@ -21,7 +21,7 @@ const PAGE_SIZE = 5;
 export default class CardList extends Component {
   state = {
     pageIndex: 0,
-  }
+  };
 
   getNextCards() {
     const { pageIndex } = this.state;
@@ -72,8 +72,7 @@ export default class CardList extends Component {
   renderVisibleCards() {
     const { searchInput, completedFilterOn, cards } = this.props;
     const filteredCards = cards.filter((d) => {
-      const matchesSearchInput = d.title
-        && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
+      const matchesSearchInput = d.title && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
@@ -94,9 +93,7 @@ export default class CardList extends Component {
       sortByFrequency, whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
     const { pageIndex } = this.state;
-    const cardItems = sortByFrequency
-      ? this.renderCardsByFrequency()
-      : this.renderVisibleCards();
+    const cardItems = sortByFrequency ? this.renderCardsByFrequency() : this.renderVisibleCards();
     const visibleCards = cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
 
     return (
@@ -117,12 +114,17 @@ export default class CardList extends Component {
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
               <div className="card-list-pagination">
-                {pageIndex !== 0 && <LeftIcon onClick={() => this.getPreviousCards()} />}
+                {pageIndex !== 0 && (
+                  <button className="page-control" type="button" onClick={() => this.getPreviousCards()}>
+                    <LeftIcon />
+                  </button>
+                )}
                 <Masonry
                   options={{
                     fitWidth: true,
                     horizontalOrder: true,
                     transitionDuration: 300,
+                    gutter: 10,
                     resize: true,
                   }}
                   enableResizableChildren
@@ -130,7 +132,11 @@ export default class CardList extends Component {
                 >
                   {visibleCards}
                 </Masonry>
-                {<RightIcon onClick={() => this.getNextCards()} />}
+                {
+                  <button onClick={() => this.getNextCards()} type="button" className="page-control">
+                    <RightIcon />
+                  </button>
+                }
               </div>
             ) : (
               ''
