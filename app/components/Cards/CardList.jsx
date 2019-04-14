@@ -121,6 +121,7 @@ export default class CardList extends Component {
                     type="button"
                     onClick={() => this.getPreviousCards()}
                   >
+                    <KeyboardEventHandler handleKeys={['left']} onKeyEvent={() => this.getPreviousCards()} />
                     <LeftIcon />
                   </button>
                 )}
@@ -143,6 +144,7 @@ export default class CardList extends Component {
                     type="button"
                     className="page-control"
                   >
+                    <KeyboardEventHandler handleKeys={['right']} onKeyEvent={() => this.getNextCards()} />
                     <RightIcon />
                   </button>
                 )}
