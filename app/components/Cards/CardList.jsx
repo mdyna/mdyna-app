@@ -8,13 +8,37 @@ import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
+import LeftIcon from 'grommet/components/icons/base/Previous';
+import RightIcon from 'grommet/components/icons/base/Next';
 import classnames from 'classnames';
 import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
 
 import './CardList.scss'; // eslint-disable-line
 
+const PAGE_SIZE = 5;
+
 export default class CardList extends Component {
+  state = {
+    pageIndex: 0,
+  }
+
+  getNextCards() {
+    const { pageIndex } = this.state;
+
+    this.setState({
+      pageIndex: pageIndex + PAGE_SIZE,
+    });
+  }
+
+  getPreviousCards() {
+    const { pageIndex } = this.state;
+
+    this.setState({
+      pageIndex: pageIndex - PAGE_SIZE,
+    });
+  }
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {
@@ -69,9 +93,11 @@ export default class CardList extends Component {
     const {
       sortByFrequency, whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
+    const { pageIndex } = this.state;
     const cardItems = sortByFrequency
       ? this.renderCardsByFrequency()
       : this.renderVisibleCards();
+    const visibleCards = cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
 
     return (
       <Section
@@ -90,18 +116,22 @@ export default class CardList extends Component {
           <React.Fragment>
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
-              <Masonry
-                options={{
-                  fitWidth: true,
-                  horizontalOrder: true,
-                  transitionDuration: 300,
-                  resize: true,
-                }}
-                enableResizableChildren
-                elementType="ul"
-              >
-                {cardItems}
-              </Masonry>
+              <div className="card-list-pagination">
+                {pageIndex !== 0 && <LeftIcon onClick={() => this.getPreviousCards()} />}
+                <Masonry
+                  options={{
+                    fitWidth: true,
+                    horizontalOrder: true,
+                    transitionDuration: 300,
+                    resize: true,
+                  }}
+                  enableResizableChildren
+                  elementType="ul"
+                >
+                  {visibleCards}
+                </Masonry>
+                {<RightIcon onClick={() => this.getNextCards()} />}
+              </div>
             ) : (
               ''
             )}
