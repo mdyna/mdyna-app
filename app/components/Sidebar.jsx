@@ -71,7 +71,10 @@ class Sidebar extends Component {
       >
         <KeyboardEventHandler
           handleKeys={['ctrl+p']}
-          onKeyEvent={() => this.searchBar.current.focus()}
+          onKeyEvent={() => {
+            this.expandMenu();
+            setTimeout(() => this.searchBar.current.focus(), 500);
+          }}
         />
         <Box direction="row" justify="start" className="menu-item title">
           {sidebarExpanded ? (
@@ -107,7 +110,7 @@ class Sidebar extends Component {
             <Button
               onClick={() => {
                 this.expandMenu();
-                setTimeout(() => this.searchBar.current.focus(), 500);
+                setTimeout(() => this.searchBar.current.focus(), 300);
               }}
             >
               <SearchIcon />
