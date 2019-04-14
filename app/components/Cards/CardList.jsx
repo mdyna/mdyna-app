@@ -9,8 +9,8 @@ import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
 import classnames from 'classnames';
-import CardEditor from '../../containers/CardEditor';
-import CardItem from '../../containers/CardItem';
+import CardEditor from 'Containers/CardEditor';
+import CardItem from 'Containers/CardItem';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -45,8 +45,7 @@ export default class CardList extends Component {
 
   renderVisibleCards() {
     const cards = this.props.cards.filter((d) => {
-      const matchesSearchInput =
-        d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
+      const matchesSearchInput = d.title && d.title.toLowerCase().startsWith(this.props.searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
@@ -87,9 +86,12 @@ export default class CardList extends Component {
               <Masonry
                 options={{
                   fitWidth: true,
+                  horizontalOrder: true,
+                  transitionDuration: 300,
+                  resize: true,
                 }}
                 enableResizableChildren
-                elementType={'ul'}
+                elementType="ul"
               >
                 {cardItems}
               </Masonry>

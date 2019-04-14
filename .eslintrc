@@ -35,7 +35,7 @@
           ["Utils","./app/utils"],
           ["UI", "./app/components/UI"]
         ],
-        "extensions": [".jsx", ".ks"]
+        "extensions": [".jsx", ".js"]
       }
     }
   }
