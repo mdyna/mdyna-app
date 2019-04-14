@@ -21,6 +21,9 @@
       border: none !important;
       padding: 5px !important;
       box-shadow: none !important;
+      position: sticky;
+      top: 50px;
+      height: 10vh;
 
       &:hover {
         background-color: $accent-color;
@@ -46,6 +49,21 @@
   &.white-mode {
     color: $white-font-color;
     background-color: $white-note-list-background;
+    .page-control {
+      &:hover {
+        background-color: $white-font-color;
+        svg {
+          > * {
+            stroke: $white-note-list-background;
+          }
+        }
+      }
+      svg {
+        > * {
+          stroke: $white-font-color;
+        }
+      }
+    }
 
     .add-note-btn {
       svg {
@@ -53,10 +71,13 @@
         path {
           stroke: $white-font-color !important;
         }
-        &:hover {
-          border: 1px solid $secondary-background;
+      }
+      &:hover {
+        svg {
+          background-color: $white-font-color;
+          border: 1px solid $white-note-list-background;
           path {
-            stroke: $secondary-background !important;
+            stroke: $white-note-list-background !important;
           }
         }
       }
