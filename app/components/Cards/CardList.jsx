@@ -16,7 +16,7 @@ import CardItem from 'Containers/CardItem';
 
 import './CardList.scss'; // eslint-disable-line
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 6;
 
 export default class CardList extends Component {
   state = {
@@ -95,6 +95,7 @@ export default class CardList extends Component {
     const { pageIndex } = this.state;
     const cardItems = sortByFrequency ? this.renderCardsByFrequency() : this.renderVisibleCards();
     const visibleCards = cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const hasMore = cardItems.length > pageIndex + PAGE_SIZE;
 
     return (
       <Section
@@ -115,7 +116,11 @@ export default class CardList extends Component {
             {cardItems && cardItems.length ? (
               <div className="card-list-pagination">
                 {pageIndex !== 0 && (
-                  <button className="page-control" type="button" onClick={() => this.getPreviousCards()}>
+                  <button
+                    className="page-control"
+                    type="button"
+                    onClick={() => this.getPreviousCards()}
+                  >
                     <LeftIcon />
                   </button>
                 )}
@@ -132,11 +137,15 @@ export default class CardList extends Component {
                 >
                   {visibleCards}
                 </Masonry>
-                {
-                  <button onClick={() => this.getNextCards()} type="button" className="page-control">
+                {hasMore && (
+                  <button
+                    onClick={() => this.getNextCards()}
+                    type="button"
+                    className="page-control"
+                  >
                     <RightIcon />
                   </button>
-                }
+                )}
               </div>
             ) : (
               ''
