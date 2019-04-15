@@ -73,7 +73,7 @@ export default class CardList extends Component {
     const { searchInput, completedFilterOn, cards } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesSearchInput = d.title
-        && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
+        && d.title.toLowerCase().includes(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
