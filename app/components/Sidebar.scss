@@ -146,9 +146,9 @@
       }
 
       &.active svg {
-        background-color: $secondary-accent;
+        background-color: $white-font-color;
         polyline {
-          stroke: $sidebar-background-color !important;
+          stroke: $white-note-list-background !important;
         }
       }
     }
@@ -162,11 +162,12 @@
       }
       &:hover {
         svg {
+          background-color: $white-font-color;
           path {
-            stroke: $white-font-color !important;
+            stroke: $white-note-list-background !important;
           }
           polyline {
-            stroke: $white-font-color !important;
+            stroke: $white-note-list-background !important;
           }
         }
       }
