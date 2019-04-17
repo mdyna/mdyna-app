@@ -6,6 +6,7 @@ import Brush from 'grommet/components/icons/base/Brush';
 import FormNext from 'grommet/components/icons/base/FormNext';
 import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
+import SortIcon from 'grommet/components/icons/base/Transaction';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -157,6 +158,19 @@ class Sidebar extends Component {
           >
             <CheckmarkIcon />
             {sidebarExpanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
+          </Button>
+        </Box>
+        <Box direction="row" justify="start" className="menu-item">
+          <Button
+            onClick={() => {
+              if (!sidebarExpanded) {
+                this.expandMenu();
+              }
+              this.expandSortingOptions();
+            }}
+          >
+            <SortIcon className="sort-icon" />
+            {sidebarExpanded ? <Label className="menu-label">Sort Cards </Label> : ''}
           </Button>
         </Box>
 

@@ -60,7 +60,6 @@
 
   .menu-item {
     align-items: center;
-
     button {
       align-items: center;
       margin: 0;
@@ -84,11 +83,18 @@
       }
     }
 
+
     &.title {
       color: $accent-color;
       border-bottom: 1px solid $accent-color;
       margin-bottom: 20px;
       padding: 5px;
+    }
+
+    .sort-icon {
+      path {
+        transform: rotate(90deg) translate(0px,-24px);
+      }
     }
   }
 
