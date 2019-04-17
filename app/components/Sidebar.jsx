@@ -29,6 +29,7 @@ function getCardTitles(cards) {
 class Sidebar extends Component {
   state = {
     searchInput: '',
+    sortingOptionsExpanded: false,
   };
 
   searchBar = React.createRef();
@@ -37,6 +38,14 @@ class Sidebar extends Component {
     const { toggleSidebar } = this.props;
 
     toggleSidebar();
+  }
+
+  expandSortingOptions() {
+    const { sortingOptionsExpanded } = this.state;
+    console.log(sortingOptionsExpanded);
+    this.setState({
+      sortingOptionsExpanded: !sortingOptionsExpanded,
+    });
   }
 
   render() {
@@ -55,7 +64,7 @@ class Sidebar extends Component {
       labels,
       searchCards,
     } = this.props;
-    const { searchInput } = this.state;
+    const { searchInput, sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [...getCardTitles(cards)];
 
@@ -171,6 +180,19 @@ class Sidebar extends Component {
           >
             <SortIcon className="sort-icon" />
             {sidebarExpanded ? <Label className="menu-label">Sort Cards </Label> : ''}
+          </Button>
+        </Box>
+        <Box
+          direction="column"
+          className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
+        >
+          <Button>
+            <SortIcon className="sort-icon" />
+            By Title
+          </Button>
+          <Button>
+            <SortIcon className="sort-icon" />
+            By Date
           </Button>
         </Box>
 

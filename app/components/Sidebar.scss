@@ -91,9 +91,58 @@
       padding: 5px;
     }
 
-    .sort-icon {
-      path {
-        transform: rotate(90deg) translate(0px,-24px);
+  }
+
+  .sort-icon {
+    path {
+      transform: rotate(90deg) translate(0px,-24px);
+    }
+  }
+
+  .sorting-table {
+    height: 0;
+    transition: 0.5s all;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: $accent-color;
+    color: $background-color;
+    margin-top: 10px;
+    align-items: flex-end;
+    justify-content: flex-start;
+    button {
+      transition: 0.5s all;
+      height: 0;
+      opacity: 0;
+
+    }
+    &.expanded {
+      padding: 10px;
+      height: 110px;
+      button {
+        flex-flow: row nowrap;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        background-color: $secondary-background;
+        color: $accent-color;
+        border-radius: 10px;
+        height: auto;
+        padding: 0 5px;
+        margin: 0 0 10px 0;
+        align-items: center;
+        opacity: 0.8;
+        &:hover {
+          color: $secondary-accent;
+          opacity: 1;
+          background-color: $background-color;
+          svg {
+            border-color: $secondary-accent !important;
+            path {
+              stroke: $secondary-accent !important;
+            }
+          }
+        }
       }
     }
   }
