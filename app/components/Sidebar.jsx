@@ -6,8 +6,7 @@ import Brush from 'grommet/components/icons/base/Brush';
 import FormNext from 'grommet/components/icons/base/FormNext';
 import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
-import UpArrow from 'grommet/components/icons/base/Up';
-import DownArrow from 'grommet/components/icons/base/Down';
+import UpArrow from 'grommet/components/icons/base/LinkUp';
 import SortIcon from 'grommet/components/icons/base/Transaction';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
@@ -210,22 +209,14 @@ class Sidebar extends Component {
             className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
             onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
           >
-            {sorting === SORTING_BY_TITLE
-              ? (order === ASCENDING_ORDER && <UpArrow className="sort-icon" />) || (
-              <DownArrow className="sort-icon" />
-              )
-              : ''}
+            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
             By Title
           </Button>
           <Button
             onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
             className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
           >
-            {sorting === SORTING_BY_DATE
-              ? (order === ASCENDING_ORDER && <UpArrow className="sort-icon" />) || (
-              <DownArrow className="sort-icon" />
-              )
-              : ''}
+            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
             By Date
           </Button>
         </Box>

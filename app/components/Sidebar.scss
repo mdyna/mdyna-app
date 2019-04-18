@@ -101,13 +101,14 @@
 
   .sorting-table {
     height: 0;
-    transition: 0.5s all;
+    transition: all 0.75s;
     border-radius: 10px;
     display: flex;
     flex-flow: column nowrap;
     background-color: $accent-color;
     color: $background-color;
     margin-top: 10px;
+    width: 70%;
     align-items: flex-end;
     justify-content: flex-start;
     button {
@@ -118,30 +119,53 @@
     }
     &.expanded {
       padding: 10px;
+      align-self: flex-end;
       height: 110px;
       button {
         flex-flow: row nowrap;
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-end;
         display: flex;
         background-color: $secondary-background;
-        color: $accent-color;
+        color: $dark-accent-color;
         border-radius: 10px;
-        height: auto;
+        min-height: 40px;
         padding: 0 5px;
         margin: 0 0 10px 0;
         align-items: center;
         opacity: 0.8;
+        &.active-sorting {
+          color: $secondary-accent;
+          svg {
+            opacity: 1;
+            &.descending {
+              transform: rotate(180deg);
+            }
+            path {
+              stroke: $dark-accent-color;
+            }
+          }
+        }
         &:hover {
           color: $secondary-accent;
           opacity: 1;
           background-color: $background-color;
-          svg {
-            border-color: $secondary-accent !important;
-            path {
-              stroke: $secondary-accent !important;
+          &.active-sorting {
+            svg {
+              border-color: $secondary-accent !important;
+              path {
+                stroke: $secondary-accent !important;
+              }
             }
           }
+        }
+
+        svg {
+          margin-right: 12px;
+          transition: all 0.5s;
+          width: 24px;
+          height: 24px;
+          opacity: 0;
         }
       }
     }
