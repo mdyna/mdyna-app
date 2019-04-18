@@ -6,6 +6,8 @@ import Brush from 'grommet/components/icons/base/Brush';
 import FormNext from 'grommet/components/icons/base/FormNext';
 import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
+import UpArrow from 'grommet/components/icons/base/Up';
+import DownArrow from 'grommet/components/icons/base/Down';
 import SortIcon from 'grommet/components/icons/base/Transaction';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
@@ -67,6 +69,8 @@ class Sidebar extends Component {
       toggleEditor,
       toggleCompletedFilter,
       completedFilterOn,
+      sorting,
+      order,
       labels,
       searchCards,
     } = this.props;
@@ -75,13 +79,14 @@ class Sidebar extends Component {
     const titles = [...getCardTitles(cards)];
 
     const getSortingOrder = (targetSorting) => {
-      const { sorting, order } = this.props;
       const activeSorting = sorting;
       if (targetSorting === activeSorting) {
         return order === ASCENDING_ORDER ? DESCENDING_ORDER : ASCENDING_ORDER;
       }
       return ASCENDING_ORDER;
     };
+
+    console.warn(order, sorting, 'SORTING');
 
     return (
       <Box
@@ -202,13 +207,25 @@ class Sidebar extends Component {
           className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
         >
           <Button
+            className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
             onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
           >
-            <SortIcon className="sort-icon" />
+            {sorting === SORTING_BY_TITLE
+              ? (order === ASCENDING_ORDER && <UpArrow className="sort-icon" />) || (
+              <DownArrow className="sort-icon" />
+              )
+              : ''}
             By Title
           </Button>
-          <Button onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}>
-            <SortIcon className="sort-icon" />
+          <Button
+            onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
+            className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
+          >
+            {sorting === SORTING_BY_DATE
+              ? (order === ASCENDING_ORDER && <UpArrow className="sort-icon" />) || (
+              <DownArrow className="sort-icon" />
+              )
+              : ''}
             By Date
           </Button>
         </Box>
