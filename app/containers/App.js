@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import App from '../components/App';
+import App from 'Components/App';
 import {
   toggleWhiteMode,
   toggleSidebar,
@@ -7,8 +7,9 @@ import {
   searchCards,
   addLabelFilter,
   removeLabelFilter,
+  changeSorting,
   toggleCompletedFilter,
-} from '../store/actions/';
+} from 'Store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -23,6 +24,9 @@ function mapDispatchToProps(dispatch) {
     },
     searchCards: (val) => {
       dispatch(searchCards(val));
+    },
+    changeSorting: (sorting, order) => {
+      dispatch(changeSorting(sorting, order));
     },
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
@@ -41,6 +45,8 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
+    sorting: state.filters.sorting,
+    order: state.filters.order,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
     cards: state.cards,
