@@ -1,15 +1,16 @@
 import ACTION_TYPES from '../actions/actionTypes';
 import unNest from '../../utils/nest';
 
-const { ADD_CARD, REMOVE_CARD, TOGGLE_CARD, GENERATE_LINK, SAVE_CARD } = ACTION_TYPES.CARD;
+const {
+  ADD_CARD, REMOVE_CARD, TOGGLE_CARD, GENERATE_LINK, SAVE_CARD,
+} = ACTION_TYPES.CARD;
 
-const addId = cardList =>
-  (cardList &&
-    cardList[cardList.length - 1] &&
-    cardList[cardList.length - 1].id &&
-    cardList[cardList.length - 1].id + 1) ||
-  (cardList && cardList.length) ||
-  1;
+const addId = cardList => (cardList
+    && cardList[cardList.length - 1]
+    && cardList[cardList.length - 1].id
+    && cardList[cardList.length - 1].id + 1)
+  || (cardList && cardList.length)
+  || 1;
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
@@ -22,6 +23,7 @@ export default function cards(state = [], action) {
         {
           ...action.card,
           title: cardTitle(action),
+          lastEditDate: new Date(),
           id: addId(state),
           completed: false,
         },
