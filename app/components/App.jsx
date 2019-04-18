@@ -27,7 +27,7 @@ class Mdyna extends Component {
             <div className="sidebar-wrapper">
               <SideBar {...this.props}/>
             </div>
-            <CardList />
+            <CardList cards={this.props.cards}/>
           </Box>
         </Article>
       </ErrorBoundary>

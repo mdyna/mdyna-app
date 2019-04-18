@@ -81,7 +81,7 @@ class MdynaCard extends PureComponent {
     const lastEditDateFormatted = convertDateToLocaleString(lastEditDate);
     const startDateFormatted = convertDateToLocaleString(startDate);
     const datesAreDifferent = lastEditDateFormatted !== startDateFormatted;
-    const formattedDate = datesAreDifferent ? lastEditDate : startDate;
+    const formattedDate = datesAreDifferent ? lastEditDateFormatted : startDateFormatted;
     return datesAreDifferent ? (
       <span className="card-date">
         Last edit on

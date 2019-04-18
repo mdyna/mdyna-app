@@ -18,6 +18,12 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import TooltipData from 'UI/tooltips.json';
 import LabelFilter from 'UI/LabelFilter';
+import {
+  SORTING_BY_TITLE,
+  SORTING_BY_DATE,
+  ASCENDING_ORDER,
+  DESCENDING_ORDER,
+} from 'Utils/globals';
 
 import logo from '../../resources/MdynaLogoCircle.png';
 
@@ -42,7 +48,6 @@ class Sidebar extends Component {
 
   expandSortingOptions() {
     const { sortingOptionsExpanded } = this.state;
-    console.log(sortingOptionsExpanded);
     this.setState({
       sortingOptionsExpanded: !sortingOptionsExpanded,
     });
@@ -53,6 +58,7 @@ class Sidebar extends Component {
       cards,
       whiteMode,
       labelFilters,
+      changeSorting,
       addLabelFilter,
       removeLabelFilter,
       sidebarExpanded,
@@ -67,6 +73,15 @@ class Sidebar extends Component {
     const { searchInput, sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [...getCardTitles(cards)];
+
+    const getSortingOrder = (targetSorting) => {
+      const { sorting, order } = this.props;
+      const activeSorting = sorting;
+      if (targetSorting === activeSorting) {
+        return order === ASCENDING_ORDER ? DESCENDING_ORDER : ASCENDING_ORDER;
+      }
+      return ASCENDING_ORDER;
+    };
 
     return (
       <Box
@@ -186,11 +201,13 @@ class Sidebar extends Component {
           direction="column"
           className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
         >
-          <Button>
+          <Button
+            onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
+          >
             <SortIcon className="sort-icon" />
             By Title
           </Button>
-          <Button>
+          <Button onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}>
             <SortIcon className="sort-icon" />
             By Date
           </Button>
@@ -264,6 +281,9 @@ Sidebar.propTypes = {
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
+  sorting: PropTypes.string,
+  order: PropTypes.string,
+  changeSorting: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
 };
 
@@ -271,6 +291,8 @@ Sidebar.defaultProps = {
   whiteMode: false,
   sidebarExpanded: false,
   completedFilterOn: false,
+  sorting: SORTING_BY_DATE,
+  order: DESCENDING_ORDER,
   labels: [],
 };
 

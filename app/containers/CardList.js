@@ -14,7 +14,6 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    cards: state.cards,
     searchInput: state.filters.searchInput,
     completedFilterOn: state.filters.completedFilterOn,
     modalOpen: state.editor.toggleEditor,

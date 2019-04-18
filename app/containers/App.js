@@ -14,7 +14,6 @@ import {
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
-  ASCENDING_ORDER,
   DESCENDING_ORDER,
 } from 'Utils/globals';
 

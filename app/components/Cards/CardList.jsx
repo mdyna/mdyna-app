@@ -86,7 +86,7 @@ export default class CardList extends Component {
         visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
       }
     }
-    return (visibleCards.length && visibleCards.reverse()) || null;
+    return (visibleCards.length && visibleCards) || null;
   }
 
   render() {
