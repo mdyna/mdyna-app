@@ -107,6 +107,7 @@
     flex-flow: column nowrap;
     background-color: $accent-color;
     color: $background-color;
+    align-self: flex-end;
     margin-top: 10px;
     width: 70%;
     align-items: flex-end;
@@ -119,7 +120,6 @@
     }
     &.expanded {
       padding: 10px;
-      align-self: flex-end;
       height: 110px;
       button {
         flex-flow: row nowrap;
@@ -174,6 +174,33 @@
   &.white-mode {
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
+    .sorting-table {
+      color: $white-font-color !important;
+      background-color: $white-secondary-background;
+      button {
+        color: $white-sidebar-background-color;
+        &.active-sorting {
+          color: $white-background-color;
+          svg {
+            border-color: $white-background-color;
+            path {
+              stroke: $white-background-color !important;
+            }
+          }
+        }
+        &:hover {
+          color: $white-secondary-background;
+          &.active-sorting {
+            svg {
+              border-color: $white-secondary-background !important;
+              path {
+                stroke: $white-secondary-background !important;
+              }
+            }
+          }
+        }
+      }
+    }
     .sidebar-footer {
       label {
         color: $white-font-color;
