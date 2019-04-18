@@ -60,11 +60,10 @@
 
   .menu-item {
     align-items: center;
-
     button {
       align-items: center;
       margin: 0;
-      padding: 5px;
+      padding: 0 10px;
       border-radius: 5px;
       display: flex;
       justify-content: space-between;
@@ -84,17 +83,124 @@
       }
     }
 
+
     &.title {
       color: $accent-color;
       border-bottom: 1px solid $accent-color;
       margin-bottom: 20px;
       padding: 5px;
     }
+
+  }
+
+  .sort-icon {
+    path {
+      transform: rotate(90deg) translate(0px,-24px);
+    }
+  }
+
+  .sorting-table {
+    height: 0;
+    transition: all 0.75s;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: $accent-color;
+    color: $background-color;
+    align-self: flex-end;
+    margin-top: 10px;
+    width: 70%;
+    align-items: flex-end;
+    justify-content: flex-start;
+    button {
+      transition: 0.5s all;
+      height: 0;
+      opacity: 0;
+
+    }
+    &.expanded {
+      padding: 10px;
+      height: 110px;
+      button {
+        flex-flow: row nowrap;
+        width: 100%;
+        justify-content: flex-end;
+        display: flex;
+        background-color: $secondary-background;
+        color: $dark-accent-color;
+        border-radius: 10px;
+        min-height: 40px;
+        padding: 0 5px;
+        margin: 0 0 10px 0;
+        align-items: center;
+        opacity: 0.8;
+        &.active-sorting {
+          color: $secondary-accent;
+          svg {
+            opacity: 1;
+            &.descending {
+              transform: rotate(180deg);
+            }
+            path {
+              stroke: $dark-accent-color;
+            }
+          }
+        }
+        &:hover {
+          color: $secondary-accent;
+          opacity: 1;
+          background-color: $background-color;
+          &.active-sorting {
+            svg {
+              border-color: $secondary-accent !important;
+              path {
+                stroke: $secondary-accent !important;
+              }
+            }
+          }
+        }
+
+        svg {
+          margin-right: 12px;
+          transition: all 0.5s;
+          width: 24px;
+          height: 24px;
+          opacity: 0;
+        }
+      }
+    }
   }
 
   &.white-mode {
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
+    .sorting-table {
+      color: $white-font-color !important;
+      background-color: $white-secondary-background;
+      button {
+        color: $white-sidebar-background-color;
+        &.active-sorting {
+          color: $white-background-color;
+          svg {
+            border-color: $white-background-color;
+            path {
+              stroke: $white-background-color !important;
+            }
+          }
+        }
+        &:hover {
+          color: $white-secondary-background;
+          &.active-sorting {
+            svg {
+              border-color: $white-secondary-background !important;
+              path {
+                stroke: $white-secondary-background !important;
+              }
+            }
+          }
+        }
+      }
+    }
     .sidebar-footer {
       label {
         color: $white-font-color;
@@ -146,9 +252,9 @@
       }
 
       &.active svg {
-        background-color: $secondary-accent;
+        background-color: $white-font-color;
         polyline {
-          stroke: $sidebar-background-color !important;
+          stroke: $white-note-list-background !important;
         }
       }
     }
@@ -162,11 +268,12 @@
       }
       &:hover {
         svg {
+          background-color: $white-font-color;
           path {
-            stroke: $white-font-color !important;
+            stroke: $white-note-list-background !important;
           }
           polyline {
-            stroke: $white-font-color !important;
+            stroke: $white-note-list-background !important;
           }
         }
       }
@@ -226,8 +333,9 @@
     svg {
       border: 2px solid $accent-color;
       border-radius: 10px;
-      height: 32px;
-      width: 32px;
+      height: 28px;
+      margin: 5px 0;
+      width: 38px;
       padding: 5px;
     }
     &:hover {

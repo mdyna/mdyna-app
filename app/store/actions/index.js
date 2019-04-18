@@ -106,6 +106,11 @@ export const searchCards = value => ({
   type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
   value,
 });
+export const changeSorting = (sorting, order) => ({
+  type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,
+  sorting,
+  order,
+});
 export const addLabelFilter = value => ({
   type: ACTION_TYPES.FILTERS.ADD_LABEL_FILTER,
   value,
