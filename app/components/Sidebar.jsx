@@ -85,8 +85,6 @@ class Sidebar extends Component {
       return ASCENDING_ORDER;
     };
 
-    console.warn(order, sorting, 'SORTING');
-
     return (
       <Box
         full="vertical"
