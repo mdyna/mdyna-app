@@ -20,7 +20,10 @@ body {
 }
 
 .loader {
-		animation: rotation 2s infinite linear;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  animation: rotation 2s infinite linear;
 }
 
 @keyframes rotation {
