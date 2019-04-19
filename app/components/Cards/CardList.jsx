@@ -10,9 +10,11 @@ import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
 import LeftIcon from 'grommet/components/icons/base/Previous';
 import RightIcon from 'grommet/components/icons/base/Next';
+import Label from 'grommet/components/Label';
 import classnames from 'classnames';
 import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
+import Error from 'UI/Error';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -73,7 +75,7 @@ export default class CardList extends Component {
     const { searchInput, completedFilterOn, cards } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesSearchInput = d.title
-        && d.title.toLowerCase().startsWith(searchInput.toLowerCase());
+        && d.title.toLowerCase().includes(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
@@ -86,7 +88,7 @@ export default class CardList extends Component {
         visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
       }
     }
-    return (visibleCards.length && visibleCards.reverse()) || null;
+    return (visibleCards.length && visibleCards) || null;
   }
 
   render() {
@@ -113,9 +115,9 @@ export default class CardList extends Component {
           INBOX
         </Headline>
         {cards.length ? (
-          <React.Fragment>
+          <Error>
             {this.renderAddNoteButton()}
-            {cardItems && cardItems.length ? (
+            {visibleCards && visibleCards.length ? (
               <div className="card-list-pagination">
                 {pageIndex !== 0 && (
                   <button
@@ -152,9 +154,11 @@ export default class CardList extends Component {
                 )}
               </div>
             ) : (
-              ''
+              <Label>
+                No cards to present
+              </Label>
             )}
-          </React.Fragment>
+          </Error>
         ) : (
           <React.Fragment>
             {this.renderAddNoteButton()}

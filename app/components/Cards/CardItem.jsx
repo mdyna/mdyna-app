@@ -78,18 +78,17 @@ class MdynaCard extends PureComponent {
     };
     // eslint-disable-next-line
     const convertDateToLocaleString = (date = new Date()) => new Date(date).toLocaleDateString(undefined, dateOptions);
-    if (lastEditDate) {
-      const formattedDate = convertDateToLocaleString(lastEditDate);
-      return (
-        <span className="card-date">
-          Last edit on
-          {' '}
-          <span>{formattedDate}</span>
-        </span>
-      );
-    }
-    const formattedDate = convertDateToLocaleString(startDate);
-    return (
+    const lastEditDateFormatted = convertDateToLocaleString(lastEditDate);
+    const startDateFormatted = convertDateToLocaleString(startDate);
+    const datesAreDifferent = lastEditDateFormatted !== startDateFormatted;
+    const formattedDate = datesAreDifferent ? lastEditDateFormatted : startDateFormatted;
+    return datesAreDifferent ? (
+      <span className="card-date">
+        Last edit on
+        {' '}
+        <span>{formattedDate}</span>
+      </span>
+    ) : (
       <span className="card-date">
         Created on
         {' '}
@@ -153,7 +152,6 @@ class MdynaCard extends PureComponent {
           '& table': {
             backgroundColor: 'red !important',
           },
-
         }}
       >
         {hasCardBar ? (

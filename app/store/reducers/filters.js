@@ -4,6 +4,7 @@ const {
   SEARCH_CARDS,
   ADD_LABEL_FILTER,
   REMOVE_LABEL_FILTER,
+  CHANGE_SORTING_STATE,
   TOGGLE_COMPLETED_FILTER,
 } = ACTION_TYPES.FILTERS;
 
@@ -12,6 +13,8 @@ export default function notes(
     searchInput: '',
     completedFilterOn: false,
     labelFilters: [],
+    sorting: '',
+    order: 'ascending',
   },
   action,
 ) {
@@ -28,8 +31,14 @@ export default function notes(
           (state.labelFilters.indexOf(action.value) === -1 && [
             ...state.labelFilters,
             action.value,
-          ]) ||
-          state.labelFilters,
+          ])
+          || state.labelFilters,
+      };
+    case CHANGE_SORTING_STATE:
+      return {
+        ...state,
+        sorting: action.sorting,
+        order: action.order || state.order,
       };
     case REMOVE_LABEL_FILTER:
       return {

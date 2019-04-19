@@ -6,6 +6,8 @@ import Brush from 'grommet/components/icons/base/Brush';
 import FormNext from 'grommet/components/icons/base/FormNext';
 import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
+import UpArrow from 'grommet/components/icons/base/LinkUp';
+import SortIcon from 'grommet/components/icons/base/Transaction';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -17,6 +19,12 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import TooltipData from 'UI/tooltips.json';
 import LabelFilter from 'UI/LabelFilter';
+import {
+  SORTING_BY_TITLE,
+  SORTING_BY_DATE,
+  ASCENDING_ORDER,
+  DESCENDING_ORDER,
+} from 'Utils/globals';
 
 import logo from '../../resources/MdynaLogoCircle.png';
 
@@ -28,6 +36,7 @@ function getCardTitles(cards) {
 class Sidebar extends Component {
   state = {
     searchInput: '',
+    sortingOptionsExpanded: false,
   };
 
   searchBar = React.createRef();
@@ -38,11 +47,19 @@ class Sidebar extends Component {
     toggleSidebar();
   }
 
+  expandSortingOptions() {
+    const { sortingOptionsExpanded } = this.state;
+    this.setState({
+      sortingOptionsExpanded: !sortingOptionsExpanded,
+    });
+  }
+
   render() {
     const {
       cards,
       whiteMode,
       labelFilters,
+      changeSorting,
       addLabelFilter,
       removeLabelFilter,
       sidebarExpanded,
@@ -51,12 +68,22 @@ class Sidebar extends Component {
       toggleEditor,
       toggleCompletedFilter,
       completedFilterOn,
+      sorting,
+      order,
       labels,
       searchCards,
     } = this.props;
-    const { searchInput } = this.state;
+    const { searchInput, sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const titles = [...getCardTitles(cards)];
+
+    const getSortingOrder = (targetSorting) => {
+      const activeSorting = sorting;
+      if (targetSorting === activeSorting) {
+        return order === ASCENDING_ORDER ? DESCENDING_ORDER : ASCENDING_ORDER;
+      }
+      return ASCENDING_ORDER;
+    };
 
     return (
       <Box
@@ -159,6 +186,38 @@ class Sidebar extends Component {
             {sidebarExpanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
           </Button>
         </Box>
+        <Box direction="row" justify="start" className="menu-item">
+          <Button
+            onClick={() => {
+              if (!sidebarExpanded) {
+                this.expandMenu();
+              }
+              this.expandSortingOptions();
+            }}
+          >
+            <SortIcon className="sort-icon" />
+            {sidebarExpanded ? <Label className="menu-label">Sort Cards </Label> : ''}
+          </Button>
+        </Box>
+        <Box
+          direction="column"
+          className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
+        >
+          <Button
+            className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
+            onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
+          >
+            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+            By Title
+          </Button>
+          <Button
+            onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
+            className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
+          >
+            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+            By Date
+          </Button>
+        </Box>
 
         <Box direction="column" className="menu-item-labels">
           <Box direction="row" justify="start" className="menu-item">
@@ -228,6 +287,9 @@ Sidebar.propTypes = {
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
+  sorting: PropTypes.string,
+  order: PropTypes.string,
+  changeSorting: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
 };
 
@@ -235,6 +297,8 @@ Sidebar.defaultProps = {
   whiteMode: false,
   sidebarExpanded: false,
   completedFilterOn: false,
+  sorting: SORTING_BY_DATE,
+  order: DESCENDING_ORDER,
   labels: [],
 };
 

@@ -1,10 +1,5 @@
 @import "../../style.scss";
 
-$dark-accent-color: #01a982;
-$white-label-background-color: #d2e3eb;
-$white-hover-color: #e9f6fc;
-
-
 .label-filter-box {
   border: 2px solid $accent-color;
   border-radius: 10px;
@@ -21,13 +16,21 @@ $white-hover-color: #e9f6fc;
     .label-box {
       .label-button {
         background-color: $white-label-background-color !important;
-        border: 2px solid $white-font-color !important;
+        border: 1px solid $white-font-color !important;
         &:hover {
-          background-color: $white-hover-color !important;
+          color: $white-background-color !important;
+          border-color: $white-font-color !important;
+          background-color: $white-font-color !important;
         }
       }
       .label-button-active {
-        background-color: $white-hover-color !important;
+        border: 2px solid $white-font-color !important;
+        background-color: $white-background-color;
+        &:hover {
+          border-color: $white-font-color !important;
+          background-color: $white-hover-color;
+          color: $white-secondary-background !important;
+        }
       }
     }
   }
@@ -41,24 +44,26 @@ $white-hover-color: #e9f6fc;
 
     .label-button {
       background-color: $accent-color;
-      border: 2px solid $dark-accent-color !important;
+      border: 1px solid $dark-accent-color !important;
       border-radius: 5px;
       padding: 2px;
       margin: 5px;
 
       &:hover {
-        background-color: $secondary-accent;
+        color: $accent-color;
+        background-color: $secondary-background !important;
       }
     }
     .label-button-active {
       background-color: $secondary-accent;
-      border: 2px solid $secondary-accent !important;
+      border: 2px solid $dark-accent-color !important;
       border-radius: 5px;
       padding: 3px;
       margin: 5px;
 
       &:hover {
-        background-color: $dark-accent-color;
+        background-color: $background-color !important;
+        color: $accent-color !important;
       }
     }
   }

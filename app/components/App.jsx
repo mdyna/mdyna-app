@@ -6,6 +6,7 @@ import Box from 'grommet/components/Box';
 import classnames from 'classnames';
 import CardList from '../containers/CardList';
 import SideBar from './Sidebar';
+import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 
@@ -27,7 +28,11 @@ class Mdyna extends Component {
             <div className="sidebar-wrapper">
               <SideBar {...this.props}/>
             </div>
-            <CardList />
+            {
+              this.props.cards ?
+              <CardList cards={this.props.cards}/> :
+              <Loader/>
+            }
           </Box>
         </Article>
       </ErrorBoundary>

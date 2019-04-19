@@ -48,10 +48,11 @@ class ErrorBoundary extends React.Component {
 export default ErrorBoundary;
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   whiteMode: PropTypes.bool,
 };
 
 ErrorBoundary.defaultProps = {
   whiteMode: false,
+  children: [],
 };
