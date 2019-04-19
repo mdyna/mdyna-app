@@ -18,6 +18,20 @@ body {
   font-family: Segoe;
   src: url(../assets/SegMDL2.ttf);
 }
+
+.loader {
+		animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
+
 .split {
   display: flex;
   flex-flow: row nowrap;
