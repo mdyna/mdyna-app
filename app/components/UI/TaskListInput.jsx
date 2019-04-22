@@ -21,11 +21,11 @@ function getTaskDataFromInput(text) {
     tasks: [],
     completed: 0,
   };
-  const tasks = text.match(regexp.extractTasksFromMarkdownRegExp)[0].split('- ');
+  const tasks = text.match(regexp.extractTasksFromMarkdownRegExp);
   for (let i = 0; i < tasks.length; i += 1) {
-    const task = tasks[i];
+    const task = tasks[i].replace('- ', '');
     if (task) {
-      const rawContent = task.slice(4, task.length - 1).trim();
+      const rawContent = task.slice(4, task.length);
       const completed = (task.slice(0, 3) === '[X]' && true) || false;
       const textContent = dropMdChars(rawContent).trim();
       taskData.tasks.push({
@@ -70,7 +70,7 @@ class TaskListInput extends Component {
             }
             saveFunc({
               ...card,
-              text: newText,
+              text: newText || text,
             });
           }}
         />
