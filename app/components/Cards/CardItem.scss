@@ -179,7 +179,18 @@ $code-background: #08090a;
           }
         }
       }
-
+    }
+    ul {
+      .task-list-item {
+        input {
+          position: relative;
+          vertical-align: bottom;
+          opacity: 1;
+          cursor: pointer;
+          height: 20px;
+          width: 20px;
+        }
+      }
     }
     div {
       display: flex;
