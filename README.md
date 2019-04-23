@@ -1,9 +1,10 @@
 # Mdyna
 
 ### A notes app with Markdown support and code syntax highlighting
+[![Mdyna Logo](./resources/MdynaLogo.png)](https://mdyna.dev)
 [![CircleCI](https://circleci.com/gh/mdyna/mdyna-app/tree/master.svg?style=svg)](https://circleci.com/gh/mdyna/mdyna-app/tree/master)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3c3367fc-b80c-4829-af8a-02fac5f9f979/deploy-status)](https://app.netlify.com/sites/mdyna/deploys)
 
-[![Mdyna Logo](./resources/MdynaLogo.png)](https://mdyna.github.io)
 
 _Built with React+Redux+Electron_
 

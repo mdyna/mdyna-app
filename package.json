@@ -2,6 +2,7 @@
   "name": "mdyna",
   "version": "0.5.3",
   "description": "A notes app with Markdown support",
+  "homepage": "https://mdyna.dev",
   "main": "main.js",
   "scripts": {
     "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw",
