@@ -13,7 +13,7 @@ function dropMdChars(text) {
       textArray.push(char);
     }
   }
-  return textArray.join('');
+  return textArray.join('').replace('...', '…');
 }
 
 function getTaskDataFromInput(text) {
