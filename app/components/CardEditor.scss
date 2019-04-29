@@ -177,7 +177,9 @@
     .card-preview {
       min-height: 245px;
       color: $note-font-color !important;
-      margin: 0 0px 0 10px;
+      margin: 0 0px 0 10px !important;
+      flex: 1;
+      align-self: flex-start;
     }
 
     .card-text-editor {
