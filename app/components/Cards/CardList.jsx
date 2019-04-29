@@ -6,7 +6,6 @@ import Section from 'grommet/components/Section';
 import Layer from 'grommet/components/Layer';
 import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
-import Button from 'grommet/components/Button';
 import Pulse from 'grommet/components/icons/base/Add';
 import LeftIcon from 'grommet/components/icons/base/Previous';
 import RightIcon from 'grommet/components/icons/base/Next';
@@ -14,6 +13,7 @@ import Label from 'grommet/components/Label';
 import classnames from 'classnames';
 import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
+import Button from 'UI/Button';
 import Error from 'UI/Error';
 
 import './CardList.scss'; // eslint-disable-line
@@ -120,14 +120,14 @@ export default class CardList extends Component {
             {visibleCards && visibleCards.length ? (
               <div className="card-list-pagination">
                 {pageIndex !== 0 && (
-                  <button
+                  <Button
                     className="page-control"
                     type="button"
                     onClick={() => this.getPreviousCards()}
                   >
                     <KeyboardEventHandler handleKeys={['left']} onKeyEvent={() => this.getPreviousCards()} />
                     <LeftIcon />
-                  </button>
+                  </Button>
                 )}
                 <Masonry
                   options={{
@@ -143,14 +143,14 @@ export default class CardList extends Component {
                   {visibleCards}
                 </Masonry>
                 {hasMore && (
-                  <button
+                  <Button
                     onClick={() => this.getNextCards()}
                     type="button"
                     className="page-control"
                   >
                     <KeyboardEventHandler handleKeys={['right']} onKeyEvent={() => this.getNextCards()} />
                     <RightIcon />
-                  </button>
+                  </Button>
                 )}
               </div>
             ) : (

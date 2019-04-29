@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy';
 import cx from 'classnames';
-import Button from 'grommet/components/Button';
+import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {

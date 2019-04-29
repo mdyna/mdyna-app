@@ -11,12 +11,12 @@ import SortIcon from 'grommet/components/icons/base/Transaction';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
-import Button from 'grommet/components/Button';
 import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
+import Button from 'UI/Button';
 import TooltipData from 'UI/tooltips.json';
 import LabelFilter from 'UI/LabelFilter';
 import {

@@ -13,7 +13,7 @@ import DateTime from 'grommet/components/DateTime';
 import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
-import Button from 'grommet/components/Button';
+import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
@@ -330,7 +330,15 @@ export default class CardEditor extends Component {
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline>{editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
+          <Headline>
+            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+            <Button
+              className="submit-btn"
+              label="Submit"
+              primary
+              onClick={() => this.submitFormFields()}
+            />
+          </Headline>
           {this.generateComponentsFromType(cardDefinition)}
         </Article>
       </ErrorBoundary>
