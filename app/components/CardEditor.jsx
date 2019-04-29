@@ -22,7 +22,7 @@ import MarkdownEditor from 'Containers/MarkdownEditor';
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
 
-import './CardEditor.scss'; // eslint-disable-line
+import './CardEditor.scss';
 
 export default class CardEditor extends Component {
   state = {
@@ -308,7 +308,7 @@ export default class CardEditor extends Component {
         <Button
           className="submit-btn"
           label="Submit"
-          primary
+          color="primary"
           onClick={() => this.submitFormFields()}
         />
       </Form>
@@ -330,14 +330,15 @@ export default class CardEditor extends Component {
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline>
+          <Headline className="header">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             <Button
               className="submit-btn"
-              label="Submit"
-              primary
+              color="alt"
               onClick={() => this.submitFormFields()}
-            />
+            >
+            Save Card
+            </Button>
           </Headline>
           {this.generateComponentsFromType(cardDefinition)}
         </Article>
