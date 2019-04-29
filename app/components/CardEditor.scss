@@ -255,6 +255,28 @@
 .note-layer.white-mode > .grommetux-layer__container {
   display: block !important;
   background-color: $white-secondary-background !important;
+  button {
+    svg {
+      path {
+        fill: $note-font-color !important;
+        stroke: $note-font-color !important;
+      }
+      polygon {
+        stroke: $note-font-color !important;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: $white-font-color !important;
+          stroke: $white-font-color !important;
+        }
+        polygon {
+          stroke: $white-font-color !important;
+        }
+      }
+    }
+  }
   .card-editor {
     .card-text-editor {
       .editor-toolbar {

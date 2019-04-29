@@ -300,12 +300,14 @@ export default class CardEditor extends Component {
   }
 
   renderCardForm(components) {
+    const { whiteMode } = this.props;
     return (
       <Form plain>
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
         <Button
+          theme={whiteMode && 'white'}
           className="submit-btn"
           label="Submit"
           color="primary"
@@ -333,6 +335,7 @@ export default class CardEditor extends Component {
           <Headline className="header">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             <Button
+              theme={whiteMode && 'white'}
               className="submit-btn"
               color="alt"
               onClick={() => this.submitFormFields()}

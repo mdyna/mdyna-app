@@ -2,7 +2,7 @@
 
 button.button {
   font-weight: bold;
-  padding: 5px;
+  padding: 5px !important;
   border-radius: 10px;
   &.icon {
     @include normalize-button-icons();
@@ -18,5 +18,17 @@ button.button {
     background-color: $accent-color;
     color: $background-color;
     border: 1px solid $background-color !important;
+  }
+  &.white-theme {
+    border: 1px solid $white-secondary-background !important;
+    &.alt {
+      color: $white-background-color;
+      background-color: $white-font-color;
+    }
+    &.primary {
+      color: $white-font-color;
+      background-color: $white-background-color;
+    }
+
   }
 }
