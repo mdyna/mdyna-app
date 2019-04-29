@@ -12,7 +12,7 @@ $code-background: #08090a;
   outline: none !important;
 
   @include breakpoint(small) {
-    width: 250px !important;
+    width: 100% !important;
   }
   @include breakpoint(medium) {
     width: 300px !important;

@@ -46,6 +46,9 @@
 }
 
 .card-editor {
+  @include breakpoint(medium) {
+    padding: 20px 20px 48px 20px;
+  }
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
@@ -174,16 +177,33 @@
     width: 100%;
     margin-top: 10px;
 
+    @include breakpoint(small) {
+      flex-flow: column wrap;
+    }
+    @include breakpoint(medium) {
+      flex-flow: row wrap;
+    }
+
+
     .card-preview {
       min-height: 245px;
       color: $note-font-color !important;
       margin: 0 0px 0 10px !important;
       flex: 1;
       align-self: flex-start;
+      @include breakpoint(small) {
+        width: 100% !important;
+        margin: 10px auto !important;
+      }
     }
 
     .card-text-editor {
       width: calc(100% - 365px);
+      @include breakpoint(small) {
+        width: 100%;
+      }
+
+
       .CodeMirror-cursor {
         border-left: 1px solid $accent-color;
       }
@@ -236,8 +256,6 @@
   background-color: $white-secondary-background !important;
   .card-editor {
     .card-text-editor {
-      width: calc(100% - 365px);
-
       .editor-toolbar {
         a {
           color: $white-font-color !important;
