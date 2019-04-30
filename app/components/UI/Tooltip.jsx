@@ -33,18 +33,19 @@ class Tooltip extends Component {
   }
 
   render() {
-    const { title, whiteMode } = this.props;
+    const { title, whiteMode, icon, onClick } = this.props;
 
     return (
       <React.Fragment>
         <Box
           data-tip
           data-for={title}
+          onClick={() => onClick()}
           onMouseEnter={() => this.showTooltip()}
           onMouseLeave={() => this.hideTooltip()}
           className={cx('tip-icon', whiteMode && 'white-mode')}
         >
-          <HelpIcon />
+          {icon}
         </Box>
         <ReactTooltip
           id={title}
@@ -66,12 +67,16 @@ class Tooltip extends Component {
 export default Tooltip;
 
 Tooltip.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  icon: PropTypes.node,
+  onClick: PropTypes.func,
   title: PropTypes.string,
   whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {
-  show: false,
+  text: '',
+  icon: <HelpIcon />,
+  onClick: null,
   title: 'help',
 };

@@ -136,14 +136,15 @@ class Sidebar extends Component {
               value={searchInput}
             />
           ) : (
-            <Button
+            <Tooltip
+              whiteMode={whiteMode}
+              icon={<SearchIcon />}
+              title="Search"
               onClick={() => {
                 this.expandMenu();
                 setTimeout(() => this.searchBar.current.focus(), 300);
               }}
-            >
-              <SearchIcon />
-            </Button>
+            />
           )}
         </Box>
 
