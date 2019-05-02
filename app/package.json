@@ -39,7 +39,8 @@
     "redux-logger": "^3.0.6",
     "showdown-htmlescape": "^0.1.9",
     "simplemde": "^1.11.2",
-    "tinycolor2": "^1.4.1"
+    "tinycolor2": "^1.4.1",
+    "uniqid": "^5.0.3"
   },
   "author": "David Morais",
   "license": "ISC",

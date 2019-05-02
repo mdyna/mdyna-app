@@ -2047,9 +2047,9 @@ react-router@^3.0.0:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-"react-showdown@https://github.com/psybork/react-showdown.git":
+"react-showdown@https://github.com/dmorais92/react-showdown.git":
   version "1.8.2"
-  resolved "https://github.com/psybork/react-showdown.git#329fa3e8c2672c306830c7da1b93ce43e09cadbe"
+  resolved "https://github.com/dmorais92/react-showdown.git#329fa3e8c2672c306830c7da1b93ce43e09cadbe"
   dependencies:
     create-react-class "15.5.2"
     htmlparser2 "3.9.0"
@@ -2591,6 +2591,11 @@ ua-parser-js@^0.7.18:
   version "0.7.19"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.19.tgz#94151be4c0a7fb1d001af7022fdaca4642659e4b"
   integrity sha512-T3PVJ6uz8i0HzPxOF9SWzWAlfN/DavlpQqepn22xgve/5QecC+XMCAtmUNnY7C9StehaV6exjUCI801lOI7QlQ==
+
+uniqid@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/uniqid/-/uniqid-5.0.3.tgz#917968310edc868d50df6c44f783f32c7d80fac1"
+  integrity sha512-R2qx3X/LYWSdGRaluio4dYrPXAJACTqyUjuyXHoJLBUOIfmMcnYOyY2d6Y4clZcIz5lK6ZaI0Zzmm0cPfsIqzQ==
 
 universalify@^0.1.0:
   version "0.1.2"
