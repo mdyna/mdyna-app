@@ -32,7 +32,7 @@ class Tooltip extends Component {
 
   renderTooltipContent() {
     const { text, title, whiteMode } = this.props;
-    console.log(text);
+
     return (
       <ReactTooltip
         id={title}
@@ -47,6 +47,7 @@ class Tooltip extends Component {
           {title}
         </h3>
         <MarkdownText
+          disableCode
           whiteMode={whiteMode}
           className="tooltip-text"
           text={text}
