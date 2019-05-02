@@ -17,7 +17,7 @@ import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
-import TooltipData from 'UI/tooltipsContent.js';
+import TooltipData from 'UI/tooltipsContent';
 import LabelFilter from 'UI/LabelFilter';
 import {
   SORTING_BY_TITLE,
@@ -249,25 +249,27 @@ class Sidebar extends Component {
             />
           )}
         </Box>
-        <Box
-          direction="column"
-          className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
-        >
-          <Button
-            className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
-            onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
+        {sidebarExpanded && (
+          <Box
+            direction="column"
+            className={classnames(sortingOptionsExpanded && 'expanded', 'sorting-table')}
           >
-            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
-            By Title
-          </Button>
-          <Button
-            onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
-            className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
-          >
-            <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
-            By Date
-          </Button>
-        </Box>
+            <Button
+              className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
+              onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
+            >
+              <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+              By Title
+            </Button>
+            <Button
+              onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
+              className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
+            >
+              <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+              By Date
+            </Button>
+          </Box>
+        )}
 
         <Box direction="column" className="menu-item-labels">
           <Box direction="row" justify="start" className="menu-item">
