@@ -17,7 +17,7 @@ import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
-import TooltipData from 'UI/tooltips.json';
+import TooltipData from 'UI/tooltipsContent.js';
 import LabelFilter from 'UI/LabelFilter';
 import {
   SORTING_BY_TITLE,
