@@ -18,6 +18,30 @@ hue-6:   #986801
 hue-6-2: #c18401
 
 */
+.disable-code {
+  code:before {
+    content: "```";
+    font-family: Metric;
+  }
+  code:after {
+    content: "```";
+    font-family: Metric;
+  }
+  code {
+    font-family: Metric;
+  }
+  pre:before {
+    content: "```";
+    font-family: Metric;
+  }
+  pre:after {
+    content: "```";
+    font-family: Metric;
+  }
+  pre {
+    font-family: Metric;
+  }
+}
 .mdyna-md.white-mode  {
   .hljs {
     display: block;

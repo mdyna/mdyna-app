@@ -26,7 +26,7 @@ const COLOR_LABELS = {
 class MarkdownText extends PureComponent {
   render() {
     const {
-      text, className, color, minimized, whiteMode, editCard,
+      text, className, color, minimized, whiteMode, editCard, disableCode,
     } = this.props;
     const input = toClass(otherProps => (
       <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
@@ -38,7 +38,6 @@ class MarkdownText extends PureComponent {
       tasklists: true,
       simpleLineBreaks: true,
       smoothLivePreview: true,
-      smartIdentationFix: true,
       simplifiedAutoLink: true,
       literalMidWordUnderscores: true,
       openLinksInNewWindow: true,
@@ -53,6 +52,13 @@ class MarkdownText extends PureComponent {
       : noteText;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
+    if (disableCode) {
+      return (
+        <div className="disable-code">
+          {formattedText}
+        </div>
+      );
+    }
     return (
       <ReactHighlight
         element="div"
@@ -77,13 +83,16 @@ MarkdownText.propTypes = {
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   whiteMode: PropTypes.bool,
-  editCard: PropTypes.object.isRequired,
+  disableCode: PropTypes.bool,
+  editCard: PropTypes.object,
   color: PropTypes.string,
 };
 
 MarkdownText.defaultProps = {
   minimized: false,
   whiteMode: false,
+  editCard: null,
+  disableCode: false,
   color: '#4E636E',
   text: '',
 };
