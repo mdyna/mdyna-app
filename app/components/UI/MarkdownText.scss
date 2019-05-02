@@ -19,6 +19,9 @@ hue-6-2: #c18401
 
 */
 .disable-code {
+  p {
+    color: #333;
+  }
   code:before {
     content: "`";
     font-family: Metric;

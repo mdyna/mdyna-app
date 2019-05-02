@@ -9,7 +9,6 @@ class MdynaButton extends PureComponent {
     const {
       theme, children, className, color, icon, ariaLabel, ...otherProps
     } = this.props;
-    console.log()
     return (
       <Button aria-label={ariaLabel} className={cx('button', color, className, icon && 'icon', `${theme}-theme`)} {...otherProps}>
         {children}
@@ -29,7 +28,7 @@ MdynaButton.propTypes = {
 
 MdynaButton.defaultProps = {
   children: [],
-  theme: 'mdyna',
+  theme: '',
   className: '',
   ariaLabel: 'Button',
   icon: false,
