@@ -17,23 +17,24 @@ const tooltips = {
 - ### Sub-sub-title ^^
 
 ## Formatting
-- *\*Italic**
-- **\*\*bold\*\*\**
-- ~~\~\~strikethrough~~~~
+- *Italic*
+- **bold**
+- ~~strikethrough~~
 
 ## Lists
 - 1. Ordered List
-* * **or** - Unordered List
+* * OR - Unordered List
 - - [ ] Task List
 
 ## Other
 
 - \`inline code\`
-- \`\`\`
+- Code Snipet
+\`\`\`javascript
 code snippet
 \`\`\`
 - > quote
-- [Link](http://mdyna.dev)
+- [ Link Description ]( <URL> )
     `,
   },
 };
