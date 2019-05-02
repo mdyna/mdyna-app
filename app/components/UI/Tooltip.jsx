@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import HelpIcon from 'grommet/components/icons/base/Help';
@@ -10,18 +10,7 @@ import MarkdownText from 'UI/MarkdownText';
 
 import './Tooltip.scss'; // eslint-disable-line
 
-class Tooltip extends Component {
-  state = {
-    show: true,
-  };
-
-  showTooltip() {
-    this.setState({ show: true });
-  }
-
-  hideTooltip() {
-    this.setState({ show: false });
-  }
+class Tooltip extends PureComponent {
 
   tooltipPortal() {
     return ReactDOM.createPortal(
@@ -40,12 +29,12 @@ class Tooltip extends Component {
         class={cx('tooltip', whiteMode && 'white-mode')}
         multiline
         offset={{
-          left: 20,
+          right: 10,
         }}
       >
-        <h3>
+        <h1>
           {title}
-        </h3>
+        </h1>
         <MarkdownText
           disableCode
           whiteMode={whiteMode}

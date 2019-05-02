@@ -20,11 +20,11 @@ hue-6-2: #c18401
 */
 .disable-code {
   code:before {
-    content: "```";
+    content: "`";
     font-family: Metric;
   }
   code:after {
-    content: "```";
+    content: "`";
     font-family: Metric;
   }
   code {
@@ -39,7 +39,31 @@ hue-6-2: #c18401
     font-family: Metric;
   }
   pre {
+    code:before {
+      content: "";
+    }
+    code:after {
+      content: "";
+    }
     font-family: Metric;
+  }
+  strong:before {
+    content: "**";
+  }
+  strong:after {
+    content: "**";
+  }
+  em:before {
+    content: "*";
+  }
+  em:after {
+    content: "*";
+  }
+  del:before {
+    content: "~~";
+  }
+  del:after {
+    content: "~~";
   }
 }
 .mdyna-md.white-mode  {
