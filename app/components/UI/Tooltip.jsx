@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import HelpIcon from 'grommet/components/icons/base/Help';
 import Box from 'grommet/components/Box';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
+import MarkdownText from 'UI/MarkdownText';
+
 
 import './Tooltip.scss'; // eslint-disable-line
 
@@ -20,20 +23,42 @@ class Tooltip extends Component {
     this.setState({ show: false });
   }
 
+  tooltipPortal() {
+    return ReactDOM.createPortal(
+      this.renderTooltipContent(),
+      document.getElementById('root'),
+    );
+  }
+
   renderTooltipContent() {
-    const { text, title } = this.props;
-    return `
-      <h3>
-        ${title}
-      </h3>
-      <div className="tooltip-text">
-        ${text}
-      </div>
-      `;
+    const { text, title, whiteMode } = this.props;
+    console.log(text);
+    return (
+      <ReactTooltip
+        id={title}
+        place="top"
+        class={cx('tooltip', whiteMode && 'white-mode')}
+        multiline
+        offset={{
+          left: 20,
+        }}
+      >
+        <h3>
+          {title}
+        </h3>
+        <MarkdownText
+          whiteMode={whiteMode}
+          className="tooltip-text"
+          text={text}
+        />
+      </ReactTooltip>
+    );
   }
 
   render() {
-    const { title, whiteMode, icon, onClick } = this.props;
+    const {
+      title, whiteMode, icon, onClick,
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -46,19 +71,8 @@ class Tooltip extends Component {
           className={cx('tip-icon', whiteMode && 'white-mode')}
         >
           {icon}
+          {this.tooltipPortal()}
         </Box>
-        <ReactTooltip
-          id={title}
-          place="top"
-          class={cx('tooltip', whiteMode && 'white-mode')}
-          multiline
-          offset={{
-            left: 20,
-          }}
-          html
-        >
-          {this.renderTooltipContent()}
-        </ReactTooltip>
       </React.Fragment>
     );
   }
