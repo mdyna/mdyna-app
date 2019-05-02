@@ -140,6 +140,8 @@ class Sidebar extends Component {
               whiteMode={whiteMode}
               icon={<SearchIcon />}
               title="Search"
+              className="sidebar-tooltip"
+              text="Hotkey: Ctrl+P"
               onClick={() => {
                 this.expandMenu();
                 setTimeout(() => this.searchBar.current.focus(), 300);
@@ -149,56 +151,103 @@ class Sidebar extends Component {
         </Box>
 
         <Box direction="row" justify="start" className="menu-item">
-          <Button
-            onClick={() => {
-              toggleWhiteMode(!whiteMode);
-            }}
-            className="white-mode-button"
-          >
-            <Brush />
-            {sidebarExpanded ? (
+          {sidebarExpanded ? (
+            <Button
+              onClick={() => {
+                toggleWhiteMode(!whiteMode);
+              }}
+            >
+              <Brush />
               <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
-            ) : (
-              ''
-            )}
-          </Button>
+            </Button>
+          ) : (
+            <Tooltip
+              whiteMode={whiteMode}
+              icon={<Brush />}
+              className="sidebar-tooltip"
+              title="Set theme"
+              text={`Switch to ${whiteMode ? 'dark' : 'white'} theme`}
+              onClick={() => {
+                toggleWhiteMode(!whiteMode);
+              }}
+            />
+          )}
         </Box>
         <Box direction="row" justify="start" className="menu-item">
-          <Button
-            onClick={() => {
-              toggleEditor(true);
-            }}
-            className="add-note-btn"
-          >
-            <Pulse />
-            {sidebarExpanded ? <Label className="menu-label">Add Card</Label> : ''}
-          </Button>
+          {sidebarExpanded ? (
+            <Button
+              onClick={() => {
+                toggleEditor(true);
+              }}
+              className="add-note-btn"
+            >
+              <Pulse />
+              <Label className="menu-label">Add Card</Label>
+            </Button>
+          ) : (
+            <Tooltip
+              whiteMode={whiteMode}
+              icon={<Pulse />}
+              className={classnames('sidebar-tooltip', 'add-note-btn')}
+              title="Add card"
+              text="Hotkey: A"
+              onClick={() => {
+                toggleEditor(true);
+              }}
+            />
+          )}
         </Box>
         <Box direction="row" justify="start" className="menu-item">
-          <Button
-            onClick={() => {
-              toggleCompletedFilter(!completedFilterOn);
-            }}
-            className={classnames('toggle-completed-button', {
-              active: completedFilterOn,
-            })}
-          >
-            <CheckmarkIcon />
-            {sidebarExpanded ? <Label className="menu-label">Toggle Completed</Label> : ''}
-          </Button>
+          {sidebarExpanded ? (
+            <Button
+              onClick={() => {
+                toggleCompletedFilter(!completedFilterOn);
+              }}
+              className={classnames('toggle-completed-button', completedFilterOn && 'active')}
+            >
+              <CheckmarkIcon />
+              <Label className="menu-label">Toggle Completed</Label>
+            </Button>
+          ) : (
+            <Tooltip
+              className={classnames(
+                'toggle-completed-button',
+                'sidebar-tooltip',
+                completedFilterOn && 'active',
+              )}
+              whiteMode={whiteMode}
+              icon={<CheckmarkIcon />}
+              title="Toggle completed cards"
+              text="Make cards which have already been completed visible"
+              onClick={() => {
+                toggleCompletedFilter(!completedFilterOn);
+              }}
+            />
+          )}
         </Box>
         <Box direction="row" justify="start" className="menu-item">
-          <Button
-            onClick={() => {
-              if (!sidebarExpanded) {
+          {sidebarExpanded ? (
+            <Button
+              onClick={() => {
+                this.expandSortingOptions();
+              }}
+            >
+              <SortIcon className="sort-icon" />
+              <Label className="menu-label">Sort Cards </Label>
+            </Button>
+          ) : (
+            <Tooltip
+              className={classnames('sidebar-tooltip', 'sort-icon')}
+              whiteMode={whiteMode}
+              icon={<SortIcon />}
+              title="Sort cards"
+              text="Open sorting options"
+              onClick={() => {
                 this.expandMenu();
-              }
-              this.expandSortingOptions();
-            }}
-          >
-            <SortIcon className="sort-icon" />
-            {sidebarExpanded ? <Label className="menu-label">Sort Cards </Label> : ''}
-          </Button>
+                setTimeout(() => this.expandSortingOptions(), 300);
+              }}
+            />
+          )}
         </Box>
         <Box
           direction="column"
@@ -228,13 +277,16 @@ class Sidebar extends Component {
                 <Label className="menu-label">Filter Labels</Label>
               </React.Fragment>
             ) : (
-              <Button
+              <Tooltip
+                className="sidebar-tooltip"
+                whiteMode={whiteMode}
+                icon={<Filter />}
+                title="Filter cards"
+                text="Filter cards by label"
                 onClick={() => {
                   this.expandMenu();
                 }}
-              >
-                <Filter />
-              </Button>
+              />
             )}
           </Box>
           {sidebarExpanded ? (

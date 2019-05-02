@@ -4,15 +4,23 @@
   margin-left: 5px;
   border: 2px dotted $accent-color;
   border-radius: 50px;
+  outline: none !important;
+  box-shadow: none !important;
   padding: 2px !important;
   svg {
     path {
+      stroke: $accent-color !important;
+    }
+    polyline {
       stroke: $accent-color !important;
     }
   }
   &:hover {
     svg {
       path {
+        stroke: $secondary-accent !important;
+      }
+      polyline {
         stroke: $secondary-accent !important;
       }
     }
@@ -23,10 +31,16 @@
       path {
         stroke: $white-font-color !important;
       }
+      polyline {
+        stroke: $white-font-color !important;
+      }
     }
     &:hover {
       svg {
         path {
+          stroke: $white-hover-color !important;
+        }
+        polyline {
           stroke: $white-hover-color !important;
         }
       }
@@ -39,11 +53,10 @@
   font-family: Metric;
   border-radius: 10px;
 
-  h4 {
+  h2 {
     margin: 5px !important;
-    font-size: 1.5em !important;
-    font-weight: bold !important;
   }
+
   ul {
     li {
       color: $white-font-color !important;

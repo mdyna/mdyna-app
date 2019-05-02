@@ -7,47 +7,37 @@ import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import MarkdownText from 'UI/MarkdownText';
 
-
 import './Tooltip.scss'; // eslint-disable-line
 
 class Tooltip extends PureComponent {
-
   tooltipPortal() {
-    return ReactDOM.createPortal(
-      this.renderTooltipContent(),
-      document.getElementById('root'),
-    );
+    return ReactDOM.createPortal(this.renderTooltipContent(), document.getElementById('root'));
   }
 
   renderTooltipContent() {
-    const { text, title, whiteMode } = this.props;
+    const {
+      text, title, whiteMode, className,
+    } = this.props;
 
     return (
       <ReactTooltip
         id={title}
         place="top"
-        class={cx('tooltip', whiteMode && 'white-mode')}
+        class={cx('tooltip', whiteMode && 'white-mode', className)}
         multiline
         offset={{
           right: 10,
         }}
       >
-        <h1>
-          {title}
-        </h1>
-        <MarkdownText
-          disableCode
-          whiteMode={whiteMode}
-          className="tooltip-text"
-          text={text}
-        />
+        <h2>{title}</h2>
+        <MarkdownText disableCode whiteMode={whiteMode} className="tooltip-text" text={text} />
       </ReactTooltip>
     );
   }
 
   render() {
     const {
-      title, whiteMode, icon, onClick,
+      title, whiteMode, icon, onClick, className,
     } = this.props;
 
     return (
@@ -56,9 +46,7 @@ class Tooltip extends PureComponent {
           data-tip
           data-for={title}
           onClick={() => onClick()}
-          onMouseEnter={() => this.showTooltip()}
-          onMouseLeave={() => this.hideTooltip()}
-          className={cx('tip-icon', whiteMode && 'white-mode')}
+          className={cx('tip-icon', whiteMode && 'white-mode', className)}
         >
           {icon}
           {this.tooltipPortal()}
@@ -74,13 +62,15 @@ Tooltip.propTypes = {
   text: PropTypes.string,
   icon: PropTypes.node,
   onClick: PropTypes.func,
+  className: PropTypes.string,
   title: PropTypes.string,
   whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {
   text: '',
+  className: '',
   icon: <HelpIcon />,
   onClick: null,
-  title: 'help',
+  title: 'Help',
 };
