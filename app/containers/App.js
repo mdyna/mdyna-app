@@ -12,7 +12,6 @@ import {
   toggleCompletedFilter,
 } from 'Store/actions/';
 import {
-  SORTING_BY_TITLE,
   SORTING_BY_DATE,
   DESCENDING_ORDER,
 } from 'Utils/globals';
@@ -45,14 +44,17 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
+
 function mapStateToProps(state) {
   function sortCards(cards) {
     const { order, sorting } = state.filters;
-    let sortedCards = cards;
-    if (sorting) {
-      const sortingType = sorting === SORTING_BY_TITLE ? SORTING_BY_TITLE : SORTING_BY_DATE;
-      sortedCards = sortBy(sortedCards, sortingType);
-    }
+    const sortingType = sorting || SORTING_BY_DATE;
+    const sortedCards = sortBy(cards, sortingType);
+    // * to debug :
+    const getDates = cardss =>  cardss.map(c => ({date: c[sortingType], 'id': c.title}));
+
+
     if (order && order === DESCENDING_ORDER) {
       sortedCards.reverse();
     }
