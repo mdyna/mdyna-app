@@ -51,10 +51,9 @@ export default class CardList extends PureComponent {
         .includes(
           searchInput.toLowerCase(),
         );
-      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-        d.labels && d.labels.map(label => label.title),
-      );
-      return matchesSearchInput && matchesLabelFilters;
+      const labelTitles = d.labels && d.labels.map(label => label.title);
+      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(labelTitles);
+      return matchesSearchInput || matchesLabelFilters;
     });
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {
@@ -67,11 +66,21 @@ export default class CardList extends PureComponent {
   }
 
   matchNoteLabelsWithLabelFilter(labels) {
-    const { labelFilters } = this.props;
+    const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
       if (labels) {
         for (let i = 0; i < labels.length; i += 1) {
           if (labelFilters.indexOf(labels[i]) !== -1) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    if (searchInput) {
+      if (labels) {
+        for (let i = 0; i < labels.length; i += 1) {
+          if (labels[i].includes(searchInput)) {
             return true;
           }
         }
