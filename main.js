@@ -23,8 +23,8 @@ app.on('ready', () => {
   logger.error('Main Electron Logs');
   mainWindow = new BrowserWindow({
     width: 1024,
-    height: 600,
-    minWidth: 750,
+    height: 900,
+    minWidth: 350,
     minHeight: 600,
     show: false,
     center: true,

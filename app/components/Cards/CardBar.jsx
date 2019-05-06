@@ -4,7 +4,7 @@ import TrashIcon from 'grommet/components/icons/base/Trash';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import MinimizeIcon from 'grommet/components/icons/base/Up';
 import MaximizeIcon from 'grommet/components/icons/base/Down';
-import Button from 'grommet/components/Button';
+import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import tinycolor from 'tinycolor2';

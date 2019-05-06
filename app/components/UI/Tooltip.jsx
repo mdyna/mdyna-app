@@ -1,63 +1,56 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import HelpIcon from 'grommet/components/icons/base/Help';
 import Box from 'grommet/components/Box';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
+import MarkdownText from 'UI/MarkdownText';
 
 import './Tooltip.scss'; // eslint-disable-line
 
-class Tooltip extends Component {
-  state = {
-    show: true,
-  };
-
-  showTooltip() {
-    this.setState({ show: true });
-  }
-
-  hideTooltip() {
-    this.setState({ show: false });
+class Tooltip extends PureComponent {
+  tooltipPortal() {
+    return ReactDOM.createPortal(this.renderTooltipContent(), document.getElementById('root'));
   }
 
   renderTooltipContent() {
-    const { text, title } = this.props;
-    return `
-      <h3>
-        ${title}
-      </h3>
-      <div className="tooltip-text">
-        ${text}
-      </div>
-      `;
+    const {
+      text, title, whiteMode, className,
+    } = this.props;
+
+    return (
+      <ReactTooltip
+        id={title}
+        place="top"
+        class={cx('tooltip', whiteMode && 'white-mode', className)}
+        multiline
+        offset={{
+          right: 10,
+        }}
+      >
+        <h2>{title}</h2>
+        <MarkdownText disableCode whiteMode={whiteMode} className="tooltip-text" text={text} />
+      </ReactTooltip>
+    );
   }
 
   render() {
-    const { title, whiteMode } = this.props;
+    const {
+      title, whiteMode, icon, onClick, className,
+    } = this.props;
 
     return (
       <React.Fragment>
         <Box
           data-tip
           data-for={title}
-          onMouseEnter={() => this.showTooltip()}
-          onMouseLeave={() => this.hideTooltip()}
-          className={cx('tip-icon', whiteMode && 'white-mode')}
+          onClick={() => onClick()}
+          className={cx('tip-icon', whiteMode && 'white-mode', className)}
         >
-          <HelpIcon />
+          {icon}
+          {this.tooltipPortal()}
         </Box>
-        <ReactTooltip
-          id={title}
-          place="top"
-          class={cx('tooltip', whiteMode && 'white-mode')}
-          multiline
-          offset={{
-            left: 20,
-          }}
-          html
-        >
-          {this.renderTooltipContent()}
-        </ReactTooltip>
       </React.Fragment>
     );
   }
@@ -66,12 +59,18 @@ class Tooltip extends Component {
 export default Tooltip;
 
 Tooltip.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  icon: PropTypes.node,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
   title: PropTypes.string,
   whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {
-  show: false,
-  title: 'help',
+  text: '',
+  className: '',
+  icon: <HelpIcon />,
+  onClick: null,
+  title: 'Help',
 };

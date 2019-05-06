@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import Card from 'grommet/components/Card';
-import Button from 'grommet/components/Button';
+import Button from 'UI/Button';
 import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

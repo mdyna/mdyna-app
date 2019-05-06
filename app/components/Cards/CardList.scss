@@ -17,12 +17,8 @@
       border-radius: 10px;
       cursor: pointer;
       min-width: unset;
-      outline: none !important;
-      border: none !important;
-      padding: 5px !important;
-      box-shadow: none !important;
       position: sticky;
-      top: 50px;
+      top: 50vh;
       height: 10vh;
 
       &:hover {

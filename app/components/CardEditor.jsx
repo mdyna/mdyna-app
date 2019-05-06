@@ -13,7 +13,7 @@ import DateTime from 'grommet/components/DateTime';
 import FormField from 'grommet/components/FormField';
 import Section from 'grommet/components/Section';
 import TextInput from 'grommet/components/TextInput';
-import Button from 'grommet/components/Button';
+import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
@@ -22,7 +22,7 @@ import MarkdownEditor from 'Containers/MarkdownEditor';
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
 
-import './CardEditor.scss'; // eslint-disable-line
+import './CardEditor.scss';
 
 export default class CardEditor extends Component {
   state = {
@@ -300,15 +300,17 @@ export default class CardEditor extends Component {
   }
 
   renderCardForm(components) {
+    const { whiteMode } = this.props;
     return (
       <Form plain>
         <Section direction="column" alignContent="center">
           <FormFields>{components}</FormFields>
         </Section>
         <Button
+          theme={whiteMode && 'white'}
           className="submit-btn"
           label="Submit"
-          primary
+          color="primary"
           onClick={() => this.submitFormFields()}
         />
       </Form>
@@ -330,7 +332,17 @@ export default class CardEditor extends Component {
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline>{editorSettings.newCard ? 'NEW NOTE' : 'EDIT NOTE'}</Headline>
+          <Headline className="header">
+            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+            <Button
+              theme={whiteMode && 'white'}
+              className="submit-btn"
+              color="alt"
+              onClick={() => this.submitFormFields()}
+            >
+            Save Card
+            </Button>
+          </Headline>
           {this.generateComponentsFromType(cardDefinition)}
         </Article>
       </ErrorBoundary>

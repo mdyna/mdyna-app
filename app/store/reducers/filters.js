@@ -14,7 +14,7 @@ export default function notes(
     completedFilterOn: false,
     labelFilters: [],
     sorting: '',
-    order: 'ascending',
+    order: 'descending',
   },
   action,
 ) {

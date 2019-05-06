@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Share from 'grommet/components/icons/base/Share';
-import Button from 'grommet/components/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Button from 'UI/Button';
 
 const NOTE_ENDPOINT = `${window.serverHost}/note/`;
 const ADD_NOTE_ENDPOINT = `${window.serverHost}/addNote/`;

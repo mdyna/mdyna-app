@@ -12,6 +12,13 @@
   top: 50px;
   overflow: hidden !important;
 
+  .sidebar-tooltip {
+    margin: 5px auto;
+    svg {
+      border-radius: 50px;
+    }
+  }
+
   .sidebar-footer {
     margin-top: 5vh;
     font-size: 1rem;
@@ -43,6 +50,7 @@
   &.collapsed {
     width: 50px;
     align-items: center;
+
     .menu-item-labels {
       align-items: center;
     }
@@ -63,7 +71,7 @@
     button {
       align-items: center;
       margin: 0;
-      padding: 0 10px;
+      padding: 0 10px !important;
       border-radius: 5px;
       display: flex;
       justify-content: space-between;
@@ -323,7 +331,7 @@
     &.active svg {
       background-color: $secondary-accent;
       polyline {
-        stroke: $sidebar-background-color !important;
+        stroke: $secondary-background !important;
       }
     }
   }

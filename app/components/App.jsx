@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Box from 'grommet/components/Box';
@@ -13,7 +13,7 @@ import Header from 'UI/Header';
 import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
 import './App.scss'; // eslint-disable-line
 
-class Mdyna extends Component {
+class Mdyna extends PureComponent {
 
   render() {
     return (
@@ -30,7 +30,7 @@ class Mdyna extends Component {
             </div>
             {
               this.props.cards ?
-              <CardList cards={this.props.cards}/> :
+              <CardList cards={this.props.cards} order={this.props.order} sorting={this.props.sorting}/> :
               <Loader/>
             }
           </Box>

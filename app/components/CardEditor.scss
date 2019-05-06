@@ -46,12 +46,19 @@
 }
 
 .card-editor {
+  padding: 24px 24px 48px 24px !important;
+  border-radius: 10px;
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
 
-  padding: 10px;
-  border-radius: 10px;
+
+  .header {
+    display: flex;
+    width: 70vw;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
 
   > div {
     color: $accent-color;
@@ -106,9 +113,6 @@
     }
   }
 
-  button {
-    background-color: $accent-color;
-  }
   .grommetux-check-box__control-check {
     position: absolute;
     path {
@@ -174,14 +178,33 @@
     width: 100%;
     margin-top: 10px;
 
+    @include breakpoint(small) {
+      flex-flow: column wrap;
+    }
+    @include breakpoint(medium) {
+      flex-flow: row wrap;
+    }
+
+
     .card-preview {
       min-height: 245px;
       color: $note-font-color !important;
-      margin: 0 0px 0 10px;
+      margin: 0 0px 0 10px !important;
+      flex: 1;
+      align-self: flex-start;
+      @include breakpoint(small) {
+        width: 100% !important;
+        margin: 10px auto !important;
+      }
     }
 
     .card-text-editor {
       width: calc(100% - 365px);
+      @include breakpoint(small) {
+        width: 100%;
+      }
+
+
       .CodeMirror-cursor {
         border-left: 1px solid $accent-color;
       }
@@ -232,10 +255,30 @@
 .note-layer.white-mode > .grommetux-layer__container {
   display: block !important;
   background-color: $white-secondary-background !important;
+  button {
+    svg {
+      path {
+        fill: $note-font-color !important;
+        stroke: $note-font-color !important;
+      }
+      polygon {
+        stroke: $note-font-color !important;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: $white-font-color !important;
+          stroke: $white-font-color !important;
+        }
+        polygon {
+          stroke: $white-font-color !important;
+        }
+      }
+    }
+  }
   .card-editor {
     .card-text-editor {
-      width: calc(100% - 365px);
-
       .editor-toolbar {
         a {
           color: $white-font-color !important;

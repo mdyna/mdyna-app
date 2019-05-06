@@ -1,16 +1,10 @@
-import ACTION_TYPES from '../actions/actionTypes';
-import unNest from '../../utils/nest';
+import ACTION_TYPES from 'Store/actions/actionTypes';
+import unNest from 'Utils/nest';
+import uniqid from 'uniqid';
 
 const {
-  ADD_CARD, REMOVE_CARD, TOGGLE_CARD, GENERATE_LINK, SAVE_CARD,
+  ADD_CARD, REMOVE_CARD, TOGGLE_CARD, SAVE_CARD,
 } = ACTION_TYPES.CARD;
-
-const addId = cardList => (cardList
-    && cardList[cardList.length - 1]
-    && cardList[cardList.length - 1].id
-    && cardList[cardList.length - 1].id + 1)
-  || (cardList && cardList.length)
-  || 1;
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
@@ -24,7 +18,7 @@ export default function cards(state = [], action) {
           ...action.card,
           title: cardTitle(action),
           lastEditDate: new Date(),
-          id: addId(state),
+          id: uniqid(),
           completed: false,
         },
       ];
@@ -33,7 +27,8 @@ export default function cards(state = [], action) {
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
-          return { ...action.card, lastEditDate: new Date() };
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return { ...action.card, id: cardId, lastEditDate: new Date() };
         }
         return card;
       });
@@ -47,6 +42,7 @@ export default function cards(state = [], action) {
         }
         return card;
       });
+      /*
     case GENERATE_LINK:
       return state.map((card) => {
         if (card.id === action.index) {
@@ -58,6 +54,7 @@ export default function cards(state = [], action) {
         }
         return card;
       });
+      */
     default:
       return state;
   }

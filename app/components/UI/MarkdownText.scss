@@ -18,6 +18,57 @@ hue-6:   #986801
 hue-6-2: #c18401
 
 */
+.disable-code {
+  p {
+    color: #333;
+  }
+  code:before {
+    content: "`";
+    font-family: Metric;
+  }
+  code:after {
+    content: "`";
+    font-family: Metric;
+  }
+  code {
+    font-family: Metric;
+  }
+  pre:before {
+    content: "```";
+    font-family: Metric;
+  }
+  pre:after {
+    content: "```";
+    font-family: Metric;
+  }
+  pre {
+    code:before {
+      content: "";
+    }
+    code:after {
+      content: "";
+    }
+    font-family: Metric;
+  }
+  strong:before {
+    content: "**";
+  }
+  strong:after {
+    content: "**";
+  }
+  em:before {
+    content: "*";
+  }
+  em:after {
+    content: "*";
+  }
+  del:before {
+    content: "~~";
+  }
+  del:after {
+    content: "~~";
+  }
+}
 .mdyna-md.white-mode  {
   .hljs {
     display: block;
