@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import fastSort from 'fast-sort';
 import Masonry from 'react-masonry-component';
 import Section from 'grommet/components/Section';
 import Layer from 'grommet/components/Layer';
@@ -15,12 +16,13 @@ import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 import Error from 'UI/Error';
+import { DESCENDING_ORDER } from 'Utils/globals';
 
 import './CardList.scss'; // eslint-disable-line
 
 const PAGE_SIZE = 6;
 
-export default class CardList extends Component {
+export default class CardList extends PureComponent {
   state = {
     pageIndex: 0,
   };
@@ -41,6 +43,29 @@ export default class CardList extends Component {
     });
   }
 
+  getVisibleCards() {
+    const { searchInput, completedFilterOn, cards } = this.props;
+    const filteredCards = cards.filter((d) => {
+      const matchesSearchInput = d.title && d.title
+        .toLowerCase()
+        .includes(
+          searchInput.toLowerCase(),
+        );
+      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
+        d.labels && d.labels.map(label => label.title),
+      );
+      return matchesSearchInput && matchesLabelFilters;
+    });
+    const visibleCards = [];
+    for (let i = 0; i < filteredCards.length; i += 1) {
+      const card = filteredCards[i];
+      if (!card.completed || completedFilterOn) {
+        visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
+      }
+    }
+    return (visibleCards.length && visibleCards) || null;
+  }
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters } = this.props;
     if (labelFilters.length) {
@@ -54,6 +79,13 @@ export default class CardList extends Component {
       return false;
     }
     return true;
+  }
+
+  sortCards() {
+    const { order, sorting, cards } = this.props;
+    const sortedCards = (order === DESCENDING_ORDER && fastSort(cards).desc(u => u[sorting]))
+      || fastSort(cards).asc(u => u[sorting]);
+    return sortedCards;
   }
 
   renderAddNoteButton() {
@@ -71,36 +103,18 @@ export default class CardList extends Component {
     );
   }
 
-  renderVisibleCards() {
-    const { searchInput, completedFilterOn, cards } = this.props;
-    const filteredCards = cards.filter((d) => {
-      const matchesSearchInput = d.title
-        && d.title.toLowerCase().includes(searchInput.toLowerCase());
-      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-        d.labels && d.labels.map(label => label.title),
-      );
-      return matchesSearchInput && matchesLabelFilters;
-    });
-    const visibleCards = [];
-    for (let i = 0; i < filteredCards.length; i += 1) {
-      const card = filteredCards[i];
-      if (!card.repeat && (!card.completed || completedFilterOn)) {
-        visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
-      }
-    }
-    return (visibleCards.length && visibleCards) || null;
-  }
-
   render() {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
-    const { pageIndex } = this.state;
-    const cardItems = this.renderVisibleCards();
-    const visibleCards = cardItems && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
-    const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
 
+    const { pageIndex } = this.state;
+    const sortedCards = this.sortCards();
+    const cardItems = this.getVisibleCards(sortedCards);
+    const visibleCards = cardItems && cardItems.length && cardItems.slice(
+      pageIndex, pageIndex + PAGE_SIZE,
+    );
+    const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     return (
       <Section
         className={classnames({
@@ -125,7 +139,10 @@ export default class CardList extends Component {
                     type="button"
                     onClick={() => this.getPreviousCards()}
                   >
-                    <KeyboardEventHandler handleKeys={['left']} onKeyEvent={() => this.getPreviousCards()} />
+                    <KeyboardEventHandler
+                      handleKeys={['left']}
+                      onKeyEvent={() => this.getPreviousCards()}
+                    />
                     <LeftIcon />
                   </Button>
                 )}
@@ -148,15 +165,16 @@ export default class CardList extends Component {
                     type="button"
                     className="page-control"
                   >
-                    <KeyboardEventHandler handleKeys={['right']} onKeyEvent={() => this.getNextCards()} />
+                    <KeyboardEventHandler
+                      handleKeys={['right']}
+                      onKeyEvent={() => this.getNextCards()}
+                    />
                     <RightIcon />
                   </Button>
                 )}
               </div>
             ) : (
-              <Label>
-                No cards to present
-              </Label>
+              <Label>No cards to present</Label>
             )}
           </Error>
         ) : (
@@ -190,6 +208,8 @@ CardList.propTypes = {
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
+  order: PropTypes.string.isRequired,
+  sorting: PropTypes.string.isRequired,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,

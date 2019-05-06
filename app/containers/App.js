@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import sortBy from 'lodash.sortby';
 import App from 'Components/App';
 import {
   toggleWhiteMode,
@@ -13,7 +12,7 @@ import {
 } from 'Store/actions/';
 import {
   SORTING_BY_DATE,
-  DESCENDING_ORDER,
+  ASCENDING_ORDER,
 } from 'Utils/globals';
 
 function mapDispatchToProps(dispatch) {
@@ -45,32 +44,17 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-
 function mapStateToProps(state) {
-  function sortCards(cards) {
-    const { order, sorting } = state.filters;
-    const sortingType = sorting || SORTING_BY_DATE;
-    const sortedCards = sortBy(cards, sortingType);
-    // * to debug :
-    const getDates = cardss =>  cardss.map(c => ({date: c[sortingType], 'id': c.title}));
-
-
-    if (order && order === DESCENDING_ORDER) {
-      sortedCards.reverse();
-    }
-    return sortedCards;
-  }
-
   return {
     searchInput: state.filters.searchInput,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     sorting: state.filters.sorting || SORTING_BY_DATE,
-    order: state.filters.order || DESCENDING_ORDER,
+    order: state.filters.order || ASCENDING_ORDER,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
-    cards: sortCards(state.cards),
+    cards: state.cards,
   };
 }
 

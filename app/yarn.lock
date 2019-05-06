@@ -970,6 +970,11 @@ fast-json-stable-stringify@^2.0.0:
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
+fast-sort@^1.5.6:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/fast-sort/-/fast-sort-1.5.6.tgz#fe5dbe919f2f2333d1823808d6d1e7c3b8c562cc"
+  integrity sha512-/UihlqTK3c6uie43pn5+tciRncoUBgMFXcxrqqmeZrBTmTQM+TeZ4YW2sZlTyzMICg4skHBTbMlK3OvEIy11ew==
+
 fbjs@^0.8.1, fbjs@^0.8.9:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
