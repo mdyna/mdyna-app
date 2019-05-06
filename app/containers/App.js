@@ -12,7 +12,7 @@ import {
 } from 'Store/actions/';
 import {
   SORTING_BY_DATE,
-  ASCENDING_ORDER,
+  DESCENDING_ORDER,
 } from 'Utils/globals';
 
 function mapDispatchToProps(dispatch) {
@@ -45,13 +45,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  console.log(state.filters.order)
   return {
     searchInput: state.filters.searchInput,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     sorting: state.filters.sorting || SORTING_BY_DATE,
-    order: state.filters.order || ASCENDING_ORDER,
+    order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
     cards: state.cards,

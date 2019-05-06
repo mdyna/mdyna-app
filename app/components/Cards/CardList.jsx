@@ -107,7 +107,7 @@ export default class CardList extends PureComponent {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
-
+    console.log(this.props.order)
     const { pageIndex } = this.state;
     const sortedCards = this.sortCards();
     const cardItems = this.getVisibleCards(sortedCards);
