@@ -45,7 +45,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log(state.filters.order)
   return {
     searchInput: state.filters.searchInput,
     labelFilters: state.filters.labelFilters,
