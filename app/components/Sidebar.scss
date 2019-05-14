@@ -109,7 +109,7 @@
 
   .sorting-table {
     height: 0;
-    transition: all 0.75s;
+    transition: all 0.5s;
     border-radius: 10px;
     display: flex;
     flex-flow: column nowrap;
@@ -128,7 +128,7 @@
     }
     &.expanded {
       padding: 10px;
-      height: 110px;
+      height: auto;
       display: flex;
       button {
         flex-flow: row nowrap;
