@@ -43,28 +43,6 @@ export default class CardList extends PureComponent {
     });
   }
 
-  getVisibleCards() {
-    const { searchInput, completedFilterOn, cards } = this.props;
-    const filteredCards = cards.filter((d) => {
-      const matchesSearchInput = d.title && d.title
-        .toLowerCase()
-        .includes(
-          searchInput.toLowerCase(),
-        );
-      const labelTitles = d.labels && d.labels.map(label => label.title);
-      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(labelTitles);
-      return matchesSearchInput || matchesLabelFilters;
-    });
-    const visibleCards = [];
-    for (let i = 0; i < filteredCards.length; i += 1) {
-      const card = filteredCards[i];
-      if (!card.completed || completedFilterOn) {
-        visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
-      }
-    }
-    return (visibleCards.length && visibleCards) || null;
-  }
-
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
@@ -90,13 +68,6 @@ export default class CardList extends PureComponent {
     return true;
   }
 
-  sortCards() {
-    const { order, sorting, cards } = this.props;
-    const sortedCards = (order === DESCENDING_ORDER && fastSort(cards).desc(u => u[sorting]))
-      || fastSort(cards).asc(u => u[sorting]);
-    return sortedCards;
-  }
-
   renderAddNoteButton() {
     const { toggleEditor } = this.props;
 
@@ -112,14 +83,35 @@ export default class CardList extends PureComponent {
     );
   }
 
+
+  renderVisibleCards() {
+    const { searchInput, completedFilterOn, cards } = this.props;
+    const filteredCards = cards.filter((d) => {
+      const matchesSearchInput = d.title
+        && d.title.toLowerCase().includes(searchInput.toLowerCase());
+      const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
+        d.labels && d.labels.map(label => label.title),
+      );
+      return matchesSearchInput && matchesLabelFilters;
+    });
+    const visibleCards = [];
+    for (let i = 0; i < filteredCards.length; i += 1) {
+      const card = filteredCards[i];
+      if (!card.completed || completedFilterOn) {
+        visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
+      }
+    }
+    return (visibleCards.length && visibleCards) || null;
+  }
+
+
   render() {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
     const { pageIndex } = this.state;
-    const sortedCards = this.sortCards();
-    const cardItems = this.getVisibleCards(sortedCards);
-    const visibleCards = cardItems && cardItems.length && cardItems.slice(
+    const cardItems = this.renderVisibleCards(cards);
+    const cardComponents = cardItems && cardItems.length && cardItems.slice(
       pageIndex, pageIndex + PAGE_SIZE,
     );
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
@@ -139,7 +131,7 @@ export default class CardList extends PureComponent {
         {cards.length ? (
           <Error>
             {this.renderAddNoteButton()}
-            {visibleCards && visibleCards.length ? (
+            {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 {pageIndex !== 0 && (
                   <Button
@@ -165,7 +157,7 @@ export default class CardList extends PureComponent {
                   enableResizableChildren
                   elementType="ul"
                 >
-                  {visibleCards}
+                  {cardComponents}
                 </Masonry>
                 {hasMore && (
                   <Button

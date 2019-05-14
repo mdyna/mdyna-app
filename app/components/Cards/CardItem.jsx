@@ -10,6 +10,7 @@ import _ from 'lodash';
 import Labels from 'UI/Labels';
 import MarkdownText from 'UI/MarkdownText';
 import unNest from 'Utils/nest';
+import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
@@ -69,15 +70,6 @@ class MdynaCard extends PureComponent {
   renderCardDate() {
     const { card } = this.props;
     const { startDate, lastEditDate } = card;
-    const dateOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    };
-    // eslint-disable-next-line
-    const convertDateToLocaleString = (date = new Date()) => new Date(date).toLocaleDateString(undefined, dateOptions);
     const lastEditDateFormatted = convertDateToLocaleString(lastEditDate);
     const startDateFormatted = convertDateToLocaleString(startDate);
     const datesAreDifferent = lastEditDateFormatted !== startDateFormatted;
