@@ -123,16 +123,18 @@
     button {
       transition: 0.5s all;
       height: 0;
+      pointer-events: none;
       opacity: 0;
-
     }
     &.expanded {
       padding: 10px;
       height: 110px;
+      display: flex;
       button {
         flex-flow: row nowrap;
         width: 100%;
         justify-content: flex-end;
+        pointer-events: initial;
         display: flex;
         background-color: $secondary-background;
         color: $dark-accent-color;
