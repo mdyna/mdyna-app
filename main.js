@@ -121,7 +121,14 @@ app.on('ready', () => {
 
   global.appVersion = `v.${app.getVersion()}`
   global.serverHost = 'http://localhost:7000';
-  global.storage = new Storage();
+  global.userStorage = new Storage();
+  const userSettings = storage.get('settings');
+  const cwd = userSettings && userSettings.cwd || electron.app.getAppPath();
+  global.cardStorage = new Storage({
+    name: 'mdyna-user-data',
+    cwd,
+  })
+  console.log(cwd, storage.get('settings'))
   console.log(global.appVersion)
   const env = process.env.NODE_ENV || 'PROD';
   console.warn('ELECTRON RUNNING IN', env);

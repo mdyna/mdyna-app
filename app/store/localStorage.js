@@ -1,11 +1,17 @@
 export const getLocalState = () => {
-  const localState = window.storage.get('state');
-  return localState;
+  const settings = window.userStorage.get('settings');
+  const userState = window.cardStorage.get('state');
+
+  return {
+    ...settings,
+    ...userState,
+  };
 };
 
-export const saveState = (state) => {
+export const saveState = (state, settings) => {
   try {
-    window.storage.set('state', state);
+    window.userStorage.set('settings', settings);
+    window.cardStorage.set('state', state);
   } catch (err) {
     /* eslint-disable-next-line  */
     console.log(err);
