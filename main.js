@@ -1,4 +1,3 @@
-/* eslint-disable */
 // Basic init
 const electron = require('electron');
 const { dialog, ipcMain } = require('electron');
@@ -6,8 +5,6 @@ const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
-
-
 
 const { app, BrowserWindow } = electron;
 // Let electron reloads by itself when webpack watches changes in ./app/
@@ -52,7 +49,7 @@ app.on('ready', () => {
   splash.loadURL(`file://${__dirname}/splash.html`);
   splash.show();
 
-  const webContents = mainWindow.webContents;
+  const { webContents } = mainWindow;
 
   const handleRedirect = (e, url) => {
     if (url !== webContents.getURL()) {
@@ -61,22 +58,21 @@ app.on('ready', () => {
     }
   };
 
+  autoUpdater.logger = logger;
 
-  autoUpdater.logger = logger
-
-  autoUpdater.on('update-available', arg => {
-      logger.info('update-available');
-      logger.info(arg);
+  autoUpdater.on('update-available', (arg) => {
+    logger.info('update-available');
+    logger.info(arg);
   });
 
-  autoUpdater.on('update-not-available', arg => {
-      logger.info('update-not-available');
-      logger.info(arg);
+  autoUpdater.on('update-not-available', (arg) => {
+    logger.info('update-not-available');
+    logger.info(arg);
   });
 
-  autoUpdater.on('download-progress', arg => {
-      logger.log('download-progress');
-      logger.log(arg);
+  autoUpdater.on('download-progress', (arg) => {
+    logger.log('download-progress');
+    logger.log(arg);
   });
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
@@ -85,39 +81,72 @@ app.on('ready', () => {
       buttons: ['Restart', 'Later'],
       title: 'Application Update',
       message: releaseName,
-      detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-    }
+      detail: 'A new version has been downloaded. Restart the application to apply the updates.',
+    };
 
     dialog.showMessageBox(dialogOpts, (response) => {
-      if (response === 0) autoUpdater.quitAndInstall()
-    })
-  })
-
-  autoUpdater.on('error', error => {
-      logger.error('error');
-      logger.error(error.message);
-      logger.error(error.stack);
+      if (response === 0) autoUpdater.quitAndInstall();
+    });
   });
 
+  autoUpdater.on('error', (error) => {
+    logger.error('error');
+    logger.error(error.message);
+    logger.error(error.stack);
+  });
 
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
+  const getCwd = storage => storage.cwd || electron.app.getAppPath();
+
+  const userStorage = new Storage();
+  const userSettings = userStorage.get('settings');
+  logger.log('LOADED SETTINGS STORAGE', userSettings);
+  const cwd = getCwd(userSettings);
+  const cardStorage = new Storage({
+    name: 'mdyna-card-data',
+    cwd,
+  });
+  const tempState = userStorage.get('tmp/state');
+  if (tempState && Object.keys(tempState).length) {
+    // * Mash temp state agaisnt current state
+    const cardStorageState = cardStorage.get('state');
+    cardStorage.set('state', {
+      cards: [
+        ...tempState.cards,
+        ...cardStorageState.cards,
+      ],
+      labels: [
+        ...tempState.labels,
+        ...cardStorageState.labels,
+      ],
+    });
+    // * Clear tmp/state key
+    userStorage.delete('tmp/state');
+  }
+  logger.log('LOADED CARDS STORAGE', cardStorage.get('state'));
+  global.cardStorage = cardStorage;
+  global.userStorage = userStorage;
+
+
+  // * CHANGE CWD EVENT
   ipcMain.on('CHANGED-CWD', () => {
-    logger.info('CURRENT WORKING DIRECTORY CHANGED')
-    logger.info('REFRESHING MAIN WINDOW')
-    const userStorage = new Storage();
-    const userSettings = userStorage.get('settings');
-    const cwd = userSettings && userSettings.cwd || electron.app.getAppPath();
-    global.cardStorage = new Storage({
-      name: 'mdyna-user-data',
-      cwd,
-    })
-    global.cwd = cwd;
-    global.userStorage = userStorage;
+    logger.info('CURRENT WORKING DIRECTORY CHANGED');
+    const currentUserState = cardStorage.get('state');
+    const newCwd = getCwd(userStorage.get('settings'));
+    const newCardStorage = new Storage({
+      name: 'mdyna-card-data',
+      newCwd,
+    });
+    logger.info('PORTING STATE FROM OLD CWD [', cwd, '] TO [', newCwd, ']');
+    logger.log(newCardStorage.get('state'), cardStorage.get('state'));
+    userStorage.set('tmp/state', currentUserState);
+    logger.log('NEW STORAGE STATE', newCardStorage.get('state'));
+    logger.info('RELAUNCHING APP');
     electron.app.relaunch();
     mainWindow.destroy();
-  })
+  });
 
   // if main window is ready to show, then destroy the splash window and show up the main window
   mainWindow.on('ready-to-show', () => {
@@ -132,22 +161,15 @@ app.on('ready', () => {
   });
   mainWindow.on('close', () => {
     app.quit();
+    // eslint-disable-next-line
     window = null;
   });
 
-  global.appVersion = `v.${app.getVersion()}`
+  global.appVersion = `v.${app.getVersion()}`;
   global.serverHost = 'http://localhost:7000';
-  const userStorage = new Storage();
-  const userSettings = userStorage.get('settings');
-  const cwd = userSettings && userSettings.cwd || electron.app.getAppPath();
-  global.cardStorage = new Storage({
-    name: 'mdyna-user-data',
-    cwd,
-  })
-  global.cwd = cwd;
-  global.userStorage = userStorage;
   const env = process.env.NODE_ENV || 'PROD';
-  console.warn('ELECTRON RUNNING IN', env);
+  logger.warn('ELECTRON RUNNING IN', env);
+  logger.info('LOADED USER STATE', cardStorage.get('state'));
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
   } else {
