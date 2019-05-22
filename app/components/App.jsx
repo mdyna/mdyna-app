@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-// eslint-disable-next-line
-import { ipcRenderer } from 'electron';
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Box from 'grommet/components/Box';
@@ -23,7 +21,7 @@ class Mdyna extends PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { changeCwd, cards, order, sorting, whiteMode } = this.props;
+    const { cards, order, sorting, whiteMode } = this.props;
     return (
       <App
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
@@ -36,12 +34,6 @@ class Mdyna extends PureComponent {
               <div className="sidebar-wrapper">
                 <SideBar {...this.props} />
               </div>
-              <FolderPicker onChange={(value) => {
-                changeCwd(value);
-                console.info('SENDING CHANGED-CWD EVENT');
-                ipcRenderer.send('CHANGED-CWD');
-              }}
-              />
               {cards ? (
                 <CardList
                   cards={cards}

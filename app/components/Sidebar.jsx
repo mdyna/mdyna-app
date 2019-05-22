@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
 import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Filter from 'grommet/components/icons/base/Filter';
@@ -17,8 +19,9 @@ import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
-import TooltipData from 'UI/tooltipsContent';
+import FolderPicker from 'UI/FolderPicker';
 import LabelFilter from 'UI/LabelFilter';
+import TooltipData from 'UI/tooltipsContent';
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
@@ -72,6 +75,7 @@ class Sidebar extends Component {
       order,
       labels,
       searchCards,
+      changeCwd,
     } = this.props;
     const { searchInput, sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
@@ -272,6 +276,13 @@ class Sidebar extends Component {
         )}
 
         <Box direction="column" className="menu-item-labels">
+          {sidebarExpanded && (
+              <FolderPicker onChange={(value) => {
+                changeCwd(value);
+                ipcRenderer.send('CHANGED-CWD');
+              }}
+              />) || ''
+            }
           <Box direction="row" justify="start" className="menu-item">
             {sidebarExpanded ? (
               <React.Fragment>
@@ -302,7 +313,6 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
-
         {sidebarExpanded && (
           <Box className="sidebar-footer">
             <Label size="small">
@@ -324,13 +334,14 @@ class Sidebar extends Component {
             <Label size="small">{window.appVersion}</Label>
           </Box>
         )}
+
       </Box>
     );
   }
 }
 
 Sidebar.propTypes = {
-  labelFilters: PropTypes.array.isRequired,
+  labelFilters: PropTypes.array,
   addLabelFilter: PropTypes.func.isRequired,
   toggleCompletedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
@@ -350,6 +361,7 @@ Sidebar.propTypes = {
 
 Sidebar.defaultProps = {
   whiteMode: false,
+  labelFilters: [],
   sidebarExpanded: false,
   completedFilterOn: false,
   sorting: SORTING_BY_DATE,
