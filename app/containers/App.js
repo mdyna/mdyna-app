@@ -6,6 +6,7 @@ import {
   toggleEditor,
   searchCards,
   addLabelFilter,
+  changeCwd,
   removeLabelFilter,
   changeSorting,
   toggleCompletedFilter,
@@ -20,6 +21,9 @@ import {
 
 function mapDispatchToProps(dispatch) {
   return {
+    changeCwd: (cwd) => {
+      dispatch(changeCwd(cwd));
+    },
     toggleWhiteMode: () => {
       dispatch(toggleWhiteMode());
     },
@@ -78,6 +82,7 @@ function mapStateToProps(state) {
 
   return {
     searchInput: state.filters.searchInput,
+    cwd: state.settings.cwd,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,

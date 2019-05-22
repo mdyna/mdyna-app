@@ -123,3 +123,7 @@ export const toggleCompletedFilter = value => ({
   type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
   value,
 });
+export const changeCwd = cwd => ({
+  type: ACTION_TYPES.CHANGE_CWD,
+  cwd,
+});

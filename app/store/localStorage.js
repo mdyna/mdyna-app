@@ -3,8 +3,17 @@ export const getLocalState = () => {
   const userState = window.cardStorage.get('state');
 
   return {
-    ...settings,
     ...userState,
+    filters: {
+      order: settings.order,
+      sorting: settings.sorting,
+    },
+    style: {
+      whiteMode: settings.whiteMode,
+    },
+    settings: {
+      cwd: settings.cwd,
+    },
   };
 };
 

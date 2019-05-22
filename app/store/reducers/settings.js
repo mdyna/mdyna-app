@@ -13,7 +13,7 @@ function changeCwd(
   switch (action.type) {
     case CHANGE_CWD:
       return {
-        cwd: action.payload,
+        cwd: action.cwd,
       };
     default:
       return state;
