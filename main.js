@@ -5,6 +5,8 @@ const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
+const uniqBy = require('lodash.uniqby');
+const uniq = require('lodash.uniq');
 
 const { app, BrowserWindow } = electron;
 // Let electron reloads by itself when webpack watches changes in ./app/
@@ -99,6 +101,8 @@ app.on('ready', () => {
   webContents.on('new-window', handleRedirect);
 
   const getCwd = storage => storage.cwd || electron.app.getAppPath();
+  const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
+  const getUniqLabels = labelsArray => uniq(labelsArray);
 
   const userStorage = new Storage();
   const userSettings = userStorage.get('settings');
@@ -113,14 +117,14 @@ app.on('ready', () => {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
     cardStorage.set('state', {
-      cards: [
+      cards: getUniqCardsById([
         ...tempState.cards,
         ...cardStorageState.cards,
-      ],
-      labels: [
+      ]),
+      labels: getUniqLabels([
         ...tempState.labels,
         ...cardStorageState.labels,
-      ],
+      ]),
     });
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
