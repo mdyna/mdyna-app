@@ -1,7 +1,7 @@
 /* eslint-disable */
 // Basic init
 const electron = require('electron');
-const { dialog } = require('electron');
+const { dialog, ipcMain } = require('electron');
 const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
@@ -103,6 +103,22 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
+  ipcMain.on('CHANGED-CWD', () => {
+    logger.info('CURRENT WORKING DIRECTORY CHANGED')
+    logger.info('REFRESHING MAIN WINDOW')
+    const userStorage = new Storage();
+    const userSettings = userStorage.get('settings');
+    const cwd = userSettings && userSettings.cwd || electron.app.getAppPath();
+    global.cardStorage = new Storage({
+      name: 'mdyna-user-data',
+      cwd,
+    })
+    global.cwd = cwd;
+    global.userStorage = userStorage;
+    electron.app.relaunch();
+    mainWindow.destroy();
+  })
+
   // if main window is ready to show, then destroy the splash window and show up the main window
   mainWindow.on('ready-to-show', () => {
     splash.destroy();
@@ -128,7 +144,7 @@ app.on('ready', () => {
     name: 'mdyna-user-data',
     cwd,
   })
-  globa.cwd = cwd;
+  global.cwd = cwd;
   global.userStorage = userStorage;
   const env = process.env.NODE_ENV || 'PROD';
   console.warn('ELECTRON RUNNING IN', env);

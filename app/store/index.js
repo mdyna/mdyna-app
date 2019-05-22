@@ -14,7 +14,7 @@ store.subscribe(
       labels: store.getState().labels,
     },
     {
-      darkMode: store.getState().style.whiteMode,
+      whiteMode: store.getState().style.whiteMode,
       order: store.getState().filters.order,
       sorting: store.getState().filters.sorting,
       cwd: store.getState().settings.cwd,
