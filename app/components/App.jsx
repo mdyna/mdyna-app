@@ -1,6 +1,6 @@
-
 import React, { PureComponent } from 'react';
-import {ipcRenderer} from 'electron';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
 import App from 'grommet/components/App';
 import Article from 'grommet/components/Article';
 import Box from 'grommet/components/Box';
@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import TextInput from 'grommet/components/TextInput';
+import FolderPicker from 'UI/FolderPicker';
 import debounce from 'lodash.debounce';
 import CardList from '../containers/CardList';
 import SideBar from './Sidebar';
@@ -19,38 +19,41 @@ import './App.scss';
 /* eslint-enable */
 
 class Mdyna extends PureComponent {
-
   debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
 
-  changeCwd(value) {
-    const {changeCwd} = this.props
-    changeCwd(value);
-    console.info('SENDING CHANGED-CWD EVENT')
-    ipcRenderer.send('CHANGED-CWD');
-  }
-
   render() {
+    // eslint-disable-next-line
+    const { changeCwd, cards, order, sorting, whiteMode } = this.props;
     return (
       <App
-        className={classnames('mdyna-app', { 'white-mode': this.props.whiteMode })}
+        className={classnames('mdyna-app', { 'white-mode': whiteMode })}
         style={{ maxWidth: '1920px' }}
       >
-      <ErrorBoundary whiteMode={this.props.whiteMode}>
-        <Article>
-          <Header />
-          <Box className="split">
-            <div className="sidebar-wrapper">
-              <SideBar {...this.props}/>
-            </div>
-            <TextInput value={this.props.cwd} onDOMChange={e => this.changeCwd(e.target.value)}/>
-            {
-              this.props.cards ?
-              <CardList cards={this.props.cards} order={this.props.order} sorting={this.props.sorting}/> :
-              <Loader/>
-            }
-          </Box>
-        </Article>
-      </ErrorBoundary>
+        <ErrorBoundary whiteMode={whiteMode}>
+          <Article>
+            <Header />
+            <Box className="split">
+              <div className="sidebar-wrapper">
+                <SideBar {...this.props} />
+              </div>
+              <FolderPicker onChange={(value) => {
+                changeCwd(value);
+                console.info('SENDING CHANGED-CWD EVENT');
+                ipcRenderer.send('CHANGED-CWD');
+              }}
+              />
+              {cards ? (
+                <CardList
+                  cards={cards}
+                  order={order}
+                  sorting={sorting}
+                />
+              ) : (
+                <Loader />
+              )}
+            </Box>
+          </Article>
+        </ErrorBoundary>
       </App>
     );
   }

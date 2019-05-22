@@ -117,14 +117,14 @@ app.on('ready', () => {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
     cardStorage.set('state', {
-      cards: getUniqCardsById([
+      cards: cardStorageState && cardStorageState.cards && getUniqCardsById([
         ...tempState.cards,
         ...cardStorageState.cards,
-      ]),
-      labels: getUniqLabels([
+      ]) || tempState.cards,
+      labels: cardStorageState && getUniqLabels([
         ...tempState.labels,
         ...cardStorageState.labels,
-      ]),
+      ]) || tempState.labels,
     });
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
