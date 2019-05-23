@@ -64,6 +64,7 @@ class Sidebar extends Component {
       labelFilters,
       changeSorting,
       addLabelFilter,
+      cwd,
       removeLabelFilter,
       sidebarExpanded,
       toggleSidebar,
@@ -277,7 +278,7 @@ class Sidebar extends Component {
 
         <Box direction="column" className="menu-item-labels">
           {sidebarExpanded && (
-              <FolderPicker onChange={(value) => {
+              <FolderPicker label="Change directory" placeholder={cwd} whiteMode={whiteMode} onChange={(value) => {
                 changeCwd(value);
                 ipcRenderer.send('CHANGED-CWD');
               }}
