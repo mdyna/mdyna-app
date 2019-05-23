@@ -42,7 +42,9 @@
         var electron = require("electron");
         var appVersion = electron.remote.getGlobal("appVersion");
         var serverHost = electron.remote.getGlobal("serverHost");
-        var storage = electron.remote.getGlobal("storage");
+        var cardStorage = electron.remote.getGlobal("cardStorage");
+        var userStorage = electron.remote.getGlobal("userStorage");
+        var cwd = electron.remote.getGlobal("cwd");
       }
     </script>
     <!--

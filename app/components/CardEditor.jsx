@@ -307,7 +307,7 @@ export default class CardEditor extends Component {
           <FormFields>{components}</FormFields>
         </Section>
         <Button
-          theme={whiteMode && 'white'}
+          theme={whiteMode && 'white' || 'dark'}
           className="submit-btn"
           label="Submit"
           color="primary"
@@ -335,7 +335,7 @@ export default class CardEditor extends Component {
           <Headline className="header">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             <Button
-              theme={whiteMode && 'white'}
+              theme={whiteMode && 'white' || 'dark'}
               className="submit-btn"
               color="alt"
               onClick={() => this.submitFormFields()}

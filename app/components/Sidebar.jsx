@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
 import PropTypes from 'prop-types';
 import Box from 'grommet/components/Box';
 import Filter from 'grommet/components/icons/base/Filter';
@@ -8,6 +10,7 @@ import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
 import UpArrow from 'grommet/components/icons/base/LinkUp';
 import SortIcon from 'grommet/components/icons/base/Transaction';
+import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -17,8 +20,9 @@ import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
-import TooltipData from 'UI/tooltipsContent';
+import FolderPicker from 'UI/FolderPicker';
 import LabelFilter from 'UI/LabelFilter';
+import TooltipData from 'UI/tooltipsContent';
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
@@ -61,6 +65,7 @@ class Sidebar extends Component {
       labelFilters,
       changeSorting,
       addLabelFilter,
+      cwd,
       removeLabelFilter,
       sidebarExpanded,
       toggleSidebar,
@@ -72,6 +77,7 @@ class Sidebar extends Component {
       order,
       labels,
       searchCards,
+      changeCwd,
     } = this.props;
     const { searchInput, sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
@@ -272,11 +278,33 @@ class Sidebar extends Component {
         )}
 
         <Box direction="column" className="menu-item-labels">
+          {(sidebarExpanded && (
+            <FolderPicker
+              label="Change directory"
+              placeholder={cwd}
+              whiteMode={whiteMode}
+              onChange={(value) => {
+                changeCwd(value);
+                ipcRenderer.send('CHANGED-CWD');
+              }}
+            />
+          )) || (
+            <Tooltip
+              className={classnames('sidebar-tooltip', 'sort-icon')}
+              whiteMode={whiteMode}
+              icon={<FolderCycleIcon />}
+              title="Change Cards Directory"
+              text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
+              onClick={() => {
+                this.expandMenu();
+              }}
+            />
+          )}
           <Box direction="row" justify="start" className="menu-item">
             {sidebarExpanded ? (
               <React.Fragment>
                 <Filter />
-                <Label className="menu-label">Filter Labels</Label>
+                <Label className="menu-label-filter">Filter Labels</Label>
               </React.Fragment>
             ) : (
               <Tooltip
@@ -302,7 +330,6 @@ class Sidebar extends Component {
             ''
           )}
         </Box>
-
         {sidebarExpanded && (
           <Box className="sidebar-footer">
             <Label size="small">
@@ -330,7 +357,7 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  labelFilters: PropTypes.array.isRequired,
+  labelFilters: PropTypes.array,
   addLabelFilter: PropTypes.func.isRequired,
   toggleCompletedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
@@ -339,6 +366,8 @@ Sidebar.propTypes = {
   removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
+  cwd: PropTypes.string.isRequired,
+  changeCwd: PropTypes.string.isRequired,
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
@@ -350,6 +379,7 @@ Sidebar.propTypes = {
 
 Sidebar.defaultProps = {
   whiteMode: false,
+  labelFilters: [],
   sidebarExpanded: false,
   completedFilterOn: false,
   sorting: SORTING_BY_DATE,

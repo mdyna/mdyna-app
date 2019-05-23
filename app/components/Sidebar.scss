@@ -13,7 +13,7 @@
   overflow: hidden !important;
 
   .sidebar-tooltip {
-    margin: 5px auto;
+    margin: 3px auto;
     svg {
       border-radius: 50px;
     }
@@ -37,8 +37,11 @@
   }
 
   .title-button {
-    margin: 5px;
+    margin: 0 !important;
     color: $accent-color;
+    label {
+      margin: 0 !important;
+    }
     svg polyline {
       stroke: $accent-color !important;
     }
@@ -53,11 +56,24 @@
 
     .menu-item-labels {
       align-items: center;
+      .menu-item {
+        margin: 0;
+      }
+      svg {
+        margin: 0;
+      }
     }
   }
 
   .menu-item-labels {
     align-items: flex-end;
+    .menu-item {
+      margin: 5px 0;
+    }
+    label {
+      font-size: 1rem;
+      margin: 5px 10px;
+    }
     svg {
       margin: 0 5px;
       polygon {
@@ -77,6 +93,7 @@
       justify-content: space-between;
       width: 100%;
 
+
       &:hover {
         background-color: $accent-color;
         .menu-label {
@@ -85,9 +102,9 @@
       }
 
       .menu-label {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: $accent-color;
-        margin: 10px 0;
+        margin: 5px 0;
       }
     }
 
@@ -310,8 +327,8 @@
       width: 230px !important;
       border-radius: 10px !important;
       border-color: $accent-color;
-      padding: 10px 22px;
-      height: 42px;
+      padding: 0 11px;
+      height: 32px;
     }
 
     .grommetux-search__input:focus {
@@ -344,7 +361,7 @@
       border: 2px solid $accent-color;
       border-radius: 10px;
       height: 28px;
-      margin: 5px 0;
+      margin: 0;
       width: 38px;
       padding: 5px;
     }
