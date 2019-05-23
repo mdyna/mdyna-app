@@ -10,6 +10,7 @@ import FormPrevious from 'grommet/components/icons/base/FormPrevious';
 import SearchIcon from 'grommet/components/icons/base/Search';
 import UpArrow from 'grommet/components/icons/base/LinkUp';
 import SortIcon from 'grommet/components/icons/base/Transaction';
+import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import Search from 'grommet/components/Search';
@@ -277,13 +278,28 @@ class Sidebar extends Component {
         )}
 
         <Box direction="column" className="menu-item-labels">
-          {sidebarExpanded && (
-              <FolderPicker label="Change directory" placeholder={cwd} whiteMode={whiteMode} onChange={(value) => {
+          {(sidebarExpanded && (
+            <FolderPicker
+              label="Change directory"
+              placeholder={cwd}
+              whiteMode={whiteMode}
+              onChange={(value) => {
                 changeCwd(value);
                 ipcRenderer.send('CHANGED-CWD');
               }}
-              />) || ''
-            }
+            />
+          )) || (
+            <Tooltip
+              className={classnames('sidebar-tooltip', 'sort-icon')}
+              whiteMode={whiteMode}
+              icon={<FolderCycleIcon />}
+              title="Change Cards Directory"
+              text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
+              onClick={() => {
+                this.expandMenu();
+              }}
+            />
+          )}
           <Box direction="row" justify="start" className="menu-item">
             {sidebarExpanded ? (
               <React.Fragment>
@@ -335,7 +351,6 @@ class Sidebar extends Component {
             <Label size="small">{window.appVersion}</Label>
           </Box>
         )}
-
       </Box>
     );
   }
@@ -351,6 +366,8 @@ Sidebar.propTypes = {
   removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
+  cwd: PropTypes.string.isRequired,
+  changeCwd: PropTypes.string.isRequired,
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
