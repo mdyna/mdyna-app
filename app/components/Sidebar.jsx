@@ -304,7 +304,7 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <React.Fragment>
                 <Filter />
-                <Label className="menu-label">Filter Labels</Label>
+                <Label className="menu-label-filter">Filter Labels</Label>
               </React.Fragment>
             ) : (
               <Tooltip

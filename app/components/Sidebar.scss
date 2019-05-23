@@ -13,7 +13,7 @@
   overflow: hidden !important;
 
   .sidebar-tooltip {
-    margin: 5px auto;
+    margin: 3px auto;
     svg {
       border-radius: 50px;
     }
@@ -56,11 +56,24 @@
 
     .menu-item-labels {
       align-items: center;
+      .menu-item {
+        margin: 0;
+      }
+      svg {
+        margin: 0;
+      }
     }
   }
 
   .menu-item-labels {
     align-items: flex-end;
+    .menu-item {
+      margin: 5px 0;
+    }
+    label {
+      font-size: 1rem;
+      margin: 5px 10px;
+    }
     svg {
       margin: 0 5px;
       polygon {
