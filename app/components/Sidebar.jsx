@@ -128,8 +128,9 @@ class Sidebar extends Component {
           {sidebarExpanded ? (
             <Search
               inline
+              placeHolder="Search cards by title (Ctrl+P)"
               suggestions={titles.filter(
-                d => d && d.toLowerCase().startsWith(searchInput.toLowerCase()),
+                d => d && d.toLowerCase().includes(searchInput.toLowerCase()),
               )}
               onDOMChange={(e) => {
                 searchCards(e.target.value);
