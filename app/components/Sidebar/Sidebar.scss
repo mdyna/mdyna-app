@@ -260,15 +260,6 @@
     .sidebar-app-logo {
       box-shadow: none;
     }
-    .grommetux-control-icon-search {
-      path {
-        stroke: $white-font-color !important;
-      }
-    }
-    .grommetux-search__input {
-      background-color: $white-hover-color;
-      border-color: $white-font-color !important;
-    }
 
     .toggle-completed-button {
       svg polyline {
@@ -316,28 +307,6 @@
     }
   }
 
-  .grommetux-search--inline {
-    margin: 0 0 10px 0;
-
-    .grommetux-search__input {
-      border-width: 2px;
-      width: 230px !important;
-      border-radius: 10px !important;
-      border-color: $accent-color;
-      padding: 0 11px;
-      height: 32px;
-    }
-
-    .grommetux-search__input:focus {
-      border-color: $secondary-accent;
-    }
-
-    .grommetux-control-icon-search {
-      path {
-        stroke: $accent-color;
-      }
-    }
-  }
 
   .toggle-completed-button {
     svg polyline {
@@ -376,10 +345,3 @@
   }
 }
 
-.grommetux-drop {
-  border-radius: 10px !important;
-  .grommetux-search__suggestions {
-    border-radius: 10px;
-    background-color: #9fb5c0;
-  }
-}

@@ -60,6 +60,7 @@ class Sidebar extends Component {
 
   changeSearchInput(e) {
     const {searchCards} = this.props;
+
     this.setState({
       searchInput: e.target.value,
     });
@@ -135,6 +136,7 @@ class Sidebar extends Component {
           {sidebarExpanded ? (
             <Search
               titles={titles}
+              whiteMode={whiteMode}
               onChange={e => this.changeSearchInput(e)}
               searchBar={this.searchBar}
               searchInput={searchInput}
@@ -365,7 +367,7 @@ Sidebar.propTypes = {
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   cwd: PropTypes.string.isRequired,
-  changeCwd: PropTypes.string.isRequired,
+  changeCwd: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
