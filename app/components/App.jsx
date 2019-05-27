@@ -6,10 +6,9 @@ import classnames from 'classnames';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import FolderPicker from 'UI/FolderPicker';
 import debounce from 'lodash.debounce';
 import CardList from '../containers/CardList';
-import SideBar from './Sidebar';
+import SideBar from './Sidebar/Sidebar';
 
 /* eslint-disable */
 import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';

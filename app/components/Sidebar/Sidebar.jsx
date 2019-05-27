@@ -13,7 +13,6 @@ import SortIcon from 'grommet/components/icons/base/Transaction';
 import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
-import Search from 'grommet/components/Search';
 import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
@@ -30,8 +29,9 @@ import {
   DESCENDING_ORDER,
 } from 'Utils/globals';
 
-import logo from '../../resources/MdynaLogoCircle.png';
+import logo from '../../../resources/MdynaLogoCircle.png';
 
+import Search from './Search';
 import './Sidebar.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
@@ -58,6 +58,14 @@ class Sidebar extends Component {
     });
   }
 
+  changeSearchInput(e) {
+    const {searchCards} = this.props;
+    this.setState({
+      searchInput: e.target.value,
+    });
+    searchCards(e.target.value);
+  }
+
   render() {
     const {
       cards,
@@ -76,7 +84,6 @@ class Sidebar extends Component {
       sorting,
       order,
       labels,
-      searchCards,
       changeCwd,
     } = this.props;
     const { searchInput, sortingOptionsExpanded } = this.state;
@@ -127,20 +134,10 @@ class Sidebar extends Component {
         <Box direction="row" justify="start" className="menu-item">
           {sidebarExpanded ? (
             <Search
-              inline
-              placeHolder="Search cards by title (Ctrl+P)"
-              suggestions={titles.filter(
-                d => d && d.toLowerCase().includes(searchInput.toLowerCase()),
-              )}
-              onDOMChange={(e) => {
-                searchCards(e.target.value);
-                this.setState({
-                  searchInput: e.target.value,
-                });
-              }}
-              ref={this.searchBar}
-              onSelect={e => searchCards(e.suggestion)}
-              value={searchInput}
+              titles={titles}
+              onChange={e => this.changeSearchInput(e)}
+              searchBar={this.searchBar}
+              searchInput={searchInput}
             />
           ) : (
             <Tooltip
