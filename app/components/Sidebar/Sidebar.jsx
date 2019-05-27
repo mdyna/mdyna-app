@@ -58,13 +58,13 @@ class Sidebar extends Component {
     });
   }
 
-  changeSearchInput(e) {
+  changeSearchInput(value) {
     const {searchCards} = this.props;
 
     this.setState({
-      searchInput: e.target.value,
+      searchInput: value,
     });
-    searchCards(e.target.value);
+    searchCards(value);
   }
 
   render() {
@@ -116,7 +116,7 @@ class Sidebar extends Component {
             if (!sidebarExpanded) {
               this.expandMenu();
             }
-            setTimeout(() => this.searchBar.current.focus(), 300);
+            setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
           }}
         />
         <Box direction="row" justify="start" className="menu-item title">
@@ -150,7 +150,7 @@ class Sidebar extends Component {
               text="Hotkey: Ctrl+P"
               onClick={() => {
                 this.expandMenu();
-                setTimeout(() => this.searchBar.current.focus(), 300);
+                setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
               }}
             />
           )}

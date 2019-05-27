@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import TextInput from 'grommet/components/TextInput';
@@ -9,7 +9,7 @@ import './Search.scss';
 export default class Search extends Component {
   render() {
     const {
-      titles, searchInput, onChange, searchBar, whiteMode,
+      searchInput, onChange, searchBar, whiteMode,
     } = this.props;
     return (
       <div className={cx('search-wrapper', whiteMode && 'white-mode')}>
@@ -17,8 +17,7 @@ export default class Search extends Component {
         <TextInput
           className={cx('mdyna-search', whiteMode && 'white-mode')}
           placeHolder="Search cards by title (Ctrl+P)"
-          suggestions={titles.filter(d => d && d.toLowerCase().includes(searchInput.toLowerCase()))}
-          onDOMChange={e => onChange(e)}
+          onDOMChange={e => onChange(e.target.value)}
           ref={searchBar}
           onSelect={e => onChange(e.suggestion)}
           value={searchInput}
@@ -29,7 +28,6 @@ export default class Search extends Component {
 }
 
 Search.propTypes = {
-  titles: PropTypes.arrayOf(PropTypes.string),
   searchInput: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   searchBar: PropTypes.object.isRequired,
@@ -39,5 +37,4 @@ Search.propTypes = {
 Search.defaultProps = {
   searchInput: '',
   whiteMode: false,
-  titles: [],
 };
