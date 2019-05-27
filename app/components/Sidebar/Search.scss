@@ -1,0 +1,42 @@
+@import "../../style.scss";
+
+.search-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 0 5px;
+
+  .mdyna-search {
+    border-radius: 5px !important;
+    margin: 10px auto !important;
+    padding: 5px 28px 5px 15px !important;
+    border-color: $accent-color !important;
+    background-color: $background-color;
+    color: $accent-color !important;
+    width: 100%;
+    &.white-mode {
+      background-color: $white-background-color;
+      border-color: $note-font-color !important;
+      color: $note-font-color !important;
+    }
+    &:focus {
+      border: 2px solid $accent-color !important;
+      &.white-mode {
+        border: 2px solid $note-font-color !important;
+      }
+    }
+  }
+  svg {
+    margin-right: 5px;
+    path {
+      stroke: $accent-color !important;
+    }
+  }
+  &.white-mode {
+    svg {
+      path {
+        stroke: $note-font-color !important;
+      }
+    }
+  }
+}

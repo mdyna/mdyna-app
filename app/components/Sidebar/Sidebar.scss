@@ -1,4 +1,4 @@
-@import "../style.scss";
+@import "../../style.scss";
 
 
 .sidebar {
@@ -7,13 +7,13 @@
   opacity: 0.9;
   border-radius: 0px 10px 10px 0px;
   width: 250px;
-  transition: width 0.25s;
+  transition: width 0.5s;
   position: sticky;
   top: 50px;
   overflow: hidden !important;
 
   .sidebar-tooltip {
-    margin: 5px auto;
+    margin: 3px auto;
     svg {
       border-radius: 50px;
     }
@@ -37,8 +37,11 @@
   }
 
   .title-button {
-    margin: 5px;
+    margin: 0 !important;
     color: $accent-color;
+    label {
+      margin: 0 !important;
+    }
     svg polyline {
       stroke: $accent-color !important;
     }
@@ -53,11 +56,24 @@
 
     .menu-item-labels {
       align-items: center;
+      .menu-item {
+        margin: 0;
+      }
+      svg {
+        margin: 0;
+      }
     }
   }
 
   .menu-item-labels {
     align-items: flex-end;
+    .menu-item {
+      margin: 5px 0;
+    }
+    label {
+      font-size: 1rem;
+      margin: 5px 10px;
+    }
     svg {
       margin: 0 5px;
       polygon {
@@ -77,6 +93,7 @@
       justify-content: space-between;
       width: 100%;
 
+
       &:hover {
         background-color: $accent-color;
         .menu-label {
@@ -85,9 +102,9 @@
       }
 
       .menu-label {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: $accent-color;
-        margin: 10px 0;
+        margin: 5px 0;
       }
     }
 
@@ -109,12 +126,10 @@
 
   .sorting-table {
     height: 0;
-    transition: all 0.75s;
+    transition: all 0.5s;
     border-radius: 10px;
     display: flex;
     flex-flow: column nowrap;
-    background-color: $accent-color;
-    color: $background-color;
     align-self: flex-end;
     margin-top: 10px;
     width: 70%;
@@ -123,24 +138,27 @@
     button {
       transition: 0.5s all;
       height: 0;
+      pointer-events: none;
       opacity: 0;
-
     }
     &.expanded {
       padding: 10px;
-      height: 110px;
+      height: auto;
+      display: flex;
       button {
         flex-flow: row nowrap;
         width: 100%;
         justify-content: flex-end;
+        pointer-events: initial;
         display: flex;
         background-color: $secondary-background;
         color: $dark-accent-color;
         border-radius: 10px;
-        min-height: 40px;
+        min-height: 32px;
         padding: 0 5px;
-        margin: 0 0 10px 0;
+        margin: 0 0 5px 0;
         align-items: center;
+        font-size: 1rem;
         opacity: 0.8;
         &.active-sorting {
           color: $secondary-accent;
@@ -183,8 +201,6 @@
     background-color: $white-sidebar-background-color;
     color: $white-font-color;
     .sorting-table {
-      color: $white-font-color !important;
-      background-color: $white-sidebar-background-color;
       button {
         color: $white-sidebar-background-color;
         &.active-sorting {
@@ -244,15 +260,6 @@
     .sidebar-app-logo {
       box-shadow: none;
     }
-    .grommetux-control-icon-search {
-      path {
-        stroke: $white-font-color !important;
-      }
-    }
-    .grommetux-search__input {
-      background-color: $white-hover-color;
-      border-color: $white-font-color !important;
-    }
 
     .toggle-completed-button {
       svg polyline {
@@ -300,28 +307,6 @@
     }
   }
 
-  .grommetux-search--inline {
-    margin: 0 0 10px 0;
-
-    .grommetux-search__input {
-      border-width: 2px;
-      width: 230px !important;
-      border-radius: 10px !important;
-      border-color: $accent-color;
-      padding: 10px 22px;
-      height: 42px;
-    }
-
-    .grommetux-search__input:focus {
-      border-color: $secondary-accent;
-    }
-
-    .grommetux-control-icon-search {
-      path {
-        stroke: $accent-color;
-      }
-    }
-  }
 
   .toggle-completed-button {
     svg polyline {
@@ -342,7 +327,7 @@
       border: 2px solid $accent-color;
       border-radius: 10px;
       height: 28px;
-      margin: 5px 0;
+      margin: 0;
       width: 38px;
       padding: 5px;
     }
@@ -360,10 +345,3 @@
   }
 }
 
-.grommetux-drop {
-  border-radius: 10px !important;
-  .grommetux-search__suggestions {
-    border-radius: 10px;
-    background-color: #9fb5c0;
-  }
-}

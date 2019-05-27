@@ -1505,10 +1505,10 @@ lodash-es@^4.2.1:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
   integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
 
-lodash.sortby@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
-  integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.zip@^4.2.0:
   version "4.2.0"
@@ -2168,6 +2168,11 @@ redent@^1.0.0:
   dependencies:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
+
+redux-debounced@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/redux-debounced/-/redux-debounced-0.5.0.tgz#4dde27a3e66ea428afe78215f30a27f22714605b"
+  integrity sha512-O2anhB0A6yQZH19uLETFtajcUQLcyiJcgC0hHSoFr5T3hWGtt0C5s6KNnb2RX51MwCh5VCl9ehZTv91F/rsZww==
 
 redux-logger@^3.0.6:
   version "3.0.6"

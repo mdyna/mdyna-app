@@ -92,7 +92,7 @@ export default class CardList extends PureComponent {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
-      return matchesSearchInput && matchesLabelFilters;
+      return matchesSearchInput || matchesLabelFilters;
     });
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {

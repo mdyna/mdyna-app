@@ -1,18 +1,19 @@
 @import "../../style.scss";
 
 .label-filter-box {
-  border: 2px solid $accent-color;
+  border: 1px solid $accent-color;
   border-radius: 10px;
   display: flex;
   flex-flow: row nowrap;
   padding: 5px;
 
   .label {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   &.white-mode {
-    border: 2px solid $white-font-color;
+    border: 1px solid $white-font-color;
     .label-box {
       .label-button {
         background-color: $white-label-background-color !important;
@@ -41,13 +42,15 @@
     justify-content: flex-start;
     align-items: baseline;
     overflow-y: auto;
+    max-height: 25vh;
 
     .label-button {
       background-color: $accent-color;
       border: 1px solid $dark-accent-color !important;
-      border-radius: 5px;
-      padding: 2px;
-      margin: 5px;
+      border-radius: 25px;
+      font-size: 1rem !important;
+      padding: 2px !important;
+      margin: 3px;
 
       &:hover {
         color: $accent-color;

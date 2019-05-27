@@ -105,6 +105,11 @@ export const removeLabel = label => ({
 export const searchCards = value => ({
   type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
   value,
+  meta: {
+    debounce: {
+      time: 500,
+    },
+  },
 });
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,
@@ -122,4 +127,8 @@ export const removeLabelFilter = value => ({
 export const toggleCompletedFilter = value => ({
   type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
   value,
+});
+export const changeCwd = cwd => ({
+  type: ACTION_TYPES.CHANGE_CWD,
+  cwd,
 });
