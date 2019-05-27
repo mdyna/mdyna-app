@@ -1,11 +1,12 @@
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import { throttle } from 'lodash';
+import createDebounce from 'redux-debounced';
 import MdynaApp from './reducers';
 import { getLocalState, saveState } from './localStorage';
 
 const localState = getLocalState();
-const store = createStore(MdynaApp, localState, applyMiddleware(logger));
+const store = createStore(MdynaApp, localState, applyMiddleware(logger, createDebounce()));
 
 store.subscribe(
   throttle(() => {

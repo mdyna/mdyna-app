@@ -105,6 +105,11 @@ export const removeLabel = label => ({
 export const searchCards = value => ({
   type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
   value,
+  meta: {
+    debounce: {
+      time: 500,
+    },
+  },
 });
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,

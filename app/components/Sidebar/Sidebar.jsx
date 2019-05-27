@@ -13,7 +13,6 @@ import SortIcon from 'grommet/components/icons/base/Transaction';
 import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
 import Pulse from 'grommet/components/icons/base/Add';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
-import Search from 'grommet/components/Search';
 import classnames from 'classnames';
 import Label from 'grommet/components/Label';
 import Image from 'grommet/components/Image';
@@ -30,8 +29,9 @@ import {
   DESCENDING_ORDER,
 } from 'Utils/globals';
 
-import logo from '../../resources/MdynaLogoCircle.png';
+import logo from '../../../resources/MdynaLogoCircle.png';
 
+import Search from './Search';
 import './Sidebar.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
@@ -58,6 +58,15 @@ class Sidebar extends Component {
     });
   }
 
+  changeSearchInput(value) {
+    const {searchCards} = this.props;
+
+    this.setState({
+      searchInput: value,
+    });
+    searchCards(value);
+  }
+
   render() {
     const {
       cards,
@@ -76,7 +85,6 @@ class Sidebar extends Component {
       sorting,
       order,
       labels,
-      searchCards,
       changeCwd,
     } = this.props;
     const { searchInput, sortingOptionsExpanded } = this.state;
@@ -108,7 +116,7 @@ class Sidebar extends Component {
             if (!sidebarExpanded) {
               this.expandMenu();
             }
-            setTimeout(() => this.searchBar.current.focus(), 300);
+            setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
           }}
         />
         <Box direction="row" justify="start" className="menu-item title">
@@ -127,19 +135,11 @@ class Sidebar extends Component {
         <Box direction="row" justify="start" className="menu-item">
           {sidebarExpanded ? (
             <Search
-              inline
-              suggestions={titles.filter(
-                d => d && d.toLowerCase().startsWith(searchInput.toLowerCase()),
-              )}
-              onDOMChange={(e) => {
-                searchCards(e.target.value);
-                this.setState({
-                  searchInput: e.target.value,
-                });
-              }}
-              ref={this.searchBar}
-              onSelect={e => searchCards(e.suggestion)}
-              value={searchInput}
+              titles={titles}
+              whiteMode={whiteMode}
+              onChange={e => this.changeSearchInput(e)}
+              searchBar={this.searchBar}
+              searchInput={searchInput}
             />
           ) : (
             <Tooltip
@@ -150,7 +150,7 @@ class Sidebar extends Component {
               text="Hotkey: Ctrl+P"
               onClick={() => {
                 this.expandMenu();
-                setTimeout(() => this.searchBar.current.focus(), 300);
+                setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
               }}
             />
           )}
@@ -367,7 +367,7 @@ Sidebar.propTypes = {
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   cwd: PropTypes.string.isRequired,
-  changeCwd: PropTypes.string.isRequired,
+  changeCwd: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
