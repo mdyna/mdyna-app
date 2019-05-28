@@ -106,6 +106,9 @@ app.on('ready', () => {
 
   const userStorage = new Storage();
   const userSettings = userStorage.get('settings');
+  const userState = userStorage.get('state');
+  const userCardsInStorage = userState && userState.cards || [];
+  const userLabelsInStorage = userState && userState.labels || [];
   logger.log('LOADED SETTINGS STORAGE', userSettings);
   const cwd = getCwd(userSettings);
   const cardStorage = new Storage({
@@ -120,14 +123,28 @@ app.on('ready', () => {
       cards: cardStorageState && cardStorageState.cards && getUniqCardsById([
         ...tempState.cards,
         ...cardStorageState.cards,
+        ...userCardsInStorage,
       ]) || tempState.cards,
       labels: cardStorageState && getUniqLabels([
         ...tempState.labels,
         ...cardStorageState.labels,
+        ...userLabelsInStorage,
       ]) || tempState.labels,
     });
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
+  } else if (userCardsInStorage.length || userLabelsInStorage.length) {
+    cardStorage.set('state', {
+      cards: getUniqCardsById([
+        ...tempState.cards,
+        ...userCardsInStorage,
+      ]) || tempState.cards,
+      labels: getUniqLabels([
+        ...tempState.labels,
+        ...userLabelsInStorage,
+      ]) || tempState.labels,
+    });
+    userStorage.delete('state');
   }
   logger.log('LOADED CARDS STORAGE', cardStorage.get('state'));
   global.cardStorage = cardStorage;

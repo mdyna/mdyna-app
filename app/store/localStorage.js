@@ -5,14 +5,14 @@ export const getLocalState = () => {
   return {
     ...userState,
     filters: {
-      order: settings.order,
-      sorting: settings.sorting,
+      order: settings && settings.order,
+      sorting: settings && settings.sorting,
     },
     style: {
-      whiteMode: settings.whiteMode,
+      whiteMode: settings && settings.whiteMode,
     },
     settings: {
-      cwd: settings.cwd,
+      cwd: settings && settings.cwd,
     },
   };
 };
