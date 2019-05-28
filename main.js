@@ -109,12 +109,22 @@ app.on('ready', () => {
   const userState = userStorage.get('state');
   const userCardsInStorage = userState && userState.cards || [];
   const userLabelsInStorage = userState && userState.labels || [];
-  logger.log('LOADED SETTINGS STORAGE', userSettings);
-  const cwd = getCwd(userSettings);
-  const cardStorage = new Storage({
-    name: 'mdyna-card-data',
-    cwd,
-  });
+  let cardStorage;
+  if (userSettings && Object.keys(userSettings).length) {
+    logger.log('LOADED SETTINGS STORAGE', userSettings);
+    const cwd = getCwd(userSettings);
+    if (cwd) {
+      cardStorage = new Storage({
+        name: 'mdyna-card-data',
+        cwd: cwd && path.join(__dirname, cwd) || '',
+      });
+    }
+  }
+  if (!cardStorage) {
+    cardStorage = new Storage({
+      name: 'mdyna-card-data',
+    });
+  }
   const tempState = userStorage.get('tmp/state');
   if (tempState && Object.keys(tempState).length) {
     // * Mash temp state agaisnt current state
