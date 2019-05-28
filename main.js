@@ -110,9 +110,10 @@ app.on('ready', () => {
   const userCardsInStorage = userState && userState.cards || [];
   const userLabelsInStorage = userState && userState.labels || [];
   let cardStorage;
+  let cwd;
   if (userSettings && Object.keys(userSettings).length) {
     logger.log('LOADED SETTINGS STORAGE', userSettings);
-    const cwd = getCwd(userSettings);
+    cwd = getCwd(userSettings);
     if (cwd) {
       cardStorage = new Storage({
         name: 'mdyna-card-data',
