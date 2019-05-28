@@ -100,7 +100,7 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
-  const getCwd = storage => storage && storage.cwd || electron.app.getAppPath();
+  const getCwd = storage => storage && storage.cwd || '';
   const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
   const getUniqLabels = labelsArray => uniq(labelsArray);
 
