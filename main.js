@@ -136,11 +136,9 @@ app.on('ready', () => {
   } else if (userCardsInStorage.length || userLabelsInStorage.length) {
     cardStorage.set('state', {
       cards: getUniqCardsById([
-        ...tempState.cards,
         ...userCardsInStorage,
       ]) || tempState.cards,
       labels: getUniqLabels([
-        ...tempState.labels,
         ...userLabelsInStorage,
       ]) || tempState.labels,
     });
