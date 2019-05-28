@@ -100,65 +100,81 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
-  const getCwd = storage => storage && storage.cwd || '';
+  const getCwd = storage => (storage && storage.cwd) || '';
   const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
   const getUniqLabels = labelsArray => uniq(labelsArray);
 
   const userStorage = new Storage();
   const userSettings = userStorage.get('settings');
   const userState = userStorage.get('state');
-  const userCardsInStorage = userState && userState.cards || [];
-  const userLabelsInStorage = userState && userState.labels || [];
+  const userCardsInStorage = (userState && userState.cards) || [];
+  const userLabelsInStorage = (userState && userState.labels) || [];
   let cardStorage;
   let cwd;
-  if (userSettings && Object.keys(userSettings).length) {
-    logger.log('LOADED SETTINGS STORAGE', userSettings);
-    cwd = getCwd(userSettings);
-    if (cwd) {
+  try {
+    if (userSettings && Object.keys(userSettings).length) {
+      logger.log('LOADED SETTINGS STORAGE', userSettings);
+      cwd = getCwd(userSettings);
+
+      if (cwd) {
+        cardStorage = new Storage({
+          name: 'mdyna-card-data',
+          cwd: (cwd && path.join(__dirname, cwd)) || '',
+        });
+      }
+    }
+    if (!cardStorage) {
+      logger.log('DID NOT FIND PREVIOUS USER SETTINGS, CREATING EMPTY STORAGE IN DEFAULT PATH');
       cardStorage = new Storage({
         name: 'mdyna-card-data',
-        cwd: cwd && path.join(__dirname, cwd) || '',
       });
     }
-  }
-  if (!cardStorage) {
-    cardStorage = new Storage({
-      name: 'mdyna-card-data',
-    });
-  }
-  const tempState = userStorage.get('tmp/state');
-  if (tempState && Object.keys(tempState).length) {
-    // * Mash temp state agaisnt current state
-    const cardStorageState = cardStorage.get('state');
-    cardStorage.set('state', {
-      cards: cardStorageState && cardStorageState.cards && getUniqCardsById([
-        ...tempState.cards,
-        ...cardStorageState.cards,
-        ...userCardsInStorage,
-      ]) || tempState.cards,
-      labels: cardStorageState && getUniqLabels([
-        ...tempState.labels,
-        ...cardStorageState.labels,
-        ...userLabelsInStorage,
-      ]) || tempState.labels,
-    });
-    // * Clear tmp/state key
-    userStorage.delete('tmp/state');
-  } else if (userCardsInStorage.length || userLabelsInStorage.length) {
-    cardStorage.set('state', {
-      cards: getUniqCardsById([
-        ...userCardsInStorage,
-      ]) || tempState.cards,
-      labels: getUniqLabels([
-        ...userLabelsInStorage,
-      ]) || tempState.labels,
-    });
-    userStorage.delete('state');
+    const tempState = userStorage.get('tmp/state');
+    if (tempState && Object.keys(tempState).length) {
+      // * Mash temp state agaisnt current state
+      logger.info('SETTING STATE FROM TMP/STATE');
+      const cardStorageState = cardStorage.get('state');
+      logger.info(tempState);
+      cardStorage.set('state', {
+        cards:
+          (cardStorageState
+            && cardStorageState.cards
+            && getUniqCardsById([
+              ...tempState.cards,
+              ...cardStorageState.cards,
+              ...userCardsInStorage,
+            ]))
+          || tempState.cards,
+        labels:
+          (cardStorageState
+            && getUniqLabels([
+              ...tempState.labels,
+              ...cardStorageState.labels,
+              ...userLabelsInStorage,
+            ]))
+          || tempState.labels,
+      });
+      // * Clear tmp/state key
+      userStorage.delete('tmp/state');
+    } else if (userCardsInStorage.length || userLabelsInStorage.length) {
+      logger.info('SETTING STATE FROM USER STORAGE');
+      logger.info(userCardsInStorage);
+      cardStorage.set('state', {
+        cards: getUniqCardsById([...userCardsInStorage]) || tempState.cards,
+        labels: getUniqLabels([...userLabelsInStorage]) || tempState.labels,
+      });
+      userStorage.delete('state');
+    }
+  } catch (e) {
+    logger.error(e);
+    if (!cardStorage) {
+      logger.warn('STARTING EMPTY STORAGE');
+      cardStorage = new Storage({});
+    }
   }
   logger.log('LOADED CARDS STORAGE', cardStorage.get('state'));
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
-
 
   // * CHANGE CWD EVENT
   ipcMain.on('CHANGED-CWD', () => {
