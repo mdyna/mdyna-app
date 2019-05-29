@@ -30,7 +30,7 @@ export default function notes(
         ...state,
         labelFilters:
           (labelFilters.indexOf(action.value) === -1 && [
-            labelFilters,
+            ...labelFilters,
             action.value,
           ])
           || labelFilters,

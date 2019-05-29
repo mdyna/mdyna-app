@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import fastSort from 'fast-sort';
 import Masonry from 'react-masonry-component';
 import Section from 'grommet/components/Section';
 import Layer from 'grommet/components/Layer';
@@ -16,7 +15,6 @@ import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 import Error from 'UI/Error';
-import { DESCENDING_ORDER } from 'Utils/globals';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -65,7 +63,7 @@ export default class CardList extends PureComponent {
       }
       return false;
     }
-    return true;
+    return false;
   }
 
   renderAddNoteButton() {
@@ -83,16 +81,22 @@ export default class CardList extends PureComponent {
     );
   }
 
-
   renderVisibleCards() {
-    const { searchInput, completedFilterOn, cards } = this.props;
+    const {
+      searchInput, completedFilterOn, cards, labelFilters,
+    } = this.props;
     const filteredCards = cards.filter((d) => {
-      const matchesSearchInput = d.title
-        && d.title.toLowerCase().includes(searchInput.toLowerCase());
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
-      return matchesSearchInput || matchesLabelFilters;
+      const matchesSearchInput = (d.title && d.title.toLowerCase().includes(
+        searchInput.toLowerCase(),
+      ))
+        || matchesLabelFilters;
+      const hasLabelFilters = Boolean(labelFilters.length);
+      return hasLabelFilters || searchInput !== ''
+        ? Boolean(matchesSearchInput && matchesLabelFilters)
+        : Boolean(matchesSearchInput || matchesLabelFilters);
     });
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {
@@ -104,16 +108,14 @@ export default class CardList extends PureComponent {
     return (visibleCards.length && visibleCards) || null;
   }
 
-
   render() {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(
-      pageIndex, pageIndex + PAGE_SIZE,
-    );
+    const cardComponents = cardItems && cardItems.length
+    && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     return (
       <Section
@@ -208,8 +210,6 @@ CardList.propTypes = {
   modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
-  order: PropTypes.string.isRequired,
-  sorting: PropTypes.string.isRequired,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,

@@ -16,7 +16,6 @@
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
-    "fast-sort": "^1.5.6",
     "grommet": "^1.10.1",
     "grommet-addons": "^0.6.0",
     "highlight.js": "^9.13.1",
