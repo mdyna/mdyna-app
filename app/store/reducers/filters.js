@@ -18,6 +18,7 @@ export default function notes(
   },
   action,
 ) {
+  const labelFilters = state.labelFilters || [];
   switch (action.type) {
     case SEARCH_CARDS:
       return {
@@ -28,11 +29,11 @@ export default function notes(
       return {
         ...state,
         labelFilters:
-          (state.labelFilters.indexOf(action.value) === -1 && [
-            ...state.labelFilters,
+          (labelFilters.indexOf(action.value) === -1 && [
+            labelFilters,
             action.value,
           ])
-          || state.labelFilters,
+          || labelFilters,
       };
     case CHANGE_SORTING_STATE:
       return {
