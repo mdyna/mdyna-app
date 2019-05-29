@@ -20,7 +20,7 @@ export default class FolderPicker extends PureComponent {
             type="file"
             webkitdirectory=""
             style={{ visibility: 'none' }}
-            onChange={e => onChange(e.target.value)}
+            onChange={e => {onChange(e.target.files[0].path)}}
             placeholder={value}
           />
         </label>
