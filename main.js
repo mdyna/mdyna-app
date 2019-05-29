@@ -1,6 +1,8 @@
 // Basic init
+// eslint-disable-next-line
 const electron = require('electron');
-const { dialog, ipcMain } = require('electron');
+// eslint-disable-next-line
+const { dialog, ipcMain, remote } = require('electron');
 const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
@@ -100,77 +102,52 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
-  const getCwd = storage => storage && storage.cwd || electron.app.getAppPath();
+  const getCwd = storage => storage && storage.cwd || (remote && remote.app || electron.app).getPath('userData');
   const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
   const getUniqLabels = labelsArray => uniq(labelsArray);
 
-  const userStorage = new Storage();
+  const userStorage = new Storage({
+    cwd: getCwd(),
+  });
   const userSettings = userStorage.get('settings');
+  const cwd = getCwd(userSettings);
   const userState = userStorage.get('state');
-  const userCardsInStorage = (userState && userState.cards) || [];
-  const userLabelsInStorage = (userState && userState.labels) || [];
-  let cardStorage;
-  let cwd;
-  try {
-    if (userSettings && Object.keys(userSettings).length) {
-      logger.log('LOADED SETTINGS STORAGE ->', userSettings);
-      cwd = getCwd(userSettings);
-
-      if (cwd) {
-        cardStorage = new Storage({
-          name: 'mdyna-card-data',
-          cwd: (cwd && path.join(__dirname, cwd)) || '',
-        });
-      }
-    }
-    if (!cardStorage) {
-      logger.log('DID NOT FIND PREVIOUS USER SETTINGS, CREATING EMPTY STORAGE IN DEFAULT PATH');
-      cardStorage = new Storage({
-        name: 'mdyna-card-data',
-      });
-    }
-    const tempState = userStorage.get('tmp/state');
-    if (tempState && Object.keys(tempState).length) {
-      // * Mash temp state agaisnt current state
-      logger.info('SETTING STATE FROM TMP/STATE');
-      const cardStorageState = cardStorage.get('state');
-      logger.info(tempState);
-      cardStorage.set('state', {
-        cards:
-          (cardStorageState
-            && cardStorageState.cards
-            && getUniqCardsById([
-              ...tempState.cards,
-              ...cardStorageState.cards,
-              ...userCardsInStorage,
-            ]))
-          || tempState.cards,
-        labels:
-          (cardStorageState
-            && getUniqLabels([
-              ...tempState.labels,
-              ...cardStorageState.labels,
-              ...userLabelsInStorage,
-            ]))
-          || tempState.labels,
-      });
-      // * Clear tmp/state key
-      userStorage.delete('tmp/state');
-    } else if (userCardsInStorage.length || userLabelsInStorage.length) {
-      logger.info('SETTING STATE FROM USER STORAGE');
-      logger.info(userCardsInStorage);
-      cardStorage.set('state', {
-        cards: getUniqCardsById([...userCardsInStorage]) || tempState.cards,
-        labels: getUniqLabels([...userLabelsInStorage]) || tempState.labels,
-      });
-      userStorage.delete('state');
-    }
-  } catch (e) {
-    logger.error(e);
-    if (!cardStorage) {
-      logger.warn('STARTING EMPTY STORAGE');
-      cardStorage = new Storage({});
-    }
+  const userCardsInStorage = userState && userState.cards || [];
+  const userLabelsInStorage = userState && userState.labels || [];
+  const createCardStorage = directory => directory && new Storage({
+    name: 'mdyna-card-data',
+    cwd: directory,
+  });
+  const cardStorage = createCardStorage(cwd);
+  logger.log('CARD STORAGE IN ', cwd);
+  const tempState = userStorage.get('tmp/state');
+  if (tempState && Object.keys(tempState).length) {
+    // * Mash temp state agaisnt current state
+    const cardStorageState = cardStorage.get('state');
+    cardStorage.set('state', {
+      cards: cardStorageState && cardStorageState.cards && getUniqCardsById([
+        ...tempState.cards,
+        ...cardStorageState.cards,
+        ...userCardsInStorage,
+      ]) || tempState.cards,
+      labels: cardStorageState && getUniqLabels([
+        ...tempState.labels,
+        ...cardStorageState.labels,
+        ...userLabelsInStorage,
+      ]) || tempState.labels,
+    });
+    // * Clear tmp/state key
+    userStorage.delete('tmp/state');
+  } else if (userCardsInStorage.length || userLabelsInStorage.length) {
+    cardStorage.set('state', {
+      cards: getUniqCardsById([
+        ...userCardsInStorage,
+      ]) || tempState.cards,
+      labels: getUniqLabels([
+        ...userLabelsInStorage,
+      ]) || tempState.labels,
+    });
+    userStorage.delete('state');
   }
   logger.log('LOADED CARDS STORAGE', cardStorage.get('state'));
   global.cardStorage = cardStorage;
@@ -187,7 +164,9 @@ app.on('ready', () => {
     });
     logger.info('PORTING STATE FROM OLD CWD [', cwd, '] TO [', newCwd, ']');
     logger.log(newCardStorage.get('state'), cardStorage.get('state'));
-    userStorage.set('tmp/state', currentUserState);
+    if (currentUserState) {
+      userStorage.set('tmp/state', currentUserState);
+    }
     logger.log('NEW STORAGE STATE', newCardStorage.get('state'));
     logger.info('RELAUNCHING APP');
     electron.app.relaunch();
