@@ -113,7 +113,7 @@ app.on('ready', () => {
   let cwd;
   try {
     if (userSettings && Object.keys(userSettings).length) {
-      logger.log('LOADED SETTINGS STORAGE', userSettings);
+      logger.log('LOADED SETTINGS STORAGE ->', userSettings);
       cwd = getCwd(userSettings);
 
       if (cwd) {
