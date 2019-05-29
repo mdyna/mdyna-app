@@ -15,11 +15,10 @@ class LabelFilter extends Component {
       const label = orderedLabels[i];
       const labelFilterActive = label && label.title && labelFilters.indexOf(label.title) !== -1;
       const labelFunc = labelFilterActive ? removeLabelFilter : addLabelFilter;
-      const labelClassName = labelFilterActive ? 'label-button-active' : 'label-button';
       if (label && label.title) {
         const labelElement = (
           <Button
-            className={labelClassName}
+            className={cx('label-button', labelFilterActive && 'active')}
             onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
           >
