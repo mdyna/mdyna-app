@@ -200,3 +200,7 @@ app.on('ready', () => {
     mainWindow.loadURL('http://localhost:8080/dist/web');
   }
 });
+
+app.on('window-all-closed', () => {
+  app.quit();
+});
