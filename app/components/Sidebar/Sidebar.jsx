@@ -366,7 +366,7 @@ Sidebar.propTypes = {
   removeLabelFilter: PropTypes.func.isRequired,
   toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
-  cwd: PropTypes.string.isRequired,
+  cwd: PropTypes.string,
   changeCwd: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
@@ -383,6 +383,7 @@ Sidebar.defaultProps = {
   sidebarExpanded: false,
   completedFilterOn: false,
   sorting: SORTING_BY_DATE,
+  cwd: '',
   order: DESCENDING_ORDER,
   labels: [],
 };

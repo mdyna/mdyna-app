@@ -25,6 +25,19 @@ export default class CardList extends PureComponent {
     pageIndex: 0,
   };
 
+  componentDidUpdate() {
+    const {
+      cards,
+    } = this.props;
+    const { pageIndex } = this.state;
+    const cardItems = this.renderVisibleCards(cards);
+    const cardComponents = cardItems && cardItems.length
+    && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    if (!cardComponents.length) {
+      this.getPreviousCards();
+    }
+  }
+
   getNextCards() {
     const { pageIndex } = this.state;
 
