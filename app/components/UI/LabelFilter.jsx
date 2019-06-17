@@ -32,12 +32,12 @@ class LabelFilter extends Component {
   }
 
   render() {
-    const { whiteMode } = this.props;
-    return (
+    const { whiteMode, labels } = this.props;
+    return labels && labels.length && (
       <div className={cx(whiteMode && 'white-mode', 'label-filter-box')}>
         <div className="label-box">{this.renderClickableLabels()}</div>
       </div>
-    );
+    ) || '';
   }
 }
 
