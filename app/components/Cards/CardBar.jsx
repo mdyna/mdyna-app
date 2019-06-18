@@ -72,10 +72,12 @@ class CardBar extends Component {
           style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
         >
           <h4
-                style={{
-                  color: card.color,
-                }}
-                >{card.title}</h4>
+            style={{
+              color: card.color,
+            }}
+          >
+            {card.title}
+          </h4>
           <div className="buttons-container">
             <Button onClick={() => toggleCard(card)}>
               <CheckmarkIcon

@@ -57,8 +57,6 @@ class MdynaCard extends PureComponent {
 
   name = 'Mdyna Card';
 
-  cardTitleRef = React.createRef();
-
   scrollToCard() {
     // eslint-disable-next-line
     ReactDOM.findDOMNode(this).scrollIntoView({
@@ -158,9 +156,6 @@ class MdynaCard extends PureComponent {
         ) : (
           ''
         )}
-        <Heading align="start" tag="h1" strong ref={this.cardTitleRef}>
-          {card.title}
-        </Heading>
         <Labels labels={card.labels} color={color} />
         {this.renderCardDate()}
         <MarkdownText
