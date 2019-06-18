@@ -1,7 +1,7 @@
 {
   "name": "mdyna",
   "version": "0.7.15",
-  "description": "A notes app with Markdown support",
+  "description": "A notes application with markdown support, build with React and Electron",
   "homepage": "https://mdyna.dev",
   "main": "main.js",
   "scripts": {
