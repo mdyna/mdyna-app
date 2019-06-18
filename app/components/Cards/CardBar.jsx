@@ -71,28 +71,40 @@ class CardBar extends Component {
           className="card-bar"
           style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
         >
-          {card.title}
-          <Button onClick={() => toggleCard(card)}>
-            <CheckmarkIcon
-              className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-            />
-          </Button>
-          <Button onClick={() => editCard(card)}>
-            <EditIcon className="edit-icon" />
-          </Button>
-          <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-            <TrashIcon className="close-icon" color={card.color} />
-          </Button>
-          {
-            // isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''
-          }
-          {
-            // minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''
-          }
+          <h4
+                style={{
+                  color: card.color,
+                }}
+                >{card.title}</h4>
+          <div className="buttons-container">
+            <Button onClick={() => toggleCard(card)}>
+              <CheckmarkIcon
+                style={{
+                  stroke: card.color,
+                }}
+                className={classnames({ 'checkmark-icon': true, completed: card.completed })}
+              />
+            </Button>
+            <Button onClick={() => editCard(card)}>
+              <EditIcon
+                style={{
+                  fill: card.color,
+                  stroke: card.color,
+                }}
+                className="edit-icon"
+              />
+            </Button>
+            <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
+              <TrashIcon
+                style={{
+                  stroke: card.color,
+                }}
+                className="close-icon"
+                color={card.color}
+              />
+            </Button>
+          </div>
         </div>
-        {
-          // assertTaskAlerts(lastAlertDate, cardFrequency)
-        }
       </React.Fragment>
     );
   }
