@@ -53,6 +53,7 @@ $code-background: #08090a;
   }
 
   button {
+    transition: all 0.5s ease-in;
     svg {
       border: none;
       border-radius: 0;
@@ -72,6 +73,7 @@ $code-background: #08090a;
   }
 
   &:hover {
+    filter: contrast(200%);
     svg.minimize-icon {
       polyline {
         stroke: $secondary-accent !important;

@@ -69,7 +69,6 @@ class CardBar extends Component {
       <React.Fragment>
         <div
           className="card-bar"
-          style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
         >
           <h4
             style={{
@@ -90,7 +89,6 @@ class CardBar extends Component {
             <Button onClick={() => editCard(card)}>
               <EditIcon
                 style={{
-                  fill: card.color,
                   stroke: card.color,
                 }}
                 className="edit-icon"

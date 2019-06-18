@@ -138,10 +138,8 @@ class MdynaCard extends PureComponent {
         }
         style={{
           backgroundColor: color || '#4E636E',
-          filter: (isHovered && `drop-shadow(3px -6px 3px ${tinycolor(color).darken(25)})`) || null,
-          '& table': {
-            backgroundColor: 'red !important',
-          },
+          transition: 'all 0.25s ease-in',
+          filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
         {hasCardBar ? (
