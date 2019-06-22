@@ -1,7 +1,7 @@
 import React, { Component as PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Button from 'grommet/components/Button';
+import {Button} from 'grommet';
 
 import './Button.scss'; // eslint-disable-line
 class MdynaButton extends PureComponent {

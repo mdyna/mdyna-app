@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import Article from 'grommet/components/Article';
-import Headline from 'grommet/components/Headline';
-import Form from 'grommet/components/Form';
+import {Box, Text, CheckBox, Select, FormField, TextInput} from 'grommet';
 import classnames from 'classnames';
-import CheckBox from 'grommet/components/CheckBox';
-import Select from 'grommet/components/Select';
-// import RadioButton from 'grommet/components/RadioButton';
-import FormFields from 'grommet/components/FormFields';
-import DateTime from 'grommet/components/DateTime';
-import FormField from 'grommet/components/FormField';
-import Section from 'grommet/components/Section';
-import TextInput from 'grommet/components/TextInput';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
@@ -160,6 +150,7 @@ export default class CardEditor extends Component {
     const { labelInput } = this.state;
     const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
+      /*
       case 'date':
         return (
           <FormField
@@ -176,6 +167,7 @@ export default class CardEditor extends Component {
             />
           </FormField>
         );
+        */
       case 'stringSplit':
         if (settingName === 'labels') {
           return (
@@ -302,10 +294,10 @@ export default class CardEditor extends Component {
   renderCardForm(components) {
     const { whiteMode } = this.props;
     return (
-      <Form plain>
-        <Section direction="column" alignContent="center">
-          <FormFields>{components}</FormFields>
-        </Section>
+      <form plain>
+        <Box direction="column" alignContent="center">
+          {components}
+        </Box>
         <Button
           theme={whiteMode && 'white' || 'dark'}
           className="submit-btn"
@@ -313,7 +305,7 @@ export default class CardEditor extends Component {
           color="primary"
           onClick={() => this.submitFormFields()}
         />
-      </Form>
+      </form>
     );
   }
 
@@ -321,7 +313,7 @@ export default class CardEditor extends Component {
     const { editorSettings, whiteMode } = this.props;
     return (
       <ErrorBoundary>
-        <Article
+        <Box
           direction="column"
           alignContent="center"
           pad="large"
@@ -332,7 +324,7 @@ export default class CardEditor extends Component {
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline className="header">
+          <Text className="header">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             <Button
               theme={whiteMode && 'white' || 'dark'}
@@ -342,9 +334,9 @@ export default class CardEditor extends Component {
             >
             Save Card
             </Button>
-          </Headline>
+          </Text>
           {this.generateComponentsFromType(cardDefinition)}
-        </Article>
+        </Box>
       </ErrorBoundary>
     );
   }

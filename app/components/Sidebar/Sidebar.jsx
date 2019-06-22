@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
 import PropTypes from 'prop-types';
-import Box from 'grommet/components/Box';
-import Filter from 'grommet/components/icons/base/Filter';
-import Brush from 'grommet/components/icons/base/Brush';
-import FormNext from 'grommet/components/icons/base/FormNext';
-import FormPrevious from 'grommet/components/icons/base/FormPrevious';
-import SearchIcon from 'grommet/components/icons/base/Search';
-import UpArrow from 'grommet/components/icons/base/LinkUp';
-import SortIcon from 'grommet/components/icons/base/Transaction';
-import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
-import Pulse from 'grommet/components/icons/base/Add';
-import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
+import {Box, Text, Image} from 'grommet';
+import {
+Filter,
+Brush,
+FormNext,
+FormPrevious,
+Search,
+Up,
+Sort,
+FolderCycle,
+AddCircle,
+Checkmark,
+} from 'grommet-icons'
 import classnames from 'classnames';
-import Label from 'grommet/components/Label';
-import Image from 'grommet/components/Image';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
@@ -31,7 +31,7 @@ import {
 
 import logo from '../../../resources/MdynaLogoCircle.png';
 
-import Search from './Search';
+import SearchInput from './Search';
 import './Sidebar.scss'; // eslint-disable-line
 
 function getCardTitles(cards) {
@@ -123,8 +123,8 @@ class Sidebar extends Component {
           {sidebarExpanded ? (
             <Button onClick={() => toggleSidebar()} className="title-button">
               <FormPrevious />
-              <Image src={logo} className="sidebar-app-logo" alt="Mdyna" size="small" />
-              <Label size="large">mdyna</Label>
+              <h1>Placeholder</h1>
+              <Text size="large">mdyna</Text>
             </Button>
           ) : (
             <Button onClick={() => toggleSidebar()} className="title-button">
@@ -144,7 +144,7 @@ class Sidebar extends Component {
           ) : (
             <Tooltip
               whiteMode={whiteMode}
-              icon={<SearchIcon />}
+              icon={<Search />}
               title="Search"
               className="sidebar-tooltip"
               text="Hotkey: Ctrl+P"
@@ -187,13 +187,13 @@ class Sidebar extends Component {
               }}
               className="add-note-btn"
             >
-              <Pulse />
-              <Label className="menu-label">Add Card</Label>
+              <AddCircle />
+              <Text className="menu-label">Add Card</Text>
             </Button>
           ) : (
             <Tooltip
               whiteMode={whiteMode}
-              icon={<Pulse />}
+              icon={<AddCircle />}
               className={classnames('sidebar-tooltip', 'add-note-btn')}
               title="Add card"
               text="Hotkey: A"
@@ -211,8 +211,8 @@ class Sidebar extends Component {
               }}
               className={classnames('toggle-completed-button', completedFilterOn && 'active')}
             >
-              <CheckmarkIcon />
-              <Label className="menu-label">Toggle Completed</Label>
+              <Checkmark />
+              <Text className="menu-label">Toggle Completed</Text>
             </Button>
           ) : (
             <Tooltip
@@ -222,7 +222,7 @@ class Sidebar extends Component {
                 completedFilterOn && 'active',
               )}
               whiteMode={whiteMode}
-              icon={<CheckmarkIcon />}
+              icon={<Checkmark />}
               title="Toggle completed cards"
               text="Make cards which have already been completed visible"
               onClick={() => {
@@ -238,14 +238,14 @@ class Sidebar extends Component {
                 this.expandSortingOptions();
               }}
             >
-              <SortIcon className="sort-icon" />
+              <Sort className="sort-icon" />
               <Label className="menu-label">Sort Cards </Label>
             </Button>
           ) : (
             <Tooltip
               className={classnames('sidebar-tooltip', 'sort-icon')}
               whiteMode={whiteMode}
-              icon={<SortIcon />}
+              icon={<Sort />}
               title="Sort cards"
               text="Open sorting options"
               onClick={() => {
@@ -264,14 +264,14 @@ class Sidebar extends Component {
               className={classnames(sorting === SORTING_BY_TITLE && 'active-sorting')}
               onClick={() => changeSorting(SORTING_BY_TITLE, getSortingOrder(SORTING_BY_TITLE))}
             >
-              <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+              <Up className={classnames(order === DESCENDING_ORDER && 'descending')} />
               By Title
             </Button>
             <Button
               onClick={() => changeSorting(SORTING_BY_DATE, getSortingOrder(SORTING_BY_DATE))}
               className={classnames(sorting === SORTING_BY_DATE && 'active-sorting')}
             >
-              <UpArrow className={classnames(order === DESCENDING_ORDER && 'descending')} />
+              <Up className={classnames(order === DESCENDING_ORDER && 'descending')} />
               By Date
             </Button>
           </Box>
@@ -292,7 +292,7 @@ class Sidebar extends Component {
             <Tooltip
               className={classnames('sidebar-tooltip', 'sort-icon')}
               whiteMode={whiteMode}
-              icon={<FolderCycleIcon />}
+              icon={<FolderCycle />}
               title="Change Cards Directory"
               text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
               onClick={() => {

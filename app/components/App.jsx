@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import App from 'grommet/components/App';
-import Article from 'grommet/components/Article';
-import Box from 'grommet/components/Box';
+import { v1 } from 'grommet-theme-v1';
+import { Grommet, Box } from 'grommet';
 import classnames from 'classnames';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
@@ -11,7 +10,6 @@ import CardList from '../containers/CardList';
 import SideBar from './Sidebar/Sidebar';
 
 /* eslint-disable */
-import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
 import './App.scss';
 /* eslint-enable */
 
@@ -22,12 +20,13 @@ class Mdyna extends PureComponent {
     // eslint-disable-next-line
     const { cards, order, sorting, whiteMode } = this.props;
     return (
-      <App
+      <Grommet
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        style={{ maxWidth: '1920px' }}
+        full
+        theme={v1}
       >
         <ErrorBoundary whiteMode={whiteMode}>
-          <Article>
+          <Box>
             <Header />
             <Box className="split">
               <div className="sidebar-wrapper">
@@ -43,9 +42,9 @@ class Mdyna extends PureComponent {
                 <Loader />
               )}
             </Box>
-          </Article>
+          </Box>
         </ErrorBoundary>
-      </App>
+      </Grommet>
     );
   }
 }

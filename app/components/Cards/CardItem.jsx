@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import Card from 'grommet/components/Card';
+import {Box, Text} from 'grommet';
 import Button from 'UI/Button';
-import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
@@ -115,7 +114,7 @@ class MdynaCard extends PureComponent {
     };
     const displayControl = noteActions.minimizeCard && !showAllText;
     return (
-      <Card
+      <Box
         key={i}
         role="button"
         tabIndex={0}
@@ -182,7 +181,7 @@ class MdynaCard extends PureComponent {
             {CardBar.renderCardControl(minimized)}
           </Button>
         }
-      </Card>
+      </Box>
     );
   }
 }
