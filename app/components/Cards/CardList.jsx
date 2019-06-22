@@ -2,14 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-component';
-import Section from 'grommet/components/Section';
-import Layer from 'grommet/components/Layer';
-import Headline from 'grommet/components/Headline';
-import Heading from 'grommet/components/Heading';
-import Pulse from 'grommet/components/icons/base/Add';
-import LeftIcon from 'grommet/components/icons/base/Previous';
-import RightIcon from 'grommet/components/icons/base/Next';
-import Label from 'grommet/components/Label';
+import {Box, Layer, Text} from 'grommet';
+import {Add,
+  Previous,
+  Next} from 'grommet-icons';
 import classnames from 'classnames';
 import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
@@ -88,7 +84,7 @@ export default class CardList extends PureComponent {
         }}
         className="add-note-btn"
       >
-        <Pulse />
+        <Add />
       </Button>
     );
   }
@@ -133,7 +129,7 @@ export default class CardList extends PureComponent {
     const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     return (
-      <Section
+      <Box
         className={classnames({
           'card-list': true,
           'white-mode': whiteMode,
@@ -142,9 +138,9 @@ export default class CardList extends PureComponent {
         direction="row"
       >
         <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
-        <Headline align="center" size="medium">
+        <Text align="center" size="medium">
           INBOX
-        </Headline>
+        </Text>
         {cards.length ? (
           <Error>
             {this.renderAddNoteButton()}
@@ -160,7 +156,7 @@ export default class CardList extends PureComponent {
                       handleKeys={['left']}
                       onKeyEvent={() => this.getPreviousCards()}
                     />
-                    <LeftIcon />
+                    <Previous />
                   </Button>
                 )}
                 <Masonry
@@ -186,20 +182,20 @@ export default class CardList extends PureComponent {
                       handleKeys={['right']}
                       onKeyEvent={() => this.getNextCards()}
                     />
-                    <RightIcon />
+                    <Next />
                   </Button>
                 )}
               </div>
             ) : (
-              <Label>No cards to present</Label>
+              <Text>No cards to present</Text>
             )}
           </Error>
         ) : (
           <React.Fragment>
             {this.renderAddNoteButton()}
-            <Heading align="center" tag="h3">
+            <Text align="center" tag="h3">
               {searchInput ? 'No results found' : 'Click to add a new note'}
-            </Heading>
+            </Text>
           </React.Fragment>
         )}
         {modalOpen ? (
@@ -215,7 +211,7 @@ export default class CardList extends PureComponent {
         ) : (
           ''
         )}
-      </Section>
+      </Box>
     );
   }
 }

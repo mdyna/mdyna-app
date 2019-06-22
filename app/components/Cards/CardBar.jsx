@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
-import TrashIcon from 'grommet/components/icons/base/Trash';
-import EditIcon from 'grommet/components/icons/base/Edit';
-import MinimizeIcon from 'grommet/components/icons/base/Up';
-import MaximizeIcon from 'grommet/components/icons/base/Down';
+import {
+  Checkmark, Trash, Edit, FormUp, FormDown,
+} from 'grommet-icons';
 import Button from 'UI/Button';
 import classnames from 'classnames';
 import tinycolor from 'tinycolor2';
@@ -50,9 +48,9 @@ class CardBar extends Component {
 
   static renderCardControl(minimized) {
     return minimized ? (
-      <MaximizeIcon className="maximize-icon" />
+      <FormDown className="maximize-icon" />
     ) : (
-      <MinimizeIcon className="minimize-icon" />
+      <FormUp className="minimize-icon" />
     );
   }
 
@@ -67,9 +65,7 @@ class CardBar extends Component {
     } = cardActions;
     return (
       <React.Fragment>
-        <div
-          className="card-bar"
-        >
+        <div className="card-bar">
           <h4
             style={{
               color: card.color,
@@ -79,7 +75,7 @@ class CardBar extends Component {
           </h4>
           <div className="buttons-container">
             <Button onClick={() => toggleCard(card)}>
-              <CheckmarkIcon
+              <Checkmark
                 style={{
                   stroke: card.color,
                 }}
@@ -87,7 +83,7 @@ class CardBar extends Component {
               />
             </Button>
             <Button onClick={() => editCard(card)}>
-              <EditIcon
+              <Edit
                 style={{
                   stroke: card.color,
                 }}
@@ -95,7 +91,7 @@ class CardBar extends Component {
               />
             </Button>
             <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-              <TrashIcon
+              <Trash
                 style={{
                   stroke: card.color,
                 }}
