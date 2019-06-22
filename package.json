@@ -1,7 +1,7 @@
 {
   "name": "mdyna",
   "version": "0.7.15",
-  "description": "A notes app with Markdown support",
+  "description": "A notes application with markdown support, build with React and Electron",
   "homepage": "https://mdyna.dev",
   "main": "main.js",
   "scripts": {
@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "babel-eslint": "8.2.2",
+    "babel-eslint": "^10.0.2",
     "cross-env": "5.0.0",
     "electron-log": "^2.2.17",
     "electron-reload": "^1.2.2",

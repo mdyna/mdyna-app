@@ -15,6 +15,28 @@ require('electron-reload')(__dirname, {
   electron: path.join(__dirname, 'node_modules', 'app', 'electron', 'dist'),
 });
 
+function loadLabels(cards) {
+  const labels = [];
+  for (let i = 0; i < cards.length; i += 1) {
+    const card = cards[i];
+    const cardLabels = card.labels;
+    const labelMap = labels.map(l => l.title);
+    for (let cardLabelIndex = 0; cardLabelIndex < cardLabels.length; cardLabelIndex += 1) {
+      const label = cardLabels[cardLabelIndex].title;
+      const labelIndex = labelMap.indexOf(label);
+      if (labelIndex !== -1) {
+        labels.push({
+          title: label,
+          count: 1,
+        });
+      } else {
+        labels[labelIndex].count += 1;
+      }
+    }
+  }
+  return labels;
+}
+
 // To avoid being garbage collected
 let mainWindow;
 
@@ -101,9 +123,8 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
-  const getCwd = storage => storage && storage.cwd || (remote && remote.app || electron.app).getPath('userData');
+  const getCwd = storage => (storage && storage.cwd) || ((remote && remote.app) || electron.app).getPath('userData');
   const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
-  const getUniqLabels = labelsArray => uniqBy(labelsArray, 'title');
 
   const userStorage = new Storage({
     cwd: getCwd(),
@@ -111,40 +132,37 @@ app.on('ready', () => {
   const userSettings = userStorage.get('settings');
   const cwd = getCwd(userSettings);
   const userState = userStorage.get('state');
-  const userCardsInStorage = userState && userState.cards || [];
-  const userLabelsInStorage = userState && userState.labels || [];
-  const createCardStorage = directory => directory && new Storage({
-    name: 'mdyna-card-data',
-    cwd: directory,
-  });
+  const userCardsInStorage = (userState && userState.cards) || [];
+  const userLabelsInStorage = loadLabels(userCardsInStorage) || [];
+  const createCardStorage = directory => directory
+    && new Storage({
+      name: 'mdyna-card-data',
+      cwd: directory,
+    });
   const cardStorage = createCardStorage(cwd);
   logger.log('CARD STORAGE IN ', cwd);
   const tempState = userStorage.get('tmp/state');
   if (tempState && Object.keys(tempState).length) {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
-    cardStorage.set('state', {
-      cards: cardStorageState && cardStorageState.cards && getUniqCardsById([
+    const currentCards = (cardStorageState
+      && cardStorageState.cards
+      && getUniqCardsById([
         ...tempState.cards,
         ...cardStorageState.cards,
         ...userCardsInStorage,
-      ]) || tempState.cards,
-      labels: cardStorageState && getUniqLabels([
-        ...tempState.labels,
-        ...cardStorageState.labels,
-        ...userLabelsInStorage,
-      ]) || tempState.labels,
+      ]));
+    cardStorage.set('state', {
+      cards: currentCards || tempState.cards,
+      labels: loadLabels(currentCards) || [],
     });
+
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
   } else if (userCardsInStorage.length || userLabelsInStorage.length) {
     cardStorage.set('state', {
-      cards: getUniqCardsById([
-        ...userCardsInStorage,
-      ]) || tempState.cards,
-      labels: getUniqLabels([
-        ...userLabelsInStorage,
-      ]) || tempState.labels,
+      cards: getUniqCardsById([...userCardsInStorage]) || tempState.cards,
+      labels: loadLabels(userCardsInStorage) || [],
     });
     userStorage.delete('state');
   }

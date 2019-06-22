@@ -25,6 +25,19 @@ export default class CardList extends PureComponent {
     pageIndex: 0,
   };
 
+  componentDidUpdate() {
+    const {
+      cards,
+    } = this.props;
+    const { pageIndex } = this.state;
+    const cardItems = this.renderVisibleCards(cards);
+    const cardComponents = cardItems && cardItems.length
+    && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    if (!cardComponents || !cardComponents.length) {
+      this.getPreviousCards();
+    }
+  }
+
   getNextCards() {
     const { pageIndex } = this.state;
 
@@ -35,10 +48,12 @@ export default class CardList extends PureComponent {
 
   getPreviousCards() {
     const { pageIndex } = this.state;
-
-    this.setState({
-      pageIndex: pageIndex - PAGE_SIZE,
-    });
+    const newPageIndex = pageIndex - PAGE_SIZE;
+    if (newPageIndex >= 0) {
+      this.setState({
+        pageIndex: pageIndex - PAGE_SIZE,
+      });
+    }
   }
 
   matchNoteLabelsWithLabelFilter(labels) {
@@ -83,7 +98,7 @@ export default class CardList extends PureComponent {
 
   renderVisibleCards() {
     const {
-      searchInput, completedFilterOn, cards, labelFilters,
+      searchInput, completedFilterOn, cards,
     } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
@@ -93,10 +108,7 @@ export default class CardList extends PureComponent {
         searchInput.toLowerCase(),
       ))
         || matchesLabelFilters;
-      const hasLabelFilters = Boolean(labelFilters.length);
-      return hasLabelFilters || searchInput !== ''
-        ? Boolean(matchesSearchInput && matchesLabelFilters)
-        : Boolean(matchesSearchInput || matchesLabelFilters);
+      return Boolean(matchesSearchInput || matchesLabelFilters);
     });
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {

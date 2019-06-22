@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CheckmarkIcon from 'grommet/components/icons/base/Checkmark';
 import TrashIcon from 'grommet/components/icons/base/Trash';
 import EditIcon from 'grommet/components/icons/base/Edit';
 import MinimizeIcon from 'grommet/components/icons/base/Up';
 import MaximizeIcon from 'grommet/components/icons/base/Down';
 import Button from 'UI/Button';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import tinycolor from 'tinycolor2';
 import assertCardChanges from '../../utils/assertChanges';
@@ -69,29 +69,42 @@ class CardBar extends Component {
       <React.Fragment>
         <div
           className="card-bar"
-          style={{ filter: `drop-shadow(6px 3px 6px ${tinycolor(card.color).darken(25)})` }}
         >
-          <Button onClick={() => toggleCard(card)}>
-            <CheckmarkIcon
-              className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-            />
-          </Button>
-          <Button onClick={() => editCard(card)}>
-            <EditIcon className="edit-icon" />
-          </Button>
-          <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-            <TrashIcon className="close-icon" />
-          </Button>
-          {
-            // isNote ? <CardShareButton card={card} generateCardLinkFunc={generateCardLink} /> : ''
-          }
-          {
-            // minimizeCard ? this.renderCardControl(minimized, minimizeCard) : ''
-          }
+          <h4
+            style={{
+              color: card.color,
+            }}
+          >
+            {card.title}
+          </h4>
+          <div className="buttons-container">
+            <Button onClick={() => toggleCard(card)}>
+              <CheckmarkIcon
+                style={{
+                  stroke: card.color,
+                }}
+                className={classnames({ 'checkmark-icon': true, completed: card.completed })}
+              />
+            </Button>
+            <Button onClick={() => editCard(card)}>
+              <EditIcon
+                style={{
+                  stroke: card.color,
+                }}
+                className="edit-icon"
+              />
+            </Button>
+            <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
+              <TrashIcon
+                style={{
+                  stroke: card.color,
+                }}
+                className="close-icon"
+                color={card.color}
+              />
+            </Button>
+          </div>
         </div>
-        {
-          // assertTaskAlerts(lastAlertDate, cardFrequency)
-        }
       </React.Fragment>
     );
   }
