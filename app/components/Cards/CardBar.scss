@@ -14,9 +14,14 @@ $background-color: #333333;
   align-items: center;
 
   button {
+    border: none !important;
+    box-shadow: none !important;
     svg {
       border: none;
       border-radius: 0;
+      &.completed {
+        filter: contrast(20%);
+      }
       &:hover {
         border: none !important;
       }
