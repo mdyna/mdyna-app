@@ -88,6 +88,7 @@
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
+    "global": "^4.4.0",
     "lint-staged": "^8.1.0",
     "lodash.uniqby": "^4.7.0"
   },
@@ -109,7 +110,7 @@
     "electron": "^4.0.8",
     "electron-builder": "^20.38.2",
     "electron-icon-maker": "0.0.4",
-    "eslint": "^4.19.1",
+    "eslint": "^6.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-import-resolver-alias": "^1.1.2",

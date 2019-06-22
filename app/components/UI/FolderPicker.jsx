@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import cx from 'classnames';
-import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
+import {FolderCycle} from 'grommet-icons';
 import PropTypes from 'prop-types';
 
 import './FolderPicker.scss';
@@ -13,7 +13,7 @@ export default class FolderPicker extends PureComponent {
     return (
       <Fragment>
         <label className={cx('picker', whiteMode && 'white-mode')} htmlFor="folder-picker">
-          <FolderCycleIcon />
+          <FolderCycle />
           {label}
           <input
             id="folder-picker"
