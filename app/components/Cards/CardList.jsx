@@ -101,12 +101,15 @@ export default class CardList extends PureComponent {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
+      // eslint-disable-next-line max-len
       const matchesSearchInput = d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
       if (searchInput && !labelFilters.length) {
         return Boolean(matchesSearchInput);
-      } if (searchInput && labelFilters.length) {
+      }
+      if (searchInput && labelFilters.length) {
         return Boolean(matchesSearchInput && matchesLabelFilters);
-      } if (labelFilters.length && !searchInput) {
+      }
+      if (labelFilters.length && !searchInput) {
         return Boolean(matchesLabelFilters);
       }
       return true;
