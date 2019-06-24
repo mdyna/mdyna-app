@@ -1,15 +1,19 @@
 @import "../../style.scss";
+
 .card-list {
   background-color: $note-list-background;
   color: $accent-color;
+  width: 100%;
   padding: 10px;
   margin: 0 10px;
+  display: flex;
   margin-bottom: 10vh;
   flex-flow: column wrap !important;
 
   .card-list-pagination {
     display: flex;
     flex-flow: row nowrap;
+    width: 100%;
     .page-control {
       display: flex;
       flex-flow: column nowrap;
