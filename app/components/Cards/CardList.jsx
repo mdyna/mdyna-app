@@ -26,13 +26,10 @@ export default class CardList extends PureComponent {
   };
 
   componentDidUpdate() {
-    const {
-      cards,
-    } = this.props;
+    const { cards } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length
-    && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
@@ -98,17 +95,24 @@ export default class CardList extends PureComponent {
 
   renderVisibleCards() {
     const {
-      searchInput, completedFilterOn, cards,
+      searchInput, completedFilterOn, cards, labelFilters,
     } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
       );
-      const matchesSearchInput = (d.title && d.title.toLowerCase().includes(
-        searchInput.toLowerCase(),
-      ))
-        || matchesLabelFilters;
-      return Boolean(matchesSearchInput || matchesLabelFilters);
+      // eslint-disable-next-line max-len
+      const matchesSearchInput = d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
+      if (searchInput && !labelFilters.length) {
+        return Boolean(matchesSearchInput);
+      }
+      if (searchInput && labelFilters.length) {
+        return Boolean(matchesSearchInput && matchesLabelFilters);
+      }
+      if (labelFilters.length && !searchInput) {
+        return Boolean(matchesLabelFilters);
+      }
+      return true;
     });
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {
@@ -126,8 +130,7 @@ export default class CardList extends PureComponent {
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length
-    && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     return (
       <Section
