@@ -38,9 +38,6 @@ body {
 .split {
   display: flex;
   flex-flow: row nowrap;
-  .grommetux-split__column--flex {
-    width: 100%;
-  }
 }
 
 ::-webkit-scrollbar {
@@ -75,6 +72,7 @@ body {
       font-size: 1.2em;
       display: flex;
       flex-flow: row nowrap;
+      font-family: Helvetica;
       justify-content: center;
       img {
         margin-right: 12px;
@@ -138,14 +136,13 @@ body {
     background-color: $secondary-background;
   }
 
-  .grommet {
-    background-color: $background-color !important;
-  }
-
   header {
-    background-color: $secondary-background !important;
+    background-color: $secondary-background;
     color: $secondary-accent;
-    padding: 20px 0 10px 10px !important;
+    padding: 20px 0 10px 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 
     img {
       width: 100px !important;
@@ -164,10 +161,6 @@ body {
   }
   &.white-mode {
     background-color: $white-background-color;
-
-    .grommet {
-      background-color: $white-background-color !important;
-    }
 
     header {
       background-color: $white-secondary-background !important;
