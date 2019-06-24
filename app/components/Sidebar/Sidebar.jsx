@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
 import PropTypes from 'prop-types';
-import {Box, Text, Image} from 'grommet';
+import { Box, Text } from 'grommet';
 import {
-Filter,
-Brush,
-FormNext,
-FormPrevious,
-Search,
-Up,
-Sort,
-FolderCycle,
-AddCircle,
-Checkmark,
-} from 'grommet-icons'
+  Filter,
+  Brush,
+  FormNext,
+  FormPrevious,
+  Search,
+  Up,
+  Sort,
+  FolderCycle,
+  AddCircle,
+  Checkmark,
+} from 'grommet-icons';
 import classnames from 'classnames';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Tooltip from 'UI/Tooltip';
@@ -28,8 +28,6 @@ import {
   ASCENDING_ORDER,
   DESCENDING_ORDER,
 } from 'Utils/globals';
-
-import logo from '../../../resources/MdynaLogoCircle.png';
 
 import SearchInput from './Search';
 import './Sidebar.scss'; // eslint-disable-line
@@ -59,7 +57,7 @@ class Sidebar extends Component {
   }
 
   changeSearchInput(value) {
-    const {searchCards} = this.props;
+    const { searchCards } = this.props;
 
     this.setState({
       searchInput: value,
@@ -123,7 +121,6 @@ class Sidebar extends Component {
           {sidebarExpanded ? (
             <Button onClick={() => toggleSidebar()} className="title-button">
               <FormPrevious />
-              <h1>Placeholder</h1>
               <Text size="large">mdyna</Text>
             </Button>
           ) : (
@@ -134,7 +131,7 @@ class Sidebar extends Component {
         </Box>
         <Box direction="row" justify="start" className="menu-item">
           {sidebarExpanded ? (
-            <Search
+            <SearchInput
               titles={titles}
               whiteMode={whiteMode}
               onChange={e => this.changeSearchInput(e)}
@@ -164,7 +161,7 @@ class Sidebar extends Component {
               }}
             >
               <Brush />
-              <Label className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Label>
+              <Text className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Text>
             </Button>
           ) : (
             <Tooltip
@@ -239,7 +236,7 @@ class Sidebar extends Component {
               }}
             >
               <Sort className="sort-icon" />
-              <Label className="menu-label">Sort Cards </Label>
+              <Text className="menu-label">Sort Cards </Text>
             </Button>
           ) : (
             <Tooltip
@@ -304,7 +301,7 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <React.Fragment>
                 <Filter />
-                <Label className="menu-label-filter">Filter Labels</Label>
+                <Text className="menu-label-filter">Filter Labels</Text>
               </React.Fragment>
             ) : (
               <Tooltip
@@ -332,23 +329,23 @@ class Sidebar extends Component {
         </Box>
         {sidebarExpanded && (
           <Box className="sidebar-footer">
-            <Label size="small">
+            <Text size="small">
               Markdown Guide
               <Tooltip
                 whiteMode={whiteMode}
                 text={TooltipData.markdown.text}
                 title={TooltipData.markdown.title}
               />
-            </Label>
-            <Label size="small">
+            </Text>
+            <Text size="small">
               Keyboard Shortcuts
               <Tooltip
                 whiteMode={whiteMode}
                 text={TooltipData.keyboard.text}
                 title={TooltipData.keyboard.title}
               />
-            </Label>
-            <Label size="small">{window.appVersion}</Label>
+            </Text>
+            <Text size="small">{window.appVersion}</Text>
           </Box>
         )}
       </Box>

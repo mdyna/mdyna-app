@@ -5,6 +5,7 @@ $code-background: #08090a;
 
 .card-item {
   color: $note-font-color;
+  padding: 20px;
   margin: 5px !important;
   max-height: fit-content !important;
   border-radius: 10px;
@@ -133,24 +134,12 @@ $code-background: #08090a;
     margin: 10px !important;
   }
 
-  &:hover .grommetux-card__content {
-    cursor: pointer;
-    border-radius: 10px !important;
-    background-color: inherit;
-  }
-
   .labels {
     span {
       width: fit-content;
       margin: 5px;
       display: inline-block;
     }
-  }
-
-  .grommetux-box {
-    padding: 24px !important;
-    height: fit-content;
-    flex-flow: column nowrap;
   }
 
   .note-card-content {

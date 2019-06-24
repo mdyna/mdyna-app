@@ -9,7 +9,7 @@ h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
 p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 
 body {
-  font-family: Roboto sans-serif;
+  font-family: Helvetica;
   background-color: $background-color;
   border: 1px solid #15171f;
   overflow-y: hidden;
@@ -65,14 +65,13 @@ body {
   background-color: #0f1116;
   padding: 4px;
   color: $secondary-accent;
-  font-family: Metric;
+  font-family: Helvetica;
   #drag-region {
 
     .title {
       font-size: 1.2em;
       display: flex;
       flex-flow: row nowrap;
-      font-family: Helvetica;
       justify-content: center;
       img {
         margin-right: 12px;
