@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {Box, Text, CheckBox, Select, FormField, TextInput} from 'grommet';
+import {
+  Box, Text, CheckBox, Select, FormField, TextInput,
+} from 'grommet';
 import classnames from 'classnames';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -201,7 +203,7 @@ export default class CardEditor extends Component {
                   }
                 }}
                 placeHolder={_.startCase(settingName)}
-                onDOMChange={(e) => {
+                onChange={(e) => {
                   if (e.target.value) {
                     this.changeStringSplit(setting, e.target.value);
                     this.setState({
@@ -238,7 +240,7 @@ export default class CardEditor extends Component {
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
+              onChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
