@@ -3,9 +3,9 @@
 .card-list {
   background-color: $note-list-background;
   color: $accent-color;
-  width: 100%;
+  width: calc(100%);
   padding: 10px;
-  margin: 0 10px;
+  margin: 0 20px;
   display: flex;
   margin-bottom: 10vh;
   flex-flow: column wrap !important;
