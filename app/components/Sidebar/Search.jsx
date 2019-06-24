@@ -17,7 +17,7 @@ export default class SearchComponent extends Component {
         <TextInput
           className={cx('mdyna-search', whiteMode && 'white-mode')}
           placeHolder="Search cards by title (Ctrl+P)"
-          onDOMChange={e => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           ref={searchBar}
           onSelect={e => onChange(e.suggestion)}
           value={searchInput}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {Box, Text, CheckBox, Select, FormField, TextInput} from 'grommet';
+import {
+  Box, Text, CheckBox, Select, FormField, TextInput,
+} from 'grommet';
 import classnames from 'classnames';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -189,10 +191,9 @@ export default class CardEditor extends Component {
                     : '#'
                 }
                 onSelect={(e) => {
-                  const selectedValue = `${labelInput.substring(
-                    0,
-                    labelInput.lastIndexOf(' '),
-                  )} ${e.suggestion} #`;
+                  const selectedValue = `${labelInput.substring(0, labelInput.lastIndexOf(' '))} ${
+                    e.suggestion
+                  } #`;
                   if (selectedValue) {
                     this.changeStringSplit(setting, selectedValue);
                     this.setState({
@@ -202,7 +203,7 @@ export default class CardEditor extends Component {
                   }
                 }}
                 placeHolder={_.startCase(settingName)}
-                onDOMChange={(e) => {
+                onChange={(e) => {
                   if (e.target.value) {
                     this.changeStringSplit(setting, e.target.value);
                     this.setState({
@@ -239,7 +240,7 @@ export default class CardEditor extends Component {
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}
               placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
+              onChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
             />
           </FormField>
         );
@@ -299,7 +300,7 @@ export default class CardEditor extends Component {
           {components}
         </Box>
         <Button
-          theme={whiteMode && 'white' || 'dark'}
+          theme={(whiteMode && 'white') || 'dark'}
           className="submit-btn"
           label="Submit"
           color="primary"
@@ -327,12 +328,12 @@ export default class CardEditor extends Component {
           <Text className="header">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             <Button
-              theme={whiteMode && 'white' || 'dark'}
+              theme={(whiteMode && 'white') || 'dark'}
               className="submit-btn"
               color="alt"
               onClick={() => this.submitFormFields()}
             >
-            Save Card
+              Save Card
             </Button>
           </Text>
           {this.generateComponentsFromType(cardDefinition)}
