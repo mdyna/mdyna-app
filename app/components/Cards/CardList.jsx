@@ -2,10 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-component';
-import {Box, Layer, Text} from 'grommet';
-import {Add,
-  Previous,
-  Next} from 'grommet-icons';
+import { Box, Layer, Text } from 'grommet';
+import { Add, Previous, Next } from 'grommet-icons';
 import classnames from 'classnames';
 import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
@@ -138,7 +136,7 @@ export default class CardList extends PureComponent {
         direction="row"
       >
         <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
-        <Text align="center" size="medium">
+        <Text align="center" size="xlarge">
           INBOX
         </Text>
         {cards.length ? (
