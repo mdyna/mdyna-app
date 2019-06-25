@@ -13,6 +13,13 @@ $background-color: #333333;
   padding: 0px 20px;
   align-items: center;
 
+  h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50%
+  }
+
   button {
     border: none !important;
     box-shadow: none !important;
