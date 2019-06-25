@@ -117,7 +117,7 @@ class Sidebar extends Component {
             setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
           }}
         />
-        <Box direction="row" justify="start" className="menu-item title">
+        <Box className="menu-item title">
           {sidebarExpanded ? (
             <Button onClick={() => toggleSidebar()} className="title-button">
               <FormPrevious />
