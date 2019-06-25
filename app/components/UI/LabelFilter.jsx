@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy';
 import cx from 'classnames';
+import Labels from 'UI/Labels';
 import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
   renderClickableLabels() {
-    const { labels, labelFilters, labelFilterFuncs } = this.props;
+    const { labels, labelFilters, labelFilterFuncs, whiteMode } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
     const orderedLabels = sort(labels, d => d.count).reverse();
     const clickableLabels = [];
@@ -22,7 +23,7 @@ class LabelFilter extends Component {
             onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
           >
-            <span className="label">{label.title}</span>
+            <Labels label={{title: label.title, color: whiteMode ? '#33333' : '#1de9b6' }} />
           </Button>
         );
         clickableLabels.push(labelElement);

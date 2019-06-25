@@ -1,41 +1,9 @@
 @import "../../style.scss";
 
 .label-filter-box {
-  border: 1px solid $accent-color;
   border-radius: 10px;
   display: flex;
   flex-flow: row nowrap;
-  padding: 5px;
-
-  .label {
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  &.white-mode {
-    border: 1px solid $white-font-color;
-    .label-box {
-      .label-button {
-        background-color: $white-label-background-color !important;
-        border: 1px solid $white-font-color !important;
-        &:hover {
-          color: $white-background-color !important;
-          border-color: $white-font-color !important;
-          background-color: $white-font-color !important;
-        }
-        &.active {
-          border: 2px solid $white-font-color !important;
-          background-color: $white-background-color;
-          &:hover {
-            border-color: $white-font-color !important;
-            background-color: $white-hover-color;
-            color: $white-secondary-background !important;
-          }
-        }
-      }
-    }
-  }
-
   .label-box {
     display: flex;
     flex-flow: row wrap;
@@ -43,26 +11,16 @@
     align-items: baseline;
     overflow-y: auto;
     max-height: 25vh;
-
     .label-button {
-      background-color: $accent-color;
-      border: 1px solid $dark-accent-color !important;
-      border-radius: 25px;
-      font-size: 1rem !important;
-      padding: 2px !important;
       margin: 3px;
 
       &:hover {
-        color: $accent-color;
-        background-color: $secondary-background !important;
+        filter: contrast(75%);
       }
       &.active {
-        background-color: $dark-accent-color;
-        border: 2px solid $secondary-accent !important;
-
+        filter: contrast(50%);
         &:hover {
-          background-color: $background-color !important;
-          color: $accent-color !important;
+          filter: contrast(25%);
         }
       }
     }
