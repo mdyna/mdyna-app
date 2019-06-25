@@ -52,6 +52,7 @@
 
   &.collapsed {
     width: 50px;
+    padding: 5px 3px;
     align-items: center;
 
     .menu-item-labels {
@@ -112,17 +113,11 @@
     &.title {
       max-width: none;
       color: $accent-color;
-      border-bottom: 1px solid $accent-color;
       margin-bottom: 20px;
     }
 
   }
 
-  .sort-icon {
-    path {
-      transform: rotate(90deg) translate(0px,-24px);
-    }
-  }
 
   .sorting-table {
     height: 0;
@@ -189,8 +184,7 @@
         svg {
           margin-right: 12px;
           transition: all 0.5s;
-          width: 24px;
-          height: 24px;
+          width: auto;
           opacity: 0;
         }
       }
@@ -239,7 +233,6 @@
     .menu-item {
       &.title {
         color: $white-font-color;
-        border-bottom: 1px solid $white-font-color;
       }
       .menu-label{
         color: $white-font-color;
@@ -276,7 +269,6 @@
 
     button {
       svg {
-        border-color: $white-font-color;
         path {
           stroke: $white-font-color !important;
         }
@@ -324,8 +316,7 @@
   button {
     @include normalize-button-icons();
     svg {
-      border: 2px solid $accent-color;
-      border-radius: 10px;
+      border: none;
       height: 28px;
       margin: 0;
       width: 38px;
@@ -333,7 +324,7 @@
     }
     &:hover {
       svg {
-        border: 2px solid $sidebar-background-color;
+        border: none;
         path {
           stroke: $sidebar-background-color !important;
         }

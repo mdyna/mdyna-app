@@ -2,12 +2,12 @@
 
 .tip-icon {
   margin-left: 5px;
-  border: 2px dotted $accent-color;
   border-radius: 50px;
   outline: none !important;
   box-shadow: none !important;
   padding: 2px !important;
   svg {
+    width: 100%;
     path {
       stroke: $accent-color !important;
     }
@@ -26,7 +26,6 @@
     }
   }
   &.white-mode {
-    border-color: $white-font-color;
     svg {
       path {
         stroke: $white-font-color !important;
