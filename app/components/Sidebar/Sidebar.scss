@@ -110,10 +110,10 @@
 
 
     &.title {
+      max-width: none;
       color: $accent-color;
       border-bottom: 1px solid $accent-color;
       margin-bottom: 20px;
-      padding: 5px;
     }
 
   }
