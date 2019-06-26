@@ -74,7 +74,7 @@ $code-background: #08090a;
   }
 
   &:hover {
-    filter: contrast(200%);
+    filter: saturate(500%);
     svg.minimize-icon {
       polyline {
         stroke: $secondary-accent !important;
