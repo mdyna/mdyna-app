@@ -14,16 +14,12 @@
     polyline {
       stroke: $accent-color !important;
     }
+    polygon {
+      stroke: $accent-color !important;
+    }
   }
   &:hover {
-    svg {
-      path {
-        stroke: $secondary-accent !important;
-      }
-      polyline {
-        stroke: $secondary-accent !important;
-      }
-    }
+    filter:  saturate(500%);
   }
   &.white-mode {
     svg {

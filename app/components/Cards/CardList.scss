@@ -3,9 +3,10 @@
 .card-list {
   background-color: $note-list-background;
   color: $accent-color;
-  width: auto;
+  width: 100%;
   transition: width 0.5s;
   padding: 10px;
+  border-radius: 10px;
   display: flex;
   margin-bottom: 10vh;
   flex-flow: column wrap !important;
@@ -67,7 +68,6 @@
 
     .add-note-btn {
       svg {
-        border: 1px solid $white-font-color;
         path {
           stroke: $white-font-color !important;
         }

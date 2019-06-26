@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { v1 } from 'grommet-theme-v1';
-import { Grommet, Box, Grid } from 'grommet';
+import { Grommet, Box } from 'grommet';
 import classnames from 'classnames';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
@@ -22,34 +22,25 @@ class Mdyna extends PureComponent {
     return (
       <Grommet
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        full
         theme={v1}
       >
         <ErrorBoundary whiteMode={whiteMode}>
-          <Box>
-            <Header />
-            <Grid
-              fill="horizontal"
-              rows={['auto']}
-              columns={[sidebarExpanded ? 'auto' : 'xxsmall', 'flex']}
-              gap="xsmall"
-              areas={[
-                { name: 'menu', start: [0, 0], end: [1, 0] },
-                { name: 'card-list', start: [1, 0], end: [1, 0] },
-              ]}
-            >
-              <SideBar gridArea="menu" {...this.props} />
-              {cards ? (
-                <CardList
-                  gridArea="card-list"
-                  cards={cards}
-                  order={order}
-                  sorting={sorting}
-                />
-              ) : (
-                <Loader />
-              )}
-            </Grid>
+          <Header />
+          <Box
+            fill="horizontal"
+            direction="row"
+          >
+            <SideBar gridArea="menu" {...this.props} />
+            {cards ? (
+              <CardList
+                gridArea="card-list"
+                cards={cards}
+                order={order}
+                sorting={sorting}
+              />
+            ) : (
+              <Loader />
+            )}
           </Box>
         </ErrorBoundary>
       </Grommet>

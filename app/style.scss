@@ -1,16 +1,16 @@
 $background-color: #15171f;
-$secondary-background: #181f27;
+$secondary-background: #15171f;
 $font-color: #c5c6c7;
 $accent-color: #1de9b6;
 $secondary-accent: #64ffda;
 $note-font-color: #333;
-$note-list-background: #1f2833;
+$note-list-background: #15171f;
 $code-mirror-background: #050a10;
 
 $white-background-color: #fafafa;
-$white-secondary-background: #ddd;
+$white-secondary-background: #fafafa;
 $white-font-color: #212121;
-$white-note-list-background: #cfd8dc;
+$white-note-list-background: #fafafa;
 
 $sidebar-background-color: #0c1014;
 $white-sidebar-background-color: #bdccd3;
@@ -47,16 +47,18 @@ $white-label-background-color: #d2e3eb;
   border: none;
   box-shadow: none !important;
   svg {
-    border: 2px solid $path-color;
-    border-radius: 25%;
-    path {
-      stroke: $path-color !important;
-    }
     &:hover {
-      border: 2px solid $secondary-path-color;
-      path {
-        stroke: $secondary-path-color !important;
-      }
+      filter: contrast(200%);
+    }
+    border: none;
+    path {
+      stroke: $path-color;
+    }
+    polyline {
+      stroke: $path-color;
+    }
+    polygon {
+      stroke: $path-color;
     }
   }
 }

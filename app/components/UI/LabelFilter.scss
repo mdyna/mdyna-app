@@ -2,8 +2,10 @@
 
 .label-filter-box {
   border-radius: 10px;
+  border: 1px solid $accent-color;
   display: flex;
   flex-flow: row nowrap;
+  margin: 10px 5px;
   .label-box {
     display: flex;
     flex-flow: row wrap;
@@ -11,6 +13,7 @@
     align-items: baseline;
     overflow-y: auto;
     max-height: 25vh;
+    padding: 5px auto;
     .label-button {
       margin: 3px;
 

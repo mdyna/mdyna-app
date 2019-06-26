@@ -6,331 +6,93 @@
   color: $accent-color;
   opacity: 0.9;
   border-radius: 0px 10px 10px 0px;
-  width: 250px;
+  width: 50px;
   transition: width 0.5s;
+  padding: 10px 5px;
   position: sticky;
   top: 50px;
+  margin-right: 10px;
   overflow: hidden !important;
-
-  .sidebar-tooltip {
-    margin: 3px auto;
-    svg {
-      border-radius: 50px;
-    }
+  .menu-label {
+    font-size: 14px;
   }
 
-  .sidebar-footer {
-    margin-top: 5vh;
-    font-size: 1rem;
+  @include breakpoint(small) {
+    .menu-label {
+      font-size: 0px !important;
+    }
+  }
+  .help {
     display: flex;
-    flex-flow: column nowrap;
-    label {
-      color: $accent-color;
-      align-items: center;
-      display: flex;
-      flex-flow: row nowrap;
-      svg {
-        vertical-align: middle;
-        height: 1em;
-      }
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+  }
+  &.expanded {
+    width: 250px;
+    .sidebar-tooltip {
+      opacity: 0;
+      height: 0;
+      width: 0;
+      margin: 0;
+      padding: 0 !important;
     }
   }
+  .sidebar-tooltip {
+    opacity: 1;
+    transition: 0.5s;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  button {
+    font-weight: 300;
+    font-size: 14px;
 
-  .title-button {
-    margin: 0 !important;
-    color: $accent-color;
-    label {
-      margin: 0 !important;
+    span {
+      transition: all 0.5s;
     }
-    svg polyline {
-      stroke: $accent-color !important;
+
+    &.active {
+      border: 1px solid $accent-color;
+      border-radius: 10px;
+      filter: contrast(200%);
+      &:hover {
+        filter: contrast(750%);
+      }
+      svg {
+        transition: all 0.5s;
+        &.descending {
+          transform: rotate(180deg);
+        }
+      }
     }
     &:hover {
-      color: $sidebar-background-color;
-    }
-  }
-
-  &.collapsed {
-    width: 50px;
-    padding: 5px 3px;
-    align-items: center;
-
-    .menu-item-labels {
-      align-items: center;
-      .menu-item {
-        margin: 0;
-      }
-      svg {
-        margin: 0;
-      }
-    }
-  }
-
-  .menu-item-labels {
-    align-items: flex-end;
-    .menu-item {
-      margin: 5px 0;
-    }
-    label {
-      font-size: 1rem;
-      margin: 5px 10px;
+      filter:saturate(500%);
     }
     svg {
-      margin: 0 5px;
+      path {
+        stroke: $accent-color !important;
+      }
+      polyline {
+        stroke: $accent-color !important;
+      }
       polygon {
         stroke: $accent-color !important;
       }
     }
   }
-
-  .menu-item {
-    align-items: center;
-    button {
-      align-items: center;
-      margin: 0;
-      padding: 0 10px !important;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-
-
-      &:hover {
-        background-color: $accent-color;
-        .menu-label {
-          color: $sidebar-background-color;
-        }
-      }
-
-      .menu-label {
-        font-size: 1rem;
-        color: $accent-color;
-        margin: 5px 0;
-      }
-    }
-
-
-    &.title {
-      max-width: none;
-      color: $accent-color;
-      margin-bottom: 20px;
-    }
-
-  }
-
-
-  .sorting-table {
-    height: 0;
-    transition: all 0.5s;
-    border-radius: 10px;
+  .menu-label-filter {
+    margin: 5px 0;
     display: flex;
-    flex-flow: column nowrap;
-    align-self: flex-end;
-    margin-top: 10px;
-    width: 70%;
-    align-items: flex-end;
-    justify-content: flex-start;
-    button {
-      transition: 0.5s all;
-      height: 0;
-      pointer-events: none;
-      opacity: 0;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    span {
+      font-size: 14px;
     }
-    &.expanded {
-      padding: 10px;
-      height: auto;
-      display: flex;
-      button {
-        flex-flow: row nowrap;
-        width: 100%;
-        justify-content: flex-end;
-        pointer-events: initial;
-        display: flex;
-        background-color: $secondary-background;
-        color: $dark-accent-color;
-        border-radius: 10px;
-        min-height: 32px;
-        padding: 0 5px;
-        margin: 0 0 5px 0;
-        align-items: center;
-        font-size: 1rem;
-        opacity: 0.8;
-        &.active-sorting {
-          color: $secondary-accent;
-          svg {
-            opacity: 1;
-            &.descending {
-              transform: rotate(180deg);
-            }
-            path {
-              stroke: $dark-accent-color;
-            }
-          }
-        }
-        &:hover {
-          color: $secondary-accent;
-          opacity: 1;
-          background-color: $background-color;
-          &.active-sorting {
-            svg {
-              border-color: $secondary-accent !important;
-              path {
-                stroke: $secondary-accent !important;
-              }
-            }
-          }
-        }
-
-        svg {
-          margin-right: 12px;
-          transition: all 0.5s;
-          width: auto;
-          opacity: 0;
-        }
-      }
-    }
-  }
-
-  &.white-mode {
-    background-color: $white-sidebar-background-color;
-    color: $white-font-color;
-    .sorting-table {
-      button {
-        color: $white-sidebar-background-color;
-        &.active-sorting {
-          color: $white-background-color;
-          svg {
-            border-color: $white-background-color;
-            path {
-              stroke: $white-background-color !important;
-            }
-          }
-        }
-        &:hover {
-          color: $white-secondary-background;
-          &.active-sorting {
-            svg {
-              border-color: $white-secondary-background !important;
-              path {
-                stroke: $white-secondary-background !important;
-              }
-            }
-          }
-        }
-      }
-    }
-    .sidebar-footer {
-      label {
-        color: $white-font-color;
-      }
-    }
-    .title-button {
-      color: $white-font-color !important;
-      svg polyline {
-        stroke: $white-font-color !important;
-      }
-    }
-    .menu-item {
-      &.title {
-        color: $white-font-color;
-      }
-      .menu-label{
-        color: $white-font-color;
-      }
-      button {
-        &:hover {
-          background-color: $white-hover-color;
-        }
-      }
-    }
-    .menu-item-labels {
-      svg {
-        polygon {
-          stroke: $white-font-color !important;
-        }
-      }
-    }
-    .sidebar-app-logo {
-      box-shadow: none;
-    }
-
-    .toggle-completed-button {
-      svg polyline {
-        stroke: $white-font-color !important;
-      }
-
-      &.active svg {
-        background-color: $white-font-color;
-        polyline {
-          stroke: $white-note-list-background !important;
-        }
-      }
-    }
-
-    button {
-      svg {
-        path {
-          stroke: $white-font-color !important;
-        }
-      }
-      &:hover {
-        svg {
-          background-color: $white-font-color;
-          path {
-            stroke: $white-note-list-background !important;
-          }
-          polyline {
-            stroke: $white-note-list-background !important;
-          }
-        }
-      }
-  }
-  }
-
-
-  .sidebar-app-logo {
-    height: 42px;
-    width: 42px;
-    margin: 5px 10% 5px 10px;
-    box-shadow: 0px 1px 1px 1px $accent-color;
-    border-radius: 50%;
-    &:hover {
-      box-shadow: 0px 1px 1px 1px $secondary-accent;
-    }
-  }
-
-
-  .toggle-completed-button {
-    svg polyline {
-      stroke: $accent-color !important;
-    }
-
-    &.active svg {
-      background-color: $secondary-accent;
-      polyline {
-        stroke: $secondary-background !important;
-      }
-    }
-  }
-
-  button {
-    @include normalize-button-icons();
     svg {
-      border: none;
-      height: 28px;
-      margin: 0;
-      width: 38px;
-      padding: 5px;
-    }
-    &:hover {
-      svg {
-        border: none;
-        path {
-          stroke: $sidebar-background-color !important;
-        }
-        polyline {
-          stroke: $sidebar-background-color !important;
-        }
+      polygon {
+        stroke: $accent-color !important;
       }
     }
   }
