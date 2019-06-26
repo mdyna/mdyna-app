@@ -1,13 +1,20 @@
 @import "../../style.scss";
 
 button.button {
+  @include normalize-button-icons();
   font-weight: bold;
   padding: 5px !important;
-  border-radius: 10px;
+  margin: 5px 0;
+  outline: none !important;
   &.icon {
     @include normalize-button-icons();
     padding: 20px;
   }
+  svg {
+    margin: 0 5px;
+    vertical-align: middle;
+  }
+
   &.alt {
     background-color: $background-color;
     color: $accent-color;

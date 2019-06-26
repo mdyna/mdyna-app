@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import cx from 'classnames';
-import {FolderCycle} from 'grommet-icons';
+import { FolderCycle } from 'grommet-icons';
 import PropTypes from 'prop-types';
 
 import './FolderPicker.scss';
@@ -8,11 +8,11 @@ import './FolderPicker.scss';
 export default class FolderPicker extends PureComponent {
   render() {
     const {
-      onChange, label, value, whiteMode, placeholder,
+      onChange, label, value, whiteMode, placeholder, className,
     } = this.props;
     return (
       <Fragment>
-        <label className={cx('picker', whiteMode && 'white-mode')} htmlFor="folder-picker">
+        <label className={cx('picker', whiteMode && 'white-mode', className)} htmlFor="folder-picker">
           <FolderCycle />
           {label}
           <input
@@ -20,7 +20,7 @@ export default class FolderPicker extends PureComponent {
             type="file"
             webkitdirectory=""
             style={{ visibility: 'none' }}
-            onChange={e => {onChange(e.target.files[0].path)}}
+            onChange={e => onChange(e.target.files[0].path)}
             placeholder={value}
           />
         </label>
@@ -36,9 +36,11 @@ FolderPicker.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FolderPicker.defaultProps = {
+  className: '',
   value: '',
   whiteMode: false,
   label: '',
