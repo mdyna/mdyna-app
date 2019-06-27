@@ -16,7 +16,7 @@ const Input = (props) => {
       defaultValue={value || ''}
       placeHolder={_.startCase(label)}
       onChange={e => onChange(_.camelCase(label), e.target.value)}
-  />
+    />
   );
 };
 
