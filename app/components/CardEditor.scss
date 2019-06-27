@@ -200,41 +200,6 @@
       }
     }
 
-    .grommetux-form-field {
-      background-color: $white-background-color;
-      color: $white-font-color;
-      border: 1px solid $white-note-list-background;
-      .grommetux-form-field__label {
-        color: $white-font-color;
-      }
-    }
-
-    .grommetux-select {
-      color: $white-font-color;
-      svg {
-        background-color: $white-background-color;
-        polygon {
-          stroke: $white-font-color;
-        }
-      }
-      input::placeholder {
-        color: $white-font-color;
-      }
-      input {
-        color: $white-font-color;
-      }
-    }
-
-    .grommetux-check-box {
-      .grommetux-check-box__control {
-        border-color: $white-font-color;
-      }
-
-      .grommetux-check-box__label {
-        color: $white-font-color;
-      }
-    }
-
     > div {
       color: $white-font-color !important;
     }

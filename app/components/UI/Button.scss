@@ -3,6 +3,7 @@
 button.button {
   @include normalize-button-icons();
   font-weight: bold;
+  border-radius: 10px;
   padding: 5px !important;
   margin: 5px 0;
   outline: none !important;
