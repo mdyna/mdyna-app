@@ -19,12 +19,6 @@
       border-color: $note-font-color !important;
       color: $note-font-color !important;
     }
-    &:focus {
-      border: 2px solid $accent-color !important;
-      &.white-mode {
-        border: 2px solid $note-font-color !important;
-      }
-    }
   }
   svg {
     margin-right: 5px;
