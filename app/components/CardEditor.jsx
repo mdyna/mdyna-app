@@ -71,35 +71,9 @@ export default class CardEditor extends Component {
     saveCard(card);
   }
 
-  changeStringSplit(setting, value, labelCount, onChange) {
-    const { prefixer, splitters } = setting;
-    const settingName = setting.settingName || 'labels';
-    const result = [];
-    for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
-      const splitter = splitters[splitterIndex];
-      const splitVals = value.split(splitter);
-      if (splitVals.length !== labelCount) {
-        // this.handleLabels();
-        this.setState({ labelCount });
-      }
-      for (let i = 0; i < splitVals.length; i += 1) {
-        const val = splitVals[i].trim();
-        if (val && splitter !== val && val !== prefixer) {
-          result.push(`${prefixer}${_.camelCase(val)}`);
-        }
-      }
-    }
-
-    const labels = result.map(d => ({
-      title: d,
-    }));
-    onChange(_.camelCase(settingName), labels);
-  }
-
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
     const { changeCardSetting, labels, editorSettings } = this.props;
-    const { labelCount } = this.state;
     const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
       case 'stringSplit':
@@ -114,8 +88,7 @@ export default class CardEditor extends Component {
                 label={settingName}
                 labels={labels}
                 value={settingValue}
-                labelCount={labelCount}
-                onSelect={this.changeStringSplit}
+                setting={setting}
                 onChange={changeCardSetting}
               />
             </FormField>

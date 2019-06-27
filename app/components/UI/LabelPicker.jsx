@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import TextInput from 'UI/TextInput';
+import { TextInput } from 'grommet';
 import _ from 'lodash';
 
 const LabelPicker = (props) => {
   const {
-    label, labels, value, onChange, labelCount, onSelect,
+    label, labels, value, onChange, setting,
   } = props;
   const [labelInput, changeValue] = useState(value || '');
+  const [labelCount, setCount] = useState(0);
 
   const getSuggestions = () => {
     if (labelInput) {
@@ -20,6 +21,28 @@ const LabelPicker = (props) => {
         .slice(0, 5);
     }
     return [' '];
+  };
+  const changeStringSplit = (schema, val) => {
+    const { prefixer, splitters } = schema;
+    const settingName = schema.settingName || 'labels';
+    const result = [];
+    for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
+      const splitter = splitters[splitterIndex];
+      const splitVals = val.split(splitter);
+      if (splitVals.length !== labelCount) {
+        setCount(labelCount);
+      }
+      for (let i = 0; i < splitVals.length; i += 1) {
+        const splitVal = splitVals[i].trim();
+        if (splitVal && splitter !== splitVal && splitVal !== prefixer) {
+          result.push(`${prefixer}${_.camelCase(splitVal)}`);
+        }
+      }
+    }
+    const newLabels = result.map(d => ({
+      title: d,
+    }));
+    onChange(_.camelCase(settingName), newLabels);
   };
 
   return (
@@ -41,14 +64,15 @@ const LabelPicker = (props) => {
           e.suggestion
         } #`;
         if (selectedValue) {
-          onSelect(value, selectedValue, labelCount);
+          changeStringSplit(setting, selectedValue);
           changeValue(selectedValue);
+          e.target.value = selectedValue;
         }
       }}
       placeHolder={_.startCase(label)}
       onChange={(e) => {
         if (e.target.value) {
-          onChange(value, e.target.value, labelCount);
+          changeStringSplit(setting, e.target.value);
           changeValue(e.target.value);
         }
       }}
@@ -59,20 +83,18 @@ const LabelPicker = (props) => {
 
 LabelPicker.propTypes = {
   label: PropTypes.string,
-  labelCount: PropTypes.number,
+  setting: PropTypes.object,
   value: PropTypes.string,
   labels: PropTypes.array,
-  onSelect: PropTypes.func,
   onChange: PropTypes.func,
 };
 
 LabelPicker.defaultProps = {
   label: '',
-  labelCount: 0,
+  setting: {},
   value: '',
   labels: [''],
   onChange: null,
-  onSelect: null,
 };
 
 export default LabelPicker;
