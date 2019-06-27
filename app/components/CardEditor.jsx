@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import {
-  Box, Text, FormField, TextInput,
+  Box, Text, FormField,
 } from 'grommet';
 import classnames from 'classnames';
 import Button from 'UI/Button';
@@ -11,6 +11,7 @@ import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
+import TextInput from 'UI/TextInput';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
@@ -144,12 +145,9 @@ export default class CardEditor extends Component {
             key={_.startCase(settingName)}
           >
             <TextInput
-              focus={false}
-              key={settingName}
-              id={_.snakeCase(settingName)}
-              defaultValue={settingValue || ''}
-              placeHolder={_.startCase(settingName)}
-              onChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
+              label={settingName}
+              value={settingValue || ''}
+              onChange={changeCardSetting}
             />
           </FormField>
         );

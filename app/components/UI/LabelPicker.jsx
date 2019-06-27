@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextInput } from 'grommet';
+import TextInput from 'UI/TextInput';
 import _ from 'lodash';
 
 const LabelPicker = (props) => {
@@ -26,7 +26,7 @@ const LabelPicker = (props) => {
     <TextInput
       key={label}
       id={_.snakeCase(label)}
-      suggestions={labels && getSuggestions(labels.map(d => ({label: d.title, value: d.title })))}
+      suggestions={labels && getSuggestions(labels.map(d => ({ label: d.title, value: d.title })))}
       focus={false}
       defaultValue={
       value
