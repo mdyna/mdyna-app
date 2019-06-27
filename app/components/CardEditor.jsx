@@ -12,6 +12,7 @@ import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
 import TextInput from 'UI/TextInput';
+import ColorPicker from 'UI/ColorPicker';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
@@ -42,17 +43,12 @@ export default class CardEditor extends Component {
                 className="color-form-field"
               >
                 {enums ? (
-                  <div className="color-options">
-                    {enums.map(color => (
-                      <svg
-                        onClick={() => changeCardSetting(_.camelCase(settingName), color)}
-                        value={editorSettings[settingName]}
-                        key={color}
-                      >
-                        <circle r="15" fill={color} />
-                      </svg>
-                    ))}
-                  </div>
+                  <ColorPicker
+                    colors={enums}
+                    label={settingName}
+                    onChange={changeCardSetting}
+                    value={editorSettings[settingName]}
+                  />
                 ) : (
                   ''
                 )}
