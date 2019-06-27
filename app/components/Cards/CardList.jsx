@@ -155,9 +155,11 @@ export default class CardList extends PureComponent {
               </Text>
               {this.renderAddNoteButton()}
               <Text align="center" size="medium">
-                {pageView}
-                /
-                {Math.ceil(cardItems.length / PAGE_SIZE)}
+                {
+                  cardItems && cardItems.length ?
+                    `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}` :
+                    '0'
+                }
               </Text>
               <Button
                 className={classnames('page-control', pageIndex === 0 && 'disabled')}

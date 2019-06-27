@@ -74,20 +74,16 @@ export default class CardEditor extends Component {
     saveCard(card);
   }
 
-  changeStringSplit(setting, value) {
-    const { labelCount } = this.state;
+  changeStringSplit(setting, value, labelCount, onChange) {
     const { prefixer, splitters } = setting;
     const settingName = setting.settingName || 'labels';
     const result = [];
-    const { changeCardSetting } = this.props;
     for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
       const splitter = splitters[splitterIndex];
       const splitVals = value.split(splitter);
       if (splitVals.length !== labelCount) {
         // this.handleLabels();
-        this.setState({
-          labelCount: splitVals.length,
-        });
+        this.setState({ labelCount });
       }
       for (let i = 0; i < splitVals.length; i += 1) {
         const val = splitVals[i].trim();
@@ -100,12 +96,13 @@ export default class CardEditor extends Component {
     const labels = result.map(d => ({
       title: d,
     }));
-    changeCardSetting(_.camelCase(settingName), labels);
+    onChange(_.camelCase(settingName), labels);
   }
 
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
     const { changeCardSetting, labels, editorSettings } = this.props;
+    const { labelCount } = this.state;
     const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
       case 'stringSplit':
@@ -120,7 +117,9 @@ export default class CardEditor extends Component {
                 label={settingName}
                 labels={labels}
                 value={settingValue}
-                onChange={this.changeStringSplit}
+                labelCount={labelCount}
+                onSelect={this.changeStringSplit}
+                onChange={changeCardSetting}
               />
             </FormField>
           );
@@ -145,7 +144,7 @@ export default class CardEditor extends Component {
             key={_.startCase(settingName)}
           >
             <TextInput
-              autoFocus={settingName === 'title'}
+              focus={false}
               key={settingName}
               id={_.snakeCase(settingName)}
               defaultValue={settingValue || ''}

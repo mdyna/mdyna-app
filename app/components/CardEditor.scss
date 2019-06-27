@@ -9,7 +9,6 @@
   button {
     @include normalize-button-icons();
     svg {
-      border: none !important;
       path {
         fill: #666;
       }
@@ -47,96 +46,6 @@
 
   > div {
     color: $accent-color;
-  }
-
-  .submit-btn {
-    border-radius: 10px;
-  }
-
-  .grommetux-form-fields {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  .grommetux-form-field {
-    background-color: $note-list-background;
-    color: $accent-color;
-    border: 5px solid $secondary-background;
-    border-radius: 10px !important;
-    max-width: 50%;
-    padding: 0 25px;
-    overflow: hidden;
-    margin: 5px 0px;
-    justify-content: center;
-    display: flex;
-    flex-flow: column wrap;
-
-    span {
-      .grommetux-form-field {
-        border: none !important;
-      }
-    }
-
-    .grommetux-form-field__label {
-      color: $secondary-accent;
-    }
-
-    .grommetux-select {
-      color: $accent-color;
-      svg {
-        background-color: $note-list-background;
-        polygon {
-          stroke: $accent-color;
-        }
-      }
-      input::placeholder {
-        color: $accent-color;
-      }
-      input {
-        color: $accent-color;
-      }
-    }
-  }
-
-  .grommetux-check-box__control-check {
-    position: absolute;
-    path {
-      stroke: $accent-color;
-    }
-  }
-  .grommetux-check-box__input:checked + .grommetux-check-box__control {
-    border-color: $accent-color;
-  }
-
-  .grommetux-form-field--focus {
-    border-color: $accent-color;
-  }
-
-  .grommetux-select__control {
-    background-color: transparent;
-  }
-  .grommetux-check-box {
-    .grommetux-check-box__control {
-      border-color: $secondary-accent;
-    }
-
-    .grommetux-check-box__label {
-      color: $secondary-accent;
-    }
-  }
-
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__label {
-    color: $secondary-accent;
-  }
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__input:checked
-    + .grommetux-check-box__control {
-    border-color: $secondary-accent !important;
-  }
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__control {
-    border-color: $secondary-accent;
   }
 
   .color-form-field {

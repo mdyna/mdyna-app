@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 const LabelPicker = (props) => {
   const {
-    label, labels, value, onChange,
+    label, labels, value, onChange, labelCount, onSelect,
   } = props;
   const [labelInput, changeValue] = useState(value || '');
 
@@ -26,7 +26,8 @@ const LabelPicker = (props) => {
     <TextInput
       key={label}
       id={_.snakeCase(label)}
-      suggestions={labels && getSuggestions(labels.map(d => d.title))}
+      suggestions={labels && getSuggestions(labels.map(d => ({label: d.title, value: d.title })))}
+      focus={false}
       defaultValue={
       value
         ? `${value
@@ -40,14 +41,14 @@ const LabelPicker = (props) => {
           e.suggestion
         } #`;
         if (selectedValue) {
-          onChange(value, selectedValue);
+          onSelect(value, selectedValue, labelCount);
           changeValue(selectedValue);
         }
       }}
       placeHolder={_.startCase(label)}
       onChange={(e) => {
         if (e.target.value) {
-          onChange(value, e.target.value);
+          onChange(value, e.target.value, labelCount);
           changeValue(e.target.value);
         }
       }}
@@ -58,16 +59,20 @@ const LabelPicker = (props) => {
 
 LabelPicker.propTypes = {
   label: PropTypes.string,
+  labelCount: PropTypes.number,
   value: PropTypes.string,
   labels: PropTypes.array,
+  onSelect: PropTypes.func,
   onChange: PropTypes.func,
 };
 
 LabelPicker.defaultProps = {
   label: '',
+  labelCount: 0,
   value: '',
   labels: [''],
   onChange: null,
+  onSelect: null,
 };
 
 export default LabelPicker;
