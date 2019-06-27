@@ -16,6 +16,7 @@ const PAGE_SIZE = 6;
 
 export default class CardList extends PureComponent {
   state = {
+    pageView: 1,
     pageIndex: 0,
   };
 
@@ -30,19 +31,21 @@ export default class CardList extends PureComponent {
   }
 
   getNextCards() {
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
 
     this.setState({
+      pageView: pageView + 1,
       pageIndex: pageIndex + PAGE_SIZE,
     });
   }
 
   getPreviousCards() {
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
     const newPageIndex = pageIndex - PAGE_SIZE;
     if (newPageIndex >= 0) {
       this.setState({
         pageIndex: pageIndex - PAGE_SIZE,
+        pageView: pageView - 1,
       });
     }
   }
@@ -123,7 +126,7 @@ export default class CardList extends PureComponent {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
     console.log('render triggrd');
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems && cardItems.length && cardItems.slice(
       pageIndex, pageIndex + PAGE_SIZE,
@@ -146,6 +149,11 @@ export default class CardList extends PureComponent {
                 INBOX
               </Text>
               {this.renderAddNoteButton()}
+              <Text align="center" size="medium">
+                {pageView}
+                /
+                {Math.ceil(cardItems.length / PAGE_SIZE)}
+              </Text>
               <Button
                 className={classnames('page-control', pageIndex === 0 && 'disabled')}
                 type="button"
