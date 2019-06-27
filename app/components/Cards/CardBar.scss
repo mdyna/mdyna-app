@@ -27,28 +27,14 @@ $background-color: #333333;
       border: none;
       border-radius: 0;
       &.completed {
-        filter: contrast(20%);
+        filter: saturate(2000%);
       }
       &:hover {
         border: none !important;
       }
     }
   }
-
-  .share-box {
+  .buttons-container {
     display: flex;
-    flex-direction: column;
-
-    button {
-      position: relative;
-      top: 9px;
-    }
-  }
-
-  .share-box.sharing {
-    button {
-      position: relative;
-      top: 9px;
-    }
   }
 }

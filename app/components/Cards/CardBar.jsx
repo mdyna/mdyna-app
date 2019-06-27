@@ -5,7 +5,6 @@ import {
 } from 'grommet-icons';
 import Button from 'UI/Button';
 import classnames from 'classnames';
-import tinycolor from 'tinycolor2';
 import assertCardChanges from '../../utils/assertChanges';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
@@ -15,15 +14,16 @@ const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 class CardBar extends Component {
   shouldComponentUpdate(nextProps) {
-    if (nextProps.card && this.props.card) {
-      return assertCardChanges(nextProps.card, this.props.card);
+    const { card } = this.props;
+    if (nextProps.card && card) {
+      return assertCardChanges(nextProps.card, card);
     }
     return false;
   }
 
   handleLabels(removeLabelFunc) {
     const { card } = this.props;
-    const labels = card.labels;
+    const { labels } = card;
     if (labels && labels.length) {
       labels.forEach((label) => {
         removeLabelFunc(label);
@@ -66,13 +66,13 @@ class CardBar extends Component {
     return (
       <React.Fragment>
         <div className="card-bar">
-          <h4
+          <h5
             style={{
               color: card.color,
             }}
           >
             {card.title}
-          </h4>
+          </h5>
           <div className="buttons-container">
             <Button onClick={() => toggleCard(card)}>
               <Checkmark

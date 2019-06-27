@@ -14,7 +14,8 @@
   margin-right: 10px;
   overflow: hidden !important;
   .menu-label {
-    font-size: 14px;
+    transition: all 0.5s;
+    font-size: 0px !important;
   }
 
   .help {
@@ -33,17 +34,19 @@
       margin: 0;
       padding: 0 !important;
     }
+    .menu-label {
+      font-size: 14px !important;
+    }
   }
   .sidebar-tooltip {
     opacity: 1;
-    transition: 0.5s;
+    transition: all 0.25s;
     margin: 5px 0;
     cursor: pointer;
   }
   button {
     font-weight: 300;
     font-size: 14px;
-
     span {
       transition: all 0.5s;
     }

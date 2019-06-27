@@ -67,6 +67,16 @@
   }
 
 
+    .card-list-grid{
+      display: flex;
+      margin-left: -10px; /* gutter size offset */
+      width: 100%;
+    }
+    .card-list-card {
+      padding-left: 10px; /* gutter size */
+      background-clip: padding-box;
+    }
+
   &.white-mode {
     color: $white-font-color;
     background-color: $white-note-list-background;
