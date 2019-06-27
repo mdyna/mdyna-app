@@ -48,9 +48,10 @@ class Mdyna extends PureComponent {
               full="horizontal"
               margin={{
                 top: '34px',
+                right: '14px',
               }}
-              onClickOutside={() => !console.log('cenas') && toggleEditor()}
-              onEsc={() => !console.log('cenas') && toggleEditor()}
+              onClickOutside={() => toggleEditor()}
+              onEsc={() => toggleEditor()}
               className={classnames('note-layer', { 'white-mode': whiteMode })}
             >
               <CardEditor />
