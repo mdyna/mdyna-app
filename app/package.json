@@ -16,6 +16,7 @@
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
     "grommet": "^2.7.1",
     "grommet-icons": "^4.2.0",
     "grommet-styles": "^0.2.0",
@@ -30,7 +31,6 @@
     "react-dom": "^16.5.2",
     "react-hot-loader": "3.0.0-beta.6",
     "react-keyboard-event-handler": "^1.4.1",
-    "react-masonry-component": "^6.2.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "4.1.1",
     "react-showdown": "https://github.com/dmorais92/react-showdown.git",
@@ -49,6 +49,7 @@
   "author": "David Morais",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^3.0.0"
+    "electron": "^3.0.0",
+    "react-masonry-css": "^1.0.12"
   }
 }

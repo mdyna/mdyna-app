@@ -123,7 +123,7 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      whiteMode, cards, toggleEditor, searchInput, modalOpen,
+      whiteMode, cards, toggleEditor, searchInput,
     } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -203,19 +203,6 @@ export default class CardList extends PureComponent {
               {searchInput ? 'No results found' : 'Click to add a new note'}
             </Text>
           </React.Fragment>
-        )}
-        {modalOpen ? (
-          <Layer
-            overlayClose
-            closer
-            flush
-            onClose={() => toggleEditor()}
-            className={classnames('note-layer', { 'white-mode': whiteMode })}
-          >
-            <CardEditor toggleEditor={toggleEditor} />
-          </Layer>
-        ) : (
-          ''
         )}
       </Box>
     );

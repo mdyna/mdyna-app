@@ -1,7 +1,9 @@
 @import "../style.scss";
 
-.note-layer > .grommetux-layer__container {
+.note-layer{
   display: block !important;
+  color: $accent-color;
+  margin-top: 32px;
   background-color: $secondary-background !important;
 
   button {
@@ -23,23 +25,6 @@
         polygon {
           stroke: $accent-color;
         }
-      }
-    }
-  }
-}
-
-.grommet.grommetux-drop {
-  background-color: #333 !important;
-
-  div {
-    width: 100%;
-
-    ol {
-      flex-flow: row nowrap;
-      display: flex;
-      justify-content: space-around;
-      li {
-        color: $accent-color;
       }
     }
   }
