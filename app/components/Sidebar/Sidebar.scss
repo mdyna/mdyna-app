@@ -17,11 +17,6 @@
     font-size: 14px;
   }
 
-  @include breakpoint(small) {
-    .menu-label {
-      font-size: 0px !important;
-    }
-  }
   .help {
     display: flex;
     flex-flow: row nowrap;
@@ -94,6 +89,16 @@
       polygon {
         stroke: $accent-color !important;
       }
+    }
+  }
+
+  @include breakpoint(small) {
+    &.expanded {
+      padding: 0;
+      width: 200px;
+    }
+    .menu-label {
+      font-size: 0px !important;
     }
   }
 }

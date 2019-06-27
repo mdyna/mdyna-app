@@ -80,7 +80,7 @@ export default class CardList extends PureComponent {
         onClick={() => {
           toggleEditor(true);
         }}
-        className="add-note-btn"
+        className="page-control"
       >
         <Add />
       </Button>
@@ -122,9 +122,12 @@ export default class CardList extends PureComponent {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
+    console.log('render triggrd');
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length && cardItems.slice(
+      pageIndex, pageIndex + PAGE_SIZE,
+    );
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     return (
       <Box
@@ -136,27 +139,38 @@ export default class CardList extends PureComponent {
         direction="row"
       >
         <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
-        <Text align="center" size="xlarge">
-          INBOX
-        </Text>
         {cards.length ? (
           <Error>
-            {this.renderAddNoteButton()}
+            <Box className="card-list-controls">
+              <Text align="center" size="xxlarge">
+                INBOX
+              </Text>
+              {this.renderAddNoteButton()}
+              <Button
+                className={classnames('page-control', pageIndex === 0 && 'disabled')}
+                type="button"
+                onClick={() => this.getPreviousCards()}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['left']}
+                  onKeyEvent={() => this.getPreviousCards()}
+                />
+                <Previous />
+              </Button>
+              <Button
+                onClick={() => this.getNextCards()}
+                type="button"
+                className={classnames('page-control', !hasMore && 'disabled')}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['right']}
+                  onKeyEvent={() => this.getNextCards()}
+                />
+                <Next />
+              </Button>
+            </Box>
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
-                {pageIndex !== 0 && (
-                  <Button
-                    className="page-control"
-                    type="button"
-                    onClick={() => this.getPreviousCards()}
-                  >
-                    <KeyboardEventHandler
-                      handleKeys={['left']}
-                      onKeyEvent={() => this.getPreviousCards()}
-                    />
-                    <Previous />
-                  </Button>
-                )}
                 <Masonry
                   options={{
                     fitWidth: true,
@@ -170,19 +184,6 @@ export default class CardList extends PureComponent {
                 >
                   {cardComponents}
                 </Masonry>
-                {hasMore && (
-                  <Button
-                    onClick={() => this.getNextCards()}
-                    type="button"
-                    className="page-control"
-                  >
-                    <KeyboardEventHandler
-                      handleKeys={['right']}
-                      onKeyEvent={() => this.getNextCards()}
-                    />
-                    <Next />
-                  </Button>
-                )}
               </div>
             ) : (
               <Text>No cards to present</Text>
