@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import {
-  Box, Text, CheckBox, Select, FormField, TextInput,
+  Box, Text, FormField, TextInput,
 } from 'grommet';
 import classnames from 'classnames';
 import Button from 'UI/Button';
@@ -10,6 +10,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
+import LabelPicker from 'UI/LabelPicker';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
@@ -57,59 +58,15 @@ export default class CardEditor extends Component {
               </FormField>
             );
           }
-          return (
-            <FormField
-              label={_.startCase(settingName)}
-              htmlFor={_.snakeCase(settingName)}
-              key={_.startCase(settingName)}
-            >
-              <Select
-                key={settingName}
-                id={_.snakeCase(settingName)}
-                onChange={e => changeCardSetting(_.camelCase(settingName), e.option)}
-                placeHolder={_.startCase(settingName)}
-                value={editorSettings[settingName]}
-                options={[...enums]}
-              />
-            </FormField>
-          );
+          console.warn('Found enum but no widget in schema', settingName); // eslint-disable-line no-console
+          return '';
         case 'string':
           return this.generateComponentsFromUiSchema({ ...setting, settingUiSchema, settingName });
-        case 'bool':
-          return (
-            <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
-              <CheckBox
-                key={settingName}
-                checked={editorSettings[settingName]}
-                id={_.snakeCase(settingName)}
-                label={_.startCase(settingName)}
-                onChange={e => changeCardSetting(_.camelCase(settingName), e.target.checked)}
-              />
-              {setting.dependencies && editorSettings[settingName]
-                ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
-                : ''}
-            </FormField>
-          );
         default:
           console.warn('Unknown setting', settingName); // eslint-disable-line no-console
           return '';
       }
     });
-  }
-
-  getSuggestions() {
-    const { labels } = this.props;
-    const { labelInput } = this.state;
-    if (labelInput) {
-      const inputLabels = labelInput.split(' ');
-      const lastLabel = inputLabels[inputLabels.length - 1];
-      const lastLabelLength = lastLabel.length;
-      const userLabels = labels && labels.map(d => d.title);
-      return userLabels
-        .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
-        .slice(0, 5);
-    }
-    return [' '];
   }
 
   updateCard(card) {
@@ -149,27 +106,8 @@ export default class CardEditor extends Component {
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
     const { changeCardSetting, labels, editorSettings } = this.props;
-    const { labelInput } = this.state;
     const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
-      /*
-      case 'date':
-        return (
-          <FormField
-            label={_.startCase(settingName)}
-            htmlFor={_.snakeCase(settingName)}
-            key={_.startCase(settingName)}
-          >
-            <DateTime
-              key={settingName}
-              id={_.snakeCase(settingName)}
-              step={1}
-              onChange={e => changeCardSetting(_.camelCase(settingName), e)}
-              value={settingValue || new Date()}
-            />
-          </FormField>
-        );
-        */
       case 'stringSplit':
         if (settingName === 'labels') {
           return (
@@ -178,39 +116,11 @@ export default class CardEditor extends Component {
               htmlFor={_.snakeCase(settingName)}
               key={_.startCase(settingName)}
             >
-              <TextInput
-                key={settingName}
-                id={_.snakeCase(settingName)}
-                suggestions={labels && this.getSuggestions(labels.map(d => d.title))}
-                defaultValue={
-                  settingValue
-                    ? `${settingValue
-                      .map(d => d.title)
-                      .join(' ')
-                      .trim()} #`
-                    : '#'
-                }
-                onSelect={(e) => {
-                  const selectedValue = `${labelInput.substring(0, labelInput.lastIndexOf(' '))} ${
-                    e.suggestion
-                  } #`;
-                  if (selectedValue) {
-                    this.changeStringSplit(setting, selectedValue);
-                    this.setState({
-                      labelInput: selectedValue,
-                    });
-                    e.target.value = selectedValue;
-                  }
-                }}
-                placeHolder={_.startCase(settingName)}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    this.changeStringSplit(setting, e.target.value);
-                    this.setState({
-                      labelInput: e.target.value,
-                    });
-                  }
-                }}
+              <LabelPicker
+                label={settingName}
+                labels={labels}
+                value={settingValue}
+                onChange={this.changeStringSplit}
               />
             </FormField>
           );
