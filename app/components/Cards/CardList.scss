@@ -1,45 +1,65 @@
 @import "../../style.scss";
 
 .card-list {
-  background-color: $note-list-background;
   color: $accent-color;
   width: 100%;
   transition: width 0.5s;
-  padding: 10px;
+  padding: 0 10px 10px;
   border-radius: 10px;
   display: flex;
   margin-bottom: 10vh;
   flex-flow: column wrap !important;
 
+  .card-list-controls {
+    background-color: $note-list-background;
+    border-radius: 10px;
+    display: flex;
+    padding: 5px;
+    width: fit-content;
+    align-self: flex-start;
+    align-items: center;
+    flex-flow: row nowrap;
+    transition: all 0.5s;
+    margin: 0 5px 5px;
+    span {
+      &.disabled {
+        font-size: 0;
+      }
+      margin: 5px;
+    }
+  }
+  .page-control {
+    display: flex;
+    border-radius: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    min-width: unset;
+
+    &:hover {
+      background-color: $accent-color;
+      svg {
+        > * {
+          stroke: $note-list-background;
+        }
+      }
+    }
+    svg {
+      transition: all 0.5s;
+      > * {
+        stroke: $accent-color;
+      }
+    }
+    &.disabled {
+      background: transparent !important;
+      svg {
+        width: 0px;
+      }
+    }
+  }
   .card-list-pagination {
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
-    .page-control {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-      border-radius: 10px;
-      cursor: pointer;
-      min-width: unset;
-      position: sticky;
-      top: 50vh;
-      height: 10vh;
-
-      &:hover {
-        background-color: $accent-color;
-        svg {
-          > * {
-            stroke: $note-list-background;
-          }
-        }
-      }
-      svg {
-        > * {
-          stroke: $accent-color;
-        }
-      }
-    }
     > ul {
       max-width: calc(100% - 20px);
       margin: 0 auto !important;
@@ -64,33 +84,6 @@
           stroke: $white-font-color;
         }
       }
-    }
-
-    .add-note-btn {
-      svg {
-        path {
-          stroke: $white-font-color !important;
-        }
-      }
-      &:hover {
-        svg {
-          background-color: $white-font-color;
-          border: 1px solid $white-note-list-background;
-          path {
-            stroke: $white-note-list-background !important;
-          }
-        }
-      }
-    }
-  }
-
-  .add-note-btn {
-    @include normalize-button-icons();
-    margin: 10px auto;
-    transform: translate(0, 2px);
-    svg {
-      width: 32px;
-      height: 32px;
     }
   }
 }
