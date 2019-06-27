@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Masonry from 'react-masonry-component';
+import Masonry from 'react-masonry-css';
 import { Box, Layer, Text } from 'grommet';
 import { Add, Previous, Next } from 'grommet-icons';
 import classnames from 'classnames';
@@ -125,13 +125,18 @@ export default class CardList extends PureComponent {
     const {
       whiteMode, cards, toggleEditor, searchInput, modalOpen,
     } = this.props;
-    console.log('render triggrd');
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems && cardItems.length && cardItems.slice(
       pageIndex, pageIndex + PAGE_SIZE,
     );
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
+    const BREAKPOINTS = {
+      default: 4,
+      1280: 3,
+      992: 2,
+      768: 1,
+    };
     return (
       <Box
         className={classnames({
@@ -180,15 +185,9 @@ export default class CardList extends PureComponent {
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 <Masonry
-                  options={{
-                    fitWidth: true,
-                    horizontalOrder: true,
-                    transitionDuration: 300,
-                    gutter: 10,
-                    resize: true,
-                  }}
-                  enableResizableChildren
-                  elementType="ul"
+                  breakpointCols={BREAKPOINTS}
+                  className="card-list-grid"
+                  columnClassName="card-list-card"
                 >
                   {cardComponents}
                 </Masonry>

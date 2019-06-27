@@ -11,12 +11,11 @@ $code-background: #08090a;
   border-radius: 10px;
   flex-flow: column nowrap !important;
   outline: none !important;
+  width: 450px;
+  transition: width 0.5s;
 
   @include breakpoint(small) {
     width: 100% !important;
-  }
-  @include breakpoint(medium) {
-    width: 300px !important;
   }
   @include breakpoint(large) {
     width: 380px !important;
@@ -27,7 +26,6 @@ $code-background: #08090a;
   &.expanded {
     width: fit-content !important;
     min-width: 450px;
-    max-width: 100% !important;
   }
 
 
