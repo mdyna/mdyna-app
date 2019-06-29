@@ -7,7 +7,7 @@ const LabelPicker = (props) => {
   const {
     label, labels, value, onChange, setting,
   } = props;
-  const [labelInput, changeValue] = useState(value || '');
+  const [labelInput, changeValue] = useState('');
   const [labelCount, setCount] = useState(0);
 
   const getSuggestions = () => {
@@ -84,7 +84,9 @@ const LabelPicker = (props) => {
 LabelPicker.propTypes = {
   label: PropTypes.string,
   setting: PropTypes.object,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.array,
+  ]),
   labels: PropTypes.array,
   onChange: PropTypes.func,
 };
