@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
-import { Box, Layer, Text } from 'grommet';
+import { Box, Text } from 'grommet';
 import { Add, Previous, Next } from 'grommet-icons';
 import classnames from 'classnames';
-import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 import Error from 'UI/Error';
@@ -156,9 +155,8 @@ export default class CardList extends PureComponent {
               {this.renderAddNoteButton()}
               <Text align="center" size="medium">
                 {
-                  cardItems && cardItems.length ?
-                    `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}` :
-                    '0'
+                  cardItems && cardItems.length
+                    ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}` : '0'
                 }
               </Text>
               <Button
@@ -213,7 +211,6 @@ export default class CardList extends PureComponent {
 
 CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
-  modalOpen: PropTypes.bool,
   whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
@@ -222,7 +219,6 @@ CardList.propTypes = {
 };
 
 CardList.defaultProps = {
-  modalOpen: false,
   whiteMode: false,
   completedFilterOn: false,
   labelFilters: [],

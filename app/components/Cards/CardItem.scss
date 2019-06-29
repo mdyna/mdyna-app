@@ -14,20 +14,6 @@ $code-background: #08090a;
   width: 450px;
   transition: width 0.5s;
 
-  @include breakpoint(small) {
-    width: 100% !important;
-  }
-  @include breakpoint(large) {
-    width: 380px !important;
-  }
-  @include breakpoint(xl) {
-    width: 450px !important;
-  }
-  &.expanded {
-    width: fit-content !important;
-    min-width: 450px;
-  }
-
 
   h1 {
     margin-bottom: 5px !important;
@@ -142,11 +128,12 @@ $code-background: #08090a;
 
   .note-card-content {
     overflow-wrap: break-word;
+    overflow-x: auto;
+    overflow-y: hidden;
     p {
       max-width: 100% !important;
     }
     table {
-      border: 2px solid $note-font-color;
       thead {
         th {
           background-color:rgba(255,255,255,0.8);
