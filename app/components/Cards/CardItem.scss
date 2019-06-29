@@ -12,7 +12,7 @@ $code-background: #08090a;
   flex-flow: column nowrap !important;
   outline: none !important;
   width: 450px;
-  transition: width 0.5s;
+  transition: all 0.5s;
 
 
   h1 {
@@ -73,15 +73,18 @@ $code-background: #08090a;
 }
 
   h5 {
-    font-size: 20px !important;
+    font-size: 125% !important;
+    line-height: 125% !important;
   }
 
   h4 {
-    font-size: 25px !important;
+    font-size: 160% !important;
+    line-height: 160% !important;
   }
 
   h3 {
-    font-size: 32px !important;
+    font-size: 200% !important;
+    line-height: 200% !important;
   }
 
   p {
@@ -127,6 +130,7 @@ $code-background: #08090a;
   }
 
   .note-card-content {
+    margin-top: 5px;
     overflow-wrap: break-word;
     overflow-x: auto;
     overflow-y: hidden;
