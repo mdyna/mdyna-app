@@ -32,36 +32,46 @@
 .card-editor {
   padding: 24px 24px 48px 24px !important;
   border-radius: 10px;
+  height: 100vh;
+  overflow: scroll;
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
 
-
-  .header {
-    display: flex;
-    width: 70vw;
-    flex-flow: row wrap;
-    justify-content: space-between;
+  .form-field {
+    margin: 0 20px;
+    input {
+      border-color: $accent-color;
+      border-radius: 5px;
+    }
   }
 
-  > div {
-    color: $accent-color;
+  .header {
+    min-height: fit-content;
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    span {
+      flex: 1 1 auto;
+    }
+    button {
+      align-self: flex-end;
+      margin: 0 5px;
+      &.discard-btn {
+        background-color: rgb(158, 48, 57);
+        border: 1px solid rgb(139, 15, 25) !important;
+        color: $accent-color;
+      }
+    }
   }
 
   .color-form-field {
-    max-width: 100%;
-    .color-options {
-      display: flex;
-      flex-flow: row wrap;
-      min-height: 40px;
-      justify-content: space-evenly;
-      svg {
-        width: 30px;
-        height: 34px;
-        circle {
-          transform: translate(50%, 50%);
-        }
-      }
+    max-width: 20%;
+    margin: 0 5px;
+    > div {
+      border-radius: 5px;
+      border: 1px solid $accent-color;
     }
   }
 
@@ -81,7 +91,7 @@
 
 
     .card-preview {
-      min-height: 245px;
+      min-height: 50vh;
       color: $note-font-color !important;
       margin: 0 0px 0 10px !important;
       flex: 1;

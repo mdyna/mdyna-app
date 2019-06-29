@@ -45,11 +45,10 @@ class Mdyna extends PureComponent {
           </Box>
           {modalOpen ? (
             <Layer
-              full="horizontal"
               margin={{
-                top: '34px',
                 right: '14px',
               }}
+              full
               onClickOutside={() => toggleEditor()}
               onEsc={() => toggleEditor()}
               className={classnames('note-layer', { 'white-mode': whiteMode })}
