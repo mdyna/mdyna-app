@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Box, Text, FormField,
 } from 'grommet';
+import tc from 'tinycolor2';
 import classnames from 'classnames';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -169,7 +170,9 @@ export default class CardEditor extends Component {
         <Box direction="row" justify="start">
           {components}
         </Box>
-        <Box className="editor-with-preview">
+        <Box className="editor-with-preview" style={{
+          backgroundColor: `${editorSettings.color}aa`,
+        }}>
           <MarkdownEditor
             text={editorSettings.text}
             className="card-text-editor"
