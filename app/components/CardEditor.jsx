@@ -38,7 +38,6 @@ export default class CardEditor extends Component {
           if (settingUiSchema === 'color') {
             return (
               <FormField
-                className="form-field"
                 label={_.startCase(settingName)}
                 htmlFor={_.snakeCase(settingName)}
                 key={_.startCase(settingName)}
@@ -170,9 +169,14 @@ export default class CardEditor extends Component {
         <Box direction="row" justify="start">
           {components}
         </Box>
-        <Box className="editor-with-preview" style={{
-          backgroundColor: `${editorSettings.color}aa`,
-        }}>
+        <Box
+          className="editor-with-preview"
+          style={
+            {
+              backgroundColor: `${editorSettings.color}aa`,
+            }
+          }
+        >
           <MarkdownEditor
             text={editorSettings.text}
             className="card-text-editor"
@@ -185,7 +189,7 @@ export default class CardEditor extends Component {
   }
 
   render() {
-    const { editorSettings, whiteMode } = this.props;
+    const { editorSettings, whiteMode, toggleEditor } = this.props;
     return (
       <ErrorBoundary>
         <Box
