@@ -1,0 +1,31 @@
+@import "../../style.scss";
+
+.color-options {
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 40px;
+  align-items: flex-end;
+  padding: 0 5px;
+  cursor: pointer;
+  span {
+    margin: 5px 0;
+  }
+  &.options-expanded {
+    align-items: center;
+  }
+
+  div {
+    display: flex;
+    flex-flow: row wrap;
+    transition: all 0.5s;
+    svg {
+      cursor: pointer;
+      margin: 0 5px;
+      width: 30px;
+      height: 34px;
+      circle {
+        transform: translate(50%, 50%);
+      }
+    }
+  }
+}
