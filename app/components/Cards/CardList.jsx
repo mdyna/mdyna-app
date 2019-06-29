@@ -131,7 +131,9 @@ export default class CardList extends PureComponent {
     );
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     const BREAKPOINTS = {
-      default: 4,
+      default: 3,
+      2000: 4,
+      1600: 3,
       1280: 3,
       992: 2,
       768: 1,

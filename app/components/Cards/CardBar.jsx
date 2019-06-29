@@ -73,33 +73,37 @@ class CardBar extends Component {
           >
             {card.title}
           </h5>
-          <div className="buttons-container">
-            <Button onClick={() => toggleCard(card)}>
-              <Checkmark
-                style={{
-                  stroke: card.color,
-                }}
-                className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-              />
-            </Button>
-            <Button onClick={() => editCard(card)}>
-              <Edit
-                style={{
-                  stroke: card.color,
-                }}
-                className="edit-icon"
-              />
-            </Button>
-            <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-              <Trash
-                style={{
-                  stroke: card.color,
-                }}
-                className="close-icon"
-                color={card.color}
-              />
-            </Button>
-          </div>
+          {
+            cardActions && (
+              <div className="buttons-container">
+                <Button onClick={() => toggleCard(card)}>
+                  <Checkmark
+                    style={{
+                      stroke: card.color,
+                    }}
+                    className={classnames({ 'checkmark-icon': true, completed: card.completed })}
+                  />
+                </Button>
+                <Button onClick={() => editCard(card)}>
+                  <Edit
+                    style={{
+                      stroke: card.color,
+                    }}
+                    className="edit-icon"
+                  />
+                </Button>
+                <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
+                  <Trash
+                    style={{
+                      stroke: card.color,
+                    }}
+                    className="close-icon"
+                    color={card.color}
+                  />
+                </Button>
+              </div>
+            )
+          }
         </div>
       </React.Fragment>
     );
