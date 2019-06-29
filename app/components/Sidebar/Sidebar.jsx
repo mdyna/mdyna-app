@@ -281,16 +281,6 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className="sidebar-tooltip"
-            whiteMode={whiteMode}
-            icon={<Filter />}
-            title="Filter cards"
-            text="Filter cards by label"
-            onClick={() => {
-              this.expandMenu();
-            }}
-          />
-          <Tooltip
             whiteMode={whiteMode}
             icon={<Brush />}
             className="sidebar-tooltip"
@@ -341,6 +331,16 @@ class Sidebar extends Component {
             icon={<FolderCycle />}
             title="Change Cards Directory"
             text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
+            onClick={() => {
+              this.expandMenu();
+            }}
+          />
+          <Tooltip
+            className="sidebar-tooltip"
+            whiteMode={whiteMode}
+            icon={<Filter />}
+            title="Filter cards"
+            text="Filter cards by label"
             onClick={() => {
               this.expandMenu();
             }}
