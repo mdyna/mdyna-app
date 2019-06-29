@@ -14,7 +14,6 @@ $code-background: #08090a;
   width: 450px;
   transition: all 0.5s;
 
-
   h1 {
     margin-bottom: 5px !important;
   }
@@ -91,6 +90,9 @@ $code-background: #08090a;
     color: #333 !important;
   }
 
+  ol, ul {
+    padding: 5px 20px;
+  }
   blockquote {
     background-color: #666;
     opacity: 0.8;
@@ -118,7 +120,6 @@ $code-background: #08090a;
     li {
       color: #333 !important;
     }
-    margin: 10px !important;
   }
 
   .labels {
