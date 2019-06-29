@@ -10,7 +10,7 @@ import {
   FormPrevious,
   Search,
   Up,
-  Sort,
+  Descend as Sort,
   FolderCycle,
   AddCircle,
   Checkmark,
