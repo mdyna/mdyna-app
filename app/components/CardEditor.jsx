@@ -37,6 +37,7 @@ export default class CardEditor extends Component {
           if (settingUiSchema === 'color') {
             return (
               <FormField
+                className="form-field"
                 label={_.startCase(settingName)}
                 htmlFor={_.snakeCase(settingName)}
                 key={_.startCase(settingName)}
@@ -80,6 +81,7 @@ export default class CardEditor extends Component {
         if (settingName === 'labels') {
           return (
             <FormField
+              className="form-field"
               label={_.startCase(settingName)}
               htmlFor={_.snakeCase(settingName)}
               key={_.startCase(settingName)}
@@ -96,19 +98,11 @@ export default class CardEditor extends Component {
         }
         return '';
       case 'textarea':
-        return (
-          <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor
-              text={settingValue}
-              className="card-text-editor"
-              submitCard={() => this.submitFormFields()}
-            />
-            <CardPreview changeCardSetting={changeCardSetting} />
-          </div>
-        );
+        return '';
       default:
         return (
           <FormField
+            className="form-field"
             label={_.startCase(settingName)}
             htmlFor={_.snakeCase(settingName)}
             key={_.startCase(settingName)}
@@ -169,19 +163,20 @@ export default class CardEditor extends Component {
   }
 
   renderCardForm(components) {
-    const { whiteMode } = this.props;
+    const { editorSettings, changeCardSetting } = this.props;
     return (
-      <form plain>
-        <Box direction="column" alignContent="center">
+      <form plain="true">
+        <Box direction="row" justify="start">
           {components}
         </Box>
-        <Button
-          theme={(whiteMode && 'white') || 'dark'}
-          className="submit-btn"
-          label="Submit"
-          color="primary"
-          onClick={() => this.submitFormFields()}
-        />
+        <Box className="editor-with-preview">
+          <MarkdownEditor
+            text={editorSettings.text}
+            className="card-text-editor"
+            submitCard={() => this.submitFormFields()}
+          />
+          <CardPreview changeCardSetting={changeCardSetting} />
+        </Box>
       </form>
     );
   }
@@ -201,8 +196,10 @@ export default class CardEditor extends Component {
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Text className="header">
-            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+          <Box className="header">
+            <Text align="center" size="xxlarge">
+              {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+            </Text>
             <Button
               theme={(whiteMode && 'white') || 'dark'}
               className="submit-btn"
@@ -211,7 +208,15 @@ export default class CardEditor extends Component {
             >
               Save Card
             </Button>
-          </Text>
+            <Button
+              theme={(whiteMode && 'white') || 'dark'}
+              className="discard-btn"
+              color="alt"
+              onClick={() => toggleEditor()}
+            >
+              X
+            </Button>
+          </Box>
           {this.generateComponentsFromType(cardDefinition)}
         </Box>
       </ErrorBoundary>
