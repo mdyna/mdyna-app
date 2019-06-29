@@ -45,7 +45,7 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
-  setTimeout(() => card.scrollToCard(), 600);
+  card.scrollToCard();
 }
 
 class MdynaCard extends PureComponent {
@@ -141,18 +141,14 @@ class MdynaCard extends PureComponent {
           filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
-        {hasCardBar ? (
-          <CardBar
-            card={card}
-            cardActions={noteActions}
-            cardItem={this}
-            options={{
-              minimized,
-            }}
-          />
-        ) : (
-          ''
-        )}
+        <CardBar
+          card={card}
+          cardActions={hasCardBar ? noteActions : ''}
+          cardItem={this}
+          options={{
+            minimized,
+          }}
+        />
         <Labels labels={card.labels} color={color} />
         {this.renderCardDate()}
         <MarkdownText
