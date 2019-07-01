@@ -4,7 +4,6 @@ $white-code-background: #edeff8;
 $code-background: #08090a;
 
 .card-item {
-  color: $note-font-color;
   padding: 20px;
   margin: 5px !important;
   max-height: fit-content !important;
@@ -45,29 +44,9 @@ $code-background: #08090a;
         border: none !important;
       }
     }
-  svg.minimize-icon {
-    polyline {
-      stroke: $accent-color !important;
-    }
-  }
-  svg.maximize-icon {
-    polyline {
-      stroke: $accent-color !important;
-    }
-  }
 
   &:hover {
     filter: saturate(500%);
-    svg.minimize-icon {
-      polyline {
-        stroke: $secondary-accent !important;
-      }
-    }
-    svg.maximize-icon {
-      polyline {
-        stroke: $secondary-accent !important;
-      }
-    }
   }
 }
 

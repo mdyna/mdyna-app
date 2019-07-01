@@ -12,13 +12,6 @@ $white-secondary-background: #fafafa;
 $white-font-color: #212121;
 $white-note-list-background: #fafafa;
 
-$sidebar-background-color: #0c1014;
-$white-sidebar-background-color: #bdccd3;
-$white-hover-color: #d2e3eb;
-$dark-accent-color: #01a982;
-$white-label-background-color: #d2e3eb;
-
-
 
 @mixin neon-glow($glow-color) {
   text-shadow: 0px 0 3px #fff, 0 0 4px #fff, 0 0 5px $accent-color,
@@ -51,14 +44,5 @@ $white-label-background-color: #d2e3eb;
       filter: contrast(200%);
     }
     border: none;
-    path {
-      stroke: $path-color;
-    }
-    polyline {
-      stroke: $path-color;
-    }
-    polygon {
-      stroke: $path-color;
-    }
   }
 }

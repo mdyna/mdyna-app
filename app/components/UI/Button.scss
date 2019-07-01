@@ -16,27 +16,4 @@ button.button {
     vertical-align: middle;
   }
 
-  &.alt {
-    background-color: $background-color;
-    color: $accent-color;
-    border: 1px solid $accent-color !important;
-    font-weight: bold;
-  }
-  &.primary {
-    background-color: $accent-color;
-    color: $background-color;
-    border: 1px solid $background-color !important;
-  }
-  &.white-theme {
-    border: 1px solid $white-secondary-background !important;
-    &.alt {
-      color: $white-background-color;
-      background-color: $white-font-color;
-    }
-    &.primary {
-      color: $white-font-color;
-      background-color: $white-background-color;
-    }
-
-  }
 }

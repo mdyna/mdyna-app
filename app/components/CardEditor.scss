@@ -2,31 +2,7 @@
 
 .note-layer{
   display: block !important;
-  color: $accent-color;
   margin-top: 32px;
-  background-color: $secondary-background !important;
-
-  button {
-    @include normalize-button-icons();
-    svg {
-      path {
-        fill: #666;
-      }
-      polygon {
-        stroke: #666;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          fill: $accent-color;
-        }
-        polygon {
-          stroke: $accent-color;
-        }
-      }
-    }
-  }
 }
 
 .card-editor {
@@ -41,7 +17,6 @@
   .form-field {
     margin: 0 20px;
     input {
-      border-color: $accent-color;
       border-radius: 5px;
     }
   }
@@ -61,7 +36,6 @@
       &.discard-btn {
         background-color: rgb(158, 48, 57);
         border: 1px solid rgb(139, 15, 25) !important;
-        color: $accent-color;
       }
     }
   }
@@ -71,7 +45,6 @@
     margin: 0 5px;
     > div {
       border-radius: 5px;
-      border: 1px solid $accent-color;
     }
   }
 
@@ -95,7 +68,6 @@
 
     .card-preview {
       min-height: 50vh;
-      color: $note-font-color !important;
       margin: 0 0px 0 10px !important;
       align-self: flex-start;
       flex: 1 0.5;
@@ -166,44 +138,9 @@
 
 .note-layer.white-mode > .grommetux-layer__container {
   display: block !important;
-  background-color: $white-secondary-background !important;
-  button {
-    svg {
-      path {
-        fill: $note-font-color !important;
-        stroke: $note-font-color !important;
-      }
-      polygon {
-        stroke: $note-font-color !important;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          fill: $white-font-color !important;
-          stroke: $white-font-color !important;
-        }
-        polygon {
-          stroke: $white-font-color !important;
-        }
-      }
-    }
-  }
+
   .card-editor {
     .card-text-editor {
-      .editor-toolbar {
-        a {
-          color: $white-font-color !important;
-          &.active {
-            background-color: $white-secondary-background;
-            border: 1px solid;
-          }
-          &:hover {
-            background-color: $white-secondary-background;
-          }
-        }
-      }
-
       .CodeMirror-cursor {
         border-left: 1px solid $note-font-color;
       }

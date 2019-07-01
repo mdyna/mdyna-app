@@ -16,22 +16,9 @@ label.picker {
   svg {
     margin: 0 5px;
     vertical-align: text-bottom;
-    path {
-      stroke: $accent-color !important;
-    }
   }
   &:hover {
     filter: saturate(500%)
   }
-  &.white-mode {
-    svg {
-      path {
-        stroke: $background-color !important;
-      }
-    }
 
-    &:hover {
-      background-color: $white-hover-color;
-    }
-  }
 }
