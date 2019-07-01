@@ -1,7 +1,6 @@
 @import "../../style.scss";
 
 .card-list {
-  color: $accent-color;
   width: 100%;
   transition: width 0.5s;
   padding: 0 10px 10px;
@@ -11,7 +10,6 @@
   flex-flow: column wrap !important;
 
   .card-list-controls {
-    background-color: $note-list-background;
     border-radius: 10px;
     display: flex;
     padding: 5px;
@@ -35,19 +33,8 @@
     cursor: pointer;
     min-width: unset;
 
-    &:hover {
-      background-color: $accent-color;
-      svg {
-        > * {
-          stroke: $note-list-background;
-        }
-      }
-    }
     svg {
       transition: all 0.5s;
-      > * {
-        stroke: $accent-color;
-      }
     }
     &.disabled {
       background: transparent !important;
@@ -66,35 +53,14 @@
     }
   }
 
-
-    .card-list-grid{
-      display: flex;
-      margin-left: -10px; /* gutter size offset */
-      width: 100%;
-    }
-    .card-list-card {
-      transition: all 0.5s;
-      padding-left: 10px; /* gutter size */
-      background-clip: padding-box;
-    }
-
-  &.white-mode {
-    color: $white-font-color;
-    background-color: $white-note-list-background;
-    .page-control {
-      &:hover {
-        background-color: $white-font-color;
-        svg {
-          > * {
-            stroke: $white-note-list-background;
-          }
-        }
-      }
-      svg {
-        > * {
-          stroke: $white-font-color;
-        }
-      }
-    }
+  .card-list-grid {
+    display: flex;
+    margin-left: -10px; /* gutter size offset */
+    width: 100%;
+  }
+  .card-list-card {
+    transition: all 0.5s;
+    padding-left: 10px; /* gutter size */
+    background-clip: padding-box;
   }
 }
