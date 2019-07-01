@@ -49,7 +49,6 @@ class Mdyna extends PureComponent {
                 right: '14px',
               }}
               full
-              onClickOutside={() => toggleEditor()}
               onEsc={() => toggleEditor()}
               className={classnames('note-layer', { 'white-mode': whiteMode })}
             >

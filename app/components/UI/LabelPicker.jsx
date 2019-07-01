@@ -11,17 +11,15 @@ const LabelPicker = (props) => {
   const [labelCount, setCount] = useState(0);
 
   const getSuggestions = () => {
-    if (labelInput) {
-      const inputLabels = labelInput.split(' ');
-      const lastLabel = inputLabels[inputLabels.length - 1];
-      const lastLabelLength = lastLabel.length;
-      const userLabels = labels && labels.map(d => d.title);
-      return userLabels
-        .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
-        .slice(0, 5);
-    }
-    return [' '];
+    const inputLabels = labelInput.split(' ');
+    const lastLabel = inputLabels[inputLabels.length - 1];
+    const lastLabelLength = lastLabel.length;
+    const userLabels = labels && labels.map(d => d.title);
+    return userLabels
+      .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
+      .slice(0, 5);
   };
+
   const changeStringSplit = (schema, val) => {
     const { prefixer, splitters } = schema;
     const settingName = schema.settingName || 'labels';
@@ -52,13 +50,13 @@ const LabelPicker = (props) => {
       suggestions={labels && getSuggestions(labels.map(d => ({ label: d.title, value: d.title })))}
       focus={false}
       defaultValue={
-      value
-        ? `${value
-          .map(d => d.title)
-          .join(' ')
-          .trim()} #`
-        : '#'
-    }
+        value
+          ? `${value
+            .map(d => d.title)
+            .join(' ')
+            .trim()} #`
+          : '#'
+      }
       onSelect={(e) => {
         const selectedValue = `${labelInput.substring(0, labelInput.lastIndexOf(' '))} ${
           e.suggestion
@@ -80,13 +78,10 @@ const LabelPicker = (props) => {
   );
 };
 
-
 LabelPicker.propTypes = {
   label: PropTypes.string,
   setting: PropTypes.object,
-  value: PropTypes.oneOfType([
-    PropTypes.string, PropTypes.array,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   labels: PropTypes.array,
   onChange: PropTypes.func,
 };
