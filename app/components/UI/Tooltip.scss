@@ -6,44 +6,12 @@
   outline: none !important;
   box-shadow: none !important;
   padding: 2px !important;
-  svg {
-    width: 100%;
-    path {
-      stroke: $accent-color !important;
-    }
-    polyline {
-      stroke: $accent-color !important;
-    }
-    polygon {
-      stroke: $accent-color !important;
-    }
-  }
   &:hover {
     filter:  saturate(500%);
   }
-  &.white-mode {
-    svg {
-      path {
-        stroke: $white-font-color !important;
-      }
-      polyline {
-        stroke: $white-font-color !important;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          stroke: $white-hover-color !important;
-        }
-        polyline {
-          stroke: $white-hover-color !important;
-        }
-      }
-    }
-  }
+
 }
 .tooltip {
-  background-color: $accent-color !important;
   color: $white-font-color !important;
   font-family: Helvetica;
   border-radius: 10px;
@@ -53,15 +21,10 @@
   }
 
   ul {
-    li {
-      color: $white-font-color !important;
-    }
     margin: 0 10px !important;
   }
 
-  &.white-mode {
-    background-color: $white-note-list-background !important;
-  }
+
   title {
     font-size:1.5rem;
   }

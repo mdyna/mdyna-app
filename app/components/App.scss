@@ -9,8 +9,6 @@ h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
 p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 
 body {
-  font-family: Helvetica;
-  background-color: $background-color;
   border: 1px solid #15171f;
   overflow-y: hidden;
 }
@@ -59,10 +57,9 @@ body {
   width: calc(100% - 2px);
   background-color: #0f1116;
   padding: 4px;
-  color: $secondary-accent;
+  color: $accent-color;
   font-family: Helvetica;
   #drag-region {
-
     .title {
       font-size: 1.2em;
       display: flex;
@@ -124,7 +121,6 @@ body {
 .mdyna-app {
   margin: 0;
   padding: 0;
-  background-color: $background-color;
   min-height: 600px;
 
   ::-webkit-scrollbar-track {
@@ -132,8 +128,6 @@ body {
   }
 
   header {
-    background-color: $secondary-background;
-    color: $secondary-accent;
     padding: 20px 0 10px 10px;
     display: flex;
     flex-flow: column;
@@ -144,33 +138,10 @@ body {
     }
   }
 
-  article {
-    // padding-top: 76px;
-    background-color: $secondary-background;
-  }
 
   section {
     flex: 1 auto;
     width: 30vw;
     border-radius: 10px;
-  }
-  &.white-mode {
-    background-color: $white-background-color;
-
-    header {
-      background-color: $white-secondary-background !important;
-      color: $white-font-color;
-      padding: 20px 0 10px 10px !important;
-
-      img {
-        width: 100px !important;
-        box-shadow: none;
-        border-radius: 50%;
-      }
-    }
-
-    article {
-      background-color: $white-secondary-background;
-    }
   }
 }

@@ -7,7 +7,7 @@ class Labels extends Component {
     return label ? (
       <span
         style={{
-          color: label.color || color,
+          color: color,
           backgroundColor: '#333333AA',
           borderRadius: '50px',
           padding: '5px',
@@ -53,7 +53,7 @@ Labels.propTypes = {
 };
 
 Labels.defaultProps = {
-  color: '#1de9b6',
+  color: '#000',
   label: null,
   labels: [],
 };

@@ -1,8 +1,7 @@
-$background-color: #333333;
 @import "../../style.scss";
 
 .card-bar {
-  background-color: $background-color;
+  background-color: #333333;
   border-radius: 10px;
   display: flex;
   flex-flow: row nowrap;
