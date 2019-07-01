@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Box, Text, FormField,
 } from 'grommet';
-import tc from 'tinycolor2';
 import classnames from 'classnames';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';

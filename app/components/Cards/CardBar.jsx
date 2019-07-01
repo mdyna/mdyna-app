@@ -114,5 +114,5 @@ export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
-  cardActions: PropTypes.object.isRequired,
+  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
