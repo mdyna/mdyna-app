@@ -23,6 +23,10 @@
     svg {
       border-radius: 0;
     }
+    &:hover {
+      background: none;
+      filter: saturate(5000%);
+    }
   }
   .buttons-container {
     display: flex;

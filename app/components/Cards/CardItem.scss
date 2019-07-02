@@ -37,10 +37,6 @@ $note-font-color: #333333dd;
 
   button {
     transition: all 0.5s ease-in;
-
-  &:hover {
-    filter: saturate(5000%);
-  }
 }
 
   h5 {
