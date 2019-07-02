@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 
 class Labels extends Component {
   render() {
-    const { labels, color, label } = this.props;
+    const {
+      labels, color, label, transparent,
+    } = this.props;
     return label ? (
       <span
         style={{
-          color: color,
-          backgroundColor: '#333333AA',
+          color,
+          backgroundColor: !transparent && '#333333AA',
           borderRadius: '50px',
           padding: '5px',
         }}
@@ -29,7 +31,7 @@ class Labels extends Component {
             <span
               style={{
                 color,
-                backgroundColor: '#333333AA',
+                backgroundColor: !transparent && '#333333AA',
                 borderRadius: '50px',
                 padding: '5px',
               }}
@@ -40,7 +42,7 @@ class Labels extends Component {
           ))
           : ''}
       </div>
-    )
+    );
   }
 }
 
@@ -48,6 +50,7 @@ export default Labels;
 
 Labels.propTypes = {
   labels: PropTypes.array,
+  transparent: PropTypes.bool,
   color: PropTypes.string,
   label: PropTypes.object,
 };
@@ -55,5 +58,6 @@ Labels.propTypes = {
 Labels.defaultProps = {
   color: '#000',
   label: null,
+  transparent: false,
   labels: [],
 };

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {Help} from 'grommet-icons';
-import {Box} from 'grommet';
+import { Help } from 'grommet-icons';
+import { Box } from 'grommet';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import MarkdownText from 'UI/MarkdownText';
@@ -70,7 +70,7 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   text: '',
   className: '',
-  icon: <Help />,
+  icon: <Help color="brand" />,
   onClick: null,
   title: 'Help',
 };

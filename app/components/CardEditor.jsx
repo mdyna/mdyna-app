@@ -208,16 +208,15 @@ export default class CardEditor extends Component {
             </Text>
             <Button
               theme={(whiteMode && 'white') || 'dark'}
-              className="submit-btn"
-              color="alt"
               onClick={() => this.submitFormFields()}
             >
               Save Card
             </Button>
             <Button
               theme={(whiteMode && 'white') || 'dark'}
+              color="accent-2"
               className="discard-btn"
-              color="alt"
+              hoverIndicator="accent-2"
               onClick={() => toggleEditor()}
             >
               X

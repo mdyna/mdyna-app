@@ -20,17 +20,8 @@
   }
 
   button {
-    border: none !important;
-    box-shadow: none !important;
     svg {
-      border: none;
       border-radius: 0;
-      &.completed {
-        filter: saturate(2000%);
-      }
-      &:hover {
-        border: none !important;
-      }
     }
   }
   .buttons-container {
