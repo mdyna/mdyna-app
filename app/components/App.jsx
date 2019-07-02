@@ -10,6 +10,7 @@ import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import SideBar from './Sidebar/Sidebar';
 
+import mdynaTheme from '../themes/mdyna.json';
 /* eslint-disable */
 import './App.scss';
 /* eslint-enable */
@@ -23,7 +24,7 @@ class Mdyna extends PureComponent {
     return (
       <Grommet
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        theme={v1}
+        theme={mdynaTheme}
       >
         <ErrorBoundary whiteMode={whiteMode}>
           <Header />

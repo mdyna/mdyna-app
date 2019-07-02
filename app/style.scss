@@ -33,16 +33,4 @@ $white-note-list-background: #fafafa;
     @media (max-width: 768px)  { @content; }
   }
 }
-@mixin normalize-button-icons(
-  $path-color: $accent-color,
-  $secondary-path-color: $secondary-accent
-) {
-  border: none;
-  box-shadow: none !important;
-  svg {
-    &:hover {
-      filter: contrast(200%);
-    }
-    border: none;
-  }
-}
+

@@ -13,7 +13,7 @@ export default class SearchComponent extends Component {
     } = this.props;
     return (
       <div className={cx('search-wrapper', whiteMode && 'white-mode')}>
-        <Search />
+        <Search color="brand" />
         <TextInput
           className={cx('mdyna-search', whiteMode && 'white-mode')}
           placeHolder="Search cards by title (Ctrl+P)"

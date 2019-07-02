@@ -1,14 +1,11 @@
 @import "../../style.scss";
 
 button.button {
-  @include normalize-button-icons();
   font-weight: bold;
   border-radius: 10px;
-  padding: 5px !important;
+  padding: 5px;
   margin: 5px 0;
-  outline: none !important;
   &.icon {
-    @include normalize-button-icons();
     padding: 20px;
   }
   svg {

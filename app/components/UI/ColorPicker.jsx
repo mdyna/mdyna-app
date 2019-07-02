@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Collapsible, Box, Text } from 'grommet';
+import { Collapsible, Box } from 'grommet';
 import _ from 'lodash';
 import cx from 'classnames';
+import Button from 'UI/Button';
 import './ColorPicker.scss';
 
 const Input = (props) => {
@@ -13,9 +14,9 @@ const Input = (props) => {
 
   return (
     <Box justify="center" className={cx('color-options', colorsExpanded && 'options-expanded')}>
-      <Text onClick={() => expandColors(!colorsExpanded)}>
+      <Button onClick={() => expandColors(!colorsExpanded)}>
         Select Color
-      </Text>
+      </Button>
       <Collapsible
         open={colorsExpanded}
         direction="vertical"
