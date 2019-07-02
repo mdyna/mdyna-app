@@ -18,13 +18,13 @@ class Tooltip extends PureComponent {
     const {
       text, title, whiteMode, className,
     } = this.props;
-
     return (
       <ReactTooltip
         id={title}
         place="top"
         class={cx('tooltip', whiteMode && 'white-mode', className)}
         multiline
+        type="light"
         offset={{
           right: 10,
         }}
