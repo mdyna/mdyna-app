@@ -11,19 +11,13 @@
     justify-content: flex-start;
     align-items: baseline;
     overflow-y: auto;
+    border-radius: 10px;
     max-height: 25vh;
     padding: 5px auto;
     .label-button {
       margin: 3px;
-
-      &:hover {
-        filter: contrast(75%);
-      }
       &.active {
         filter: contrast(50%);
-        &:hover {
-          filter: contrast(25%);
-        }
       }
     }
   }

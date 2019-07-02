@@ -7,6 +7,7 @@ import { Add, Previous, Next } from 'grommet-icons';
 import classnames from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
+
 import Error from 'UI/Error';
 
 import './CardList.scss'; // eslint-disable-line
@@ -23,7 +24,8 @@ export default class CardList extends PureComponent {
     const { cards } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length
+      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
@@ -84,7 +86,7 @@ export default class CardList extends PureComponent {
         }}
         className="page-control"
       >
-        <Add />
+        <Add color="brand" />
       </Button>
     );
   }
@@ -155,13 +157,14 @@ export default class CardList extends PureComponent {
           'card-list': true,
           'white-mode': whiteMode,
         })}
+        background="dark-3"
         responsive
         direction="row"
       >
         <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
         {cards.length ? (
           <Error>
-            <Box className="card-list-controls">
+            <Box className="card-list-controls" background="dark-1">
               <Text align="center" size="xxlarge">
                 INBOX
               </Text>
@@ -181,7 +184,7 @@ export default class CardList extends PureComponent {
                   handleKeys={['left']}
                   onKeyEvent={() => this.getPreviousCards()}
                 />
-                <Previous />
+                <Previous color="brand" />
               </Button>
               <Button
                 onClick={() => this.getNextCards()}
@@ -192,7 +195,7 @@ export default class CardList extends PureComponent {
                   handleKeys={['right']}
                   onKeyEvent={() => this.getNextCards()}
                 />
-                <Next />
+                <Next color="brand" />
               </Button>
             </Box>
             {cardComponents && cardComponents.length ? (

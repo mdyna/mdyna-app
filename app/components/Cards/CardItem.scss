@@ -2,6 +2,7 @@
 
 $white-code-background: #edeff8;
 $code-background: #08090a;
+$note-font-color: #333333dd;
 
 .card-item {
   padding: 20px;
@@ -9,16 +10,12 @@ $code-background: #08090a;
   max-height: fit-content !important;
   border-radius: 10px;
   flex-flow: column nowrap !important;
-  outline: none !important;
   width: 450px;
   transition: all 0.5s;
 
-  h1 {
-    margin-bottom: 5px !important;
-  }
-
   span.card-date {
     margin-top: -5px;
+    color: $note-font-color;
     font-size: 0.85em;
     span {
       font-style: italic;
@@ -33,20 +30,16 @@ $code-background: #08090a;
     display: flex;
     flex-flow: row;
     justify-content: center;
+    opacity: 0.5;
+    border-radius: '10px';
+    padding: 5;
   }
 
   button {
     transition: all 0.5s ease-in;
-    svg {
-      border: none;
-      border-radius: 0;
-      &:hover {
-        border: none !important;
-      }
-    }
 
   &:hover {
-    filter: saturate(500%);
+    filter: saturate(5000%);
   }
 }
 
@@ -65,8 +58,9 @@ $code-background: #08090a;
     line-height: 200% !important;
   }
 
-  p {
-    color: #333 !important;
+
+  p, th, td, tr {
+    color: $note-font-color !important;
   }
 
   ol, ul {
@@ -78,21 +72,21 @@ $code-background: #08090a;
     margin: 10px;
     border-radius: 10px;
     padding-left: 20px;
-    p {
+    p, h5, h4, h3 {
       ::before{
         content: '>'
       }
       color: #fff !important;
     }
     &:hover {
-      p {
+      p, h5, h4, h3{
         color: $accent-color !important;
       }
     }
   }
 
-  h5, h4, h3, p {
-    margin-bottom: 5px !important;
+  h5, h4, h3, p, ul, ol, li {
+    color: $note-font-color;
   }
 
   ul {
@@ -153,7 +147,7 @@ $code-background: #08090a;
     }
     div {
       display: flex;
-      flex-flow: column wrap;
+      flex-flow: column nowrap;
       p {
         margin-top: 12px !important;
       }

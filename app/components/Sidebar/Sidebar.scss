@@ -45,25 +45,18 @@
   button {
     font-weight: 300;
     font-size: 14px;
+    padding: 3px;
     span {
       transition: all 0.5s;
     }
 
     &.active {
       border-radius: 10px;
-      filter: contrast(200%);
-      &:hover {
-        filter: contrast(750%);
-      }
       svg {
-        transition: all 0.5s;
         &.descending {
           transform: rotate(180deg);
         }
       }
-    }
-    &:hover {
-      filter:saturate(500%);
     }
   }
   .menu-label-filter {

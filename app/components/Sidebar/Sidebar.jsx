@@ -112,7 +112,7 @@ class Sidebar extends Component {
               toggleWhiteMode(!whiteMode);
             }}
           >
-            <Brush />
+            <Brush color="brand" />
             <Text className="menu-label">
               {whiteMode ? 'Dark Theme' : 'Light Theme'}
             </Text>
@@ -123,7 +123,7 @@ class Sidebar extends Component {
             }}
             className="add-note-btn"
           >
-            <AddCircle />
+            <AddCircle color="brand" />
             <Text className="menu-label">Add Card</Text>
           </Button>
           <Button
@@ -134,8 +134,10 @@ class Sidebar extends Component {
               'toggle-completed-button',
               completedFilterOn && 'active',
             )}
+            color={completedFilterOn && 'accent-3' || 'brand'}
+            hoverIndicator={completedFilterOn && 'brand' || 'accent-1'}
           >
-            <Checkmark />
+            <Checkmark color={completedFilterOn ? 'accent-3' : 'brand'} />
             <Text className="menu-label">Toggle Completed</Text>
           </Button>
           <Button
@@ -143,7 +145,7 @@ class Sidebar extends Component {
               this.expandSortingOptions();
             }}
           >
-            <Sort className="sort-icon" />
+            <Sort color="brand" className="sort-icon" />
             <Text className="menu-label">Sort Cards </Text>
           </Button>
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
@@ -158,6 +160,7 @@ class Sidebar extends Component {
               }
             >
               <Up
+                color="brand"
                 className={classnames(
                   order === DESCENDING_ORDER && 'descending',
                 )}
@@ -175,6 +178,7 @@ class Sidebar extends Component {
               )}
             >
               <Up
+                color="brand"
                 className={classnames(
                   order === DESCENDING_ORDER && 'descending',
                 )}
@@ -193,7 +197,7 @@ class Sidebar extends Component {
             }}
           />
           <Box direction="column" className="menu-label-filter">
-            <Filter />
+            <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
             <LabelFilter
               whiteMode={whiteMode}
@@ -253,22 +257,23 @@ class Sidebar extends Component {
           className={classnames(whiteMode && 'white-mode', 'sidebar', sidebarExpanded && 'expanded')}
           direction="column"
           alignContent="end"
+          background="dark-2"
         >
           <Box direction="row" className="menu-controller">
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
-                <FormPrevious />
+                <FormPrevious color="brand" />
                 <Text size="large">mdyna</Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
-                <FormNext />
+                <FormNext color="brand" />
               </Button>
             )}
           </Box>
           <Tooltip
             whiteMode={whiteMode}
-            icon={<Search />}
+            icon={<Search color="brand" />}
             title="Search"
             className="sidebar-tooltip"
             text="Hotkey: Ctrl+P"
@@ -282,7 +287,7 @@ class Sidebar extends Component {
           />
           <Tooltip
             whiteMode={whiteMode}
-            icon={<Brush />}
+            icon={<Brush color="brand" />}
             className="sidebar-tooltip"
             title="Set theme"
             text={`Switch to ${whiteMode ? 'dark' : 'white'} theme`}
@@ -292,7 +297,7 @@ class Sidebar extends Component {
           />
           <Tooltip
             whiteMode={whiteMode}
-            icon={<AddCircle />}
+            icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
             title="Add card"
             text="Hotkey: A"
@@ -307,7 +312,7 @@ class Sidebar extends Component {
               completedFilterOn && 'active',
             )}
             whiteMode={whiteMode}
-            icon={<Checkmark />}
+            icon={<Checkmark color={completedFilterOn ? 'accent-1' : 'brand'} />}
             title="Toggle completed cards"
             text="Make cards which have already been completed visible"
             onClick={() => {
@@ -317,7 +322,7 @@ class Sidebar extends Component {
           <Tooltip
             className={classnames('sidebar-tooltip', 'sort-icon')}
             whiteMode={whiteMode}
-            icon={<Sort />}
+            icon={<Sort color="brand" />}
             title="Sort cards"
             text="Open sorting options"
             onClick={() => {
@@ -328,7 +333,7 @@ class Sidebar extends Component {
           <Tooltip
             className={classnames('sidebar-tooltip', 'sort-icon')}
             whiteMode={whiteMode}
-            icon={<FolderCycle />}
+            icon={<FolderCycle color="brand" />}
             title="Change Cards Directory"
             text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
             onClick={() => {
@@ -338,7 +343,7 @@ class Sidebar extends Component {
           <Tooltip
             className="sidebar-tooltip"
             whiteMode={whiteMode}
-            icon={<Filter />}
+            icon={<Filter color="brand" />}
             title="Filter cards"
             text="Filter cards by label"
             onClick={() => {

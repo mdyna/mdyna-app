@@ -3,13 +3,8 @@
 .tip-icon {
   margin-left: 5px;
   border-radius: 50px;
-  outline: none !important;
   box-shadow: none !important;
   padding: 2px !important;
-  &:hover {
-    filter:  saturate(500%);
-  }
-
 }
 .tooltip {
   color: $white-font-color !important;

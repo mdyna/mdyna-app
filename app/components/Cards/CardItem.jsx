@@ -136,7 +136,7 @@ class MdynaCard extends PureComponent {
         })
         }
         style={{
-          backgroundColor: color || '#4E636E',
+          backgroundColor: color,
           transition: 'all 0.25s ease-in',
           filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
@@ -167,9 +167,6 @@ class MdynaCard extends PureComponent {
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
             style={{
-              opacity: 0.5,
-              borderRadius: '10px',
-              padding: 5,
               height: !displayControl && 0,
               visibility: (displayControl && 'initial') || 'hidden',
             }}
