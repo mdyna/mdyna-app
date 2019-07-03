@@ -9,8 +9,9 @@ import debounce from 'lodash.debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import SideBar from './Sidebar/Sidebar';
+import ThemeBuilder from '../themes/themeBuilder';
 
-import mdynaTheme from '../themes/mdyna.json';
+import MdynaPalette from '../themes/mdyna.palette.json';
 /* eslint-disable */
 import './App.scss';
 /* eslint-enable */
@@ -20,11 +21,11 @@ class Mdyna extends PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { cards, order, sorting, whiteMode, sidebarExpanded, modalOpen, toggleEditor } = this.props;
+    const { cards, order, sorting, whiteMode, modalOpen, toggleEditor } = this.props;
     return (
       <Grommet
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        theme={mdynaTheme}
+        theme={whiteMode ? v1 : ThemeBuilder(MdynaPalette)}
       >
         <ErrorBoundary whiteMode={whiteMode}>
           <Header />
