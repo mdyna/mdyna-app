@@ -5,6 +5,7 @@
   align-items: flex-end;
   padding: 0 5px;
   cursor: pointer;
+  border-radius: 5px;
   span {
     margin: 5px 0;
   }
@@ -15,7 +16,7 @@
   div {
     display: flex;
     flex-flow: row wrap;
-    transition: all 0.5s;
+    transition: all 0.25s;
     svg {
       cursor: pointer;
       margin: 0 5px;
