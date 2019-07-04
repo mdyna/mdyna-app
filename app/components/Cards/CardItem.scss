@@ -1,9 +1,5 @@
 @import "../../style.scss";
 
-$white-code-background: #edeff8;
-$code-background: #08090a;
-$note-font-color: #333333dd;
-
 .card-item {
   padding: 20px;
   margin: 5px !important;
@@ -76,7 +72,7 @@ $note-font-color: #333333dd;
     }
     &:hover {
       p, h5, h4, h3{
-        color: $accent-color !important;
+        color: $accent !important;
       }
     }
   }
