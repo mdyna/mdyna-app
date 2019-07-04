@@ -1,7 +1,8 @@
 .card-list {
   width: 100%;
-  transition: width 0.25s;
-  padding: 0 10px 10px;
+  transition: width 0.5s;
+  margin: 0 12px 0 5px;
+  padding: 5px 10px 10px;
   border-radius: 10px;
   display: flex;
   margin-bottom: 10vh;
@@ -15,7 +16,7 @@
     align-self: flex-start;
     align-items: center;
     flex-flow: row nowrap;
-    transition: all 0.25s;
+    transition: all 0.5s;
     margin: 0 5px 5px;
     span {
       &.disabled {
@@ -32,7 +33,7 @@
     min-width: unset;
 
     svg {
-      transition: all 0.25s;
+      transition: all 0.5s;
     }
     &.disabled {
       background: transparent !important;
@@ -57,7 +58,7 @@
     width: 100%;
   }
   .card-list-card {
-    transition: all 0.25s;
+    transition: all 0.5s;
     padding-left: 10px; /* gutter size */
     background-clip: padding-box;
   }
