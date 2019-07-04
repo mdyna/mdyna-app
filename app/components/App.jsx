@@ -12,6 +12,7 @@ import SideBar from './Sidebar/Sidebar';
 import ThemeBuilder from '../themes/themeBuilder';
 
 import MdynaPalette from '../themes/mdyna.palette.json';
+import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
 /* eslint-enable */
@@ -25,7 +26,7 @@ class Mdyna extends PureComponent {
     return (
       <Grommet
         className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        theme={whiteMode ? v1 : ThemeBuilder(MdynaPalette)}
+        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
       >
         <ErrorBoundary whiteMode={whiteMode}>
           <Header />
