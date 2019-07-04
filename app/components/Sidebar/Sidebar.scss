@@ -40,8 +40,14 @@
   .sidebar-tooltip {
     opacity: 1;
     transition: all 0.25s;
-    margin: 5px 0;
+    margin: 5px;
     cursor: pointer;
+  }
+  > div > div >.button {
+    width: 100%;
+  }
+  .menu-controller .button {
+    width: 100%;
   }
   button {
     font-weight: 300;

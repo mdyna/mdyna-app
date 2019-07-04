@@ -13,7 +13,7 @@ const Input = (props) => {
   const [colorsExpanded, expandColors] = useState(false);
 
   return (
-    <Box justify="center" className={cx('color-options', colorsExpanded && 'options-expanded')}>
+    <Box justify="center" border={{ color: 'brand' }} className={cx('color-options', colorsExpanded && 'options-expanded')}>
       <Button onClick={() => expandColors(!colorsExpanded)}>
         Select Color
       </Button>
@@ -21,7 +21,7 @@ const Input = (props) => {
         open={colorsExpanded}
         direction="vertical"
       >
-        {colors.map(color => (
+        {colors.map((color, index) => (
           <svg
             className={colorsExpanded ? 'options-expanded' : 'options-collapsed'}
             onClick={() => {
