@@ -7,7 +7,7 @@
   border-radius: 10px;
   flex-flow: column nowrap !important;
   min-width: 300px;
-  transition: all 0.25s;
+  transition: all 0.5s;
 
   span.card-date {
     margin-top: -5px;
@@ -32,7 +32,7 @@
   }
 
   button {
-    transition: all 0.25s ease-in;
+    transition: all 0.5s ease-in;
 }
 
   h5 {

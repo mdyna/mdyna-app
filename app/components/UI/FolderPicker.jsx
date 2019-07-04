@@ -26,8 +26,10 @@ export default class FolderPicker extends PureComponent {
             onChange={e => onChange(e.target.files[0].path)}
             placeholder={value}
           />
+          <span>
+            {placeholder}
+          </span>
         </label>
-        {placeholder}
       </Fragment>
     );
   }
