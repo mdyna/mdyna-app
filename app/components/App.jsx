@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Grommet, Box, Layer } from 'grommet';
-import classnames from 'classnames';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
