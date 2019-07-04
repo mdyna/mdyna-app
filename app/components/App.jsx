@@ -32,7 +32,7 @@ class Mdyna extends PureComponent {
             fill="horizontal"
             direction="row"
           >
-            <div>
+            <div className="sidebar-wrapper">
               <SideBar gridArea="menu" {...this.props} />
             </div>
             {cards ? (
