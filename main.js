@@ -21,16 +21,18 @@ function loadLabels(cards) {
     const card = cards[i];
     const cardLabels = card.labels;
     const labelMap = labels.map(l => l.title);
-    for (let cardLabelIndex = 0; cardLabelIndex < cardLabels.length; cardLabelIndex += 1) {
-      const label = cardLabels[cardLabelIndex].title;
-      const labelIndex = labelMap.indexOf(label);
-      if (labelIndex !== -1) {
-        labels.push({
-          title: label,
-          count: 1,
-        });
-      } else {
-        labels[labelIndex].count += 1;
+    if (cardLabels && cardLabels.length) {
+      for (let cardLabelIndex = 0; cardLabelIndex < cardLabels.length; cardLabelIndex += 1) {
+        const label = cardLabels[cardLabelIndex].title;
+        const labelIndex = labelMap.indexOf(label);
+        if (labelIndex !== -1) {
+          labels.push({
+            title: label,
+            count: 1,
+          });
+        } else {
+          labels[labelIndex].count += 1;
+        }
       }
     }
   }
