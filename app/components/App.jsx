@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { v1 } from 'grommet-theme-v1';
 import { Grommet, Box, Layer } from 'grommet';
 import classnames from 'classnames';
 import Loader from 'UI/Loader';
