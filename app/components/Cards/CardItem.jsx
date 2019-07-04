@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import {Box, Text} from 'grommet';
+import { Box } from 'grommet';
 import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

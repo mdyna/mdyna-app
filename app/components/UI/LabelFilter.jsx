@@ -37,9 +37,9 @@ class LabelFilter extends Component {
   }
 
   render() {
-    const { whiteMode, labels } = this.props;
+    const { labels } = this.props;
     return labels && labels.length && (
-      <div className={cx(whiteMode && 'white-mode', 'label-filter-box')}>
+      <div className="label-filter-box">
         <Box border={{ color: 'brand' }} className="label-box">{this.renderClickableLabels()}</Box>
       </div>
     ) || '';
@@ -47,14 +47,12 @@ class LabelFilter extends Component {
 }
 
 LabelFilter.propTypes = {
-  whiteMode: PropTypes.bool,
   labelFilters: PropTypes.array,
   labelFilterFuncs: PropTypes.object.isRequired,
   labels: PropTypes.array,
 };
 
 LabelFilter.defaultProps = {
-  whiteMode: false,
   labels: [],
   labelFilters: [],
 };

@@ -135,7 +135,7 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      whiteMode, cards, toggleEditor, searchInput,
+      cards, toggleEditor, searchInput,
     } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -153,10 +153,7 @@ export default class CardList extends PureComponent {
     };
     return (
       <Box
-        className={classnames({
-          'card-list': true,
-          'white-mode': whiteMode,
-        })}
+        className="card-list"
         background="dark-3"
         responsive
         direction="row"
@@ -227,7 +224,6 @@ export default class CardList extends PureComponent {
 
 CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
-  whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
@@ -235,7 +231,6 @@ CardList.propTypes = {
 };
 
 CardList.defaultProps = {
-  whiteMode: false,
   completedFilterOn: false,
   labelFilters: [],
   searchInput: '',

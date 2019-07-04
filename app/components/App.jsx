@@ -25,10 +25,10 @@ class Mdyna extends PureComponent {
     const { cards, order, sorting, whiteMode, modalOpen, toggleEditor } = this.props;
     return (
       <Grommet
-        className={classnames('mdyna-app', { 'white-mode': whiteMode })}
+        className="mdyna-app"
         theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
       >
-        <ErrorBoundary whiteMode={whiteMode}>
+        <ErrorBoundary>
           <Header />
           <Box
             fill="horizontal"
@@ -55,7 +55,7 @@ class Mdyna extends PureComponent {
               }}
               full
               onEsc={() => toggleEditor()}
-              className={classnames('note-layer', { 'white-mode': whiteMode })}
+              className="note-layer"
             >
               <CardEditor />
             </Layer>

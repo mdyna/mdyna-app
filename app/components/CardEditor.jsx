@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Box, Text, FormField,
 } from 'grommet';
-import classnames from 'classnames';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
@@ -188,14 +187,14 @@ export default class CardEditor extends Component {
   }
 
   render() {
-    const { editorSettings, whiteMode, toggleEditor } = this.props;
+    const { editorSettings, toggleEditor } = this.props;
     return (
       <ErrorBoundary>
         <Box
           direction="column"
           alignContent="center"
           pad="large"
-          className={classnames('card-editor', { 'white-mode': whiteMode })}
+          className="card-editor"
           full="horizontal"
         >
           <KeyboardEventHandler
@@ -207,13 +206,11 @@ export default class CardEditor extends Component {
               {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             </Text>
             <Button
-              theme={(whiteMode && 'white') || 'dark'}
               onClick={() => this.submitFormFields()}
             >
               Save Card
             </Button>
             <Button
-              theme={(whiteMode && 'white') || 'dark'}
               color="accent-2"
               className="discard-btn"
               hoverIndicator="accent-2"
@@ -231,7 +228,6 @@ export default class CardEditor extends Component {
 
 CardEditor.propTypes = {
   addCard: PropTypes.func.isRequired,
-  whiteMode: PropTypes.bool,
   toggleEditor: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
@@ -242,6 +238,5 @@ CardEditor.propTypes = {
 };
 
 CardEditor.defaultProps = {
-  whiteMode: false,
   labels: [],
 };

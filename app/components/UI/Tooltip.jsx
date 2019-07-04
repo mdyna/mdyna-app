@@ -16,13 +16,13 @@ class Tooltip extends PureComponent {
 
   renderTooltipContent() {
     const {
-      text, title, whiteMode, className,
+      text, title, className,
     } = this.props;
     return (
       <ReactTooltip
         id={title}
         place="top"
-        class={cx('tooltip', whiteMode && 'white-mode', className)}
+        class={cx('tooltip', className)}
         multiline
         type="light"
         offset={{
@@ -30,14 +30,14 @@ class Tooltip extends PureComponent {
         }}
       >
         <h2>{title}</h2>
-        <MarkdownText disableCode whiteMode={whiteMode} className="tooltip-text" text={text} />
+        <MarkdownText disableCode className="tooltip-text" text={text} />
       </ReactTooltip>
     );
   }
 
   render() {
     const {
-      title, whiteMode, icon, onClick, className,
+      title, icon, onClick, className,
     } = this.props;
 
     return (
@@ -46,7 +46,7 @@ class Tooltip extends PureComponent {
           data-tip
           data-for={title}
           onClick={() => onClick()}
-          className={cx('tip-icon', whiteMode && 'white-mode', className)}
+          className={cx('tip-icon', className)}
         >
           {icon}
           {this.tooltipPortal()}
@@ -64,7 +64,6 @@ Tooltip.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   title: PropTypes.string,
-  whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {
