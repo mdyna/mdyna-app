@@ -1,17 +1,17 @@
 import React, { PureComponent } from 'react';
-import App from 'grommet/components/App';
-import Article from 'grommet/components/Article';
-import Box from 'grommet/components/Box';
-import classnames from 'classnames';
+import { Grommet, Box, Layer } from 'grommet';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 import debounce from 'lodash.debounce';
-import CardList from '../containers/CardList';
+import CardList from 'Containers/CardList';
+import CardEditor from 'Containers/CardEditor';
 import SideBar from './Sidebar/Sidebar';
+import ThemeBuilder from '../themes/themeBuilder';
 
+import MdynaPalette from '../themes/mdyna.palette.json';
+import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
-import '!style-loader!css-loader!sass-loader!../node_modules/grommet/grommet-hpe.min.css';
 import './App.scss';
 /* eslint-enable */
 
@@ -20,32 +20,48 @@ class Mdyna extends PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { cards, order, sorting, whiteMode } = this.props;
+    const { cards, order, sorting, whiteMode, modalOpen, toggleEditor } = this.props;
     return (
-      <App
-        className={classnames('mdyna-app', { 'white-mode': whiteMode })}
-        style={{ maxWidth: '1920px' }}
+      <Grommet
+        className="mdyna-app"
+        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
       >
-        <ErrorBoundary whiteMode={whiteMode}>
-          <Article>
-            <Header />
-            <Box className="split">
-              <div className="sidebar-wrapper">
-                <SideBar {...this.props} />
-              </div>
-              {cards ? (
-                <CardList
-                  cards={cards}
-                  order={order}
-                  sorting={sorting}
-                />
-              ) : (
-                <Loader />
-              )}
-            </Box>
-          </Article>
+        <ErrorBoundary>
+          <Header />
+          <Box
+            fill="horizontal"
+            direction="row"
+          >
+            <div className="sidebar-wrapper">
+              <SideBar gridArea="menu" {...this.props} />
+            </div>
+            {cards ? (
+              <CardList
+                gridArea="card-list"
+                cards={cards}
+                order={order}
+                sorting={sorting}
+              />
+            ) : (
+              <Loader />
+            )}
+          </Box>
+          {modalOpen ? (
+            <Layer
+              margin={{
+                right: '14px',
+              }}
+              full
+              onEsc={() => toggleEditor()}
+              className="note-layer"
+            >
+              <CardEditor />
+            </Layer>
+          ) : (
+            ''
+          )}
         </ErrorBoundary>
-      </App>
+      </Grommet>
     );
   }
 }

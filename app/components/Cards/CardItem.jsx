@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import Card from 'grommet/components/Card';
+import { Box } from 'grommet';
 import Button from 'UI/Button';
-import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
@@ -46,7 +45,7 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
-  setTimeout(() => card.scrollToCard(), 600);
+  card.scrollToCard();
 }
 
 class MdynaCard extends PureComponent {
@@ -115,7 +114,7 @@ class MdynaCard extends PureComponent {
     };
     const displayControl = noteActions.minimizeCard && !showAllText;
     return (
-      <Card
+      <Box
         key={i}
         role="button"
         tabIndex={0}
@@ -137,23 +136,19 @@ class MdynaCard extends PureComponent {
         })
         }
         style={{
-          backgroundColor: color || '#4E636E',
+          backgroundColor: color,
           transition: 'all 0.25s ease-in',
           filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
-        {hasCardBar ? (
-          <CardBar
-            card={card}
-            cardActions={noteActions}
-            cardItem={this}
-            options={{
-              minimized,
-            }}
-          />
-        ) : (
-          ''
-        )}
+        <CardBar
+          card={card}
+          cardActions={hasCardBar ? noteActions : ''}
+          cardItem={this}
+          options={{
+            minimized,
+          }}
+        />
         <Labels labels={card.labels} color={color} />
         {this.renderCardDate()}
         <MarkdownText
@@ -172,9 +167,6 @@ class MdynaCard extends PureComponent {
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
             style={{
-              opacity: 0.5,
-              borderRadius: '10px',
-              padding: 5,
               height: !displayControl && 0,
               visibility: (displayControl && 'initial') || 'hidden',
             }}
@@ -182,7 +174,7 @@ class MdynaCard extends PureComponent {
             {CardBar.renderCardControl(minimized)}
           </Button>
         }
-      </Card>
+      </Box>
     );
   }
 }

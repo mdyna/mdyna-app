@@ -1,173 +1,50 @@
 @import "../style.scss";
 
-.note-layer > .grommetux-layer__container {
+.note-layer{
   display: block !important;
-  background-color: $secondary-background !important;
-
-  button {
-    @include normalize-button-icons();
-    svg {
-      border: none !important;
-      path {
-        fill: #666;
-      }
-      polygon {
-        stroke: #666;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          fill: $accent-color;
-        }
-        polygon {
-          stroke: $accent-color;
-        }
-      }
-    }
-  }
-}
-
-.grommet.grommetux-drop {
-  background-color: #333 !important;
-
-  div {
-    width: 100%;
-
-    ol {
-      flex-flow: row nowrap;
-      display: flex;
-      justify-content: space-around;
-      li {
-        color: $accent-color;
-      }
-    }
-  }
+  margin-top: 32px;
 }
 
 .card-editor {
   padding: 24px 24px 48px 24px !important;
   border-radius: 10px;
+  height: 100vh;
+  overflow: auto;
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
 
+  .form-field {
+    margin: 0 20px;
+    input {
+      border-radius: 5px;
+    }
+  }
 
   .header {
+    min-height: fit-content;
     display: flex;
-    width: 70vw;
+    width: 100%;
     flex-flow: row wrap;
-    justify-content: space-between;
-  }
-
-  > div {
-    color: $accent-color;
-  }
-
-  .submit-btn {
-    border-radius: 10px;
-  }
-
-  .grommetux-form-fields {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  .grommetux-form-field {
-    background-color: $note-list-background;
-    color: $accent-color;
-    border: 5px solid $secondary-background;
-    border-radius: 10px !important;
-    max-width: 50%;
-    padding: 0 25px;
-    overflow: hidden;
-    margin: 5px 0px;
-    justify-content: center;
-    display: flex;
-    flex-flow: column wrap;
-
+    justify-content: flex-start;
     span {
-      .grommetux-form-field {
-        border: none !important;
+      flex: 1 1 auto;
+    }
+    button {
+      align-self: flex-end;
+      margin: 0 5px;
+      &.discard-btn {
+        border: 1px solid #8b0f19 !important;
+        padding: 5px 20px;
       }
     }
-
-    .grommetux-form-field__label {
-      color: $secondary-accent;
-    }
-
-    .grommetux-select {
-      color: $accent-color;
-      svg {
-        background-color: $note-list-background;
-        polygon {
-          stroke: $accent-color;
-        }
-      }
-      input::placeholder {
-        color: $accent-color;
-      }
-      input {
-        color: $accent-color;
-      }
-    }
-  }
-
-  .grommetux-check-box__control-check {
-    position: absolute;
-    path {
-      stroke: $accent-color;
-    }
-  }
-  .grommetux-check-box__input:checked + .grommetux-check-box__control {
-    border-color: $accent-color;
-  }
-
-  .grommetux-form-field--focus {
-    border-color: $accent-color;
-  }
-
-  .grommetux-select__control {
-    background-color: transparent;
-  }
-  .grommetux-check-box {
-    .grommetux-check-box__control {
-      border-color: $secondary-accent;
-    }
-
-    .grommetux-check-box__label {
-      color: $secondary-accent;
-    }
-  }
-
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__label {
-    color: $secondary-accent;
-  }
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__input:checked
-    + .grommetux-check-box__control {
-    border-color: $secondary-accent !important;
-  }
-  .grommetux-check-box:hover:not(.grommetux-check-box--disabled)
-    .grommetux-check-box__control {
-    border-color: $secondary-accent;
   }
 
   .color-form-field {
-    max-width: 100%;
-    .color-options {
-      display: flex;
-      flex-flow: row wrap;
-      min-height: 40px;
-      justify-content: space-evenly;
-      svg {
-        width: 30px;
-        height: 34px;
-        circle {
-          transform: translate(50%, 50%);
-        }
-      }
+    max-width: 20%;
+    margin: 0 5px;
+    > div {
+      border-radius: 5px;
     }
   }
 
@@ -177,6 +54,9 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 10px;
+    border-radius: 10px;
+    transition: color 0.5s;
+    padding: 10px 5px;
 
     @include breakpoint(small) {
       flex-flow: column wrap;
@@ -187,29 +67,33 @@
 
 
     .card-preview {
-      min-height: 245px;
-      color: $note-font-color !important;
+      min-height: 50vh;
       margin: 0 0px 0 10px !important;
-      flex: 1;
       align-self: flex-start;
+      flex: 1 0.5;
       @include breakpoint(small) {
         width: 100% !important;
+        flex: 1;
         margin: 10px auto !important;
       }
     }
 
     .card-text-editor {
-      width: calc(100% - 365px);
+      flex: 1 0.5;
+      max-width: 50%;
       @include breakpoint(small) {
         width: 100%;
       }
 
 
       .CodeMirror-cursor {
-        border-left: 1px solid $accent-color;
+        border-left: 1px solid $accent;
       }
       .CodeMirror-selected {
-        background: $note-list-background;
+        background: $editor-background;
+      }
+      .CodeMirror-line {
+        height: fit-content;
       }
 
       > div {
@@ -217,8 +101,8 @@
         border-radius: 10px;
         margin-bottom: 5px;
         opacity: 1;
-        color: $accent-color;
-        border: 1px solid $accent-color;
+        color: $accent;
+        border: 1px solid $accent;
       }
       .editor-toolbar:before {
         margin-bottom: 5px;
@@ -226,9 +110,8 @@
       .editor-toolbar {
         opacity: 0.6;
         a {
-          color: $accent-color !important;
+          color: $accent !important;
           &.active {
-            background-color: $secondary-background;
             border: 1px solid;
           }
         }
@@ -241,10 +124,9 @@
       > * {
         a {
           &:hover {
-            background-color: $secondary-background;
+            background-color: $background;
             cursor: pointer;
-            border-color: $note-font-color !important;
-            color: $accent-color !important;
+            color: $accent !important;
           }
         }
       }
@@ -252,97 +134,3 @@
   }
 }
 
-.note-layer.white-mode > .grommetux-layer__container {
-  display: block !important;
-  background-color: $white-secondary-background !important;
-  button {
-    svg {
-      path {
-        fill: $note-font-color !important;
-        stroke: $note-font-color !important;
-      }
-      polygon {
-        stroke: $note-font-color !important;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          fill: $white-font-color !important;
-          stroke: $white-font-color !important;
-        }
-        polygon {
-          stroke: $white-font-color !important;
-        }
-      }
-    }
-  }
-  .card-editor {
-    .card-text-editor {
-      .editor-toolbar {
-        a {
-          color: $white-font-color !important;
-          &.active {
-            background-color: $white-secondary-background;
-            border: 1px solid;
-          }
-          &:hover {
-            background-color: $white-secondary-background;
-          }
-        }
-      }
-
-      .CodeMirror-cursor {
-        border-left: 1px solid $note-font-color;
-      }
-      .CodeMirror-selected {
-        background: #ccc;
-      }
-
-      > div {
-        background-color: $white-background-color;
-        color: $note-font-color;
-        border: 1px solid $note-font-color;
-      }
-    }
-
-    .grommetux-form-field {
-      background-color: $white-background-color;
-      color: $white-font-color;
-      border: 1px solid $white-note-list-background;
-      .grommetux-form-field__label {
-        color: $white-font-color;
-      }
-    }
-
-    .grommetux-select {
-      color: $white-font-color;
-      svg {
-        background-color: $white-background-color;
-        polygon {
-          stroke: $white-font-color;
-        }
-      }
-      input::placeholder {
-        color: $white-font-color;
-      }
-      input {
-        color: $white-font-color;
-      }
-    }
-
-    .grommetux-check-box {
-      .grommetux-check-box__control {
-        border-color: $white-font-color;
-      }
-
-      .grommetux-check-box__label {
-        color: $white-font-color;
-      }
-    }
-
-    > div {
-      color: $white-font-color !important;
-    }
-  }
-}

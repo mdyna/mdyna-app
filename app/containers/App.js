@@ -86,6 +86,7 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
+    modalOpen: state.editor.toggleEditor,
     sorting: state.filters.sorting || SORTING_BY_DATE,
     order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,

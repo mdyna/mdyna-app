@@ -1,19 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Masonry from 'react-masonry-component';
-import Section from 'grommet/components/Section';
-import Layer from 'grommet/components/Layer';
-import Headline from 'grommet/components/Headline';
-import Heading from 'grommet/components/Heading';
-import Pulse from 'grommet/components/icons/base/Add';
-import LeftIcon from 'grommet/components/icons/base/Previous';
-import RightIcon from 'grommet/components/icons/base/Next';
-import Label from 'grommet/components/Label';
+import Masonry from 'react-masonry-css';
+import { Box, Text } from 'grommet';
+import { Add, Previous, Next } from 'grommet-icons';
 import classnames from 'classnames';
-import CardEditor from 'Containers/CardEditor';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
+
 import Error from 'UI/Error';
 
 import './CardList.scss'; // eslint-disable-line
@@ -22,6 +16,7 @@ const PAGE_SIZE = 6;
 
 export default class CardList extends PureComponent {
   state = {
+    pageView: 1,
     pageIndex: 0,
   };
 
@@ -29,26 +24,29 @@ export default class CardList extends PureComponent {
     const { cards } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length
+      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
   }
 
   getNextCards() {
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
 
     this.setState({
+      pageView: pageView + 1,
       pageIndex: pageIndex + PAGE_SIZE,
     });
   }
 
   getPreviousCards() {
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
     const newPageIndex = pageIndex - PAGE_SIZE;
     if (newPageIndex >= 0) {
       this.setState({
         pageIndex: pageIndex - PAGE_SIZE,
+        pageView: pageView - 1,
       });
     }
   }
@@ -86,9 +84,9 @@ export default class CardList extends PureComponent {
         onClick={() => {
           toggleEditor(true);
         }}
-        className="add-note-btn"
+        className="page-control"
       >
-        <Pulse />
+        <Add color="brand" />
       </Button>
     );
   }
@@ -103,8 +101,19 @@ export default class CardList extends PureComponent {
       );
       // eslint-disable-next-line max-len
       const matchesSearchInput = d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
+      let labelsMatchSearch = false;
+      if (d.labels) {
+        for (let i = 0; i <= d.labels.length && !labelsMatchSearch; i += 1) {
+          const label = d.labels[i];
+          if (label && label.title) {
+            if (label.title.toLowerCase().includes(searchInput.toLowerCase())) {
+              labelsMatchSearch = true;
+            }
+          }
+        }
+      }
       if (searchInput && !labelFilters.length) {
-        return Boolean(matchesSearchInput);
+        return Boolean(matchesSearchInput || labelsMatchSearch);
       }
       if (searchInput && labelFilters.length) {
         return Boolean(matchesSearchInput && matchesLabelFilters);
@@ -126,104 +135,95 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      whiteMode, cards, toggleEditor, searchInput, modalOpen,
+      cards, toggleEditor, searchInput,
     } = this.props;
-    const { pageIndex } = this.state;
+    const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents = cardItems && cardItems.length && cardItems.slice(
+      pageIndex, pageIndex + PAGE_SIZE,
+    );
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
+    const BREAKPOINTS = {
+      default: 3,
+      2000: 4,
+      1600: 3,
+      1280: 3,
+      992: 2,
+      768: 1,
+    };
     return (
-      <Section
-        className={classnames({
-          'card-list': true,
-          'white-mode': whiteMode,
-        })}
+      <Box
+        className="card-list"
+        background="dark-3"
         responsive
         direction="row"
       >
         <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
-        <Headline align="center" size="medium">
-          INBOX
-        </Headline>
         {cards.length ? (
           <Error>
-            {this.renderAddNoteButton()}
+            <Box className="card-list-controls" background="dark-1">
+              <Text align="center" size="xxlarge">
+                INBOX
+              </Text>
+              {this.renderAddNoteButton()}
+              <Text align="center" size="medium">
+                {
+                  cardItems && cardItems.length
+                    ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}` : '0'
+                }
+              </Text>
+              <Button
+                className={classnames('page-control', pageIndex === 0 && 'disabled')}
+                type="button"
+                onClick={() => this.getPreviousCards()}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['left']}
+                  onKeyEvent={() => this.getPreviousCards()}
+                />
+                <Previous color="brand" />
+              </Button>
+              <Button
+                onClick={() => this.getNextCards()}
+                type="button"
+                className={classnames('page-control', !hasMore && 'disabled')}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['right']}
+                  onKeyEvent={() => this.getNextCards()}
+                />
+                <Next color="brand" />
+              </Button>
+            </Box>
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
-                {pageIndex !== 0 && (
-                  <Button
-                    className="page-control"
-                    type="button"
-                    onClick={() => this.getPreviousCards()}
-                  >
-                    <KeyboardEventHandler
-                      handleKeys={['left']}
-                      onKeyEvent={() => this.getPreviousCards()}
-                    />
-                    <LeftIcon />
-                  </Button>
-                )}
                 <Masonry
-                  options={{
-                    fitWidth: true,
-                    horizontalOrder: true,
-                    transitionDuration: 300,
-                    gutter: 10,
-                    resize: true,
-                  }}
-                  enableResizableChildren
-                  elementType="ul"
+                  breakpointCols={BREAKPOINTS}
+                  className="card-list-grid"
+                  columnClassName="card-list-card"
                 >
                   {cardComponents}
                 </Masonry>
-                {hasMore && (
-                  <Button
-                    onClick={() => this.getNextCards()}
-                    type="button"
-                    className="page-control"
-                  >
-                    <KeyboardEventHandler
-                      handleKeys={['right']}
-                      onKeyEvent={() => this.getNextCards()}
-                    />
-                    <RightIcon />
-                  </Button>
-                )}
               </div>
             ) : (
-              <Label>No cards to present</Label>
+              <Text>No cards to present</Text>
             )}
           </Error>
         ) : (
           <React.Fragment>
             {this.renderAddNoteButton()}
-            <Heading align="center" tag="h3">
+            <Text align="center" tag="h3">
               {searchInput ? 'No results found' : 'Click to add a new note'}
-            </Heading>
+            </Text>
           </React.Fragment>
         )}
-        {modalOpen ? (
-          <Layer
-            overlayClose
-            closer
-            flush
-            onClose={() => toggleEditor()}
-            className={classnames('note-layer', { 'white-mode': whiteMode })}
-          >
-            <CardEditor toggleEditor={toggleEditor} />
-          </Layer>
-        ) : (
-          ''
-        )}
-      </Section>
+      </Box>
     );
   }
 }
 
 CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
-  modalOpen: PropTypes.bool,
-  whiteMode: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
@@ -231,8 +231,6 @@ CardList.propTypes = {
 };
 
 CardList.defaultProps = {
-  modalOpen: false,
-  whiteMode: false,
   completedFilterOn: false,
   labelFilters: [],
   searchInput: '',

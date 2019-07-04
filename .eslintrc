@@ -4,7 +4,8 @@
     "es6": true
   },
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "airbnb"],
+  "extends": [
+     "extends": ["eslint:recommended", "airbnb"],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
