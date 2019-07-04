@@ -102,7 +102,6 @@ class Sidebar extends Component {
         <Box direction="column" align="end">
           <SearchInput
             titles={titles}
-            whiteMode={whiteMode}
             onChange={e => this.changeSearchInput(e)}
             searchBar={this.searchBar}
             searchInput={searchInput}
@@ -190,7 +189,6 @@ class Sidebar extends Component {
             label="Change directory"
             placeholder={cwd}
             className="menu-label"
-            whiteMode={whiteMode}
             onChange={(value) => {
               changeCwd(value);
               ipcRenderer.send('CHANGED-CWD');
@@ -200,7 +198,6 @@ class Sidebar extends Component {
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
             <LabelFilter
-              whiteMode={whiteMode}
               labels={labels}
               labelFilters={labelFilters}
               labelFilterFuncs={labelFilterFuncs}
@@ -210,7 +207,6 @@ class Sidebar extends Component {
             <Text size="small" className="help">
               Markdown Guide
               <Tooltip
-                whiteMode={whiteMode}
                 text={TooltipData.markdown.text}
                 title={TooltipData.markdown.title}
               />
@@ -218,7 +214,6 @@ class Sidebar extends Component {
             <Text size="small" className="help">
               Keyboard Shortcuts
               <Tooltip
-                whiteMode={whiteMode}
                 text={TooltipData.keyboard.text}
                 title={TooltipData.keyboard.title}
               />
@@ -254,7 +249,7 @@ class Sidebar extends Component {
           }}
         />
         <Box
-          className={classnames(whiteMode && 'white-mode', 'sidebar', sidebarExpanded && 'expanded')}
+          className={classnames('sidebar', sidebarExpanded && 'expanded')}
           direction="column"
           alignContent="end"
           background="dark-2"
@@ -272,7 +267,6 @@ class Sidebar extends Component {
             )}
           </Box>
           <Tooltip
-            whiteMode={whiteMode}
             icon={<Search color="brand" />}
             title="Search"
             className="sidebar-tooltip"
@@ -286,7 +280,6 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            whiteMode={whiteMode}
             icon={<Brush color="brand" />}
             className="sidebar-tooltip"
             title="Set theme"
@@ -296,7 +289,6 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            whiteMode={whiteMode}
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
             title="Add card"
@@ -311,7 +303,6 @@ class Sidebar extends Component {
               'sidebar-tooltip',
               completedFilterOn && 'active',
             )}
-            whiteMode={whiteMode}
             icon={<Checkmark color={completedFilterOn ? 'accent-1' : 'brand'} />}
             title="Toggle completed cards"
             text="Make cards which have already been completed visible"
@@ -321,7 +312,6 @@ class Sidebar extends Component {
           />
           <Tooltip
             className={classnames('sidebar-tooltip', 'sort-icon')}
-            whiteMode={whiteMode}
             icon={<Sort color="brand" />}
             title="Sort cards"
             text="Open sorting options"
@@ -332,7 +322,6 @@ class Sidebar extends Component {
           />
           <Tooltip
             className={classnames('sidebar-tooltip', 'sort-icon')}
-            whiteMode={whiteMode}
             icon={<FolderCycle color="brand" />}
             title="Change Cards Directory"
             text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
@@ -342,7 +331,6 @@ class Sidebar extends Component {
           />
           <Tooltip
             className="sidebar-tooltip"
-            whiteMode={whiteMode}
             icon={<Filter color="brand" />}
             title="Filter cards"
             text="Filter cards by label"
