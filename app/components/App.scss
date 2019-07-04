@@ -9,6 +9,7 @@ h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
 p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 
 body {
+  background: #15171f;
   border: 1px solid #15171f;
   overflow-y: hidden;
 }
@@ -40,7 +41,7 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0px;
-  background-color: $white-secondary-background;
+  background-color: transparent;
   border-radius: 10px;
 }
 
@@ -123,7 +124,7 @@ body {
   min-height: 600px;
 
   ::-webkit-scrollbar-track {
-    background-color: $secondary-background;
+    background-color: transparent;
   }
 
   header {
