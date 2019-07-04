@@ -137,7 +137,7 @@ class MdynaCard extends PureComponent {
         }
         style={{
           backgroundColor: color,
-          transition: 'all 0.25s ease-in',
+          transition: 'all 0.5s ease-in',
           filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
         }}
       >
