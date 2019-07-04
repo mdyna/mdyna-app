@@ -9,11 +9,11 @@ import './FolderPicker.scss';
 export default class FolderPicker extends PureComponent {
   render() {
     const {
-      onChange, label, value, whiteMode, placeholder, className,
+      onChange, label, value, placeholder, className,
     } = this.props;
     return (
       <Fragment>
-        <label className={cx('picker', whiteMode && 'white-mode', className)} htmlFor="folder-picker">
+        <label className={cx('picker', className)} htmlFor="folder-picker">
           <Button>
             <FolderCycle color="brand" />
             {label}
@@ -34,7 +34,6 @@ export default class FolderPicker extends PureComponent {
 }
 
 FolderPicker.propTypes = {
-  whiteMode: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
@@ -45,7 +44,6 @@ FolderPicker.propTypes = {
 FolderPicker.defaultProps = {
   className: '',
   value: '',
-  whiteMode: false,
   label: '',
   placeholder: '',
 };

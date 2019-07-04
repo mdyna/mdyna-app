@@ -27,13 +27,13 @@ class ErrorBoundary extends React.Component {
 
   render() {
     const { hasError, closed } = this.state;
-    const { children, whiteMode } = this.props;
+    const { children } = this.props;
 
     if (hasError) {
       // You can render any custom fallback UI
       return (
         <React.Fragment>
-          <div className={cx('error-boundary', whiteMode && 'white-mode', closed && 'closed')}>
+          <div className={cx('error-boundary', closed && 'closed')}>
             <h3>Something went wrong :(</h3>
           </div>
           {children}
@@ -49,10 +49,8 @@ export default ErrorBoundary;
 
 ErrorBoundary.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  whiteMode: PropTypes.bool,
 };
 
 ErrorBoundary.defaultProps = {
-  whiteMode: false,
   children: [],
 };

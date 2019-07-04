@@ -39,7 +39,6 @@ function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     labels: state.labels,
-    whiteMode: state.style.whiteMode,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CardEditor);
