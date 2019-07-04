@@ -11,6 +11,8 @@
   top: 50px;
   margin-right: 10px;
   overflow: hidden !important;
+  flex-flow: column wrap;
+  height: 80vh;
   .menu-label {
     transition: all 0.5s;
     font-size: 0px !important;
@@ -24,7 +26,7 @@
     margin: 5px 0;
   }
   &.expanded {
-    width: 250px;
+    width: 200px;
     .sidebar-tooltip {
       opacity: 0;
       height: 0;
