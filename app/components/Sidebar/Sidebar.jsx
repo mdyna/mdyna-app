@@ -8,7 +8,6 @@ import {
   Brush,
   FormNext,
   FormPrevious,
-  Search,
   Up,
   Descend as Sort,
   FolderCycle,
@@ -230,21 +229,8 @@ class Sidebar extends Component {
             )}
           </Box>
           <Tooltip
-            icon={<Search color="brand" />}
-            title="Search"
-            className="sidebar-tooltip"
-            text="Hotkey: Ctrl+P"
-            onClick={() => {
-              this.expandMenu();
-              setTimeout(
-                () => this.searchBar.current.componentRef.focus(),
-                300
-              );
-            }}
-          />
-          <Tooltip
             icon={<Brush color="brand" />}
-            className="sidebar-tooltip"
+            className="sidebar-tooltip button"
             title="Set theme"
             text={`Switch to ${whiteMode ? "dark" : "white"} theme`}
             onClick={() => {
@@ -253,7 +239,7 @@ class Sidebar extends Component {
           />
           <Tooltip
             icon={<AddCircle color="brand" />}
-            className={classnames("sidebar-tooltip", "add-note-btn")}
+            className={classnames("sidebar-tooltip button", "add-note-btn")}
             title="Add card"
             text="Hotkey: A"
             onClick={() => {
@@ -263,7 +249,7 @@ class Sidebar extends Component {
           <Tooltip
             className={classnames(
               "toggle-completed-button",
-              "sidebar-tooltip",
+              "sidebar-tooltip button",
               completedFilterOn && "active"
             )}
             icon={
@@ -276,7 +262,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className={classnames("sidebar-tooltip", "sort-icon")}
+            className={classnames("sidebar-tooltip button", "sort-icon")}
             icon={<Sort color="brand" />}
             title="Sort cards"
             text="Open sorting options"
@@ -286,7 +272,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className={classnames("sidebar-tooltip", "sort-icon")}
+            className={classnames("sidebar-tooltip button", "sort-icon")}
             icon={<FolderCycle color="brand" />}
             title="Change Cards Directory"
             text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
@@ -295,7 +281,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className="sidebar-tooltip"
+            className="sidebar-tooltip button"
             icon={<Filter color="brand" />}
             title="Filter cards"
             text="Filter cards by label"
@@ -322,13 +308,11 @@ Sidebar.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   cwd: PropTypes.string,
   changeCwd: PropTypes.func.isRequired,
-  searchCards: PropTypes.func.isRequired,
   whiteMode: PropTypes.bool,
   labels: PropTypes.array,
   sorting: PropTypes.string,
   order: PropTypes.string,
-  changeSorting: PropTypes.func.isRequired,
-  cards: PropTypes.array.isRequired
+  changeSorting: PropTypes.func.isRequired
 };
 
 Sidebar.defaultProps = {
