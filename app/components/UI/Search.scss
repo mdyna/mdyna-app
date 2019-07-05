@@ -2,13 +2,15 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: center;
   padding: 0 5px;
+  margin: 20px auto;
 
+  div {
+    max-width: 50vw;
+  }
   .mdyna-search {
     border-radius: 5px !important;
-    margin: 10px auto !important;
-    padding: 5px 28px 5px 15px !important;
-    width: 100%;
   }
   svg {
     margin-right: 5px;
