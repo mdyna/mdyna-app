@@ -1,18 +1,19 @@
-import React, { PureComponent } from 'react';
-import { Grommet, Box, Layer } from 'grommet';
-import Loader from 'UI/Loader';
-import ErrorBoundary from 'UI/Error';
-import Header from 'UI/Header';
-import debounce from 'lodash.debounce';
-import CardList from 'Containers/CardList';
-import CardEditor from 'Containers/CardEditor';
-import SideBar from './Sidebar/Sidebar';
-import ThemeBuilder from '../themes/themeBuilder';
+import React, { PureComponent } from "react";
+import { Grommet, Box, Layer } from "grommet";
+import Loader from "UI/Loader";
+import ErrorBoundary from "UI/Error";
+import Header from "UI/Header";
+import debounce from "lodash.debounce";
+import CardList from "Containers/CardList";
+import CardEditor from "Containers/CardEditor";
+import SideBar from "./Sidebar/Sidebar";
+import SearchInput from "UI/Search";
+import ThemeBuilder from "../themes/themeBuilder";
 
-import MdynaPalette from '../themes/mdyna.palette.json';
-import WhitePalette from '../themes/mdyna-white.palette.json';
+import MdynaPalette from "../themes/mdyna.palette.json";
+import WhitePalette from "../themes/mdyna-white.palette.json";
 /* eslint-disable */
-import './App.scss';
+import "./App.scss";
 /* eslint-enable */
 
 class Mdyna extends PureComponent {
@@ -20,18 +21,32 @@ class Mdyna extends PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { cards, order, sorting, whiteMode, modalOpen, toggleEditor } = this.props;
+    const {
+      cards,
+      order,
+      sorting,
+      whiteMode,
+      modalOpen,
+      toggleEditor,
+      searchInput,
+      searchCards
+    } = this.props;
     return (
       <Grommet
         className="mdyna-app"
-        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
+        theme={
+          whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
+        }
       >
         <ErrorBoundary>
           <Header />
-          <Box
-            fill="horizontal"
-            direction="row"
-          >
+          <SearchInput
+            titles={cards && cards.length && cards.map(c => c.title)}
+            onChange={e => searchCards(e)}
+            searchBar={this.searchBar}
+            searchInput={searchInput}
+          />
+          <Box fill="horizontal" direction="row">
             <div className="sidebar-wrapper">
               <SideBar gridArea="menu" {...this.props} />
             </div>
@@ -49,7 +64,7 @@ class Mdyna extends PureComponent {
           {modalOpen ? (
             <Layer
               margin={{
-                right: '14px',
+                right: "14px"
               }}
               full
               onEsc={() => toggleEditor()}
@@ -58,7 +73,7 @@ class Mdyna extends PureComponent {
               <CardEditor />
             </Layer>
           ) : (
-            ''
+            ""
           )}
         </ErrorBoundary>
       </Grommet>
@@ -67,7 +82,7 @@ class Mdyna extends PureComponent {
 }
 
 Mdyna.defaultProps = {
-  whiteMode: false,
+  whiteMode: false
 };
 
 export default Mdyna;
