@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Grommet, Box, Layer } from "grommet";
+import KeyboardEventHandler from "react-keyboard-event-handler";
 import Loader from "UI/Loader";
 import ErrorBoundary from "UI/Error";
 import Header from "UI/Header";
@@ -18,6 +19,8 @@ import "./App.scss";
 
 class Mdyna extends PureComponent {
   debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
+
+  searchBar = React.createRef();
 
   render() {
     // eslint-disable-next-line
@@ -39,6 +42,12 @@ class Mdyna extends PureComponent {
         }
       >
         <ErrorBoundary>
+          <KeyboardEventHandler
+            handleKeys={["ctrl+p"]}
+            onKeyEvent={() => {
+              setTimeout(() => this.searchBar.current.focus(), 300);
+            }}
+          />
           <Header />
           <SearchInput
             titles={cards && cards.length && cards.map(c => c.title)}
