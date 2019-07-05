@@ -1,31 +1,33 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Masonry from 'react-masonry-css';
-import { Box, Text } from 'grommet';
-import { Add, Previous, Next } from 'grommet-icons';
-import classnames from 'classnames';
-import CardItem from 'Containers/CardItem';
-import Button from 'UI/Button';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import KeyboardEventHandler from "react-keyboard-event-handler";
+import Masonry from "react-masonry-css";
+import { Box, Text } from "grommet";
+import { Add, Previous, Next } from "grommet-icons";
+import classnames from "classnames";
+import CardItem from "Containers/CardItem";
+import Button from "UI/Button";
 
-import Error from 'UI/Error';
+import Error from "UI/Error";
 
-import './CardList.scss'; // eslint-disable-line
+import "./CardList.scss"; // eslint-disable-line
 
 const PAGE_SIZE = 6;
 
 export default class CardList extends PureComponent {
   state = {
     pageView: 1,
-    pageIndex: 0,
+    pageIndex: 0
   };
 
   componentDidUpdate() {
     const { cards } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+    const cardComponents =
+      cardItems &&
+      cardItems.length &&
+      cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
@@ -36,7 +38,7 @@ export default class CardList extends PureComponent {
 
     this.setState({
       pageView: pageView + 1,
-      pageIndex: pageIndex + PAGE_SIZE,
+      pageIndex: pageIndex + PAGE_SIZE
     });
   }
 
@@ -46,7 +48,7 @@ export default class CardList extends PureComponent {
     if (newPageIndex >= 0) {
       this.setState({
         pageIndex: pageIndex - PAGE_SIZE,
-        pageView: pageView - 1,
+        pageView: pageView - 1
       });
     }
   }
@@ -84,7 +86,7 @@ export default class CardList extends PureComponent {
         onClick={() => {
           toggleEditor(true);
         }}
-        className="page-control"
+        className="page-control add-note-btn"
       >
         <Add color="brand" />
       </Button>
@@ -92,15 +94,14 @@ export default class CardList extends PureComponent {
   }
 
   renderVisibleCards() {
-    const {
-      searchInput, completedFilterOn, cards, labelFilters,
-    } = this.props;
-    const filteredCards = cards.filter((d) => {
+    const { searchInput, completedFilterOn, cards, labelFilters } = this.props;
+    const filteredCards = cards.filter(d => {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
-        d.labels && d.labels.map(label => label.title),
+        d.labels && d.labels.map(label => label.title)
       );
       // eslint-disable-next-line max-len
-      const matchesSearchInput = d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
+      const matchesSearchInput =
+        d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
       let labelsMatchSearch = false;
       if (d.labels) {
         for (let i = 0; i <= d.labels.length && !labelsMatchSearch; i += 1) {
@@ -134,14 +135,13 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const {
-      cards, toggleEditor, searchInput,
-    } = this.props;
+    const { cards, toggleEditor, searchInput } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
-    const cardComponents = cardItems && cardItems.length && cardItems.slice(
-      pageIndex, pageIndex + PAGE_SIZE,
-    );
+    const cardComponents =
+      cardItems &&
+      cardItems.length &&
+      cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
     const BREAKPOINTS = {
       default: 3,
@@ -149,16 +149,14 @@ export default class CardList extends PureComponent {
       1600: 3,
       1280: 3,
       992: 2,
-      768: 1,
+      768: 1
     };
     return (
-      <Box
-        className="card-list"
-        background="dark-3"
-        responsive
-        direction="row"
-      >
-        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => toggleEditor(true)} />
+      <Box className="card-list" background="dark-3" responsive direction="row">
+        <KeyboardEventHandler
+          handleKeys={["a"]}
+          onKeyEvent={() => toggleEditor(true)}
+        />
         {cards.length ? (
           <Error>
             <Box className="card-list-controls" background="dark-1">
@@ -167,18 +165,20 @@ export default class CardList extends PureComponent {
               </Text>
               {this.renderAddNoteButton()}
               <Text align="center" size="medium">
-                {
-                  cardItems && cardItems.length
-                    ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}` : '0'
-                }
+                {cardItems && cardItems.length
+                  ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}`
+                  : "0"}
               </Text>
               <Button
-                className={classnames('page-control', pageIndex === 0 && 'disabled')}
+                className={classnames(
+                  "page-control",
+                  pageIndex === 0 && "disabled"
+                )}
                 type="button"
                 onClick={() => this.getPreviousCards()}
               >
                 <KeyboardEventHandler
-                  handleKeys={['left']}
+                  handleKeys={["left"]}
                   onKeyEvent={() => this.getPreviousCards()}
                 />
                 <Previous color="brand" />
@@ -186,10 +186,10 @@ export default class CardList extends PureComponent {
               <Button
                 onClick={() => this.getNextCards()}
                 type="button"
-                className={classnames('page-control', !hasMore && 'disabled')}
+                className={classnames("page-control", !hasMore && "disabled")}
               >
                 <KeyboardEventHandler
-                  handleKeys={['right']}
+                  handleKeys={["right"]}
                   onKeyEvent={() => this.getNextCards()}
                 />
                 <Next color="brand" />
@@ -206,16 +206,22 @@ export default class CardList extends PureComponent {
                 </Masonry>
               </div>
             ) : (
-              <Text>No cards to present</Text>
+              <Box alignSelf="center" align="center" className="no-notes-box">
+                <Text tag="h1" size="xl">
+                  No cards to present
+                </Text>
+              </Box>
             )}
           </Error>
         ) : (
-          <React.Fragment>
+          <Box alignSelf="center" align="center" className="no-notes-box">
             {this.renderAddNoteButton()}
-            <Text align="center" tag="h3">
-              {searchInput ? 'No results found' : 'Click to add a new note'}
+            <Text tag="h1" size="xl">
+              {searchInput
+                ? "No results found"
+                : "Click to add a new note or press 'A'"}
             </Text>
-          </React.Fragment>
+          </Box>
         )}
       </Box>
     );
@@ -227,12 +233,12 @@ CardList.propTypes = {
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
-  cards: PropTypes.array,
+  cards: PropTypes.array
 };
 
 CardList.defaultProps = {
   completedFilterOn: false,
   labelFilters: [],
-  searchInput: '',
-  cards: [],
+  searchInput: "",
+  cards: []
 };

@@ -25,6 +25,9 @@
       margin: 5px;
     }
   }
+  .no-notes-box {
+    margin-top: 20%;
+  }
   .page-control {
     display: flex;
     border-radius: 10px;
@@ -35,6 +38,10 @@
     svg {
       transition: all 0.5s;
     }
+    &.add-note-btn {
+      width: fit-content;
+    }
+
     &.disabled {
       background: transparent !important;
       svg {
