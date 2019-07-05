@@ -6,7 +6,7 @@
   max-height: fit-content !important;
   border-radius: 10px;
   flex-flow: column nowrap !important;
-  width: 450px;
+  min-width: 300px;
   transition: all 0.5s;
 
   span.card-date {

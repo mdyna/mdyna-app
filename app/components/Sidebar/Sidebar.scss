@@ -14,6 +14,7 @@
   height: 80vh;
   .menu-label {
     transition: all 0.5s;
+    opacity: 0;
     font-size: 0px !important;
   }
 
@@ -34,14 +35,21 @@
       padding: 0 !important;
     }
     .menu-label {
+      opacity: 1 !important;
       font-size: 14px !important;
     }
   }
   .sidebar-tooltip {
     opacity: 1;
-    transition: all 0.25s;
-    margin: 5px 0;
+    transition: all 0.5s;
+    margin: 5px;
     cursor: pointer;
+  }
+  > div > div >.button {
+    width: 100%;
+  }
+  .menu-controller .button {
+    width: 100%;
   }
   button {
     font-weight: 300;

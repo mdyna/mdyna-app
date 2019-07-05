@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // eslint-disable-next-line
 import { ipcRenderer } from "electron";
-import PropTypes from 'prop-types';
-import { Box, Text, Collapsible } from 'grommet';
+import PropTypes from "prop-types";
+import { Box, Text, Collapsible } from "grommet";
 import {
   Filter,
   Brush,
@@ -13,37 +13,29 @@ import {
   Descend as Sort,
   FolderCycle,
   AddCircle,
-  Checkmark,
-} from 'grommet-icons';
-import classnames from 'classnames';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Tooltip from 'UI/Tooltip';
-import Button from 'UI/Button';
-import FolderPicker from 'UI/FolderPicker';
-import LabelFilter from 'UI/LabelFilter';
-import TooltipData from 'UI/tooltipsContent';
+  Checkmark
+} from "grommet-icons";
+import classnames from "classnames";
+import Tooltip from "UI/Tooltip";
+import Button from "UI/Button";
+import FolderPicker from "UI/FolderPicker";
+import LabelFilter from "UI/LabelFilter";
+import TooltipData from "UI/tooltipsContent";
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
   ASCENDING_ORDER,
-  DESCENDING_ORDER,
-} from 'Utils/globals';
+  DESCENDING_ORDER
+} from "Utils/globals";
 
-import SearchInput from './Search';
 import "./Sidebar.scss"; // eslint-disable-line
 
-function getCardTitles(cards) {
-  return (cards && cards.map(d => d && d.title)) || '';
-}
 class Sidebar extends Component {
   state = {
-    searchInput: '',
-    sortingOptionsExpanded: false,
+    sortingOptionsExpanded: false
   };
 
-  searchBar = React.createRef();
-
-  getSortingOrder = (targetSorting) => {
+  getSortingOrder = targetSorting => {
     const { sorting, order } = this.props;
     const activeSorting = sorting;
     if (targetSorting === activeSorting) {
@@ -60,19 +52,9 @@ class Sidebar extends Component {
   expandSortingOptions() {
     const { sortingOptionsExpanded } = this.state;
     this.setState({
-      sortingOptionsExpanded: !sortingOptionsExpanded,
+      sortingOptionsExpanded: !sortingOptionsExpanded
     });
   }
-
-  changeSearchInput(value) {
-    const { searchCards } = this.props;
-
-    this.setState({
-      searchInput: value,
-    });
-    searchCards(value);
-  }
-
 
   collapsibleSidebar() {
     const {
@@ -91,21 +73,14 @@ class Sidebar extends Component {
       sorting,
       order,
       labels,
-      changeCwd,
+      changeCwd
     } = this.props;
-    const { searchInput, sortingOptionsExpanded } = this.state;
+    const { sortingOptionsExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
-    const titles = [...getCardTitles(cards)];
 
     return (
       <Collapsible direction="horizontal" open={sidebarExpanded}>
         <Box direction="column" align="end">
-          <SearchInput
-            titles={titles}
-            onChange={e => this.changeSearchInput(e)}
-            searchBar={this.searchBar}
-            searchInput={searchInput}
-          />
           <Button
             onClick={() => {
               toggleWhiteMode(!whiteMode);
@@ -113,7 +88,7 @@ class Sidebar extends Component {
           >
             <Brush color="brand" />
             <Text className="menu-label">
-              {whiteMode ? 'Dark Theme' : 'Light Theme'}
+              {whiteMode ? "Dark Theme" : "Light Theme"}
             </Text>
           </Button>
           <Button
@@ -130,13 +105,13 @@ class Sidebar extends Component {
               toggleCompletedFilter(!completedFilterOn);
             }}
             className={classnames(
-              'toggle-completed-button',
-              completedFilterOn && 'active',
+              "toggle-completed-button",
+              completedFilterOn && "active"
             )}
-            color={completedFilterOn && 'accent-3' || 'brand'}
-            hoverIndicator={completedFilterOn && 'brand' || 'accent-1'}
+            color={(completedFilterOn && "accent-3") || "brand"}
+            hoverIndicator={(completedFilterOn && "brand") || "accent-1"}
           >
-            <Checkmark color={completedFilterOn ? 'accent-3' : 'brand'} />
+            <Checkmark color={completedFilterOn ? "accent-3" : "brand"} />
             <Text className="menu-label">Toggle Completed</Text>
           </Button>
           <Button
@@ -149,37 +124,35 @@ class Sidebar extends Component {
           </Button>
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
-              className={classnames(
-                sorting === SORTING_BY_TITLE && 'active',
-              )}
-              onClick={() => changeSorting(
-                SORTING_BY_TITLE,
-                this.getSortingOrder(SORTING_BY_TITLE),
-              )
+              className={classnames(sorting === SORTING_BY_TITLE && "active")}
+              onClick={() =>
+                changeSorting(
+                  SORTING_BY_TITLE,
+                  this.getSortingOrder(SORTING_BY_TITLE)
+                )
               }
             >
               <Up
                 color="brand"
                 className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
+                  order === DESCENDING_ORDER && "descending"
                 )}
               />
               By Title
             </Button>
             <Button
-              onClick={() => changeSorting(
-                SORTING_BY_DATE,
-                this.getSortingOrder(SORTING_BY_DATE),
-              )
+              onClick={() =>
+                changeSorting(
+                  SORTING_BY_DATE,
+                  this.getSortingOrder(SORTING_BY_DATE)
+                )
               }
-              className={classnames(
-                sorting === SORTING_BY_DATE && 'active',
-              )}
+              className={classnames(sorting === SORTING_BY_DATE && "active")}
             >
               <Up
                 color="brand"
                 className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
+                  order === DESCENDING_ORDER && "descending"
                 )}
               />
               By Date
@@ -189,9 +162,9 @@ class Sidebar extends Component {
             label="Change directory"
             placeholder={cwd}
             className="menu-label"
-            onChange={(value) => {
+            onChange={value => {
               changeCwd(value);
-              ipcRenderer.send('CHANGED-CWD');
+              ipcRenderer.send("CHANGED-CWD");
             }}
           />
           <Box direction="column" className="menu-label-filter">
@@ -233,23 +206,13 @@ class Sidebar extends Component {
       toggleWhiteMode,
       toggleEditor,
       toggleCompletedFilter,
-      completedFilterOn,
+      completedFilterOn
     } = this.props;
 
     return (
       <React.Fragment>
-
-        <KeyboardEventHandler
-          handleKeys={['ctrl+p']}
-          onKeyEvent={() => {
-            if (!sidebarExpanded) {
-              this.expandMenu();
-            }
-            setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
-          }}
-        />
         <Box
-          className={classnames('sidebar', sidebarExpanded && 'expanded')}
+          className={classnames("sidebar", sidebarExpanded && "expanded")}
           direction="column"
           alignContent="end"
           background="dark-2"
@@ -275,7 +238,7 @@ class Sidebar extends Component {
               this.expandMenu();
               setTimeout(
                 () => this.searchBar.current.componentRef.focus(),
-                300,
+                300
               );
             }}
           />
@@ -283,14 +246,14 @@ class Sidebar extends Component {
             icon={<Brush color="brand" />}
             className="sidebar-tooltip"
             title="Set theme"
-            text={`Switch to ${whiteMode ? 'dark' : 'white'} theme`}
+            text={`Switch to ${whiteMode ? "dark" : "white"} theme`}
             onClick={() => {
               toggleWhiteMode(!whiteMode);
             }}
           />
           <Tooltip
             icon={<AddCircle color="brand" />}
-            className={classnames('sidebar-tooltip', 'add-note-btn')}
+            className={classnames("sidebar-tooltip", "add-note-btn")}
             title="Add card"
             text="Hotkey: A"
             onClick={() => {
@@ -299,11 +262,13 @@ class Sidebar extends Component {
           />
           <Tooltip
             className={classnames(
-              'toggle-completed-button',
-              'sidebar-tooltip',
-              completedFilterOn && 'active',
+              "toggle-completed-button",
+              "sidebar-tooltip",
+              completedFilterOn && "active"
             )}
-            icon={<Checkmark color={completedFilterOn ? 'accent-1' : 'brand'} />}
+            icon={
+              <Checkmark color={completedFilterOn ? "accent-1" : "brand"} />
+            }
             title="Toggle completed cards"
             text="Make cards which have already been completed visible"
             onClick={() => {
@@ -311,7 +276,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
+            className={classnames("sidebar-tooltip", "sort-icon")}
             icon={<Sort color="brand" />}
             title="Sort cards"
             text="Open sorting options"
@@ -321,7 +286,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
+            className={classnames("sidebar-tooltip", "sort-icon")}
             icon={<FolderCycle color="brand" />}
             title="Change Cards Directory"
             text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
@@ -363,7 +328,7 @@ Sidebar.propTypes = {
   sorting: PropTypes.string,
   order: PropTypes.string,
   changeSorting: PropTypes.func.isRequired,
-  cards: PropTypes.array.isRequired,
+  cards: PropTypes.array.isRequired
 };
 
 Sidebar.defaultProps = {
@@ -372,9 +337,9 @@ Sidebar.defaultProps = {
   sidebarExpanded: false,
   completedFilterOn: false,
   sorting: SORTING_BY_DATE,
-  cwd: '',
+  cwd: "",
   order: DESCENDING_ORDER,
-  labels: [],
+  labels: []
 };
 
 export default Sidebar;

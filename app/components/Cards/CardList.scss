@@ -1,7 +1,8 @@
 .card-list {
   width: 100%;
   transition: width 0.5s;
-  padding: 0 10px 10px;
+  margin: 0 12px 0 5px;
+  padding: 5px 10px 10px;
   border-radius: 10px;
   display: flex;
   margin-bottom: 10vh;
@@ -24,6 +25,9 @@
       margin: 5px;
     }
   }
+  .no-notes-box {
+    margin-top: 20%;
+  }
   .page-control {
     display: flex;
     border-radius: 10px;
@@ -34,6 +38,10 @@
     svg {
       transition: all 0.5s;
     }
+    &.add-note-btn {
+      width: fit-content;
+    }
+
     &.disabled {
       background: transparent !important;
       svg {
