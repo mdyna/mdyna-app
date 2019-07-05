@@ -22,7 +22,8 @@
     "guard-for-in": 0,
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "max-len":"off",
   },
   "settings": {
     "import/resolver": {

@@ -17,21 +17,27 @@ require('electron-reload')(__dirname, {
 
 function loadLabels(cards) {
   const labels = [];
-  for (let i = 0; i < cards.length; i += 1) {
-    const card = cards[i];
-    const cardLabels = card.labels;
-    const labelMap = labels.map(l => l.title);
-    if (cardLabels && cardLabels.length) {
-      for (let cardLabelIndex = 0; cardLabelIndex < cardLabels.length; cardLabelIndex += 1) {
-        const label = cardLabels[cardLabelIndex].title;
-        const labelIndex = labelMap.indexOf(label);
-        if (labelIndex !== -1) {
-          labels.push({
-            title: label,
-            count: 1,
-          });
-        } else {
-          labels[labelIndex].count += 1;
+  if (cards && cards.length) {
+    for (let i = 0; i < cards.length; i += 1) {
+      const card = cards[i];
+      const cardLabels = card.labels;
+      const labelMap = labels.map(l => l.title);
+      if (cardLabels && cardLabels.length) {
+        for (
+          let cardLabelIndex = 0;
+          cardLabelIndex < cardLabels.length;
+          cardLabelIndex += 1
+        ) {
+          const label = cardLabels[cardLabelIndex].title;
+          const labelIndex = labelMap.indexOf(label);
+          if (labelIndex !== -1) {
+            labels.push({
+              title: label,
+              count: 1,
+            });
+          } else {
+            labels[labelIndex].count += 1;
+          }
         }
       }
     }
@@ -108,7 +114,8 @@ app.on('ready', () => {
       buttons: ['Restart', 'Later'],
       title: 'Application Update',
       message: releaseName,
-      detail: 'A new version has been downloaded. Restart the application to apply the updates.',
+      detail:
+        'A new version has been downloaded. Restart the application to apply the updates.',
     };
 
     dialog.showMessageBox(dialogOpts, (response) => {
@@ -125,7 +132,8 @@ app.on('ready', () => {
   webContents.on('will-navigate', handleRedirect);
   webContents.on('new-window', handleRedirect);
 
-  const getCwd = storage => (storage && storage.cwd) || ((remote && remote.app) || electron.app).getPath('userData');
+  const getCwd = storage => (storage && storage.cwd)
+    || ((remote && remote.app) || electron.app).getPath('userData');
   const getUniqCardsById = cardsArray => uniqBy(cardsArray, 'id');
 
   const userStorage = new Storage({
@@ -147,13 +155,13 @@ app.on('ready', () => {
   if (tempState && Object.keys(tempState).length) {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
-    const currentCards = (cardStorageState
+    const currentCards = cardStorageState
       && cardStorageState.cards
       && getUniqCardsById([
         ...tempState.cards,
         ...cardStorageState.cards,
         ...userCardsInStorage,
-      ]));
+      ]);
     cardStorage.set('state', {
       cards: currentCards || tempState.cards,
       labels: loadLabels(currentCards) || [],
