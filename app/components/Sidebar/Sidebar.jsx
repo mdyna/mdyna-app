@@ -16,7 +16,6 @@ import {
   Checkmark
 } from "grommet-icons";
 import classnames from "classnames";
-import KeyboardEventHandler from "react-keyboard-event-handler";
 import Tooltip from "UI/Tooltip";
 import Button from "UI/Button";
 import FolderPicker from "UI/FolderPicker";
@@ -35,8 +34,6 @@ class Sidebar extends Component {
   state = {
     sortingOptionsExpanded: false
   };
-
-  searchBar = React.createRef();
 
   getSortingOrder = targetSorting => {
     const { sorting, order } = this.props;
@@ -214,15 +211,6 @@ class Sidebar extends Component {
 
     return (
       <React.Fragment>
-        <KeyboardEventHandler
-          handleKeys={["ctrl+p"]}
-          onKeyEvent={() => {
-            if (!sidebarExpanded) {
-              this.expandMenu();
-            }
-            setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
-          }}
-        />
         <Box
           className={classnames("sidebar", sidebarExpanded && "expanded")}
           direction="column"
