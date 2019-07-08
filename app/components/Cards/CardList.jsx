@@ -101,7 +101,7 @@ export default class CardList extends PureComponent {
       );
       // eslint-disable-next-line max-len
       const matchesSearchInput =
-        d.title && d.title.toLowerCase().includes(searchInput.toLowerCase());
+        d.title && d.title.toLowerCase && d.title.toLowerCase().includes(searchInput.toLowerCase());
       let labelsMatchSearch = false;
       if (d.labels) {
         for (let i = 0; i <= d.labels.length && !labelsMatchSearch; i += 1) {

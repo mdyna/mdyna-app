@@ -9,12 +9,10 @@
   margin: -10px 0 10px;
   padding: 0px 20px;
   align-items: center;
-
-  h5 {
+  input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 50%
   }
 
   button {

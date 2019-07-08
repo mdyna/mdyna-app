@@ -96,6 +96,7 @@ class MdynaCard extends PureComponent {
       changeCardSetting,
       showAllText,
       toggleCard,
+      changeTitle,
       saveCard,
       removeCard,
       editCard,
@@ -111,6 +112,7 @@ class MdynaCard extends PureComponent {
       minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
       editCard,
       removeLabel,
+      changeTitle,
     };
     const displayControl = noteActions.minimizeCard && !showAllText;
     return (
@@ -145,6 +147,7 @@ class MdynaCard extends PureComponent {
           card={card}
           cardActions={hasCardBar ? noteActions : ''}
           cardItem={this}
+          title={card.title}
           options={{
             minimized,
           }}
@@ -189,6 +192,7 @@ MdynaCard.propTypes = {
   whiteMode: PropTypes.bool,
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
+  changeTitle: PropTypes.func.isRequired,
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,

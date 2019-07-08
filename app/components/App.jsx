@@ -1,21 +1,20 @@
-import React, { PureComponent } from "react";
-import { Grommet, Box, Layer } from "grommet";
-import KeyboardEventHandler from "react-keyboard-event-handler";
-import Loader from "UI/Loader";
-import ErrorBoundary from "UI/Error";
-import Header from "UI/Header";
-import debounce from "lodash.debounce";
-import CardList from "Containers/CardList";
-import CardEditor from "Containers/CardEditor";
-import SideBar from "./Sidebar/Sidebar";
-import SearchInput from "UI/Search";
-import ThemeBuilder from "../themes/themeBuilder";
+import React, { PureComponent } from 'react';
+import { Grommet, Box, Layer } from 'grommet';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import Loader from 'UI/Loader';
+import ErrorBoundary from 'UI/Error';
+import Header from 'UI/Header';
+import debounce from 'lodash.debounce';
+import CardList from 'Containers/CardList';
+import CardEditor from 'Containers/CardEditor';
+import SearchInput from 'UI/Search';
+import SideBar from './Sidebar/Sidebar';
+import ThemeBuilder from '../themes/themeBuilder';
 
-import MdynaPalette from "../themes/mdyna.palette.json";
-import WhitePalette from "../themes/mdyna-white.palette.json";
+import MdynaPalette from '../themes/mdyna.palette.json';
+import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
-import "./App.scss";
-/* eslint-enable */
+import './App.scss';
 
 class Mdyna extends PureComponent {
   debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
@@ -32,18 +31,16 @@ class Mdyna extends PureComponent {
       modalOpen,
       toggleEditor,
       searchInput,
-      searchCards
+      searchCards,
     } = this.props;
     return (
       <Grommet
         className="mdyna-app"
-        theme={
-          whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
-        }
+        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
       >
         <ErrorBoundary>
           <KeyboardEventHandler
-            handleKeys={["ctrl+p"]}
+            handleKeys={['ctrl+p']}
             onKeyEvent={() => {
               setTimeout(() => this.searchBar.current.focus(), 300);
             }}
@@ -60,12 +57,7 @@ class Mdyna extends PureComponent {
               <SideBar gridArea="menu" {...this.props} />
             </div>
             {cards ? (
-              <CardList
-                gridArea="card-list"
-                cards={cards}
-                order={order}
-                sorting={sorting}
-              />
+              <CardList gridArea="card-list" cards={cards} order={order} sorting={sorting} />
             ) : (
               <Loader />
             )}
@@ -73,7 +65,7 @@ class Mdyna extends PureComponent {
           {modalOpen ? (
             <Layer
               margin={{
-                right: "14px"
+                right: '14px',
               }}
               full
               onEsc={() => toggleEditor()}
@@ -82,7 +74,7 @@ class Mdyna extends PureComponent {
               <CardEditor />
             </Layer>
           ) : (
-            ""
+            ''
           )}
         </ErrorBoundary>
       </Grommet>
@@ -91,7 +83,7 @@ class Mdyna extends PureComponent {
 }
 
 Mdyna.defaultProps = {
-  whiteMode: false
+  whiteMode: false,
 };
 
 export default Mdyna;
