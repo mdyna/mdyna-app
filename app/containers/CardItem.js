@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import CardItem from '../components/Cards/CardItem';
+import { connect } from "react-redux";
+import CardItem from "../components/Cards/CardItem";
 import {
   generateCardLink,
   removeCard,
@@ -11,45 +11,48 @@ import {
   addLabel,
   removeLabel,
   changeCardSetting,
-  saveCard,
-} from '../store/actions/';
+  changeTitle,
+  saveCard
+} from "../store/actions/";
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeCard: (card) => {
+    removeCard: card => {
       dispatch(removeCard(card));
     },
-    editCard: (card) => {
+    editCard: card => {
       dispatch(editCard(card));
     },
     generateCardLink: (card, cardId) => {
       dispatch(generateCardLink(card, cardId));
     },
-    toggleCard: (card) => {
+    toggleCard: card => {
       dispatch(toggleCard(card));
     },
     changeCardSetting: (prop, value) => {
       dispatch(changeCardSetting(prop, value));
     },
-    saveCard: (card) => {
+    saveCard: card => {
       dispatch(saveCard(card));
     },
-    snoozeCard: (card) => {
+    snoozeCard: card => {
       dispatch(snoozeCard(card));
     },
-    failCard: (card) => {
+    failCard: card => {
       dispatch(failCard(card));
     },
-    completeCard: (card) => {
+    completeCard: card => {
       dispatch(completeCard(card));
     },
-
-    addLabel: (todoProps) => {
+    changeTitle: (card, title) => {
+      dispatch(changeTitle(card, title));
+    },
+    addLabel: todoProps => {
       dispatch(addLabel(todoProps));
     },
-    removeLabel: (todoProps) => {
+    removeLabel: todoProps => {
       dispatch(removeLabel(todoProps));
-    },
+    }
   };
 }
 
@@ -57,4 +60,7 @@ function mapStateToProps(state) {
   return { whiteMode: state.style.whiteMode };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardItem);
