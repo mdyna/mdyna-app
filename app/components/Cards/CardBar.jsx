@@ -1,30 +1,30 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Checkmark, Trash, Edit, FormUp, FormDown } from "grommet-icons";
-import classnames from "classnames";
-import Button from "UI/Button";
-import TextInput from "UI/TextInput";
-import assertCardChanges from "Utils/assertChanges";
-// import assertTaskAlerts from '../../utils/assertTaskAlerts';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Checkmark, Trash, Edit, FormUp, FormDown,
+} from 'grommet-icons';
+import classnames from 'classnames';
+import { TextInput } from 'grommet';
+import Button from 'UI/Button';
+import unNest from 'Utils/nest';
 
-import "./CardBar.scss"; // eslint-disable-line
+import './CardBar.scss'; // eslint-disable-line
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
-class CardBar extends Component {
-  shouldComponentUpdate(nextProps) {
-    const { card } = this.props;
-    if (nextProps.card && card) {
-      return assertCardChanges(nextProps.card, card);
-    }
-    return false;
-  }
+class CardBar extends PureComponent {
+  state = {
+    currentTitle: unNest(this, 'props.title') || unNest(this, 'props.card.title'),
+    editingTitle: false,
+  };
+
+  inputRef = React.createRef();
 
   handleLabels(removeLabelFunc) {
     const { card } = this.props;
     const { labels } = card;
     if (labels && labels.length) {
-      labels.forEach(label => {
+      labels.forEach((label) => {
         removeLabelFunc(label);
       });
     }
@@ -33,12 +33,12 @@ class CardBar extends Component {
   removeCard(card, removeCardFunc, removeLabelFunc) {
     if (card.shortLink) {
       fetch(REMOVE_NOTE_ENDPOINT, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(card)
+        body: JSON.stringify(card),
       }).catch(error => console.error(error));
     }
     this.handleLabels(removeLabelFunc);
@@ -54,11 +54,13 @@ class CardBar extends Component {
   }
 
   render() {
-    const { card, cardActions } = this.props;
+    const { card, cardActions, title } = this.props;
+    const { currentTitle, editingTitle } = this.state;
     const {
       editCard,
       toggleCard,
-      removeCard
+      removeCard,
+      changeTitle,
       // minimizeCard,
       // generateCardLink,
     } = cardActions;
@@ -67,9 +69,26 @@ class CardBar extends Component {
         <div className="card-bar">
           <TextInput
             style={{
-              color: card.color
+              padding: 0,
+              color: card.color,
             }}
-            value={card.title}
+            ref={this.inputRef}
+            value={currentTitle}
+            onBlur={() => {
+              changeTitle(card, currentTitle);
+              this.setState({ editingTitle: false });
+            }}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13 && editingTitle) {
+                changeTitle(card, e.target.value);
+                this.setState({ editingTitle: false, currentTitle: e.target.value });
+                console.log(this.inputRef.current);
+                this.inputRef.current.blur();
+              }
+            }}
+            type="text"
+            onClick={() => this.setState({ editingTitle: true })}
+            onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })}
             plain
           />
           {cardActions && (
@@ -77,30 +96,26 @@ class CardBar extends Component {
               <Button onClick={() => toggleCard(card)}>
                 <Checkmark
                   style={{
-                    stroke: card.color
+                    stroke: card.color,
                   }}
                   className={classnames({
-                    "checkmark-icon": true,
-                    completed: card.completed
+                    'checkmark-icon': true,
+                    completed: card.completed,
                   })}
                 />
               </Button>
               <Button onClick={() => editCard(card)}>
                 <Edit
                   style={{
-                    stroke: card.color
+                    stroke: card.color,
                   }}
                   className="edit-icon"
                 />
               </Button>
-              <Button
-                onClick={() =>
-                  this.removeCard(card, removeCard, cardActions.removeLabel)
-                }
-              >
+              <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
                 <Trash
                   style={{
-                    stroke: card.color
+                    stroke: card.color,
                   }}
                   className="close-icon"
                   color={card.color}
@@ -118,6 +133,5 @@ export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
-  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
-    .isRequired
+  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };

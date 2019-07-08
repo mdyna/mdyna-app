@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {
-  Box, Text, FormField,
-} from 'grommet';
+import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
@@ -57,7 +55,11 @@ export default class CardEditor extends Component {
           console.warn('Found enum but no widget in schema', settingName); // eslint-disable-line no-console
           return '';
         case 'string':
-          return this.generateComponentsFromUiSchema({ ...setting, settingUiSchema, settingName });
+          return this.generateComponentsFromUiSchema({
+            ...setting,
+            settingUiSchema,
+            settingName,
+          });
         default:
           console.warn('Unknown setting', settingName); // eslint-disable-line no-console
           return '';
@@ -108,7 +110,7 @@ export default class CardEditor extends Component {
             <TextInput
               label={settingName}
               value={settingValue || ''}
-              onChange={changeCardSetting}
+              onChange={e => changeCardSetting(settingName, e)}
             />
           </FormField>
         );
@@ -169,11 +171,9 @@ export default class CardEditor extends Component {
         </Box>
         <Box
           className="editor-with-preview"
-          style={
-            {
-              backgroundColor: `${editorSettings.color}aa`,
-            }
-          }
+          style={{
+            backgroundColor: `${editorSettings.color}aa`,
+          }}
         >
           <MarkdownEditor
             text={editorSettings.text}
@@ -205,11 +205,7 @@ export default class CardEditor extends Component {
             <Text align="center" size="xxlarge">
               {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
             </Text>
-            <Button
-              onClick={() => this.submitFormFields()}
-            >
-              Save Card
-            </Button>
+            <Button onClick={() => this.submitFormFields()}>Save Card</Button>
             <Button
               color="accent-2"
               className="discard-btn"
