@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Checkmark, Trash, Edit, FormUp, FormDown,
-} from 'grommet-icons';
-import Button from 'UI/Button';
-import classnames from 'classnames';
-import assertCardChanges from '../../utils/assertChanges';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Checkmark, Trash, Edit, FormUp, FormDown } from "grommet-icons";
+import classnames from "classnames";
+import Button from "UI/Button";
+import TextInput from "UI/TextInput";
+import assertCardChanges from "Utils/assertChanges";
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
-import './CardBar.scss'; // eslint-disable-line
+import "./CardBar.scss"; // eslint-disable-line
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
@@ -25,7 +24,7 @@ class CardBar extends Component {
     const { card } = this.props;
     const { labels } = card;
     if (labels && labels.length) {
-      labels.forEach((label) => {
+      labels.forEach(label => {
         removeLabelFunc(label);
       });
     }
@@ -34,12 +33,12 @@ class CardBar extends Component {
   removeCard(card, removeCardFunc, removeLabelFunc) {
     if (card.shortLink) {
       fetch(REMOVE_NOTE_ENDPOINT, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(card),
+        body: JSON.stringify(card)
       }).catch(error => console.error(error));
     }
     this.handleLabels(removeLabelFunc);
@@ -59,51 +58,56 @@ class CardBar extends Component {
     const {
       editCard,
       toggleCard,
-      removeCard,
+      removeCard
       // minimizeCard,
       // generateCardLink,
     } = cardActions;
     return (
       <React.Fragment>
         <div className="card-bar">
-          <h5
+          <TextInput
             style={{
-              color: card.color,
+              color: card.color
             }}
-          >
-            {card.title}
-          </h5>
-          {
-            cardActions && (
-              <div className="buttons-container">
-                <Button onClick={() => toggleCard(card)}>
-                  <Checkmark
-                    style={{
-                      stroke: card.color,
-                    }}
-                    className={classnames({ 'checkmark-icon': true, completed: card.completed })}
-                  />
-                </Button>
-                <Button onClick={() => editCard(card)}>
-                  <Edit
-                    style={{
-                      stroke: card.color,
-                    }}
-                    className="edit-icon"
-                  />
-                </Button>
-                <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
-                  <Trash
-                    style={{
-                      stroke: card.color,
-                    }}
-                    className="close-icon"
-                    color={card.color}
-                  />
-                </Button>
-              </div>
-            )
-          }
+            value={card.title}
+            plain
+          />
+          {cardActions && (
+            <div className="buttons-container">
+              <Button onClick={() => toggleCard(card)}>
+                <Checkmark
+                  style={{
+                    stroke: card.color
+                  }}
+                  className={classnames({
+                    "checkmark-icon": true,
+                    completed: card.completed
+                  })}
+                />
+              </Button>
+              <Button onClick={() => editCard(card)}>
+                <Edit
+                  style={{
+                    stroke: card.color
+                  }}
+                  className="edit-icon"
+                />
+              </Button>
+              <Button
+                onClick={() =>
+                  this.removeCard(card, removeCard, cardActions.removeLabel)
+                }
+              >
+                <Trash
+                  style={{
+                    stroke: card.color
+                  }}
+                  className="close-icon"
+                  color={card.color}
+                />
+              </Button>
+            </div>
+          )}
         </div>
       </React.Fragment>
     );
@@ -114,5 +118,6 @@ export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
-  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+    .isRequired
 };
