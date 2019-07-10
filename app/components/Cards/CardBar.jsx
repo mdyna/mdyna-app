@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Checkmark, Trash, Edit, FormUp, FormDown,
 } from 'grommet-icons';
-import classnames from 'classnames';
 import { TextInput } from 'grommet';
 import Button from 'UI/Button';
 import unNest from 'Utils/nest';
@@ -54,7 +53,7 @@ class CardBar extends PureComponent {
   }
 
   render() {
-    const { card, cardActions, title } = this.props;
+    const { card, cardActions } = this.props;
     const { currentTitle, editingTitle } = this.state;
     const {
       editCard,
@@ -67,48 +66,60 @@ class CardBar extends PureComponent {
     return (
       <React.Fragment>
         <div className="card-bar">
-          <TextInput
-            style={{
-              padding: 0,
-              borderBottom: editingTitle && `1px solid ${card.color}`,
-              color: card.color,
-            }}
-            ref={this.inputRef}
-            value={currentTitle}
-            onBlur={() => {
-              changeTitle(card, currentTitle);
-              this.setState({ editingTitle: false });
-            }}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13 && editingTitle) {
-                changeTitle(card, e.target.value);
-                this.setState({ editingTitle: false, currentTitle: e.target.value });
-                this.inputRef.current.blur();
-              }
-            }}
-            className={editingTitle && 'editing'}
-            type="text"
-            onClick={(e) => {
-              e.preventDefault();
-              this.setState({ editingTitle: true });
-            }}
-            onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })}
-            plain
-          />
+          {!editingTitle ? (
+            <Button
+              plain
+              style={{
+                color: card.color,
+                width: '100%',
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                this.setState({ editingTitle: true });
+              }}
+              hoverIndicator="dark-1"
+            >
+              {card.title}
+            </Button>
+          ) : (
+            <TextInput
+              style={{
+                padding: 0,
+                borderBottom: editingTitle && `1px solid ${card.color}`,
+                color: card.color,
+              }}
+              ref={this.inputRef}
+              value={currentTitle}
+              onBlur={() => {
+                const newTitle = currentTitle || 'Untitled Card';
+                changeTitle(card, newTitle);
+                this.setState({ editingTitle: false, currentTitle: newTitle });
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13 && editingTitle) {
+                  const newTitle = e.target.value || 'Untitled Card';
+                  changeTitle(card, newTitle);
+                  this.setState({ editingTitle: false, currentTitle: newTitle });
+                  this.inputRef.current.blur();
+                }
+              }}
+              className={editingTitle && 'editing'}
+              type="text"
+              onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })}
+              plain
+            />
+          )}
           {cardActions && (
             <div className="buttons-container">
-              <Button onClick={() => toggleCard(card)}>
+              <Button hoverIndicator="dark-1" onClick={() => toggleCard(card)}>
                 <Checkmark
                   style={{
-                    stroke: card.color,
+                    transition: 'all 0.5s',
                   }}
-                  className={classnames({
-                    'checkmark-icon': true,
-                    completed: card.completed,
-                  })}
+                  color={card.completed ? 'accent-3' : card.color}
                 />
               </Button>
-              <Button onClick={() => editCard(card)}>
+              <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
                 <Edit
                   style={{
                     stroke: card.color,
@@ -116,7 +127,10 @@ class CardBar extends PureComponent {
                   className="edit-icon"
                 />
               </Button>
-              <Button onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}>
+              <Button
+                hoverIndicator="dark-1"
+                onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}
+              >
                 <Trash
                   style={{
                     stroke: card.color,

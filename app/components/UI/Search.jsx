@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { TextInput } from "grommet";
-import { Search } from "grommet-icons";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { TextInput } from 'grommet';
+import { Search } from 'grommet-icons';
 
-import "./Search.scss";
+import './Search.scss';
 
 export default class SearchComponent extends Component {
   render() {
-    const { searchInput, onChange, searchBar, titles } = this.props;
+    const {
+      searchInput, onChange, searchBar, titles,
+    } = this.props;
     return (
       <div className="search-wrapper">
         <Search color="brand" />
@@ -18,7 +20,7 @@ export default class SearchComponent extends Component {
           onChange={e => onChange(e.target.value)}
           ref={searchBar}
           onSelect={e => onChange(e.suggestion)}
-          value={searchInput}
+          defaultValue={searchInput}
         />
       </div>
     );
@@ -28,9 +30,10 @@ export default class SearchComponent extends Component {
 SearchComponent.propTypes = {
   searchInput: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  titles: PropTypes.array
+  titles: PropTypes.array,
 };
 
 SearchComponent.defaultProps = {
-  titles: []
+  titles: [],
+  searchInput: '',
 };
