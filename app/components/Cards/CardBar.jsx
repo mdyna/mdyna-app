@@ -70,6 +70,7 @@ class CardBar extends PureComponent {
           <TextInput
             style={{
               padding: 0,
+              borderBottom: editingTitle && `1px solid ${card.color}`,
               color: card.color,
             }}
             ref={this.inputRef}
@@ -82,12 +83,15 @@ class CardBar extends PureComponent {
               if (e.keyCode === 13 && editingTitle) {
                 changeTitle(card, e.target.value);
                 this.setState({ editingTitle: false, currentTitle: e.target.value });
-                console.log(this.inputRef.current);
                 this.inputRef.current.blur();
               }
             }}
+            className={editingTitle && 'editing'}
             type="text"
-            onClick={() => this.setState({ editingTitle: true })}
+            onClick={(e) => {
+              e.preventDefault();
+              this.setState({ editingTitle: true });
+            }}
             onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })}
             plain
           />
