@@ -101,9 +101,13 @@ class MdynaCard extends PureComponent {
       removeCard,
       editCard,
       removeLabel,
+      addLabelFilter,
+      removeLabelFilter,
+      labelFilters,
     } = this.props;
 
     const { isHovered, minimized } = this.state;
+    const labelFuncs = { addLabelFilter, removeLabelFilter };
     const color = (card && card.color) || changeCardSetting('color', _.sample(COLOR_SAMPLES));
     const minimize = showAllText ? false : minimized;
     const noteActions = {
@@ -152,7 +156,12 @@ class MdynaCard extends PureComponent {
             minimized,
           }}
         />
-        <Labels labels={card.labels} color={color} />
+        <Labels
+          labelFuncs={labelFuncs}
+          labelFilters={labelFilters}
+          labels={card.labels}
+          color={color}
+        />
         {this.renderCardDate()}
         <MarkdownText
           whiteMode={whiteMode}
@@ -193,10 +202,13 @@ MdynaCard.propTypes = {
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
   changeTitle: PropTypes.func.isRequired,
+  labelFilters: PropTypes.object,
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
   changeCardSetting: PropTypes.func,
+  addLabelFilter: PropTypes.func,
+  removeLabelFilter: PropTypes.func,
   i: PropTypes.number,
 };
 
@@ -208,7 +220,10 @@ MdynaCard.defaultProps = {
   editCard: null,
   whiteMode: false,
   showAllText: false,
+  addLabelFilter: null,
+  removeLabelFilter: null,
   removeLabel: null,
+  labelFilters: [],
   toggleCard: null,
   hasCardBar: false,
   className: '',

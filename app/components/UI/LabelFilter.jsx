@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy';
-import cx from 'classnames';
 import Labels from 'UI/Labels';
 import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
   renderClickableLabels() {
-    const {
-      labels, labelFilters, labelFilterFuncs,
-    } = this.props;
+    const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
     const orderedLabels = sort(labels, d => d.count).reverse();
     const clickableLabels = [];
@@ -22,9 +19,12 @@ class LabelFilter extends Component {
       if (label && label.title) {
         const labelElement = (
           <Button
-            className={cx('label-button', labelFilterActive && 'active')}
+            className="label-button"
             onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
+            color={labelFilterActive ? 'brand' : 'accent-1'}
+            hoverIndicator={labelFilterActive ? 'accent-1' : 'brand'}
+            plain={false}
             primary
           >
             <Labels label={{ title: label.title, color: '#333' }} transparent />
@@ -38,11 +38,16 @@ class LabelFilter extends Component {
 
   render() {
     const { labels } = this.props;
-    return labels && labels.length && (
-      <div className="label-filter-box">
-        <Box border={{ color: 'brand' }} className="label-box">{this.renderClickableLabels()}</Box>
-      </div>
-    ) || '';
+    return (
+      (labels && labels.length && (
+        <div className="label-filter-box">
+          <Box border={{ color: 'brand' }} className="label-box">
+            {this.renderClickableLabels()}
+          </Box>
+        </div>
+      ))
+      || ''
+    );
   }
 }
 
