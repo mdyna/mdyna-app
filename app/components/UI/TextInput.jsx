@@ -12,7 +12,7 @@ const Input = (props) => {
       focus={false}
       key={label}
       id={_.snakeCase(label)}
-      value={value || ''}
+      defaultValue={value || ''}
       placeHolder={_.startCase(label)}
       onChange={e => onChange(e.target.value)}
       {...otherProps}

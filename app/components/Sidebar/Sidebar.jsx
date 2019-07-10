@@ -119,6 +119,7 @@ class Sidebar extends Component {
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
               className={classnames(sorting === SORTING_BY_TITLE && 'active')}
+              plain={sorting !== SORTING_BY_TITLE}
               onClick={() => changeSorting(SORTING_BY_TITLE, this.getSortingOrder(SORTING_BY_TITLE))
               }
             >
@@ -129,6 +130,7 @@ class Sidebar extends Component {
               By Title
             </Button>
             <Button
+              plain={sorting !== SORTING_BY_DATE}
               onClick={() => changeSorting(SORTING_BY_DATE, this.getSortingOrder(SORTING_BY_DATE))}
               className={classnames(sorting === SORTING_BY_DATE && 'active')}
             >
