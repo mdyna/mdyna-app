@@ -18,7 +18,6 @@
     }
   }
 
-
   .card-control {
     background-color: #1f2833;
     margin: 15px auto 0px;
@@ -27,13 +26,13 @@
     flex-flow: row;
     justify-content: center;
     opacity: 0.5;
-    border-radius: '10px';
+    border-radius: "10px";
     padding: 5;
   }
 
   button {
     transition: all 0.5s ease-in;
-}
+  }
 
   h5 {
     font-size: 125% !important;
@@ -50,13 +49,16 @@
     line-height: 200% !important;
   }
 
-
-  p, th, td, tr {
+  p,
+  th,
+  td,
+  tr {
     color: $note-font-color !important;
   }
 
-  ol, ul {
-    padding: 5px 20px;
+  ol,
+  ul {
+    padding: 5px 10px;
   }
   blockquote {
     background-color: #666;
@@ -64,27 +66,33 @@
     margin: 10px;
     border-radius: 10px;
     padding-left: 20px;
-    p, h5, h4, h3 {
-      ::before{
-        content: '>'
+    p,
+    h5,
+    h4,
+    h3 {
+      ::before {
+        content: ">";
       }
       color: #fff !important;
     }
     &:hover {
-      p, h5, h4, h3{
+      p,
+      h5,
+      h4,
+      h3 {
         color: $accent !important;
       }
     }
   }
 
-  h5, h4, h3, p, ul, ol, li {
+  h5,
+  h4,
+  h3,
+  p,
+  ul,
+  ol,
+  li {
     color: $note-font-color;
-  }
-
-  ul {
-    li {
-      color: #333 !important;
-    }
   }
 
   .labels {
@@ -106,21 +114,21 @@
     table {
       thead {
         th {
-          background-color:rgba(255,255,255,0.8);
+          background-color: rgba(255, 255, 255, 0.8);
         }
       }
       tbody {
         tr {
           text-align: center;
-          background-color:rgba(255,255,255,0.4);
+          background-color: rgba(255, 255, 255, 0.4);
           &:nth-child(2n) {
-            background-color:rgba(255,255,255,0.6);
+            background-color: rgba(255, 255, 255, 0.6);
             &:hover {
-              background-color:rgba(255,255,255,0.8);
+              background-color: rgba(255, 255, 255, 0.8);
             }
           }
           &:hover {
-            background-color:rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.8);
           }
         }
       }
@@ -150,7 +158,7 @@
       border: 1px dashed #6e6e6e;
       padding: 1px;
       white-space: pre-wrap;
-      border-radius: 5px
+      border-radius: 5px;
     }
 
     pre {

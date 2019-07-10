@@ -30,10 +30,12 @@ export default class SearchComponent extends Component {
 SearchComponent.propTypes = {
   searchInput: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  searchBar: PropTypes.object,
   titles: PropTypes.array,
 };
 
 SearchComponent.defaultProps = {
   titles: [],
   searchInput: '',
+  searchBar: null,
 };

@@ -39,11 +39,11 @@ function mapDispatchToProps(dispatch) {
     changeSorting: (sorting, order) => {
       dispatch(changeSorting(sorting, order));
     },
-    addLabelFilter: (val) => {
-      dispatch(addLabelFilter(val));
-    },
     toggleCompletedFilter: (val) => {
       dispatch(toggleCompletedFilter(val));
+    },
+    addLabelFilter: (val) => {
+      dispatch(addLabelFilter(val));
     },
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));
@@ -55,21 +55,15 @@ function sortCards(cards, sorting, order) {
   const sortingType = `${sorting}-${order}`;
   switch (sortingType) {
     case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
-      return cards.sort(
-        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
-      );
+      return cards.sort((a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]));
     case `${SORTING_BY_DATE}-${ASCENDING_ORDER}`:
-      return cards.sort(
-        (a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]),
-      );
+      return cards.sort((a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]));
     case `${SORTING_BY_TITLE}-${ASCENDING_ORDER}`:
       return cards.sort((a, b) => a.title.localeCompare(b.title));
     case `${SORTING_BY_TITLE}-${DESCENDING_ORDER}`:
       return cards.sort((a, b) => b.title.localeCompare(a.title));
     default:
-      return cards.sort(
-        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
-      );
+      return cards.sort((a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]));
   }
 }
 
