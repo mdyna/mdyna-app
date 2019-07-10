@@ -1,66 +1,58 @@
-import { connect } from "react-redux";
-import CardItem from "../components/Cards/CardItem";
+import { connect } from 'react-redux';
+import CardItem from '../components/Cards/CardItem';
 import {
-  generateCardLink,
   removeCard,
   toggleCard,
   editCard,
-  completeCard,
-  failCard,
-  snoozeCard,
   addLabel,
   removeLabel,
   changeCardSetting,
   changeTitle,
-  saveCard
-} from "../store/actions/";
+  saveCard,
+  addLabelFilter,
+  removeLabelFilter,
+} from '../store/actions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeCard: card => {
+    removeCard: (card) => {
       dispatch(removeCard(card));
     },
-    editCard: card => {
+    editCard: (card) => {
       dispatch(editCard(card));
     },
-    generateCardLink: (card, cardId) => {
-      dispatch(generateCardLink(card, cardId));
-    },
-    toggleCard: card => {
+    toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
     changeCardSetting: (prop, value) => {
       dispatch(changeCardSetting(prop, value));
     },
-    saveCard: card => {
+    saveCard: (card) => {
       dispatch(saveCard(card));
-    },
-    snoozeCard: card => {
-      dispatch(snoozeCard(card));
-    },
-    failCard: card => {
-      dispatch(failCard(card));
-    },
-    completeCard: card => {
-      dispatch(completeCard(card));
     },
     changeTitle: (card, title) => {
       dispatch(changeTitle(card, title));
     },
-    addLabel: todoProps => {
-      dispatch(addLabel(todoProps));
+    addLabel: (val) => {
+      dispatch(addLabel(val));
     },
-    removeLabel: todoProps => {
-      dispatch(removeLabel(todoProps));
-    }
+    removeLabel: (val) => {
+      dispatch(removeLabel(val));
+    },
+    addLabelFilter: (val) => {
+      dispatch(addLabelFilter(val));
+    },
+    removeLabelFilter: (val) => {
+      dispatch(removeLabelFilter(val));
+    },
   };
 }
 
 function mapStateToProps(state) {
-  return { whiteMode: state.style.whiteMode };
+  return { whiteMode: state.style.whiteMode, labelFilters: state.filters.labelFilters };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CardItem);
