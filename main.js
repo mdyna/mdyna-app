@@ -35,7 +35,7 @@ function loadLabels(cards) {
               title: label,
               count: 1,
             });
-          } else {
+          } else if (labels && labels[labelIndex]) {
             labels[labelIndex].count += 1;
           }
         }
