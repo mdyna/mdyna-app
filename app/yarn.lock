@@ -2165,10 +2165,9 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-masonry-css@^1.0.12:
+"react-masonry-css@https://github.com/dmorais92/react-masonry-css.git":
   version "1.0.12"
-  resolved "https://registry.yarnpkg.com/react-masonry-css/-/react-masonry-css-1.0.12.tgz#e252a74c0e6d5272f759588232487d707608298a"
-  integrity sha512-tDO4dJugSLorlsqZ7WD/yW+OGIWFhUdrSv3VeGYOaFwqwwYwdcXOHh/rsu1PItb/kkmA8iQmpVcweKcZ6RIjmQ==
+  resolved "https://github.com/dmorais92/react-masonry-css.git#dc3a78b1fe295aec2324b4e91331140ee0ab6fbc"
 
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
