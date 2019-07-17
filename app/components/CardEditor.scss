@@ -1,6 +1,6 @@
 @import "../style.scss";
 
-.note-layer{
+.note-layer {
   display: block !important;
   margin-top: 32px;
 }
@@ -10,13 +10,15 @@
   border-radius: 10px;
   height: 100vh;
   overflow: auto;
+
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
 
   .form-field {
     margin: 0 20px;
-    input {
+    input,
+    div {
       border-radius: 5px;
     }
   }
@@ -65,7 +67,6 @@
       flex-flow: row wrap;
     }
 
-
     .card-preview {
       min-height: 50vh;
       margin: 0 0px 0 10px !important;
@@ -83,8 +84,8 @@
       max-width: 50%;
       @include breakpoint(small) {
         width: 100%;
+        max-width: unset;
       }
-
 
       .CodeMirror-cursor {
         border-left: 1px solid $accent;
@@ -133,4 +134,3 @@
     }
   }
 }
-

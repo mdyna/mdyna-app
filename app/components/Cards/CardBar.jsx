@@ -4,6 +4,7 @@ import {
   Checkmark, Trash, Edit, FormUp, FormDown,
 } from 'grommet-icons';
 import { TextInput } from 'grommet';
+import tc from 'tinycolor2';
 import Button from 'UI/Button';
 import unNest from 'Utils/nest';
 
@@ -86,7 +87,11 @@ class CardBar extends PureComponent {
             <TextInput
               style={{
                 padding: 0,
-                borderBottom: editingTitle && `1px solid ${card.color}`,
+                borderBottom:
+                  editingTitle
+                  && (currentTitle !== card.title
+                    ? `1px solid ${tc(card.color).brighten(25)}`
+                    : `1px solid ${card.color}`),
                 color: card.color,
               }}
               ref={this.inputRef}

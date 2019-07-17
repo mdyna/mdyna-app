@@ -9,6 +9,10 @@
   min-width: 300px;
   transition: all 0.5s;
 
+  @include breakpoint(small) {
+    min-width: auto;
+  }
+
   span.card-date {
     margin-top: -5px;
     color: $note-font-color;

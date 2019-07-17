@@ -1,12 +1,35 @@
 @import "../style.scss";
 
-* {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
-html {box-sizing: border-box; scroll-behavior: smooth;}
-*, *:before, *:after {box-sizing: inherit;}
-html, body {height: 100%; margin: 0;}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 
-h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
-p {margin-top: 10px; color: rgba(255,255,255,0.4);}
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+p {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
 
 body {
   background: $background;
@@ -26,12 +49,12 @@ body {
 }
 
 @keyframes rotation {
-		from {
-				-webkit-transform: rotate(0deg);
-		}
-		to {
-				-webkit-transform: rotate(359deg);
-		}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
 }
 
 ::-webkit-scrollbar {
@@ -96,18 +119,19 @@ body {
         cursor: default;
         opacity: 0.8;
         &:hover {
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.2);
           opacity: 1;
         }
       }
       #min-button {
         grid-column: 1;
       }
-      #max-button, #restore-button {
+      #max-button,
+      #restore-button {
         grid-column: 2;
       }
       #close-button {
-        background: #E81123;
+        background: #e81123;
         grid-column: 3;
       }
     }
@@ -116,6 +140,7 @@ body {
 #root {
   margin-top: 31px !important;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: calc(100vh - 32px);
 }
 .mdyna-app {
@@ -137,7 +162,6 @@ body {
       width: 100px !important;
     }
   }
-
 
   section {
     flex: 1 auto;
