@@ -4,9 +4,7 @@ import { TextInput } from 'grommet';
 import _ from 'lodash';
 
 const Input = (props) => {
-  const {
-    label, value, onChange, ...otherProps
-  } = props;
+  const { label, value, onChange } = props;
   return (
     <TextInput
       focus={false}
@@ -15,7 +13,6 @@ const Input = (props) => {
       defaultValue={value || ''}
       placeHolder={_.startCase(label)}
       onChange={e => onChange(e.target.value)}
-      {...otherProps}
     />
   );
 };
