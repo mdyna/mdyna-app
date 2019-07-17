@@ -13,7 +13,8 @@ const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 class CardBar extends PureComponent {
   state = {
-    currentTitle: unNest(this, 'props.title') || unNest(this, 'props.card.title'),
+    currentTitle:
+      unNest(this, 'props.title') || unNest(this, 'props.card.title'),
     editingTitle: false,
   };
 
@@ -95,17 +96,22 @@ class CardBar extends PureComponent {
                 changeTitle(card, newTitle);
                 this.setState({ editingTitle: false, currentTitle: newTitle });
               }}
+              onDoubleClick={e => e.stopPropagation()}
               onKeyDown={(e) => {
                 if (e.keyCode === 13 && editingTitle) {
                   const newTitle = e.target.value || 'Untitled Card';
                   changeTitle(card, newTitle);
-                  this.setState({ editingTitle: false, currentTitle: newTitle });
+                  this.setState({
+                    editingTitle: false,
+                    currentTitle: newTitle,
+                  });
                   this.inputRef.current.blur();
                 }
               }}
               className={editingTitle && 'editing'}
               type="text"
-              onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })}
+              onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })
+              }
               plain
             />
           )}
@@ -129,7 +135,8 @@ class CardBar extends PureComponent {
               </Button>
               <Button
                 hoverIndicator="dark-1"
-                onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)}
+                onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)
+                }
               >
                 <Trash
                   style={{
@@ -151,5 +158,6 @@ export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
-  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+    .isRequired,
 };
