@@ -1,18 +1,17 @@
 /* eslint-disable */
-import React, { Component } from 'react';
-import logo from '../../../resources/MdynaLogo.png';
-import Header from 'grommet/components/Header';
-import Heading from 'grommet/components/Heading';
-import Image from 'grommet/components/Image';
+import React, { PureComponent } from 'react';
+import styled from 'styled-components';
 
-class AppHeader extends Component {
+const PATH_TO_LOGO = '../../../resources/MdynaLogo.png';
+class AppHeader extends PureComponent {
   render() {
     return (
-      <Header size="small" justify="around">
-        <Image src={logo} className="App-logo" alt="Mdyna" size="small" />
-      </Header>
+      <header>
+        <img src={PATH_TO_LOGO} className="App-logo" alt="Mdyna"/>
+      </header>
     );
   }
 }
 
-export default AppHeader;
+
+export default AppHeader

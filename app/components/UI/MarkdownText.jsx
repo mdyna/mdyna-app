@@ -37,7 +37,7 @@ class MarkdownText extends PureComponent {
       tables: true,
       tasklists: true,
       simpleLineBreaks: true,
-      smoothLivePreview: true,
+      smoothLivePreview: false,
       smartIdentationFix: true,
       simplifiedAutoLink: true,
       literalMidWordUnderscores: true,

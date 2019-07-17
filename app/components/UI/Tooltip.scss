@@ -2,55 +2,13 @@
 
 .tip-icon {
   margin-left: 5px;
-  border: 2px dotted $accent-color;
   border-radius: 50px;
-  outline: none !important;
   box-shadow: none !important;
   padding: 2px !important;
-  svg {
-    path {
-      stroke: $accent-color !important;
-    }
-    polyline {
-      stroke: $accent-color !important;
-    }
-  }
-  &:hover {
-    svg {
-      path {
-        stroke: $secondary-accent !important;
-      }
-      polyline {
-        stroke: $secondary-accent !important;
-      }
-    }
-  }
-  &.white-mode {
-    border-color: $white-font-color;
-    svg {
-      path {
-        stroke: $white-font-color !important;
-      }
-      polyline {
-        stroke: $white-font-color !important;
-      }
-    }
-    &:hover {
-      svg {
-        path {
-          stroke: $white-hover-color !important;
-        }
-        polyline {
-          stroke: $white-hover-color !important;
-        }
-      }
-    }
-  }
 }
 .tooltip {
-  background-color: $accent-color !important;
-  color: $white-font-color !important;
-  font-family: Metric;
+  color: $font-color !important;
+  font-family: Helvetica;
   border-radius: 10px;
 
   h2 {
@@ -58,15 +16,10 @@
   }
 
   ul {
-    li {
-      color: $white-font-color !important;
-    }
     margin: 0 10px !important;
   }
 
-  &.white-mode {
-    background-color: $white-note-list-background !important;
-  }
+
   title {
     font-size:1.5rem;
   }

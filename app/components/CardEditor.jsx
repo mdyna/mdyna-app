@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import Article from 'grommet/components/Article';
-import Headline from 'grommet/components/Headline';
-import Form from 'grommet/components/Form';
-import classnames from 'classnames';
-import CheckBox from 'grommet/components/CheckBox';
-import Select from 'grommet/components/Select';
-// import RadioButton from 'grommet/components/RadioButton';
-import FormFields from 'grommet/components/FormFields';
-import DateTime from 'grommet/components/DateTime';
-import FormField from 'grommet/components/FormField';
-import Section from 'grommet/components/Section';
-import TextInput from 'grommet/components/TextInput';
+import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
+import LabelPicker from 'UI/LabelPicker';
+import TextInput from 'UI/TextInput';
+import ColorPicker from 'UI/ColorPicker';
 
 // import noteValidator from './noteValidator';
 import cardDefinition from './Cards/definition.json';
@@ -48,56 +40,26 @@ export default class CardEditor extends Component {
                 className="color-form-field"
               >
                 {enums ? (
-                  <div className="color-options">
-                    {enums.map(color => (
-                      <svg
-                        onClick={() => changeCardSetting(_.camelCase(settingName), color)}
-                        value={editorSettings[settingName]}
-                        key={color}
-                      >
-                        <circle r="15" fill={color} />
-                      </svg>
-                    ))}
-                  </div>
+                  <ColorPicker
+                    colors={enums}
+                    label={settingName}
+                    onChange={changeCardSetting}
+                    value={editorSettings[settingName]}
+                  />
                 ) : (
                   ''
                 )}
               </FormField>
             );
           }
-          return (
-            <FormField
-              label={_.startCase(settingName)}
-              htmlFor={_.snakeCase(settingName)}
-              key={_.startCase(settingName)}
-            >
-              <Select
-                key={settingName}
-                id={_.snakeCase(settingName)}
-                onChange={e => changeCardSetting(_.camelCase(settingName), e.option)}
-                placeHolder={_.startCase(settingName)}
-                value={editorSettings[settingName]}
-                options={[...enums]}
-              />
-            </FormField>
-          );
+          console.warn('Found enum but no widget in schema', settingName); // eslint-disable-line no-console
+          return '';
         case 'string':
-          return this.generateComponentsFromUiSchema({ ...setting, settingUiSchema, settingName });
-        case 'bool':
-          return (
-            <FormField htmlFor={_.snakeCase(settingName)} key={_.startCase(settingName)}>
-              <CheckBox
-                key={settingName}
-                checked={editorSettings[settingName]}
-                id={_.snakeCase(settingName)}
-                label={_.startCase(settingName)}
-                onChange={e => changeCardSetting(_.camelCase(settingName), e.target.checked)}
-              />
-              {setting.dependencies && editorSettings[settingName]
-                ? this.getSettingsComponent(_.keys(setting.dependencies), setting.dependencies)
-                : ''}
-            </FormField>
-          );
+          return this.generateComponentsFromUiSchema({
+            ...setting,
+            settingUiSchema,
+            settingName,
+          });
         default:
           console.warn('Unknown setting', settingName); // eslint-disable-line no-console
           return '';
@@ -105,148 +67,50 @@ export default class CardEditor extends Component {
     });
   }
 
-  getSuggestions() {
-    const { labels } = this.props;
-    const { labelInput } = this.state;
-    if (labelInput) {
-      const inputLabels = labelInput.split(' ');
-      const lastLabel = inputLabels[inputLabels.length - 1];
-      const lastLabelLength = lastLabel.length;
-      const userLabels = labels && labels.map(d => d.title);
-      return userLabels
-        .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
-        .slice(0, 5);
-    }
-    return [' '];
-  }
-
   updateCard(card) {
     const { saveCard } = this.props;
     saveCard(card);
   }
 
-  changeStringSplit(setting, value) {
-    const { labelCount } = this.state;
-    const { prefixer, splitters } = setting;
-    const settingName = setting.settingName || 'labels';
-    const result = [];
-    const { changeCardSetting } = this.props;
-    for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
-      const splitter = splitters[splitterIndex];
-      const splitVals = value.split(splitter);
-      if (splitVals.length !== labelCount) {
-        // this.handleLabels();
-        this.setState({
-          labelCount: splitVals.length,
-        });
-      }
-      for (let i = 0; i < splitVals.length; i += 1) {
-        const val = splitVals[i].trim();
-        if (val && splitter !== val && val !== prefixer) {
-          result.push(`${prefixer}${_.camelCase(val)}`);
-        }
-      }
-    }
-
-    const labels = result.map(d => ({
-      title: d,
-    }));
-    changeCardSetting(_.camelCase(settingName), labels);
-  }
-
   generateComponentsFromUiSchema(setting) {
     const { settingName, settingUiSchema } = setting;
     const { changeCardSetting, labels, editorSettings } = this.props;
-    const { labelInput } = this.state;
     const settingValue = editorSettings[settingName];
     switch (settingUiSchema) {
-      case 'date':
-        return (
-          <FormField
-            label={_.startCase(settingName)}
-            htmlFor={_.snakeCase(settingName)}
-            key={_.startCase(settingName)}
-          >
-            <DateTime
-              key={settingName}
-              id={_.snakeCase(settingName)}
-              step={1}
-              onChange={e => changeCardSetting(_.camelCase(settingName), e)}
-              value={settingValue || new Date()}
-            />
-          </FormField>
-        );
       case 'stringSplit':
         if (settingName === 'labels') {
           return (
             <FormField
+              className="form-field"
               label={_.startCase(settingName)}
               htmlFor={_.snakeCase(settingName)}
               key={_.startCase(settingName)}
             >
-              <TextInput
-                key={settingName}
-                id={_.snakeCase(settingName)}
-                suggestions={labels && this.getSuggestions(labels.map(d => d.title))}
-                defaultValue={
-                  settingValue
-                    ? `${settingValue
-                      .map(d => d.title)
-                      .join(' ')
-                      .trim()} #`
-                    : '#'
-                }
-                onSelect={(e) => {
-                  const selectedValue = `${labelInput.substring(0, labelInput.lastIndexOf(' '))} ${
-                    e.suggestion
-                  } #`;
-                  if (selectedValue) {
-                    this.changeStringSplit(setting, selectedValue);
-                    this.setState({
-                      labelInput: selectedValue,
-                    });
-                    e.target.value = selectedValue;
-                  }
-                }}
-                placeHolder={_.startCase(settingName)}
-                onDOMChange={(e) => {
-                  if (e.target.value) {
-                    this.changeStringSplit(setting, e.target.value);
-                    this.setState({
-                      labelInput: e.target.value,
-                    });
-                  }
-                }}
+              <LabelPicker
+                label={settingName}
+                labels={labels}
+                value={settingValue}
+                setting={setting}
+                onChange={changeCardSetting}
               />
             </FormField>
           );
         }
         return '';
       case 'textarea':
-        return (
-          <div key={settingName} className="editor-with-preview">
-            <MarkdownEditor
-              text={settingValue}
-              className="card-text-editor"
-              submitCard={() => this.submitFormFields()}
-            />
-            <CardPreview changeCardSetting={changeCardSetting} />
-          </div>
-        );
+        return '';
       default:
         return (
           <FormField
+            className="form-field"
             label={_.startCase(settingName)}
             htmlFor={_.snakeCase(settingName)}
             key={_.startCase(settingName)}
           >
             <TextInput
-              autoFocus={settingName === 'title'}
-              key={settingName}
-              id={_.snakeCase(settingName)}
-              defaultValue={settingValue || ''}
-              placeHolder={_.startCase(settingName)}
-              onDOMChange={e => changeCardSetting(_.camelCase(settingName), e.target.value)}
+              label={settingName}
+              value={settingValue || ''}
+              onChange={e => changeCardSetting(settingName, e)}
             />
           </FormField>
         );
@@ -299,51 +163,60 @@ export default class CardEditor extends Component {
   }
 
   renderCardForm(components) {
-    const { whiteMode } = this.props;
+    const { editorSettings, changeCardSetting } = this.props;
     return (
-      <Form plain>
-        <Section direction="column" alignContent="center">
-          <FormFields>{components}</FormFields>
-        </Section>
-        <Button
-          theme={(whiteMode && 'white') || 'dark'}
-          className="submit-btn"
-          label="Submit"
-          color="primary"
-          onClick={() => this.submitFormFields()}
-        />
-      </Form>
+      <form plain="true">
+        <Box direction="row" justify="start">
+          {components}
+        </Box>
+        <Box
+          className="editor-with-preview"
+          style={{
+            backgroundColor: `${editorSettings.color}aa`,
+          }}
+        >
+          <MarkdownEditor
+            text={editorSettings.text}
+            className="card-text-editor"
+            submitCard={() => this.submitFormFields()}
+          />
+          <CardPreview changeCardSetting={changeCardSetting} />
+        </Box>
+      </form>
     );
   }
 
   render() {
-    const { editorSettings, whiteMode } = this.props;
+    const { editorSettings, toggleEditor } = this.props;
     return (
       <ErrorBoundary>
-        <Article
+        <Box
           direction="column"
           alignContent="center"
           pad="large"
-          className={classnames('card-editor', { 'white-mode': whiteMode })}
+          className="card-editor"
           full="horizontal"
         >
           <KeyboardEventHandler
             handleKeys={['ctrl+enter']}
             onKeyEvent={() => this.submitFormFields()}
           />
-          <Headline className="header">
-            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+          <Box className="header">
+            <Text align="center" size="xxlarge">
+              {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+            </Text>
+            <Button onClick={() => this.submitFormFields()}>Save Card</Button>
             <Button
-              theme={(whiteMode && 'white') || 'dark'}
-              className="submit-btn"
-              color="alt"
-              onClick={() => this.submitFormFields()}
+              color="accent-2"
+              className="discard-btn"
+              hoverIndicator="accent-2"
+              onClick={() => toggleEditor()}
             >
-              Save Card
+              X
             </Button>
-          </Headline>
+          </Box>
           {this.generateComponentsFromType(cardDefinition)}
-        </Article>
+        </Box>
       </ErrorBoundary>
     );
   }
@@ -351,7 +224,6 @@ export default class CardEditor extends Component {
 
 CardEditor.propTypes = {
   addCard: PropTypes.func.isRequired,
-  whiteMode: PropTypes.bool,
   toggleEditor: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
@@ -362,6 +234,5 @@ CardEditor.propTypes = {
 };
 
 CardEditor.defaultProps = {
-  whiteMode: false,
   labels: [],
 };

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import HelpIcon from 'grommet/components/icons/base/Help';
-import Box from 'grommet/components/Box';
+import { Help } from 'grommet-icons';
+import { Box } from 'grommet';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import MarkdownText from 'UI/MarkdownText';
@@ -16,28 +16,28 @@ class Tooltip extends PureComponent {
 
   renderTooltipContent() {
     const {
-      text, title, whiteMode, className,
+      text, title, className,
     } = this.props;
-
     return (
       <ReactTooltip
         id={title}
         place="top"
-        class={cx('tooltip', whiteMode && 'white-mode', className)}
+        class={cx('tooltip', className)}
         multiline
+        type="light"
         offset={{
           right: 10,
         }}
       >
         <h2>{title}</h2>
-        <MarkdownText disableCode whiteMode={whiteMode} className="tooltip-text" text={text} />
+        <MarkdownText disableCode className="tooltip-text" text={text} />
       </ReactTooltip>
     );
   }
 
   render() {
     const {
-      title, whiteMode, icon, onClick, className,
+      title, icon, onClick, className,
     } = this.props;
 
     return (
@@ -46,7 +46,7 @@ class Tooltip extends PureComponent {
           data-tip
           data-for={title}
           onClick={() => onClick()}
-          className={cx('tip-icon', whiteMode && 'white-mode', className)}
+          className={cx('tip-icon', className)}
         >
           {icon}
           {this.tooltipPortal()}
@@ -64,13 +64,12 @@ Tooltip.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   title: PropTypes.string,
-  whiteMode: PropTypes.bool.isRequired,
 };
 
 Tooltip.defaultProps = {
   text: '',
   className: '',
-  icon: <HelpIcon />,
+  icon: <Help color="brand" />,
   onClick: null,
   title: 'Help',
 };

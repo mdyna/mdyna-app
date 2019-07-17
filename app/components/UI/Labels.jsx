@@ -1,11 +1,56 @@
 import React, { Component } from 'react';
+import tc from 'tinycolor2';
 import PropTypes from 'prop-types';
-import tinycolor from 'tinycolor2';
 
 class Labels extends Component {
-  render() {
-    const { labels, color } = this.props;
+  renderLabelText(label) {
+    const {
+      color, transparent, labelFuncs, labelFilters,
+    } = this.props;
+    if (labelFuncs && labelFilters) {
+      const { addLabelFilter, removeLabelFilter } = labelFuncs;
+      const labelFilterActive = label && label.title && labelFilters.indexOf(label.title) !== -1;
+      const labelFunc = labelFilterActive ? removeLabelFilter : addLabelFilter;
+      /* eslint-disable */
+      return (
+        <span
+          style={{
+            color: labelFilterActive ? tc(color).darken(15) : color,
+            border: labelFilterActive && `2px solid ${tc(color).darken(15)}`,
+            backgroundColor: !transparent && '#333333AA',
+            borderRadius: '50px',
+            cursor: 'pointer',
+            padding: '5px',
+          }}
+          role="button"
+          key={`label-${label.title || label}`}
+          onClick={() => labelFunc(label.title)}
+        >
+          {label.title || label}
+        </span>
+      );
+      /* eslint-enable */
+    }
     return (
+      <span
+        style={{
+          color,
+          backgroundColor: !transparent && '#333333AA',
+          borderRadius: '50px',
+          padding: '5px',
+        }}
+        key={`label-${label.title || label}`}
+      >
+        {label.title || label}
+      </span>
+    );
+  }
+
+  render() {
+    const { labels, label } = this.props;
+    return label ? (
+      this.renderLabelText(label)
+    ) : (
       <div
         className="labels"
         style={{
@@ -14,19 +59,7 @@ class Labels extends Component {
         }}
       >
         {labels && labels.length
-          ? labels.map(label => (
-            <span
-              style={{
-                backgroundColor: tinycolor(color).lighten(10),
-                border: `3px solid ${tinycolor(color).darken(30)}`,
-                borderRadius: '50px',
-                padding: '5px',
-              }}
-              key={`label-${label.title}`}
-            >
-              {label.title}
-            </span>
-          ))
+          ? labels.map(arrayLabel => this.renderLabelText(arrayLabel))
           : ''}
       </div>
     );
@@ -37,10 +70,18 @@ export default Labels;
 
 Labels.propTypes = {
   labels: PropTypes.array,
+  transparent: PropTypes.bool,
   color: PropTypes.string,
+  labelFuncs: PropTypes.object,
+  labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  label: PropTypes.object,
 };
 
 Labels.defaultProps = {
-  color: '#4E636E',
+  color: '#000',
+  labelFilters: [],
+  labelFuncs: null,
+  label: null,
+  transparent: false,
   labels: [],
 };

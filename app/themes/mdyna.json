@@ -1,0 +1,66 @@
+{
+  "global": {
+    "colors": {
+      "brand": "#1de9b6",
+      "accent-1": "#147e5b",
+      "accent-2": "#7e1414",
+      "accent-3": "#19b6c2",
+      "neutral": ["#333333", "#dddddd"],
+      "background": "#15171f",
+      "control": { "dark": "#1f222e", "light": "#15171f" },
+      "focus": "#1de9b6",
+      "dark": ["#1f222e", "#13141a"],
+      "dark-1": "#1f222e",
+      "dark-2": "#13141a",
+      "dark-3": "#15171f",
+      "light": ["#dadada", "#bdbdbd"],
+      "light-1": "#dadada",
+      "light-2": "#bdbdbd",
+      "text": "#1de9b6",
+      "border": { "dark": "#1de9b6", "light": "#bdbdbd" }
+    },
+    "font": {
+      "name": "Helvetica",
+      "family": "Helvetica, Segoe, 'Fira Sans', Arial, sans-serif"
+    },
+    "hover": {
+      "color": { "dark": "#1f222e", "light": "#15171f" }
+    }
+  },
+  "focus": {
+    "border": {
+      "color":"#1de9b6"
+    }
+  },
+  "button": {
+    "colors": {
+      "text": "#1de9b6"
+    }
+  },
+  "icon": {
+    "brand": "#1de9b6"
+  },
+  "input": {
+    "colors": {
+      "brand": "#1de9b6",
+      "accent": ["#147e5b", "#7e1414"],
+      "text": "#1de9b6"
+    }
+  },
+  "textInput": {
+    "suggestions": {
+      "extend": {
+        "background": "#1f222e"
+      }
+    }
+  },
+  "control": {
+    "border": {
+      "width": "1px",
+      "radius": "0px",
+      "color": "border"
+    }
+  },
+  "checkBox": { "border": { "radius": "4px" } },
+  "layer": { "background": "#15171f", "color": "#1de9b6" }
+}

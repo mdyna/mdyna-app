@@ -1,17 +1,39 @@
 @import "../style.scss";
 
-* {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
-html {box-sizing: border-box; scroll-behavior: smooth;}
-*, *:before, *:after {box-sizing: inherit;}
-html, body {height: 100%; margin: 0;}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 
-h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
-p {margin-top: 10px; color: rgba(255,255,255,0.4);}
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+p {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
 
 body {
-  font-family: Roboto sans-serif;
-  background-color: $background-color;
-  border: 1px solid #15171f;
+  background: $background;
+  border: 1px solid $background;
   overflow-y: hidden;
 }
 @font-face {
@@ -27,19 +49,11 @@ body {
 }
 
 @keyframes rotation {
-		from {
-				-webkit-transform: rotate(0deg);
-		}
-		to {
-				-webkit-transform: rotate(359deg);
-		}
-}
-
-.split {
-  display: flex;
-  flex-flow: row nowrap;
-  .grommetux-split__column--flex {
-    width: 100%;
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
   }
 }
 
@@ -50,27 +64,26 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0px;
-  background-color: $white-secondary-background;
+  background-color: transparent;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $accent-color;
+  background: $accent;
   border-radius: 10px;
 }
 #titlebar {
   display: block;
-  z-index: 1;
+  z-index: 15;
   position: fixed;
   height: 32px;
   width: calc(100% - 2px);
   background-color: #0f1116;
   padding: 4px;
-  color: $secondary-accent;
-  font-family: Metric;
+  color: $accent;
+  font-family: Helvetica;
   #drag-region {
-
     .title {
       font-size: 1.2em;
       display: flex;
@@ -106,83 +119,53 @@ body {
         cursor: default;
         opacity: 0.8;
         &:hover {
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.2);
           opacity: 1;
         }
       }
       #min-button {
         grid-column: 1;
       }
-      #max-button, #restore-button {
+      #max-button,
+      #restore-button {
         grid-column: 2;
       }
       #close-button {
-        background: #E81123;
+        background: #e81123;
         grid-column: 3;
       }
     }
   }
 }
 #root {
-  margin-top: 32px !important;
+  margin-top: 31px !important;
   overflow-y: scroll;
-  height: 100%;
+  overflow-x: hidden;
+  height: calc(100vh - 32px);
 }
 .mdyna-app {
   margin: 0;
   padding: 0;
-  background-color: $background-color;
   min-height: 600px;
 
   ::-webkit-scrollbar-track {
-    background-color: $secondary-background;
-  }
-
-  .grommet {
-    background-color: $background-color !important;
+    background-color: transparent;
   }
 
   header {
-    background-color: $secondary-background !important;
-    color: $secondary-accent;
-    padding: 20px 0 10px 10px !important;
+    padding: 20px 0 10px 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 
     img {
       width: 100px !important;
     }
   }
 
-  article {
-    // padding-top: 76px;
-    background-color: $secondary-background;
-  }
-
   section {
     flex: 1 auto;
     width: 30vw;
     border-radius: 10px;
-  }
-  &.white-mode {
-    background-color: $white-background-color;
-
-    .grommet {
-      background-color: $white-background-color !important;
-    }
-
-    header {
-      background-color: $white-secondary-background !important;
-      color: $white-font-color;
-      padding: 20px 0 10px 10px !important;
-
-      img {
-        width: 100px !important;
-        box-shadow: none;
-        border-radius: 50%;
-      }
-    }
-
-    article {
-      background-color: $white-secondary-background;
-    }
   }
 }

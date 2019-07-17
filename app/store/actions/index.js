@@ -24,6 +24,11 @@ export const snoozeCard = card => ({
   type: ACTION_TYPES.CARD.SNOOZE_CARD,
   card,
 });
+export const changeTitle = (card, title) => ({
+  type: ACTION_TYPES.CARD.CHANGE_TITLE,
+  card,
+  payload: title,
+});
 export const removeCard = card => ({
   type: ACTION_TYPES.CARD.REMOVE_CARD,
   card,
@@ -38,21 +43,6 @@ export const generateCardLink = (keys, index) => ({
   index,
 });
 
-export const addNote = note => ({
-  type: ACTION_TYPES.NOTE.ADD_NOTE,
-  note,
-});
-
-export const removeNote = note => ({
-  type: ACTION_TYPES.NOTE.REMOVE_NOTE,
-  note,
-});
-
-export const saveNote = note => ({
-  type: ACTION_TYPES.NOTE.SAVE_NOTE,
-  note,
-});
-
 export const toggleEditor = () => ({
   type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
 });
@@ -62,26 +52,15 @@ export const setVisibilityFilter = filter => ({
   filter,
 });
 
-export const toggleNote = note => ({
-  type: ACTION_TYPES.NOTE.TOGGLE_NOTE,
-  note,
-});
-
-export const generateNoteLink = (keys, index) => ({
-  type: ACTION_TYPES.NOTE.GENERATE_LINK,
-  keys,
-  index,
-});
-
 export const changeCardSetting = (prop, value) => ({
   type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
   prop,
   value,
 });
 
-export const editNote = note => ({
+export const editNote = card => ({
   type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
-  note,
+  card,
 });
 
 export const toggleWhiteMode = () => ({

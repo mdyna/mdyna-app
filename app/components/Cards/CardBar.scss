@@ -1,8 +1,5 @@
-$background-color: #333333;
-@import "../../style.scss";
-
 .card-bar {
-  background-color: $background-color;
+  background-color: #333333;
   border-radius: 10px;
   display: flex;
   flex-flow: row nowrap;
@@ -10,38 +7,20 @@ $background-color: #333333;
   opacity: 0.9;
   min-height: 50px;
   margin: -10px 0 10px;
-  padding: 0px 20px;
+  padding: 0px 10px;
   align-items: center;
+  input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   button {
-    border: none !important;
-    box-shadow: none !important;
     svg {
-      border: none;
       border-radius: 0;
-      &.completed {
-        filter: contrast(20%);
-      }
-      &:hover {
-        border: none !important;
-      }
     }
   }
-
-  .share-box {
+  .buttons-container {
     display: flex;
-    flex-direction: column;
-
-    button {
-      position: relative;
-      top: 9px;
-    }
-  }
-
-  .share-box.sharing {
-    button {
-      position: relative;
-      top: 9px;
-    }
   }
 }

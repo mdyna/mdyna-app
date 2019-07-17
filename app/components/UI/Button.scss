@@ -1,34 +1,14 @@
-@import "../../style.scss";
-
 button.button {
   font-weight: bold;
-  padding: 5px !important;
   border-radius: 10px;
+  padding: 5px;
+  margin: 5px 0;
   &.icon {
-    @include normalize-button-icons();
     padding: 20px;
   }
-  &.alt {
-    background-color: $background-color;
-    color: $accent-color;
-    border: 1px solid $accent-color !important;
-    font-weight: bold;
+  svg {
+    margin: 0 5px;
+    vertical-align: middle;
   }
-  &.primary {
-    background-color: $accent-color;
-    color: $background-color;
-    border: 1px solid $background-color !important;
-  }
-  &.white-theme {
-    border: 1px solid $white-secondary-background !important;
-    &.alt {
-      color: $white-background-color;
-      background-color: $white-font-color;
-    }
-    &.primary {
-      color: $white-font-color;
-      background-color: $white-background-color;
-    }
 
-  }
 }

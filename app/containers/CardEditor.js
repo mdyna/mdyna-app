@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CardEditor from '../components/CardEditor';
+import CardEditor from 'Components/CardEditor';
 import {
   changeCardSetting,
   saveCard,
@@ -7,7 +7,8 @@ import {
   removeCard,
   addLabel,
   removeLabel,
-} from '../store/actions/';
+  toggleEditor,
+} from 'Store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -29,13 +30,15 @@ function mapDispatchToProps(dispatch) {
     removeLabel: (card) => {
       dispatch(removeLabel(card));
     },
+    toggleEditor: () => {
+      dispatch(toggleEditor());
+    },
   };
 }
 function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     labels: state.labels,
-    whiteMode: state.style.whiteMode,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CardEditor);

@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import Card from 'grommet/components/Card';
+import { Box } from 'grommet';
 import Button from 'UI/Button';
-import Heading from 'grommet/components/Heading';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
@@ -46,13 +45,15 @@ function minimizeCard(card) {
   card.setState({
     minimized: (card && card.state && !card.state.minimized) || false,
   });
-  setTimeout(() => card.scrollToCard(), 600);
+  card.scrollToCard();
 }
 
 class MdynaCard extends PureComponent {
   state = {
     isHovered: false,
-    minimized: unNest(this.props, 'card.text') && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
+    minimized:
+      unNest(this.props, 'card.text')
+      && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
   };
 
   name = 'Mdyna Card';
@@ -71,7 +72,9 @@ class MdynaCard extends PureComponent {
     const lastEditDateFormatted = convertDateToLocaleString(lastEditDate);
     const startDateFormatted = convertDateToLocaleString(startDate);
     const datesAreDifferent = lastEditDateFormatted !== startDateFormatted;
-    const formattedDate = datesAreDifferent ? lastEditDateFormatted : startDateFormatted;
+    const formattedDate = datesAreDifferent
+      ? lastEditDateFormatted
+      : startDateFormatted;
     return datesAreDifferent ? (
       <span className="card-date">
         Last edit on
@@ -97,14 +100,20 @@ class MdynaCard extends PureComponent {
       changeCardSetting,
       showAllText,
       toggleCard,
+      changeTitle,
       saveCard,
       removeCard,
       editCard,
       removeLabel,
+      addLabelFilter,
+      removeLabelFilter,
+      labelFilters,
     } = this.props;
 
     const { isHovered, minimized } = this.state;
-    const color = (card && card.color) || changeCardSetting('color', _.sample(COLOR_SAMPLES));
+    const labelFuncs = { addLabelFilter, removeLabelFilter };
+    const color = (card && card.color)
+      || changeCardSetting('color', _.sample(COLOR_SAMPLES));
     const minimize = showAllText ? false : minimized;
     const noteActions = {
       toggleCard,
@@ -112,10 +121,11 @@ class MdynaCard extends PureComponent {
       minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
       editCard,
       removeLabel,
+      changeTitle,
     };
     const displayControl = noteActions.minimizeCard && !showAllText;
     return (
-      <Card
+      <Box
         key={i}
         role="button"
         tabIndex={0}
@@ -137,24 +147,29 @@ class MdynaCard extends PureComponent {
         })
         }
         style={{
-          backgroundColor: color || '#4E636E',
-          transition: 'all 0.25s ease-in',
-          filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
+          backgroundColor: color,
+          transition: 'all 0.5s ease-in',
+          filter:
+            (isHovered
+              && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
+            || null,
         }}
       >
-        {hasCardBar ? (
-          <CardBar
-            card={card}
-            cardActions={noteActions}
-            cardItem={this}
-            options={{
-              minimized,
-            }}
-          />
-        ) : (
-          ''
-        )}
-        <Labels labels={card.labels} color={color} />
+        <CardBar
+          card={card}
+          cardActions={hasCardBar ? noteActions : ''}
+          cardItem={this}
+          title={card.title}
+          options={{
+            minimized,
+          }}
+        />
+        <Labels
+          labelFuncs={labelFuncs}
+          labelFilters={labelFilters}
+          labels={card.labels}
+          color={color}
+        />
         {this.renderCardDate()}
         <MarkdownText
           whiteMode={whiteMode}
@@ -172,9 +187,6 @@ class MdynaCard extends PureComponent {
             onClick={() => noteActions.minimizeCard(this)}
             className="card-control"
             style={{
-              opacity: 0.5,
-              borderRadius: '10px',
-              padding: 5,
               height: !displayControl && 0,
               visibility: (displayControl && 'initial') || 'hidden',
             }}
@@ -182,7 +194,7 @@ class MdynaCard extends PureComponent {
             {CardBar.renderCardControl(minimized)}
           </Button>
         }
-      </Card>
+      </Box>
     );
   }
 }
@@ -197,10 +209,14 @@ MdynaCard.propTypes = {
   whiteMode: PropTypes.bool,
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
+  changeTitle: PropTypes.func.isRequired,
+  labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
   changeCardSetting: PropTypes.func,
+  addLabelFilter: PropTypes.func,
+  removeLabelFilter: PropTypes.func,
   i: PropTypes.number,
 };
 
@@ -212,7 +228,10 @@ MdynaCard.defaultProps = {
   editCard: null,
   whiteMode: false,
   showAllText: false,
+  addLabelFilter: null,
+  removeLabelFilter: null,
   removeLabel: null,
+  labelFilters: [],
   toggleCard: null,
   hasCardBar: false,
   className: '',

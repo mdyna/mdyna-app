@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
 import CardItem from '../components/Cards/CardItem';
 import {
-  generateCardLink,
   removeCard,
   toggleCard,
   editCard,
-  completeCard,
-  failCard,
-  snoozeCard,
   addLabel,
   removeLabel,
   changeCardSetting,
+  changeTitle,
   saveCard,
-} from '../store/actions/';
+  addLabelFilter,
+  removeLabelFilter,
+} from '../store/actions';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -21,9 +20,6 @@ function mapDispatchToProps(dispatch) {
     },
     editCard: (card) => {
       dispatch(editCard(card));
-    },
-    generateCardLink: (card, cardId) => {
-      dispatch(generateCardLink(card, cardId));
     },
     toggleCard: (card) => {
       dispatch(toggleCard(card));
@@ -34,27 +30,29 @@ function mapDispatchToProps(dispatch) {
     saveCard: (card) => {
       dispatch(saveCard(card));
     },
-    snoozeCard: (card) => {
-      dispatch(snoozeCard(card));
+    changeTitle: (card, title) => {
+      dispatch(changeTitle(card, title));
     },
-    failCard: (card) => {
-      dispatch(failCard(card));
+    addLabel: (val) => {
+      dispatch(addLabel(val));
     },
-    completeCard: (card) => {
-      dispatch(completeCard(card));
+    removeLabel: (val) => {
+      dispatch(removeLabel(val));
     },
-
-    addLabel: (todoProps) => {
-      dispatch(addLabel(todoProps));
+    addLabelFilter: (val) => {
+      dispatch(addLabelFilter(val));
     },
-    removeLabel: (todoProps) => {
-      dispatch(removeLabel(todoProps));
+    removeLabelFilter: (val) => {
+      dispatch(removeLabelFilter(val));
     },
   };
 }
 
 function mapStateToProps(state) {
-  return { whiteMode: state.style.whiteMode };
+  return { whiteMode: state.style.whiteMode, labelFilters: state.filters.labelFilters };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CardItem);

@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import cx from 'classnames';
-import FolderCycleIcon from 'grommet/components/icons/base/FolderCycle';
+import { FolderCycle } from 'grommet-icons';
+import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 
 import './FolderPicker.scss';
@@ -8,39 +9,43 @@ import './FolderPicker.scss';
 export default class FolderPicker extends PureComponent {
   render() {
     const {
-      onChange, label, value, whiteMode, placeholder,
+      onChange, label, value, placeholder, className,
     } = this.props;
     return (
       <Fragment>
-        <label className={cx('picker', whiteMode && 'white-mode')} htmlFor="folder-picker">
-          <FolderCycleIcon />
-          {label}
+        <label className={cx('picker', className)} htmlFor="folder-picker">
+          <Button>
+            <FolderCycle color="brand" />
+            {label}
+          </Button>
           <input
             id="folder-picker"
             type="file"
             webkitdirectory=""
             style={{ visibility: 'none' }}
-            onChange={e => {onChange(e.target.files[0].path)}}
+            onChange={e => onChange(e.target.files[0].path)}
             placeholder={value}
           />
+          <span>
+            {placeholder}
+          </span>
         </label>
-        {placeholder}
       </Fragment>
     );
   }
 }
 
 FolderPicker.propTypes = {
-  whiteMode: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FolderPicker.defaultProps = {
+  className: '',
   value: '',
-  whiteMode: false,
   label: '',
   placeholder: '',
 };

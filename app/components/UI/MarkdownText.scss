@@ -24,22 +24,22 @@ hue-6-2: #c18401
   }
   code:before {
     content: "`";
-    font-family: Metric;
+    font-family: Helvetica;
   }
   code:after {
     content: "`";
-    font-family: Metric;
+    font-family: Helvetica;
   }
   code {
-    font-family: Metric;
+    font-family: Helvetica;
   }
   pre:before {
     content: "```";
-    font-family: Metric;
+    font-family: Helvetica;
   }
   pre:after {
     content: "```";
-    font-family: Metric;
+    font-family: Helvetica;
   }
   pre {
     code:before {
@@ -48,7 +48,7 @@ hue-6-2: #c18401
     code:after {
       content: "";
     }
-    font-family: Metric;
+    font-family: Helvetica;
   }
   strong:before {
     content: "**";
