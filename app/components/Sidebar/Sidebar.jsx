@@ -28,11 +28,12 @@ import {
   DESCENDING_ORDER,
 } from 'Utils/globals';
 
-import './Sidebar.scss'; // eslint-disable-line
+import './Sidebar.scss';
 
 class Sidebar extends Component {
   state = {
     sortingOptionsExpanded: false,
+    labelFiltersExpanded: false,
   };
 
   getSortingOrder = (targetSorting) => {
@@ -47,6 +48,13 @@ class Sidebar extends Component {
   expandMenu() {
     const { toggleSidebar } = this.props;
     toggleSidebar();
+  }
+
+  expandLabelFilters() {
+    const { labelFiltersExpanded } = this.state;
+    this.setState({
+      labelFiltersExpanded: !labelFiltersExpanded,
+    });
   }
 
   expandSortingOptions() {
@@ -74,7 +82,7 @@ class Sidebar extends Component {
       labels,
       changeCwd,
     } = this.props;
-    const { sortingOptionsExpanded } = this.state;
+    const { sortingOptionsExpanded, labelFiltersExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
@@ -141,6 +149,18 @@ class Sidebar extends Component {
               By Date
             </Button>
           </Collapsible>
+          <Button plain onClick={() => this.expandLabelFilters()}>
+            <Filter color="brand" />
+            <Text className="menu-label">Filter Labels</Text>
+          </Button>
+
+          <Collapsible direction="vertical" open={labelFiltersExpanded}>
+            <LabelFilter
+              labels={labels}
+              labelFilters={labelFilters}
+              labelFilterFuncs={labelFilterFuncs}
+            />
+          </Collapsible>
           <FolderPicker
             label="Change directory"
             placeholder={cwd}
@@ -150,15 +170,6 @@ class Sidebar extends Component {
               ipcRenderer.send('CHANGED-CWD');
             }}
           />
-          <Box direction="column" className="menu-label-filter">
-            <Filter color="brand" />
-            <Text className="menu-label">Filter Labels</Text>
-            <LabelFilter
-              labels={labels}
-              labelFilters={labelFilters}
-              labelFilterFuncs={labelFilterFuncs}
-            />
-          </Box>
           <Box direction="column">
             <Text size="small" className="help">
               Markdown Guide
