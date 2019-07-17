@@ -58,7 +58,9 @@ class Labels extends Component {
           flexFlow: 'row wrap',
         }}
       >
-        {labels && labels.length ? labels.map(arrayLabel => this.renderLabelText(arrayLabel)) : ''}
+        {labels && labels.length
+          ? labels.map(arrayLabel => this.renderLabelText(arrayLabel))
+          : ''}
       </div>
     );
   }
@@ -71,7 +73,7 @@ Labels.propTypes = {
   transparent: PropTypes.bool,
   color: PropTypes.string,
   labelFuncs: PropTypes.object,
-  labelFilters: PropTypes.object,
+  labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   label: PropTypes.object,
 };
 

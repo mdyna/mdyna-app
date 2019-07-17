@@ -51,7 +51,9 @@ function minimizeCard(card) {
 class MdynaCard extends PureComponent {
   state = {
     isHovered: false,
-    minimized: unNest(this.props, 'card.text') && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
+    minimized:
+      unNest(this.props, 'card.text')
+      && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
   };
 
   name = 'Mdyna Card';
@@ -70,7 +72,9 @@ class MdynaCard extends PureComponent {
     const lastEditDateFormatted = convertDateToLocaleString(lastEditDate);
     const startDateFormatted = convertDateToLocaleString(startDate);
     const datesAreDifferent = lastEditDateFormatted !== startDateFormatted;
-    const formattedDate = datesAreDifferent ? lastEditDateFormatted : startDateFormatted;
+    const formattedDate = datesAreDifferent
+      ? lastEditDateFormatted
+      : startDateFormatted;
     return datesAreDifferent ? (
       <span className="card-date">
         Last edit on
@@ -108,7 +112,8 @@ class MdynaCard extends PureComponent {
 
     const { isHovered, minimized } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
-    const color = (card && card.color) || changeCardSetting('color', _.sample(COLOR_SAMPLES));
+    const color = (card && card.color)
+      || changeCardSetting('color', _.sample(COLOR_SAMPLES));
     const minimize = showAllText ? false : minimized;
     const noteActions = {
       toggleCard,
@@ -144,7 +149,10 @@ class MdynaCard extends PureComponent {
         style={{
           backgroundColor: color,
           transition: 'all 0.5s ease-in',
-          filter: (isHovered && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`) || null,
+          filter:
+            (isHovered
+              && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
+            || null,
         }}
       >
         <CardBar
@@ -202,7 +210,7 @@ MdynaCard.propTypes = {
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
   changeTitle: PropTypes.func.isRequired,
-  labelFilters: PropTypes.object,
+  labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
