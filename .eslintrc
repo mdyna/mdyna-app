@@ -23,7 +23,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/forbid-prop-types": "off",
-    "max-len":"off",
+    "max-len": "off"
   },
   "settings": {
     "import/resolver": {
@@ -31,9 +31,9 @@
         "map": [
           ["Containers", "./app/containers"],
           ["Components", "./app/components"],
-          ["Resources", "./resources"],
-          ["Store","./app/store"],
-          ["Utils","./app/utils"],
+          ["Assets", "./app/assets"],
+          ["Store", "./app/store"],
+          ["Utils", "./app/utils"],
           ["UI", "./app/components/UI"]
         ],
         "extensions": [".jsx", ".js"]

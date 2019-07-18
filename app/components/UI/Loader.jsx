@@ -1,12 +1,11 @@
 import React, { Component as PureComponent } from 'react';
-import {Image} from 'grommet';
-import logo from '../../../resources/MdynaLogoCircle.png';
+import logo from 'Assets/MdynaLogo.png';
 
 class Loader extends PureComponent {
-  // <Image src={logo} className="loader" alt="Mdyna" size="small" />
   render() {
     return (
       <React.Fragment>
+        <img src={logo} className="App-logo" alt="Mdyna" />
       </React.Fragment>
     );
   }

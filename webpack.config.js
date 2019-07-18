@@ -9,7 +9,10 @@ module.exports = {
   entry: ['./app/index.js', './app/style.scss', '@babel/polyfill'],
   output: {
     filename: 'index.js',
-    publicPath: process.env.NODE_ENV === 'PROD' ? './' : `http://localhost:${port}/dist/web`,
+    publicPath:
+      process.env.NODE_ENV === 'PROD'
+        ? './'
+        : `http://localhost:${port}/dist/web`,
     path: path.resolve(__dirname, 'dist', 'web'),
   },
   resolve: {
@@ -20,6 +23,7 @@ module.exports = {
       UI: path.resolve(__dirname, 'app/components/UI'),
       Store: path.resolve(__dirname, 'app/store'),
       Utils: path.resolve(__dirname, 'app/utils'),
+      Assets: path.resolve(__dirname, 'app/assets'),
     },
   },
   devtool: 'source-map',
@@ -79,7 +83,10 @@ module.exports = {
         test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
         use: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url-loader?limit=10000&mimetype=image/svg+xml',
+      },
     ],
   },
   plugins: [
