@@ -144,12 +144,12 @@ export default class CardList extends PureComponent {
       && cardItems.length
       && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
-    const BREAKPOINTS = {
+    const BREAKPOINTS = cardComponents && cardComponents.length && {
       default: 3,
-      2000: cardItems.length > 3 ? 4 : cardItems.length,
-      1600: cardItems.length > 2 ? 3 : cardItems.length,
-      1280: cardItems.length > 2 ? 3 : cardItems.length,
-      992: cardItems.length > 1 ? 2 : 1,
+      2000: cardComponents.length > 3 ? 4 : cardComponents.length,
+      1600: cardComponents.length > 2 ? 3 : cardComponents.length,
+      1280: cardComponents.length > 2 ? 3 : cardComponents.length,
+      992: cardComponents.length > 1 ? 2 : 1,
       768: 1,
     };
     return (
