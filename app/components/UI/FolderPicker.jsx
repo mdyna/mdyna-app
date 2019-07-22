@@ -12,12 +12,10 @@ export default class FolderPicker extends PureComponent {
       onChange, label, value, placeholder, className,
     } = this.props;
     return (
-      <Fragment>
+      <Button>
         <label className={cx('picker', className)} htmlFor="folder-picker">
-          <Button>
-            <FolderCycle color="brand" />
-            {label}
-          </Button>
+          <FolderCycle color="brand" />
+          <span>{label}</span>
           <input
             id="folder-picker"
             type="file"
@@ -26,11 +24,9 @@ export default class FolderPicker extends PureComponent {
             onChange={e => onChange(e.target.files[0].path)}
             placeholder={value}
           />
-          <span>
-            {placeholder}
-          </span>
+          <span>{placeholder}</span>
         </label>
-      </Fragment>
+      </Button>
     );
   }
 }
