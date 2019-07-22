@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { snakeCase, startCase, keys } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
@@ -34,9 +34,9 @@ export default class CardEditor extends Component {
           if (settingUiSchema === 'color') {
             return (
               <FormField
-                label={_.startCase(settingName)}
-                htmlFor={_.snakeCase(settingName)}
-                key={_.startCase(settingName)}
+                label={startCase(settingName)}
+                htmlFor={snakeCase(settingName)}
+                key={startCase(settingName)}
                 className="color-form-field"
               >
                 {enums ? (
@@ -82,9 +82,9 @@ export default class CardEditor extends Component {
           return (
             <FormField
               className="form-field"
-              label={_.startCase(settingName)}
-              htmlFor={_.snakeCase(settingName)}
-              key={_.startCase(settingName)}
+              label={startCase(settingName)}
+              htmlFor={snakeCase(settingName)}
+              key={startCase(settingName)}
             >
               <LabelPicker
                 label={settingName}
@@ -103,9 +103,9 @@ export default class CardEditor extends Component {
         return (
           <FormField
             className="form-field"
-            label={_.startCase(settingName)}
-            htmlFor={_.snakeCase(settingName)}
-            key={_.startCase(settingName)}
+            label={startCase(settingName)}
+            htmlFor={snakeCase(settingName)}
+            key={startCase(settingName)}
           >
             <TextInput
               label={settingName}
@@ -119,7 +119,7 @@ export default class CardEditor extends Component {
 
   generateComponentsFromType(definition) {
     const schema = definition.properties;
-    const settings = _.keys(schema);
+    const settings = keys(schema);
     let components = [];
     if (schema && settings) {
       components = this.getSettingsComponent(settings, schema);

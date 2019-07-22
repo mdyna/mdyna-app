@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import { FolderCycle } from 'grommet-icons';
 import Button from 'UI/Button';

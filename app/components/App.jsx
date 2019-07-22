@@ -4,7 +4,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import SearchInput from 'UI/Search';
@@ -36,7 +36,9 @@ class Mdyna extends PureComponent {
     return (
       <Grommet
         className="mdyna-app"
-        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
+        theme={
+          whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
+        }
       >
         <ErrorBoundary>
           <KeyboardEventHandler
@@ -57,7 +59,12 @@ class Mdyna extends PureComponent {
               <SideBar gridArea="menu" {...this.props} />
             </div>
             {cards ? (
-              <CardList gridArea="card-list" cards={cards} order={order} sorting={sorting} />
+              <CardList
+                gridArea="card-list"
+                cards={cards}
+                order={order}
+                sorting={sorting}
+              />
             ) : (
               <Loader />
             )}

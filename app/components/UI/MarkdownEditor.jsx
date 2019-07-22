@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactSMDE from 'react-simplemde-editor';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import snakeCase from 'lodash/snakeCase';
 
 import '!style-loader!css-loader!sass-loader!../../node_modules/simplemde/dist/simplemde.min.css'; // eslint-disable-line
 
@@ -19,7 +19,7 @@ class MarkdownEditor extends PureComponent {
     const { changeNoteSetting, settingName } = this.props;
     const { editorText } = this.state;
     if ((value || value === '') && value !== editorText) {
-      changeNoteSetting(_.snakeCase(settingName), value);
+      changeNoteSetting(snakeCase(settingName), value);
       this.setState({ editorText: value });
     }
   }
