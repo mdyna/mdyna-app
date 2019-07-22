@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TextInput } from 'grommet';
-import _ from 'lodash';
+import { camelCase, snakeCase, startCase } from 'lodash';
 
 const LabelPicker = (props) => {
   const {
@@ -16,7 +16,10 @@ const LabelPicker = (props) => {
     const lastLabelLength = lastLabel.length;
     const userLabels = labels && labels.map(d => d.title);
     return userLabels
-      .filter(d => d.slice(0, lastLabelLength) === lastLabel && inputLabels.indexOf(d) === -1)
+      .filter(
+        d => d.slice(0, lastLabelLength) === lastLabel
+          && inputLabels.indexOf(d) === -1,
+      )
       .slice(0, 5);
   };
 
@@ -24,7 +27,11 @@ const LabelPicker = (props) => {
     const { prefixer, splitters } = schema;
     const settingName = schema.settingName || 'labels';
     const result = [];
-    for (let splitterIndex = 0; splitterIndex < splitters.length; splitterIndex += 1) {
+    for (
+      let splitterIndex = 0;
+      splitterIndex < splitters.length;
+      splitterIndex += 1
+    ) {
       const splitter = splitters[splitterIndex];
       const splitVals = val.split(splitter);
       if (splitVals.length !== labelCount) {
@@ -33,21 +40,24 @@ const LabelPicker = (props) => {
       for (let i = 0; i < splitVals.length; i += 1) {
         const splitVal = splitVals[i].trim();
         if (splitVal && splitter !== splitVal && splitVal !== prefixer) {
-          result.push(`${prefixer}${_.camelCase(splitVal)}`);
+          result.push(`${prefixer}${camelCase(splitVal)}`);
         }
       }
     }
     const newLabels = result.map(d => ({
       title: d,
     }));
-    onChange(_.camelCase(settingName), newLabels);
+    onChange(camelCase(settingName), newLabels);
   };
 
   return (
     <TextInput
       key={label}
-      id={_.snakeCase(label)}
-      suggestions={labels && getSuggestions(labels.map(d => ({ label: d.title, value: d.title })))}
+      id={snakeCase(label)}
+      suggestions={
+        labels
+        && getSuggestions(labels.map(d => ({ label: d.title, value: d.title })))
+      }
       focus={false}
       defaultValue={
         value
@@ -58,16 +68,17 @@ const LabelPicker = (props) => {
           : '#'
       }
       onSelect={(e) => {
-        const selectedValue = `${labelInput.substring(0, labelInput.lastIndexOf(' '))} ${
-          e.suggestion
-        } #`;
+        const selectedValue = `${labelInput.substring(
+          0,
+          labelInput.lastIndexOf(' '),
+        )} ${e.suggestion} #`;
         if (selectedValue) {
           changeStringSplit(setting, selectedValue);
           changeValue(selectedValue);
           e.target.value = selectedValue;
         }
       }}
-      placeHolder={_.startCase(label)}
+      placeHolder={startCase(label)}
       onChange={(e) => {
         if (e.target.value) {
           changeStringSplit(setting, e.target.value);

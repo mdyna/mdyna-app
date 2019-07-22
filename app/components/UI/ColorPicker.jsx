@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Collapsible, Box } from 'grommet';
-import _ from 'lodash';
+import camelCase from 'lodash/camelCase';
 import cx from 'classnames';
 import Button from 'UI/Button';
 import './ColorPicker.scss';
@@ -13,20 +13,23 @@ const Input = (props) => {
   const [colorsExpanded, expandColors] = useState(false);
 
   return (
-    <Box justify="center" border={{ color: 'brand' }} className={cx('color-options', colorsExpanded && 'options-expanded')}>
+    <Box
+      justify="center"
+      border={{ color: 'brand' }}
+      className={cx('color-options', colorsExpanded && 'options-expanded')}
+    >
       <Button onClick={() => expandColors(!colorsExpanded)}>
         Select Color
       </Button>
-      <Collapsible
-        open={colorsExpanded}
-        direction="vertical"
-      >
-        {colors.map((color, index) => (
+      <Collapsible open={colorsExpanded} direction="vertical">
+        {colors.map(color => (
           <svg
-            className={colorsExpanded ? 'options-expanded' : 'options-collapsed'}
+            className={
+              colorsExpanded ? 'options-expanded' : 'options-collapsed'
+            }
             onClick={() => {
               expandColors(!colorsExpanded);
-              onChange(_.camelCase(label), color);
+              onChange(camelCase(label), color);
             }}
             value={value}
             key={color}
@@ -38,7 +41,6 @@ const Input = (props) => {
     </Box>
   );
 };
-
 
 Input.propTypes = {
   label: PropTypes.string,

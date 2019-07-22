@@ -5,7 +5,7 @@ import { Box } from 'grommet';
 import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import _ from 'lodash';
+import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
 import MarkdownText from 'UI/MarkdownText';
 import unNest from 'Utils/nest';
@@ -112,8 +112,7 @@ class MdynaCard extends PureComponent {
 
     const { isHovered, minimized } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
-    const color = (card && card.color)
-      || changeCardSetting('color', _.sample(COLOR_SAMPLES));
+    const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
     const minimize = showAllText ? false : minimized;
     const noteActions = {
       toggleCard,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextInput } from 'grommet';
-import _ from 'lodash';
+import { startCase, snakeCase } from 'lodash';
 
 const Input = (props) => {
   const { label, value, onChange } = props;
@@ -9,9 +9,9 @@ const Input = (props) => {
     <TextInput
       focus={false}
       key={label}
-      id={_.snakeCase(label)}
+      id={snakeCase(label)}
       defaultValue={value || ''}
-      placeHolder={_.startCase(label)}
+      placeHolder={startCase(label)}
       onChange={e => onChange(e.target.value)}
     />
   );
