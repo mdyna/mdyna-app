@@ -10,6 +10,7 @@ import Labels from 'UI/Labels';
 import MarkdownText from 'UI/MarkdownText';
 import unNest from 'Utils/nest';
 import { convertDateToLocaleString } from 'Utils/dates';
+import { FormUp, FormDown } from 'grommet-icons';
 import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
@@ -190,7 +191,11 @@ class MdynaCard extends PureComponent {
               visibility: (displayControl && 'initial') || 'hidden',
             }}
           >
-            {CardBar.renderCardControl(minimized)}
+            {minimized ? (
+              <FormDown className="maximize-icon" />
+            ) : (
+              <FormUp className="minimize-icon" />
+            )}
           </Button>
         }
       </Box>

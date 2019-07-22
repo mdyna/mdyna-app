@@ -31,6 +31,7 @@
     "react-hot-loader": "3.0.0-beta.6",
     "react-keyboard-event-handler": "^1.4.1",
     "react-masonry-css": "https://github.com/dmorais92/react-masonry-css.git",
+    "react-onclickoutside": "^6.8.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "4.1.1",
     "react-showdown": "https://github.com/dmorais92/react-showdown.git",

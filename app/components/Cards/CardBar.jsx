@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Checkmark, Trash, Edit, FormUp, FormDown,
-} from 'grommet-icons';
+import { Checkmark, Trash, Edit } from 'grommet-icons';
 import { TextInput } from 'grommet';
+import onClickOutside from 'react-onclickoutside';
 import tc from 'tinycolor2';
 import Button from 'UI/Button';
 import unNest from 'Utils/nest';
-
 import './CardBar.scss'; // eslint-disable-line
 
 const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
@@ -105,23 +103,20 @@ class CardBar extends PureComponent {
     removeCardFunc(card);
   }
 
-  static renderCardControl(minimized) {
-    return minimized ? (
-      <FormDown className="maximize-icon" />
-    ) : (
-      <FormUp className="minimize-icon" />
-    );
+  handleClickOutside() {
+    const { card, cardActions } = this.props;
+    const { changeTitle } = cardActions;
+    const { currentTitle, editingTitle } = this.state;
+    if (editingTitle) {
+      const newTitle = currentTitle || 'Untitled Card';
+      changeTitle(card, newTitle);
+      this.setState({ editingTitle: false, currentTitle: newTitle });
+    }
   }
 
   render() {
     const { card, cardActions } = this.props;
-    const {
-      editCard,
-      toggleCard,
-      removeCard,
-      // minimizeCard,
-      // generateCardLink,
-    } = cardActions;
+    const { editCard, toggleCard, removeCard } = cardActions;
     return (
       <React.Fragment>
         <div className="card-bar">
@@ -165,7 +160,7 @@ class CardBar extends PureComponent {
   }
 }
 
-export default CardBar;
+export default onClickOutside(CardBar);
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
