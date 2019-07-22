@@ -31,6 +31,65 @@ class CardBar extends PureComponent {
     }
   }
 
+  cardTitleInput() {
+    const { card, cardActions } = this.props;
+    const { changeTitle } = cardActions;
+    const { currentTitle, editingTitle } = this.state;
+
+    return !editingTitle ? (
+      <Button
+        plain
+        style={{
+          color: card.color,
+          width: '100%',
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          this.setState({ editingTitle: true });
+        }}
+        hoverIndicator="dark-1"
+      >
+        {card.title}
+      </Button>
+    ) : (
+      <TextInput
+        style={{
+          padding: 0,
+          borderBottom:
+            editingTitle
+            && (currentTitle !== card.title
+              ? `1px solid ${tc(card.color).brighten(25)}`
+              : `1px solid ${card.color}`),
+          color: card.color,
+        }}
+        ref={this.inputRef}
+        value={currentTitle}
+        onBlur={() => {
+          const newTitle = currentTitle || 'Untitled Card';
+          changeTitle(card, newTitle);
+          this.setState({ editingTitle: false, currentTitle: newTitle });
+        }}
+        onDoubleClick={e => e.stopPropagation()}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13 && editingTitle) {
+            const newTitle = e.target.value || 'Untitled Card';
+            changeTitle(card, newTitle);
+            this.setState({
+              editingTitle: false,
+              currentTitle: newTitle,
+            });
+            this.inputRef.current.blur();
+          }
+        }}
+        className={editingTitle && 'editing'}
+        type="text"
+        onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })
+        }
+        plain
+      />
+    );
+  }
+
   removeCard(card, removeCardFunc, removeLabelFunc) {
     if (card.shortLink) {
       fetch(REMOVE_NOTE_ENDPOINT, {
@@ -56,70 +115,17 @@ class CardBar extends PureComponent {
 
   render() {
     const { card, cardActions } = this.props;
-    const { currentTitle, editingTitle } = this.state;
     const {
       editCard,
       toggleCard,
       removeCard,
-      changeTitle,
       // minimizeCard,
       // generateCardLink,
     } = cardActions;
     return (
       <React.Fragment>
         <div className="card-bar">
-          {!editingTitle ? (
-            <Button
-              plain
-              style={{
-                color: card.color,
-                width: '100%',
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                this.setState({ editingTitle: true });
-              }}
-              hoverIndicator="dark-1"
-            >
-              {card.title}
-            </Button>
-          ) : (
-            <TextInput
-              style={{
-                padding: 0,
-                borderBottom:
-                  editingTitle
-                  && (currentTitle !== card.title
-                    ? `1px solid ${tc(card.color).brighten(25)}`
-                    : `1px solid ${card.color}`),
-                color: card.color,
-              }}
-              ref={this.inputRef}
-              value={currentTitle}
-              onBlur={() => {
-                const newTitle = currentTitle || 'Untitled Card';
-                changeTitle(card, newTitle);
-                this.setState({ editingTitle: false, currentTitle: newTitle });
-              }}
-              onDoubleClick={e => e.stopPropagation()}
-              onKeyDown={(e) => {
-                if (e.keyCode === 13 && editingTitle) {
-                  const newTitle = e.target.value || 'Untitled Card';
-                  changeTitle(card, newTitle);
-                  this.setState({
-                    editingTitle: false,
-                    currentTitle: newTitle,
-                  });
-                  this.inputRef.current.blur();
-                }
-              }}
-              className={editingTitle && 'editing'}
-              type="text"
-              onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })
-              }
-              plain
-            />
-          )}
+          {this.cardTitleInput()}
           {cardActions && (
             <div className="buttons-container">
               <Button hoverIndicator="dark-1" onClick={() => toggleCard(card)}>
