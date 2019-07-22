@@ -7,7 +7,7 @@ const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
-const uniqBy = require('lodash.uniqby');
+const uniqBy = require('lodash/uniqBy');
 
 const { app, BrowserWindow } = electron;
 // Let electron reloads by itself when webpack watches changes in ./app/
