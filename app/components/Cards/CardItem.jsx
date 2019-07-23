@@ -103,7 +103,9 @@ class MdynaCard extends PureComponent {
       toggleCard,
       changeTitle,
       saveCard,
+      isFocused,
       removeCard,
+      focusCard,
       editCard,
       removeLabel,
       addLabelFilter,
@@ -115,28 +117,29 @@ class MdynaCard extends PureComponent {
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
     const minimize = showAllText ? false : minimized;
-    const noteActions = {
+    const cardActions = {
       toggleCard,
       removeCard,
       minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
       editCard,
+      focusCard,
       removeLabel,
       changeTitle,
     };
-    const displayControl = noteActions.minimizeCard && !showAllText;
+    const displayControl = cardActions.minimizeCard && !showAllText;
     return (
       <Box
         key={i}
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
-          noteActions.editCard(card);
+          cardActions.editCard(card);
         }}
         className={classnames(
           className,
           COLOR_LABELS[color],
           'card-item',
-          noteActions.minimizeCard && !minimized && 'expanded',
+          cardActions.minimizeCard && !minimized && 'expanded',
         )}
         onMouseEnter={() => this.setState({
           isHovered: true,
@@ -157,7 +160,8 @@ class MdynaCard extends PureComponent {
       >
         <CardBar
           card={card}
-          cardActions={hasCardBar ? noteActions : ''}
+          isFocused={isFocused}
+          cardActions={hasCardBar ? cardActions : ''}
           cardItem={this}
           title={card.title}
           options={{
@@ -184,7 +188,7 @@ class MdynaCard extends PureComponent {
         />
         {
           <Button
-            onClick={() => noteActions.minimizeCard(this)}
+            onClick={() => cardActions.minimizeCard(this)}
             className="card-control"
             style={{
               height: !displayControl && 0,
@@ -207,6 +211,8 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
+  isFocused: PropTypes.bool.isRequired,
+  focusedCard: PropTypes.object,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
@@ -219,6 +225,7 @@ MdynaCard.propTypes = {
   removeCard: PropTypes.func,
   removeLabel: PropTypes.func,
   changeCardSetting: PropTypes.func,
+  focusCard: PropTypes.func.isRequired,
   addLabelFilter: PropTypes.func,
   removeLabelFilter: PropTypes.func,
   i: PropTypes.number,
@@ -239,4 +246,5 @@ MdynaCard.defaultProps = {
   toggleCard: null,
   hasCardBar: false,
   className: '',
+  focusedCard: {},
 };

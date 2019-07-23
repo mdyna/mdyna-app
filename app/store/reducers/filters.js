@@ -9,7 +9,7 @@ const {
   TOGGLE_COMPLETED_FILTER,
 } = ACTION_TYPES.FILTERS;
 
-export default function notes(
+export default function filters(
   state = {
     searchInput: '',
     completedFilterOn: false,
