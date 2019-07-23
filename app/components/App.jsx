@@ -32,6 +32,7 @@ class Mdyna extends PureComponent {
       toggleEditor,
       searchInput,
       searchCards,
+      isFocused,
     } = this.props;
     return (
       <Grommet
@@ -49,6 +50,7 @@ class Mdyna extends PureComponent {
           />
           <Header />
           <SearchInput
+            hidden={isFocused}
             titles={cards && cards.length && cards.map(c => c.title)}
             onChange={e => searchCards(e)}
             searchBar={this.searchBar}

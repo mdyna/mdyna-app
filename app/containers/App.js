@@ -85,6 +85,7 @@ function mapStateToProps(state) {
   return {
     searchInput: state.filters.searchInput,
     cwd: state.settings.cwd,
+    isFocused: state.filters.isFocused,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
