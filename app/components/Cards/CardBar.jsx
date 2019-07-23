@@ -117,8 +117,10 @@ class CardBar extends PureComponent {
   }
 
   render() {
-    const { card, cardActions } = this.props;
-    const { editCard, toggleCard, removeCard } = cardActions;
+    const { card, cardActions, isFocused } = this.props;
+    const {
+      editCard, toggleCard, removeCard, focusCard,
+    } = cardActions;
     return (
       <React.Fragment>
         <div className="card-bar">
@@ -140,7 +142,10 @@ class CardBar extends PureComponent {
                   }}
                 />
               </Button>
-              <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
+              <Button
+                hoverIndicator="dark-1"
+                onClick={() => focusCard(isFocused ? null : card)}
+              >
                 <Expand color={card.color} />
               </Button>
               <Button
@@ -167,6 +172,7 @@ export default onClickOutside(CardBar);
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
+  isFocused: PropTypes.bool.isRequired,
   cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
     .isRequired,
 };
