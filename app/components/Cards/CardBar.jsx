@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Checkmark, Trash, Edit } from 'grommet-icons';
+import {
+  Checkmark, Trash, Edit, Expand,
+} from 'grommet-icons';
 import { TextInput } from 'grommet';
 import onClickOutside from 'react-onclickoutside';
 import tc from 'tinycolor2';
@@ -136,8 +138,10 @@ class CardBar extends PureComponent {
                   style={{
                     stroke: card.color,
                   }}
-                  className="edit-icon"
                 />
+              </Button>
+              <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
+                <Expand color={card.color} />
               </Button>
               <Button
                 hoverIndicator="dark-1"
@@ -148,7 +152,6 @@ class CardBar extends PureComponent {
                   style={{
                     stroke: card.color,
                   }}
-                  className="close-icon"
                   color={card.color}
                 />
               </Button>
