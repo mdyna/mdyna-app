@@ -151,7 +151,7 @@ class MdynaCard extends PureComponent {
         }
         style={{
           backgroundColor: color,
-          transition: 'all 0.5s ease-in',
+          transition: 'width 0.5s ease-in',
           filter:
             (isHovered
               && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
@@ -212,7 +212,6 @@ export default MdynaCard;
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   isFocused: PropTypes.bool.isRequired,
-  focusedCard: PropTypes.object,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
@@ -246,5 +245,4 @@ MdynaCard.defaultProps = {
   toggleCard: null,
   hasCardBar: false,
   className: '',
-  focusedCard: {},
 };
