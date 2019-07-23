@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Checkmark, Trash, Edit, Expand,
+  Checkmark, Trash, Edit, View,
 } from 'grommet-icons';
 import { TextInput } from 'grommet';
 import onClickOutside from 'react-onclickoutside';
@@ -127,12 +127,12 @@ class CardBar extends PureComponent {
           {this.cardTitleInput()}
           {cardActions && (
             <div className="buttons-container">
-              <Button hoverIndicator="dark-1" onClick={() => toggleCard(card)}>
+              <Button hoverIndicator="dark-1" active={card.completed} onClick={() => toggleCard(card)}>
                 <Checkmark
                   style={{
                     transition: 'all 0.5s',
                   }}
-                  color={card.completed ? 'accent-3' : card.color}
+                  color={card.color}
                 />
               </Button>
               <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
@@ -143,10 +143,12 @@ class CardBar extends PureComponent {
                 />
               </Button>
               <Button
+                active={isFocused}
                 hoverIndicator="dark-1"
                 onClick={() => focusCard(isFocused ? null : card)}
               >
-                <Expand color={card.color} />
+                <View
+                  color={isFocused ? 'accent-3' : card.color}/>
               </Button>
               <Button
                 hoverIndicator="dark-1"
