@@ -90,6 +90,11 @@ export const searchCards = value => ({
     },
   },
 });
+
+export const focusCard = card => ({
+  type: ACTION_TYPES.FILTERS.FOCUS_CARD,
+  card,
+});
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,
   sorting,

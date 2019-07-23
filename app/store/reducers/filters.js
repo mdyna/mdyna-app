@@ -1,6 +1,7 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
 const {
+  FOCUS_CARD,
   SEARCH_CARDS,
   ADD_LABEL_FILTER,
   REMOVE_LABEL_FILTER,
@@ -40,6 +41,12 @@ export default function notes(
         ...state,
         sorting: action.sorting,
         order: action.order || state.order,
+      };
+    case FOCUS_CARD:
+      return {
+        ...state,
+        focusedCard: action.card,
+        isFocused: Boolean(action.card && action.card.id),
       };
     case REMOVE_LABEL_FILTER:
       return {
