@@ -4,7 +4,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import { Add, Previous, Next } from 'grommet-icons';
-import classnames from 'classnames';
+import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 
@@ -137,14 +137,17 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { cards, toggleEditor, searchInput } = this.props;
+    const {
+      cards, toggleEditor, searchInput, isFocused,
+    } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
       && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
     const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
-    const BREAKPOINTS = cardComponents && cardComponents.length && {
+    const BREAKPOINTS = cardComponents
+      && cardComponents.length && {
       default: 3,
       2000: cardComponents.length > 3 ? 4 : cardComponents.length,
       1600: cardComponents.length > 2 ? 3 : cardComponents.length,
@@ -160,7 +163,10 @@ export default class CardList extends PureComponent {
         />
         {cards.length ? (
           <Error>
-            <Box className="card-list-controls" background="dark-1">
+            <Box
+              className={cx('card-list-controls', isFocused && 'hidden')}
+              background="dark-1"
+            >
               <Text align="center" size="xxlarge">
                 INBOX
               </Text>
@@ -171,10 +177,7 @@ export default class CardList extends PureComponent {
                   : '0'}
               </Text>
               <Button
-                className={classnames(
-                  'page-control',
-                  pageIndex === 0 && 'disabled',
-                )}
+                className={cx('page-control', pageIndex === 0 && 'disabled')}
                 type="button"
                 onClick={() => this.getPreviousCards()}
               >
@@ -187,7 +190,7 @@ export default class CardList extends PureComponent {
               <Button
                 onClick={() => this.getNextCards()}
                 type="button"
-                className={classnames('page-control', !hasMore && 'disabled')}
+                className={cx('page-control', !hasMore && 'disabled')}
               >
                 <KeyboardEventHandler
                   handleKeys={['right']}
@@ -235,6 +238,7 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
+  isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {

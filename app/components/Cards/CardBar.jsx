@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Checkmark, Trash, Edit } from 'grommet-icons';
+import {
+  Checkmark, Trash, Edit, View,
+} from 'grommet-icons';
 import { TextInput } from 'grommet';
 import onClickOutside from 'react-onclickoutside';
 import tc from 'tinycolor2';
@@ -115,20 +117,22 @@ class CardBar extends PureComponent {
   }
 
   render() {
-    const { card, cardActions } = this.props;
-    const { editCard, toggleCard, removeCard } = cardActions;
+    const { card, cardActions, isFocused } = this.props;
+    const {
+      editCard, toggleCard, removeCard, focusCard,
+    } = cardActions;
     return (
       <React.Fragment>
         <div className="card-bar">
           {this.cardTitleInput()}
           {cardActions && (
             <div className="buttons-container">
-              <Button hoverIndicator="dark-1" onClick={() => toggleCard(card)}>
+              <Button hoverIndicator="dark-1" active={card.completed} onClick={() => toggleCard(card)}>
                 <Checkmark
                   style={{
                     transition: 'all 0.5s',
                   }}
-                  color={card.completed ? 'accent-3' : card.color}
+                  color={card.color}
                 />
               </Button>
               <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
@@ -136,8 +140,15 @@ class CardBar extends PureComponent {
                   style={{
                     stroke: card.color,
                   }}
-                  className="edit-icon"
                 />
+              </Button>
+              <Button
+                active={isFocused}
+                hoverIndicator="dark-1"
+                onClick={() => focusCard(isFocused ? null : card)}
+              >
+                <View
+                  color={isFocused ? 'accent-3' : card.color}/>
               </Button>
               <Button
                 hoverIndicator="dark-1"
@@ -148,7 +159,6 @@ class CardBar extends PureComponent {
                   style={{
                     stroke: card.color,
                   }}
-                  className="close-icon"
                   color={card.color}
                 />
               </Button>
@@ -164,6 +174,7 @@ export default onClickOutside(CardBar);
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
+  isFocused: PropTypes.bool.isRequired,
   cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
     .isRequired,
 };

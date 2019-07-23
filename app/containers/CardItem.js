@@ -8,6 +8,7 @@ import {
   removeLabel,
   changeCardSetting,
   changeTitle,
+  focusCard,
   saveCard,
   addLabelFilter,
   removeLabelFilter,
@@ -45,11 +46,18 @@ function mapDispatchToProps(dispatch) {
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));
     },
+    focusCard: (card) => {
+      dispatch(focusCard(card));
+    },
   };
 }
 
 function mapStateToProps(state) {
-  return { whiteMode: state.style.whiteMode, labelFilters: state.filters.labelFilters };
+  return {
+    isFocused: state.filters.isFocused,
+    whiteMode: state.style.whiteMode,
+    labelFilters: state.filters.labelFilters,
+  };
 }
 
 export default connect(
