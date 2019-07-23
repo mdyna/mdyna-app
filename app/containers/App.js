@@ -8,6 +8,7 @@ import {
   addLabelFilter,
   changeCwd,
   removeLabelFilter,
+  focusCard,
   changeSorting,
   toggleCompletedFilter,
 } from 'Store/actions/';
@@ -32,6 +33,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleEditor: () => {
       dispatch(toggleEditor());
+    },
+    focusCard: () => {
+      dispatch(focusCard(false));
     },
     searchCards: (val) => {
       dispatch(searchCards(val));

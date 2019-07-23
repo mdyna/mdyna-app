@@ -15,6 +15,7 @@ import MdynaPalette from '../themes/mdyna.palette.json';
 import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
+import { focusCard } from '../store/actions';
 
 class Mdyna extends PureComponent {
   debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
@@ -22,7 +23,6 @@ class Mdyna extends PureComponent {
   searchBar = React.createRef();
 
   render() {
-    // eslint-disable-next-line
     const {
       cards,
       order,
@@ -32,6 +32,7 @@ class Mdyna extends PureComponent {
       toggleEditor,
       searchInput,
       searchCards,
+      focusCard,
       isFocused,
     } = this.props;
     return (
@@ -43,10 +44,12 @@ class Mdyna extends PureComponent {
       >
         <ErrorBoundary>
           <KeyboardEventHandler
-            handleKeys={['ctrl+p']}
-            onKeyEvent={() => {
-              setTimeout(() => this.searchBar.current.focus(), 300);
-            }}
+            handleKeys={['ctrl+p', 'esc']}
+            onKeyEvent={key =>
+              isFocused
+                ? key === 'esc' && focusCard(null)
+                : key === 'ctrl+p' && this.searchBar.current.focus()
+            }
           />
           <Header />
           <SearchInput
