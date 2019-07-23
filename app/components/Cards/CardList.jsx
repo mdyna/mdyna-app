@@ -4,7 +4,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import { Add, Previous, Next } from 'grommet-icons';
-import classnames from 'classnames';
+import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 
@@ -137,7 +137,7 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { cards, toggleEditor, searchInput } = this.props;
+    const { cards, toggleEditor, searchInput, isFocused } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -160,7 +160,7 @@ export default class CardList extends PureComponent {
         />
         {cards.length ? (
           <Error>
-            <Box className="card-list-controls" background="dark-1">
+            <Box className={cx('card-list-controls', isFocused && 'hidden')} background="dark-1">
               <Text align="center" size="xxlarge">
                 INBOX
               </Text>
@@ -171,7 +171,7 @@ export default class CardList extends PureComponent {
                   : '0'}
               </Text>
               <Button
-                className={classnames(
+                className={cx(
                   'page-control',
                   pageIndex === 0 && 'disabled',
                 )}
@@ -187,7 +187,7 @@ export default class CardList extends PureComponent {
               <Button
                 onClick={() => this.getNextCards()}
                 type="button"
-                className={classnames('page-control', !hasMore && 'disabled')}
+                className={cx('page-control', !hasMore && 'disabled')}
               >
                 <KeyboardEventHandler
                   handleKeys={['right']}
@@ -235,6 +235,7 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
+  isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {

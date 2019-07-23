@@ -62,6 +62,7 @@ class Mdyna extends PureComponent {
             </div>
             {cards ? (
               <CardList
+                isFocused={Boolean(isFocused)}
                 gridArea="card-list"
                 cards={cards}
                 order={order}

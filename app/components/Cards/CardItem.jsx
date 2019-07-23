@@ -160,7 +160,7 @@ class MdynaCard extends PureComponent {
       >
         <CardBar
           card={card}
-          isFocused={isFocused}
+          isFocused={Boolean(isFocused)}
           cardActions={hasCardBar ? cardActions : ''}
           cardItem={this}
           title={card.title}

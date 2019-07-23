@@ -18,6 +18,11 @@
     flex-flow: row nowrap;
     transition: all 0.5s;
     margin: 0 5px 5px;
+    height: 60px;
+    &.hidden {
+      opacity: 0;
+      height: 0;
+    }
     span {
       &.disabled {
         font-size: 0;
