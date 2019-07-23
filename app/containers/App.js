@@ -55,24 +55,32 @@ function sortCards(cards, sorting, order) {
   const sortingType = `${sorting}-${order}`;
   switch (sortingType) {
     case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
-      return cards.sort((a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]));
+      return cards.sort(
+        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
+      );
     case `${SORTING_BY_DATE}-${ASCENDING_ORDER}`:
-      return cards.sort((a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]));
+      return cards.sort(
+        (a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]),
+      );
     case `${SORTING_BY_TITLE}-${ASCENDING_ORDER}`:
       return cards.sort((a, b) => a.title.localeCompare(b.title));
     case `${SORTING_BY_TITLE}-${DESCENDING_ORDER}`:
       return cards.sort((a, b) => b.title.localeCompare(a.title));
     default:
-      return cards.sort((a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]));
+      return cards.sort(
+        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
+      );
   }
 }
 
 function mapStateToProps(state) {
-  const sortedCards = sortCards(
-    state.cards,
-    (state.filters && state.filters.sorting) || SORTING_BY_DATE,
-    (state.filters && state.filters.order) || DESCENDING_ORDER,
-  );
+  const cards = state.filters.isFocused
+    ? [state.filters.focusedCard]
+    : sortCards(
+      state.cards,
+      (state.filters && state.filters.sorting) || SORTING_BY_DATE,
+      (state.filters && state.filters.order) || DESCENDING_ORDER,
+    );
 
   return {
     searchInput: state.filters.searchInput,
@@ -85,7 +93,7 @@ function mapStateToProps(state) {
     order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
-    cards: sortedCards,
+    cards,
   };
 }
 
