@@ -59,6 +59,10 @@
   tr {
     color: $note-font-color !important;
   }
+  td {
+    min-width: 100px;
+    word-break: break-word;
+  }
 
   ol,
   ul {
