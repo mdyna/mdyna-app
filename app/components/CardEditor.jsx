@@ -3,34 +3,20 @@ import { snakeCase, startCase, keys } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
-import Error from 'UI/Error';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
 import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
+import CardPreview from 'Containers/CardPreview';
+import validateFields from './Cards/CardValidation';
+import cardDefinition from './Cards/definition.json';
 
 // import noteValidator from './noteValidator';
-import cardDefinition from './Cards/definition.json';
 
 import './CardEditor.scss';
 
 export default class CardEditor extends Component {
-  static validateFields(targetFields) {
-    if (targetFields && targetFields.title) {
-      if (targetFields.title.length > 20) {
-        return Error.throwError('Title can only have 20 characters');
-      }
-      if (!targetFields.text) {
-        return Error.throwError('Your card cannot be empty');
-      }
-    } else {
-      return Error.throwError('Title is required');
-    }
-    return true;
-  }
-
   state = {
     // eslint-disable-next-line
     labels: this.props.editorSettings.labels,
@@ -166,7 +152,7 @@ export default class CardEditor extends Component {
 
   submitFormFields() {
     const { editorSettings, addCard, toggleEditor } = this.props;
-    if (CardEditor.validateFields(editorSettings)) {
+    if (validateFields(editorSettings)) {
       this.handleLabels();
       toggleEditor();
       const newCard = { ...editorSettings, startDate: new Date() };
