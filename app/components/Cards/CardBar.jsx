@@ -5,12 +5,12 @@ import {
 } from 'grommet-icons';
 import { TextInput } from 'grommet';
 import onClickOutside from 'react-onclickoutside';
+import { toast } from 'react-toastify';
 import tc from 'tinycolor2';
 import Button from 'UI/Button';
 import unNest from 'Utils/nest';
+import validateFields from './CardValidation';
 import './CardBar.scss'; // eslint-disable-line
-
-const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 class CardBar extends PureComponent {
   state = {
@@ -45,7 +45,7 @@ class CardBar extends PureComponent {
         }}
         onClick={(e) => {
           e.preventDefault();
-          this.setState({ editingTitle: true });
+          this.setState({ editingTitle: Boolean(changeTitle), currentTitle: card.title });
         }}
         hoverIndicator="dark-1"
       >
@@ -64,21 +64,21 @@ class CardBar extends PureComponent {
         }}
         ref={this.inputRef}
         value={currentTitle}
-        onBlur={() => {
-          const newTitle = currentTitle || 'Untitled Card';
-          changeTitle(card, newTitle);
-          this.setState({ editingTitle: false, currentTitle: newTitle });
-        }}
         onDoubleClick={e => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.keyCode === 13 && editingTitle) {
-            const newTitle = e.target.value || 'Untitled Card';
-            changeTitle(card, newTitle);
-            this.setState({
-              editingTitle: false,
-              currentTitle: newTitle,
-            });
-            this.inputRef.current.blur();
+            const newTitle = e.target.value;
+            if (validateFields({ ...card, title: newTitle }) && changeTitle) {
+              changeTitle(card, newTitle);
+              this.setState({
+                editingTitle: false,
+                currentTitle: newTitle,
+              });
+              this.inputRef.current.blur();
+            } else {
+              this.setState({ editingTitle: false, currentTitle: card.title });
+              this.inputRef.current.blur();
+            }
           }
         }}
         className={editingTitle && 'editing'}
@@ -91,16 +91,6 @@ class CardBar extends PureComponent {
   }
 
   removeCard(card, removeCardFunc, removeLabelFunc) {
-    if (card.shortLink) {
-      fetch(REMOVE_NOTE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(card),
-      }).catch(error => console.error(error));
-    }
     this.handleLabels(removeLabelFunc);
     removeCardFunc(card);
   }
@@ -110,9 +100,14 @@ class CardBar extends PureComponent {
     const { changeTitle } = cardActions;
     const { currentTitle, editingTitle } = this.state;
     if (editingTitle) {
-      const newTitle = currentTitle || 'Untitled Card';
-      changeTitle(card, newTitle);
-      this.setState({ editingTitle: false, currentTitle: newTitle });
+      const newTitle = currentTitle;
+
+      if (validateFields({ ...card, title: newTitle }) && changeTitle) {
+        changeTitle(card, newTitle);
+        this.setState({ editingTitle: false, currentTitle: newTitle });
+      } else {
+        this.setState({ editingTitle: false, currentTitle: card.title });
+      }
     }
   }
 
@@ -127,7 +122,11 @@ class CardBar extends PureComponent {
           {this.cardTitleInput()}
           {cardActions && (
             <div className="buttons-container">
-              <Button hoverIndicator="dark-1" active={card.completed} onClick={() => toggleCard(card)}>
+              <Button
+                hoverIndicator="dark-1"
+                active={card.completed}
+                onClick={() => toggleCard(card)}
+              >
                 <Checkmark
                   style={{
                     transition: 'all 0.5s',
@@ -145,10 +144,14 @@ class CardBar extends PureComponent {
               <Button
                 active={isFocused}
                 hoverIndicator="dark-1"
-                onClick={() => focusCard(isFocused ? null : card)}
+                onClick={() => {
+                  focusCard(isFocused ? null : card);
+                  if (!isFocused) {
+                    toast.info('Press ESC to show all cards');
+                  }
+                }}
               >
-                <View
-                  color={isFocused ? 'accent-3' : card.color}/>
+                <View color={isFocused ? 'accent-3' : card.color} />
               </Button>
               <Button
                 hoverIndicator="dark-1"

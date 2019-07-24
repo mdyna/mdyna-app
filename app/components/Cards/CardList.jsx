@@ -8,7 +8,6 @@ import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 
-import Error from 'UI/Error';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -162,7 +161,7 @@ export default class CardList extends PureComponent {
           onKeyEvent={() => toggleEditor(true)}
         />
         {cards.length ? (
-          <Error>
+          <React.Fragment>
             <Box
               className={cx('card-list-controls', isFocused && 'hidden')}
               background="dark-1"
@@ -216,7 +215,7 @@ export default class CardList extends PureComponent {
                 </Text>
               </Box>
             )}
-          </Error>
+          </React.Fragment>
         ) : (
           <Box alignSelf="center" align="center" className="no-notes-box">
             {this.renderAddNoteButton()}

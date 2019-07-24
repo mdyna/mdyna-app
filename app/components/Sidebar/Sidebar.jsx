@@ -8,7 +8,6 @@ import {
   Brush,
   FormNext,
   FormPrevious,
-  Search,
   Up,
   Descend as Sort,
   FolderCycle,
@@ -217,16 +216,6 @@ class Sidebar extends Component {
               </Button>
             )}
           </Box>
-          <Tooltip
-            icon={<Search color="brand" />}
-            title="Search"
-            className="sidebar-tooltip"
-            text="Hotkey: Ctrl+P"
-            onClick={() => {
-              this.expandMenu();
-              setTimeout(() => this.searchBar.current.componentRef.focus(), 300);
-            }}
-          />
           <Tooltip
             icon={<Brush color="brand" />}
             className="sidebar-tooltip"

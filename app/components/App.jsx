@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Grommet, Box, Layer } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
@@ -9,6 +10,7 @@ import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
+import 'react-toastify/dist/ReactToastify.css';
 import ThemeBuilder from '../themes/themeBuilder';
 
 import MdynaPalette from '../themes/mdyna.palette.json';
@@ -42,6 +44,12 @@ class Mdyna extends PureComponent {
           whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
         }
       >
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+        />
         <ErrorBoundary>
           <KeyboardEventHandler
             handleKeys={['ctrl+p', 'esc']}

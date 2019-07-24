@@ -1,44 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
-
-import './Error.scss';
+import { toast } from 'react-toastify';
+import { Alert } from 'grommet-icons';
 
 class ErrorBoundary extends React.Component {
-  state = { hasError: false, closed: true };
-
   static getDerivedStateFromError(error) {
     return { error };
   }
 
+  static throwError(error) {
+    toast.error(
+      <React.Fragment>
+        <Alert />
+        {' '}
+        {error}
+      </React.Fragment>,
+    );
+  }
+
+  state = {
+    hasError: false,
+  };
+
   componentDidCatch() {
     this.setState({
       hasError: true,
-      closed: false,
-    });
-    setTimeout(() => this.closeToast(), 3000);
-  }
-
-  closeToast() {
-    this.setState({
-      closed: true,
     });
   }
 
   render() {
-    const { hasError, closed } = this.state;
+    const { hasError } = this.state;
     const { children } = this.props;
 
     if (hasError) {
-      // You can render any custom fallback UI
-      return (
+      toast.error(
         <React.Fragment>
-          <div className={cx('error-boundary', closed && 'closed')}>
-            <h3>Something went wrong :(</h3>
-          </div>
-          {children}
-        </React.Fragment>
+          <Alert />
+          Something Went Wrong
+        </React.Fragment>,
       );
+      return children;
     }
 
     return children;
@@ -48,7 +49,10 @@ class ErrorBoundary extends React.Component {
 export default ErrorBoundary;
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 ErrorBoundary.defaultProps = {

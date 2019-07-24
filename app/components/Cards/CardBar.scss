@@ -16,6 +16,9 @@
   }
 
   button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     svg {
       border-radius: 0;
     }
