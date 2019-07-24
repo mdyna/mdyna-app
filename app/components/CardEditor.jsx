@@ -3,8 +3,8 @@ import { snakeCase, startCase, keys } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
+import Error from 'UI/Error';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import ErrorBoundary from 'UI/Error';
 import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
@@ -17,6 +17,20 @@ import cardDefinition from './Cards/definition.json';
 import './CardEditor.scss';
 
 export default class CardEditor extends Component {
+  static validateFields(targetFields) {
+    if (targetFields && targetFields.title) {
+      if (targetFields.title.length > 20) {
+        return Error.throwError('Title can only have 20 characters');
+      }
+      if (!targetFields.text) {
+        return Error.throwError('Your card cannot be empty');
+      }
+    } else {
+      return Error.throwError('Title is required');
+    }
+    return true;
+  }
+
   state = {
     // eslint-disable-next-line
     labels: this.props.editorSettings.labels,
@@ -152,13 +166,15 @@ export default class CardEditor extends Component {
 
   submitFormFields() {
     const { editorSettings, addCard, toggleEditor } = this.props;
-    this.handleLabels();
-    toggleEditor();
-    const newCard = { ...editorSettings, startDate: new Date() };
-    if (editorSettings.newCard) {
-      addCard(newCard);
-    } else {
-      this.updateCard(editorSettings);
+    if (CardEditor.validateFields(editorSettings)) {
+      this.handleLabels();
+      toggleEditor();
+      const newCard = { ...editorSettings, startDate: new Date() };
+      if (editorSettings.newCard) {
+        addCard(newCard);
+      } else {
+        this.updateCard(editorSettings);
+      }
     }
   }
 
@@ -189,35 +205,33 @@ export default class CardEditor extends Component {
   render() {
     const { editorSettings, toggleEditor } = this.props;
     return (
-      <ErrorBoundary>
-        <Box
-          direction="column"
-          alignContent="center"
-          pad="large"
-          className="card-editor"
-          full="horizontal"
-        >
-          <KeyboardEventHandler
-            handleKeys={['ctrl+enter']}
-            onKeyEvent={() => this.submitFormFields()}
-          />
-          <Box className="header">
-            <Text align="center" size="xxlarge">
-              {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
-            </Text>
-            <Button onClick={() => this.submitFormFields()}>Save Card</Button>
-            <Button
-              color="accent-2"
-              className="discard-btn"
-              hoverIndicator="accent-2"
-              onClick={() => toggleEditor()}
-            >
-              X
-            </Button>
-          </Box>
-          {this.generateComponentsFromType(cardDefinition)}
+      <Box
+        direction="column"
+        alignContent="center"
+        pad="large"
+        className="card-editor"
+        full="horizontal"
+      >
+        <KeyboardEventHandler
+          handleKeys={['ctrl+enter']}
+          onKeyEvent={() => this.submitFormFields()}
+        />
+        <Box className="header">
+          <Text align="center" size="xxlarge">
+            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+          </Text>
+          <Button onClick={() => this.submitFormFields()}>Save Card</Button>
+          <Button
+            color="accent-2"
+            className="discard-btn"
+            hoverIndicator="accent-2"
+            onClick={() => toggleEditor()}
+          >
+            X
+          </Button>
         </Box>
-      </ErrorBoundary>
+        {this.generateComponentsFromType(cardDefinition)}
+      </Box>
     );
   }
 }
