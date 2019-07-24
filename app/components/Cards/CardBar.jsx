@@ -11,7 +11,6 @@ import Button from 'UI/Button';
 import unNest from 'Utils/nest';
 import './CardBar.scss'; // eslint-disable-line
 
-const REMOVE_NOTE_ENDPOINT = `${window.serverHost}/removeNote/`;
 
 class CardBar extends PureComponent {
   state = {
@@ -92,16 +91,6 @@ class CardBar extends PureComponent {
   }
 
   removeCard(card, removeCardFunc, removeLabelFunc) {
-    if (card.shortLink) {
-      fetch(REMOVE_NOTE_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(card),
-      }).catch(error => console.error(error));
-    }
     this.handleLabels(removeLabelFunc);
     removeCardFunc(card);
   }
