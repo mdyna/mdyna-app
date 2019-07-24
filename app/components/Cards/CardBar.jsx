@@ -5,6 +5,7 @@ import {
 } from 'grommet-icons';
 import { TextInput } from 'grommet';
 import onClickOutside from 'react-onclickoutside';
+import { toast } from 'react-toastify';
 import tc from 'tinycolor2';
 import Button from 'UI/Button';
 import unNest from 'Utils/nest';
@@ -145,10 +146,14 @@ class CardBar extends PureComponent {
               <Button
                 active={isFocused}
                 hoverIndicator="dark-1"
-                onClick={() => focusCard(isFocused ? null : card)}
+                onClick={() => {
+                  focusCard(isFocused ? null : card);
+                  if (!isFocused) {
+                    toast.info('Press ESC to show all cards');
+                  }
+                }}
               >
-                <View
-                  color={isFocused ? 'accent-3' : card.color}/>
+                <View color={isFocused ? 'accent-3' : card.color} />
               </Button>
               <Button
                 hoverIndicator="dark-1"
