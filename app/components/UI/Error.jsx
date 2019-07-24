@@ -4,11 +4,23 @@ import { toast } from 'react-toastify';
 import { Alert } from 'grommet-icons';
 
 class ErrorBoundary extends React.Component {
-  state = { hasError: false };
-
   static getDerivedStateFromError(error) {
     return { error };
   }
+
+  static throwError(error) {
+    toast.error(
+      <React.Fragment>
+        <Alert />
+        {' '}
+        {error}
+      </React.Fragment>,
+    );
+  }
+
+  state = {
+    hasError: false,
+  };
 
   componentDidCatch() {
     this.setState({
@@ -27,7 +39,7 @@ class ErrorBoundary extends React.Component {
           Something Went Wrong
         </React.Fragment>,
       );
-      return <React.Fragment>{children}</React.Fragment>;
+      return children;
     }
 
     return children;
