@@ -5,7 +5,12 @@ class AppHeader extends PureComponent {
   render() {
     return (
       <header>
-        <img src={logo} className="App-logo" alt="Mdyna" />
+        <img
+          src={logo}
+          style={{ maxWidth: '50vw', margin: '0 auto' }}
+          className="App-logo"
+          alt="Mdyna"
+        />
       </header>
     );
   }
