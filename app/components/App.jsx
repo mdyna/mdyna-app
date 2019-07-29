@@ -8,6 +8,7 @@ import Header from 'UI/Header';
 import debounce from 'lodash/debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
+import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
@@ -41,6 +42,7 @@ class Mdyna extends PureComponent {
       searchCards,
       focusCard,
       isFocused,
+      toggleSettings,
     } = this.props;
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
@@ -95,11 +97,17 @@ class Mdyna extends PureComponent {
                 right: '14px',
               }}
               full
-              onEsc={() => toggleEditor()}
+              onEsc={() => {
+                if (modalMode === 'editor') {
+                  toggleEditor();
+                } else if (modalMode === 'settings') {
+                  toggleSettings();
+                }
+              }}
               className="note-layer"
             >
               {modalMode === 'editor' && <CardEditor />}
-              {modalMode === 'settings' && <CardEditor />}
+              {modalMode === 'settings' && <Settings />}
             </Layer>
           ) : (
             ''
