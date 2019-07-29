@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import App from 'Components/App';
+import Settings from 'Components/Settings';
 import { toggleWhiteMode, changeCwd, toggleSettings } from 'Store/actions/';
 
 function mapDispatchToProps(dispatch) {
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(Settings);

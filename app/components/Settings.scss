@@ -1,0 +1,32 @@
+.settings {
+  padding: 20px;
+  button {
+    align-self: flex-end;
+    margin: 5px;
+    display: flex;
+    &.discard-btn {
+      border: 1px solid #8b0f19 !important;
+      padding: 5px 20px;
+    }
+    span {
+      font-size: 24px;
+    }
+  }
+  .settings-container {
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    button {
+      width: 75%;
+      border: 1px solid;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .tip-icon {
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
