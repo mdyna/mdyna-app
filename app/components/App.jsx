@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import debounce from 'lodash/debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
@@ -25,8 +24,6 @@ function getModalMode(editor, settings) {
 }
 
 class Mdyna extends PureComponent {
-  debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
-
   searchBar = React.createRef();
 
   render() {
