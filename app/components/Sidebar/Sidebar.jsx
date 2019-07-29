@@ -160,7 +160,6 @@ class Sidebar extends Component {
               Keyboard Shortcuts
               <Tooltip text={TooltipData.keyboard.text} title={TooltipData.keyboard.title} />
             </Text>
-            <Text size="small">{window.appVersion}</Text>
           </Box>
         </Box>
       </Collapsible>
