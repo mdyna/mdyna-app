@@ -13,6 +13,7 @@ import {
   FolderCycle,
   AddCircle,
   Checkmark,
+  Configure,
 } from 'grommet-icons';
 import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
@@ -150,7 +151,8 @@ class Sidebar extends Component {
             </Button>
           </Collapsible>
           <Button plain onClick={() => toggleSettings()}>
-              Editor
+            <Configure color="brand" />
+            <Text className="menu-label">Settings</Text>
           </Button>
           <Button plain onClick={() => this.expandLabelFilters()}>
             <Filter color="brand" />
@@ -195,6 +197,7 @@ class Sidebar extends Component {
       sidebarExpanded,
       toggleSidebar,
       toggleWhiteMode,
+      toggleSettings,
       toggleEditor,
       toggleCompletedFilter,
       completedFilterOn,
@@ -258,7 +261,17 @@ class Sidebar extends Component {
             text="Open sorting options"
             onClick={() => {
               this.expandMenu();
-              setTimeout(() => this.expandSortingOptions(), 300);
+              this.expandSortingOptions();
+            }}
+          />
+          <Tooltip
+            className={classnames('sidebar-tooltip')}
+            icon={<Configure color="brand" />}
+            title="Settings"
+            text="Open mdyna settings UI"
+            onClick={() => {
+              this.expandMenu();
+              toggleSettings();
             }}
           />
           <Tooltip
