@@ -19,6 +19,10 @@ import WhitePalette from '../themes/mdyna-white.palette.json';
 import './App.scss';
 import { focusCard } from '../store/actions';
 
+function getModalMode(editor, settings) {
+  return (editor && 'editor') || (settings && 'settings') || false;
+}
+
 class Mdyna extends PureComponent {
   debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
 
@@ -29,6 +33,7 @@ class Mdyna extends PureComponent {
       cards,
       order,
       sorting,
+      settingsModal,
       whiteMode,
       modalOpen,
       toggleEditor,
@@ -37,6 +42,7 @@ class Mdyna extends PureComponent {
       focusCard,
       isFocused,
     } = this.props;
+    const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
         className="mdyna-app"
@@ -83,7 +89,7 @@ class Mdyna extends PureComponent {
               <Loader />
             )}
           </Box>
-          {modalOpen ? (
+          {modalMode ? (
             <Layer
               margin={{
                 right: '14px',
@@ -92,7 +98,8 @@ class Mdyna extends PureComponent {
               onEsc={() => toggleEditor()}
               className="note-layer"
             >
-              <CardEditor />
+              {modalMode === 'editor' && <CardEditor />}
+              {modalMode === 'settings' && <CardEditor />}
             </Layer>
           ) : (
             ''

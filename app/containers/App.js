@@ -10,6 +10,7 @@ import {
   removeLabelFilter,
   focusCard,
   changeSorting,
+  toggleSettings,
   toggleCompletedFilter,
 } from 'Store/actions/';
 import { convertToTime } from 'Utils/dates';
@@ -24,6 +25,9 @@ function mapDispatchToProps(dispatch) {
   return {
     changeCwd: (cwd) => {
       dispatch(changeCwd(cwd));
+    },
+    toggleSettings: () => {
+      dispatch(toggleSettings());
     },
     toggleWhiteMode: () => {
       dispatch(toggleWhiteMode());
@@ -94,6 +98,7 @@ function mapStateToProps(state) {
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
+    settingsModal: state.settings.settingsModal,
     sorting: state.filters.sorting || SORTING_BY_DATE,
     order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,

@@ -47,6 +47,10 @@ export const toggleEditor = () => ({
   type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
 });
 
+export const toggleSettings = () => ({
+  type: ACTION_TYPES.TOGGLE_SETTINGS,
+});
+
 export const setVisibilityFilter = filter => ({
   type: ACTION_TYPES.SET_VISIBILITY_FILTER,
   filter,

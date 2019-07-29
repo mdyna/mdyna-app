@@ -74,6 +74,7 @@ class Sidebar extends Component {
       sidebarExpanded,
       toggleWhiteMode,
       toggleEditor,
+      toggleSettings,
       toggleCompletedFilter,
       completedFilterOn,
       sorting,
@@ -148,6 +149,9 @@ class Sidebar extends Component {
               By Date
             </Button>
           </Collapsible>
+          <Button plain onClick={() => toggleSettings()}>
+              Editor
+          </Button>
           <Button plain onClick={() => this.expandLabelFilters()}>
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
