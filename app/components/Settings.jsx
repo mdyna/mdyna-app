@@ -6,7 +6,15 @@ import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
-import { Brush, Configure } from 'grommet-icons';
+import {
+  Brush,
+  Configure,
+  Globe,
+  ChatOption,
+  Github,
+  Twitter,
+  MailOption,
+} from 'grommet-icons';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
@@ -34,16 +42,41 @@ class Settings extends PureComponent {
           X
         </Button>
         <ErrorBoundary>
-          <Box direction="row" justify="start" responsive>
+          <Box direction="row" justify="center" responsive>
             <Box direction="column">
               <Header />
-              <Text size="xxlarge">Mdyna</Text>
-              <Text>
-                version:
-                {window.appVersion}
+              <Text size="xxlarge" as="h1">
+                Mdyna
               </Text>
-
-              <Text>Created by David Morais</Text>
+              <Text>{window.appVersion}</Text>
+              <Text size="large" color="brand">
+                <a href="https://mdyna.dev">
+                  <Globe color="brand" />
+                  Website
+                </a>
+              </Text>
+              <Text size="large" color="brand">
+                <ChatOption color="brand" />
+                <a href="https://spectrum.chat/mdyna/">Community</a>
+              </Text>
+              <Text size="large" color="brand">
+                <Github color="brand" />
+                <a href="https://github.com/mdyna/mdyna-app/">Github</a>
+              </Text>
+              <Box align="center" direction="column">
+                <Text>Created by David Morais</Text>
+                <Text size="medium">
+                  <a href="https://twitter.com/Psybork">
+                    <Twitter color="brand" />
+                  </a>
+                  <a href="https://github.com/dmorais92">
+                    <Github color="brand" />
+                  </a>
+                  <a href="mailto:davidmorais92@gmail.com">
+                    <MailOption color="brand" />
+                  </a>
+                </Text>
+              </Box>
             </Box>
             <Box
               direction="column"
