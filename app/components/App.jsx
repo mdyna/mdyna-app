@@ -5,9 +5,9 @@ import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import debounce from 'lodash/debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
+import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,9 +19,11 @@ import WhitePalette from '../themes/mdyna-white.palette.json';
 import './App.scss';
 import { focusCard } from '../store/actions';
 
-class Mdyna extends PureComponent {
-  debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
+function getModalMode(editor, settings) {
+  return (editor && 'editor') || (settings && 'settings') || false;
+}
 
+class Mdyna extends PureComponent {
   searchBar = React.createRef();
 
   render() {
@@ -29,6 +31,7 @@ class Mdyna extends PureComponent {
       cards,
       order,
       sorting,
+      settingsModal,
       whiteMode,
       modalOpen,
       toggleEditor,
@@ -36,7 +39,9 @@ class Mdyna extends PureComponent {
       searchCards,
       focusCard,
       isFocused,
+      toggleSettings,
     } = this.props;
+    const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
         className="mdyna-app"
@@ -83,16 +88,23 @@ class Mdyna extends PureComponent {
               <Loader />
             )}
           </Box>
-          {modalOpen ? (
+          {modalMode ? (
             <Layer
               margin={{
                 right: '14px',
               }}
               full
-              onEsc={() => toggleEditor()}
+              onEsc={() => {
+                if (modalMode === 'editor') {
+                  toggleEditor();
+                } else if (modalMode === 'settings') {
+                  toggleSettings();
+                }
+              }}
               className="note-layer"
             >
-              <CardEditor />
+              {modalMode === 'editor' && <CardEditor />}
+              {modalMode === 'settings' && <Settings />}
             </Layer>
           ) : (
             ''

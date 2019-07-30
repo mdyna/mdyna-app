@@ -5,19 +5,17 @@ import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
   Filter,
-  Brush,
   FormNext,
   FormPrevious,
   Up,
   Descend as Sort,
-  FolderCycle,
   AddCircle,
   Checkmark,
+  Configure,
 } from 'grommet-icons';
 import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
-import FolderPicker from 'UI/FolderPicker';
 import LabelFilter from 'UI/LabelFilter';
 import TooltipData from 'UI/tooltipsContent';
 import {
@@ -65,21 +63,18 @@ class Sidebar extends Component {
 
   collapsibleSidebar() {
     const {
-      whiteMode,
       labelFilters,
       changeSorting,
       addLabelFilter,
-      cwd,
       removeLabelFilter,
       sidebarExpanded,
-      toggleWhiteMode,
       toggleEditor,
+      toggleSettings,
       toggleCompletedFilter,
       completedFilterOn,
       sorting,
       order,
       labels,
-      changeCwd,
     } = this.props;
     const { sortingOptionsExpanded, labelFiltersExpanded } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
@@ -87,14 +82,6 @@ class Sidebar extends Component {
     return (
       <Collapsible direction="horizontal" open={sidebarExpanded}>
         <Box direction="column" align="end">
-          <Button
-            onClick={() => {
-              toggleWhiteMode(!whiteMode);
-            }}
-          >
-            <Brush color="brand" />
-            <Text className="menu-label">{whiteMode ? 'Dark Theme' : 'Light Theme'}</Text>
-          </Button>
           <Button
             onClick={() => {
               toggleEditor(true);
@@ -148,6 +135,10 @@ class Sidebar extends Component {
               By Date
             </Button>
           </Collapsible>
+          <Button plain onClick={() => toggleSettings()}>
+            <Configure color="brand" />
+            <Text className="menu-label">Settings</Text>
+          </Button>
           <Button plain onClick={() => this.expandLabelFilters()}>
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
@@ -160,15 +151,6 @@ class Sidebar extends Component {
               labelFilterFuncs={labelFilterFuncs}
             />
           </Collapsible>
-          <FolderPicker
-            label="Change directory"
-            placeholder={cwd}
-            className="menu-label"
-            onChange={(value) => {
-              changeCwd(value);
-              ipcRenderer.send('CHANGED-CWD');
-            }}
-          />
           <Box direction="column">
             <Text size="small" className="help">
               Markdown Guide
@@ -178,7 +160,6 @@ class Sidebar extends Component {
               Keyboard Shortcuts
               <Tooltip text={TooltipData.keyboard.text} title={TooltipData.keyboard.title} />
             </Text>
-            <Text size="small">{window.appVersion}</Text>
           </Box>
         </Box>
       </Collapsible>
@@ -187,10 +168,9 @@ class Sidebar extends Component {
 
   render() {
     const {
-      whiteMode,
       sidebarExpanded,
       toggleSidebar,
-      toggleWhiteMode,
+      toggleSettings,
       toggleEditor,
       toggleCompletedFilter,
       completedFilterOn,
@@ -216,15 +196,6 @@ class Sidebar extends Component {
               </Button>
             )}
           </Box>
-          <Tooltip
-            icon={<Brush color="brand" />}
-            className="sidebar-tooltip"
-            title="Set theme"
-            text={`Switch to ${whiteMode ? 'dark' : 'white'} theme`}
-            onClick={() => {
-              toggleWhiteMode(!whiteMode);
-            }}
-          />
           <Tooltip
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
@@ -254,16 +225,16 @@ class Sidebar extends Component {
             text="Open sorting options"
             onClick={() => {
               this.expandMenu();
-              setTimeout(() => this.expandSortingOptions(), 300);
+              this.expandSortingOptions();
             }}
           />
           <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
-            icon={<FolderCycle color="brand" />}
-            title="Change Cards Directory"
-            text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
+            className={classnames('sidebar-tooltip')}
+            icon={<Configure color="brand" />}
+            title="Settings"
+            text="Open mdyna settings UI"
             onClick={() => {
-              this.expandMenu();
+              toggleSettings();
             }}
           />
           <Tooltip
@@ -290,11 +261,8 @@ Sidebar.propTypes = {
   completedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
-  toggleWhiteMode: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
-  cwd: PropTypes.string,
-  changeCwd: PropTypes.func.isRequired,
-  whiteMode: PropTypes.bool,
+  toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
   sorting: PropTypes.string,
   order: PropTypes.string,
@@ -302,12 +270,10 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-  whiteMode: false,
   labelFilters: [],
   sidebarExpanded: false,
   completedFilterOn: false,
   sorting: SORTING_BY_DATE,
-  cwd: '',
   order: DESCENDING_ORDER,
   labels: [],
 };

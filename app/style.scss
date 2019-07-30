@@ -9,16 +9,24 @@ $note-font-color: #333333dd;
 
 @mixin breakpoint($point) {
   @if $point == xl {
-    @media (min-width: 1024px) { @content; }
-  }
-  @else if $point == large {
-    @media (min-width: 992px) and (max-width: 1024px) { @content; }
-  }
-  @else if $point == medium {
-    @media (min-width: 768px) and (max-width: 992px) { @content; }
-  }
-  @else if $point == small {
-    @media (max-width: 768px)  { @content; }
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $point == large {
+    @media (min-width: 992px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $point == medium {
+    @media (min-width: 768px) and (max-width: 992px) {
+      @content;
+    }
+  } @else if $point == small {
+    @media (max-width: 768px) {
+      @content;
+    }
   }
 }
 
+a {
+  color: currentColor;
+}

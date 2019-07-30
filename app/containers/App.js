@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 import App from 'Components/App';
 import {
-  toggleWhiteMode,
   toggleSidebar,
   toggleEditor,
   searchCards,
   addLabelFilter,
-  changeCwd,
   removeLabelFilter,
   focusCard,
   changeSorting,
+  toggleSettings,
   toggleCompletedFilter,
 } from 'Store/actions/';
 import { convertToTime } from 'Utils/dates';
@@ -22,11 +21,8 @@ import {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeCwd: (cwd) => {
-      dispatch(changeCwd(cwd));
-    },
-    toggleWhiteMode: () => {
-      dispatch(toggleWhiteMode());
+    toggleSettings: () => {
+      dispatch(toggleSettings());
     },
     toggleSidebar: () => {
       dispatch(toggleSidebar());
@@ -88,12 +84,12 @@ function mapStateToProps(state) {
 
   return {
     searchInput: state.filters.searchInput,
-    cwd: state.settings.cwd,
     isFocused: state.filters.isFocused,
     labelFilters: state.filters.labelFilters,
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
+    settingsModal: state.settings.settingsModal,
     sorting: state.filters.sorting || SORTING_BY_DATE,
     order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,
