@@ -8,7 +8,6 @@ import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 
-
 import './CardList.scss'; // eslint-disable-line
 
 const PAGE_SIZE = 6;
@@ -55,11 +54,14 @@ export default class CardList extends PureComponent {
     const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
       if (labels) {
-        for (let i = 0; i < labels.length; i += 1) {
-          if (labelFilters.indexOf(labels[i]) !== -1) {
-            return true;
+        let labelMatches = 0;
+
+        for (let i = 0; i < labelFilters.length; i += 1) {
+          if (labels.indexOf(labelFilters[i]) !== -1) {
+            labelMatches += 1;
           }
         }
+        return labelMatches === labelFilters.length;
       }
       return false;
     }
