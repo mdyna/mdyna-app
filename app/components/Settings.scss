@@ -1,5 +1,8 @@
 .settings {
   padding: 20px;
+  img {
+    width: 500px;
+  }
   button {
     align-self: flex-end;
     margin: 5px;
@@ -12,15 +15,26 @@
       font-size: 24px;
     }
   }
+  svg {
+    margin: 0px 15px;
+  }
   .settings-container {
     border-radius: 10px;
     padding: 20px;
     margin-top: 20px;
+    min-width: 50vw;
+    h1 {
+      margin: 20px 0px;
+      svg {
+        width: 32px;
+        vertical-align: top;
+        height: 32px;
+      }
+    }
     button {
-      width: 75%;
       border: 1px solid;
       align-items: center;
-      justify-content: flex-end;
+      align-self: flex-start;
     }
     .tip-icon {
       svg {

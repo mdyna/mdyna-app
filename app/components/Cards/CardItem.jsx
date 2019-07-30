@@ -211,7 +211,7 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
-  isFocused: PropTypes.bool.isRequired,
+  isFocused: PropTypes.bool,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
@@ -236,6 +236,7 @@ MdynaCard.defaultProps = {
   removeCard: null,
   saveCard: null,
   editCard: null,
+  isFocused: false,
   whiteMode: false,
   showAllText: false,
   addLabelFilter: null,

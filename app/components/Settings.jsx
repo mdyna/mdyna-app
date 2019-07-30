@@ -6,19 +6,7 @@ import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
-import {
-  Filter,
-  Brush,
-  FormNext,
-  FormPrevious,
-  Up,
-  Descend as Sort,
-  FolderCycle,
-  AddCircle,
-  Checkmark,
-  Configure,
-} from 'grommet-icons';
-import classnames from 'classnames';
+import { Brush, Configure } from 'grommet-icons';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
@@ -34,53 +22,55 @@ class Settings extends PureComponent {
       changeCwd,
       cwd,
     } = this.props;
+    const newTheme = whiteMode ? 'dark' : 'white';
     return (
       <Box className="settings" direction="column">
-        <Box direction="row" justify="between">
-          <Text size="xxlarge">Settings</Text>
-          <Button
-            color="accent-2"
-            className="discard-btn"
-            hoverIndicator="accent-2"
-            onClick={() => toggleSettings()}
-          >
-            X
-          </Button>
-        </Box>
+        <Button
+          color="accent-2"
+          className="discard-btn"
+          hoverIndicator="accent-2"
+          onClick={() => toggleSettings()}
+        >
+          X
+        </Button>
         <ErrorBoundary>
-          <Box
-            direction="row"
-            justify="start"
-            background="dark-2"
-            responsive
-            className="settings-container"
-          >
+          <Box direction="row" justify="start" responsive>
             <Box direction="column">
               <Header />
-              Mdyna version
-              <Text size="small">{window.appVersion}</Text>
-              Created by David Morais
+              <Text size="xxlarge">Mdyna</Text>
+              <Text>
+                version:
+                {window.appVersion}
+              </Text>
+
+              <Text>Created by David Morais</Text>
             </Box>
-            <Box direction="column">
+            <Box
+              direction="column"
+              background="dark-2"
+              className="settings-container"
+            >
+              <Text size="xxlarge" as="h1">
+                <Configure color="brand" />
+                Settings
+              </Text>
               <Button
                 color="brand"
                 onClick={() => {
+                  toast.success(`Switched to ${newTheme} theme`);
                   toggleWhiteMode(!whiteMode);
                 }}
               >
                 <Tooltip
                   icon={<Brush color="brand" />}
                   title="Set theme"
-                  text={`Switch to ${whiteMode ? 'dark' : 'white'} theme`}
+                  text={`Switch to ${newTheme} theme`}
                   onClick={() => {
+                    toast.success(`Switched to ${newTheme}`);
                     toggleWhiteMode(!whiteMode);
                   }}
                 />
-                <Text>
-                  Switch to
-                  {' '}
-                  {whiteMode ? 'Dark Theme' : 'Light Theme'}
-                </Text>
+                <Text>{`Switch to ${newTheme} theme`}</Text>
               </Button>
 
               <FolderPicker
@@ -103,7 +93,6 @@ class Settings extends PureComponent {
 Settings.propTypes = {
   whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
-  settingsModal: PropTypes.bool,
   toggleSettings: PropTypes.func,
   toggleWhiteMode: PropTypes.func,
   cwd: PropTypes.string,
@@ -112,7 +101,6 @@ Settings.propTypes = {
 Settings.defaultProps = {
   whiteMode: false,
   changeCwd: null,
-  settingsModal: true,
   toggleSettings: null,
   toggleWhiteMode: false,
   cwd: '',
