@@ -56,5 +56,6 @@ workflows:
             branches:
               only:
                 - master
+                - prod
             tags:
               only: /^v.*/
