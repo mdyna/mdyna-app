@@ -12,6 +12,7 @@ export const getLocalState = () => {
       whiteMode: settings && settings.whiteMode,
     },
     settings: {
+      cardsPerPage: settings && settings.cardsPerPage,
       cwd: settings && settings.cwd,
     },
   };

@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 import Settings from 'Components/Settings';
-import { toggleWhiteMode, changeCwd, toggleSettings } from 'Store/actions/';
+import {
+  toggleWhiteMode,
+  changeCwd,
+  toggleSettings,
+  changeCardsPerPage,
+} from 'Store/actions/';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -13,6 +18,9 @@ function mapDispatchToProps(dispatch) {
     toggleWhiteMode: () => {
       dispatch(toggleWhiteMode());
     },
+    changeCardsPerPage: (val) => {
+      dispatch(changeCardsPerPage(val));
+    },
   };
 }
 
@@ -21,6 +29,7 @@ function mapStateToProps(state) {
     cwd: state.settings.cwd,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
+    cardsPerPage: state.settings.cardsPerPage,
   };
 }
 

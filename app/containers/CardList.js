@@ -15,6 +15,7 @@ function mapStateToProps(state) {
     completedFilterOn: state.filters.completedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     labelFilters: state.filters.labelFilters,
+    cardsPerPage: state.settings.cardsPerPage,
   };
 }
 

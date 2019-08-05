@@ -1,9 +1,9 @@
 {
-  "brand": "#8eb1a9",
+  "brand": "#111",
   "background": "#fafafa",
-  "text": "#8eb1a9",
-  "accent": ["#4c7263", "#a10000", "#19b6c2"],
+  "text": "#111",
+  "accent": ["#ffffffaa", "#a10000", "#19b6c2"],
   "neutral": ["#333333", "#dddddd"],
-  "dark": ["#1d202c", "#1d202c", "#dadada"],
+  "dark": ["#b9b9b9", "#1de9b657", "#dadada"],
   "light": ["#dadada", "#bdbdbd"]
 }

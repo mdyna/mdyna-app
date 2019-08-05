@@ -32,6 +32,19 @@
         height: 32px;
       }
     }
+    h2 {
+      margin: 15px 10px;
+      svg {
+        width: 24px;
+        vertical-align: middle;
+        height: 24px;
+      }
+    }
+    .settings-section {
+      border-bottom: 1px solid;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
     button {
       border: 1px solid;
       align-items: center;

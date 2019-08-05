@@ -10,8 +10,6 @@ import Button from 'UI/Button';
 
 import './CardList.scss'; // eslint-disable-line
 
-const PAGE_SIZE = 6;
-
 export default class CardList extends PureComponent {
   state = {
     pageView: 1,
@@ -19,32 +17,34 @@ export default class CardList extends PureComponent {
   };
 
   componentDidUpdate() {
-    const { cards } = this.props;
+    const { cards, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+      && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
   }
 
   getNextCards() {
+    const { cardsPerPage } = this.props;
     const { pageIndex, pageView } = this.state;
 
     this.setState({
       pageView: pageView + 1,
-      pageIndex: pageIndex + PAGE_SIZE,
+      pageIndex: pageIndex + cardsPerPage,
     });
   }
 
   getPreviousCards() {
+    const { cardsPerPage } = this.props;
     const { pageIndex, pageView } = this.state;
-    const newPageIndex = pageIndex - PAGE_SIZE;
+    const newPageIndex = pageIndex - cardsPerPage;
     if (newPageIndex >= 0) {
       this.setState({
-        pageIndex: pageIndex - PAGE_SIZE,
+        pageIndex: pageIndex - cardsPerPage,
         pageView: pageView - 1,
       });
     }
@@ -139,14 +139,18 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      cards, toggleEditor, searchInput, isFocused,
+      cards,
+      toggleEditor,
+      searchInput,
+      isFocused,
+      cardsPerPage,
     } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
-    const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
+      && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
+    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     const BREAKPOINTS = cardComponents
       && cardComponents.length && {
       default: 3,
@@ -174,7 +178,7 @@ export default class CardList extends PureComponent {
               {this.renderAddNoteButton()}
               <Text align="center" size="medium">
                 {cardItems && cardItems.length
-                  ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}`
+                  ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
                   : '0'}
               </Text>
               <Button
@@ -239,11 +243,13 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
+  cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {
   completedFilterOn: false,
+  cardsPerPage: 8,
   labelFilters: [],
   searchInput: '',
   cards: [],
