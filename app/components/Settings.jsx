@@ -14,6 +14,7 @@ import {
   Github,
   Twitter,
   MailOption,
+  Note,
 } from 'grommet-icons';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
@@ -25,13 +26,13 @@ const renderAppInfo = () => (
   <Box direction="column">
     <Header />
     <Text size="xxlarge" as="h1">
-        Mdyna
+      Mdyna
     </Text>
     <Text>{window.appVersion}</Text>
     <Text size="large" color="brand">
       <a href="https://mdyna.dev">
         <Globe color="brand" />
-          Website
+        Website
       </a>
     </Text>
     <Text size="large" color="brand">
@@ -90,34 +91,45 @@ class Settings extends PureComponent {
                 <Configure color="brand" />
                 Settings
               </Text>
-              <Button
-                color="brand"
-                onClick={() => {
-                  toast.success(`Switched to ${newTheme} theme`);
-                  toggleWhiteMode(!whiteMode);
-                }}
-              >
-                <Tooltip
-                  icon={<Brush color="brand" />}
-                  title="Set theme"
-                  text={`Switch to ${newTheme} theme`}
+              <Text size="large" as="h2">
+                <Brush color="brand" />
+                Appearence
+              </Text>
+              <Box direction="row" className="settings-section">
+                <Button
+                  color="brand"
                   onClick={() => {
-                    toast.success(`Switched to ${newTheme}`);
+                    toast.success(`Switched to ${newTheme} theme`);
                     toggleWhiteMode(!whiteMode);
                   }}
+                >
+                  <Tooltip
+                    icon={<Brush color="brand" />}
+                    title="Set theme"
+                    text={`Switch to ${newTheme} theme`}
+                    onClick={() => {
+                      toast.success(`Switched to ${newTheme}`);
+                      toggleWhiteMode(!whiteMode);
+                    }}
+                  />
+                  <Text>{`Switch to ${newTheme} theme`}</Text>
+                </Button>
+              </Box>
+              <Text size="large" as="h2">
+                <Note color="brand" />
+                Cards
+              </Text>
+              <Box direction="row" className="settings-section">
+                <FolderPicker
+                  label="Change directory"
+                  placeholder={cwd}
+                  className="menu-label"
+                  onChange={(value) => {
+                    changeCwd(value);
+                    ipcRenderer.send('CHANGED-CWD');
+                  }}
                 />
-                <Text>{`Switch to ${newTheme} theme`}</Text>
-              </Button>
-
-              <FolderPicker
-                label="Change directory"
-                placeholder={cwd}
-                className="menu-label"
-                onChange={(value) => {
-                  changeCwd(value);
-                  ipcRenderer.send('CHANGED-CWD');
-                }}
-              />
+              </Box>
             </Box>
           </Box>
         </ErrorBoundary>
