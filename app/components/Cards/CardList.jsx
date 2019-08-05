@@ -10,7 +10,6 @@ import Button from 'UI/Button';
 
 import './CardList.scss'; // eslint-disable-line
 
-
 export default class CardList extends PureComponent {
   state = {
     pageView: 1,
@@ -30,7 +29,8 @@ export default class CardList extends PureComponent {
   }
 
   getNextCards() {
-    const { pageIndex, pageView, cardsPerPage } = this.state;
+    const { cardsPerPage } = this.props;
+    const { pageIndex, pageView } = this.state;
 
     this.setState({
       pageView: pageView + 1,
@@ -39,7 +39,8 @@ export default class CardList extends PureComponent {
   }
 
   getPreviousCards() {
-    const { pageIndex, pageView, cardsPerPage } = this.state;
+    const { cardsPerPage } = this.props;
+    const { pageIndex, pageView } = this.state;
     const newPageIndex = pageIndex - cardsPerPage;
     if (newPageIndex >= 0) {
       this.setState({
@@ -138,7 +139,11 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      cards, toggleEditor, searchInput, isFocused, cardsPerPage,
+      cards,
+      toggleEditor,
+      searchInput,
+      isFocused,
+      cardsPerPage,
     } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
