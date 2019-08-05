@@ -51,6 +51,11 @@ export const toggleSettings = () => ({
   type: ACTION_TYPES.TOGGLE_SETTINGS,
 });
 
+export const changeCardsPerPage = value => ({
+  type: ACTION_TYPES.TOGGLE_SETTINGS,
+  payload: value,
+});
+
 export const setVisibilityFilter = filter => ({
   type: ACTION_TYPES.SET_VISIBILITY_FILTER,
   filter,
