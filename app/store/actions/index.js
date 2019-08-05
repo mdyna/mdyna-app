@@ -52,7 +52,7 @@ export const toggleSettings = () => ({
 });
 
 export const changeCardsPerPage = value => ({
-  type: ACTION_TYPES.TOGGLE_SETTINGS,
+  type: ACTION_TYPES.CHANGE_CPP,
   payload: value,
 });
 

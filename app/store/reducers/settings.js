@@ -26,7 +26,7 @@ function settingsReducer(
     case CHANGE_CPP:
       return {
         ...state,
-        cardsPerPage: !action.payload,
+        cardsPerPage: action.payload,
       };
     default:
       return state;

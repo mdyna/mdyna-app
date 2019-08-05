@@ -65,6 +65,8 @@ class Settings extends PureComponent {
       whiteMode,
       toggleSettings,
       toggleWhiteMode,
+      cardsPerPage,
+      changeCardsPerPage,
       changeCwd,
       cwd,
     } = this.props;
@@ -115,9 +117,9 @@ class Settings extends PureComponent {
                   <Text>{`Switch to ${newTheme} theme`}</Text>
                 </Button>
                 <Select
-                  options={['small', 'medium', 'large']}
-                  value="3"
-                  onChange={({ option }) => console.log(option)}
+                  options={['2', '4', '8', '10']}
+                  value={String(cardsPerPage)}
+                  onChange={({ option }) => changeCardsPerPage(Number(option))}
                 />
               </Box>
               <Text size="large" as="h2">
@@ -149,14 +151,18 @@ Settings.propTypes = {
   toggleSettings: PropTypes.func,
   toggleWhiteMode: PropTypes.func,
   cwd: PropTypes.string,
+  changeCardsPerPage: PropTypes.func,
+  cardsPerPage: PropTypes.number,
 };
 
 Settings.defaultProps = {
   whiteMode: false,
+  changeCardsPerPage: null,
   changeCwd: null,
   toggleSettings: null,
   toggleWhiteMode: false,
   cwd: '',
+  cardsPerPage: 8,
 };
 
 export default Settings;

@@ -29,7 +29,7 @@ function mapStateToProps(state) {
     cwd: state.settings.cwd,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
-    changeCardsPerPage: state.settings.changeCardsPerPage,
+    cardsPerPage: state.settings.cardsPerPage,
   };
 }
 
