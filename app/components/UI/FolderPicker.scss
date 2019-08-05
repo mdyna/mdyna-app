@@ -1,6 +1,9 @@
 label.picker {
+  margin: 5px 0 40px 0;
+
   #folder-picker {
     visibility: hidden;
+    position: absolute;
   }
   text-align: right;
   border-radius: 10px;
@@ -12,7 +15,9 @@ label.picker {
     vertical-align: text-bottom;
   }
   span {
-    position: relative;
-    bottom: 25px;
+    margin: 0 20px;
+  }
+  .placeholder {
+    font-size: 1em;
   }
 }

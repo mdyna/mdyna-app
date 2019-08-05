@@ -4,15 +4,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import { Add, Previous, Next } from 'grommet-icons';
-import classnames from 'classnames';
+import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 
-import Error from 'UI/Error';
-
 import './CardList.scss'; // eslint-disable-line
-
-const PAGE_SIZE = 6;
 
 export default class CardList extends PureComponent {
   state = {
@@ -21,32 +17,34 @@ export default class CardList extends PureComponent {
   };
 
   componentDidUpdate() {
-    const { cards } = this.props;
+    const { cards, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
+      && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
     if (!cardComponents || !cardComponents.length) {
       this.getPreviousCards();
     }
   }
 
   getNextCards() {
+    const { cardsPerPage } = this.props;
     const { pageIndex, pageView } = this.state;
 
     this.setState({
       pageView: pageView + 1,
-      pageIndex: pageIndex + PAGE_SIZE,
+      pageIndex: pageIndex + cardsPerPage,
     });
   }
 
   getPreviousCards() {
+    const { cardsPerPage } = this.props;
     const { pageIndex, pageView } = this.state;
-    const newPageIndex = pageIndex - PAGE_SIZE;
+    const newPageIndex = pageIndex - cardsPerPage;
     if (newPageIndex >= 0) {
       this.setState({
-        pageIndex: pageIndex - PAGE_SIZE,
+        pageIndex: pageIndex - cardsPerPage,
         pageView: pageView - 1,
       });
     }
@@ -56,11 +54,14 @@ export default class CardList extends PureComponent {
     const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
       if (labels) {
-        for (let i = 0; i < labels.length; i += 1) {
-          if (labelFilters.indexOf(labels[i]) !== -1) {
-            return true;
+        let labelMatches = 0;
+
+        for (let i = 0; i < labelFilters.length; i += 1) {
+          if (labels.indexOf(labelFilters[i]) !== -1) {
+            labelMatches += 1;
           }
         }
+        return labelMatches === labelFilters.length;
       }
       return false;
     }
@@ -137,14 +138,21 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { cards, toggleEditor, searchInput } = this.props;
+    const {
+      cards,
+      toggleEditor,
+      searchInput,
+      isFocused,
+      cardsPerPage,
+    } = this.props;
     const { pageIndex, pageView } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
-      && cardItems.slice(pageIndex, pageIndex + PAGE_SIZE);
-    const hasMore = cardItems && cardItems.length > pageIndex + PAGE_SIZE;
-    const BREAKPOINTS = cardComponents && cardComponents.length && {
+      && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
+    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+    const BREAKPOINTS = cardComponents
+      && cardComponents.length && {
       default: 3,
       2000: cardComponents.length > 3 ? 4 : cardComponents.length,
       1600: cardComponents.length > 2 ? 3 : cardComponents.length,
@@ -159,22 +167,22 @@ export default class CardList extends PureComponent {
           onKeyEvent={() => toggleEditor(true)}
         />
         {cards.length ? (
-          <Error>
-            <Box className="card-list-controls" background="dark-1">
+          <React.Fragment>
+            <Box
+              className={cx('card-list-controls', isFocused && 'hidden')}
+              background="dark-1"
+            >
               <Text align="center" size="xxlarge">
                 INBOX
               </Text>
               {this.renderAddNoteButton()}
               <Text align="center" size="medium">
                 {cardItems && cardItems.length
-                  ? `${pageView}/${Math.ceil(cardItems.length / PAGE_SIZE)}`
+                  ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
                   : '0'}
               </Text>
               <Button
-                className={classnames(
-                  'page-control',
-                  pageIndex === 0 && 'disabled',
-                )}
+                className={cx('page-control', pageIndex === 0 && 'disabled')}
                 type="button"
                 onClick={() => this.getPreviousCards()}
               >
@@ -187,7 +195,7 @@ export default class CardList extends PureComponent {
               <Button
                 onClick={() => this.getNextCards()}
                 type="button"
-                className={classnames('page-control', !hasMore && 'disabled')}
+                className={cx('page-control', !hasMore && 'disabled')}
               >
                 <KeyboardEventHandler
                   handleKeys={['right']}
@@ -213,7 +221,7 @@ export default class CardList extends PureComponent {
                 </Text>
               </Box>
             )}
-          </Error>
+          </React.Fragment>
         ) : (
           <Box alignSelf="center" align="center" className="no-notes-box">
             {this.renderAddNoteButton()}
@@ -235,10 +243,13 @@ CardList.propTypes = {
   labelFilters: PropTypes.array,
   completedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
+  cardsPerPage: PropTypes.number,
+  isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {
   completedFilterOn: false,
+  cardsPerPage: 8,
   labelFilters: [],
   searchInput: '',
   cards: [],

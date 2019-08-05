@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { snakeCase, startCase, keys } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import ErrorBoundary from 'UI/Error';
-import CardPreview from 'Containers/CardPreview';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
 import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
+import CardPreview from 'Containers/CardPreview';
+import validateFields from './Cards/CardValidation';
+import cardDefinition from './Cards/definition.json';
 
 // import noteValidator from './noteValidator';
-import cardDefinition from './Cards/definition.json';
 
 import './CardEditor.scss';
 
@@ -34,9 +34,9 @@ export default class CardEditor extends Component {
           if (settingUiSchema === 'color') {
             return (
               <FormField
-                label={_.startCase(settingName)}
-                htmlFor={_.snakeCase(settingName)}
-                key={_.startCase(settingName)}
+                label={startCase(settingName)}
+                htmlFor={snakeCase(settingName)}
+                key={startCase(settingName)}
                 className="color-form-field"
               >
                 {enums ? (
@@ -82,9 +82,9 @@ export default class CardEditor extends Component {
           return (
             <FormField
               className="form-field"
-              label={_.startCase(settingName)}
-              htmlFor={_.snakeCase(settingName)}
-              key={_.startCase(settingName)}
+              label={startCase(settingName)}
+              htmlFor={snakeCase(settingName)}
+              key={startCase(settingName)}
             >
               <LabelPicker
                 label={settingName}
@@ -103,9 +103,9 @@ export default class CardEditor extends Component {
         return (
           <FormField
             className="form-field"
-            label={_.startCase(settingName)}
-            htmlFor={_.snakeCase(settingName)}
-            key={_.startCase(settingName)}
+            label={startCase(settingName)}
+            htmlFor={snakeCase(settingName)}
+            key={startCase(settingName)}
           >
             <TextInput
               label={settingName}
@@ -119,7 +119,7 @@ export default class CardEditor extends Component {
 
   generateComponentsFromType(definition) {
     const schema = definition.properties;
-    const settings = _.keys(schema);
+    const settings = keys(schema);
     let components = [];
     if (schema && settings) {
       components = this.getSettingsComponent(settings, schema);
@@ -152,13 +152,15 @@ export default class CardEditor extends Component {
 
   submitFormFields() {
     const { editorSettings, addCard, toggleEditor } = this.props;
-    this.handleLabels();
-    toggleEditor();
-    const newCard = { ...editorSettings, startDate: new Date() };
-    if (editorSettings.newCard) {
-      addCard(newCard);
-    } else {
-      this.updateCard(editorSettings);
+    if (validateFields(editorSettings)) {
+      this.handleLabels();
+      toggleEditor();
+      const newCard = { ...editorSettings, startDate: new Date() };
+      if (editorSettings.newCard) {
+        addCard(newCard);
+      } else {
+        this.updateCard(editorSettings);
+      }
     }
   }
 
@@ -189,35 +191,33 @@ export default class CardEditor extends Component {
   render() {
     const { editorSettings, toggleEditor } = this.props;
     return (
-      <ErrorBoundary>
-        <Box
-          direction="column"
-          alignContent="center"
-          pad="large"
-          className="card-editor"
-          full="horizontal"
-        >
-          <KeyboardEventHandler
-            handleKeys={['ctrl+enter']}
-            onKeyEvent={() => this.submitFormFields()}
-          />
-          <Box className="header">
-            <Text align="center" size="xxlarge">
-              {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
-            </Text>
-            <Button onClick={() => this.submitFormFields()}>Save Card</Button>
-            <Button
-              color="accent-2"
-              className="discard-btn"
-              hoverIndicator="accent-2"
-              onClick={() => toggleEditor()}
-            >
-              X
-            </Button>
-          </Box>
-          {this.generateComponentsFromType(cardDefinition)}
+      <Box
+        direction="column"
+        alignContent="center"
+        pad="large"
+        className="card-editor"
+        full="horizontal"
+      >
+        <KeyboardEventHandler
+          handleKeys={['ctrl+enter']}
+          onKeyEvent={() => this.submitFormFields()}
+        />
+        <Box className="header">
+          <Text align="center" size="xxlarge">
+            {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
+          </Text>
+          <Button onClick={() => this.submitFormFields()}>Save Card</Button>
+          <Button
+            color="accent-2"
+            className="discard-btn"
+            hoverIndicator="accent-2"
+            onClick={() => toggleEditor()}
+          >
+            X
+          </Button>
         </Box>
-      </ErrorBoundary>
+        {this.generateComponentsFromType(cardDefinition)}
+      </Box>
     );
   }
 }

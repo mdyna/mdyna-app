@@ -30,7 +30,7 @@
     flex-flow: row;
     justify-content: center;
     opacity: 0.5;
-    border-radius: "10px";
+    border-radius: 10px;
     padding: 5;
   }
 
@@ -59,10 +59,14 @@
   tr {
     color: $note-font-color !important;
   }
+  td {
+    min-width: 100px;
+    word-break: break-word;
+  }
 
   ol,
   ul {
-    padding: 5px 10px;
+    padding: 5px 25px;
   }
   blockquote {
     background-color: #666;

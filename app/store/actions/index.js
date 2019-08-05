@@ -47,6 +47,15 @@ export const toggleEditor = () => ({
   type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
 });
 
+export const toggleSettings = () => ({
+  type: ACTION_TYPES.TOGGLE_SETTINGS,
+});
+
+export const changeCardsPerPage = value => ({
+  type: ACTION_TYPES.CHANGE_CPP,
+  payload: value,
+});
+
 export const setVisibilityFilter = filter => ({
   type: ACTION_TYPES.SET_VISIBILITY_FILTER,
   filter,
@@ -89,6 +98,11 @@ export const searchCards = value => ({
       time: 500,
     },
   },
+});
+
+export const focusCard = card => ({
+  type: ACTION_TYPES.FILTERS.FOCUS_CARD,
+  card,
 });
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,

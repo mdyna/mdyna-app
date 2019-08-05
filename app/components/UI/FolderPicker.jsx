@@ -1,6 +1,8 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import { Box } from 'grommet';
 import cx from 'classnames';
 import { FolderCycle } from 'grommet-icons';
+import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 
@@ -12,12 +14,16 @@ export default class FolderPicker extends PureComponent {
       onChange, label, value, placeholder, className,
     } = this.props;
     return (
-      <Fragment>
+      <Button>
         <label className={cx('picker', className)} htmlFor="folder-picker">
-          <Button>
-            <FolderCycle color="brand" />
-            {label}
-          </Button>
+          <Box direction="row" align="center" justify="end">
+            <Tooltip
+              icon={<FolderCycle color="brand" />}
+              title="Change Cards Directory"
+              text="Change the directory in which your cards live. If you connect it to Dropbox or Google Drive, you can have your cards in multiple devices"
+            />
+            <span>{label}</span>
+          </Box>
           <input
             id="folder-picker"
             type="file"
@@ -26,11 +32,9 @@ export default class FolderPicker extends PureComponent {
             onChange={e => onChange(e.target.files[0].path)}
             placeholder={value}
           />
-          <span>
-            {placeholder}
-          </span>
+          <span className="placeholder">{placeholder}</span>
         </label>
-      </Fragment>
+      </Button>
     );
   }
 }

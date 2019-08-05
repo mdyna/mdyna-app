@@ -1,52 +1,72 @@
 import React, { PureComponent } from 'react';
 import { Grommet, Box, Layer } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-import debounce from 'lodash.debounce';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
+import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
+import 'react-toastify/dist/ReactToastify.css';
 import ThemeBuilder from '../themes/themeBuilder';
 
 import MdynaPalette from '../themes/mdyna.palette.json';
 import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
+import { focusCard } from '../store/actions';
+
+function getModalMode(editor, settings) {
+  return (editor && 'editor') || (settings && 'settings') || false;
+}
 
 class Mdyna extends PureComponent {
-  debouncedChangeCwd = val => debounce(() => this.changeCwd(val), 1000);
-
   searchBar = React.createRef();
 
   render() {
-    // eslint-disable-next-line
     const {
       cards,
       order,
       sorting,
+      settingsModal,
       whiteMode,
       modalOpen,
       toggleEditor,
       searchInput,
       searchCards,
+      focusCard,
+      isFocused,
+      toggleSettings,
     } = this.props;
+    const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
         className="mdyna-app"
-        theme={whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)}
+        theme={
+          whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
+        }
       >
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+        />
         <ErrorBoundary>
           <KeyboardEventHandler
-            handleKeys={['ctrl+p']}
-            onKeyEvent={() => {
-              setTimeout(() => this.searchBar.current.focus(), 300);
-            }}
+            handleKeys={['ctrl+p', 'esc']}
+            onKeyEvent={key =>
+              isFocused
+                ? key === 'esc' && focusCard(null)
+                : key === 'ctrl+p' && this.searchBar.current.focus()
+            }
           />
           <Header />
           <SearchInput
+            hidden={isFocused}
             titles={cards && cards.length && cards.map(c => c.title)}
             onChange={e => searchCards(e)}
             searchBar={this.searchBar}
@@ -57,21 +77,34 @@ class Mdyna extends PureComponent {
               <SideBar gridArea="menu" {...this.props} />
             </div>
             {cards ? (
-              <CardList gridArea="card-list" cards={cards} order={order} sorting={sorting} />
+              <CardList
+                isFocused={Boolean(isFocused)}
+                gridArea="card-list"
+                cards={cards}
+                order={order}
+                sorting={sorting}
+              />
             ) : (
               <Loader />
             )}
           </Box>
-          {modalOpen ? (
+          {modalMode ? (
             <Layer
               margin={{
                 right: '14px',
               }}
               full
-              onEsc={() => toggleEditor()}
+              onEsc={() => {
+                if (modalMode === 'editor') {
+                  toggleEditor();
+                } else if (modalMode === 'settings') {
+                  toggleSettings();
+                }
+              }}
               className="note-layer"
             >
-              <CardEditor />
+              {modalMode === 'editor' && <CardEditor />}
+              {modalMode === 'settings' && <Settings />}
             </Layer>
           ) : (
             ''
