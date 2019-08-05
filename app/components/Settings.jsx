@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text } from 'grommet';
+import { Box, Text, Select } from 'grommet';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
@@ -114,6 +114,11 @@ class Settings extends PureComponent {
                   />
                   <Text>{`Switch to ${newTheme} theme`}</Text>
                 </Button>
+                <Select
+                  options={['small', 'medium', 'large']}
+                  value="3"
+                  onChange={({ option }) => console.log(option)}
+                />
               </Box>
               <Text size="large" as="h2">
                 <Note color="brand" />

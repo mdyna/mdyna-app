@@ -1,4 +1,4 @@
-const themeBuilder = colors => colors && ({
+const themeBuilder = colors => colors && {
   global: {
     colors: {
       brand: colors.brand,
@@ -88,6 +88,16 @@ const themeBuilder = colors => colors && ({
     background: colors.background,
     color: colors.text,
   },
-});
+  select: {
+    container: {
+      extend: {
+        background: colors.dark[0],
+      },
+    },
+    icons: {
+      color: colors.brand,
+    },
+  },
+};
 
 export default themeBuilder;
