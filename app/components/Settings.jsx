@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, Select } from 'grommet';
 import { toast } from 'react-toastify';
+import { capitalize } from 'lodash';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 // eslint-disable-next-line
@@ -65,8 +66,10 @@ class Settings extends PureComponent {
       whiteMode,
       toggleSettings,
       toggleWhiteMode,
+      changeCodeTheme,
       cardsPerPage,
       changeCardsPerPage,
+      codeTheme,
       changeCwd,
       cwd,
     } = this.props;
@@ -126,6 +129,15 @@ class Settings extends PureComponent {
                     }
                   />
                 </Box>
+                <Box direction="column">
+                  <Text>Code snippets theme</Text>
+                  <Select
+                    label="Cards per page"
+                    options={['Default', 'Atom One Light', 'Atom One Dark']}
+                    value={capitalize(codeTheme)}
+                    onChange={({ option }) => changeCodeTheme(option)}
+                  />
+                </Box>
               </Box>
               <Text size="large" as="h2">
                 <Note color="brand" />
@@ -154,8 +166,10 @@ Settings.propTypes = {
   whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
   toggleSettings: PropTypes.func,
+  codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,
   cwd: PropTypes.string,
+  changeCodeTheme: PropTypes.func,
   changeCardsPerPage: PropTypes.func,
   cardsPerPage: PropTypes.number,
 };
@@ -165,6 +179,8 @@ Settings.defaultProps = {
   changeCardsPerPage: null,
   changeCwd: null,
   toggleSettings: null,
+  changeCodeTheme: null,
+  codeTheme: 'Default',
   toggleWhiteMode: false,
   cwd: '',
   cardsPerPage: 8,

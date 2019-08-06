@@ -13,7 +13,7 @@ function settingsReducer(
   state = {
     cwd,
     settingsModal: false,
-    codeTheme: 'DEFAULT',
+    codeTheme: 'Default',
     cardsPerPage: 8,
   },
   action,
@@ -37,7 +37,7 @@ function settingsReducer(
     case CHANGE_CODE_THEME:
       return {
         ...state,
-        codeTheme: action.payload,
+        codeTheme: action.payload || 'Default',
       };
     default:
       return state;

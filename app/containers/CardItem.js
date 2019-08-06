@@ -57,6 +57,7 @@ function mapStateToProps(state) {
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     labelFilters: state.filters.labelFilters,
+    codeTheme: state.settings.codeTheme,
   };
 }
 

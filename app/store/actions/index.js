@@ -91,6 +91,7 @@ export const changeCwd = cwd => ({
 });
 
 const SETTINGS = {
+  changeCodeTheme,
   toggleSettings,
   changeCardsPerPage,
   toggleWhiteMode,

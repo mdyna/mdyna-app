@@ -111,6 +111,7 @@ class MdynaCard extends PureComponent {
       addLabelFilter,
       removeLabelFilter,
       labelFilters,
+      codeTheme,
     } = this.props;
 
     const { isHovered, minimized } = this.state;
@@ -176,6 +177,7 @@ class MdynaCard extends PureComponent {
         />
         {this.renderCardDate()}
         <MarkdownText
+          codeTheme={codeTheme}
           whiteMode={whiteMode}
           className="note-card-content"
           minimized={minimize}
@@ -212,6 +214,7 @@ export default MdynaCard;
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   isFocused: PropTypes.bool,
+  codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
@@ -238,6 +241,7 @@ MdynaCard.defaultProps = {
   editCard: null,
   isFocused: false,
   whiteMode: false,
+  codeTheme: 'Default',
   showAllText: false,
   addLabelFilter: null,
   removeLabelFilter: null,
