@@ -116,11 +116,16 @@ class Settings extends PureComponent {
                   />
                   <Text>{`Switch to ${newTheme} theme`}</Text>
                 </Button>
-                <Select
-                  options={['2', '4', '8', '10']}
-                  value={String(cardsPerPage)}
-                  onChange={({ option }) => changeCardsPerPage(Number(option))}
-                />
+                <Box direction="column">
+                  <Text>Cards per page</Text>
+                  <Select
+                    label="Cards per page"
+                    options={['2', '4', '8', '10']}
+                    value={String(cardsPerPage)}
+                    onChange={({ option }) => changeCardsPerPage(Number(option))
+                    }
+                  />
+                </Box>
               </Box>
               <Text size="large" as="h2">
                 <Note color="brand" />
