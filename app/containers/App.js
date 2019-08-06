@@ -1,16 +1,6 @@
 import { connect } from 'react-redux';
 import App from 'Components/App';
-import {
-  toggleSidebar,
-  toggleEditor,
-  searchCards,
-  addLabelFilter,
-  removeLabelFilter,
-  focusCard,
-  changeSorting,
-  toggleSettings,
-  toggleCompletedFilter,
-} from 'Store/actions/';
+import ACTIONS from 'Store/actions/';
 import { convertToTime } from 'Utils/dates';
 import {
   SORTING_BY_DATE,
@@ -18,6 +8,19 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
+
+const { SETTINGS, FILTERS } = ACTIONS;
+
+const { toggleSidebar, toggleEditor, toggleSettings } = SETTINGS;
+
+const {
+  searchCards,
+  addLabelFilter,
+  removeLabelFilter,
+  focusCard,
+  changeSorting,
+  toggleCompletedFilter,
+} = FILTERS;
 
 function mapDispatchToProps(dispatch) {
   return {

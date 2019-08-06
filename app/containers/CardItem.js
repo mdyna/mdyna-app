@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import CardItem from '../components/Cards/CardItem';
-import {
-  removeCard,
-  toggleCard,
-  editCard,
-  addLabel,
-  removeLabel,
-  changeCardSetting,
-  changeTitle,
-  focusCard,
-  saveCard,
-  addLabelFilter,
-  removeLabelFilter,
-} from '../store/actions';
+import ACTIONS from '../store/actions';
+
+const {
+  CARD_EDITOR, CARD, LABEL, FILTERS,
+} = ACTIONS;
+
+const { editCard, changeCardSetting, changeTitle } = CARD_EDITOR;
+
+const { addLabel, removeLabel } = LABEL;
+
+const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
+
+const { removeCard, toggleCard, saveCard } = CARD;
 
 function mapDispatchToProps(dispatch) {
   return {

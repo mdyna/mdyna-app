@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import Settings from 'Components/Settings';
-import {
+import ACTIONS from 'Store/actions/';
+
+const {
   toggleWhiteMode,
   changeCwd,
   toggleSettings,
   changeCardsPerPage,
-} from 'Store/actions/';
+} = ACTIONS.SETTINGS;
 
 function mapDispatchToProps(dispatch) {
   return {

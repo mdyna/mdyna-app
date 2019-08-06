@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import CardEditor from 'Components/CardEditor';
-import {
-  changeCardSetting,
-  saveCard,
-  addCard,
-  removeCard,
-  addLabel,
-  removeLabel,
-  toggleEditor,
-} from 'Store/actions/';
+import ACTIONS from 'Store/actions/';
+
+const { CARD, CARD_EDITOR, LABEL } = ACTIONS;
+
+const { addCard, saveCard, removeCard } = CARD;
+
+const { changeCardSetting, toggleEditor } = CARD_EDITOR;
+
+const { addLabel, removeLabel } = LABEL;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -41,4 +41,7 @@ function mapStateToProps(state) {
     labels: state.labels,
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CardEditor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CardEditor);
