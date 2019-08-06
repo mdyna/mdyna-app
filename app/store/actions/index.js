@@ -67,6 +67,11 @@ export const toggleSettings = () => ({
   type: ACTION_TYPES.SETTINGS.TOGGLE_SETTINGS,
 });
 
+export const changeCodeTheme = theme => ({
+  type: ACTION_TYPES.SETTINGS.CHANGE_CODE_THEME,
+  payload: theme,
+});
+
 export const changeCardsPerPage = value => ({
   type: ACTION_TYPES.SETTINGS.CHANGE_CPP,
   payload: value,

@@ -6,6 +6,7 @@ const {
   toggleWhiteMode,
   changeCwd,
   toggleSettings,
+  changeCodeTheme,
   changeCardsPerPage,
 } = ACTIONS.SETTINGS;
 
@@ -23,12 +24,16 @@ function mapDispatchToProps(dispatch) {
     changeCardsPerPage: (val) => {
       dispatch(changeCardsPerPage(val));
     },
+    changeCodeTheme: (val) => {
+      dispatch(changeCodeTheme(val));
+    },
   };
 }
 
 function mapStateToProps(state) {
   return {
     cwd: state.settings.cwd,
+    codeTheme: state.settings.codeTheme,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
     cardsPerPage: state.settings.cardsPerPage,
