@@ -22,12 +22,12 @@ class LabelFilter extends Component {
             className="label-button"
             onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
-            color={labelFilterActive ? 'brand' : 'accent-1'}
-            hoverIndicator={labelFilterActive ? 'accent-1' : 'brand'}
-            plain={false}
+            color={(labelFilterActive && 'accent-3') || 'accent-1'}
+            hoverIndicator="light-1"
+            plain
             primary
           >
-            <Labels label={{ title: label.title, color: '#333' }} transparent />
+            <Labels label={{ title: label.title }} transparent />
           </Button>
         );
         clickableLabels.push(labelElement);
