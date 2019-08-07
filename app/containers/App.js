@@ -11,7 +11,9 @@ import {
 
 const { SETTINGS, FILTERS } = ACTIONS;
 
-const { toggleSidebar, toggleEditor, toggleSettings } = SETTINGS;
+const { toggleSidebar, toggleSettings } = SETTINGS;
+
+const { toggleEditor } = ACTIONS.CARD_EDITOR;
 
 const {
   searchCards,

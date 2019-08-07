@@ -15,6 +15,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     card: state.editor,
+    codeTheme: state.settings.codeTheme,
   };
 }
 export default connect(
