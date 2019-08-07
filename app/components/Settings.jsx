@@ -102,24 +102,27 @@ class Settings extends PureComponent {
                 Appearence
               </Text>
               <Box direction="row" className="settings-section">
-                <Button
-                  color="brand"
-                  onClick={() => {
-                    toast.success(`Switched to ${newTheme} theme`);
-                    toggleWhiteMode(!whiteMode);
-                  }}
-                >
-                  <Tooltip
-                    icon={<Brush color="brand" />}
-                    title="Set theme"
-                    text={`Switch to ${newTheme} theme`}
+                <Box direction="column">
+                  <Text>Application theme</Text>
+                  <Button
+                    color="brand"
                     onClick={() => {
-                      toast.success(`Switched to ${newTheme}`);
+                      toast.success(`Switched to ${newTheme} theme`);
                       toggleWhiteMode(!whiteMode);
                     }}
-                  />
-                  <Text>{`Switch to ${newTheme} theme`}</Text>
-                </Button>
+                  >
+                    <Tooltip
+                      icon={<Brush color="brand" />}
+                      title="Set theme"
+                      text={`Switch to ${newTheme} theme`}
+                      onClick={() => {
+                        toast.success(`Switched to ${newTheme}`);
+                        toggleWhiteMode(!whiteMode);
+                      }}
+                    />
+                    <Text>{`${capitalize(newTheme)} Theme`}</Text>
+                  </Button>
+                </Box>
                 <Box direction="column">
                   <Text>Cards per page</Text>
                   <Select

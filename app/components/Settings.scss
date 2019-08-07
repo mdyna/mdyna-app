@@ -43,7 +43,11 @@
     .settings-section {
       border-bottom: 1px solid;
       padding-bottom: 15px;
+      flex-flow: row wrap;
       margin-bottom: 30px;
+      > * {
+        max-width: 50%;
+      }
     }
     button {
       border: 1px solid;
