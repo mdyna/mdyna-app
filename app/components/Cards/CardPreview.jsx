@@ -5,7 +5,11 @@ import NoteItem from './CardItem';
 class cardPreview extends Component {
   render() {
     const {
-      card, changeCardSetting, saveCard, changeTitle,
+      card,
+      changeCardSetting,
+      saveCard,
+      changeTitle,
+      codeTheme,
     } = this.props;
     return (
       <NoteItem
@@ -14,6 +18,7 @@ class cardPreview extends Component {
         saveCard={saveCard}
         changeTitle={changeTitle}
         card={card}
+        codeTheme={codeTheme}
         showAllText
       />
     );
@@ -25,6 +30,7 @@ export default cardPreview;
 cardPreview.propTypes = {
   card: PropTypes.object,
   changeCardSetting: PropTypes.func.isRequired,
+  codeTheme: PropTypes.string.isRequired,
   changeTitle: PropTypes.func.isRequired,
   saveCard: PropTypes.func.isRequired,
 };

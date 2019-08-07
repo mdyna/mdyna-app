@@ -1,35 +1,50 @@
-import React, { PureComponent } from 'react';
-import { Converter } from 'react-showdown';
-import { toClass } from 'recompose';
-import htmlescape from 'showdown-htmlescape';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import TaskListInput from 'UI/TaskListInput';
-import regExp from 'Utils/regexp';
-import ReactHighlight from './CodeHighlight';
-
 import './MarkdownText.scss'; // eslint-disable-line
 
-const COLOR_LABELS = {
-  '#ff8a80': 'red',
-  '#ff80ab': 'pink',
-  '#ea80fc': 'purple',
-  '#8c9eff': 'dark-blue',
-  '#80d8ff': 'light-blue',
-  '#a7ffeb': 'mdyna-green',
-  '#b9f6ca': 'green',
-  '#fff475': 'yellow',
-  '#ffd180': 'orange',
-  '#a7c0cd': 'grey',
+import React, { PureComponent } from 'react';
+
+import { Converter } from 'react-showdown';
+import PropTypes from 'prop-types';
+import TaskListInput from 'UI/TaskListInput';
+import classnames from 'classnames';
+import htmlescape from 'showdown-htmlescape';
+import regExp from 'Utils/regexp';
+import { toClass } from 'recompose';
+import ReactHighlight from './CodeHighlight';
+
+export const CODE_THEMES = {
+  'A11 Dark': 'A1D',
+  'A11 Light': 'A1L',
+  'Atom One Dark': 'AOD',
+  'Atom One Light': 'AOL',
+  Dracula: 'DRA',
+  Hopscoth: 'HPS',
+  Monokai: 'MNK',
+  'Solarized Dark': 'SLD',
+  'Solarized Light': 'SLL',
+  'Tomorrow Night Blue': 'TNB',
+  Xterm: 'XTR',
 };
 
 class MarkdownText extends PureComponent {
+  getCodeTheme() {
+    const { whiteMode, codeTheme } = this.props;
+    if (codeTheme === 'Default') {
+      return whiteMode ? 'AOL' : 'AOD';
+    }
+    return CODE_THEMES[codeTheme];
+  }
+
   render() {
     const {
-      text, className, color, minimized, whiteMode, editCard, disableCode,
+      text, className, minimized, editCard, disableCode,
     } = this.props;
     const input = toClass(otherProps => (
-      <TaskListInput className="card-tasklist" text={text} editCard={editCard} {...otherProps} />
+      <TaskListInput
+        className="card-tasklist"
+        text={text}
+        editCard={editCard}
+        {...otherProps}
+      />
     ));
     const converter = new Converter({
       headerLevelStart: 3,
@@ -48,28 +63,21 @@ class MarkdownText extends PureComponent {
     });
     let noteText = text && text.length > 300 ? `${text.substring(0, 300)}...` : text;
 
-    noteText = text && text.match(regExp.codeRegExp) && text.match(regExp.codeRegExp).length
+    noteText = text
+      && text.match(regExp.codeRegExp)
+      && text.match(regExp.codeRegExp).length
       ? `${noteText}\n\`\`\``
       : noteText;
     const rawText = minimized ? noteText : text;
     const formattedText = converter.convert(rawText) || '';
     if (disableCode) {
-      return (
-        <div className="disable-code">
-          {formattedText}
-        </div>
-      );
+      return <div className="disable-code">{formattedText}</div>;
     }
     return (
       <ReactHighlight
         element="div"
         text={rawText}
-        className={classnames(
-          className,
-          COLOR_LABELS[color],
-          whiteMode && 'white-mode',
-          'mdyna-md',
-        )}
+        className={classnames(className, 'mdyna-md', this.getCodeTheme())}
       >
         {formattedText}
       </ReactHighlight>
@@ -84,6 +92,7 @@ MarkdownText.propTypes = {
   className: PropTypes.string.isRequired,
   minimized: PropTypes.bool,
   whiteMode: PropTypes.bool,
+  codeTheme: PropTypes.string,
   disableCode: PropTypes.bool,
   editCard: PropTypes.object,
   color: PropTypes.string,
@@ -91,6 +100,7 @@ MarkdownText.propTypes = {
 
 MarkdownText.defaultProps = {
   minimized: false,
+  codeTheme: 'Default',
   whiteMode: false,
   editCard: null,
   disableCode: false,

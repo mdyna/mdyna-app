@@ -1,6 +1,6 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { TOGGLE_WHITE_MODE, TOGGLE_SIDEBAR } = ACTION_TYPES;
+const { TOGGLE_WHITE_MODE, TOGGLE_SIDEBAR } = ACTION_TYPES.SETTINGS;
 
 function toggleWhiteMode(
   state = {

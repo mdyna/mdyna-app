@@ -1,27 +1,19 @@
 import ACTION_TYPES from './actionTypes';
 
+//= =======================================================================================
+/*                                                                                      *
+ *                                        ACTIONS                                       *
+ *                                                                                      */
+//= =======================================================================================
+
+// ──── CARD ACTIONS ──────────────────────────────────────────────────────────────────────
+
 export const addCard = card => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
   card,
 });
 export const saveCard = card => ({
   type: ACTION_TYPES.CARD.SAVE_CARD,
-  card,
-});
-export const completeCard = card => ({
-  type: ACTION_TYPES.CARD.COMPLETE_CARD,
-  card,
-});
-export const failCard = card => ({
-  type: ACTION_TYPES.CARD.FAIL_CARD,
-  card,
-});
-export const editCard = card => ({
-  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
-  card,
-});
-export const snoozeCard = card => ({
-  type: ACTION_TYPES.CARD.SNOOZE_CARD,
   card,
 });
 export const changeTitle = (card, title) => ({
@@ -37,28 +29,19 @@ export const toggleCard = card => ({
   type: ACTION_TYPES.CARD.TOGGLE_CARD,
   card,
 });
-export const generateCardLink = (keys, index) => ({
-  type: ACTION_TYPES.CARD.GENERATE_LINK,
-  keys,
-  index,
-});
+
+const CARD = {
+  addCard,
+  saveCard,
+  toggleCard,
+  changeTitle,
+  removeCard,
+};
+
+// ──── EDITOR ACTIONS ────────────────────────────────────────────────────────────────────
 
 export const toggleEditor = () => ({
   type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
-});
-
-export const toggleSettings = () => ({
-  type: ACTION_TYPES.TOGGLE_SETTINGS,
-});
-
-export const changeCardsPerPage = value => ({
-  type: ACTION_TYPES.CHANGE_CPP,
-  payload: value,
-});
-
-export const setVisibilityFilter = filter => ({
-  type: ACTION_TYPES.SET_VISIBILITY_FILTER,
-  filter,
 });
 
 export const changeCardSetting = (prop, value) => ({
@@ -67,18 +50,56 @@ export const changeCardSetting = (prop, value) => ({
   value,
 });
 
-export const editNote = card => ({
+export const editCard = card => ({
   type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
   card,
 });
 
+const CARD_EDITOR = {
+  toggleEditor,
+  editCard,
+  changeCardSetting,
+};
+
+// ──── SETTINGS ACTIONS ──────────────────────────────────────────────────────────────────
+
+export const toggleSettings = () => ({
+  type: ACTION_TYPES.SETTINGS.TOGGLE_SETTINGS,
+});
+
+export const changeCodeTheme = theme => ({
+  type: ACTION_TYPES.SETTINGS.CHANGE_CODE_THEME,
+  payload: theme,
+});
+
+export const changeCardsPerPage = value => ({
+  type: ACTION_TYPES.SETTINGS.CHANGE_CPP,
+  payload: value,
+});
+
 export const toggleWhiteMode = () => ({
-  type: ACTION_TYPES.TOGGLE_WHITE_MODE,
+  type: ACTION_TYPES.SETTINGS.TOGGLE_WHITE_MODE,
 });
 
 export const toggleSidebar = () => ({
-  type: ACTION_TYPES.TOGGLE_SIDEBAR,
+  type: ACTION_TYPES.SETTINGS.TOGGLE_SIDEBAR,
 });
+
+export const changeCwd = cwd => ({
+  type: ACTION_TYPES.SETTINGS.CHANGE_CWD,
+  cwd,
+});
+
+const SETTINGS = {
+  changeCodeTheme,
+  toggleSettings,
+  changeCardsPerPage,
+  toggleWhiteMode,
+  toggleSidebar,
+  changeCwd,
+};
+
+// ──── LABEL ACTIONS ─────────────────────────────────────────────────────────────────────
 
 export const addLabel = label => ({
   type: ACTION_TYPES.LABEL.ADD_LABEL,
@@ -90,6 +111,13 @@ export const removeLabel = label => ({
   label,
 });
 
+const LABEL = {
+  addLabel,
+  removeLabel,
+};
+
+// ──── FILTER ACTIONS ────────────────────────────────────────────────────────────────────
+
 export const searchCards = value => ({
   type: ACTION_TYPES.FILTERS.SEARCH_CARDS,
   value,
@@ -99,7 +127,6 @@ export const searchCards = value => ({
     },
   },
 });
-
 export const focusCard = card => ({
   type: ACTION_TYPES.FILTERS.FOCUS_CARD,
   card,
@@ -121,7 +148,20 @@ export const toggleCompletedFilter = value => ({
   type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
   value,
 });
-export const changeCwd = cwd => ({
-  type: ACTION_TYPES.CHANGE_CWD,
-  cwd,
-});
+
+const FILTERS = {
+  searchCards,
+  focusCard,
+  changeSorting,
+  addLabelFilter,
+  removeLabelFilter,
+  toggleCompletedFilter,
+};
+
+export default {
+  FILTERS,
+  SETTINGS,
+  CARD_EDITOR,
+  LABEL,
+  CARD,
+};

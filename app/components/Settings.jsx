@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, Select } from 'grommet';
 import { toast } from 'react-toastify';
+import { capitalize } from 'lodash';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 // eslint-disable-next-line
@@ -19,6 +20,7 @@ import {
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
+import { CODE_THEMES } from 'UI/MarkdownText';
 
 import './Settings.scss';
 
@@ -65,8 +67,10 @@ class Settings extends PureComponent {
       whiteMode,
       toggleSettings,
       toggleWhiteMode,
+      changeCodeTheme,
       cardsPerPage,
       changeCardsPerPage,
+      codeTheme,
       changeCwd,
       cwd,
     } = this.props;
@@ -98,24 +102,27 @@ class Settings extends PureComponent {
                 Appearence
               </Text>
               <Box direction="row" className="settings-section">
-                <Button
-                  color="brand"
-                  onClick={() => {
-                    toast.success(`Switched to ${newTheme} theme`);
-                    toggleWhiteMode(!whiteMode);
-                  }}
-                >
-                  <Tooltip
-                    icon={<Brush color="brand" />}
-                    title="Set theme"
-                    text={`Switch to ${newTheme} theme`}
+                <Box direction="column">
+                  <Text>Application theme</Text>
+                  <Button
+                    color="brand"
                     onClick={() => {
-                      toast.success(`Switched to ${newTheme}`);
+                      toast.success(`Switched to ${newTheme} theme`);
                       toggleWhiteMode(!whiteMode);
                     }}
-                  />
-                  <Text>{`Switch to ${newTheme} theme`}</Text>
-                </Button>
+                  >
+                    <Tooltip
+                      icon={<Brush color="brand" />}
+                      title="Set theme"
+                      text={`Switch to ${newTheme} theme`}
+                      onClick={() => {
+                        toast.success(`Switched to ${newTheme}`);
+                        toggleWhiteMode(!whiteMode);
+                      }}
+                    />
+                    <Text>{`${capitalize(newTheme)} Theme`}</Text>
+                  </Button>
+                </Box>
                 <Box direction="column">
                   <Text>Cards per page</Text>
                   <Select
@@ -124,6 +131,15 @@ class Settings extends PureComponent {
                     value={String(cardsPerPage)}
                     onChange={({ option }) => changeCardsPerPage(Number(option))
                     }
+                  />
+                </Box>
+                <Box direction="column">
+                  <Text>Code snippets theme</Text>
+                  <Select
+                    label="Cards per page"
+                    options={['Default', ...Object.keys(CODE_THEMES)]}
+                    value={codeTheme}
+                    onChange={({ option }) => changeCodeTheme(option)}
                   />
                 </Box>
               </Box>
@@ -154,8 +170,10 @@ Settings.propTypes = {
   whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
   toggleSettings: PropTypes.func,
+  codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,
   cwd: PropTypes.string,
+  changeCodeTheme: PropTypes.func,
   changeCardsPerPage: PropTypes.func,
   cardsPerPage: PropTypes.number,
 };
@@ -165,6 +183,8 @@ Settings.defaultProps = {
   changeCardsPerPage: null,
   changeCwd: null,
   toggleSettings: null,
+  changeCodeTheme: null,
+  codeTheme: 'Default',
   toggleWhiteMode: false,
   cwd: '',
   cardsPerPage: 8,

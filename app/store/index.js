@@ -20,6 +20,7 @@ store.subscribe(
         labels: store.getState().labels,
       },
       {
+        codeTheme: store.getState().settings.codeTheme,
         whiteMode: store.getState().style.whiteMode,
         order: store.getState().filters.order,
         cardsPerPage: store.getState().settings.cardsPerPage,
