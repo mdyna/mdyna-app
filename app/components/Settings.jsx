@@ -20,6 +20,7 @@ import {
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
+import { CODE_THEMES } from 'UI/MarkdownText';
 
 import './Settings.scss';
 
@@ -133,8 +134,8 @@ class Settings extends PureComponent {
                   <Text>Code snippets theme</Text>
                   <Select
                     label="Cards per page"
-                    options={['Default', 'Atom One Light', 'Atom One Dark']}
-                    value={capitalize(codeTheme)}
+                    options={['Default', ...Object.keys(CODE_THEMES)]}
+                    value={codeTheme}
                     onChange={({ option }) => changeCodeTheme(option)}
                   />
                 </Box>

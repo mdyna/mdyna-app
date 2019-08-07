@@ -10,7 +10,7 @@ import ReactHighlight from './CodeHighlight';
 
 import './MarkdownText.scss'; // eslint-disable-line
 
-const CODE_THEMES = {
+export const CODE_THEMES = {
   'Atom One Light': 'AOL',
   'Atom One Dark': 'AOD',
 };
