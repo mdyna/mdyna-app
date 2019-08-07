@@ -21,7 +21,7 @@ const {
   removeLabelFilter,
   focusCard,
   changeSorting,
-  toggleCompletedFilter,
+  toggleArchivedFilter,
 } = FILTERS;
 
 function mapDispatchToProps(dispatch) {
@@ -44,8 +44,8 @@ function mapDispatchToProps(dispatch) {
     changeSorting: (sorting, order) => {
       dispatch(changeSorting(sorting, order));
     },
-    toggleCompletedFilter: (val) => {
-      dispatch(toggleCompletedFilter(val));
+    toggleArchivedFilter: (val) => {
+      dispatch(toggleArchivedFilter(val));
     },
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
@@ -91,7 +91,7 @@ function mapStateToProps(state) {
     searchInput: state.filters.searchInput,
     isFocused: state.filters.isFocused,
     labelFilters: state.filters.labelFilters,
-    completedFilterOn: state.filters.completedFilterOn,
+    archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
     settingsModal: state.settings.settingsModal,

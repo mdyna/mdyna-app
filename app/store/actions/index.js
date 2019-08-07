@@ -144,8 +144,8 @@ export const removeLabelFilter = value => ({
   type: ACTION_TYPES.FILTERS.REMOVE_LABEL_FILTER,
   value,
 });
-export const toggleCompletedFilter = value => ({
-  type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
+export const toggleArchivedFilter = value => ({
+  type: ACTION_TYPES.FILTERS.TOGGLE_ARCHIVED_FILTER,
   value,
 });
 
@@ -155,7 +155,7 @@ const FILTERS = {
   changeSorting,
   addLabelFilter,
   removeLabelFilter,
-  toggleCompletedFilter,
+  toggleArchivedFilter,
 };
 
 export default {

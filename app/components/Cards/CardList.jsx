@@ -95,7 +95,7 @@ export default class CardList extends PureComponent {
 
   renderVisibleCards() {
     const {
-      searchInput, completedFilterOn, cards, labelFilters,
+      searchInput, archivedFilterOn, cards, labelFilters,
     } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
@@ -130,7 +130,7 @@ export default class CardList extends PureComponent {
     const visibleCards = [];
     for (let i = 0; i < filteredCards.length; i += 1) {
       const card = filteredCards[i];
-      if (!card.completed || completedFilterOn) {
+      if ((!card.completed && !card.archived) || archivedFilterOn) {
         visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
       }
     }
@@ -241,14 +241,14 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
-  completedFilterOn: PropTypes.bool,
+  archivedFilterOn: PropTypes.bool,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {
-  completedFilterOn: false,
+  archivedFilterOn: false,
   cardsPerPage: 8,
   labelFilters: [],
   searchInput: '',
