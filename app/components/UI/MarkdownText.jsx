@@ -1,18 +1,28 @@
-import React, { PureComponent } from 'react';
-import { Converter } from 'react-showdown';
-import { toClass } from 'recompose';
-import htmlescape from 'showdown-htmlescape';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import TaskListInput from 'UI/TaskListInput';
-import regExp from 'Utils/regexp';
-import ReactHighlight from './CodeHighlight';
-
 import './MarkdownText.scss'; // eslint-disable-line
 
+import React, { PureComponent } from 'react';
+
+import { Converter } from 'react-showdown';
+import PropTypes from 'prop-types';
+import TaskListInput from 'UI/TaskListInput';
+import classnames from 'classnames';
+import htmlescape from 'showdown-htmlescape';
+import regExp from 'Utils/regexp';
+import { toClass } from 'recompose';
+import ReactHighlight from './CodeHighlight';
+
 export const CODE_THEMES = {
-  'Atom One Light': 'AOL',
+  'A11 Dark': 'A1D',
+  'A11 Light': 'A1L',
   'Atom One Dark': 'AOD',
+  'Atom One Light': 'AOL',
+  Dracula: 'DRA',
+  Hopscoth: 'HPS',
+  Monokai: 'MNK',
+  'Solarized Dark': 'SLD',
+  'Solarized Light': 'SLL',
+  'Tomorrow Night Blue': 'TNB',
+  Xterm: 'XTR',
 };
 
 class MarkdownText extends PureComponent {
