@@ -18,7 +18,6 @@ export default function boards(
   },
   action,
 ) {
-  console.log(action);
   if (action && action.payload) {
     const { board, bg } = action && action.payload;
     const boardName = board && board.name;

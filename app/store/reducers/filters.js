@@ -5,6 +5,7 @@ const {
   SEARCH_CARDS,
   ADD_LABEL_FILTER,
   REMOVE_LABEL_FILTER,
+  CHANGE_ACTIVE_BOARD,
   CHANGE_SORTING_STATE,
   TOGGLE_ARCHIVED_FILTER,
 } = ACTION_TYPES.FILTERS;
@@ -12,6 +13,7 @@ const {
 export default function filters(
   state = {
     searchInput: '',
+    activeBoard: 'INBOX',
     archivedFilterOn: false,
     labelFilters: [],
     sorting: '',
@@ -57,6 +59,11 @@ export default function filters(
       return {
         ...state,
         archivedFilterOn: !state.archivedFilterOn,
+      };
+    case CHANGE_ACTIVE_BOARD:
+      return {
+        ...state,
+        activeBoard: action.payload || 'INBOX',
       };
     default:
       return state;

@@ -151,6 +151,11 @@ export const focusCard = card => ({
   type: ACTION_TYPES.FILTERS.FOCUS_CARD,
   card,
 });
+
+export const changeActiveBoard = board => ({
+  type: ACTION_TYPES.FILTERS.CHANGE_ACTIVE_BOARD,
+  payload: board,
+});
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,
   sorting,
