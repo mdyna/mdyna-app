@@ -116,6 +116,26 @@ const LABEL = {
   removeLabel,
 };
 
+// ──── BOARDS ────────────────────────────────────────────────────────────────────────────
+
+export const createBoard = board => ({
+  type: ACTION_TYPES.BOARDS.CREATE_BOARD,
+  payload: board,
+});
+
+export const removeBoard = board => ({
+  type: ACTION_TYPES.BOARDS.DELETE_BOARD,
+  payload: board,
+});
+
+export const changeBoardBackground = (board, bg) => ({
+  type: ACTION_TYPES.BOARDS.CHANGE_BOARD_BACKGROUND,
+  payload: {
+    board,
+    bg,
+  },
+});
+
 // ──── FILTER ACTIONS ────────────────────────────────────────────────────────────────────
 
 export const searchCards = value => ({
