@@ -134,20 +134,62 @@ export default class CardList extends PureComponent {
     );
   }
 
+  renderCardControls(cardItems) {
+    const { isFocused, cardsPerPage } = this.props;
+    const { pageView, pageIndex } = this.state;
+    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+    return (
+      <Box
+        className={cx('card-list-controls', isFocused && 'hidden')}
+        background="dark-1"
+      >
+        <Text align="center" size="xxlarge">
+          INBOX
+        </Text>
+        {this.renderAddNoteButton()}
+        <Text align="center" size="medium">
+          {cardItems && cardItems.length
+            ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
+            : '0'}
+        </Text>
+        <Button
+          className={cx('page-control', pageIndex === 0 && 'disabled')}
+          type="button"
+          onClick={() => this.getPreviousCards()}
+        >
+          <KeyboardEventHandler
+            handleKeys={['left']}
+            onKeyEvent={() => this.getPreviousCards()}
+          />
+          <Previous color="brand" />
+        </Button>
+        <Button
+          onClick={() => this.getNextCards()}
+          type="button"
+          className={cx('page-control', !hasMore && 'disabled')}
+        >
+          <KeyboardEventHandler
+            handleKeys={['right']}
+            onKeyEvent={() => this.getNextCards()}
+          />
+          <Next color="brand" />
+        </Button>
+      </Box>
+    );
+  }
+
   render() {
     const {
       cards,
       toggleEditor,
       searchInput,
-      isFocused,
       cardsPerPage,
     } = this.props;
-    const { pageIndex, pageView } = this.state;
+    const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
       && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
-    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     const BREAKPOINTS = cardComponents
       && cardComponents.length && {
       default: 3,
@@ -165,42 +207,7 @@ export default class CardList extends PureComponent {
         />
         {cards.length ? (
           <React.Fragment>
-            <Box
-              className={cx('card-list-controls', isFocused && 'hidden')}
-              background="dark-1"
-            >
-              <Text align="center" size="xxlarge">
-                INBOX
-              </Text>
-              {this.renderAddNoteButton()}
-              <Text align="center" size="medium">
-                {cardItems && cardItems.length
-                  ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
-                  : '0'}
-              </Text>
-              <Button
-                className={cx('page-control', pageIndex === 0 && 'disabled')}
-                type="button"
-                onClick={() => this.getPreviousCards()}
-              >
-                <KeyboardEventHandler
-                  handleKeys={['left']}
-                  onKeyEvent={() => this.getPreviousCards()}
-                />
-                <Previous color="brand" />
-              </Button>
-              <Button
-                onClick={() => this.getNextCards()}
-                type="button"
-                className={cx('page-control', !hasMore && 'disabled')}
-              >
-                <KeyboardEventHandler
-                  handleKeys={['right']}
-                  onKeyEvent={() => this.getNextCards()}
-                />
-                <Next color="brand" />
-              </Button>
-            </Box>
+            {this.renderCardControls(cardItems)}
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 <Masonry
