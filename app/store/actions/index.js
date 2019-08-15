@@ -123,7 +123,7 @@ export const createBoard = board => ({
   payload: board,
 });
 
-export const removeBoard = board => ({
+export const deleteBoard = board => ({
   type: ACTION_TYPES.BOARDS.DELETE_BOARD,
   payload: board,
 });
@@ -135,6 +135,12 @@ export const changeBoardBackground = (board, bg) => ({
     bg,
   },
 });
+
+const BOARDS = {
+  createBoard,
+  deleteBoard,
+  changeBoardBackground,
+};
 
 // ──── FILTER ACTIONS ────────────────────────────────────────────────────────────────────
 
@@ -187,6 +193,7 @@ export default {
   FILTERS,
   SETTINGS,
   CARD_EDITOR,
+  BOARDS,
   LABEL,
   CARD,
 };

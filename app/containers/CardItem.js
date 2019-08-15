@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import ACTIONS from 'Store/actions';
 import CardItem from '../components/Cards/CardItem';
-import ACTIONS from '../store/actions';
 
 const {
   CARD_EDITOR, CARD, LABEL, FILTERS,

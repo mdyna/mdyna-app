@@ -8,12 +8,10 @@ const {
 
 export default function boards(
   state = {
-    boards: {
-      INBOX: {
-        cards: 'all',
-        bg: 'default',
-        labels: 'all',
-      },
+    INBOX: {
+      cards: 'all',
+      bg: 'default',
+      labels: 'all',
     },
   },
   action,
@@ -23,19 +21,16 @@ export default function boards(
     const boardName = board && board.name;
     const newState = {
       ...state,
-      boards: {
-        ...state.boards,
-      },
     };
     switch (action.type) {
       case CREATE_BOARD:
-        newState.boards[boardName] = board;
+        newState[boardName] = board;
         return newState;
       case DELETE_BOARD:
-        delete newState.boards[boardName];
+        delete newState[boardName];
         return newState;
       case CHANGE_BOARD_BACKGROUND:
-        newState.boards[boardName].bg = bg;
+        newState[boardName].bg = bg;
         return newState;
       default:
         return newState;
