@@ -132,8 +132,8 @@ export default class CardList extends PureComponent {
     });
     return (
       (filteredCards.length
-        && filteredCards.map((card, i) => (
-          <CardItem hasCardBar card={card} key={i} />
+        && filteredCards.map(card => (
+          <CardItem hasCardBar card={card} key={`${card.title}-card`} />
         )))
       || null
     );
