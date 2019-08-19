@@ -17,20 +17,20 @@ export default function boards(
   action,
 ) {
   if (action && action.payload) {
-    const { board, bg } = action && action.payload;
-    const boardName = board && board.name;
+    const { name, bg } = action && action.payload;
     const newState = {
       ...state,
     };
     switch (action.type) {
       case CREATE_BOARD:
-        newState[boardName] = board;
+        newState[name] = {};
+        newState[name] = action.payload;
         return newState;
       case DELETE_BOARD:
-        delete newState[boardName];
+        delete newState[name];
         return newState;
       case CHANGE_BOARD_BACKGROUND:
-        newState[boardName].bg = bg;
+        newState[name].bg = bg;
         return newState;
       default:
         return newState;

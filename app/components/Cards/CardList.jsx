@@ -2,8 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
-import { Box, Text } from 'grommet';
-import { Add, Previous, Next } from 'grommet-icons';
+import {
+  Box, Text, Menu,
+} from 'grommet';
+import {
+  Add, Previous, Next, Projects,
+} from 'grommet-icons';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
@@ -14,6 +18,7 @@ export default class CardList extends PureComponent {
   state = {
     pageView: 1,
     pageIndex: 0,
+    boardsExpanded: false,
   };
 
   componentDidUpdate() {
@@ -134,18 +139,50 @@ export default class CardList extends PureComponent {
     );
   }
 
+  renderBoardMenu() {
+    const { changeActiveBoard, boards } = this.props;
+    const { boardsExpanded } = this.state;
+    const boardNames = Object.keys(boards);
+    return (
+      <Menu
+        icon={<Projects color="brand" />}
+        dropBackground="dark-2"
+        label="Boards"
+        dropAlign={{ top: 'bottom' }}
+        open={boardsExpanded}
+        items={
+          boardNames.map(board => ({
+            label: board,
+            onClick: () => changeActiveBoard(board),
+          })) || [{ label: 'INBOX' }]
+        }
+      />
+    );
+  }
+
   renderCardControls(cardItems) {
-    const { isFocused, cardsPerPage } = this.props;
-    const { pageView, pageIndex } = this.state;
+    const {
+      isFocused,
+      cardsPerPage,
+      activeBoard,
+    } = this.props;
+    const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
       <Box
         className={cx('card-list-controls', isFocused && 'hidden')}
         background="dark-1"
       >
-        <Text align="center" size="xxlarge">
-          INBOX
+        <Text
+          style={{
+            display: boardsExpanded ? 'none' : 'initial',
+          }}
+          align="center"
+          size="xxlarge"
+        >
+          {activeBoard}
         </Text>
+        {this.renderBoardMenu()}
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length
@@ -154,7 +191,6 @@ export default class CardList extends PureComponent {
         </Text>
         <Button
           className={cx('page-control', pageIndex === 0 && 'disabled')}
-          type="button"
           onClick={() => this.getPreviousCards()}
         >
           <KeyboardEventHandler
@@ -165,7 +201,6 @@ export default class CardList extends PureComponent {
         </Button>
         <Button
           onClick={() => this.getNextCards()}
-          type="button"
           className={cx('page-control', !hasMore && 'disabled')}
         >
           <KeyboardEventHandler
@@ -180,10 +215,7 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      cards,
-      toggleEditor,
-      searchInput,
-      cardsPerPage,
+      cards, toggleEditor, searchInput, cardsPerPage,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -245,6 +277,9 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
+  boards: PropTypes.object,
+  changeActiveBoard: PropTypes.func.isRequired,
+  activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
@@ -252,6 +287,7 @@ CardList.propTypes = {
 
 CardList.defaultProps = {
   cardsPerPage: 8,
+  boards: [],
   labelFilters: [],
   searchInput: '',
   cards: [],

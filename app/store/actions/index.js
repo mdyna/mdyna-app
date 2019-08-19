@@ -184,6 +184,7 @@ const FILTERS = {
   searchCards,
   focusCard,
   changeSorting,
+  changeActiveBoard,
   addLabelFilter,
   removeLabelFilter,
   toggleArchivedFilter,
