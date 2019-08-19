@@ -136,8 +136,13 @@ export const changeBoardBackground = (board, bg) => ({
   },
 });
 
+export const toggleBoardsDialog = () => ({
+  type: ACTION_TYPES.BOARDS.TOGGLE_BOARDS_DIALOG,
+});
+
 const BOARDS = {
   createBoard,
+  toggleBoardsDialog,
   deleteBoard,
   changeBoardBackground,
 };

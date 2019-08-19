@@ -9,11 +9,15 @@ import {
   SORTING_BY_TITLE,
 } from 'Utils/globals';
 
-const { SETTINGS, FILTERS } = ACTIONS;
+const {
+  SETTINGS, FILTERS, BOARDS, CARD_EDITOR,
+} = ACTIONS;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
-const { toggleEditor } = ACTIONS.CARD_EDITOR;
+const { toggleBoardsDialog, createBoard, deleteBoard } = BOARDS;
+
+const { toggleEditor } = CARD_EDITOR;
 
 const {
   searchCards,
@@ -28,6 +32,15 @@ function mapDispatchToProps(dispatch) {
   return {
     toggleSettings: () => {
       dispatch(toggleSettings());
+    },
+    createBoard: (board) => {
+      dispatch(createBoard(board));
+    },
+    deleteBoard: (board) => {
+      dispatch(deleteBoard(board));
+    },
+    toggleBoardsDialog: () => {
+      dispatch(toggleBoardsDialog());
     },
     toggleSidebar: () => {
       dispatch(toggleSidebar());
@@ -98,6 +111,8 @@ function mapStateToProps(state) {
     archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
+    boards: state.boards.boards,
+    boardsDialogOpen: state.boards.boardsDialogOpen,
     settingsModal: state.settings.settingsModal,
     sorting: state.filters.sorting || SORTING_BY_DATE,
     order: state.filters.order || DESCENDING_ORDER,

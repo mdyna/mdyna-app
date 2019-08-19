@@ -11,6 +11,7 @@ import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
+import BoardsDialog from './BoardsDialog';
 import ThemeBuilder from '../themes/themeBuilder';
 
 import MdynaPalette from '../themes/mdyna.palette.json';
@@ -35,9 +36,14 @@ class Mdyna extends PureComponent {
       whiteMode,
       modalOpen,
       toggleEditor,
+      deleteBoard,
+      createBoard,
       searchInput,
       searchCards,
       focusCard,
+      boardsDialogOpen,
+      boards,
+      toggleBoardsDialog,
       isFocused,
       toggleSettings,
     } = this.props;
@@ -88,7 +94,17 @@ class Mdyna extends PureComponent {
               <Loader />
             )}
           </Box>
-          {modalMode ? (
+          {boardsDialogOpen && (
+            <Layer modal={false}>
+              <BoardsDialog
+                boards={boards}
+                createBoard={createBoard}
+                deleteBoard={deleteBoard}
+                toggleBoardsDialog={toggleBoardsDialog}
+              />
+            </Layer>
+          )}
+          {modalMode && (
             <Layer
               margin={{
                 right: '14px',
@@ -106,8 +122,6 @@ class Mdyna extends PureComponent {
               {modalMode === 'editor' && <CardEditor />}
               {modalMode === 'settings' && <Settings />}
             </Layer>
-          ) : (
-            ''
           )}
         </ErrorBoundary>
       </Grommet>

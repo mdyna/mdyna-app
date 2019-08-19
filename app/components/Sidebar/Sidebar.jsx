@@ -8,6 +8,7 @@ import {
   FormNext,
   FormPrevious,
   Up,
+  Projects,
   Descend as Sort,
   AddCircle,
   Archive,
@@ -69,6 +70,7 @@ class Sidebar extends Component {
       removeLabelFilter,
       sidebarExpanded,
       toggleEditor,
+      toggleBoardsDialog,
       toggleSettings,
       toggleArchivedFilter,
       archivedFilterOn,
@@ -82,30 +84,23 @@ class Sidebar extends Component {
     return (
       <Collapsible direction="horizontal" open={sidebarExpanded}>
         <Box direction="column" align="end">
-          <Button
-            onClick={() => {
-              toggleEditor(true);
-            }}
-            className="add-note-btn"
-          >
+          <Button onClick={() => toggleEditor(true)} className="add-note-btn">
             <AddCircle color="brand" />
             <Text className="menu-label">Add Card</Text>
           </Button>
+          <Button onClick={() => toggleBoardsDialog()}>
+            <Projects color="brand" />
+            <Text className="menu-label">Boards</Text>
+          </Button>
           <Button
-            onClick={() => {
-              toggleArchivedFilter(!archivedFilterOn);
-            }}
+            onClick={() => toggleArchivedFilter(!archivedFilterOn)}
             color={(archivedFilterOn && 'accent-3') || 'brand'}
             hoverIndicator={(archivedFilterOn && 'brand') || 'accent-1'}
           >
             <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
             <Text className="menu-label">Toggle Completed</Text>
           </Button>
-          <Button
-            onClick={() => {
-              this.expandSortingOptions();
-            }}
-          >
+          <Button onClick={() => this.expandSortingOptions()}>
             <Sort color="brand" className="sort-icon" />
             <Text className="menu-label">Sort Cards </Text>
           </Button>
