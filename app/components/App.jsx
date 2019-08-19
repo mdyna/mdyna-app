@@ -47,6 +47,7 @@ class Mdyna extends PureComponent {
       isFocused,
       toggleSettings,
     } = this.props;
+    const boardNames = Object.keys(boards);
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
@@ -97,7 +98,7 @@ class Mdyna extends PureComponent {
           {boardsDialogOpen && (
             <Layer modal={false}>
               <BoardsDialog
-                boards={boards}
+                boards={boardNames}
                 createBoard={createBoard}
                 deleteBoard={deleteBoard}
                 toggleBoardsDialog={toggleBoardsDialog}

@@ -20,8 +20,7 @@ export default function boards(
   },
   action,
 ) {
-  const name = action && action.payload && action.payload.name;
-  const bg = action && action.payload && action.payload.bg;
+  const name = action && action.payload;
   const newState = {
     ...state,
   };
@@ -32,8 +31,7 @@ export default function boards(
         boardsDialogOpen: !state.boardsDialogOpen,
       };
     case CREATE_BOARD:
-      newState.boards[name] = {};
-      newState.boards[name] = action.payload;
+      newState.boards[name] = { name: action.payload, cards: [] };
       return newState;
     case DELETE_BOARD:
       delete newState.boards[name];

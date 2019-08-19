@@ -184,6 +184,7 @@ class Sidebar extends Component {
       toggleSettings,
       toggleEditor,
       toggleArchivedFilter,
+      toggleBoardsDialog,
       archivedFilterOn,
     } = this.props;
 
@@ -214,6 +215,15 @@ class Sidebar extends Component {
             text="Hotkey: A"
             onClick={() => {
               toggleEditor(true);
+            }}
+          />
+          <Tooltip
+            icon={<Projects color="brand" />}
+            className={classnames('sidebar-tooltip')}
+            title="Manage boards"
+            text="Add, delete or edit boards"
+            onClick={() => {
+              toggleBoardsDialog();
             }}
           />
           <Tooltip
@@ -267,6 +277,7 @@ Sidebar.propTypes = {
   sidebarExpanded: PropTypes.bool,
   archivedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   toggleSettings: PropTypes.func.isRequired,

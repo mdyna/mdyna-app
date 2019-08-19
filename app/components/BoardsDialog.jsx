@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Select } from 'grommet';
+import {
+  Box, Text, Form, FormField,
+} from 'grommet';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Tooltip from 'UI/Tooltip';
@@ -11,11 +13,11 @@ import './BoardsDialog.scss';
 class BoardsDialog extends PureComponent {
   renderBoardsTable() {
     const { boards, deleteBoard } = this.props;
-    const boardNames = Object.keys(boards);
 
+    console.log('rendering boards table');
     return (
       <Box className="boards-table" direction="column">
-        {boardNames.map(board => (
+        {boards.map(board => (
           <Box
             direction="row"
             key={`${board}-board-row`}
@@ -23,7 +25,7 @@ class BoardsDialog extends PureComponent {
           >
             {board}
             {board !== 'INBOX' && (
-              <Button onClick={() => deleteBoard(board.name)}>X</Button>
+              <Button onClick={() => deleteBoard(board)}>X</Button>
             )}
           </Box>
         ))}
@@ -32,7 +34,7 @@ class BoardsDialog extends PureComponent {
   }
 
   render() {
-    const { toggleBoardsDialog, boards } = this.props;
+    const { toggleBoardsDialog, createBoard } = this.props;
     return (
       <Box className="boards-dialog" direction="column">
         <Button
@@ -44,6 +46,10 @@ class BoardsDialog extends PureComponent {
           X
         </Button>
         {this.renderBoardsTable()}
+        <Form onSubmit={({ value }) => createBoard(value.name)}>
+          <FormField name="name" label="Add a board" />
+          <Button type="submit" label="Add" />
+        </Form>
       </Box>
     );
   }
