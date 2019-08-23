@@ -143,7 +143,17 @@ export default class CardList extends PureComponent {
     const boardNames = Object.keys(boards);
     return (
       <Menu
-        icon={<Projects color="brand" />}
+        icon={(
+          <Projects
+            color="brand"
+            style={{
+              verticalAlign: 'bottom',
+              margin: '0 5px',
+            }}
+          />
+)}
+        justifyContent="center"
+        className="boards-menu"
         dropBackground="dark-2"
         label="Boards"
         dropAlign={{ top: 'bottom' }}
@@ -155,7 +165,13 @@ export default class CardList extends PureComponent {
                 <Text>
                   Manage Boards
                   {' '}
-                  <Projects color="brand" />
+                  <Projects
+                    color="brand"
+                    style={{
+                      verticalAlign: 'bottom',
+                      margin: '0 5px',
+                    }}
+                  />
                 </Text>
               ),
               onClick: () => toggleBoardsDialog(),
@@ -170,7 +186,13 @@ export default class CardList extends PureComponent {
                 <Text>
                   Manage Boards
                   {' '}
-                  <Projects color="brand" />
+                  <Projects
+                    color="brand"
+                    style={{
+                      verticalAlign: 'bottom',
+                      margin: '0 5px',
+                    }}
+                  />
                 </Text>
               ),
               onClick: () => toggleBoardsDialog(),
