@@ -6,6 +6,7 @@ import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 import CardList from 'Containers/CardList';
+import onClickOutside from 'react-onclickoutside';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
@@ -97,7 +98,11 @@ class Mdyna extends PureComponent {
             )}
           </Box>
           {boardsDialogOpen && (
-            <Layer modal={false}>
+            <Layer
+              modal={false}
+              onClickOutside={() => toggleBoardsDialog()}
+              onEsc={() => toggleBoardsDialog()}
+            >
               <BoardsDialog
                 boards={boardNames}
                 createBoard={createBoard}
