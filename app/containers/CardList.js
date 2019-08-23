@@ -2,13 +2,17 @@ import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from '../components/Cards/CardList';
 
-const { CARD_EDITOR, FILTERS } = ACTIONS;
+const { CARD_EDITOR, FILTERS, BOARDS } = ACTIONS;
 const { toggleEditor } = CARD_EDITOR;
 const { changeActiveBoard } = FILTERS;
+const { toggleBoardsDialog } = BOARDS;
 function mapDispatchToProps(dispatch) {
   return {
     toggleEditor: () => {
       dispatch(toggleEditor());
+    },
+    toggleBoardsDialog: () => {
+      dispatch(toggleBoardsDialog());
     },
     changeActiveBoard: (board) => {
       dispatch(changeActiveBoard(board));

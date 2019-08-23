@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
-import {
-  Box, Text, Menu,
-} from 'grommet';
+import { Box, Text, Menu } from 'grommet';
 import {
   Add, Previous, Next, Projects,
 } from 'grommet-icons';
@@ -140,7 +138,7 @@ export default class CardList extends PureComponent {
   }
 
   renderBoardMenu() {
-    const { changeActiveBoard, boards } = this.props;
+    const { changeActiveBoard, boards, toggleBoardsDialog } = this.props;
     const { boardsExpanded } = this.state;
     const boardNames = Object.keys(boards);
     return (
@@ -151,21 +149,41 @@ export default class CardList extends PureComponent {
         dropAlign={{ top: 'bottom' }}
         open={boardsExpanded}
         items={
-          boardNames.map(board => ({
-            label: board,
-            onClick: () => changeActiveBoard(board),
-          })) || [{ label: 'INBOX' }]
+          [
+            {
+              label: (
+                <Text>
+                  Manage Boards
+                  {' '}
+                  <Projects color="brand" />
+                </Text>
+              ),
+              onClick: () => toggleBoardsDialog(),
+            },
+            ...boardNames.map(board => ({
+              label: board,
+              onClick: () => changeActiveBoard(board),
+            })),
+          ] || [
+            {
+              label: (
+                <Text>
+                  Manage Boards
+                  {' '}
+                  <Projects color="brand" />
+                </Text>
+              ),
+              onClick: () => toggleBoardsDialog(),
+            },
+            { label: 'INBOX', onClick: () => changeActiveBoard('INBOX') },
+          ]
         }
       />
     );
   }
 
   renderCardControls(cardItems) {
-    const {
-      isFocused,
-      cardsPerPage,
-      activeBoard,
-    } = this.props;
+    const { isFocused, cardsPerPage, activeBoard } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
@@ -237,9 +255,9 @@ export default class CardList extends PureComponent {
           handleKeys={['a']}
           onKeyEvent={() => toggleEditor(true)}
         />
+        {this.renderCardControls(cardItems)}
         {cards.length ? (
           <React.Fragment>
-            {this.renderCardControls(cardItems)}
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 <Masonry
@@ -278,6 +296,7 @@ CardList.propTypes = {
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.object,
+  toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
