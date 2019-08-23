@@ -4,6 +4,7 @@ import {
   Box, Text, Form, FormField,
 } from 'grommet';
 import { RIEInput } from 'riek';
+import { Add, Projects } from 'grommet-icons';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Tooltip from 'UI/Tooltip';
@@ -24,11 +25,17 @@ class BoardsDialog extends PureComponent {
             key={`${board}-board-row`}
             className="boards-row"
           >
-            <RIEInput
-              propName="board"
-              value={board}
-              change={newName => changeBoardName(board, newName.board)}
-            />
+            {board !== 'INBOX' ? (
+              <RIEInput
+                propName="board"
+                className="board-input"
+                classEditing="editing-board"
+                value={board}
+                change={newName => changeBoardName(board, newName.board)}
+              />
+            ) : (
+              board
+            )}
             {board !== 'INBOX' && (
               <Button onClick={() => deleteBoard(board)}>X</Button>
             )}
@@ -42,19 +49,31 @@ class BoardsDialog extends PureComponent {
     const { toggleBoardsDialog, createBoard } = this.props;
     return (
       <Box className="boards-dialog" direction="column">
-        <Button
-          color="accent-2"
-          className="discard-btn"
-          hoverIndicator="accent-2"
-          onClick={() => toggleBoardsDialog()}
-        >
-          X
-        </Button>
+        <Box direction="row" align="center">
+          <Text size="large">
+            Current Boards
+            <Projects color="brand" />
+          </Text>
+          <Button
+            color="accent-2"
+            className="discard-btn"
+            hoverIndicator="accent-2"
+            onClick={() => toggleBoardsDialog()}
+          >
+            X
+          </Button>
+        </Box>
         {this.renderBoardsTable()}
-        <Form onSubmit={({ value }) => createBoard(value.name)}>
-          <FormField name="name" label="Add a board" />
-          <Button type="submit" label="Add" />
-        </Form>
+        <Box direction="row" align="center">
+          <RIEInput
+            placeholder="Add a board"
+            className="board-input add-board"
+            classEditing="editing-board"
+            change={value => createBoard(value.name)}
+            value="Add a board"
+            propName="name"
+          />
+        </Box>
       </Box>
     );
   }
@@ -62,6 +81,7 @@ class BoardsDialog extends PureComponent {
 
 BoardsDialog.propTypes = {
   toggleBoardsDialog: PropTypes.func,
+  createBoard: PropTypes.func.isRequired,
 };
 
 BoardsDialog.defaultProps = {
