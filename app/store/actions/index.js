@@ -140,8 +140,17 @@ export const toggleBoardsDialog = () => ({
   type: ACTION_TYPES.BOARDS.TOGGLE_BOARDS_DIALOG,
 });
 
+export const changeBoardName = (board, newName) => ({
+  type: ACTION_TYPES.BOARDS.CHANGE_BOARD_NAME,
+  payload: {
+    board,
+    newName,
+  },
+});
+
 const BOARDS = {
   createBoard,
+  changeBoardName,
   toggleBoardsDialog,
   deleteBoard,
   changeBoardBackground,

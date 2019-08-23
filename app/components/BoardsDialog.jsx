@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Box, Text, Form, FormField,
 } from 'grommet';
+import { RIEInput } from 'riek';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Tooltip from 'UI/Tooltip';
@@ -12,7 +13,7 @@ import './BoardsDialog.scss';
 
 class BoardsDialog extends PureComponent {
   renderBoardsTable() {
-    const { boards, deleteBoard } = this.props;
+    const { boards, deleteBoard, changeBoardName } = this.props;
 
     console.log('rendering boards table');
     return (
@@ -23,7 +24,11 @@ class BoardsDialog extends PureComponent {
             key={`${board}-board-row`}
             className="boards-row"
           >
-            {board}
+            <RIEInput
+              propName="board"
+              value={board}
+              change={newName => changeBoardName(board, newName.board)}
+            />
             {board !== 'INBOX' && (
               <Button onClick={() => deleteBoard(board)}>X</Button>
             )}

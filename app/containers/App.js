@@ -15,7 +15,12 @@ const {
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
-const { toggleBoardsDialog, createBoard, deleteBoard } = BOARDS;
+const {
+  toggleBoardsDialog,
+  createBoard,
+  deleteBoard,
+  changeBoardName,
+} = BOARDS;
 
 const { toggleEditor } = CARD_EDITOR;
 
@@ -54,6 +59,9 @@ function mapDispatchToProps(dispatch) {
     searchCards: (val) => {
       dispatch(searchCards(val));
     },
+    changeBoardName: (board, newName) => {
+      dispatch(changeBoardName(board, newName));
+    },
     changeSorting: (sorting, order) => {
       dispatch(changeSorting(sorting, order));
     },
@@ -69,10 +77,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function sortCards(cards, sorting, order, showArchived) {
+function sortCards(cards, sorting, order, showArchived, activeBoard) {
+  const filteredByBoard = activeBoard && activeBoard !== 'INBOX'
+    ? cards.filter(card => card && card.board === activeBoard)
+    : cards;
   const filteredCards = showArchived
-    ? cards.filter(card => card && (card.archived || card.completed))
-    : cards.filter(card => card && !card.archived && !card.completed);
+    ? filteredByBoard.filter(card => card && (card.archived || card.completed))
+    : filteredByBoard.filter(card => card && !card.archived && !card.completed);
   const sortingType = `${sorting}-${order}`;
   switch (sortingType) {
     case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
@@ -102,6 +113,7 @@ function mapStateToProps(state) {
       (state.filters && state.filters.sorting) || SORTING_BY_DATE,
       (state.filters && state.filters.order) || DESCENDING_ORDER,
       (state.filters && state.filters.archivedFilterOn) || false,
+      (state.filters && state.filters.activeBoard) || false,
     );
 
   return {
@@ -118,7 +130,7 @@ function mapStateToProps(state) {
     order: state.filters.order || DESCENDING_ORDER,
     labels: state.labels,
     whiteMode: state.style.whiteMode,
-    cards,
+    cards: cards || [],
   };
 }
 

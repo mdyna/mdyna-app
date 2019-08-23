@@ -4,6 +4,7 @@ const {
   CREATE_BOARD,
   DELETE_BOARD,
   CHANGE_BOARD_BACKGROUND,
+  CHANGE_BOARD_NAME,
   TOGGLE_BOARDS_DIALOG,
 } = ACTION_TYPES.BOARDS;
 
@@ -20,7 +21,10 @@ export default function boards(
   },
   action,
 ) {
-  const name = action && action.payload;
+  const name = (action && action.payload && action.payload.board)
+    || (action && action.payload);
+  const bg = action && action.payload && action.payload.bg;
+  const newName = action && action.payload && action.payload.newName;
   const newState = {
     ...state,
   };
@@ -34,6 +38,11 @@ export default function boards(
       newState.boards[name] = { name: action.payload, cards: [] };
       return newState;
     case DELETE_BOARD:
+      delete newState.boards[name];
+      return newState;
+    case CHANGE_BOARD_NAME:
+      newState.boards[newName] = {};
+      newState.boards[newName] = newState.boards[name];
       delete newState.boards[name];
       return newState;
     case CHANGE_BOARD_BACKGROUND:
