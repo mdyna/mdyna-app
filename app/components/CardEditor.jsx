@@ -68,8 +68,8 @@ export default class CardEditor extends Component {
                 className="color-form-field"
               >
                 <Select
-                  options={Object.keys(boards)}
-                  value={editorSettings[settingName] || activeBoard}
+                  options={Object.keys(boards).filter(d => d !== 'INBOX')}
+                  value={editorSettings[settingName] || 'INBOX'}
                   onChange={({ option }) => changeCardSetting(settingName, option)
                   }
                 />
