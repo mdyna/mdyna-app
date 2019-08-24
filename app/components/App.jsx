@@ -50,7 +50,7 @@ class Mdyna extends PureComponent {
       isFocused,
       toggleSettings,
     } = this.props;
-    const boardNames = Object.keys(boards);
+    const boardNames = (boards && Object.keys(boards)) || ['INBOX'];
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet

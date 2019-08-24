@@ -1,7 +1,6 @@
 export const getLocalState = () => {
   const settings = window.userStorage.get('settings');
   const userState = window.cardStorage.get('state');
-
   return {
     ...userState,
     filters: {

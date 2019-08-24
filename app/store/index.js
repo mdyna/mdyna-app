@@ -6,6 +6,7 @@ import MdynaApp from './reducers';
 import { getLocalState, saveState } from './localStorage';
 
 const localState = getLocalState();
+
 const store = createStore(
   MdynaApp,
   localState,
@@ -18,6 +19,7 @@ store.subscribe(
       {
         cards: store.getState().cards,
         labels: store.getState().labels,
+        boards: store.getState().boards,
       },
       {
         codeTheme: store.getState().settings.codeTheme,

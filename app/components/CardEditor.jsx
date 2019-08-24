@@ -69,8 +69,9 @@ export default class CardEditor extends Component {
               >
                 <Select
                   options={Object.keys(boards)}
-                  value={activeBoard}
-                  onChange={({ option }) => changeCardSetting(option)}
+                  value={editorSettings[settingName] || activeBoard}
+                  onChange={({ option }) => changeCardSetting(settingName, option)
+                  }
                 />
               </FormField>
             );
