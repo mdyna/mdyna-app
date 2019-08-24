@@ -67,10 +67,7 @@ class BoardsDialog extends PureComponent {
     return (
       <Box className="boards-dialog" direction="column" background="dark-2">
         <Box direction="row" align="center" justify="between">
-          <Text size="large">
-            Current Boards
-            <Projects color="brand" />
-          </Text>
+          <Text size="xlarge">Boards</Text>
           <Button
             color="accent-2"
             className="discard-btn"

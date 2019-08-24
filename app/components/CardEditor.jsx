@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Box, Text, FormField, Select,
 } from 'grommet';
+import { Projects } from 'grommet-icons';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import MarkdownEditor from 'Containers/MarkdownEditor';
@@ -65,10 +66,12 @@ export default class CardEditor extends Component {
                 label={startCase(settingName)}
                 htmlFor={snakeCase(settingName)}
                 key={startCase(settingName)}
-                className="color-form-field"
+                className="board-form-field"
               >
                 <Select
                   options={Object.keys(boards).filter(d => d !== 'INBOX')}
+                  icon={<Projects color="brand" />}
+                  focusIndicator={false}
                   value={editorSettings[settingName] || 'INBOX'}
                   onChange={({ option }) => changeCardSetting(settingName, option)
                   }

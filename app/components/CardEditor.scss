@@ -50,6 +50,13 @@
     }
   }
 
+  .board-form-field {
+    button {
+      box-shadow: none;
+      border: none;
+    }
+  }
+
   .editor-with-preview {
     display: flex;
     flex-flow: row nowrap;
