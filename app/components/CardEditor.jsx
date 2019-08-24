@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { snakeCase, startCase, keys } from 'lodash';
 import PropTypes from 'prop-types';
-import { Box, Text, FormField } from 'grommet';
+import {
+  Box, Text, FormField, Select,
+} from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import MarkdownEditor from 'Containers/MarkdownEditor';
@@ -27,7 +29,12 @@ export default class CardEditor extends Component {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const { changeCardSetting, editorSettings } = this.props;
+      const {
+        changeCardSetting,
+        editorSettings,
+        boards,
+        activeBoard,
+      } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
@@ -52,6 +59,23 @@ export default class CardEditor extends Component {
               </FormField>
             );
           }
+          if (settingUiSchema === 'board') {
+            return (
+              <FormField
+                label={startCase(settingName)}
+                htmlFor={snakeCase(settingName)}
+                key={startCase(settingName)}
+                className="color-form-field"
+              >
+                <Select
+                  options={Object.keys(boards)}
+                  value={activeBoard}
+                  onChange={({ option }) => changeCardSetting(option)}
+                />
+              </FormField>
+            );
+          }
+
           console.warn('Found enum but no widget in schema', settingName); // eslint-disable-line no-console
           return '';
         case 'string':
@@ -228,11 +252,14 @@ CardEditor.propTypes = {
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
+  boards: PropTypes.object.isRequired,
+  activeBoard: PropTypes.string,
   saveCard: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
   labels: PropTypes.array,
 };
 
 CardEditor.defaultProps = {
+  activeBoard: 'INBOX',
   labels: [],
 };
