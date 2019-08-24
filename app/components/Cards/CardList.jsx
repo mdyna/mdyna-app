@@ -155,7 +155,7 @@ export default class CardList extends PureComponent {
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label="Boards"
+        label="Change Board"
         dropAlign={{ top: 'bottom' }}
         open={boardsExpanded}
         items={

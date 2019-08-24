@@ -4,7 +4,7 @@ import {
   Box, Text, Form, FormField,
 } from 'grommet';
 import { RIEInput } from 'riek';
-import { Add, Projects } from 'grommet-icons';
+import { Add, Projects, Edit } from 'grommet-icons';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Tooltip from 'UI/Tooltip';
@@ -30,7 +30,15 @@ class BoardsDialog extends PureComponent {
                 propName="board"
                 className="board-input"
                 classEditing="editing-board"
-                value={board}
+                editProps={{
+                  defaultValue: '',
+                }}
+                value={(
+                  <Text>
+                    {board}
+                    <Edit color="brand" />
+                  </Text>
+)}
                 change={newName => changeBoardName(board, newName.board)}
               />
             ) : (
@@ -49,7 +57,7 @@ class BoardsDialog extends PureComponent {
     const { toggleBoardsDialog, createBoard } = this.props;
     return (
       <Box className="boards-dialog" direction="column">
-        <Box direction="row" align="center">
+        <Box direction="row" align="center" justify="between">
           <Text size="large">
             Current Boards
             <Projects color="brand" />
@@ -66,11 +74,19 @@ class BoardsDialog extends PureComponent {
         {this.renderBoardsTable()}
         <Box direction="row" align="center">
           <RIEInput
-            placeholder="Add a board"
             className="board-input add-board"
             classEditing="editing-board"
             change={value => createBoard(value.name)}
-            value="Add a board"
+            editProps={{
+              defaultValue: '',
+            }}
+            value={(
+              <Text>
+                Add board
+                {' '}
+                <Add color="brand" />
+              </Text>
+)}
             propName="name"
           />
         </Box>
