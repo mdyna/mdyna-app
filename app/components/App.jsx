@@ -41,6 +41,7 @@ class Mdyna extends PureComponent {
       createBoard,
       searchInput,
       searchCards,
+      changeActiveBoard,
       focusCard,
       boardsDialogOpen,
       changeBoardName,
@@ -99,7 +100,8 @@ class Mdyna extends PureComponent {
           </Box>
           {boardsDialogOpen && (
             <Layer
-              modal={false}
+              className="boards-dialog-layer"
+              modal={true}
               onClickOutside={() => toggleBoardsDialog()}
               onEsc={() => toggleBoardsDialog()}
             >
@@ -107,6 +109,7 @@ class Mdyna extends PureComponent {
                 boards={boardNames}
                 createBoard={createBoard}
                 deleteBoard={deleteBoard}
+                changeActiveBoard={changeActiveBoard}
                 toggleBoardsDialog={toggleBoardsDialog}
                 changeBoardName={changeBoardName}
               />

@@ -1,6 +1,12 @@
+.boards-dialog-layer {
+  border-radius: 10px;
+  border: 1px solid currentColor;
+}
 .boards-dialog {
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
   min-width: 25vw;
+  border: 1px solid currentColor;
+  border-radius: 10px;
   justify-content: flex-start;
   .discard-btn {
     border: 1px solid #8b0f19 !important;
@@ -21,10 +27,11 @@
   }
   .board-input {
     padding: 10px;
+    width: 100%;
     cursor: pointer;
   }
   .boards-row {
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     font-weight: 700;
   }

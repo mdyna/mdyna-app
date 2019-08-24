@@ -29,6 +29,7 @@ const {
   addLabelFilter,
   removeLabelFilter,
   focusCard,
+  changeActiveBoard,
   changeSorting,
   toggleArchivedFilter,
 } = FILTERS;
@@ -37,6 +38,9 @@ function mapDispatchToProps(dispatch) {
   return {
     toggleSettings: () => {
       dispatch(toggleSettings());
+    },
+    changeActiveBoard: (board) => {
+      dispatch(changeActiveBoard(board));
     },
     createBoard: (board) => {
       dispatch(createBoard(board));

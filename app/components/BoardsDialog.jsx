@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box, Text, Form, FormField,
-} from 'grommet';
+import { Box, Text } from 'grommet';
 import { RIEInput } from 'riek';
-import { Add, Projects, Edit } from 'grommet-icons';
+import {
+  Add, Projects, Edit, Trash,
+} from 'grommet-icons';
 import { toast } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import Tooltip from 'UI/Tooltip';
@@ -14,9 +14,13 @@ import './BoardsDialog.scss';
 
 class BoardsDialog extends PureComponent {
   renderBoardsTable() {
-    const { boards, deleteBoard, changeBoardName } = this.props;
+    const {
+      boards,
+      deleteBoard,
+      changeBoardName,
+      changeActiveBoard,
+    } = this.props;
 
-    console.log('rendering boards table');
     return (
       <Box className="boards-table" direction="column">
         {boards.map(board => (
@@ -31,7 +35,7 @@ class BoardsDialog extends PureComponent {
                 className="board-input"
                 classEditing="editing-board"
                 editProps={{
-                  defaultValue: '',
+                  defaultValue: board || '',
                 }}
                 value={(
                   <Text>
@@ -44,8 +48,13 @@ class BoardsDialog extends PureComponent {
             ) : (
               board
             )}
+            <Button onClick={() => changeActiveBoard(board)}>
+              <Projects color="brand" />
+            </Button>
             {board !== 'INBOX' && (
-              <Button onClick={() => deleteBoard(board)}>X</Button>
+              <Button onClick={() => deleteBoard(board)}>
+                <Trash color="brand" />
+              </Button>
             )}
           </Box>
         ))}
@@ -56,7 +65,7 @@ class BoardsDialog extends PureComponent {
   render() {
     const { toggleBoardsDialog, createBoard } = this.props;
     return (
-      <Box className="boards-dialog" direction="column">
+      <Box className="boards-dialog" direction="column" background="dark-2">
         <Box direction="row" align="center" justify="between">
           <Text size="large">
             Current Boards
@@ -96,12 +105,17 @@ class BoardsDialog extends PureComponent {
 }
 
 BoardsDialog.propTypes = {
+  changeActiveBoard: PropTypes.func.isRequired,
+  deleteBoard: PropTypes.func.isRequired,
+  boards: PropTypes.array,
   toggleBoardsDialog: PropTypes.func,
   createBoard: PropTypes.func.isRequired,
+  changeBoardName: PropTypes.func.isRequired,
 };
 
 BoardsDialog.defaultProps = {
   toggleBoardsDialog: null,
+  boards: ['INBOX'],
 };
 
 export default BoardsDialog;
