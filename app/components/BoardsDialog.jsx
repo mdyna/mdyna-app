@@ -17,6 +17,7 @@ class BoardsDialog extends PureComponent {
     const {
       boards,
       deleteBoard,
+      activeBoard,
       changeBoardName,
       changeActiveBoard,
     } = this.props;
@@ -49,7 +50,9 @@ class BoardsDialog extends PureComponent {
               board
             )}
             <Button onClick={() => changeActiveBoard(board)}>
-              <Projects color="brand" />
+              <Projects
+                color={(activeBoard === board && 'accent-3') || 'brand'}
+              />
             </Button>
             {board !== 'INBOX' && (
               <Button onClick={() => deleteBoard(board)}>
@@ -67,15 +70,20 @@ class BoardsDialog extends PureComponent {
     return (
       <Box className="boards-dialog" direction="column" background="dark-2">
         <Box direction="row" align="center" justify="between">
-          <Text size="xlarge">Boards</Text>
-          <Button
-            color="accent-2"
-            className="discard-btn"
-            hoverIndicator="accent-2"
-            onClick={() => toggleBoardsDialog()}
-          >
-            X
-          </Button>
+          <Text size="xlarge">
+            <Projects color="brand" />
+            Boards
+          </Text>
+          {toggleBoardsDialog && (
+            <Button
+              color="accent-2"
+              className="discard-btn"
+              hoverIndicator="accent-2"
+              onClick={() => toggleBoardsDialog()}
+            >
+              X
+            </Button>
+          )}
         </Box>
         {this.renderBoardsTable()}
         <Box direction="row" align="center">
@@ -105,6 +113,7 @@ BoardsDialog.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
   boards: PropTypes.array,
+  activeBoard: PropTypes.string,
   toggleBoardsDialog: PropTypes.func,
   createBoard: PropTypes.func.isRequired,
   changeBoardName: PropTypes.func.isRequired,
@@ -112,6 +121,7 @@ BoardsDialog.propTypes = {
 
 BoardsDialog.defaultProps = {
   toggleBoardsDialog: null,
+  activeBoard: 'INBOX',
   boards: ['INBOX'],
 };
 

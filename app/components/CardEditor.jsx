@@ -30,12 +30,7 @@ export default class CardEditor extends Component {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const {
-        changeCardSetting,
-        editorSettings,
-        boards,
-        activeBoard,
-      } = this.props;
+      const { changeCardSetting, editorSettings, boards } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':

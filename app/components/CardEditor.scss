@@ -1,7 +1,8 @@
 @import "../style.scss";
 
 .note-layer {
-  display: block !important;
+  height: fit-content;
+  max-height: none;
   margin-top: 32px;
 }
 

@@ -42,6 +42,7 @@ class Mdyna extends PureComponent {
       searchInput,
       searchCards,
       changeActiveBoard,
+      activeBoard,
       focusCard,
       boardsDialogOpen,
       changeBoardName,
@@ -106,6 +107,7 @@ class Mdyna extends PureComponent {
               onEsc={() => toggleBoardsDialog()}
             >
               <BoardsDialog
+                activeBoard={activeBoard}
                 boards={boardNames}
                 createBoard={createBoard}
                 deleteBoard={deleteBoard}

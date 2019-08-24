@@ -1,7 +1,9 @@
 .settings {
   padding: 20px;
+  overflow: scroll;
+  height: 100vh;
   img {
-    width: 500px;
+    width: 100%;
   }
   button {
     align-self: flex-end;
@@ -18,12 +20,17 @@
   svg {
     margin: 0px 15px 0px 0px;
   }
-  .settings-container {
-    border-radius: 10px;
+  .app-info {
     padding: 20px;
+    border-radius: 10px;
+    margin: 30px 20px;
+  }
+  .settings-container {
+    height: 100%;
+    border-radius: 10px;
+    padding: 20px 20px 40px 20px;
     margin-top: 20px;
     min-width: 50vw;
-    max-width: 550px;
     h1 {
       margin: 30px 0px;
       svg {

@@ -21,11 +21,12 @@ import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import { CODE_THEMES } from 'UI/MarkdownText';
+import BoardsDialog from './BoardsDialog';
 
 import './Settings.scss';
 
 const renderAppInfo = () => (
-  <Box direction="column">
+  <Box direction="column" background="dark-1" className="app-info">
     <Header />
     <Text size="xxlarge" as="h1">
       Mdyna
@@ -71,8 +72,14 @@ class Settings extends PureComponent {
       cardsPerPage,
       changeCardsPerPage,
       codeTheme,
+      changeActiveBoard,
+      createBoard,
+      deleteBoard,
+      activeBoard,
+      changeBoardName,
       changeCwd,
       cwd,
+      boardNames,
     } = this.props;
     const newTheme = whiteMode ? 'dark' : 'white';
     return (
@@ -86,7 +93,7 @@ class Settings extends PureComponent {
           X
         </Button>
         <ErrorBoundary>
-          <Box direction="row" justify="center" responsive>
+          <Box direction="row" justify="center">
             {renderAppInfo()}
             <Box
               direction="column"
@@ -158,6 +165,14 @@ class Settings extends PureComponent {
                   }}
                 />
               </Box>
+              <BoardsDialog
+                activeBoard={activeBoard}
+                boards={boardNames}
+                createBoard={createBoard}
+                deleteBoard={deleteBoard}
+                changeActiveBoard={changeActiveBoard}
+                changeBoardName={changeBoardName}
+              />
             </Box>
           </Box>
         </ErrorBoundary>
@@ -170,8 +185,14 @@ Settings.propTypes = {
   whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
   toggleSettings: PropTypes.func,
+  createBoard: PropTypes.func.isRequired,
+  deleteBoard: PropTypes.func.isRequired,
+  changeBoardName: PropTypes.func.isRequired,
+  changeActiveBoard: PropTypes.func.isRequired,
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,
+  activeBoard: PropTypes.string.isRequired,
+  boardNames: PropTypes.array,
   cwd: PropTypes.string,
   changeCodeTheme: PropTypes.func,
   changeCardsPerPage: PropTypes.func,
@@ -182,6 +203,7 @@ Settings.defaultProps = {
   whiteMode: false,
   changeCardsPerPage: null,
   changeCwd: null,
+  boardNames: [],
   toggleSettings: null,
   changeCodeTheme: null,
   codeTheme: 'Default',

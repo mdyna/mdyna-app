@@ -40,7 +40,6 @@ function mapStateToProps(state) {
     editorSettings: state.editor,
     labels: state.labels,
     boards: state.boards.boards,
-    activeBoard: state.filters.activeBoard || 'INBOX',
   };
 }
 export default connect(

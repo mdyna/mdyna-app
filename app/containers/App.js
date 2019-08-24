@@ -122,6 +122,7 @@ function mapStateToProps(state) {
 
   return {
     searchInput: state.filters.searchInput,
+    activeBoard: state.filters.activeBoard,
     isFocused: state.filters.isFocused,
     labelFilters: state.filters.labelFilters,
     archivedFilterOn: state.filters.archivedFilterOn,
