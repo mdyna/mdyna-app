@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
