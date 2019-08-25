@@ -44,7 +44,12 @@ class BoardsDialog extends PureComponent {
                     <Edit color="brand" />
                   </Text>
 )}
-                change={newName => changeBoardName(board, newName.board)}
+                change={(newName) => {
+                  if (activeBoard === board) {
+                    changeActiveBoard(newName.board);
+                  }
+                  changeBoardName(board, newName.board);
+                }}
               />
             ) : (
               board
@@ -55,7 +60,14 @@ class BoardsDialog extends PureComponent {
               />
             </Button>
             {board !== 'INBOX' && (
-              <Button onClick={() => deleteBoard(board)}>
+              <Button
+                onClick={() => {
+                  if (activeBoard === board) {
+                    changeActiveBoard('INBOX');
+                  }
+                  deleteBoard(board);
+                }}
+              >
                 <Trash color="brand" />
               </Button>
             )}

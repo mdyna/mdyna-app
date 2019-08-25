@@ -1,3 +1,30 @@
 .boards-menu {
   border-radius: 10px;
+  div {
+    justify-content: flex-start;
+  }
+}
+
+.editing-board {
+  background: none;
+  font-size: 18px;
+  color: currentColor;
+  border: none;
+  outline: none;
+  filter: grayscale(0.8);
+  font-weight: 300;
+  font-family: inherit;
+}
+
+.board-input {
+  width: 100%;
+  font-weight: 700;
+  cursor: pointer;
+  span {
+    width: 100%;
+  }
+  svg {
+    vertical-align: bottom;
+    margin: 0 10px;
+  }
 }
