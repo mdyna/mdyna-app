@@ -6,7 +6,6 @@ import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 import CardList from 'Containers/CardList';
-import onClickOutside from 'react-onclickoutside';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
@@ -78,7 +77,7 @@ class Mdyna extends PureComponent {
           <Header />
           <SearchInput
             hidden={isFocused}
-            titles={cards && cards.length && cards.map(c => c.title)}
+            titles={(cards && cards.length && cards.map(c => c.title)) || []}
             onChange={e => searchCards(e)}
             searchBar={this.searchBar}
             searchInput={searchInput}

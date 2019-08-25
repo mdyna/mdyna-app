@@ -20,6 +20,7 @@ store.subscribe(
         cards: store.getState().cards,
         labels: store.getState().labels,
         boards: store.getState().boards,
+        boardNames: Object.keys(store.getState().boards.boards),
       },
       {
         codeTheme: store.getState().settings.codeTheme,
