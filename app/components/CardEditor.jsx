@@ -6,6 +6,7 @@ import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
+import BoardPicker from 'UI/BoardPicker';
 import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
 import CardPreview from 'Containers/CardPreview';
@@ -27,7 +28,14 @@ export default class CardEditor extends Component {
       const setting = schema[settingName];
       const settingType = setting.type;
       const settingUiSchema = setting.uiSchema;
-      const { changeCardSetting, editorSettings } = this.props;
+      const {
+        changeCardSetting,
+        boards,
+        editorSettings,
+        boardNames,
+        toggleBoardsDialog,
+        createBoard,
+      } = this.props;
       const enums = (setting.enums && [...setting.enums]) || null;
       switch (settingType) {
         case 'enum':
@@ -37,7 +45,7 @@ export default class CardEditor extends Component {
                 label={startCase(settingName)}
                 htmlFor={snakeCase(settingName)}
                 key={startCase(settingName)}
-                className="color-form-field"
+                className="color-form-field form-field"
               >
                 {enums ? (
                   <ColorPicker
@@ -52,6 +60,31 @@ export default class CardEditor extends Component {
               </FormField>
             );
           }
+          if (settingUiSchema === 'board') {
+            return (
+              <FormField
+                label={startCase(settingName)}
+                htmlFor={snakeCase(settingName)}
+                key={startCase(settingName)}
+                className="board-form-field form-field"
+              >
+                <BoardPicker
+                  createBoard={createBoard}
+                  onClick={v => changeCardSetting(settingName, v)}
+                  boardNames={boardNames}
+                  boards={boards}
+                  toggleBoardsDialog={toggleBoardsDialog}
+                  value={
+                    (boards[editorSettings[settingName]]
+                      && boards[editorSettings[settingName]].name)
+                    || 'INBOX'
+                  }
+                  addButton
+                />
+              </FormField>
+            );
+          }
+
           console.warn('Found enum but no widget in schema', settingName); // eslint-disable-line no-console
           return '';
         case 'string':
@@ -228,7 +261,11 @@ CardEditor.propTypes = {
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
+  boards: PropTypes.object.isRequired,
+  boardNames: PropTypes.array.isRequired,
+  createBoard: PropTypes.func.isRequired,
   saveCard: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
   labels: PropTypes.array,
 };

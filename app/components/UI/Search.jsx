@@ -9,13 +9,12 @@ import './Search.scss';
 export default class SearchComponent extends Component {
   render() {
     const {
-      searchInput, onChange, searchBar, titles, hidden,
-    } = this.props;
+ searchInput, onChange, searchBar, titles, hidden 
+} = this.props;
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>
         <Search color="brand" />
         <TextInput
-          suggestions={titles}
           className="mdyna-search"
           placeholder="Search cards (Ctrl+P)"
           onChange={e => onChange(e.target.value)}

@@ -11,6 +11,7 @@ import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
+import BoardsDialog from './BoardsDialog';
 import ThemeBuilder from '../themes/themeBuilder';
 
 import MdynaPalette from '../themes/mdyna.palette.json';
@@ -35,12 +36,25 @@ class Mdyna extends PureComponent {
       whiteMode,
       modalOpen,
       toggleEditor,
+      deleteBoard,
+      createBoard,
       searchInput,
       searchCards,
+      changeActiveBoard,
+      activeBoard,
       focusCard,
+      boardsDialogOpen,
+      changeBoardName,
+      boards,
+      toggleBoardsDialog,
       isFocused,
       toggleSettings,
     } = this.props;
+    const boardNames = [];
+    for (let boardId in boards) {
+      const board = boards[boardId];
+      boardNames.push(board.name);
+    }
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
@@ -67,7 +81,7 @@ class Mdyna extends PureComponent {
           <Header />
           <SearchInput
             hidden={isFocused}
-            titles={cards && cards.length && cards.map(c => c.title)}
+            titles={(cards && cards.length && cards.map(c => c.title)) || []}
             onChange={e => searchCards(e)}
             searchBar={this.searchBar}
             searchInput={searchInput}
@@ -88,7 +102,26 @@ class Mdyna extends PureComponent {
               <Loader />
             )}
           </Box>
-          {modalMode ? (
+          {boardsDialogOpen && (
+            <Layer
+              className="boards-dialog-layer"
+              modal={true}
+              onClickOutside={() => toggleBoardsDialog()}
+              onEsc={() => toggleBoardsDialog()}
+            >
+              <BoardsDialog
+                activeBoard={activeBoard}
+                boards={boards}
+                boardNames={boardNames}
+                createBoard={createBoard}
+                deleteBoard={deleteBoard}
+                changeActiveBoard={changeActiveBoard}
+                toggleBoardsDialog={toggleBoardsDialog}
+                changeBoardName={changeBoardName}
+              />
+            </Layer>
+          )}
+          {modalMode && (
             <Layer
               margin={{
                 right: '14px',
@@ -106,8 +139,6 @@ class Mdyna extends PureComponent {
               {modalMode === 'editor' && <CardEditor />}
               {modalMode === 'settings' && <Settings />}
             </Layer>
-          ) : (
-            ''
           )}
         </ErrorBoundary>
       </Grommet>

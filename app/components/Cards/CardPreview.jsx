@@ -30,11 +30,12 @@ export default cardPreview;
 cardPreview.propTypes = {
   card: PropTypes.object,
   changeCardSetting: PropTypes.func.isRequired,
-  codeTheme: PropTypes.string.isRequired,
+  codeTheme: PropTypes.string,
   changeTitle: PropTypes.func.isRequired,
   saveCard: PropTypes.func.isRequired,
 };
 
 cardPreview.defaultProps = {
+  codeTheme: 'Default',
   card: {},
 };
