@@ -12,7 +12,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     searchInput: state.filters.searchInput,
-    completedFilterOn: state.filters.completedFilterOn,
+    archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     labelFilters: state.filters.labelFilters,
     cardsPerPage: state.settings.cardsPerPage,

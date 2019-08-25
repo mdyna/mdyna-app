@@ -21,7 +21,7 @@ const {
   removeLabelFilter,
   focusCard,
   changeSorting,
-  toggleCompletedFilter,
+  toggleArchivedFilter,
 } = FILTERS;
 
 function mapDispatchToProps(dispatch) {
@@ -44,8 +44,8 @@ function mapDispatchToProps(dispatch) {
     changeSorting: (sorting, order) => {
       dispatch(changeSorting(sorting, order));
     },
-    toggleCompletedFilter: (val) => {
-      dispatch(toggleCompletedFilter(val));
+    toggleArchivedFilter: (val) => {
+      dispatch(toggleArchivedFilter(val));
     },
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
@@ -56,23 +56,26 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function sortCards(cards, sorting, order) {
+function sortCards(cards, sorting, order, showArchived) {
+  const filteredCards = showArchived
+    ? cards.filter(card => card && (card.archived || card.completed))
+    : cards.filter(card => card && !card.archived && !card.completed);
   const sortingType = `${sorting}-${order}`;
   switch (sortingType) {
     case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
-      return cards.sort(
+      return filteredCards.sort(
         (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
       );
     case `${SORTING_BY_DATE}-${ASCENDING_ORDER}`:
-      return cards.sort(
+      return filteredCards.sort(
         (a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]),
       );
     case `${SORTING_BY_TITLE}-${ASCENDING_ORDER}`:
-      return cards.sort((a, b) => a.title.localeCompare(b.title));
+      return filteredCards.sort((a, b) => a.title.localeCompare(b.title));
     case `${SORTING_BY_TITLE}-${DESCENDING_ORDER}`:
-      return cards.sort((a, b) => b.title.localeCompare(a.title));
+      return filteredCards.sort((a, b) => b.title.localeCompare(a.title));
     default:
-      return cards.sort(
+      return filteredCards.sort(
         (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
       );
   }
@@ -85,13 +88,14 @@ function mapStateToProps(state) {
       state.cards,
       (state.filters && state.filters.sorting) || SORTING_BY_DATE,
       (state.filters && state.filters.order) || DESCENDING_ORDER,
+      (state.filters && state.filters.archivedFilterOn) || false,
     );
 
   return {
     searchInput: state.filters.searchInput,
     isFocused: state.filters.isFocused,
     labelFilters: state.filters.labelFilters,
-    completedFilterOn: state.filters.completedFilterOn,
+    archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
     settingsModal: state.settings.settingsModal,

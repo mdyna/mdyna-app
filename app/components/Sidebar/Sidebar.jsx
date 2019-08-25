@@ -10,7 +10,7 @@ import {
   Up,
   Descend as Sort,
   AddCircle,
-  Checkmark,
+  Archive,
   Configure,
 } from 'grommet-icons';
 import classnames from 'classnames';
@@ -70,8 +70,8 @@ class Sidebar extends Component {
       sidebarExpanded,
       toggleEditor,
       toggleSettings,
-      toggleCompletedFilter,
-      completedFilterOn,
+      toggleArchivedFilter,
+      archivedFilterOn,
       sorting,
       order,
       labels,
@@ -93,13 +93,12 @@ class Sidebar extends Component {
           </Button>
           <Button
             onClick={() => {
-              toggleCompletedFilter(!completedFilterOn);
+              toggleArchivedFilter(!archivedFilterOn);
             }}
-            className={classnames('toggle-completed-button', completedFilterOn && 'active')}
-            color={(completedFilterOn && 'accent-3') || 'brand'}
-            hoverIndicator={(completedFilterOn && 'brand') || 'accent-1'}
+            color={(archivedFilterOn && 'accent-3') || 'brand'}
+            hoverIndicator={(archivedFilterOn && 'brand') || 'accent-1'}
           >
-            <Checkmark color={completedFilterOn ? 'accent-3' : 'brand'} />
+            <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
             <Text className="menu-label">Toggle Completed</Text>
           </Button>
           <Button
@@ -114,23 +113,34 @@ class Sidebar extends Component {
             <Button
               className={classnames(sorting === SORTING_BY_TITLE && 'active')}
               plain={sorting !== SORTING_BY_TITLE}
-              onClick={() => changeSorting(SORTING_BY_TITLE, this.getSortingOrder(SORTING_BY_TITLE))
+              onClick={() => changeSorting(
+                SORTING_BY_TITLE,
+                this.getSortingOrder(SORTING_BY_TITLE),
+              )
               }
             >
               <Up
                 color="brand"
-                className={classnames(order === DESCENDING_ORDER && 'descending')}
+                className={classnames(
+                  order === DESCENDING_ORDER && 'descending',
+                )}
               />
               By Title
             </Button>
             <Button
               plain={sorting !== SORTING_BY_DATE}
-              onClick={() => changeSorting(SORTING_BY_DATE, this.getSortingOrder(SORTING_BY_DATE))}
+              onClick={() => changeSorting(
+                SORTING_BY_DATE,
+                this.getSortingOrder(SORTING_BY_DATE),
+              )
+              }
               className={classnames(sorting === SORTING_BY_DATE && 'active')}
             >
               <Up
                 color="brand"
-                className={classnames(order === DESCENDING_ORDER && 'descending')}
+                className={classnames(
+                  order === DESCENDING_ORDER && 'descending',
+                )}
               />
               By Date
             </Button>
@@ -154,11 +164,17 @@ class Sidebar extends Component {
           <Box direction="column">
             <Text size="small" className="help">
               Markdown Guide
-              <Tooltip text={TooltipData.markdown.text} title={TooltipData.markdown.title} />
+              <Tooltip
+                text={TooltipData.markdown.text}
+                title={TooltipData.markdown.title}
+              />
             </Text>
             <Text size="small" className="help">
               Keyboard Shortcuts
-              <Tooltip text={TooltipData.keyboard.text} title={TooltipData.keyboard.title} />
+              <Tooltip
+                text={TooltipData.keyboard.text}
+                title={TooltipData.keyboard.title}
+              />
             </Text>
           </Box>
         </Box>
@@ -172,8 +188,8 @@ class Sidebar extends Component {
       toggleSidebar,
       toggleSettings,
       toggleEditor,
-      toggleCompletedFilter,
-      completedFilterOn,
+      toggleArchivedFilter,
+      archivedFilterOn,
     } = this.props;
 
     return (
@@ -206,16 +222,12 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            className={classnames(
-              'toggle-completed-button',
-              'sidebar-tooltip',
-              completedFilterOn && 'active',
-            )}
-            icon={<Checkmark color={completedFilterOn ? 'accent-1' : 'brand'} />}
-            title="Toggle completed cards"
-            text="Make cards which have already been completed visible"
+            className="sidebar-tooltip"
+            icon={<Archive color={archivedFilterOn ? 'accent-1' : 'brand'} />}
+            title="Show Archive"
+            text="See your archived cards"
             onClick={() => {
-              toggleCompletedFilter(!completedFilterOn);
+              toggleArchivedFilter(!archivedFilterOn);
             }}
           />
           <Tooltip
@@ -256,9 +268,9 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   labelFilters: PropTypes.array,
   addLabelFilter: PropTypes.func.isRequired,
-  toggleCompletedFilter: PropTypes.func.isRequired,
+  toggleArchivedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
-  completedFilterOn: PropTypes.bool,
+  archivedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
@@ -272,7 +284,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   labelFilters: [],
   sidebarExpanded: false,
-  completedFilterOn: false,
+  archivedFilterOn: false,
   sorting: SORTING_BY_DATE,
   order: DESCENDING_ORDER,
   labels: [],
