@@ -7,6 +7,21 @@ import PropTypes from 'prop-types';
 import './BoardPicker.scss';
 
 export default class BoardPicker extends Component {
+  getBoardId(boardName) {
+    const { boards } = this.props;
+    if (boardName === 'INBOX') {
+      return 'INBOX';
+    }
+    const boardIds = Object.keys(boards);
+    for (let i = 0; i < boardIds.length; i += 1) {
+      const boardId = boardIds[i];
+      if (boardName === boards[boardId].name) {
+        return boardId;
+      }
+    }
+    return 'INBOX';
+  }
+
   render() {
     const {
       onClick,
@@ -59,7 +74,7 @@ export default class BoardPicker extends Component {
                     if (createBoard) {
                       createBoard(v.name);
                     }
-                    onClick(v.name);
+                    onClick(this.getBoardId(v.name));
                   }
                 }}
                 editProps={{
@@ -77,7 +92,7 @@ export default class BoardPicker extends Component {
           },
           ...boardNames.map(board => ({
             label: board,
-            onClick: () => onClick(board),
+            onClick: () => onClick(this.getBoardId(board)),
           })),
         ]}
       />
@@ -91,6 +106,7 @@ BoardPicker.propTypes = {
   value: PropTypes.string,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
+  boards: PropTypes.object.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
 };
 

@@ -13,18 +13,33 @@ import Button from 'UI/Button';
 import './BoardsDialog.scss';
 
 class BoardsDialog extends PureComponent {
+  getBoardId(boardName) {
+    const { boards } = this.props;
+    if (boardName === 'INBOX') {
+      return 'INBOX';
+    }
+    const boardIds = Object.keys(boards);
+    for (let i = 0; i < boardIds.length; i += 1) {
+      const boardId = boardIds[i];
+      if (boardName === boards[boardId].name) {
+        return boardId;
+      }
+    }
+    return 'INBOX';
+  }
+
   renderBoardsTable() {
     const {
-      boards,
+      boardNames,
       deleteBoard,
       activeBoard,
       changeBoardName,
       changeActiveBoard,
+      boards,
     } = this.props;
-
     return (
       <Box className="boards-table" direction="column">
-        {boards.map(board => (
+        {boardNames.map(board => (
           <Box
             direction="row"
             key={`${board}-board-row`}
@@ -45,27 +60,32 @@ class BoardsDialog extends PureComponent {
                   </Text>
 )}
                 change={(newName) => {
-                  if (activeBoard === board) {
-                    changeActiveBoard(newName.board);
+                  const boardId = this.getBoardId(board);
+                  if (activeBoard === boardId) {
+                    changeActiveBoard(boardId);
                   }
-                  changeBoardName(board, newName.board);
+                  changeBoardName(boardId, newName.board);
                 }}
               />
             ) : (
               board
             )}
-            <Button onClick={() => changeActiveBoard(board)}>
+            <Button onClick={() => changeActiveBoard(this.getBoardId(board))}>
               <Projects
-                color={(activeBoard === board && 'accent-3') || 'brand'}
+                color={
+                  (activeBoard === this.getBoardId(board) && 'accent-3')
+                  || 'brand'
+                }
               />
             </Button>
             {board !== 'INBOX' && (
               <Button
                 onClick={() => {
-                  if (activeBoard === board) {
+                  const boardId = this.getBoardId(board);
+                  if (activeBoard === boardId) {
                     changeActiveBoard('INBOX');
                   }
-                  deleteBoard(board);
+                  deleteBoard(boardId);
                 }}
               >
                 <Trash color="brand" />
@@ -124,17 +144,17 @@ class BoardsDialog extends PureComponent {
 BoardsDialog.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
-  boards: PropTypes.array,
+  boards: PropTypes.object.isRequired,
   activeBoard: PropTypes.string,
   toggleBoardsDialog: PropTypes.func,
   createBoard: PropTypes.func.isRequired,
+  boardNames: PropTypes.array.isRequired,
   changeBoardName: PropTypes.func.isRequired,
 };
 
 BoardsDialog.defaultProps = {
   toggleBoardsDialog: null,
   activeBoard: 'INBOX',
-  boards: ['INBOX'],
 };
 
 export default BoardsDialog;

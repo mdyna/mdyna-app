@@ -118,14 +118,18 @@ const LABEL = {
 
 // ──── BOARDS ────────────────────────────────────────────────────────────────────────────
 
-export const createBoard = board => ({
+export const createBoard = name => ({
   type: ACTION_TYPES.BOARDS.CREATE_BOARD,
-  payload: board,
+  payload: {
+    name,
+  },
 });
 
 export const deleteBoard = board => ({
   type: ACTION_TYPES.BOARDS.DELETE_BOARD,
-  payload: board,
+  payload: {
+    board,
+  },
 });
 
 export const changeBoardBackground = (board, bg) => ({

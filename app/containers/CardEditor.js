@@ -48,6 +48,7 @@ function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     labels: state.labels,
+    boardNames: state.boards.boardNames,
     boards: state.boards.boards,
   };
 }

@@ -28,8 +28,12 @@ function mapStateToProps(state) {
     archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     labelFilters: state.filters.labelFilters,
+    boardNames: state.boards.boardNames,
     boards: state.boards.boards,
-    activeBoard: state.filters.activeBoard || 'INBOX',
+    activeBoard:
+      (state.boards.boards[state.filters.activeBoard]
+        && state.boards.boards[state.filters.activeBoard].name)
+      || 'INBOX',
     cardsPerPage: state.settings.cardsPerPage,
   };
 }

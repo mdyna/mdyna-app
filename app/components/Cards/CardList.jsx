@@ -141,9 +141,10 @@ export default class CardList extends PureComponent {
       cardsPerPage,
       activeBoard,
       changeActiveBoard,
-      boards,
+      boardNames,
       createBoard,
       toggleBoardsDialog,
+      boards,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
@@ -165,8 +166,8 @@ export default class CardList extends PureComponent {
           addButton
           createBoard={createBoard}
           onClick={changeActiveBoard}
+          boardNames={boardNames}
           boards={boards}
-          boardNames={(boards && Object.keys(boards)) || []}
           toggleBoardsDialog={toggleBoardsDialog}
         />
         {this.renderAddNoteButton()}
@@ -264,6 +265,7 @@ CardList.propTypes = {
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.object,
+  boardNames: PropTypes.array,
   createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
@@ -275,8 +277,9 @@ CardList.propTypes = {
 
 CardList.defaultProps = {
   cardsPerPage: 8,
-  boards: [],
+  boards: {},
   labelFilters: [],
+  boardNames: [],
   searchInput: '',
   cards: [],
 };

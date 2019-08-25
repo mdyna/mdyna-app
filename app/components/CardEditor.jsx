@@ -30,8 +30,9 @@ export default class CardEditor extends Component {
       const settingUiSchema = setting.uiSchema;
       const {
         changeCardSetting,
-        editorSettings,
         boards,
+        editorSettings,
+        boardNames,
         toggleBoardsDialog,
         createBoard,
       } = this.props;
@@ -70,9 +71,14 @@ export default class CardEditor extends Component {
                 <BoardPicker
                   createBoard={createBoard}
                   onClick={v => changeCardSetting(settingName, v)}
-                  boardNames={Object.keys(boards) || ['INBOX']}
+                  boardNames={boardNames}
+                  boards={boards}
                   toggleBoardsDialog={toggleBoardsDialog}
-                  value={editorSettings[settingName]}
+                  value={
+                    (boards[editorSettings[settingName]]
+                      && boards[editorSettings[settingName]].name)
+                    || 'INBOX'
+                  }
                   addButton
                 />
               </FormField>
@@ -256,6 +262,7 @@ CardEditor.propTypes = {
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
   boards: PropTypes.object.isRequired,
+  boardNames: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
   saveCard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
