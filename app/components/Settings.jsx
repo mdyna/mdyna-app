@@ -26,12 +26,13 @@ import BoardsDialog from './BoardsDialog';
 import './Settings.scss';
 
 const renderAppInfo = () => (
-  <Box direction="column" background="dark-1" className="app-info">
-    <Header />
-    <Text size="xxlarge" as="h1">
-      Mdyna
-    </Text>
-    <Text>{window.appVersion}</Text>
+  <Box direction="row" background="dark-1" className="app-info" responsive>
+    <Header>
+      <Text size="xxlarge" as="h1">
+        Mdyna
+      </Text>
+      <Text>{window.appVersion}</Text>
+    </Header>
     <Text size="large" color="brand">
       <a href="https://mdyna.dev">
         <Globe color="brand" />
@@ -46,7 +47,7 @@ const renderAppInfo = () => (
       <Github color="brand" />
       <a href="https://github.com/mdyna/mdyna-app/">Github</a>
     </Text>
-    <Box align="center" direction="column">
+    <Box align="center" direction="column" className="credits">
       <Text>Created by David Morais</Text>
       <Text size="medium">
         <a href="https://twitter.com/Psybork">
@@ -78,6 +79,7 @@ class Settings extends PureComponent {
       activeBoard,
       changeBoardName,
       changeCwd,
+      boards,
       cwd,
       boardNames,
     } = this.props;
@@ -93,8 +95,12 @@ class Settings extends PureComponent {
           X
         </Button>
         <ErrorBoundary>
-          <Box direction="row" justify="center">
-            {renderAppInfo()}
+          <Box
+            direction="row"
+            justify="center"
+            responsive
+            className="settings-layout"
+          >
             <Box
               direction="column"
               background="dark-2"
@@ -167,13 +173,16 @@ class Settings extends PureComponent {
               </Box>
               <BoardsDialog
                 activeBoard={activeBoard}
-                boards={boardNames}
+                boards={boards}
+                boardNames={boardNames}
                 createBoard={createBoard}
                 deleteBoard={deleteBoard}
                 changeActiveBoard={changeActiveBoard}
                 changeBoardName={changeBoardName}
               />
             </Box>
+
+            {renderAppInfo()}
           </Box>
         </ErrorBoundary>
       </Box>
@@ -188,6 +197,7 @@ Settings.propTypes = {
   createBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
   changeBoardName: PropTypes.func.isRequired,
+  boards: PropTypes.object.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,

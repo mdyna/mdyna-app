@@ -11,6 +11,7 @@ class AppHeader extends PureComponent {
           className="App-logo"
           alt="Mdyna"
         />
+        {this.props.children}
       </header>
     );
   }
