@@ -3,6 +3,7 @@ import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Projects, Add } from 'grommet-icons';
 import PropTypes from 'prop-types';
+import { validateBoards } from '../BoardsDialog';
 
 import './BoardPicker.scss';
 
@@ -71,7 +72,7 @@ export default class BoardPicker extends Component {
                 classEditing="editing-board"
                 change={(v) => {
                   if (v.name) {
-                    if (createBoard) {
+                    if (createBoard && validateBoards(v.name, boardNames)) {
                       createBoard(v.name);
                     }
                     onClick(this.getBoardId(v.name));

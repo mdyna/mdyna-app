@@ -1,18 +1,47 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import uniqid from 'uniqid';
 import { Box, Text } from 'grommet';
 import { RIEInput } from 'riek';
+import cx from 'classnames';
 import {
   Add, Projects, Edit, Trash,
 } from 'grommet-icons';
-import { toast } from 'react-toastify';
-import ErrorBoundary from 'UI/Error';
-import Tooltip from 'UI/Tooltip';
+import Error from 'UI/Error';
 import Button from 'UI/Button';
 
 import './BoardsDialog.scss';
 
+export const validateBoards = (value, boardNames) => {
+  if (value) {
+    if (boardNames.indexOf(value) !== -1) {
+      return Error.throwError(`There already exists a "${value}" board`);
+    }
+  } else {
+    return Error.throwError('You must choose a board name');
+  }
+  return true;
+};
+
 class BoardsDialog extends PureComponent {
+  state = {
+    errorId: 0,
+    error: false,
+  };
+
+  getError(componentName) {
+    if (componentName) {
+      this.setState({
+        error: componentName,
+        errorId: uniqid(),
+      });
+    } else {
+      this.setState({
+        error: false,
+      });
+    }
+  }
+
   getBoardId(boardName) {
     const { boards } = this.props;
     if (boardName === 'INBOX') {
@@ -35,7 +64,6 @@ class BoardsDialog extends PureComponent {
       activeBoard,
       changeBoardName,
       changeActiveBoard,
-      boards,
     } = this.props;
     return (
       <Box className="boards-table" direction="column">
@@ -48,7 +76,11 @@ class BoardsDialog extends PureComponent {
             {board !== 'INBOX' ? (
               <RIEInput
                 propName="board"
-                className="board-input"
+                className={cx(
+                  'board-input',
+                  // eslint-disable-next-line react/destructuring-assignment
+                  board === this.state.error && 'error-input',
+                )}
                 classEditing="editing-board"
                 editProps={{
                   defaultValue: board || '',
@@ -60,11 +92,15 @@ class BoardsDialog extends PureComponent {
                   </Text>
 )}
                 change={(newName) => {
-                  const boardId = this.getBoardId(board);
-                  if (activeBoard === boardId) {
-                    changeActiveBoard(boardId);
+                  if (validateBoards(newName.board, boardNames)) {
+                    const boardId = this.getBoardId(board);
+                    if (activeBoard === boardId) {
+                      changeActiveBoard(boardId);
+                    }
+                    changeBoardName(boardId, newName.board);
+                  } else {
+                    this.getError(board);
                   }
-                  changeBoardName(boardId, newName.board);
                 }}
               />
             ) : (
@@ -98,7 +134,7 @@ class BoardsDialog extends PureComponent {
   }
 
   render() {
-    const { toggleBoardsDialog, createBoard } = this.props;
+    const { toggleBoardsDialog, createBoard, boardNames } = this.props;
     return (
       <Box className="boards-dialog" direction="column" background="dark-2">
         <Box direction="row" align="center" justify="between">
@@ -120,9 +156,20 @@ class BoardsDialog extends PureComponent {
         {this.renderBoardsTable()}
         <Box direction="row" align="center">
           <RIEInput
-            className="board-input add-board"
+            className={cx(
+              'board-input',
+              'add-board',
+              // eslint-disable-next-line react/destructuring-assignment
+              this.state.error === 'add-board' && 'error-input',
+            )}
             classEditing="editing-board"
-            change={value => createBoard(value.name)}
+            change={(value) => {
+              if (validateBoards(value.name, boardNames)) {
+                createBoard(value.name);
+              } else {
+                this.setState({ error: 'add-board' });
+              }
+            }}
             editProps={{
               defaultValue: '',
             }}
