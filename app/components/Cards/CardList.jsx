@@ -142,6 +142,7 @@ export default class CardList extends PureComponent {
       activeBoard,
       changeActiveBoard,
       boards,
+      createBoard,
       toggleBoardsDialog,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
@@ -161,6 +162,8 @@ export default class CardList extends PureComponent {
           {activeBoard}
         </Text>
         <BoardPicker
+          addButton
+          createBoard={createBoard}
           onClick={changeActiveBoard}
           boards={boards}
           boardNames={(boards && Object.keys(boards)) || []}
@@ -261,6 +264,7 @@ CardList.propTypes = {
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.object,
+  createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   activeBoard: PropTypes.string.isRequired,

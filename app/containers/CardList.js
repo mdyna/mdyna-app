@@ -5,7 +5,7 @@ import CardList from '../components/Cards/CardList';
 const { CARD_EDITOR, FILTERS, BOARDS } = ACTIONS;
 const { toggleEditor } = CARD_EDITOR;
 const { changeActiveBoard } = FILTERS;
-const { toggleBoardsDialog } = BOARDS;
+const { toggleBoardsDialog, createBoard } = BOARDS;
 function mapDispatchToProps(dispatch) {
   return {
     toggleEditor: () => {
@@ -16,6 +16,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeActiveBoard: (board) => {
       dispatch(changeActiveBoard(board));
+    },
+    createBoard: (board) => {
+      dispatch(createBoard(board));
     },
   };
 }

@@ -13,6 +13,7 @@ export const getLocalState = () => {
     filters: {
       order: settings && settings.order,
       sorting: settings && settings.sorting,
+      activeBoard: settings && settings.activeBoard,
     },
     style: {
       whiteMode: settings && settings.whiteMode,

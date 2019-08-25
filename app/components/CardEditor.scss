@@ -5,7 +5,6 @@
   max-height: none;
   margin-top: 32px;
 }
-
 .card-editor {
   padding: 24px 24px 48px 24px !important;
   border-radius: 10px;
@@ -52,9 +51,13 @@
   }
 
   .board-form-field {
-    button {
-      box-shadow: none;
-      border: none;
+    max-width: 25vw;
+    width: 215px;
+    .boards-menu {
+      > div {
+        border: 1px solid currentColor;
+        border-radius: 5px;
+      }
     }
   }
 

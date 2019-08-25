@@ -19,13 +19,16 @@ store.subscribe(
       {
         cards: store.getState().cards,
         labels: store.getState().labels,
-        boards: store.getState().boards,
+        boards: {
+          ...store.getState().boards,
+        },
         boardNames: Object.keys(store.getState().boards.boards),
       },
       {
         codeTheme: store.getState().settings.codeTheme,
         whiteMode: store.getState().style.whiteMode,
         order: store.getState().filters.order,
+        activeBoard: store.getState().filters.activeBoard,
         cardsPerPage: store.getState().settings.cardsPerPage,
         sorting: store.getState().filters.sorting,
         cwd: store.getState().settings.cwd,
