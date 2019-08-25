@@ -2,13 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
-import { Box, Text, Menu } from 'grommet';
-import {
-  Add, Previous, Next, Projects,
-} from 'grommet-icons';
+import { Box, Text } from 'grommet';
+import { Add, Previous, Next } from 'grommet-icons';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
+import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -16,7 +15,6 @@ export default class CardList extends PureComponent {
   state = {
     pageView: 1,
     pageIndex: 0,
-    boardsExpanded: false,
   };
 
   componentDidUpdate() {
@@ -137,75 +135,15 @@ export default class CardList extends PureComponent {
     );
   }
 
-  renderBoardMenu() {
-    const { changeActiveBoard, boards, toggleBoardsDialog } = this.props;
-    const { boardsExpanded } = this.state;
-    const boardNames = Object.keys(boards);
-    return (
-      <Menu
-        icon={(
-          <Projects
-            color="brand"
-            style={{
-              verticalAlign: 'bottom',
-              margin: '0 5px',
-            }}
-          />
-)}
-        justifyContent="center"
-        className="boards-menu"
-        dropBackground="dark-2"
-        label="Boards"
-        dropAlign={{ top: 'bottom' }}
-        open={boardsExpanded}
-        items={
-          [
-            {
-              label: (
-                <Text>
-                  Manage Boards
-                  {' '}
-                  <Projects
-                    color="brand"
-                    style={{
-                      verticalAlign: 'bottom',
-                      margin: '0 5px',
-                    }}
-                  />
-                </Text>
-              ),
-              onClick: () => toggleBoardsDialog(),
-            },
-            ...boardNames.map(board => ({
-              label: board,
-              onClick: () => changeActiveBoard(board),
-            })),
-          ] || [
-            {
-              label: (
-                <Text>
-                  Manage Boards
-                  {' '}
-                  <Projects
-                    color="brand"
-                    style={{
-                      verticalAlign: 'bottom',
-                      margin: '0 5px',
-                    }}
-                  />
-                </Text>
-              ),
-              onClick: () => toggleBoardsDialog(),
-            },
-            { label: 'INBOX', onClick: () => changeActiveBoard('INBOX') },
-          ]
-        }
-      />
-    );
-  }
-
   renderCardControls(cardItems) {
-    const { isFocused, cardsPerPage, activeBoard } = this.props;
+    const {
+      isFocused,
+      cardsPerPage,
+      activeBoard,
+      changeActiveBoard,
+      boards,
+      toggleBoardsDialog,
+    } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
@@ -222,7 +160,12 @@ export default class CardList extends PureComponent {
         >
           {activeBoard}
         </Text>
-        {this.renderBoardMenu()}
+        <BoardPicker
+          onClick={changeActiveBoard}
+          boards={boards}
+          boardNames={(boards && Object.keys(boards)) || []}
+          toggleBoardsDialog={toggleBoardsDialog}
+        />
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length
