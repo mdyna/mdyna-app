@@ -23,7 +23,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  const activeBoard = state.filters && state.filters.activeBoard;
+  const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
+  const activeBoardName = (state.boards
+      && state.boards.boards
+      && state.boards.boards[activeBoard]
+      && state.boards.boards[activeBoard].name)
+    || 'INBOX';
   return {
     searchInput: state.filters.searchInput,
     archivedFilterOn: state.filters.archivedFilterOn,
@@ -31,7 +36,7 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     boardNames: state.boards.boardNames,
     boards: state.boards.boards,
-    activeBoard: activeBoard || 'INBOX',
+    activeBoard: activeBoardName,
     cardsPerPage: state.settings.cardsPerPage,
   };
 }
