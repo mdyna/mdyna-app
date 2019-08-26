@@ -48,6 +48,9 @@ body {
   left: 50%;
   animation: rotation 2s infinite linear;
 }
+.toast-container > div {
+  border-radius: 10px;
+}
 
 @keyframes rotation {
   from {

@@ -64,10 +64,13 @@ class Mdyna extends PureComponent {
         }
       >
         <ToastContainer
+          style={{
+            top: 50,
+          }}
           position="top-right"
-          autoClose={5000}
+          className="toast-container"
+          autoClose={2000}
           hideProgressBar={false}
-          newestOnTop={false}
         />
         <ErrorBoundary>
           <KeyboardEventHandler

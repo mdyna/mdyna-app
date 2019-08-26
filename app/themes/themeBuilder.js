@@ -56,6 +56,9 @@ const themeBuilder = colors => colors && {
               font-weight: 100;
             }`,
     },
+    drop: {
+      background: 'transparent',
+    },
   },
   focus: {
     border: {
@@ -80,7 +83,11 @@ const themeBuilder = colors => colors && {
   textInput: {
     suggestions: {
       extend: {
+        borderRadius: 10,
         background: colors.dark[0],
+        button: {
+          borderRadius: 5,
+        },
       },
     },
   },
@@ -90,8 +97,9 @@ const themeBuilder = colors => colors && {
   },
   menu: {
     extend: {
+      borderRadius: 10,
       button: {
-        borderRadius: 10,
+        borderRadius: 5,
         margin: 3,
       },
     },
