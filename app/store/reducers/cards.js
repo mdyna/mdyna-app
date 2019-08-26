@@ -3,7 +3,11 @@ import unNest from 'Utils/nest';
 import uniqid from 'uniqid';
 
 const {
-  ADD_CARD, REMOVE_CARD, TOGGLE_CARD, SAVE_CARD, CHANGE_TITLE,
+  ADD_CARD,
+  REMOVE_CARD,
+  TOGGLE_CARD,
+  SAVE_CARD,
+  CHANGE_TITLE,
 } = ACTION_TYPES.CARD;
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
@@ -19,7 +23,7 @@ export default function cards(state = [], action) {
           title: cardTitle(action),
           lastEditDate: new Date(),
           id: uniqid(),
-          completed: false,
+          archived: false,
         },
       ];
     case REMOVE_CARD:
@@ -47,7 +51,7 @@ export default function cards(state = [], action) {
         if (card.id === action.card.id) {
           return {
             ...card,
-            completed: !card.completed,
+            completed: !card.completed && !card.archived,
           };
         }
         return card;

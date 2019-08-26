@@ -116,6 +116,50 @@ const LABEL = {
   removeLabel,
 };
 
+// ──── BOARDS ────────────────────────────────────────────────────────────────────────────
+
+export const createBoard = name => ({
+  type: ACTION_TYPES.BOARDS.CREATE_BOARD,
+  payload: {
+    name,
+  },
+});
+
+export const deleteBoard = board => ({
+  type: ACTION_TYPES.BOARDS.DELETE_BOARD,
+  payload: {
+    board,
+  },
+});
+
+export const changeBoardBackground = (board, bg) => ({
+  type: ACTION_TYPES.BOARDS.CHANGE_BOARD_BACKGROUND,
+  payload: {
+    board,
+    bg,
+  },
+});
+
+export const toggleBoardsDialog = () => ({
+  type: ACTION_TYPES.BOARDS.TOGGLE_BOARDS_DIALOG,
+});
+
+export const changeBoardName = (board, newName) => ({
+  type: ACTION_TYPES.BOARDS.CHANGE_BOARD_NAME,
+  payload: {
+    board,
+    newName,
+  },
+});
+
+const BOARDS = {
+  createBoard,
+  changeBoardName,
+  toggleBoardsDialog,
+  deleteBoard,
+  changeBoardBackground,
+};
+
 // ──── FILTER ACTIONS ────────────────────────────────────────────────────────────────────
 
 export const searchCards = value => ({
@@ -131,6 +175,11 @@ export const focusCard = card => ({
   type: ACTION_TYPES.FILTERS.FOCUS_CARD,
   card,
 });
+
+export const changeActiveBoard = board => ({
+  type: ACTION_TYPES.FILTERS.CHANGE_ACTIVE_BOARD,
+  payload: board,
+});
 export const changeSorting = (sorting, order) => ({
   type: ACTION_TYPES.FILTERS.CHANGE_SORTING_STATE,
   sorting,
@@ -144,8 +193,8 @@ export const removeLabelFilter = value => ({
   type: ACTION_TYPES.FILTERS.REMOVE_LABEL_FILTER,
   value,
 });
-export const toggleCompletedFilter = value => ({
-  type: ACTION_TYPES.FILTERS.TOGGLE_COMPLETED_FILTER,
+export const toggleArchivedFilter = value => ({
+  type: ACTION_TYPES.FILTERS.TOGGLE_ARCHIVED_FILTER,
   value,
 });
 
@@ -153,15 +202,17 @@ const FILTERS = {
   searchCards,
   focusCard,
   changeSorting,
+  changeActiveBoard,
   addLabelFilter,
   removeLabelFilter,
-  toggleCompletedFilter,
+  toggleArchivedFilter,
 };
 
 export default {
   FILTERS,
   SETTINGS,
   CARD_EDITOR,
+  BOARDS,
   LABEL,
   CARD,
 };

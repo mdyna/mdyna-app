@@ -42,6 +42,7 @@
     "redux": "^3.7.2",
     "redux-debounced": "^0.5.0",
     "redux-logger": "^3.0.6",
+    "riek": "^1.1.0",
     "showdown-htmlescape": "^0.1.9",
     "simplemde": "^1.11.2",
     "styled-components": "^4.3.2",

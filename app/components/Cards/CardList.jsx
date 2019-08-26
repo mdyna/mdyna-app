@@ -7,6 +7,7 @@ import { Add, Previous, Next } from 'grommet-icons';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
+import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
 
@@ -94,9 +95,7 @@ export default class CardList extends PureComponent {
   }
 
   renderVisibleCards() {
-    const {
-      searchInput, completedFilterOn, cards, labelFilters,
-    } = this.props;
+    const { searchInput, cards, labelFilters } = this.props;
     const filteredCards = cards.filter((d) => {
       const matchesLabelFilters = this.matchNoteLabelsWithLabelFilter(
         d.labels && d.labels.map(label => label.title),
@@ -127,30 +126,89 @@ export default class CardList extends PureComponent {
       }
       return true;
     });
-    const visibleCards = [];
-    for (let i = 0; i < filteredCards.length; i += 1) {
-      const card = filteredCards[i];
-      if (!card.completed || completedFilterOn) {
-        visibleCards.push(<CardItem hasCardBar card={card} key={i} />);
-      }
-    }
-    return (visibleCards.length && visibleCards) || null;
+    return (
+      (filteredCards.length
+        && filteredCards.map(card => (
+          <CardItem hasCardBar card={card} key={`${card.title}-card`} />
+        )))
+      || null
+    );
+  }
+
+  renderCardControls(cardItems) {
+    const {
+      isFocused,
+      cardsPerPage,
+      activeBoard,
+      changeActiveBoard,
+      boardNames,
+      createBoard,
+      toggleBoardsDialog,
+      boards,
+    } = this.props;
+    const { pageView, pageIndex, boardsExpanded } = this.state;
+    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+    return (
+      <Box
+        className={cx('card-list-controls', isFocused && 'hidden')}
+        background="dark-1"
+      >
+        <Text
+          style={{
+            display: boardsExpanded ? 'none' : 'initial',
+          }}
+          align="center"
+          size="xxlarge"
+        >
+          {activeBoard}
+        </Text>
+        <BoardPicker
+          addButton
+          createBoard={createBoard}
+          onClick={changeActiveBoard}
+          boardNames={boardNames}
+          boards={boards}
+          toggleBoardsDialog={toggleBoardsDialog}
+        />
+        {this.renderAddNoteButton()}
+        <Text align="center" size="medium">
+          {cardItems && cardItems.length
+            ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
+            : '0'}
+        </Text>
+        <Button
+          className={cx('page-control', pageIndex === 0 && 'disabled')}
+          onClick={() => this.getPreviousCards()}
+        >
+          <KeyboardEventHandler
+            handleKeys={['left']}
+            onKeyEvent={() => this.getPreviousCards()}
+          />
+          <Previous color="brand" />
+        </Button>
+        <Button
+          onClick={() => this.getNextCards()}
+          className={cx('page-control', !hasMore && 'disabled')}
+        >
+          <KeyboardEventHandler
+            handleKeys={['right']}
+            onKeyEvent={() => this.getNextCards()}
+          />
+          <Next color="brand" />
+        </Button>
+      </Box>
+    );
   }
 
   render() {
     const {
-      cards,
-      toggleEditor,
-      searchInput,
-      isFocused,
-      cardsPerPage,
+      cards, toggleEditor, searchInput, cardsPerPage,
     } = this.props;
-    const { pageIndex, pageView } = this.state;
+    const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
       && cardItems.length
       && cardItems.slice(pageIndex, pageIndex + cardsPerPage);
-    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     const BREAKPOINTS = cardComponents
       && cardComponents.length && {
       default: 3,
@@ -166,44 +224,9 @@ export default class CardList extends PureComponent {
           handleKeys={['a']}
           onKeyEvent={() => toggleEditor(true)}
         />
+        {this.renderCardControls(cardItems)}
         {cards.length ? (
           <React.Fragment>
-            <Box
-              className={cx('card-list-controls', isFocused && 'hidden')}
-              background="dark-1"
-            >
-              <Text align="center" size="xxlarge">
-                INBOX
-              </Text>
-              {this.renderAddNoteButton()}
-              <Text align="center" size="medium">
-                {cardItems && cardItems.length
-                  ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
-                  : '0'}
-              </Text>
-              <Button
-                className={cx('page-control', pageIndex === 0 && 'disabled')}
-                type="button"
-                onClick={() => this.getPreviousCards()}
-              >
-                <KeyboardEventHandler
-                  handleKeys={['left']}
-                  onKeyEvent={() => this.getPreviousCards()}
-                />
-                <Previous color="brand" />
-              </Button>
-              <Button
-                onClick={() => this.getNextCards()}
-                type="button"
-                className={cx('page-control', !hasMore && 'disabled')}
-              >
-                <KeyboardEventHandler
-                  handleKeys={['right']}
-                  onKeyEvent={() => this.getNextCards()}
-                />
-                <Next color="brand" />
-              </Button>
-            </Box>
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 <Masonry
@@ -241,16 +264,22 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
-  completedFilterOn: PropTypes.bool,
+  boards: PropTypes.object,
+  boardNames: PropTypes.array,
+  createBoard: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
+  changeActiveBoard: PropTypes.func.isRequired,
+  activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
 };
 
 CardList.defaultProps = {
-  completedFilterOn: false,
   cardsPerPage: 8,
+  boards: {},
   labelFilters: [],
+  boardNames: [],
   searchInput: '',
   cards: [],
 };

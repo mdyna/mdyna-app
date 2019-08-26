@@ -1,12 +1,21 @@
 export const getLocalState = () => {
   const settings = window.userStorage.get('settings');
   const userState = window.cardStorage.get('state');
+  const { userBoards } = settings;
+  console.warn(userBoards, settings, settings.userBoards);
+  const boardNames = Object.keys(userBoards).map(d => userBoards[d].name);
 
   return {
     ...userState,
+    boards: {
+      ...userState.boards,
+      boardNames,
+      boards: userBoards,
+    },
     filters: {
       order: settings && settings.order,
       sorting: settings && settings.sorting,
+      activeBoard: settings && settings.activeBoard,
     },
     style: {
       whiteMode: settings && settings.whiteMode,

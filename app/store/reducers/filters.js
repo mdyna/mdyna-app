@@ -5,14 +5,16 @@ const {
   SEARCH_CARDS,
   ADD_LABEL_FILTER,
   REMOVE_LABEL_FILTER,
+  CHANGE_ACTIVE_BOARD,
   CHANGE_SORTING_STATE,
-  TOGGLE_COMPLETED_FILTER,
+  TOGGLE_ARCHIVED_FILTER,
 } = ACTION_TYPES.FILTERS;
 
 export default function filters(
   state = {
     searchInput: '',
-    completedFilterOn: false,
+    activeBoard: 'INBOX',
+    archivedFilterOn: false,
     labelFilters: [],
     sorting: '',
     order: 'descending',
@@ -53,10 +55,15 @@ export default function filters(
         ...state,
         labelFilters: state.labelFilters.filter(d => d !== action.value),
       };
-    case TOGGLE_COMPLETED_FILTER:
+    case TOGGLE_ARCHIVED_FILTER:
       return {
         ...state,
-        completedFilterOn: !state.completedFilterOn,
+        archivedFilterOn: !state.archivedFilterOn,
+      };
+    case CHANGE_ACTIVE_BOARD:
+      return {
+        ...state,
+        activeBoard: action.payload || 'INBOX',
       };
     default:
       return state;

@@ -9,6 +9,8 @@ const {
   changeCodeTheme,
   changeCardsPerPage,
 } = ACTIONS.SETTINGS;
+const { createBoard, deleteBoard, changeBoardName } = ACTIONS.BOARDS;
+const { changeActiveBoard } = ACTIONS.FILTERS;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -27,15 +29,30 @@ function mapDispatchToProps(dispatch) {
     changeCodeTheme: (val) => {
       dispatch(changeCodeTheme(val));
     },
+    createBoard: (board) => {
+      dispatch(createBoard(board));
+    },
+    deleteBoard: (board) => {
+      dispatch(deleteBoard(board));
+    },
+    changeActiveBoard: (board) => {
+      dispatch(changeActiveBoard(board));
+    },
+    changeBoardName: (board, newName) => {
+      dispatch(changeBoardName(board, newName));
+    },
   };
 }
 
 function mapStateToProps(state) {
   return {
     cwd: state.settings.cwd,
+    activeBoard: state.filters.activeBoard,
     codeTheme: state.settings.codeTheme,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
+    boards: state.boards.boards,
+    boardNames: state.boards.boardNames,
     cardsPerPage: state.settings.cardsPerPage,
   };
 }

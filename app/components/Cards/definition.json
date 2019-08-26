@@ -13,6 +13,10 @@
       "prefixer": "#",
       "minimum": 1
     },
+    "board": {
+      "type": "enum",
+      "uiSchema": "board"
+    },
     "color": {
       "type": "enum",
       "format": "color",
