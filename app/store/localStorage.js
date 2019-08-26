@@ -3,11 +3,13 @@ export const getLocalState = () => {
   const userState = window.cardStorage.get('state');
   const { userBoards } = settings;
   console.warn(userBoards, settings, settings.userBoards);
+  const boardNames = Object.keys(userBoards).map(d => userBoards[d].name);
 
   return {
     ...userState,
     boards: {
       ...userState.boards,
+      boardNames,
       boards: userBoards,
     },
     filters: {

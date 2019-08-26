@@ -1,8 +1,15 @@
+@import "../style.scss";
+
 .boards-dialog-layer {
   border-radius: 10px;
+  margin-top: 33px;
+  background: #000000aa;
   border: 1px solid currentColor;
 }
 .boards-dialog {
+  @include breakpoint(small) {
+    margin: auto 30px;
+  }
   padding: 20px 20px 40px 20px;
   min-width: 25vw;
   border: 1px solid currentColor;
