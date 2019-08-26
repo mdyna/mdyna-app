@@ -31,7 +31,7 @@ export default function boards(
   const newState = {
     ...state,
   };
-  const currentBoardName = state.boards[boardId] && state.boards[boardId].name;
+  const currentBoardName = state.boards && state.boards[boardId] && state.boards[boardId].name;
   switch (action.type) {
     case TOGGLE_BOARDS_DIALOG:
       return {

@@ -23,6 +23,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
+  const activeBoard = state.filters && state.filters.activeBoard;
   return {
     searchInput: state.filters.searchInput,
     archivedFilterOn: state.filters.archivedFilterOn,
@@ -30,10 +31,7 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     boardNames: state.boards.boardNames,
     boards: state.boards.boards,
-    activeBoard:
-      (state.boards.boards[state.filters.activeBoard]
-        && state.boards.boards[state.filters.activeBoard].name)
-      || 'INBOX',
+    activeBoard: activeBoard || 'INBOX',
     cardsPerPage: state.settings.cardsPerPage,
   };
 }
