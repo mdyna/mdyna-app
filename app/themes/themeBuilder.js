@@ -88,6 +88,14 @@ const themeBuilder = colors => colors && {
     background: colors.background,
     color: colors.text,
   },
+  menu: {
+    extend: {
+      button: {
+        borderRadius: 10,
+        margin: 3,
+      },
+    },
+  },
   select: {
     container: {
       extend: {
