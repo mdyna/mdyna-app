@@ -35,7 +35,7 @@ function mapStateToProps(state) {
     sidebarExpanded: state.style.sidebarExpanded,
     labelFilters: state.filters.labelFilters,
     boardNames: state.boards.boardNames,
-    boards: state.boards.boards,
+    boards: state.boards.boardList,
     activeBoard: activeBoardName,
     cardsPerPage: state.settings.cardsPerPage,
   };

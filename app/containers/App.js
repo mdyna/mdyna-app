@@ -128,7 +128,7 @@ function mapStateToProps(state) {
     archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
     modalOpen: state.editor.toggleEditor,
-    boards: state.boards.boards,
+    boards: state.boards.boardList,
     boardsDialogOpen: state.boards.boardsDialogOpen,
     settingsModal: state.settings.settingsModal,
     sorting: state.filters.sorting || SORTING_BY_DATE,

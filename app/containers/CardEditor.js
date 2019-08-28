@@ -49,7 +49,7 @@ function mapStateToProps(state) {
     editorSettings: state.editor,
     labels: state.labels,
     boardNames: state.boards.boardNames,
-    boards: state.boards.boards,
+    boards: state.boards.boardList,
   };
 }
 export default connect(

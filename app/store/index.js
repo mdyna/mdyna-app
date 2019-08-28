@@ -22,7 +22,6 @@ store.subscribe(
         boards: store.getState().boards,
       },
       {
-        userBoards: { ...store.getState().boards.boards },
         codeTheme: store.getState().settings.codeTheme,
         whiteMode: store.getState().style.whiteMode,
         order: store.getState().filters.order,

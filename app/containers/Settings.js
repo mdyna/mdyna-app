@@ -51,7 +51,7 @@ function mapStateToProps(state) {
     codeTheme: state.settings.codeTheme,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
-    boards: state.boards.boards,
+    boards: state.boards.boardList,
     boardNames: state.boards.boardNames,
     cardsPerPage: state.settings.cardsPerPage,
   };
