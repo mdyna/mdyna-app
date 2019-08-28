@@ -149,7 +149,7 @@ app.on('ready', () => {
       name: 'mdyna-card-data',
       cwd: directory,
     });
-  const cardStorage = createCardStorage(cwd);
+  const cardStorage = createCardStorage('/home/david/');
   logger.log('CARD STORAGE IN ', cwd);
   const tempState = userStorage.get('tmp/state');
   if (tempState && Object.keys(tempState).length) {
@@ -165,6 +165,7 @@ app.on('ready', () => {
     cardStorage.set('state', {
       cards: currentCards || tempState.cards,
       labels: loadLabels(currentCards) || [],
+      boards: cardStorageState.boards,
     });
 
     // * Clear tmp/state key
