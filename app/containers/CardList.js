@@ -25,9 +25,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
   const activeBoardName = (state.boards
-      && state.boards.boards
-      && state.boards.boards[activeBoard]
-      && state.boards.boards[activeBoard].name)
+      && state.boards.boardList
+      && state.boards.boardList[activeBoard]
+      && state.boards.boardList[activeBoard].name)
     || 'INBOX';
   return {
     searchInput: state.filters.searchInput,
