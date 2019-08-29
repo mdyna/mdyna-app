@@ -45,6 +45,13 @@ function loadLabels(cards) {
   return labels;
 }
 
+function loadBoards(boards) {
+  return {
+    boardList: boards.boardList,
+    boardNames: boards.boardList.map(b => b.name),
+  };
+}
+
 // To avoid being garbage collected
 let mainWindow;
 
@@ -152,9 +159,14 @@ app.on('ready', () => {
   const cardStorage = createCardStorage(cwd);
   logger.log('CARD STORAGE IN ', cwd);
   const tempState = userStorage.get('tmp/state');
-  if (tempState && Object.keys(tempState).length) {
+  if (
+    (tempState && Object.keys(tempState).length)
+    || (userCardsInStorage && userCardsInStorage.length)
+  ) {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
+    const userStorageBoardList = userState.boards && userState.boards.boardList;
+    const cardStorageBoardList = cardStorageState.boards && cardStorageState.boards.boardList;
     const currentCards = cardStorageState
       && cardStorageState.cards
       && getUniqCardsById([
@@ -165,7 +177,10 @@ app.on('ready', () => {
     cardStorage.set('state', {
       cards: currentCards || tempState.cards,
       labels: loadLabels(currentCards) || [],
-      boards: cardStorageState.boards,
+      boards: loadBoards({
+        userStorageBoardList,
+        cardStorageBoardList,
+      }),
     });
 
     // * Clear tmp/state key
