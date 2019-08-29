@@ -149,7 +149,7 @@ app.on('ready', () => {
       name: 'mdyna-card-data',
       cwd: directory,
     });
-  const cardStorage = createCardStorage('/home/david/');
+  const cardStorage = createCardStorage(cwd);
   logger.log('CARD STORAGE IN ', cwd);
   const tempState = userStorage.get('tmp/state');
   if (tempState && Object.keys(tempState).length) {
