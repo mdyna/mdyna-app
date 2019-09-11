@@ -98,7 +98,7 @@ class Sidebar extends Component {
             hoverIndicator={(archivedFilterOn && 'brand') || 'accent-1'}
           >
             <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
-            <Text className="menu-label">Toggle Completed</Text>
+            <Text className="menu-label">Archive</Text>
           </Button>
           <Button onClick={() => this.expandSortingOptions()}>
             <Sort color="brand" className="sort-icon" />
