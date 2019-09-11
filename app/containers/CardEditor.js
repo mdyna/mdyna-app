@@ -48,8 +48,15 @@ function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     labels: state.labels,
-    boardNames: state.boards.boardNames,
-    boards: state.boards.boardList,
+    boardNames: state.boards.boardNames || ['INBOX'],
+    boards: state.boards.boardList || {
+      INBOX: {
+        name: 'INBOX',
+        cards: 'all',
+        bg: 'default',
+        labels: 'all',
+      },
+    },
   };
 }
 export default connect(

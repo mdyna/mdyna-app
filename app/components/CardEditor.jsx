@@ -75,8 +75,9 @@ export default class CardEditor extends Component {
                   boards={boards}
                   toggleBoardsDialog={toggleBoardsDialog}
                   value={
-                    (boards[editorSettings[settingName]]
-                      && boards[editorSettings[settingName]].name)
+                    (boards
+                      && (boards[editorSettings[settingName]]
+                        && boards[editorSettings[settingName]].name))
                     || 'INBOX'
                   }
                   addButton
