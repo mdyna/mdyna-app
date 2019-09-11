@@ -2,6 +2,14 @@
   .hljs {
     word-spacing: -2.5px;
   }
+  hr {
+    border: solid #33333366;
+    border-width: 1px;
+    clear: both;
+    height: 0;
+    border-radius: 10px;
+    margin: 1.25rem 0 1.1875rem;
+  }
 }
 
 .disable-code {

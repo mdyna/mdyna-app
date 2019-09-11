@@ -1,7 +1,5 @@
 import './MarkdownText.scss'; // eslint-disable-line
-
 import React, { PureComponent } from 'react';
-
 import { Converter } from 'react-showdown';
 import PropTypes from 'prop-types';
 import TaskListInput from 'UI/TaskListInput';
@@ -51,7 +49,7 @@ class MarkdownText extends PureComponent {
       strikethrough: true,
       tables: true,
       tasklists: true,
-      simpleLineBreaks: true,
+      simpleLineBreaks: false,
       smoothLivePreview: false,
       smartIdentationFix: true,
       simplifiedAutoLink: true,
