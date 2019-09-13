@@ -19,10 +19,12 @@ export default class SearchComponent extends PureComponent {
     const { defaultValue } = this.state;
     const getSuggestions = () => {
       const suggestions = [];
-      for (let i = 0; i < titles.length; i += 1) {
+      for (let i = 0; i < 5; i += 1) {
         const title = titles[i];
-        if (title.toLowerCase().startsWith(defaultValue.toLowerCase())) {
-          suggestions.push(title);
+        if (title) {
+          if (title.toLowerCase().startsWith(defaultValue.toLowerCase())) {
+            suggestions.push(title);
+          }
         }
       }
       return suggestions;
