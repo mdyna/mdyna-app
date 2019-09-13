@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { TextInput } from 'grommet';
@@ -6,21 +6,35 @@ import { Search } from 'grommet-icons';
 
 import './Search.scss';
 
-export default class SearchComponent extends Component {
+export default class SearchComponent extends PureComponent {
+  state = {
+    // eslint-disable-next-line react/destructuring-assignment
+    defaultValue: this.props.searchInput || '',
+  };
+
   render() {
     const {
- searchInput, onChange, searchBar, titles, hidden 
-} = this.props;
+      searchInput, onChange, searchBar, titles, hidden,
+    } = this.props;
+    const { defaultValue } = this.state;
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>
         <Search color="brand" />
         <TextInput
           className="mdyna-search"
+          suggestions={titles}
           placeholder="Search cards (Ctrl+P)"
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => {
+            this.setState({ defaultValue: e.target.value });
+            onChange(e.target.value);
+          }}
           ref={searchBar}
-          onSelect={e => onChange(e.suggestion)}
+          onSelect={(e) => {
+            this.setState({ defaultValue: e.suggestion });
+            onChange(e.suggestion);
+          }}
           defaultValue={searchInput}
+          value={defaultValue}
         />
       </div>
     );
