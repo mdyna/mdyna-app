@@ -9,9 +9,18 @@
   transition: all 0.5s;
   &.hidden {
     opacity: 0;
+    width: 0;
+    padding: 0;
     height: 0;
+    .mdyna-search {
+      display: none;
+    }
   }
-
+  &:focus {
+    > * {
+      display: none;
+    }
+  }
   div {
     max-width: 50vw;
   }

@@ -17,21 +17,35 @@ export default class SearchComponent extends PureComponent {
       searchInput, onChange, searchBar, titles, hidden,
     } = this.props;
     const { defaultValue } = this.state;
+    const getSuggestions = () => {
+      const suggestions = [];
+      for (let i = 0; i < titles.length; i += 1) {
+        const title = titles[i];
+        if (title.toLowerCase().startsWith(defaultValue.toLowerCase())) {
+          suggestions.push(title);
+        }
+      }
+      return suggestions;
+    };
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>
         <Search color="brand" />
         <TextInput
           className="mdyna-search"
-          suggestions={titles}
+          suggestions={hidden ? [''] : getSuggestions()}
           placeholder="Search cards (Ctrl+P)"
           onChange={(e) => {
-            this.setState({ defaultValue: e.target.value });
-            onChange(e.target.value);
+            if (!hidden) {
+              this.setState({ defaultValue: e.target.value });
+              onChange(e.target.value);
+            }
           }}
           ref={searchBar}
           onSelect={(e) => {
-            this.setState({ defaultValue: e.suggestion });
-            onChange(e.suggestion);
+            if (!hidden) {
+              this.setState({ defaultValue: e.suggestion });
+              onChange(e.suggestion);
+            }
           }}
           defaultValue={searchInput}
           value={defaultValue}
