@@ -31,49 +31,51 @@ export default function boards(
   const newState = {
     ...state,
   };
-  if (newState.boardList) {
-    const currentBoardName = state.boardList[boardId] && state.boardList[boardId].name;
-    switch (action.type) {
-      case TOGGLE_BOARDS_DIALOG:
-        return {
-          ...state,
-          boardsDialogOpen: !state.boardsDialogOpen,
-        };
-      case CREATE_BOARD:
-        newState.boardList[boardId] = { name, cards: [] };
-        return { ...newState, boardNames: [...newState.boardNames, name] };
-      case DELETE_BOARD:
-        delete newState.boardList[boardId];
-        return {
-          ...newState,
-          boardNames: [
-            ...newState.boardNames.filter(b => b !== currentBoardName),
-          ],
-        };
-      case CHANGE_BOARD_NAME:
-        newState.boardList[boardId] = {
-          ...newState.boardList[boardId],
-          name: newName,
-        };
-        return {
-          ...newState,
-          boardNames: [
-            ...newState.boardNames.filter(b => b !== currentBoardName),
-            newName,
-          ],
-        };
-      case CHANGE_BOARD_BACKGROUND:
-        newState.boardList[boardId] = {
-          ...newState.boardList[boardId],
-          bg,
-        };
-        return newState;
-      default:
-        return newState;
-    }
+  const currentBoardName = state.boardList
+    && state.boardList[boardId]
+    && state.boardList[boardId].name;
+  if (!newState.boardList) {
+    newState.boardList = {};
   }
-  return {
-    ...state,
-    boardList: state.boards,
-  };
+  if (!newState.boardNames) {
+    newState.boardNames = ['INBOX'];
+  }
+  switch (action.type) {
+    case TOGGLE_BOARDS_DIALOG:
+      return {
+        ...state,
+        boardsDialogOpen: !state.boardsDialogOpen,
+      };
+    case CREATE_BOARD:
+      newState.boardList[boardId] = { name, cards: [] };
+      return { ...newState, boardNames: [...newState.boardNames, name] };
+    case DELETE_BOARD:
+      delete newState.boardList[boardId];
+      return {
+        ...newState,
+        boardNames: [
+          ...newState.boardNames.filter(b => b !== currentBoardName),
+        ],
+      };
+    case CHANGE_BOARD_NAME:
+      newState.boardList[boardId] = {
+        ...newState.boardList[boardId],
+        name: newName,
+      };
+      return {
+        ...newState,
+        boardNames: [
+          ...newState.boardNames.filter(b => b !== currentBoardName),
+          newName,
+        ],
+      };
+    case CHANGE_BOARD_BACKGROUND:
+      newState.boardList[boardId] = {
+        ...newState.boardList[boardId],
+        bg,
+      };
+      return newState;
+    default:
+      return newState;
+  }
 }
