@@ -1,7 +1,7 @@
 name: Node CI
 
 on:
-  release:
+  push:
     # Sequence of patterns matched against refs/heads
     branches:
       - master # Push events on master branch
