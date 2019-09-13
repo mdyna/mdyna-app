@@ -9,6 +9,18 @@ const {
   TOGGLE_BOARDS_DIALOG,
 } = ACTION_TYPES.BOARDS;
 
+function deleteBoard(boardId, boardList) {
+  const updatedBoardList = {};
+  const boardsIds = (boardList && Object.keys(boardList)) || [];
+  for (let i = 0; i < boardsIds.length; i += 1) {
+    const currentBoardId = boardsIds[i];
+    if (currentBoardId !== boardId) {
+      updatedBoardList[currentBoardId] = boardList[currentBoardId];
+    }
+  }
+  return updatedBoardList;
+}
+
 export default function boards(
   state = {
     boardList: {
@@ -50,7 +62,7 @@ export default function boards(
       newState.boardList[boardId] = { name, cards: [] };
       return { ...newState, boardNames: [...newState.boardNames, name] };
     case DELETE_BOARD:
-      delete newState.boardList[boardId];
+      newState.boardList = deleteBoard(boardId, newState.boardList);
       return {
         ...newState,
         boardNames: [
