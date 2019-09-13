@@ -18,7 +18,6 @@ import MdynaPalette from '../themes/mdyna.palette.json';
 import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
-import { focusCard } from '../store/actions';
 
 function getModalMode(editor, settings) {
   return (editor && 'editor') || (settings && 'settings') || false;
@@ -75,16 +74,18 @@ class Mdyna extends PureComponent {
         <ErrorBoundary>
           <KeyboardEventHandler
             handleKeys={['ctrl+p', 'esc']}
-            onKeyEvent={key =>
-              isFocused
-                ? key === 'esc' && focusCard(null)
-                : key === 'ctrl+p' && this.searchBar.current.focus()
-            }
+            onKeyEvent={key => {
+              if (isFocused && key === 'esc') {
+                focusCard(null);
+              } else if (key === 'ctrl+p') {
+                this.searchBar.current.focus();
+              }
+            }}
           />
           <Header />
           <SearchInput
             hidden={isFocused}
-            titles={(cards && cards.length && cards.map(c => c.title)) || []}
+            titles={(cards && cards.length && cards.map(c => c.title)) || ['']}
             onChange={e => searchCards(e)}
             searchBar={this.searchBar}
             searchInput={searchInput}

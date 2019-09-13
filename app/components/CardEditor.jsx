@@ -102,8 +102,11 @@ export default class CardEditor extends Component {
   }
 
   updateCard(card) {
-    const { saveCard } = this.props;
+    const { saveCard, focusedCard, focusCard } = this.props;
     saveCard(card);
+    if (focusedCard) {
+      focusCard(card);
+    }
   }
 
   generateComponentsFromUiSchema(setting) {
@@ -258,6 +261,7 @@ export default class CardEditor extends Component {
 
 CardEditor.propTypes = {
   addCard: PropTypes.func.isRequired,
+  focusCard: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
@@ -265,6 +269,7 @@ CardEditor.propTypes = {
   boards: PropTypes.object.isRequired,
   boardNames: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
+  focusedCard: PropTypes.bool.isRequired,
   saveCard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,
