@@ -18,7 +18,6 @@ import MdynaPalette from '../themes/mdyna.palette.json';
 import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
-import { focusCard } from '../store/actions';
 
 function getModalMode(editor, settings) {
   return (editor && 'editor') || (settings && 'settings') || false;

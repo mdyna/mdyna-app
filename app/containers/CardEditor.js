@@ -3,10 +3,12 @@ import CardEditor from 'Components/CardEditor';
 import ACTIONS from 'Store/actions/';
 
 const {
-  CARD, CARD_EDITOR, LABEL, BOARDS,
+  CARD, CARD_EDITOR, LABEL, BOARDS, FILTERS,
 } = ACTIONS;
 
 const { addCard, saveCard, removeCard } = CARD;
+
+const { focusCard } = FILTERS;
 
 const { changeCardSetting, toggleEditor } = CARD_EDITOR;
 
@@ -23,6 +25,9 @@ function mapDispatchToProps(dispatch) {
     },
     addCard: (card) => {
       dispatch(addCard(card));
+    },
+    focusCard: (card) => {
+      dispatch(focusCard(card));
     },
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
@@ -48,6 +53,7 @@ function mapStateToProps(state) {
   return {
     editorSettings: state.editor,
     labels: state.labels,
+    focusedCard: Boolean(state.filters.focusedCard),
     boardNames: state.boards.boardNames || ['INBOX'],
     boards: state.boards.boardList || {
       INBOX: {
