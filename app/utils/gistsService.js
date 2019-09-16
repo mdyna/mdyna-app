@@ -55,42 +55,52 @@ class GistsService {
 
   async syncGist() {
     try {
-      const currentGist = await this.getCurrentGist();
+      const currentGist = await this.getCurrentGist().content;
       const currentUserData = getUserData();
-      const uniqUserCards = uniqBy(
-        [...currentGist.cards, ...currentUserData.cards],
-        'id',
-      );
-      const uniqUserLabels = uniqBy(
-        [...currentGist.labels, ...currentUserData.labels],
-        'title',
-      );
-      const uniqUserBoards = {
+      const uniqUserCards = (currentGist
+          && currentGist.cards
+          && uniqBy([...currentGist.cards, ...currentUserData.cards], 'id'))
+        || currentUserData.cards;
+      const uniqUserLabels = (currentGist
+          && currentGist.labels
+          && uniqBy(
+            [...currentGist.labels, ...currentUserData.labels],
+            'title',
+          ))
+        || currentUserData.labels;
+      const uniqUserBoards = (currentGist
+          && currentGist.boards && {
         boardList: {
           ...unNest(currentGist, 'boards.boardList'),
           ...unNest(currentUserData, 'boards.boardList'),
         },
-        boardNames: new Set([
-          ...unNest(currentUserData, 'boards.boardNames'),
-          ...unNest(currentGist, 'boards.boardNames'),
-        ]),
-      };
+      })
+        || currentUserData.boards;
+      uniqUserBoards.boardNames = Object.keys(uniqUserBoards.boardList).map(
+        d => uniqUserBoards.boardList[d].name,
+      );
       const content = {
         cards: uniqUserCards,
         boards: uniqUserBoards,
         labels: uniqUserLabels,
         lastSync: new Date(),
       };
+      console.log(content, 'content');
       await this.gists.edit(this.gistId, {
         files: {
-          'mdyna.json': JSON.stringify({
-            content,
-          }),
+          'mdyna.json': {
+            content: JSON.stringify({
+              ...content,
+            }),
+          },
         },
       });
-    } catch {
+      return content;
+    } catch (e) {
+      console.log(e);
       Error.throwError('Could not sync with Gist');
     }
+    return null;
   }
 
   async createGist() {

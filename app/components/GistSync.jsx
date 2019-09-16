@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Collapsible } from 'grommet';
 import TextInput from 'UI/TextInput';
-import { Github } from 'grommet-icons';
+import { Github, Sync, Checkmark } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
 import { toast } from 'react-toastify';
 import Loader from 'UI/Loader';
@@ -17,9 +17,10 @@ class GistSync extends PureComponent {
   };
 
   componentDidMount() {
-    const { githubUserName, githubPassword } = this.props;
+    const { githubUserName, githubPassword, gistId } = this.props;
     if ((githubUserName, githubPassword)) {
       this.authToGithub(githubUserName, githubPassword);
+      this.updateGist(gistId);
     }
   }
 
@@ -67,6 +68,7 @@ class GistSync extends PureComponent {
       githubAuthOn,
       loadingGitHub,
       syncing,
+      syncCards,
       syncSuccess,
       badge,
     } = this.props;
@@ -110,14 +112,25 @@ class GistSync extends PureComponent {
             ))
           )}
         </Collapsible>
-        <Button onClick={() => this.expandGists(!expanded)}>
-          <Github />
-          {gistId
-            && githubUserName
-            && githubAuthOn
-            && `Connected to ${githubUserName}/${gistId}`}
-        </Button>
-        {loadingGitHub && <Loader />}
+        {gistId && githubUserName && githubAuthOn && (
+          <React.Fragment>
+            <Button onClick={() => this.expandGists(!expanded)}>
+              <Github />
+              {`Connected to ${githubUserName}/${gistId}`}
+            </Button>
+            <Button onClick={() => syncCards()}>
+              <Sync />
+              {syncSuccess && lastSyncDate && (
+                <React.Fragment>
+                  <Checkmark />
+                  {' '}
+                  {`last sync at ${lastSyncDate}`}
+                </React.Fragment>
+              )}
+            </Button>
+          </React.Fragment>
+        )}
+        {(loadingGitHub || syncing) && <Loader />}
       </Box>
     );
   }
@@ -133,6 +146,7 @@ GistSync.propTypes = {
   loadingGitHub: PropTypes.bool.isRequired,
   syncing: PropTypes.bool.isRequired,
   syncSuccess: PropTypes.bool.isRequired,
+  syncCards: PropTypes.func.isRequired,
   loginToGh: PropTypes.func.isRequired,
   updateGist: PropTypes.func.isRequired,
 };
