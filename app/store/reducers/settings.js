@@ -65,6 +65,8 @@ function settingsReducer(
       return {
         ...state,
         githubAuthOn: false,
+        githubUserName: '',
+        githubPassword: '',
         loadingGitHub: false,
       };
     case LOGIN_TO_GH:

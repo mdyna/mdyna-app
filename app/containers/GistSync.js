@@ -29,6 +29,7 @@ function mapDispatchToProps(dispatch) {
       }
     },
     updateGist: (id) => {
+      Gists.updateGistId(id);
       dispatch(updateGist(id));
     },
   };
