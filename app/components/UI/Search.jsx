@@ -27,7 +27,7 @@ export default class SearchComponent extends PureComponent {
           }
         }
       }
-      return suggestions;
+      return suggestions.length ? suggestions : [''];
     };
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>
