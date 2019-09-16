@@ -5,7 +5,9 @@ import ACTIONS from 'Store/actions/';
 import Gists from 'Utils/gistsService';
 import { convertDateToLocaleString } from 'Utils/dates';
 
-const { SETTINGS } = ACTIONS;
+const {
+  SETTINGS, CARD, BOARDS, LABEL,
+} = ACTIONS;
 
 const {
   loginToGhSuccess,
@@ -16,6 +18,10 @@ const {
   syncCardsFail,
   syncCards,
 } = SETTINGS;
+
+const { updateCardList } = CARD;
+const { updateBoardList } = BOARDS;
+const { updateLabelList } = LABEL;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -46,6 +52,9 @@ function mapDispatchToProps(dispatch) {
         if (content) {
           toast.success('Synced with GitHub Gist');
           dispatch(syncCardsSuccess());
+          dispatch(updateCardList(content.cards));
+          dispatch(updateLabelList(content.labels));
+          dispatch(updateBoardList(content.boards));
         }
       } catch {
         dispatch(syncCardsFail());
