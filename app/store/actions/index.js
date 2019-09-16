@@ -93,6 +93,7 @@ export const changeCwd = cwd => ({
 export const loginToGhSuccess = () => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_SUCCESS,
 });
+
 export const loginToGhFail = () => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_FAIL,
 });
@@ -104,6 +105,14 @@ export const loginToGh = (username, pw) => ({
     password: pw,
   },
 });
+
+export const updateGist = gistId => ({
+  type: ACTION_TYPES.SETTINGS.UPDATE_GIST,
+  payload: {
+    gistId,
+  },
+});
+
 const SETTINGS = {
   changeCodeTheme,
   toggleSettings,
@@ -111,6 +120,7 @@ const SETTINGS = {
   loginToGhSuccess,
   loginToGhFail,
   loginToGh,
+  updateGist,
   toggleWhiteMode,
   toggleSidebar,
   changeCwd,

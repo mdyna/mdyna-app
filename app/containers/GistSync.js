@@ -4,12 +4,17 @@ import ACTIONS from 'Store/actions/';
 
 const { SETTINGS } = ACTIONS;
 
-const { loginToGhSuccess, loginToGhFail, loginToGh } = SETTINGS;
+const {
+  loginToGhSuccess, loginToGhFail, loginToGh, updateGist,
+} = SETTINGS;
 
 function mapDispatchToProps(dispatch) {
   return {
     loginToGh: (username, pw) => {
       dispatch(loginToGh(username, pw));
+    },
+    updateGist: (id) => {
+      dispatch(updateGist(id));
     },
     loginToGhFail: () => {
       dispatch(loginToGhFail());
