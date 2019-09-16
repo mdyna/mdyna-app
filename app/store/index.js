@@ -38,4 +38,10 @@ store.subscribe(
   1000,
 );
 
+export const getUserData = () => ({
+  cards: store.getState().cards,
+  labels: store.getState().labels,
+  boards: store.getState().boards,
+});
+
 export default store;

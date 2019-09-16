@@ -52,27 +52,9 @@ class GistSync extends PureComponent {
   }
 
   async createGist() {
-    try {
-      const newGist = await this.gists.create({
-        files: {
-          'mdyna.json': {
-            content: 'test',
-          },
-        },
-        description: 'Mdyna Cards',
-        public: false,
-      });
-      if (newGist) {
-        const gistList = await Gists.getUserGists();
-        if (gistList) {
-          const newGistIds = gistList.filter(
-            gist => gist.description === 'Mdyna Cards',
-          );
-          this.updateGist(newGistIds && newGistIds[0].id);
-        }
-      }
-    } catch (e) {
-      toast.error('Could not create gist');
+    const newGistId = await Gists.createGist();
+    if (newGistId) {
+      this.updateGist(newGistId);
     }
   }
 
@@ -87,9 +69,6 @@ class GistSync extends PureComponent {
       syncing,
       syncSuccess,
       badge,
-      loginToGh,
-      loginToGhSuccess,
-      loginToGhFail,
     } = this.props;
     const {
       expanded, inputUsername, inputPw, gistList,
@@ -155,8 +134,6 @@ GistSync.propTypes = {
   syncing: PropTypes.bool.isRequired,
   syncSuccess: PropTypes.bool.isRequired,
   loginToGh: PropTypes.func.isRequired,
-  loginToGhSuccess: PropTypes.func.isRequired,
-  loginToGhFail: PropTypes.func.isRequired,
   updateGist: PropTypes.func.isRequired,
 };
 
