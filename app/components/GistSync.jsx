@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Collapsible } from 'grommet';
 import TextInput from 'UI/TextInput';
 import { Github } from 'grommet-icons';
-import Gists from 'gists';
+import Gists from 'Utils/gistsService';
 import { toast } from 'react-toastify';
 import Loader from 'UI/Loader';
 import Button from 'UI/Button';
@@ -16,8 +16,6 @@ class GistSync extends PureComponent {
     gistList: [],
   };
 
-  gists = null;
-
   componentDidMount() {
     const { githubUserName, githubPassword } = this.props;
     if ((githubUserName, githubPassword)) {
@@ -26,32 +24,18 @@ class GistSync extends PureComponent {
   }
 
   async authToGithub(username, pw) {
-    const { loginToGh, loginToGhSuccess, loginToGhFail } = this.props;
-    loginToGh(username, pw);
-    try {
-      this.gists = new Gists({
-        username,
-        password: pw,
-      });
-      const gistList = await this.gists.list(username);
-      if (gistList) {
-        const gists = gistList.body;
-        loginToGhSuccess();
-        this.setState({ gistList: gists });
-      }
-    } catch (e) {
-      loginToGhFail();
-      toast.error('Error logging into Github, please check your credentials');
-    }
+    const { loginToGh } = this.props;
+    const gistList = await loginToGh(username, pw);
+    this.setState({ gistList });
   }
 
   async expandGists(expanded) {
     const { githubUserName } = this.props;
     if (expanded && githubUserName) {
-      const gistList = await this.gists.list(githubUserName);
+      const gistList = await Gists.getUserGists();
       this.setState({
         expanded,
-        gistList: gistList.body,
+        gistList,
       });
     } else {
       this.setState({
@@ -68,7 +52,6 @@ class GistSync extends PureComponent {
   }
 
   async createGist() {
-    const { githubUserName } = this.props;
     try {
       const newGist = await this.gists.create({
         files: {
@@ -80,9 +63,9 @@ class GistSync extends PureComponent {
         public: false,
       });
       if (newGist) {
-        const gistList = await this.gists.list(githubUserName);
+        const gistList = await Gists.getUserGists();
         if (gistList) {
-          const newGistIds = gistList.body.filter(
+          const newGistIds = gistList.filter(
             gist => gist.description === 'Mdyna Cards',
           );
           this.updateGist(newGistIds && newGistIds[0].id);

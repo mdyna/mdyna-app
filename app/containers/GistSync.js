@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import GistSync from 'Components/GistSync';
 import ACTIONS from 'Store/actions/';
+import Gists from 'Utils/gistsService';
 
 const { SETTINGS } = ACTIONS;
 
@@ -10,17 +12,24 @@ const {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginToGh: (username, pw) => {
-      dispatch(loginToGh(username, pw));
+    loginToGh: async (username, pw) => {
+      try {
+        dispatch(loginToGh(username, pw));
+        Gists.loginToGh(username, pw);
+        const gistList = Gists.getUserGists(username);
+        if (gistList) {
+          dispatch(loginToGhSuccess());
+          return gistList;
+        }
+        return [];
+      } catch (e) {
+        dispatch(loginToGhFail());
+        toast.error('Error logging into Github, please check your credentials');
+        return [];
+      }
     },
     updateGist: (id) => {
       dispatch(updateGist(id));
-    },
-    loginToGhFail: () => {
-      dispatch(loginToGhFail());
-    },
-    loginToGhSuccess: () => {
-      dispatch(loginToGhSuccess());
     },
   };
 }
