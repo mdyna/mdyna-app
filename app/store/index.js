@@ -24,6 +24,9 @@ store.subscribe(
       {
         codeTheme: store.getState().settings.codeTheme,
         whiteMode: store.getState().style.whiteMode,
+        githubUserName: store.getState().settings.githubUserName,
+        gistId: store.getState().settings.gistId,
+        githubPassword: store.getState().settings.githubPassword,
         order: store.getState().filters.order,
         activeBoard: store.getState().filters.activeBoard,
         cardsPerPage: store.getState().settings.cardsPerPage,

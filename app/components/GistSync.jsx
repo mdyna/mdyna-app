@@ -5,7 +5,7 @@ import TextInput from 'UI/TextInput';
 import { Github } from 'grommet-icons';
 import Gists from 'gists';
 import { toast } from 'react-toastify';
-// eslint-disable-next-line
+import Loader from 'UI/Loader';
 import Button from 'UI/Button';
 
 class GistSync extends PureComponent {
@@ -17,6 +17,13 @@ class GistSync extends PureComponent {
   };
 
   gists = null;
+
+  componentDidMount() {
+    const { githubUserName, githubPassword } = this.props;
+    if ((githubUserName, githubPassword)) {
+      this.authToGithub(githubUserName, githubPassword);
+    }
+  }
 
   async authToGithub(username, pw) {
     const { loginToGh, loginToGhSuccess, loginToGhFail } = this.props;
@@ -118,30 +125,37 @@ class GistSync extends PureComponent {
               {<Button onClick={() => this.createGist()}>Create new</Button>}
             </Box>
           ) : (
-            <React.Fragment>
-              <TextInput
-                label="Username"
-                value={inputUsername}
-                onChange={val => this.setState({ inputUsername: val })}
-              />
-              <TextInput
-                label="Password"
-                value={inputPw}
-                type="password"
-                onChange={val => this.setState({ inputPw: val })}
-              />
-              <Button onClick={() => this.authToGithub(inputUsername, inputPw)}>
-                Login
-              </Button>
-            </React.Fragment>
+            !githubPassword
+            || (!githubUserName && (
+              <React.Fragment>
+                <TextInput
+                  label="Username"
+                  value={inputUsername}
+                  onChange={val => this.setState({ inputUsername: val })}
+                />
+                <TextInput
+                  label="Password"
+                  value={inputPw}
+                  type="password"
+                  onChange={val => this.setState({ inputPw: val })}
+                />
+                <Button
+                  onClick={() => this.authToGithub(inputUsername, inputPw)}
+                >
+                  Login
+                </Button>
+              </React.Fragment>
+            ))
           )}
         </Collapsible>
         <Button onClick={() => this.expandGists(!expanded)}>
           <Github />
           {gistId
             && githubUserName
+            && githubAuthOn
             && `Connected to ${githubUserName}/${gistId}`}
         </Button>
+        {loadingGitHub && <Loader />}
       </Box>
     );
   }
