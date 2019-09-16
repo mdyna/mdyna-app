@@ -89,6 +89,17 @@ export const changeCwd = cwd => ({
   type: ACTION_TYPES.SETTINGS.CHANGE_CWD,
   cwd,
 });
+export const syncCardsSuccess = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS_SUCCESS,
+});
+
+export const syncCardsFail = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS_FAIL,
+});
+
+export const syncCards = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS,
+});
 
 export const loginToGhSuccess = () => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_SUCCESS,
@@ -120,6 +131,9 @@ const SETTINGS = {
   loginToGhSuccess,
   loginToGhFail,
   loginToGh,
+  syncCardsSuccess,
+  syncCardsFail,
+  syncCards,
   updateGist,
   toggleWhiteMode,
   toggleSidebar,
