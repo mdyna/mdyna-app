@@ -8,6 +8,7 @@ import Header from 'UI/Header';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
+import GistSync from 'Containers/GistSync';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
@@ -83,6 +84,7 @@ class Mdyna extends PureComponent {
             }}
           />
           <Header />
+          <GistSync />
           <SearchInput
             hidden={isFocused}
             titles={(cards && cards.length && cards.map(c => c.title)) || ['']}
