@@ -29,12 +29,17 @@ export const toggleCard = card => ({
   type: ACTION_TYPES.CARD.TOGGLE_CARD,
   card,
 });
+export const updateCardList = content => ({
+  type: ACTION_TYPES.CARD.UPDATE_CARD_LIST,
+  content,
+});
 
 const CARD = {
   addCard,
   saveCard,
   toggleCard,
   changeTitle,
+  updateCardList,
   removeCard,
 };
 
@@ -48,6 +53,11 @@ export const changeCardSetting = (prop, value) => ({
   type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
   prop,
   value,
+  meta: {
+    debounce: {
+      time: 500,
+    },
+  },
 });
 
 export const editCard = card => ({
@@ -152,9 +162,15 @@ export const removeLabel = label => ({
   label,
 });
 
+export const updateLabelList = content => ({
+  type: ACTION_TYPES.LABEL.UPDATE_LABEL_LIST,
+  content,
+});
+
 const LABEL = {
   addLabel,
   removeLabel,
+  updateLabelList,
 };
 
 // ──── BOARDS ────────────────────────────────────────────────────────────────────────────
@@ -193,8 +209,14 @@ export const changeBoardName = (board, newName) => ({
   },
 });
 
+export const updateBoardList = content => ({
+  type: ACTION_TYPES.BOARDS.UPDATE_BOARDS_LIST,
+  payload: { content },
+});
+
 const BOARDS = {
   createBoard,
+  updateBoardList,
   changeBoardName,
   toggleBoardsDialog,
   deleteBoard,

@@ -55,11 +55,11 @@ class GistsService {
 
   async syncGist() {
     try {
-      const currentGist = await this.getCurrentGist().content;
+      const currentGist = await this.getCurrentGist();
       const currentUserData = getUserData();
       const uniqUserCards = (currentGist
           && currentGist.cards
-          && uniqBy([...currentGist.cards, ...currentUserData.cards], 'id'))
+          && uniqBy([...currentUserData.cards, ...currentGist.cards], 'id'))
         || currentUserData.cards;
       const uniqUserLabels = (currentGist
           && currentGist.labels
@@ -85,7 +85,6 @@ class GistsService {
         labels: uniqUserLabels,
         lastSync: new Date(),
       };
-      console.log(content, 'content');
       await this.gists.edit(this.gistId, {
         files: {
           'mdyna.json': {

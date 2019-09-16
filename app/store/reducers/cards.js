@@ -8,6 +8,7 @@ const {
   TOGGLE_CARD,
   SAVE_CARD,
   CHANGE_TITLE,
+  UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
@@ -15,6 +16,8 @@ const {
 const cardTitle = action => unNest(action, 'card.title') || 'Untitled Card';
 export default function cards(state = [], action) {
   switch (action.type) {
+    case UPDATE_CARD_LIST:
+      return [...action.content];
     case ADD_CARD:
       return [
         ...state,
