@@ -38,9 +38,52 @@ class GistSync extends PureComponent {
     }
   }
 
-  async updateGist() {
-    const { gistList } = this.state;
-    console.log(gistList);
+  async expandGists(expanded) {
+    const { githubUserName } = this.props;
+    if (expanded && githubUserName) {
+      const gistList = await this.gists.list(githubUserName);
+      this.setState({
+        expanded,
+        gistList: gistList.body,
+      });
+    } else {
+      this.setState({
+        expanded,
+      });
+    }
+  }
+
+  async updateGist(gistId) {
+    const { updateGist } = this.props;
+    updateGist(gistId);
+    this.expandGists(false);
+    toast.success(`Connected to ${gistId}`);
+  }
+
+  async createGist() {
+    const { githubUserName } = this.props;
+    try {
+      const newGist = await this.gists.create({
+        files: {
+          'mdyna.json': {
+            content: 'test',
+          },
+        },
+        description: 'Mdyna Cards',
+        public: false,
+      });
+      if (newGist) {
+        const gistList = await this.gists.list(githubUserName);
+        if (gistList) {
+          const newGistIds = gistList.body.filter(
+            gist => gist.description === 'Mdyna Cards',
+          );
+          this.updateGist(newGistIds && newGistIds[0].id);
+        }
+      }
+    } catch (e) {
+      toast.error('Could not create gist');
+    }
   }
 
   render() {
@@ -64,15 +107,15 @@ class GistSync extends PureComponent {
     return (
       <Box direction="row">
         <Collapsible className="sync" direction="horizontal" open={expanded}>
-          {gistList && gistList.length ? (
+          {expanded && gistList && gistList.length ? (
             <Box>
               Select Gist
               {gistList.map(gist => (
-                <Button onClick={() => this.updateGist()} key={gist.url}>
+                <Button onClick={() => this.updateGist(gist.id)} key={gist.url}>
                   {gist.description}
                 </Button>
               ))}
-              {<Button>Create new</Button>}
+              {<Button onClick={() => this.createGist()}>Create new</Button>}
             </Box>
           ) : (
             <React.Fragment>
@@ -93,8 +136,11 @@ class GistSync extends PureComponent {
             </React.Fragment>
           )}
         </Collapsible>
-        <Button onClick={() => this.setState({ expanded: !expanded })}>
+        <Button onClick={() => this.expandGists(!expanded)}>
           <Github />
+          {gistId
+            && githubUserName
+            && `Connected to ${githubUserName}/${gistId}`}
         </Button>
       </Box>
     );
@@ -114,6 +160,7 @@ GistSync.propTypes = {
   loginToGh: PropTypes.func.isRequired,
   loginToGhSuccess: PropTypes.func.isRequired,
   loginToGhFail: PropTypes.func.isRequired,
+  updateGist: PropTypes.func.isRequired,
 };
 
 GistSync.defaultProps = {
