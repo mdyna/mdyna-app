@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Collapsible } from 'grommet';
+import { Box, Collapsible, Menu } from 'grommet';
 import TextInput from 'UI/TextInput';
-import { Github, Sync, Checkmark } from 'grommet-icons';
+import { Github, Sync, Down } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
 import Loader from 'UI/Loader';
 import Button from 'UI/Button';
@@ -74,21 +74,25 @@ class GistSync extends PureComponent {
       expanded, inputUsername, inputPw, gistList,
     } = this.state;
     return (
-      <Box direction="row">
+      <React.Fragment>
         <Collapsible className="sync" direction="horizontal" open={expanded}>
           {expanded && gistList && gistList.length ? (
-            <Box>
-              Select Gist
-              {gistList.map(gist => (
-                <Button onClick={() => this.updateGist(gist.id)} key={gist.url}>
-                  {gist.description}
-                </Button>
-              ))}
-              {<Button onClick={() => this.createGist()}>Create new</Button>}
-            </Box>
+            <Menu
+              label="Select Gist"
+              dropBackground="dark-2"
+              icon={<Down color="brand" />}
+              dropAlign={{ top: 'bottom' }}
+              items={[
+                ...gistList.map(gist => ({
+                  label: gist.description,
+                  onClick: () => this.updateGist(gist.id),
+                })),
+                { label: 'Create new', onClick: () => this.createGist() },
+              ]}
+            />
           ) : (
             (!githubPassword || !githubUserName) && (
-              <React.Fragment>
+              <Box direction="column" justify="center" width="small">
                 <TextInput
                   label="Username"
                   value={inputUsername}
@@ -105,34 +109,36 @@ class GistSync extends PureComponent {
                 >
                   Login
                 </Button>
-              </React.Fragment>
+              </Box>
             )
           )}
         </Collapsible>
-        {(gistId && githubUserName && githubAuthOn && (
-          <React.Fragment>
-            <Button onClick={() => this.expandGists(!expanded)}>
-              <Github />
-              {`Connected to ${githubUserName}/${gistId}`}
+        <Box direction="row">
+          {(gistId && githubUserName && githubAuthOn && (
+            <Box>
+              <Button plain={false} onClick={() => this.expandGists(!expanded)}>
+                <Github color="brand" />
+                {`Connected to ${githubUserName}/${gistId}`}
+              </Button>
+              <Button plain={false} onClick={() => syncCards()}>
+                <Sync color="brand" />
+                {(syncSuccess && lastSyncDate && (
+                  <React.Fragment>
+                    {`last sync at ${lastSyncDate}`}
+                  </React.Fragment>
+                ))
+                  || 'Sync'}
+              </Button>
+            </Box>
+          )) || (
+            <Button plain={false} onClick={() => this.expandGists(!expanded)}>
+              Connect with GitHub
+              <Github color="accent-2" />
             </Button>
-            <Button onClick={() => syncCards()}>
-              <Sync />
-              {syncSuccess && lastSyncDate && (
-                <React.Fragment>
-                  <Checkmark />
-                  {' '}
-                  {`last sync at ${lastSyncDate}`}
-                </React.Fragment>
-              )}
-            </Button>
-          </React.Fragment>
-        )) || (
-          <Button onClick={() => this.expandGists(!expanded)}>
-            <Github />
-          </Button>
-        )}
-        {(loadingGitHub || syncing) && <Loader />}
-      </Box>
+          )}
+          {(loadingGitHub || syncing) && <Loader />}
+        </Box>
+      </React.Fragment>
     );
   }
 }
