@@ -11,6 +11,7 @@ class GistsService {
     this.gists = [];
     this.gistList = [];
     this.gistId = '';
+    this.uniqCards = [];
   }
 
   updateGistId(id) {
@@ -28,6 +29,30 @@ class GistsService {
       });
     } catch {
       Error.throwError('Could not login to GitHub. Check your credentials.');
+    }
+  }
+
+  getUniqCards(cards) {
+    this.uniqCards = [];
+    this.uniqCardIds = [];
+    for (let i = 0; i < cards.length; i += 1) {
+      const card = cards[i];
+      if (card && card.id) {
+        if (this.uniqCardIds.indexOf(card.id) === -1) {
+          this.uniqCardIds.push(card.id);
+          this.uniqCards.push(card);
+        } else {
+          const repeatedCard = this.uniqCards.find(c => c.id === card.id);
+          if (repeatedCard) {
+            const repeatedCardIndex = this.uniqCards.indexOf(repeatedCard);
+            if (
+              new Date(repeatedCard.lastEditDate) < new Date(cards.lastEditDate)
+            ) {
+              this.uniqCards[repeatedCardIndex] = card;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -59,7 +84,10 @@ class GistsService {
       const currentUserData = getUserData();
       const uniqUserCards = (currentGist
           && currentGist.cards
-          && uniqBy([...currentUserData.cards, ...currentGist.cards], 'id'))
+          && this.getUniqCards([
+            ...currentUserData.cards,
+            ...currentGist.cards,
+          ]))
         || currentUserData.cards;
       const uniqUserLabels = (currentGist
           && currentGist.labels
