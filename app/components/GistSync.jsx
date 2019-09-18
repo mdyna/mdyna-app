@@ -4,7 +4,6 @@ import { Box, Collapsible } from 'grommet';
 import TextInput from 'UI/TextInput';
 import { Github, Sync, Checkmark } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
-import { toast } from 'react-toastify';
 import Loader from 'UI/Loader';
 import Button from 'UI/Button';
 
@@ -49,7 +48,6 @@ class GistSync extends PureComponent {
     const { updateGist } = this.props;
     updateGist(gistId);
     this.expandGists(false);
-    toast.success(`Connected to ${gistId}`);
   }
 
   async createGist() {
@@ -89,8 +87,7 @@ class GistSync extends PureComponent {
               {<Button onClick={() => this.createGist()}>Create new</Button>}
             </Box>
           ) : (
-            !githubPassword
-            || (!githubUserName && (
+            (!githubPassword || !githubUserName) && (
               <React.Fragment>
                 <TextInput
                   label="Username"
@@ -109,10 +106,10 @@ class GistSync extends PureComponent {
                   Login
                 </Button>
               </React.Fragment>
-            ))
+            )
           )}
         </Collapsible>
-        {gistId && githubUserName && githubAuthOn && (
+        {(gistId && githubUserName && githubAuthOn && (
           <React.Fragment>
             <Button onClick={() => this.expandGists(!expanded)}>
               <Github />
@@ -129,6 +126,10 @@ class GistSync extends PureComponent {
               )}
             </Button>
           </React.Fragment>
+        )) || (
+          <Button onClick={() => this.expandGists(!expanded)}>
+            <Github />
+          </Button>
         )}
         {(loadingGitHub || syncing) && <Loader />}
       </Box>
