@@ -15,6 +15,7 @@ const {
   SYNC_CARDS_SUCCESS,
   SYNC_CARDS_FAIL,
   UPDATE_GIST,
+  UPDATE_DELETED_CARDS,
 } = ACTION_TYPES.SETTINGS;
 
 function settingsReducer(
@@ -29,6 +30,7 @@ function settingsReducer(
     lastSyncDate: '',
     githubAuthOn: false,
     loadingGitHub: false,
+    deletedCards: [],
     syncing: false,
     syncSuccess: false,
   },
@@ -99,6 +101,11 @@ function settingsReducer(
       return {
         ...state,
         syncing: true,
+      };
+    case UPDATE_DELETED_CARDS:
+      return {
+        ...state,
+        deletedCards: [...state.deletedCards, action.payload],
       };
     default:
       return state;

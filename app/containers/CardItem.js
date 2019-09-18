@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
+import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD_EDITOR, CARD, LABEL, FILTERS,
+  CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
 } = ACTIONS;
 
 const { editCard, changeCardSetting } = CARD_EDITOR;
@@ -16,10 +17,14 @@ const {
   removeCard, toggleCard, saveCard, changeTitle,
 } = CARD;
 
+const { updateDeletedCards } = SETTINGS;
+
 function mapDispatchToProps(dispatch) {
   return {
-    removeCard: (card) => {
+    removeCard: async (card) => {
       dispatch(removeCard(card));
+      dispatch(updateDeletedCards(card.id));
+      await Gists.updateDeletedCards(card.id);
     },
     editCard: (card) => {
       dispatch(editCard(card));
