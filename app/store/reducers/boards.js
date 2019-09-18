@@ -58,7 +58,7 @@ export default function boards(
     case UPDATE_BOARDS_LIST:
       return {
         ...state,
-        content,
+        ...content,
       };
     case TOGGLE_BOARDS_DIALOG:
       return {
