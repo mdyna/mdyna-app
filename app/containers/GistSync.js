@@ -22,6 +22,23 @@ const {
 const { updateCardList } = CARD;
 const { updateBoardList } = BOARDS;
 const { updateLabelList } = LABEL;
+const syncCardsProp = async (dispatch) => {
+  try {
+    dispatch(syncCards());
+    const content = await Gists.syncGist();
+    if (content) {
+      toast.success('Connected to Gist');
+      dispatch(syncCardsSuccess());
+      dispatch(updateCardList(content.cards));
+      dispatch(updateLabelList(content.labels));
+      dispatch(updateBoardList(content.boards));
+    }
+  } catch (e) {
+    dispatch(syncCardsFail());
+    console.error(e);
+    toast.error('Could not sync with GitHub Gist (3)');
+  }
+};
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -41,25 +58,11 @@ function mapDispatchToProps(dispatch) {
         return [];
       }
     },
+    syncCards: () => syncCardsProp(dispatch),
     updateGist: (id) => {
       Gists.updateGistId(id);
+      syncCardsProp(dispatch);
       dispatch(updateGist(id));
-    },
-    syncCards: async () => {
-      try {
-        dispatch(syncCards());
-        const content = await Gists.syncGist();
-        if (content) {
-          toast.success('Synced with GitHub Gist');
-          dispatch(syncCardsSuccess());
-          dispatch(updateCardList(content.cards));
-          dispatch(updateLabelList(content.labels));
-          dispatch(updateBoardList(content.boards));
-        }
-      } catch {
-        dispatch(syncCardsFail());
-        toast.error('Could not sync with GitHub Gist');
-      }
     },
   };
 }

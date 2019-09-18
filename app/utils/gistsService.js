@@ -12,6 +12,8 @@ class GistsService {
     this.gistList = [];
     this.gistId = '';
     this.uniqCards = [];
+    this.uniqCardIds = [];
+    this.currentUserData = {};
   }
 
   updateGistId(id) {
@@ -38,7 +40,11 @@ class GistsService {
     for (let i = 0; i < cards.length; i += 1) {
       const card = cards[i];
       if (card && card.id) {
-        if (this.uniqCardIds.indexOf(card.id) === -1) {
+        const deletedCards = this.currentUserData.deletedCards || [];
+        if (
+          this.uniqCardIds.indexOf(card.id) === -1
+          && deletedCards.indexOf(card.id) === -1
+        ) {
           this.uniqCardIds.push(card.id);
           this.uniqCards.push(card);
         } else {
@@ -54,6 +60,7 @@ class GistsService {
         }
       }
     }
+    return this.uniqCards;
   }
 
   async getUserGists() {
@@ -78,41 +85,60 @@ class GistsService {
     return '';
   }
 
+  getDeletedCards() {
+    return this.currentGist.deletedCards;
+  }
+
   async syncGist() {
+    this.currentGist = await this.getCurrentGist();
+    this.currentUserData = getUserData();
+    const uniqUserCards = (this.currentGist
+        && this.currentGist.cards
+        && this.getUniqCards([
+          ...this.currentUserData.cards,
+          ...this.currentGist.cards,
+        ]))
+      || this.currentUserData.cards;
+    const uniqUserLabels = (this.currentGist
+        && this.currentGist.labels
+        && uniqBy(
+          [...this.currentGist.labels, ...this.currentUserData.labels],
+          'title',
+        ))
+      || this.currentUserData.labels;
+    const uniqUserBoards = (this.currentGist
+        && this.currentGist.boards && {
+      boardList: {
+        ...unNest(this.currentGist, 'boards.boardList'),
+        ...unNest(this.currentUserData, 'boards.boardList'),
+      },
+    })
+      || this.currentUserData.boards;
+    uniqUserBoards.boardNames = Object.keys(uniqUserBoards.boardList).map(
+      d => uniqUserBoards.boardList[d].name,
+    );
+    const content = {
+      cards: uniqUserCards,
+      boards: uniqUserBoards,
+      labels: uniqUserLabels,
+      lastSync: new Date(),
+    };
+    await this.updateGistContent(content);
+    return content;
+  }
+
+  async updateDeletedCards(deletedCardId) {
+    this.currentGist = await this.getCurrentGist();
+    const { deletedCards = [] } = this.currentGist;
+    const content = JSON.stringify({
+      ...this.currentGist,
+      deletedCards: [...deletedCards, deletedCardId],
+    });
+    await this.updateGistContent(content);
+  }
+
+  async updateGistContent(content) {
     try {
-      const currentGist = await this.getCurrentGist();
-      const currentUserData = getUserData();
-      const uniqUserCards = (currentGist
-          && currentGist.cards
-          && this.getUniqCards([
-            ...currentUserData.cards,
-            ...currentGist.cards,
-          ]))
-        || currentUserData.cards;
-      const uniqUserLabels = (currentGist
-          && currentGist.labels
-          && uniqBy(
-            [...currentGist.labels, ...currentUserData.labels],
-            'title',
-          ))
-        || currentUserData.labels;
-      const uniqUserBoards = (currentGist
-          && currentGist.boards && {
-        boardList: {
-          ...unNest(currentGist, 'boards.boardList'),
-          ...unNest(currentUserData, 'boards.boardList'),
-        },
-      })
-        || currentUserData.boards;
-      uniqUserBoards.boardNames = Object.keys(uniqUserBoards.boardList).map(
-        d => uniqUserBoards.boardList[d].name,
-      );
-      const content = {
-        cards: uniqUserCards,
-        boards: uniqUserBoards,
-        labels: uniqUserLabels,
-        lastSync: new Date(),
-      };
       await this.gists.edit(this.gistId, {
         files: {
           'mdyna.json': {
@@ -124,18 +150,23 @@ class GistsService {
       });
       return content;
     } catch (e) {
-      console.log(e);
-      Error.throwError('Could not sync with Gist');
+      if (e.message) {
+        Error.throwError('Could not sync with Gist (1)');
+      }
     }
     return null;
   }
 
   async createGist() {
+    this.currentUserData = getUserData();
     try {
       const newGist = await this.gists.create({
         files: {
           'mdyna.json': {
-            content: JSON.stringify({ ...getUserData(), lastSync: new Date() }),
+            content: JSON.stringify({
+              ...this.currentUserData,
+              lastSync: new Date(),
+            }),
           },
         },
         description: 'Mdyna Cards',
