@@ -134,6 +134,11 @@ export const updateGist = gistId => ({
   },
 });
 
+export const updateDeletedCards = cardId => ({
+  type: ACTION_TYPES.SETTINGS.UPDATE_DELETED_CARDS,
+  payload: cardId,
+});
+
 const SETTINGS = {
   changeCodeTheme,
   toggleSettings,
@@ -147,6 +152,7 @@ const SETTINGS = {
   updateGist,
   toggleWhiteMode,
   toggleSidebar,
+  updateDeletedCards,
   changeCwd,
 };
 

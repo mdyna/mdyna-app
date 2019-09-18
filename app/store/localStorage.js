@@ -26,6 +26,7 @@ export const getLocalState = () => {
       codeTheme: settings && settings.codeTheme,
       githubUserName: settings && settings.githubUserName,
       gistId: settings && settings.gistId,
+      deletedCards: settings && settings.deletedCards,
       githubPassword: settings && settings.githubPassword,
       cardsPerPage: settings && settings.cardsPerPage,
       cwd: settings && settings.cwd,

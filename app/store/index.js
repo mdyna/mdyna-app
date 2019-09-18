@@ -30,6 +30,7 @@ store.subscribe(
         order: store.getState().filters.order,
         activeBoard: store.getState().filters.activeBoard,
         cardsPerPage: store.getState().settings.cardsPerPage,
+        deletedCards: store.getState().settings.deletedCards || [],
         sorting: store.getState().filters.sorting,
         cwd: store.getState().settings.cwd,
       },
@@ -41,6 +42,7 @@ store.subscribe(
 export const getUserData = () => ({
   cards: store.getState().cards,
   labels: store.getState().labels,
+  deletedCards: store.getState().settings.deletedCards,
   boards: store.getState().boards,
 });
 
