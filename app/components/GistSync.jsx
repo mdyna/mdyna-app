@@ -6,6 +6,9 @@ import { Github, Sync, Down } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
 import Loader from 'UI/Loader';
 import Button from 'UI/Button';
+import cx from 'classnames';
+
+import './GistSync.scss';
 
 class GistSync extends PureComponent {
   state = {
@@ -16,10 +19,14 @@ class GistSync extends PureComponent {
   };
 
   componentDidMount() {
-    const { githubUserName, githubPassword, gistId } = this.props;
-    if ((githubUserName, githubPassword)) {
-      this.authToGithub(githubUserName, githubPassword);
-      this.updateGist(gistId);
+    const {
+      githubUserName, githubPassword, gistId, skipLogin,
+    } = this.props;
+    if (!skipLogin) {
+      if ((githubUserName, githubPassword)) {
+        this.authToGithub(githubUserName, githubPassword);
+        this.updateGist(gistId);
+      }
     }
   }
 
@@ -66,6 +73,7 @@ class GistSync extends PureComponent {
       githubAuthOn,
       loadingGitHub,
       syncing,
+      onClick,
       syncCards,
       syncSuccess,
       badge,
@@ -73,9 +81,32 @@ class GistSync extends PureComponent {
     const {
       expanded, inputUsername, inputPw, gistList,
     } = this.state;
-    return (
-      <React.Fragment>
-        <Collapsible className="sync" direction="horizontal" open={expanded}>
+    const isAuthenticated = gistId && githubUserName && githubAuthOn;
+    return badge ? (
+      <Box direction="column">
+        <Button
+          onClick={() => {
+            onClick();
+            this.expandGists(!expanded);
+          }}
+        >
+          <Github color={isAuthenticated ? 'brand' : 'accent-2'} />
+        </Button>
+        {isAuthenticated && gistId && (
+          <Button onClick={() => syncCards()}>
+            {((loadingGitHub || syncing) && <Loader />) || (
+              <Sync color="brand" />
+            )}
+          </Button>
+        )}
+      </Box>
+    ) : (
+      <Box className={cx('sync', expanded && 'expanded')}>
+        <Collapsible
+          className="collapse"
+          direction="horizontal"
+          open={expanded}
+        >
           {expanded && gistList && gistList.length ? (
             <Menu
               label="Select Gist"
@@ -92,7 +123,8 @@ class GistSync extends PureComponent {
             />
           ) : (
             (!githubPassword || !githubUserName) && (
-              <Box direction="column" justify="center" width="small">
+              <Box direction="column" justify="between" width="small">
+                Enter your GitHub credentials
                 <TextInput
                   label="Username"
                   value={inputUsername}
@@ -113,14 +145,14 @@ class GistSync extends PureComponent {
             )
           )}
         </Collapsible>
-        <Box direction="row">
-          {(gistId && githubUserName && githubAuthOn && (
-            <Box>
-              <Button plain={false} onClick={() => this.expandGists(!expanded)}>
+        <Box direction="column">
+          {(isAuthenticated && (
+            <React.Fragment>
+              <Button onClick={() => this.expandGists(!expanded)}>
                 <Github color="brand" />
-                {`Connected to ${githubUserName}/${gistId}`}
+                {'Change Gist'}
               </Button>
-              <Button plain={false} onClick={() => syncCards()}>
+              <Button onClick={() => syncCards()}>
                 <Sync color="brand" />
                 {(syncSuccess && lastSyncDate && (
                   <React.Fragment>
@@ -129,22 +161,24 @@ class GistSync extends PureComponent {
                 ))
                   || 'Sync'}
               </Button>
-            </Box>
+            </React.Fragment>
           )) || (
-            <Button plain={false} onClick={() => this.expandGists(!expanded)}>
-              Connect with GitHub
+            <Button onClick={() => this.expandGists(!expanded)}>
               <Github color="accent-2" />
+              Connect with GitHub
             </Button>
           )}
           {(loadingGitHub || syncing) && <Loader />}
         </Box>
-      </React.Fragment>
+      </Box>
     );
   }
 }
 
 GistSync.propTypes = {
   badge: PropTypes.bool,
+  onClick: PropTypes.func,
+  skipLogin: PropTypes.bool,
   githubUserName: PropTypes.string.isRequired,
   githubPassword: PropTypes.string.isRequired,
   gistId: PropTypes.string.isRequired,
@@ -160,6 +194,8 @@ GistSync.propTypes = {
 
 GistSync.defaultProps = {
   badge: false,
+  onClick: null,
+  skipLogin: false,
 };
 
 export default GistSync;

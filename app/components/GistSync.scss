@@ -1,0 +1,9 @@
+.sync {
+  flex-direction: column-reverse;
+  input {
+    margin: 5px auto;
+  }
+  &.expanded {
+    flex-direction: column;
+  }
+}
