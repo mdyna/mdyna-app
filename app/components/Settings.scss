@@ -24,10 +24,9 @@
     padding: 20px;
     border-radius: 10px;
     margin: 30px 20px;
-    flex-flow: row wrap;
+    flex-flow: column;
     align-items: center;
-    flex: 0.5;
-    width: 100%;
+
     justify-content: flex-start;
     header {
       margin: 0 auto;
@@ -44,10 +43,11 @@
     }
   }
   .settings-layout {
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
   }
   .settings-container {
     height: 100%;
+    flex: 1 1;
     border-radius: 10px;
     padding: 20px 20px 40px 20px;
     margin-top: 20px;
