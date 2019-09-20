@@ -70,11 +70,11 @@ class GistsService {
         this.gistList = gistList.body;
         return gistList.body;
       }
-      return [];
     } catch {
       Error.throwError(`Error getting user gists for ${this.username}`);
+      return null;
     }
-    return [];
+    return null;
   }
 
   async getCurrentGist() {
