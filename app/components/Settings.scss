@@ -25,22 +25,26 @@
     border-radius: 10px;
     margin: 30px 20px;
     flex-flow: row wrap;
-    min-width: 250px;
     align-items: center;
+    flex: 0.5;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     header {
+      margin: 0 auto;
       h1 {
         width: fit-content;
       }
     }
+    span {
+      margin: 5px auto;
+    }
     .credits {
-      margin: -15px auto;
+      margin: 15px auto;
       width: 50%;
     }
   }
   .settings-layout {
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
   }
   .settings-container {
     height: 100%;
