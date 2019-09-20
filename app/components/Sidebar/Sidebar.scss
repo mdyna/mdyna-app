@@ -11,7 +11,7 @@
   margin-right: 10px;
   overflow: hidden !important;
   flex-flow: column wrap;
-  height: 80vh;
+  height: 90vh;
   .menu-label {
     transition: all 0.5s;
     opacity: 0;
@@ -68,6 +68,13 @@
           transform: rotate(180deg);
         }
       }
+    }
+  }
+  .sync {
+    width: 100%;
+    button {
+      width: 100%;
+      border: none;
     }
   }
   .menu-label-filter {

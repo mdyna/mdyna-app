@@ -4,15 +4,6 @@ export const getLocalState = () => {
   const boards = userState && userState.boards;
   const boardNames = boards && boards.boardNames;
   const boardList = (boards && boards.boardList) || {};
-  for (let i = 0; i < boardNames.length; i += 1) {
-    const name = boardNames[i];
-    if (!boardList[name]) {
-      boardList[name] = {
-        name,
-        cards: [],
-      };
-    }
-  }
 
   return {
     ...userState,
@@ -31,6 +22,10 @@ export const getLocalState = () => {
     },
     settings: {
       codeTheme: settings && settings.codeTheme,
+      githubUserName: settings && settings.githubUserName,
+      gistId: settings && settings.gistId,
+      deletedCards: settings && settings.deletedCards,
+      githubPassword: settings && settings.githubPassword,
       cardsPerPage: settings && settings.cardsPerPage,
       cwd: settings && settings.cwd,
     },

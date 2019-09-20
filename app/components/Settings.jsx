@@ -18,6 +18,7 @@ import {
   Note,
 } from 'grommet-icons';
 import Tooltip from 'UI/Tooltip';
+import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import { CODE_THEMES } from 'UI/MarkdownText';
@@ -26,7 +27,7 @@ import BoardsDialog from './BoardsDialog';
 import './Settings.scss';
 
 const renderAppInfo = () => (
-  <Box direction="row" background="dark-1" className="app-info" responsive>
+  <Box direction="column" background="dark-1" className="app-info" responsive>
     <Header>
       <Text size="xxlarge" as="h1">
         Mdyna
@@ -45,21 +46,19 @@ const renderAppInfo = () => (
     </Text>
     <Text size="large" color="brand">
       <Github color="brand" />
-      <a href="https://github.com/mdyna/mdyna-app/">Github</a>
+      <a href="https://github.com/mdyna/mdyna-app/">GitHub</a>
     </Text>
     <Box align="center" direction="column" className="credits">
       <Text>Created by David Morais</Text>
-      <Text size="medium">
-        <a href="https://twitter.com/Psybork">
-          <Twitter color="brand" />
-        </a>
-        <a href="https://github.com/dmorais92">
-          <Github color="brand" />
-        </a>
-        <a href="mailto:davidmorais92@gmail.com">
-          <MailOption color="brand" />
-        </a>
-      </Text>
+      <a href="https://twitter.com/Psybork">
+        <Twitter color="brand" />
+      </a>
+      <a href="https://github.com/dmorais92">
+        <Github color="brand" />
+      </a>
+      <a href="mailto:davidmorais92@gmail.com">
+        <MailOption color="brand" />
+      </a>
     </Box>
   </Box>
 );
@@ -95,12 +94,8 @@ class Settings extends PureComponent {
           X
         </Button>
         <ErrorBoundary>
-          <Box
-            direction="row"
-            justify="center"
-            responsive
-            className="settings-layout"
-          >
+          <Box direction="row" justify="center" className="settings-layout">
+            {renderAppInfo()}
             <Box
               direction="column"
               background="dark-2"
@@ -170,6 +165,7 @@ class Settings extends PureComponent {
                     ipcRenderer.send('CHANGED-CWD');
                   }}
                 />
+                <GistSync />
               </Box>
               <BoardsDialog
                 activeBoard={activeBoard}
@@ -181,8 +177,6 @@ class Settings extends PureComponent {
                 changeBoardName={changeBoardName}
               />
             </Box>
-
-            {renderAppInfo()}
           </Box>
         </ErrorBoundary>
       </Box>

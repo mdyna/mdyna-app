@@ -104,6 +104,11 @@ const themeBuilder = colors => colors && {
       },
     },
   },
+  collapsible: {
+    extend: {
+      height: 0,
+    },
+  },
   select: {
     container: {
       extend: {

@@ -82,29 +82,32 @@ class Mdyna extends PureComponent {
               }
             }}
           />
-          <Header />
-          <SearchInput
-            hidden={isFocused}
-            titles={(cards && cards.length && cards.map(c => c.title)) || ['']}
-            onChange={e => searchCards(e)}
-            searchBar={this.searchBar}
-            searchInput={searchInput}
-          />
-          <Box fill="horizontal" direction="row">
+          <Box fill="vertical" direction="row">
             <div className="sidebar-wrapper">
               <SideBar gridArea="menu" {...this.props} />
             </div>
-            {cards ? (
-              <CardList
-                isFocused={Boolean(isFocused)}
-                gridArea="card-list"
-                cards={cards}
-                order={order}
-                sorting={sorting}
+            <Box direction="column" fill="horizontal">
+              <SearchInput
+                hidden={isFocused}
+                titles={
+                  (cards && cards.length && cards.map(c => c.title)) || ['']
+                }
+                onChange={e => searchCards(e)}
+                searchBar={this.searchBar}
+                searchInput={searchInput}
               />
-            ) : (
-              <Loader />
-            )}
+              {cards ? (
+                <CardList
+                  isFocused={Boolean(isFocused)}
+                  gridArea="card-list"
+                  cards={cards}
+                  order={order}
+                  sorting={sorting}
+                />
+              ) : (
+                <Loader />
+              )}
+            </Box>
           </Box>
           {boardsDialogOpen && (
             <Layer

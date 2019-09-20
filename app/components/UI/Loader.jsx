@@ -1,12 +1,14 @@
 import React, { Component as PureComponent } from 'react';
-import logo from 'Assets/MdynaLogo.png';
+import { Update } from 'grommet-icons';
+
+import './Loader.scss';
 
 class Loader extends PureComponent {
   render() {
     return (
-      <React.Fragment>
-        <img src={logo} className="App-logo" alt="Mdyna" />
-      </React.Fragment>
+      <div className="loader">
+        <Update className="App-logo" alt="Mdyna-loader" color="brand" />
+      </div>
     );
   }
 }

@@ -6,7 +6,7 @@ const {
   CARD, CARD_EDITOR, LABEL, BOARDS, FILTERS,
 } = ACTIONS;
 
-const { addCard, saveCard, removeCard } = CARD;
+const { addCard, saveCard } = CARD;
 
 const { focusCard } = FILTERS;
 
@@ -31,9 +31,6 @@ function mapDispatchToProps(dispatch) {
     },
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
-    },
-    removeCard: (card) => {
-      dispatch(removeCard(card));
     },
     addLabel: (card) => {
       dispatch(addLabel(card));

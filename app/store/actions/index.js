@@ -29,12 +29,17 @@ export const toggleCard = card => ({
   type: ACTION_TYPES.CARD.TOGGLE_CARD,
   card,
 });
+export const updateCardList = content => ({
+  type: ACTION_TYPES.CARD.UPDATE_CARD_LIST,
+  content,
+});
 
 const CARD = {
   addCard,
   saveCard,
   toggleCard,
   changeTitle,
+  updateCardList,
   removeCard,
 };
 
@@ -48,6 +53,11 @@ export const changeCardSetting = (prop, value) => ({
   type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
   prop,
   value,
+  meta: {
+    debounce: {
+      time: 500,
+    },
+  },
 });
 
 export const editCard = card => ({
@@ -89,13 +99,60 @@ export const changeCwd = cwd => ({
   type: ACTION_TYPES.SETTINGS.CHANGE_CWD,
   cwd,
 });
+export const syncCardsSuccess = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS_SUCCESS,
+});
+
+export const syncCardsFail = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS_FAIL,
+});
+
+export const syncCards = () => ({
+  type: ACTION_TYPES.SETTINGS.SYNC_CARDS,
+});
+
+export const loginToGhSuccess = () => ({
+  type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_SUCCESS,
+});
+
+export const loginToGhFail = () => ({
+  type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_FAIL,
+});
+
+export const loginToGh = (username, pw) => ({
+  type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH,
+  payload: {
+    username,
+    password: pw,
+  },
+});
+
+export const updateGist = gistId => ({
+  type: ACTION_TYPES.SETTINGS.UPDATE_GIST,
+  payload: {
+    gistId,
+  },
+});
+
+export const updateDeletedCards = cardId => ({
+  type: ACTION_TYPES.SETTINGS.UPDATE_DELETED_CARDS,
+  payload: cardId,
+});
 
 const SETTINGS = {
   changeCodeTheme,
   toggleSettings,
   changeCardsPerPage,
+  loginToGhSuccess,
+  loginToGhFail,
+  loginToGh,
+  syncCardsSuccess,
+  syncCardsFail,
+  syncCards,
+  updateGist,
   toggleWhiteMode,
   toggleSidebar,
+  updateDeletedCards,
   changeCwd,
 };
 
@@ -111,9 +168,15 @@ export const removeLabel = label => ({
   label,
 });
 
+export const updateLabelList = content => ({
+  type: ACTION_TYPES.LABEL.UPDATE_LABEL_LIST,
+  content,
+});
+
 const LABEL = {
   addLabel,
   removeLabel,
+  updateLabelList,
 };
 
 // ──── BOARDS ────────────────────────────────────────────────────────────────────────────
@@ -152,8 +215,14 @@ export const changeBoardName = (board, newName) => ({
   },
 });
 
+export const updateBoardList = content => ({
+  type: ACTION_TYPES.BOARDS.UPDATE_BOARDS_LIST,
+  payload: { content },
+});
+
 const BOARDS = {
   createBoard,
+  updateBoardList,
   changeBoardName,
   toggleBoardsDialog,
   deleteBoard,

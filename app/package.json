@@ -17,6 +17,7 @@
     "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "gists": "^2.0.0",
     "grommet": "^2.7.1",
     "grommet-icons": "^4.2.0",
     "grommet-styles": "^0.2.0",
