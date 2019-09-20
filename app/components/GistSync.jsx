@@ -87,7 +87,6 @@ class GistSync extends PureComponent {
         <Button
           onClick={() => {
             onClick();
-            this.expandGists(!expanded);
           }}
         >
           <Github color={isAuthenticated ? 'brand' : 'accent-2'} />
@@ -101,7 +100,7 @@ class GistSync extends PureComponent {
         )}
       </Box>
     ) : (
-      <Box className={cx('sync', expanded && 'expanded')}>
+      <Box className={cx('sync', (expanded && 'expanded') || 'collapsed')}>
         <Collapsible
           className="collapse"
           direction="horizontal"

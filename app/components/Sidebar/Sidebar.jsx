@@ -158,7 +158,11 @@ class Sidebar extends Component {
             />
           </Collapsible>
 
-          <GistSync />
+          <GistSync
+            onClick={() => {
+              toggleSettings();
+            }}
+          />
           <Box direction="column">
             <Text size="small" className="help">
               Markdown Guide
@@ -272,7 +276,7 @@ class Sidebar extends Component {
               skipLogin
               classname="sidebar-tooltip"
               onClick={() => {
-                this.expandMenu();
+                toggleSettings();
               }}
             />
           )}

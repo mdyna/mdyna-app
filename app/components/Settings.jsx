@@ -18,6 +18,7 @@ import {
   Note,
 } from 'grommet-icons';
 import Tooltip from 'UI/Tooltip';
+import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import { CODE_THEMES } from 'UI/MarkdownText';
@@ -164,6 +165,7 @@ class Settings extends PureComponent {
                     ipcRenderer.send('CHANGED-CWD');
                   }}
                 />
+                <GistSync />
               </Box>
               <BoardsDialog
                 activeBoard={activeBoard}
