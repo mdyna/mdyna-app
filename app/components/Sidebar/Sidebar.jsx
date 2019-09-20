@@ -203,7 +203,7 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
                 <FormPrevious color="brand" />
-                <Text size="large">mdyna</Text>
+                <Text size="large">Mdyna</Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
@@ -252,7 +252,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open mdyna settings UI"
+            text="Open Mdyna settings UI"
             onClick={() => {
               toggleSettings();
             }}
@@ -266,6 +266,16 @@ class Sidebar extends Component {
               this.expandMenu();
             }}
           />
+          {!sidebarExpanded && (
+            <GistSync
+              badge
+              skipLogin
+              classname="sidebar-tooltip"
+              onClick={() => {
+                this.expandMenu();
+              }}
+            />
+          )}
           {this.collapsibleSidebar()}
         </Box>
       </React.Fragment>
