@@ -162,9 +162,17 @@ class GistSync extends PureComponent {
               </Button>
             </React.Fragment>
           )) || (
-            <Button onClick={() => this.expandGists(!expanded)}>
+            <Button
+              onClick={() => {
+                if (onClick) {
+                  onClick();
+                } else {
+                  this.expandGists(!expanded);
+                }
+              }}
+            >
               <Github color="accent-2" />
-              Connect with GitHub
+              Connect with GitHubs
             </Button>
           )}
           {(loadingGitHub || syncing) && <Loader />}
