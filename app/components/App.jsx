@@ -8,7 +8,6 @@ import Header from 'UI/Header';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
-import GistSync from 'Containers/GistSync';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
@@ -79,30 +78,32 @@ class Mdyna extends PureComponent {
               }
             }}
           />
-          <Header />
-          <GistSync />
-          <SearchInput
-            hidden={isFocused}
-            titles={(cards && cards.length && cards.map(c => c.title)) || ['']}
-            onChange={e => searchCards(e)}
-            searchBar={this.searchBar}
-            searchInput={searchInput}
-          />
-          <Box fill="horizontal" direction="row">
+          <Box fill="vertical" direction="row">
             <div className="sidebar-wrapper">
               <SideBar gridArea="menu" {...this.props} />
             </div>
-            {cards ? (
-              <CardList
-                isFocused={Boolean(isFocused)}
-                gridArea="card-list"
-                cards={cards}
-                order={order}
-                sorting={sorting}
+            <Box direction="column" fill="horizontal">
+              <SearchInput
+                hidden={isFocused}
+                titles={
+                  (cards && cards.length && cards.map(c => c.title)) || ['']
+                }
+                onChange={e => searchCards(e)}
+                searchBar={this.searchBar}
+                searchInput={searchInput}
               />
-            ) : (
-              <Loader />
-            )}
+              {cards ? (
+                <CardList
+                  isFocused={Boolean(isFocused)}
+                  gridArea="card-list"
+                  cards={cards}
+                  order={order}
+                  sorting={sorting}
+                />
+              ) : (
+                <Loader />
+              )}
+            </Box>
           </Box>
           {boardsDialogOpen && (
             <Layer

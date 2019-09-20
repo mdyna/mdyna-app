@@ -14,7 +14,10 @@ export default class SearchComponent extends PureComponent {
 
   render() {
     const {
-      searchInput, onChange, searchBar, titles, hidden,
+      /* searchInput, */ onChange,
+      searchBar,
+      titles,
+      hidden,
     } = this.props;
     const { defaultValue } = this.state;
     const getSuggestions = () => {
@@ -49,7 +52,6 @@ export default class SearchComponent extends PureComponent {
               onChange(e.suggestion);
             }
           }}
-          defaultValue={searchInput}
           value={defaultValue}
         />
       </div>

@@ -17,6 +17,7 @@ import {
 import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
+import GistSync from 'Containers/GistSync';
 import LabelFilter from 'UI/LabelFilter';
 import TooltipData from 'UI/tooltipsContent';
 import {
@@ -156,6 +157,8 @@ class Sidebar extends Component {
               labelFilterFuncs={labelFilterFuncs}
             />
           </Collapsible>
+
+          <GistSync />
           <Box direction="column">
             <Text size="small" className="help">
               Markdown Guide
