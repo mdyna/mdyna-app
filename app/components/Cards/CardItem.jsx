@@ -2,15 +2,12 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
-import Button from 'UI/Button';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
 import Editor from 'Components/RTEditor';
-import unNest from 'Utils/nest';
 import { convertDateToLocaleString } from 'Utils/dates';
-import { FormUp, FormDown } from 'grommet-icons';
 import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
@@ -42,19 +39,9 @@ const COLOR_LABELS = {
   '#a7c0cd': 'grey',
 };
 
-function minimizeCard(card) {
-  card.setState({
-    minimized: (card && card.state && !card.state.minimized) || false,
-  });
-  card.scrollToCard();
-}
-
 class MdynaCard extends PureComponent {
   state = {
     isHovered: false,
-    minimized:
-      unNest(this.props, 'card.text')
-      && unNest(this.props, 'card.text').length > 300, // automatically clip over 500 chars
   };
 
   name = 'Mdyna Card';
@@ -97,7 +84,6 @@ class MdynaCard extends PureComponent {
       className,
       hasCardBar,
       changeCardSetting,
-      showAllText,
       toggleCard,
       changeTitle,
       saveCard,
@@ -112,19 +98,17 @@ class MdynaCard extends PureComponent {
       labelFilters,
       codeTheme,
     } = this.props;
-    const { isHovered, minimized } = this.state;
+    const { isHovered } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
     const cardActions = {
       toggleCard,
       removeCard,
-      minimizeCard: card.text && card.text.length > 300 ? minimizeCard : null,
       editCard,
       focusCard,
       removeLabel,
       changeTitle,
     };
-    const displayControl = cardActions.minimizeCard && !showAllText;
     return (
       <Box
         key={card.id}
@@ -133,12 +117,7 @@ class MdynaCard extends PureComponent {
         onDoubleClick={() => {
           cardActions.editCard(card);
         }}
-        className={classnames(
-          className,
-          COLOR_LABELS[color],
-          'card-item',
-          cardActions.minimizeCard && !minimized && 'expanded',
-        )}
+        className={classnames(className, COLOR_LABELS[color], 'card-item')}
         onMouseEnter={() => this.setState({
           isHovered: true,
         })
@@ -162,9 +141,6 @@ class MdynaCard extends PureComponent {
           cardActions={hasCardBar ? cardActions : ''}
           cardItem={this}
           title={card.title}
-          options={{
-            minimized,
-          }}
         />
         <Labels
           labelFuncs={labelFuncs}
@@ -186,22 +162,6 @@ class MdynaCard extends PureComponent {
             backgroundColor: 'transparent',
           }}
         />
-        {
-          <Button
-            onClick={() => cardActions.minimizeCard(this)}
-            className="card-control"
-            style={{
-              height: !displayControl && 0,
-              visibility: (displayControl && 'initial') || 'hidden',
-            }}
-          >
-            {minimized ? (
-              <FormDown className="maximize-icon" />
-            ) : (
-              <FormUp className="minimize-icon" />
-            )}
-          </Button>
-        }
       </Box>
     );
   }
