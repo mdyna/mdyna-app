@@ -5,19 +5,19 @@ import { Help } from 'grommet-icons';
 import { Box } from 'grommet';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
-import MarkdownText from 'UI/MarkdownText';
 
 import './Tooltip.scss'; // eslint-disable-line
 
 class Tooltip extends PureComponent {
   tooltipPortal() {
-    return ReactDOM.createPortal(this.renderTooltipContent(), document.getElementById('root'));
+    return ReactDOM.createPortal(
+      this.renderTooltipContent(),
+      document.getElementById('root'),
+    );
   }
 
   renderTooltipContent() {
-    const {
-      text, title, className,
-    } = this.props;
+    const { text, title, className } = this.props;
     return (
       <ReactTooltip
         id={title}
@@ -30,7 +30,7 @@ class Tooltip extends PureComponent {
         }}
       >
         <h2>{title}</h2>
-        <MarkdownText disableCode className="tooltip-text" text={text} />
+        <p className="tooltip-text">{text}</p>
       </ReactTooltip>
     );
   }
