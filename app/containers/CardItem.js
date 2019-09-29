@@ -35,6 +35,7 @@ function mapDispatchToProps(dispatch) {
     saveCard: (card) => {
       dispatch(toggleEditor());
       dispatch(saveCard(card));
+      dispatch(focusCard(card));
     },
     changeTitle: (card, title) => {
       dispatch(changeTitle(card, title));
