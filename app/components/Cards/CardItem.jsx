@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
-import MarkdownText from 'UI/MarkdownText';
+import Editor from 'Components/RTEditor';
 import unNest from 'Utils/nest';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { FormUp, FormDown } from 'grommet-icons';
@@ -94,10 +94,8 @@ class MdynaCard extends PureComponent {
   render() {
     const {
       card,
-      i,
       className,
       hasCardBar,
-      whiteMode,
       changeCardSetting,
       showAllText,
       toggleCard,
@@ -110,14 +108,13 @@ class MdynaCard extends PureComponent {
       removeLabel,
       addLabelFilter,
       removeLabelFilter,
+      readOnly,
       labelFilters,
       codeTheme,
     } = this.props;
-
     const { isHovered, minimized } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
-    const minimize = showAllText ? false : minimized;
     const cardActions = {
       toggleCard,
       removeCard,
@@ -130,7 +127,7 @@ class MdynaCard extends PureComponent {
     const displayControl = cardActions.minimizeCard && !showAllText;
     return (
       <Box
-        key={i}
+        key={card.id}
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
@@ -176,17 +173,18 @@ class MdynaCard extends PureComponent {
           color={color}
         />
         {this.renderCardDate()}
-        <MarkdownText
+
+        <Editor
+          readOnly={readOnly}
+          card={card}
+          defaultValue={card.text}
+          onSave={saveCard}
           codeTheme={codeTheme}
-          whiteMode={whiteMode}
-          className="note-card-content"
-          minimized={minimize}
-          color={color}
-          editCard={{
-            card,
-            saveFunc: saveCard,
+          value={card.text}
+          onChange={val => changeCardSetting('text', val)}
+          theme={{
+            backgroundColor: 'transparent',
           }}
-          text={card.text}
         />
         {
           <Button
@@ -214,11 +212,11 @@ export default MdynaCard;
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   isFocused: PropTypes.bool,
+  readOnly: PropTypes.bool,
   codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
-  whiteMode: PropTypes.bool,
   showAllText: PropTypes.bool,
   editCard: PropTypes.func,
   changeTitle: PropTypes.func.isRequired,
@@ -230,22 +228,20 @@ MdynaCard.propTypes = {
   focusCard: PropTypes.func,
   addLabelFilter: PropTypes.func,
   removeLabelFilter: PropTypes.func,
-  i: PropTypes.number,
 };
 
 MdynaCard.defaultProps = {
-  i: 0,
   changeCardSetting: null,
   removeCard: null,
   saveCard: null,
   editCard: null,
   isFocused: false,
-  whiteMode: false,
   codeTheme: 'Default',
   showAllText: false,
   addLabelFilter: null,
   removeLabelFilter: null,
   removeLabel: null,
+  readOnly: true,
   labelFilters: [],
   focusCard: null,
   toggleCard: null,

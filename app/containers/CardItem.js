@@ -7,7 +7,7 @@ const {
   CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
 } = ACTIONS;
 
-const { editCard, changeCardSetting } = CARD_EDITOR;
+const { editCard, toggleEditor } = CARD_EDITOR;
 
 const { addLabel, removeLabel } = LABEL;
 
@@ -32,10 +32,8 @@ function mapDispatchToProps(dispatch) {
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    changeCardSetting: (prop, value) => {
-      dispatch(changeCardSetting(prop, value));
-    },
     saveCard: (card) => {
+      dispatch(toggleEditor());
       dispatch(saveCard(card));
     },
     changeTitle: (card, title) => {
