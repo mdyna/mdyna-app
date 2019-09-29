@@ -9,8 +9,8 @@ class RTEditor extends React.PureComponent {
   editorRef = React.createRef();
 
   componentDidUpdate(prevProps, prevState) {
-    const { value } = this.props;
-    if (value !== prevProps.value) {
+    const { value, readOnly } = this.props;
+    if (value !== prevProps.value && readOnly) {
       this.editorRef.current.setState({
         editorValue: Markdown.deserialize(value),
       });
