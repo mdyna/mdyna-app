@@ -159,20 +159,10 @@
   resolved "https://registry.yarnpkg.com/@tommoor/slate-edit-list/-/slate-edit-list-0.19.0-0.tgz#972a714e9ea4cdf47a530d5702a904f5547be2dd"
   integrity sha512-jknTytLU2bicfxfSeYD7fN8BlBbn+hcyK7u1+IXafo4ObuND71dtZuwPm3oU3YAAiTWZe0VBQVzrCDoBZkxMaA==
 
-"@types/codemirror@^0.0.65":
-  version "0.0.65"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.65.tgz#5f8d546d40c9d2acb1166167aae9e70d1b9a83b7"
-  integrity sha512-XJo1mbkiLI0M4zR1LqpM6ljDgnpIoDkqs3JPp0jLZ8DHbqbha+YNWemhlqQyJrLIame+eOkefrL8U+NNPB4FAQ==
-
 "@types/node@^8.0.24":
   version "8.10.39"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.39.tgz#e7e87ad00364dd7bc485c940926345b8ec1a26ca"
   integrity sha512-rE7fktr02J8ybFf6eysife+WF+L4sAHWzw09DgdCebEu+qDwMvv4zl6Bc+825ttGZP73kCKxa3dhJOoGJ8+5mA==
-
-"@types/simplemde@^1.11.7":
-  version "1.11.7"
-  resolved "https://registry.yarnpkg.com/@types/simplemde/-/simplemde-1.11.7.tgz#c8bd9f54ff46db7f311a989004eb5815acedf429"
-  integrity sha512-b3yirBar1gqb9clgJJKpx+Or3txkOOkm5sffhRKaBUfh7+1D2Aimx2RKXGS1LK9S5KyNmug3lwpGJtaID9cOnA==
 
 "@wikifactory/slate-edit-blockquote@^0.7.1":
   version "0.7.1"
@@ -2603,15 +2593,6 @@ react-router@^4.1.1:
     htmlparser2 "3.9.0"
     prop-types "15.5.8"
     showdown "^1.9.0"
-
-react-simplemde-editor@^3.6.16:
-  version "3.6.22"
-  resolved "https://registry.yarnpkg.com/react-simplemde-editor/-/react-simplemde-editor-3.6.22.tgz#2c122dffbebc304c13aee804d16e3b4533e00345"
-  integrity sha512-5tyi1fly8h7ISQHIzvApQq3ZB4ManPPnH8t5Dr9l9/uGfO8dqofqfuHPih8EmnCkhBWxUfXufnEWi9Eo7Y2reg==
-  dependencies:
-    "@types/codemirror" "^0.0.65"
-    "@types/simplemde" "^1.11.7"
-    simplemde "^1.11.2"
 
 react-toastify@^5.3.2:
   version "5.3.2"
