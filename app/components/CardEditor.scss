@@ -71,13 +71,6 @@
     transition: color 0.5s;
     padding: 10px 5px;
 
-    @include breakpoint(small) {
-      flex-flow: column wrap;
-    }
-    @include breakpoint(medium) {
-      flex-flow: row wrap;
-    }
-
     .card-preview {
       min-height: 50vh;
       margin: 0 0px 0 10px !important;
