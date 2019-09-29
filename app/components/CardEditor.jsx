@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
 import BoardPicker from 'UI/BoardPicker';
 import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
-import CardPreview from 'Containers/CardPreview';
+import CardItem from 'Containers/CardItem';
 import validateFields from './Cards/CardValidation';
 import cardDefinition from './Cards/definition.json';
 
@@ -99,8 +98,10 @@ export default class CardEditor extends Component {
   }
 
   updateCard(card) {
-    const { saveCard, focusedCard, focusCard } = this.props;
-    saveCard(card);
+    const {
+      saveCard, focusedCard, focusCard, editorSettings,
+    } = this.props;
+    saveCard(editorSettings);
     if (focusedCard) {
       focusCard(card);
     }
@@ -211,12 +212,11 @@ export default class CardEditor extends Component {
             backgroundColor: `${editorSettings.color}aa`,
           }}
         >
-          <MarkdownEditor
-            text={editorSettings.text}
-            className="card-text-editor"
-            submitCard={() => this.submitFormFields()}
+          <CardItem
+            card={editorSettings}
+            readOnly={false}
+            changeCardSetting={changeCardSetting}
           />
-          <CardPreview changeCardSetting={changeCardSetting} />
         </Box>
       </form>
     );
