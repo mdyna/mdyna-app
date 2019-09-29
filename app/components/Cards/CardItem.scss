@@ -57,14 +57,17 @@
   }
 
   .note-card-content {
-    margin-top: 5px;
-    overflow-wrap: break-word;
-    overflow-x: auto;
-    overflow-y: hidden;
-    p {
-      max-width: 100% !important;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 600;
     }
     table {
+      border-radius: 5px;
+      border-collapse: initial;
       thead {
         th {
           background-color: rgba(255, 255, 255, 0.8);
@@ -72,7 +75,6 @@
       }
       tbody {
         tr {
-          text-align: center;
           background-color: rgba(255, 255, 255, 0.4);
           &:nth-child(2n) {
             background-color: rgba(255, 255, 255, 0.6);
@@ -85,38 +87,6 @@
           }
         }
       }
-    }
-    ul {
-      .task-list-item {
-        input {
-          position: relative;
-          vertical-align: bottom;
-          opacity: 1;
-          cursor: pointer;
-          height: 20px;
-          width: 20px;
-        }
-      }
-    }
-    div {
-      display: flex;
-      flex-flow: column nowrap;
-      p {
-        margin-top: 12px !important;
-      }
-    }
-
-    code {
-      font-size: 14px;
-      border: 1px dashed #6e6e6e;
-      padding: 1px;
-      white-space: pre-wrap;
-      border-radius: 5px;
-    }
-
-    pre {
-      overflow: auto;
-      margin-bottom: 5px;
     }
   }
 }
