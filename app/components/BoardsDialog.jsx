@@ -48,11 +48,10 @@ class BoardsDialog extends PureComponent {
     if (boardName === 'INBOX') {
       return 'INBOX';
     }
-    const boardIds = Object.keys(boards);
-    for (let i = 0; i < boardIds.length; i += 1) {
-      const boardId = boardIds[i];
-      if (boardName === boards[boardId].name) {
-        return boardId;
+    for (let i = 0; i < boards.length; i += 1) {
+      const board = boards[i];
+      if (boardName === board.name) {
+        return board;
       }
     }
     return 'INBOX';

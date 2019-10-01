@@ -10,12 +10,11 @@ const {
 } = ACTION_TYPES.BOARDS;
 
 function deleteBoard(boardId, boardList) {
-  const updatedBoardList = {};
-  const boardsIds = (boardList && Object.keys(boardList)) || [];
-  for (let i = 0; i < boardsIds.length; i += 1) {
-    const currentBoardId = boardsIds[i];
+  const updatedBoardList = [];
+  for (let i = 0; i < boardList.length; i += 1) {
+    const currentBoardId = boardList[i].id;
     if (currentBoardId !== boardId) {
-      updatedBoardList[currentBoardId] = boardList[currentBoardId];
+      updatedBoardList.push(boardList[currentBoardId]);
     }
   }
   return updatedBoardList;
@@ -23,14 +22,14 @@ function deleteBoard(boardId, boardList) {
 
 export default function boards(
   state = {
-    boardList: {
-      INBOX: {
+    boardList: [
+      {
         name: 'INBOX',
         cards: 'all',
         bg: 'default',
         labels: 'all',
       },
-    },
+    ],
     boardsDialogOpen: false,
     boardNames: ['INBOX'],
   },
@@ -59,7 +58,7 @@ export default function boards(
         boardsDialogOpen: !state.boardsDialogOpen,
       };
     case CREATE_BOARD:
-      newState.boardList[boardId] = { name, cards: [] };
+      newState.boardList.push({ id: boardId, name, cards: [] });
       return { ...newState, boardNames: [...newState.boardNames, name] };
     case DELETE_BOARD:
       newState.boardList = deleteBoard(boardId, newState.boardList);
@@ -70,10 +69,10 @@ export default function boards(
         ],
       };
     case CHANGE_BOARD_NAME:
-      newState.boardList[boardId] = {
-        ...newState.boardList[boardId],
-        name: newName,
-      };
+      newState.boardList = newState.boardList.map(b => ({
+        name: b.id === boardId ? newName : b.name,
+        ...b,
+      }));
       return {
         ...newState,
         boardNames: [

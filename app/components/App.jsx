@@ -47,13 +47,9 @@ class Mdyna extends PureComponent {
       boards,
       toggleBoardsDialog,
       isFocused,
+      boardNames,
       toggleSettings,
     } = this.props;
-    const boardNames = [];
-    for (let boardId in boards) {
-      const board = boards[boardId];
-      boardNames.push(board.name);
-    }
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
       <Grommet
