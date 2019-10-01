@@ -2,13 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
-import { light, colors } from './RTEditorThemes';
+import { theme, getCodeTheme } from './RTEditorThemes';
 
 const Markdown = new MarkdownSerializer();
 class RTEditor extends React.PureComponent {
   editorRef = React.createRef();
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { value, readOnly } = this.props;
     if (value !== prevProps.value && readOnly) {
       this.editorRef.current.setState({
@@ -26,7 +26,12 @@ class RTEditor extends React.PureComponent {
 
   render() {
     const {
-      value, readOnly, onSave, className, card,
+      value,
+      readOnly,
+      onSave,
+      className,
+      card,
+      codeTheme = 'DRA',
     } = this.props;
     return (
       <Editor
@@ -47,7 +52,10 @@ class RTEditor extends React.PureComponent {
           ];
         }}
         toc
-        theme={light}
+        theme={{
+          ...theme,
+          ...getCodeTheme(codeTheme),
+        }}
       />
     );
   }
