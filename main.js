@@ -48,7 +48,7 @@ function loadLabels(cards) {
 function loadBoards(boards) {
   return {
     boardList: boards.boardList,
-    boardNames: boards.boardList.map(b => b.name),
+    boardNames: [...boards.boardNames, 'INBOX'],
   };
 }
 

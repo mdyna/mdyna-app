@@ -3,17 +3,10 @@ export const getLocalState = () => {
   const userState = window.cardStorage.get('state');
   const boards = userState && userState.boards;
   const boardNames = boards && boards.boardNames;
-  const boardList = (boards && boards.boardList) || {};
-  for (let i = 0; i < boardNames.length; i += 1) {
-    const name = boardNames[i];
-    if (!boardList[name]) {
-      boardList[name] = {
-        name,
-        cards: [],
-      };
-    }
+  let boardList = [];
+  if (boards && boards.boardList && boards.boardList.length) {
+    boardList = boards && boards.boardList;
   }
-
   return {
     ...userState,
     boards: {
