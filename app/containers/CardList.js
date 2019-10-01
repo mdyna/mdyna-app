@@ -24,11 +24,13 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
-  const activeBoardName = (state.boards
-      && state.boards.boardList
-      && state.boards.boardList[activeBoard]
-      && state.boards.boardList[activeBoard].name)
-    || 'INBOX';
+  let activeBoardName = 'INBOX';
+  for (let i = 0; i < state.boards.boardList.length; i += 1) {
+    const board = state.boards.boardList[i];
+    if (board.id === activeBoard) {
+      activeBoardName = board.name;
+    }
+  }
   return {
     searchInput: state.filters.searchInput,
     archivedFilterOn: state.filters.archivedFilterOn,

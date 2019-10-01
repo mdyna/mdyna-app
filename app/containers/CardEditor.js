@@ -55,14 +55,14 @@ function mapStateToProps(state) {
     labels: state.labels,
     focusedCard: Boolean(state.filters.focusedCard),
     boardNames: state.boards.boardNames || ['INBOX'],
-    boards: state.boards.boardList || {
-      INBOX: {
+    boards: state.boards.boardList || [
+      {
         name: 'INBOX',
         cards: 'all',
         bg: 'default',
         labels: 'all',
       },
-    },
+    ],
   };
 }
 export default connect(

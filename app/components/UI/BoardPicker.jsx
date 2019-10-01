@@ -13,11 +13,10 @@ export default class BoardPicker extends Component {
     if (boardName === 'INBOX') {
       return 'INBOX';
     }
-    const boardIds = Object.keys(boards);
-    for (let i = 0; i < boardIds.length; i += 1) {
-      const boardId = boardIds[i];
-      if (boardName === boards[boardId].name) {
-        return boardId;
+    for (let i = 0; i < boards.length; i += 1) {
+      const board = boards[i];
+      if (boardName === board.name) {
+        return board.id;
       }
     }
     return 'INBOX';
@@ -107,7 +106,7 @@ BoardPicker.propTypes = {
   value: PropTypes.string,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
-  boards: PropTypes.object,
+  boards: PropTypes.array,
   toggleBoardsDialog: PropTypes.func.isRequired,
 };
 

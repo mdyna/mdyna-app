@@ -51,7 +51,7 @@ class BoardsDialog extends PureComponent {
     for (let i = 0; i < boards.length; i += 1) {
       const board = boards[i];
       if (boardName === board.name) {
-        return board;
+        return board.id;
       }
     }
     return 'INBOX';
@@ -191,7 +191,7 @@ class BoardsDialog extends PureComponent {
 BoardsDialog.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   activeBoard: PropTypes.string,
   toggleBoardsDialog: PropTypes.func,
   createBoard: PropTypes.func.isRequired,
