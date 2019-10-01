@@ -50,7 +50,7 @@ class BoardsDialog extends PureComponent {
     }
     for (let i = 0; i < boards.length; i += 1) {
       const board = boards[i];
-      if (boardName === board.name) {
+      if (board && boardName === board.name) {
         return board.id;
       }
     }

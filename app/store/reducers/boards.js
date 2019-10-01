@@ -10,10 +10,17 @@ const {
 } = ACTION_TYPES.BOARDS;
 
 function deleteBoard(boardId, boardList) {
-  const updatedBoardList = [];
+  const updatedBoardList = [
+    {
+      name: 'INBOX',
+      cards: 'all',
+      bg: 'default',
+      labels: 'all',
+    },
+  ];
   for (let i = 0; i < boardList.length; i += 1) {
-    const currentBoardId = boardList[i].id;
-    if (currentBoardId !== boardId) {
+    const currentBoardId = boardList[i] && boardList[i].id;
+    if (currentBoardId && currentBoardId !== boardId) {
       updatedBoardList.push(boardList[currentBoardId]);
     }
   }
@@ -42,12 +49,7 @@ export default function boards(
   const newState = {
     ...state,
   };
-  const currentBoardName = state.boardList
-    && state.boardList[boardId]
-    && state.boardList[boardId].name;
-  if (!newState.boardList) {
-    newState.boardList = {};
-  }
+
   if (!newState.boardNames) {
     newState.boardNames = ['INBOX'];
   }
@@ -64,21 +66,16 @@ export default function boards(
       newState.boardList = deleteBoard(boardId, newState.boardList);
       return {
         ...newState,
-        boardNames: [
-          ...newState.boardNames.filter(b => b !== currentBoardName),
-        ],
+        boardNames: newState.boardList.map(b => b && b.name),
       };
     case CHANGE_BOARD_NAME:
       newState.boardList = newState.boardList.map(b => ({
-        name: b.id === boardId ? newName : b.name,
         ...b,
+        name: b.id === boardId ? newName : b.name,
       }));
       return {
         ...newState,
-        boardNames: [
-          ...newState.boardNames.filter(b => b !== currentBoardName),
-          newName,
-        ],
+        boardNames: newState.boardList.map(b => b.name),
       };
     case CHANGE_BOARD_BACKGROUND:
       newState.boardList[boardId] = {
