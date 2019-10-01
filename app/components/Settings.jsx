@@ -22,22 +22,9 @@ import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import BoardsDialog from './BoardsDialog';
+import { CODE_THEMES } from './RTEditorThemes';
 
 import './Settings.scss';
-
-export const CODE_THEMES = {
-  'A11 Dark': 'A1D',
-  'A11 Light': 'A1L',
-  'Atom One Dark': 'AOD',
-  'Atom One Light': 'AOL',
-  Dracula: 'DRA',
-  Hopscoth: 'HPS',
-  Monokai: 'MNK',
-  'Solarized Dark': 'SLD',
-  'Solarized Light': 'SLL',
-  'Tomorrow Night Blue': 'TNB',
-  Xterm: 'XTR',
-};
 
 const renderAppInfo = () => (
   <Box direction="column" background="dark-1" className="app-info" responsive>

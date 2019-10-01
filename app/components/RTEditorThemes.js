@@ -13,7 +13,21 @@ export const colors = {
   greyDark: '#DAE1E9',
 };
 
-const codeThemes = {
+export const CODE_THEMES = {
+  'A11 Dark': 'A1D',
+  'A11 Light': 'A1L',
+  'Atom One Dark': 'AOD',
+  'Atom One Light': 'AOL',
+  Dracula: 'DRA',
+  Hopscoth: 'HPS',
+  Monokai: 'MNK',
+  'Solarized Dark': 'SLD',
+  'Solarized Light': 'SLL',
+  'Tomorrow Night Blue': 'TNB',
+  Xterm: 'XTR',
+};
+
+export const codeThemes = {
   TNB: {
     codeComment: '#7285b7',
     codeTag: '#ff9da4',
@@ -150,6 +164,8 @@ const codeThemes = {
   },
 };
 
+export const getCodeTheme = codeTheme => codeThemes[CODE_THEMES[codeTheme]];
+
 export const base = {
   ...colors,
   fontFamily:
@@ -180,7 +196,7 @@ export const base = {
   codeInserted: '#202746',
   codeImportant: '#c94922',
 };
-export const light = {
+export const theme = {
   ...base,
   background: 'transparent',
   text: colors.almostBlack,
@@ -204,5 +220,4 @@ export const light = {
   codeBorder: colors.grey,
   horizontalRule: colors.grey,
   imageErrorBackground: colors.greyLight,
-  ...codeThemes.AOD,
 };
