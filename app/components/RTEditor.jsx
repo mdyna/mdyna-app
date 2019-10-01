@@ -31,7 +31,7 @@ class RTEditor extends React.PureComponent {
     return (
       <Editor
         ref={this.editorRef}
-        className={cx(className, 'mdyna-md', 'note-card-content')}
+        className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
         defaultValue={value}
