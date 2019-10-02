@@ -46,12 +46,11 @@ function loadLabels(cards) {
 }
 
 function loadBoards(boards) {
+  logger.log('LOADING BOARDS', boards);
+
   return {
-    boardList: boards.boardList,
-    boardNames:
-      boards && boards.boardList
-        ? [...boards.boardList.map(b => b.name), 'INBOX']
-        : ['INBOX'],
+    boardList: [...new Set(boards)],
+    boardNames: boards && boards ? [...boards.map(b => b.name)] : ['INBOX'],
   };
 }
 
@@ -153,7 +152,6 @@ app.on('ready', () => {
   const cwd = getCwd(userSettings);
   const userState = userStorage.get('state');
   const userCardsInStorage = (userState && userState.cards) || [];
-  const userLabelsInStorage = loadLabels(userCardsInStorage) || [];
   const createCardStorage = directory => directory
     && new Storage({
       name: 'mdyna-card-data',
@@ -162,16 +160,18 @@ app.on('ready', () => {
   const cardStorage = createCardStorage(cwd);
   logger.log('CARD STORAGE IN ', cwd);
   const tempState = userStorage.get('tmp/state');
+  const cardStorageState = cardStorage.get('state');
+  const cardStorageBoardList = cardStorageState
+    && cardStorageState.boards
+    && cardStorageState.boards.boardList;
+  const tempBoards = tempState && tempState.boards && tempState.boards.boardList;
   if (
     (tempState && Object.keys(tempState).length)
     || (userCardsInStorage && userCardsInStorage.length)
   ) {
-    // * Mash temp state agaisnt current state
-    const cardStorageState = cardStorage.get('state');
+    logger.log('MASHING TMP STATE');
     const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
-    const cardStorageBoardList = cardStorageState
-      && cardStorageState.boards
-      && cardStorageState.boards.boardList;
+    // * Mash temp state agaisnt current state
     const currentCards = cardStorageState
       && cardStorageState.cards
       && getUniqCardsById([
@@ -182,22 +182,29 @@ app.on('ready', () => {
     cardStorage.set('state', {
       cards: currentCards || tempState.cards,
       labels: loadLabels(currentCards) || [],
-      boards: loadBoards({
-        userStorageBoardList,
-        cardStorageBoardList,
-      }),
+      boards: loadBoards([
+        ...(userStorageBoardList || []),
+        ...(cardStorageBoardList || []),
+        ...tempBoards,
+      ]),
     });
 
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
-  } else if (userCardsInStorage.length || userLabelsInStorage.length) {
+  } else {
+    logger.log('MASHING USR STATE');
+    const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
     cardStorage.set('state', {
       cards: getUniqCardsById([...userCardsInStorage]) || tempState.cards,
       labels: loadLabels(userCardsInStorage) || [],
+      boards: loadBoards([
+        ...(userStorageBoardList || []),
+        ...(cardStorageBoardList || []),
+        ...(tempBoards || []),
+      ]),
     });
     userStorage.delete('state');
   }
-  logger.log('LOADED CARDS STORAGE', cardStorage.get('state'));
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
 
@@ -213,6 +220,7 @@ app.on('ready', () => {
     logger.info('PORTING STATE FROM OLD CWD [', cwd, '] TO [', newCwd, ']');
     logger.log(newCardStorage.get('state'), cardStorage.get('state'));
     if (currentUserState) {
+      logger.log('SET TEMP STATE', currentUserState, 'INTO TMP/STATE');
       userStorage.set('tmp/state', currentUserState);
     }
     logger.log('NEW STORAGE STATE', newCardStorage.get('state'));
