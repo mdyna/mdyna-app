@@ -48,7 +48,10 @@ function loadLabels(cards) {
 function loadBoards(boards) {
   return {
     boardList: boards.boardList,
-    boardNames: [...boards.boardNames, 'INBOX'],
+    boardNames:
+      boards && boards.boardList
+        ? [...boards.boardList.map(b => b.name), 'INBOX']
+        : ['INBOX'],
   };
 }
 
@@ -165,8 +168,10 @@ app.on('ready', () => {
   ) {
     // * Mash temp state agaisnt current state
     const cardStorageState = cardStorage.get('state');
-    const userStorageBoardList = userState.boards && userState.boards.boardList;
-    const cardStorageBoardList = cardStorageState.boards && cardStorageState.boards.boardList;
+    const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
+    const cardStorageBoardList = cardStorageState
+      && cardStorageState.boards
+      && cardStorageState.boards.boardList;
     const currentCards = cardStorageState
       && cardStorageState.cards
       && getUniqCardsById([

@@ -61,6 +61,8 @@ export default class CardEditor extends Component {
             );
           }
           if (settingUiSchema === 'board') {
+            const currentBoard = boards && boards.find(b => b.id === editorSettings[settingName]);
+            const getBoardName = () => (currentBoard && currentBoard.name) || 'INBOX';
             return (
               <FormField
                 label={startCase(settingName)}
@@ -74,13 +76,7 @@ export default class CardEditor extends Component {
                   boardNames={boardNames}
                   boards={boards}
                   toggleBoardsDialog={toggleBoardsDialog}
-                  value={
-                    (boards
-                      && boards.filter(
-                        b => b.id === editorSettings[settingName],
-                      )[0].name)
-                    || 'INBOX'
-                  }
+                  value={getBoardName(boards)}
                   addButton
                 />
               </FormField>
@@ -267,7 +263,7 @@ CardEditor.propTypes = {
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   boardNames: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
   focusedCard: PropTypes.bool.isRequired,
