@@ -50,7 +50,8 @@ function loadBoards(boards) {
 
   return {
     boardList: [...new Set(boards)],
-    boardNames: boards && boards ? [...boards.map(b => b.name)] : ['INBOX'],
+    boardNames:
+      boards && boards ? [...boards.map(b => b && b.name)] : ['INBOX'],
   };
 }
 
@@ -194,8 +195,13 @@ app.on('ready', () => {
   } else {
     logger.log('MASHING USR STATE');
     const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
+    const cardStorageCards = cardStorage.get('state');
     cardStorage.set('state', {
-      cards: getUniqCardsById([...userCardsInStorage]) || tempState.cards,
+      cards:
+        getUniqCardsById([
+          ...userCardsInStorage,
+          ...(cardStorageCards && cardStorageCards.cards),
+        ]) || tempState.cards,
       labels: loadLabels(userCardsInStorage) || [],
       boards: loadBoards([
         ...(userStorageBoardList || []),
