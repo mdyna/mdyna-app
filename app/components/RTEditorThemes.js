@@ -1,21 +1,4 @@
-export const colors = {
-  almostBlack: '#181f27',
-  lightBlack: '#2F3336',
-  almostWhite: '#E6E6E6',
-  white: '#1de9b6',
-  white10: 'rgba(255, 255, 255, 0.1)',
-  black: '#000',
-  black10: 'rgba(0, 0, 0, 0.1)',
-  primary: '#1AB6FF',
-  greyLight: '#F4F7FA',
-  grey: '#E8EBED',
-  greyMid: '#9BA6B2',
-  greyDark: '#DAE1E9',
-};
-
 export const CODE_THEMES = {
-  'A11 Dark': 'A1D',
-  'A11 Light': 'A1L',
   'Atom One Dark': 'AOD',
   'Atom One Light': 'AOL',
   Dracula: 'DRA',
@@ -166,8 +149,7 @@ export const codeThemes = {
 
 export const getCodeTheme = codeTheme => codeThemes[CODE_THEMES[codeTheme]];
 
-export const base = {
-  ...colors,
+export const getEditorTheme = palette => ({
   fontFamily:
     '\'Metric\', \'Segoe UI\',Roboto,Oxygen, Ubuntu,Cantarell,\'Open Sans\',\'Helvetica Neue\',sans-serif',
   fontFamilyMono:
@@ -175,11 +157,11 @@ export const base = {
   fontWeight: 400,
   fontSize: 18,
   zIndex: 100,
-  link: colors.primary,
+  link: palette.neutral[0],
   placeholder: '#B1BECC',
   textSecondary: '#4E5C6E',
-  textLight: colors.white,
-  selected: colors.primary,
+  textLight: palette.neutral[0],
+  selected: palette.neutral[0],
   codeComment: '#6a737d',
   codePunctuation: '#5e6687',
   codeNumber: '#d73a49',
@@ -195,29 +177,27 @@ export const base = {
   codePlaceholder: '#3d8fd1',
   codeInserted: '#202746',
   codeImportant: '#c94922',
-};
-export const theme = {
-  ...base,
+
   background: 'transparent',
-  text: colors.almostBlack,
-  code: colors.lightBlack,
+  text: palette.neutral[0],
+  code: palette.neutral[0],
 
-  toolbarBackground: colors.lightBlack,
-  toolbarInput: colors.white10,
-  toolbarItem: colors.white,
+  toolbarBackground: palette.background,
+  toolbarInput: palette.neutral[0],
+  toolbarItem: palette.brand,
 
-  blockToolbarBackground: colors.almostBlack,
-  blockToolbarTrigger: colors.almostBlack,
-  blockToolbarTriggerIcon: colors.white,
-  blockToolbarItem: colors.white,
+  blockToolbarBackground: palette.background,
+  blockToolbarTrigger: palette.background,
+  blockToolbarTriggerIcon: palette.brand,
+  blockToolbarItem: palette.brand,
 
-  tableDivider: colors.grey,
-  tableSelected: colors.primary,
+  tableDivider: palette.neutral,
+  tableSelected: palette.brand,
   tableSelectedBackground: '#E5F7FF',
 
-  quote: colors.greyDark,
-  codeBackground: colors.greyLight,
-  codeBorder: colors.grey,
-  horizontalRule: colors.grey,
-  imageErrorBackground: colors.greyLight,
-};
+  quote: palette.neutral,
+  codeBackground: palette.neutral,
+  codeBorder: palette.neutral[0],
+  horizontalRule: palette.neutral,
+  imageErrorBackground: palette.neutral,
+});

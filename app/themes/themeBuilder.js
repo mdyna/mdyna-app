@@ -126,4 +126,6 @@ const ThemeBuilder = colors => colors && {
 
 export default ThemeBuilder;
 
+export const getPalette = whiteMode => (whiteMode ? WhitePalette : MdynaPalette);
+
 export const getTheme = whiteMode => (whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette));

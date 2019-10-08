@@ -8,6 +8,7 @@
   flex-flow: column nowrap !important;
   min-width: 300px;
   transition: all 0.5s;
+  color: $note-font-color;
 
   @include breakpoint(small) {
     min-width: auto;
@@ -46,6 +47,12 @@
   ol,
   li {
     color: $note-font-color;
+  }
+
+  code {
+    span {
+      -webkit-text-stroke: 1px #ffffff33;
+    }
   }
 
   .labels {

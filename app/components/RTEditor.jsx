@@ -2,7 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
-import { theme, getCodeTheme } from './RTEditorThemes';
+import { getPalette } from '../themes/themeBuilder';
+import { getCodeTheme, getEditorTheme } from './RTEditorThemes';
 
 const Markdown = new MarkdownSerializer();
 class RTEditor extends React.PureComponent {
@@ -32,7 +33,10 @@ class RTEditor extends React.PureComponent {
       className,
       card,
       codeTheme = 'DRA',
+      whiteMode,
     } = this.props;
+    const palette = getPalette(whiteMode);
+    const editorTheme = getEditorTheme(palette);
     return (
       <Editor
         ref={this.editorRef}
@@ -53,7 +57,7 @@ class RTEditor extends React.PureComponent {
         }}
         toc
         theme={{
-          ...theme,
+          ...editorTheme,
           ...getCodeTheme(codeTheme),
         }}
       />
