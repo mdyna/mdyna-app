@@ -240,7 +240,9 @@ export default class CardEditor extends Component {
           <Text align="center" size="xxlarge">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
           </Text>
-          <Button onClick={() => this.submitFormFields()}>Save Card</Button>
+          <Button color="text" onClick={() => this.submitFormFields()}>
+            Save Card
+          </Button>
           <Button
             color="accent-2"
             className="discard-btn"
