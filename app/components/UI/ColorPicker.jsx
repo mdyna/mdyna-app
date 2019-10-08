@@ -18,7 +18,7 @@ const Input = (props) => {
       border={{ color: 'brand' }}
       className={cx('color-options', colorsExpanded && 'options-expanded')}
     >
-      <Button onClick={() => expandColors(!colorsExpanded)}>
+      <Button color="text" onClick={() => expandColors(!colorsExpanded)}>
         Select Color
       </Button>
       <Collapsible open={colorsExpanded} direction="vertical">
