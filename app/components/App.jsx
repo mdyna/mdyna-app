@@ -4,7 +4,6 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
-import Header from 'UI/Header';
 import CardList from 'Containers/CardList';
 import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
@@ -12,10 +11,8 @@ import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from './BoardsDialog';
-import ThemeBuilder from '../themes/themeBuilder';
+import { getTheme } from '../themes/themeBuilder';
 
-import MdynaPalette from '../themes/mdyna.palette.json';
-import WhitePalette from '../themes/mdyna-white.palette.json';
 /* eslint-disable */
 import './App.scss';
 
@@ -56,12 +53,7 @@ class Mdyna extends PureComponent {
     }
     const modalMode = getModalMode(modalOpen, settingsModal);
     return (
-      <Grommet
-        className="mdyna-app"
-        theme={
-          whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette)
-        }
-      >
+      <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
         <ToastContainer
           style={{
             top: 50,
