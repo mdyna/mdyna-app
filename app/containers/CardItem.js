@@ -7,14 +7,14 @@ const {
   CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
 } = ACTIONS;
 
-const { editCard, changeCardSetting } = CARD_EDITOR;
+const { editCard, toggleEditor } = CARD_EDITOR;
 
 const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
 const {
-  removeCard, toggleCard, saveCard, changeTitle,
+  removeCard, toggleCard, addCard, saveCard,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
@@ -32,14 +32,17 @@ function mapDispatchToProps(dispatch) {
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    changeCardSetting: (prop, value) => {
-      dispatch(changeCardSetting(prop, value));
-    },
-    saveCard: (card) => {
-      dispatch(saveCard(card));
-    },
-    changeTitle: (card, title) => {
-      dispatch(changeTitle(card, title));
+    saveCard: (card, isFocused, newCard, editorSettings) => {
+      dispatch(toggleEditor());
+      if (newCard) {
+        console.log(editorSettings);
+        dispatch(addCard(editorSettings));
+      } else {
+        dispatch(saveCard(card));
+      }
+      if (isFocused) {
+        dispatch(focusCard(card));
+      }
     },
     addLabel: (val) => {
       dispatch(addLabel(val));
@@ -65,6 +68,7 @@ function mapStateToProps(state) {
     whiteMode: state.style.whiteMode,
     labelFilters: state.filters.labelFilters,
     codeTheme: state.settings.codeTheme,
+    newCard: state.editor.newCard,
   };
 }
 

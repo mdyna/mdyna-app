@@ -55,7 +55,7 @@ export const changeCardSetting = (prop, value) => ({
   value,
   meta: {
     debounce: {
-      time: 500,
+      time: (prop === 'text' || prop === 'labels' || prop === 'title') && 500,
     },
   },
 });

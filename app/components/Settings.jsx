@@ -21,8 +21,8 @@ import Tooltip from 'UI/Tooltip';
 import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
-import { CODE_THEMES } from 'UI/MarkdownText';
 import BoardsDialog from './BoardsDialog';
+import { CODE_THEMES } from './MarkdownEditorThemes';
 
 import './Settings.scss';
 
@@ -191,7 +191,7 @@ Settings.propTypes = {
   createBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
   changeBoardName: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,

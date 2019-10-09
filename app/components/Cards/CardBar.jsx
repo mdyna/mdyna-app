@@ -3,24 +3,11 @@ import PropTypes from 'prop-types';
 import {
   Archive, Trash, Edit, View,
 } from 'grommet-icons';
-import { TextInput } from 'grommet';
-import onClickOutside from 'react-onclickoutside';
 import { toast } from 'react-toastify';
-import tc from 'tinycolor2';
 import Button from 'UI/Button';
-import unNest from 'Utils/nest';
-import validateFields from './CardValidation';
 import './CardBar.scss'; // eslint-disable-line
 
 class CardBar extends PureComponent {
-  state = {
-    currentTitle:
-      unNest(this, 'props.title') || unNest(this, 'props.card.title'),
-    editingTitle: false,
-  };
-
-  inputRef = React.createRef();
-
   handleLabels(removeLabelFunc) {
     const { card } = this.props;
     const { labels } = card;
@@ -31,84 +18,9 @@ class CardBar extends PureComponent {
     }
   }
 
-  cardTitleInput() {
-    const { card, cardActions } = this.props;
-    const { changeTitle } = cardActions;
-    const { currentTitle, editingTitle } = this.state;
-
-    return !editingTitle ? (
-      <Button
-        plain
-        style={{
-          color: card.color,
-          width: '100%',
-        }}
-        onClick={(e) => {
-          e.preventDefault();
-          this.setState({ editingTitle: Boolean(changeTitle), currentTitle: card.title });
-        }}
-        hoverIndicator="dark-1"
-      >
-        {card.title}
-      </Button>
-    ) : (
-      <TextInput
-        style={{
-          padding: 0,
-          borderBottom:
-            editingTitle
-            && (currentTitle !== card.title
-              ? `1px solid ${tc(card.color).brighten(25)}`
-              : `1px solid ${card.color}`),
-          color: card.color,
-        }}
-        ref={this.inputRef}
-        value={currentTitle}
-        onDoubleClick={e => e.stopPropagation()}
-        onKeyDown={(e) => {
-          if (e.keyCode === 13 && editingTitle) {
-            const newTitle = e.target.value;
-            if (validateFields({ ...card, title: newTitle }) && changeTitle) {
-              changeTitle(card, newTitle);
-              this.setState({
-                editingTitle: false,
-                currentTitle: newTitle,
-              });
-              this.inputRef.current.blur();
-            } else {
-              this.setState({ editingTitle: false, currentTitle: card.title });
-              this.inputRef.current.blur();
-            }
-          }
-        }}
-        className={editingTitle && 'editing'}
-        type="text"
-        onChange={e => editingTitle && this.setState({ currentTitle: e.target.value })
-        }
-        plain
-      />
-    );
-  }
-
   removeCard(card, removeCardFunc, removeLabelFunc) {
     this.handleLabels(removeLabelFunc);
     removeCardFunc(card);
-  }
-
-  handleClickOutside() {
-    const { card, cardActions } = this.props;
-    const { changeTitle } = cardActions;
-    const { currentTitle, editingTitle } = this.state;
-    if (editingTitle) {
-      const newTitle = currentTitle;
-
-      if (validateFields({ ...card, title: newTitle }) && changeTitle) {
-        changeTitle(card, newTitle);
-        this.setState({ editingTitle: false, currentTitle: newTitle });
-      } else {
-        this.setState({ editingTitle: false, currentTitle: card.title });
-      }
-    }
   }
 
   render() {
@@ -119,7 +31,6 @@ class CardBar extends PureComponent {
     return (
       <React.Fragment>
         <div className="card-bar">
-          {this.cardTitleInput()}
           {cardActions && (
             <div className="buttons-container">
               <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
@@ -173,7 +84,7 @@ class CardBar extends PureComponent {
   }
 }
 
-export default onClickOutside(CardBar);
+export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,

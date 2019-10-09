@@ -107,7 +107,7 @@ BoardPicker.propTypes = {
   value: PropTypes.string,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
-  boards: PropTypes.object,
+  boards: PropTypes.array,
   toggleBoardsDialog: PropTypes.func.isRequired,
 };
 

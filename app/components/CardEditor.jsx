@@ -4,12 +4,10 @@ import PropTypes from 'prop-types';
 import { Box, Text, FormField } from 'grommet';
 import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import MarkdownEditor from 'Containers/MarkdownEditor';
 import LabelPicker from 'UI/LabelPicker';
 import BoardPicker from 'UI/BoardPicker';
-import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
-import CardPreview from 'Containers/CardPreview';
+import CardItem from 'Containers/CardItem';
 import validateFields from './Cards/CardValidation';
 import cardDefinition from './Cards/definition.json';
 
@@ -102,8 +100,10 @@ export default class CardEditor extends Component {
   }
 
   updateCard(card) {
-    const { saveCard, focusedCard, focusCard } = this.props;
-    saveCard(card);
+    const {
+      saveCard, focusedCard, focusCard, editorSettings,
+    } = this.props;
+    saveCard(editorSettings);
     if (focusedCard) {
       focusCard(card);
     }
@@ -137,20 +137,7 @@ export default class CardEditor extends Component {
       case 'textarea':
         return '';
       default:
-        return (
-          <FormField
-            className="form-field"
-            label={startCase(settingName)}
-            htmlFor={snakeCase(settingName)}
-            key={startCase(settingName)}
-          >
-            <TextInput
-              label={settingName}
-              value={settingValue || ''}
-              onChange={e => changeCardSetting(settingName, e)}
-            />
-          </FormField>
-        );
+        return '';
     }
   }
 
@@ -203,6 +190,7 @@ export default class CardEditor extends Component {
 
   renderCardForm(components) {
     const { editorSettings, changeCardSetting } = this.props;
+    const newCard = { ...editorSettings, startDate: new Date() };
     return (
       <form plain="true">
         <Box direction="row" justify="start">
@@ -214,12 +202,12 @@ export default class CardEditor extends Component {
             backgroundColor: `${editorSettings.color}aa`,
           }}
         >
-          <MarkdownEditor
-            text={editorSettings.text}
-            className="card-text-editor"
-            submitCard={() => this.submitFormFields()}
+          <CardItem
+            card={editorSettings}
+            readOnly={false}
+            editorSettings={newCard}
+            changeCardSetting={changeCardSetting}
           />
-          <CardPreview changeCardSetting={changeCardSetting} />
         </Box>
       </form>
     );
@@ -243,7 +231,9 @@ export default class CardEditor extends Component {
           <Text align="center" size="xxlarge">
             {editorSettings.newCard ? 'NEW CARD' : 'EDIT CARD'}
           </Text>
-          <Button onClick={() => this.submitFormFields()}>Save Card</Button>
+          <Button color="text" onClick={() => this.submitFormFields()}>
+            Save Card
+          </Button>
           <Button
             color="accent-2"
             className="discard-btn"
@@ -266,7 +256,7 @@ CardEditor.propTypes = {
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   boardNames: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
   focusedCard: PropTypes.bool.isRequired,

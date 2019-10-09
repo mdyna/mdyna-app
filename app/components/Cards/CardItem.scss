@@ -8,6 +8,7 @@
   flex-flow: column nowrap !important;
   min-width: 300px;
   transition: all 0.5s;
+  color: $note-font-color;
 
   @include breakpoint(small) {
     min-width: auto;
@@ -38,61 +39,6 @@
     transition: all 0.5s ease-in;
   }
 
-  h5 {
-    font-size: 125% !important;
-    line-height: 125% !important;
-  }
-
-  h4 {
-    font-size: 160% !important;
-    line-height: 160% !important;
-  }
-
-  h3 {
-    font-size: 200% !important;
-    line-height: 200% !important;
-  }
-
-  p,
-  th,
-  td,
-  tr {
-    color: $note-font-color !important;
-  }
-  td {
-    min-width: 100px;
-    word-break: break-word;
-  }
-
-  ol,
-  ul {
-    padding: 5px 25px;
-  }
-  blockquote {
-    background-color: #666;
-    opacity: 0.8;
-    margin: 10px;
-    border-radius: 10px;
-    padding-left: 20px;
-    p,
-    h5,
-    h4,
-    h3 {
-      ::before {
-        content: ">";
-      }
-      color: #fff !important;
-    }
-    &:hover {
-      p,
-      h5,
-      h4,
-      h3 {
-        color: $accent !important;
-      }
-    }
-  }
-
   h5,
   h4,
   h3,
@@ -103,6 +49,12 @@
     color: $note-font-color;
   }
 
+  code {
+    > span {
+      -webkit-text-stroke: 1px #ffffffaa;
+    }
+  }
+
   .labels {
     span {
       width: fit-content;
@@ -111,15 +63,22 @@
     }
   }
 
-  .note-card-content {
-    margin-top: 5px;
-    overflow-wrap: break-word;
-    overflow-x: auto;
-    overflow-y: hidden;
-    p {
-      max-width: 100% !important;
+  .card-content {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 600;
+    }
+    li input {
+      height: 18px;
+      width: 18px;
     }
     table {
+      border-radius: 5px;
+      border-collapse: initial;
       thead {
         th {
           background-color: rgba(255, 255, 255, 0.8);
@@ -127,7 +86,6 @@
       }
       tbody {
         tr {
-          text-align: center;
           background-color: rgba(255, 255, 255, 0.4);
           &:nth-child(2n) {
             background-color: rgba(255, 255, 255, 0.6);
@@ -140,38 +98,6 @@
           }
         }
       }
-    }
-    ul {
-      .task-list-item {
-        input {
-          position: relative;
-          vertical-align: bottom;
-          opacity: 1;
-          cursor: pointer;
-          height: 20px;
-          width: 20px;
-        }
-      }
-    }
-    div {
-      display: flex;
-      flex-flow: column nowrap;
-      p {
-        margin-top: 12px !important;
-      }
-    }
-
-    code {
-      font-size: 14px;
-      border: 1px dashed #6e6e6e;
-      padding: 1px;
-      white-space: pre-wrap;
-      border-radius: 5px;
-    }
-
-    pre {
-      overflow: auto;
-      margin-bottom: 5px;
     }
   }
 }

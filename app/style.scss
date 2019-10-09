@@ -5,7 +5,7 @@ $editor-background: #1d202c;
 $code-mirror-background: #050a10bb;
 $white-code-background: #edeff8;
 $code-background: #08090a;
-$note-font-color: #333333dd;
+$note-font-color: #333333;
 
 @mixin breakpoint($point) {
   @if $point == xl {

@@ -1,4 +1,7 @@
-const themeBuilder = colors => colors && {
+import MdynaPalette from './mdyna.palette.json';
+import WhitePalette from './mdyna-white.palette.json';
+
+const ThemeBuilder = colors => colors && {
   global: {
     colors: {
       brand: colors.brand,
@@ -121,4 +124,8 @@ const themeBuilder = colors => colors && {
   },
 };
 
-export default themeBuilder;
+export default ThemeBuilder;
+
+export const getPalette = whiteMode => (whiteMode ? WhitePalette : MdynaPalette);
+
+export const getTheme = whiteMode => (whiteMode ? ThemeBuilder(WhitePalette) : ThemeBuilder(MdynaPalette));
