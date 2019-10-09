@@ -21,18 +21,21 @@ function loadLabels(cards) {
     for (let i = 0; i < cards.length; i += 1) {
       const card = cards[i];
       const cardLabels = card.labels;
-      const labelMap = labels.map(l => l.title);
+      const labelTitleMaps = labels.map(l => l.title);
       if (cardLabels && cardLabels.length) {
+        console.log(cardLabels, cardLabels.length);
         for (
           let cardLabelIndex = 0;
           cardLabelIndex < cardLabels.length;
           cardLabelIndex += 1
         ) {
-          const label = cardLabels[cardLabelIndex].title;
-          const labelIndex = labelMap.indexOf(label);
-          if (labelIndex !== -1) {
+          const labelTitle = cardLabels[cardLabelIndex].title;
+          const labelIndex = labelTitleMaps.indexOf(labelTitle);
+          console.log(labelTitle, labelTitleMaps, labelIndex);
+          if (labelIndex === -1) {
+            console.log('added ', labelTitle);
             labels.push({
-              title: label,
+              title: labelTitle,
               count: 1,
             });
           } else if (labels && labels[labelIndex]) {
@@ -196,13 +199,13 @@ app.on('ready', () => {
     logger.log('MASHING USR STATE');
     const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
     const cardStorageCards = cardStorage.get('state');
+    const uniqCards = getUniqCardsById([
+      ...userCardsInStorage,
+      ...(cardStorageCards && cardStorageCards.cards),
+    ]) || tempState.cards;
     cardStorage.set('state', {
-      cards:
-        getUniqCardsById([
-          ...userCardsInStorage,
-          ...(cardStorageCards && cardStorageCards.cards),
-        ]) || tempState.cards,
-      labels: loadLabels(userCardsInStorage) || [],
+      cards: uniqCards,
+      labels: loadLabels(uniqCards) || [],
       boards: loadBoards([
         ...(userStorageBoardList || []),
         ...(cardStorageBoardList || []),
