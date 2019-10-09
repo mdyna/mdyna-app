@@ -110,6 +110,15 @@ class MdynaCard extends PureComponent {
       removeLabel,
       changeTitle,
     };
+    const getCardText = (title, text) => {
+      if (title && text) {
+        return `# ${card.title}  ${card.text}`;
+      }
+      if (title && !text) {
+        return `# ${card.title}`;
+      }
+      return text;
+    };
     return (
       <Box
         key={card.id}
@@ -157,8 +166,9 @@ class MdynaCard extends PureComponent {
           defaultValue={card.text}
           onSave={saveCard}
           codeTheme={codeTheme}
+          changeTitle={val => changeCardSetting('title', val)}
           whiteMode={whiteMode}
-          value={card.text}
+          value={getCardText(card.title, card.text)}
           onChange={val => changeCardSetting('text', val)}
           theme={{
             backgroundColor: 'transparent',

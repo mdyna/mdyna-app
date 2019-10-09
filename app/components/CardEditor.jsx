@@ -6,7 +6,6 @@ import Button from 'UI/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import LabelPicker from 'UI/LabelPicker';
 import BoardPicker from 'UI/BoardPicker';
-import TextInput from 'UI/TextInput';
 import ColorPicker from 'UI/ColorPicker';
 import CardItem from 'Containers/CardItem';
 import validateFields from './Cards/CardValidation';
@@ -138,20 +137,7 @@ export default class CardEditor extends Component {
       case 'textarea':
         return '';
       default:
-        return (
-          <FormField
-            className="form-field"
-            label={startCase(settingName)}
-            htmlFor={snakeCase(settingName)}
-            key={startCase(settingName)}
-          >
-            <TextInput
-              label={settingName}
-              value={settingValue || ''}
-              onChange={e => changeCardSetting(settingName, e)}
-            />
-          </FormField>
-        );
+        return '';
     }
   }
 

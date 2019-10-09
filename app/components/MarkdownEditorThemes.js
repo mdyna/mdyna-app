@@ -158,7 +158,7 @@ export const getEditorTheme = palette => ({
   fontSize: 18,
   zIndex: 100,
   link: palette.neutral[0],
-  placeholder: '#B1BECC',
+  placeholder: palette.accent[0],
   textSecondary: '#4E5C6E',
   textLight: palette.neutral[0],
   selected: palette.neutral[0],
