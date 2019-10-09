@@ -19,9 +19,19 @@ class RTEditor extends React.PureComponent {
   }
 
   handleChange = (value) => {
-    const { onChange } = this.props;
-    if (onChange) {
-      onChange(value());
+    const { onChange, changeTitle, card } = this.props;
+    const rawValue = value();
+    if (onChange && rawValue) {
+      const { title, text } = card;
+      const rawValueTitle = rawValue && rawValue.match(new RegExp(/^(.*)$/m))[0];
+      const handledValue = rawValue && rawValue.replace(rawValueTitle, '');
+      const handledTitle = rawValueTitle && rawValueTitle.replace('# ', '');
+      if (handledTitle && handledTitle !== title) {
+        changeTitle(handledTitle);
+      }
+      if (handledValue && handledValue !== text) {
+        onChange(handledValue);
+      }
     }
   };
 
