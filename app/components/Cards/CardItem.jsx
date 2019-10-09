@@ -96,6 +96,8 @@ class MdynaCard extends PureComponent {
       readOnly,
       labelFilters,
       whiteMode,
+      newCard,
+      editorSettings,
       codeTheme,
     } = this.props;
     const { isHovered } = this.state;
@@ -162,7 +164,7 @@ class MdynaCard extends PureComponent {
           readOnly={readOnly}
           card={card}
           defaultValue={card.text}
-          onSave={c => saveCard(c, isFocused)}
+          onSave={c => saveCard(c, isFocused, newCard, editorSettings)}
           codeTheme={codeTheme}
           changeTitle={val => changeCardSetting('title', val)}
           whiteMode={whiteMode}
@@ -180,7 +182,9 @@ class MdynaCard extends PureComponent {
 export default MdynaCard;
 
 MdynaCard.propTypes = {
+  editorSettings: PropTypes.object,
   card: PropTypes.object.isRequired,
+  newCard: PropTypes.bool,
   isFocused: PropTypes.bool,
   readOnly: PropTypes.bool,
   codeTheme: PropTypes.string,
@@ -201,11 +205,13 @@ MdynaCard.propTypes = {
 
 MdynaCard.defaultProps = {
   changeCardSetting: null,
+  newCard: false,
   removeCard: null,
   saveCard: null,
   editCard: null,
   isFocused: false,
   codeTheme: 'Default',
+  editorSettings: {},
   whiteMode: false,
   addLabelFilter: null,
   removeLabelFilter: null,
