@@ -13,9 +13,7 @@ const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
-const {
-  removeCard, toggleCard, saveCard, changeTitle,
-} = CARD;
+const { removeCard, toggleCard, saveCard } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
 
@@ -36,9 +34,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(toggleEditor());
       dispatch(saveCard(card));
       dispatch(focusCard(card));
-    },
-    changeTitle: (card, title) => {
-      dispatch(changeTitle(card, title));
     },
     addLabel: (val) => {
       dispatch(addLabel(val));

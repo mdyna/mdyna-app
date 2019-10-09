@@ -85,7 +85,6 @@ class MdynaCard extends PureComponent {
       hasCardBar,
       changeCardSetting,
       toggleCard,
-      changeTitle,
       saveCard,
       isFocused,
       removeCard,
@@ -108,7 +107,6 @@ class MdynaCard extends PureComponent {
       editCard,
       focusCard,
       removeLabel,
-      changeTitle,
     };
     const getCardText = (title, text) => {
       if (title && text) {
@@ -190,7 +188,6 @@ MdynaCard.propTypes = {
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
   editCard: PropTypes.func,
-  changeTitle: PropTypes.func.isRequired,
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
