@@ -190,6 +190,7 @@ export default class CardEditor extends Component {
 
   renderCardForm(components) {
     const { editorSettings, changeCardSetting } = this.props;
+    const newCard = { ...editorSettings, startDate: new Date() };
     return (
       <form plain="true">
         <Box direction="row" justify="start">
@@ -204,6 +205,7 @@ export default class CardEditor extends Component {
           <CardItem
             card={editorSettings}
             readOnly={false}
+            editorSettings={newCard}
             changeCardSetting={changeCardSetting}
           />
         </Box>
