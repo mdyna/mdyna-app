@@ -1,12 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
 
 const Markdown = new MarkdownSerializer();
-class RTEditor extends React.PureComponent {
+class MarkdownEditor extends React.PureComponent {
   editorRef = React.createRef();
 
   componentDidUpdate(prevProps) {
@@ -74,4 +75,28 @@ class RTEditor extends React.PureComponent {
   }
 }
 
-export default RTEditor;
+export default MarkdownEditor;
+
+MarkdownEditor.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  changeTitle: PropTypes.func,
+  card: PropTypes.object,
+  onSave: PropTypes.func,
+  className: PropTypes.string,
+  codeTheme: PropTypes.string,
+  whiteMode: PropTypes.bool,
+  readOnly: PropTypes.bool,
+};
+
+MarkdownEditor.defaultProps = {
+  value: '',
+  onChange: null,
+  changeTitle: null,
+  onSave: null,
+  className: '',
+  codeTheme: '',
+  readOnly: true,
+  whiteMode: false,
+  card: {},
+};
