@@ -192,7 +192,7 @@ class BoardsDialog extends PureComponent {
 BoardsDialog.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   activeBoard: PropTypes.string,
   toggleBoardsDialog: PropTypes.func,
   createBoard: PropTypes.func.isRequired,

@@ -105,7 +105,6 @@ export default class CardEditor extends Component {
     } = this.props;
     saveCard(editorSettings);
     if (focusedCard) {
-      console.log('triggerd');
       focusCard(card);
     }
   }
@@ -255,7 +254,7 @@ CardEditor.propTypes = {
   changeCardSetting: PropTypes.func.isRequired,
   editorSettings: PropTypes.object.isRequired,
   addLabel: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   boardNames: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
   focusedCard: PropTypes.bool.isRequired,

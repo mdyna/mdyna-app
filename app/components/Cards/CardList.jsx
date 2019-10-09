@@ -264,7 +264,7 @@ CardList.propTypes = {
   toggleEditor: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
-  boards: PropTypes.object,
+  boards: PropTypes.array,
   boardNames: PropTypes.array,
   createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
