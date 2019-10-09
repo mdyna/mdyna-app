@@ -191,7 +191,7 @@ Settings.propTypes = {
   createBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
   changeBoardName: PropTypes.func.isRequired,
-  boards: PropTypes.object.isRequired,
+  boards: PropTypes.array.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,

@@ -102,7 +102,6 @@ export default class CardEditor extends Component {
     } = this.props;
     saveCard(editorSettings);
     if (focusedCard) {
-      console.log('triggerd');
       focusCard(card);
     }
   }
