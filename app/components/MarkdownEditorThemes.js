@@ -178,7 +178,7 @@ export const getEditorTheme = palette => ({
   codeInserted: '#202746',
   codeImportant: '#c94922',
 
-  background: 'transparent',
+  background: palette.neutral,
   text: palette.neutral[0],
   code: palette.neutral[0],
 

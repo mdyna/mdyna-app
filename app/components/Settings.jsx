@@ -22,7 +22,7 @@ import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import BoardsDialog from './BoardsDialog';
-import { CODE_THEMES } from './RTEditorThemes';
+import { CODE_THEMES } from './MarkdownEditorThemes';
 
 import './Settings.scss';
 
