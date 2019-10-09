@@ -178,16 +178,16 @@ export const getEditorTheme = palette => ({
   codeInserted: '#202746',
   codeImportant: '#c94922',
 
-  background: palette.neutral,
+  background: 'transparent',
   text: palette.neutral[0],
   code: palette.neutral[0],
 
-  toolbarBackground: palette.background,
+  toolbarBackground: palette.dark[0],
   toolbarInput: palette.neutral[0],
   toolbarItem: palette.brand,
 
-  blockToolbarBackground: palette.background,
-  blockToolbarTrigger: palette.background,
+  blockToolbarBackground: palette.dark[1],
+  blockToolbarTrigger: palette.dark[1],
   blockToolbarTriggerIcon: palette.brand,
   blockToolbarItem: palette.brand,
 
