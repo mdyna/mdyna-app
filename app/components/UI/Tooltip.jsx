@@ -30,7 +30,15 @@ class Tooltip extends PureComponent {
         }}
       >
         <h2>{title}</h2>
-        <p className="tooltip-text">{text}</p>
+        {typeof text === 'string' ? (
+          text
+        ) : (
+          <ul>
+            {text.map(block => (
+              <li key={block}>{block}</li>
+            ))}
+          </ul>
+        )}
       </ReactTooltip>
     );
   }
@@ -59,7 +67,7 @@ class Tooltip extends PureComponent {
 export default Tooltip;
 
 Tooltip.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   icon: PropTypes.node,
   onClick: PropTypes.func,
   className: PropTypes.string,

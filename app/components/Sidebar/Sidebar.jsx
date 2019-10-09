@@ -165,13 +165,6 @@ class Sidebar extends Component {
           />
           <Box direction="column">
             <Text size="small" className="help">
-              Markdown Guide
-              <Tooltip
-                text={TooltipData.markdown.text}
-                title={TooltipData.markdown.title}
-              />
-            </Text>
-            <Text size="small" className="help">
               Keyboard Shortcuts
               <Tooltip
                 text={TooltipData.keyboard.text}
