@@ -162,7 +162,7 @@ class MdynaCard extends PureComponent {
           readOnly={readOnly}
           card={card}
           defaultValue={card.text}
-          onSave={saveCard}
+          onSave={c => saveCard(c, isFocused)}
           codeTheme={codeTheme}
           changeTitle={val => changeCardSetting('title', val)}
           whiteMode={whiteMode}
