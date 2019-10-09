@@ -3,7 +3,7 @@ import cx from 'classnames';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';
-import { getCodeTheme, getEditorTheme } from './RTEditorThemes';
+import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
 
 const Markdown = new MarkdownSerializer();
 class RTEditor extends React.PureComponent {
@@ -55,7 +55,6 @@ class RTEditor extends React.PureComponent {
             },
           ];
         }}
-        toc
         theme={{
           ...editorTheme,
           ...getCodeTheme(codeTheme),

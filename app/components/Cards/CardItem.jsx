@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
-import Editor from 'Components/RTEditor';
+import Editor from 'Components/MarkdownEditor';
 import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
