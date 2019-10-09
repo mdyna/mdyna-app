@@ -82,59 +82,5 @@
         margin: 10px auto !important;
       }
     }
-
-    .card-text-editor {
-      flex: 1 0.5;
-      max-width: 50%;
-      @include breakpoint(small) {
-        width: 100%;
-        max-width: unset;
-      }
-
-      .CodeMirror-cursor {
-        border-left: 1px solid $accent;
-      }
-      .CodeMirror-selected {
-        background: $editor-background;
-      }
-      .CodeMirror-line {
-        height: fit-content;
-      }
-
-      > div {
-        background-color: $code-mirror-background;
-        border-radius: 10px;
-        margin-bottom: 5px;
-        opacity: 1;
-        color: $accent;
-        border: 1px solid $accent;
-      }
-      .editor-toolbar:before {
-        margin-bottom: 5px;
-      }
-      .editor-toolbar {
-        opacity: 0.6;
-        a {
-          color: $accent !important;
-          &.active {
-            border: 1px solid;
-          }
-        }
-        &.fullscreen {
-          height: 45px !important;
-          padding-top: 5px !important;
-        }
-      }
-
-      > * {
-        a {
-          &:hover {
-            background-color: $background;
-            cursor: pointer;
-            color: $accent !important;
-          }
-        }
-      }
-    }
   }
 }
