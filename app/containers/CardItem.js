@@ -30,10 +30,12 @@ function mapDispatchToProps(dispatch) {
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    saveCard: (card) => {
+    saveCard: (card, isFocused) => {
       dispatch(toggleEditor());
       dispatch(saveCard(card));
-      dispatch(focusCard(card));
+      if (isFocused) {
+        dispatch(focusCard(card));
+      }
     },
     addLabel: (val) => {
       dispatch(addLabel(val));
