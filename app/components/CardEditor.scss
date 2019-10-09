@@ -71,15 +71,9 @@
     transition: color 0.5s;
     padding: 10px 5px;
 
-    .card-preview {
-      min-height: 50vh;
-      margin: 0 0px 0 10px !important;
-      align-self: flex-start;
-      flex: 1 0.5;
-      @include breakpoint(small) {
-        width: 100% !important;
-        flex: 1;
-        margin: 10px auto !important;
+    .card-item {
+      .card-bar {
+        display: none;
       }
     }
   }
