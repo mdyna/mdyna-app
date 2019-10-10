@@ -198,7 +198,7 @@ export const getEditorTheme = palette => ({
 
   quote: palette.neutral,
   codeBackground: palette.neutral,
-  codeBorder: palette.neutral[0],
+  codeBorder: palette.neutral[1],
   horizontalRule: palette.neutral,
   imageErrorBackground: palette.neutral,
 });
