@@ -6,5 +6,6 @@ const dateOptions = {
   minute: '2-digit',
 };
 // eslint-disable-next-line
-export const convertDateToLocaleString = (date = new Date()) => new Date(date).toLocaleDateString(undefined, dateOptions);
+export const convertDateToLocaleString = date => (date && new Date(date).toLocaleDateString(undefined, dateOptions))
+  || undefined;
 export const convertToTime = (date = new Date()) => new Date(date).getTime();
