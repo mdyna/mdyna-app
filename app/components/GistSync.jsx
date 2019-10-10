@@ -21,10 +21,19 @@ class GistSync extends PureComponent {
 
   componentDidMount() {
     const {
-      githubUserName, githubPassword, gistId, skipLogin,
+      githubUserName,
+      githubPassword,
+      gistId,
+      skipLogin,
+      lastSyncDate,
     } = this.props;
+    const hasSyncedRecently = syncTimer => Boolean(
+      lastSyncDate
+          && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
+            <= syncTimer,
+    );
     if (!skipLogin) {
-      if ((githubUserName, githubPassword)) {
+      if ((githubUserName, githubPassword) && !hasSyncedRecently(1)) {
         this.authToGithub(githubUserName, githubPassword);
         this.updateGist(gistId);
       }

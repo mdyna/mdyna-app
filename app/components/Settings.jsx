@@ -165,7 +165,7 @@ class Settings extends PureComponent {
                     ipcRenderer.send('CHANGED-CWD');
                   }}
                 />
-                <GistSync />
+                <GistSync skipLogin />
               </Box>
               <BoardsDialog
                 activeBoard={activeBoard}
