@@ -9,6 +9,9 @@
   min-width: 300px;
   transition: all 0.5s;
   color: $note-font-color;
+  div > * {
+    border-radius: initial;
+  }
 
   @include breakpoint(small) {
     min-width: auto;
