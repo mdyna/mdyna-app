@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Collapsible, Menu } from 'grommet';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import TextInput from 'UI/TextInput';
 import { Github, Sync, Down } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
@@ -114,7 +115,7 @@ class GistSync extends PureComponent {
               dropAlign={{ top: 'bottom' }}
               items={[
                 ...gistList.map(gist => ({
-                  label: gist.description,
+                  label: gist.description || 'Untitled Gist',
                   onClick: () => this.updateGist(gist.id),
                 })),
                 { label: 'Create new', onClick: () => this.createGist() },
@@ -123,23 +124,32 @@ class GistSync extends PureComponent {
           ) : (
             (!githubPassword || !githubUserName) && (
               <Box direction="column" justify="between" width="small">
-                Enter your GitHub credentials
-                <TextInput
-                  label="Username"
-                  value={inputUsername}
-                  onChange={val => this.setState({ inputUsername: val })}
-                />
-                <TextInput
-                  label="Password"
-                  value={inputPw}
-                  type="password"
-                  onChange={val => this.setState({ inputPw: val })}
-                />
-                <Button
-                  onClick={() => this.authToGithub(inputUsername, inputPw)}
+                <KeyboardEventHandler
+                  handleKeys={['enter']}
+                  onKeyEvent={(key) => {
+                    if (key === 'enter') {
+                      this.authToGithub(inputUsername, inputPw);
+                    }
+                  }}
                 >
-                  Login
-                </Button>
+                  Enter your GitHub credentials
+                  <TextInput
+                    label="Username"
+                    value={inputUsername}
+                    onChange={val => this.setState({ inputUsername: val })}
+                  />
+                  <TextInput
+                    label="Password"
+                    value={inputPw}
+                    type="password"
+                    onChange={val => this.setState({ inputPw: val })}
+                  />
+                  <Button
+                    onClick={() => this.authToGithub(inputUsername, inputPw)}
+                  >
+                    Login
+                  </Button>
+                </KeyboardEventHandler>
               </Box>
             )
           )}
