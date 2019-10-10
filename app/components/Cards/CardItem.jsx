@@ -112,7 +112,8 @@ class MdynaCard extends PureComponent {
     };
     const getCardText = (title, text) => {
       if (title && text) {
-        return `# ${card.title}  ${card.text}`;
+        return `# ${card.title}
+${card.text}`;
       }
       if (title && !text) {
         return `# ${card.title}`;
