@@ -8,6 +8,7 @@ export const CODE_THEMES = {
   'Solarized Light': 'SLL',
   'Tomorrow Night Blue': 'TNB',
   Xterm: 'XTR',
+  Default: 'AOD',
 };
 
 export const codeThemes = {

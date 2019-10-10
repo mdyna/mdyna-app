@@ -35,7 +35,6 @@ function mapDispatchToProps(dispatch) {
     saveCard: (card, isFocused, newCard, editorSettings) => {
       dispatch(toggleEditor());
       if (newCard) {
-        console.log(editorSettings);
         dispatch(addCard(editorSettings));
       } else {
         dispatch(saveCard(card));
