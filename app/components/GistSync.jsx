@@ -172,7 +172,7 @@ class GistSync extends PureComponent {
               }}
             >
               <Github color="accent-2" />
-              Connect with GitHubs
+              Connect with GitHub
             </Button>
           )}
           {(loadingGitHub || syncing) && <Loader />}
