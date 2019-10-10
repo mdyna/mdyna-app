@@ -4,6 +4,6 @@
   "text": "#4ECDC4",
   "accent": ["#556270", "#d73a49", "#259EAE"],
   "neutral": ["#333333", "#dddddd"],
-  "dark": ["#EEFFFF", "#677A81", "#dadada"],
+  "dark": ["#677A81", "#4c5061", "#dadada"],
   "light": ["#dadada", "#bdbdbd"]
 }
