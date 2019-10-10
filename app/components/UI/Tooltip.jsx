@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Help } from 'grommet-icons';
 import { Box, Drop } from 'grommet';
 import cx from 'classnames';
-import ReactTooltip from 'react-tooltip';
 
 import './Tooltip.scss'; // eslint-disable-line
 
@@ -17,7 +15,7 @@ class Tooltip extends PureComponent {
 
   render() {
     const {
-      title, icon, onClick, className, text,
+      title, icon, onClick, className, text, children,
     } = this.props;
     const { hover } = this.state;
 
@@ -38,6 +36,7 @@ class Tooltip extends PureComponent {
           onBlur={() => {}}
         >
           {icon}
+          {children}
         </Box>
 
         {this.TooltipRef.current && hover && (
