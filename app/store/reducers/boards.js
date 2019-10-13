@@ -46,7 +46,7 @@ export default function boards(
   const {
     name, newName, board, content,
   } = (action && action.payload) || '';
-  const boardId = board.id || uniqid();
+  const boardId = board && board.id || uniqid();
   const newState = {
     ...state,
   };
