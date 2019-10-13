@@ -19,7 +19,6 @@ import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import GistSync from 'Containers/GistSync';
 import LabelFilter from 'UI/LabelFilter';
-import TooltipData from 'UI/tooltipsContent';
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
@@ -167,8 +166,7 @@ class Sidebar extends Component {
             <Text size="small" className="help">
               Keyboard Shortcuts
               <Tooltip
-                text={TooltipData.keyboard.text}
-                title={TooltipData.keyboard.title}
+                data="keyboard-shortcuts"
               />
             </Text>
           </Box>
@@ -212,7 +210,7 @@ class Sidebar extends Component {
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
             title="Add card"
-            text="Hotkey: A"
+            text="Add card (Use 'A' hotkey)"
             onClick={() => {
               toggleEditor(true);
             }}
@@ -249,7 +247,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open Mdyna settings UI"
+            text="Open Mdyna settings interface"
             onClick={() => {
               toggleSettings();
             }}
