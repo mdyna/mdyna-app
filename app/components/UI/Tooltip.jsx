@@ -38,7 +38,6 @@ class Tooltip extends PureComponent {
           {icon}
           {children}
         </Box>
-
         {this.TooltipRef.current && hover && (
           <Drop
             align={{ left: 'right' }}
@@ -73,6 +72,7 @@ Tooltip.propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   icon: PropTypes.node,
   onClick: PropTypes.func,
+  children: PropTypes.node,
   className: PropTypes.string,
   title: PropTypes.string,
 };
@@ -80,6 +80,7 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   text: '',
   className: '',
+  children: <React.Fragment />,
   icon: <Help color="brand" />,
   onClick: null,
   title: 'Help',

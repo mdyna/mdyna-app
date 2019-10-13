@@ -212,7 +212,7 @@ class Sidebar extends Component {
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
             title="Add card"
-            text="Hotkey: A"
+            text="Add card (Use 'A' hotkey)"
             onClick={() => {
               toggleEditor(true);
             }}
@@ -249,7 +249,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open Mdyna settings UI"
+            text="Open Mdyna settings interface"
             onClick={() => {
               toggleSettings();
             }}

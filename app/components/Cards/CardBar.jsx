@@ -4,6 +4,7 @@ import {
   Archive, Trash, Edit, View,
 } from 'grommet-icons';
 import { toast } from 'react-toastify';
+import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import './CardBar.scss'; // eslint-disable-line
 
@@ -34,10 +35,9 @@ class CardBar extends PureComponent {
           {cardActions && (
             <div className="buttons-container">
               <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
-                <Edit
-                  style={{
-                    stroke: card.color,
-                  }}
+                <Tooltip
+                  icon={<Edit color={card.color} />}
+                  text="Edit this card"
                 />
               </Button>
               <Button
@@ -50,18 +50,26 @@ class CardBar extends PureComponent {
                   }
                 }}
               >
-                <View color={isFocused ? 'accent-3' : card.color} />
+                <Tooltip
+                  text="Focus this card"
+                  icon={<View color={isFocused ? 'accent-3' : card.color} />}
+                />
               </Button>
               <Button
                 hoverIndicator="dark-1"
                 active={card.completed || card.archived}
                 onClick={() => toggleCard(card)}
               >
-                <Archive
-                  style={{
-                    transition: 'all 0.5s',
-                  }}
-                  color={card.color}
+                <Tooltip
+                  icon={(
+                    <Archive
+                      style={{
+                        transition: 'all 0.5s',
+                      }}
+                      color={card.color}
+                    />
+)}
+                  text="Archive card"
                 />
               </Button>
               <Button
@@ -69,11 +77,16 @@ class CardBar extends PureComponent {
                 onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)
                 }
               >
-                <Trash
-                  style={{
-                    stroke: card.color,
-                  }}
-                  color={card.color}
+                <Tooltip
+                  icon={(
+                    <Trash
+                      style={{
+                        stroke: card.color,
+                      }}
+                      color={card.color}
+                    />
+)}
+                  text="Delete card (Permanent)"
                 />
               </Button>
             </div>
