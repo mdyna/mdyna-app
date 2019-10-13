@@ -22,7 +22,7 @@ function deleteBoard(boardId, boardList) {
   for (let i = 0; i < boardList.length; i += 1) {
     const currentBoardId = boardList[i] && boardList[i].id;
     if (currentBoardId && currentBoardId !== boardId) {
-      updatedBoardList.push(boardList[currentBoardId]);
+      updatedBoardList.push(boardList[i]);
     }
   }
   return updatedBoardList;
@@ -46,7 +46,7 @@ export default function boards(
   const {
     name, newName, board, content,
   } = (action && action.payload) || '';
-  const boardId = board && board.id || uniqid();
+  const boardId = board || uniqid();
   const newState = {
     ...state,
   };
