@@ -23,7 +23,6 @@ function loadLabels(cards) {
       const cardLabels = card.labels;
       const labelTitleMaps = labels.map(l => l.title);
       if (cardLabels && cardLabels.length) {
-        console.log(cardLabels, cardLabels.length);
         for (
           let cardLabelIndex = 0;
           cardLabelIndex < cardLabels.length;
@@ -31,9 +30,7 @@ function loadLabels(cards) {
         ) {
           const labelTitle = cardLabels[cardLabelIndex].title;
           const labelIndex = labelTitleMaps.indexOf(labelTitle);
-          console.log(labelTitle, labelTitleMaps, labelIndex);
           if (labelIndex === -1) {
-            console.log('added ', labelTitle);
             labels.push({
               title: labelTitle,
               count: 1,
@@ -178,7 +175,9 @@ app.on('ready', () => {
   } else {
     for (let i = 0; i < cardStorageBoardList.length; i += 1) {
       const contentBoard = cardStorageBoardList[i];
-      if (contentBoard.name !== 'INBOX') {
+      if (
+        convertedBoards.map(cb => cb.name).indexOf(contentBoard.name) === -1
+      ) {
         convertedBoards.push(contentBoard);
       }
     }

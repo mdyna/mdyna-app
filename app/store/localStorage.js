@@ -4,6 +4,9 @@ export const getLocalState = () => {
   const boards = userState && userState.boards;
   const boardNames = boards && boards.boardNames;
   const boardList = (boards && boards.boardList) || [];
+  if (boardNames.indexOf('INBOX') === -1) {
+    boardNames.unshift('INBOX');
+  }
 
   return {
     ...userState,
