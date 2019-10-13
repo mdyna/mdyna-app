@@ -4,7 +4,7 @@ import ACTION_TYPES from '../actions/actionTypes';
 const {
   CREATE_BOARD,
   DELETE_BOARD,
-  CHANGE_BOARD_BACKGROUND,
+  // CHANGE_BOARD_BACKGROUND,
   CHANGE_BOARD_NAME,
   UPDATE_BOARDS_LIST,
   TOGGLE_BOARDS_DIALOG,
@@ -44,9 +44,9 @@ export default function boards(
   action,
 ) {
   const {
-    name, newName, bg, board, content,
+    name, newName, board, content,
   } = (action && action.payload) || '';
-  const boardId = board || uniqid();
+  const boardId = board.id || uniqid();
   const newState = {
     ...state,
   };
@@ -54,11 +54,42 @@ export default function boards(
   if (!newState.boardNames) {
     newState.boardNames = ['INBOX'];
   }
+  const uniqBoardNames = [
+    ...new Set([
+      ...((state && state.boardNames) || []),
+      ...((content && content.boardNames) || []),
+    ]),
+  ];
+  const convertedBoards = [];
   switch (action.type) {
     case UPDATE_BOARDS_LIST:
+      if (content && content.boardList) {
+        if (!Array.isArray(content.boardList)) {
+          const contentBoards = Object.keys(content.boardList);
+          for (let i = 0; i < contentBoards.length; i += 1) {
+            const contentBoard = content.boardList[contentBoards[i]];
+            if (
+              convertedBoards.map(b => b.name).indexOf(contentBoard.name) === -1
+            ) {
+              convertedBoards.push({
+                name: contentBoard.name,
+                id: contentBoard.id || uniqid(),
+              });
+            }
+          }
+        } else {
+          for (let i = 0; i < content.boardList.length; i += 1) {
+            const contentBoard = content.boardList[i];
+            if (contentBoard.name !== 'INBOX') {
+              convertedBoards.push(contentBoard);
+            }
+          }
+        }
+      }
       return {
         ...state,
-        ...content,
+        boardNames: uniqBoardNames,
+        boardList: convertedBoards,
       };
     case TOGGLE_BOARDS_DIALOG:
       return {
@@ -83,12 +114,6 @@ export default function boards(
         ...newState,
         boardNames: newState.boardList.map(b => b.name),
       };
-    case CHANGE_BOARD_BACKGROUND:
-      newState.boardList[boardId] = {
-        ...newState.boardList[boardId],
-        bg,
-      };
-      return newState;
     default:
       return newState;
   }

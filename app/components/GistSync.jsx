@@ -100,8 +100,10 @@ class GistSync extends PureComponent {
             onClick();
           }}
         >
-        <Tooltip text="Sync your cards with a Github Gist" icon={<Github color={isAuthenticated ? 'brand' : 'accent-2'} />}/>
-
+          <Tooltip
+            text="Sync your cards with a Github Gist"
+            icon={<Github color={isAuthenticated ? 'brand' : 'accent-2'} />}
+          />
         </Button>
         {isAuthenticated && gistId && (
           <Button onClick={() => syncCards()}>
@@ -210,7 +212,7 @@ GistSync.propTypes = {
   githubUserName: PropTypes.string.isRequired,
   githubPassword: PropTypes.string.isRequired,
   gistId: PropTypes.string.isRequired,
-  lastSyncDate: PropTypes.string.isRequired,
+  lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
   loadingGitHub: PropTypes.bool.isRequired,
   syncing: PropTypes.bool.isRequired,
@@ -223,6 +225,7 @@ GistSync.propTypes = {
 GistSync.defaultProps = {
   badge: false,
   onClick: null,
+  lastSyncDate: '',
   skipLogin: false,
 };
 

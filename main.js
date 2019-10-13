@@ -168,6 +168,22 @@ app.on('ready', () => {
   const cardStorageBoardList = cardStorageState
     && cardStorageState.boards
     && cardStorageState.boards.boardList;
+
+  const convertedBoards = [];
+  if (!Array.isArray(cardStorageBoardList)) {
+    const contentBoards = (cardStorageBoardList && Object.keys(cardStorageBoardList)) || [];
+    for (let i = 0; i < contentBoards.length; i += 1) {
+      convertedBoards.push(contentBoards);
+    }
+  } else {
+    for (let i = 0; i < cardStorageBoardList.length; i += 1) {
+      const contentBoard = cardStorageBoardList[i];
+      if (contentBoard.name !== 'INBOX') {
+        convertedBoards.push(contentBoard);
+      }
+    }
+  }
+
   const tempBoards = tempState && tempState.boards && tempState.boards.boardList;
   if (
     (tempState && Object.keys(tempState).length)
@@ -188,7 +204,7 @@ app.on('ready', () => {
       labels: loadLabels(currentCards) || [],
       boards: loadBoards([
         ...(userStorageBoardList || []),
-        ...(cardStorageBoardList || []),
+        ...convertedBoards,
         ...tempBoards,
       ]),
     });
@@ -198,17 +214,16 @@ app.on('ready', () => {
   } else {
     logger.log('MASHING USR STATE');
     const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
-    const cardStorageCards = cardStorage.get('state');
     const uniqCards = getUniqCardsById([
       ...userCardsInStorage,
-      ...(cardStorageCards && cardStorageCards.cards),
+      ...((cardStorageState && cardStorageState.cards) || []),
     ]) || tempState.cards;
     cardStorage.set('state', {
       cards: uniqCards,
       labels: loadLabels(uniqCards) || [],
       boards: loadBoards([
         ...(userStorageBoardList || []),
-        ...(cardStorageBoardList || []),
+        ...convertedBoards,
         ...(tempBoards || []),
       ]),
     });
