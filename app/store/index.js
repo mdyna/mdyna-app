@@ -24,9 +24,13 @@ store.subscribe(
       {
         codeTheme: store.getState().settings.codeTheme,
         whiteMode: store.getState().style.whiteMode,
+        githubUserName: store.getState().settings.githubUserName,
+        gistId: store.getState().settings.gistId,
+        githubPassword: store.getState().settings.githubPassword,
         order: store.getState().filters.order,
         activeBoard: store.getState().filters.activeBoard,
         cardsPerPage: store.getState().settings.cardsPerPage,
+        deletedCards: store.getState().settings.deletedCards || [],
         sorting: store.getState().filters.sorting,
         cwd: store.getState().settings.cwd,
       },
@@ -34,5 +38,12 @@ store.subscribe(
   }),
   1000,
 );
+
+export const getUserData = () => ({
+  cards: store.getState().cards,
+  labels: store.getState().labels,
+  deletedCards: store.getState().settings.deletedCards,
+  boards: store.getState().boards,
+});
 
 export default store;

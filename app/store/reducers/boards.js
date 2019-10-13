@@ -6,6 +6,7 @@ const {
   DELETE_BOARD,
   CHANGE_BOARD_BACKGROUND,
   CHANGE_BOARD_NAME,
+  UPDATE_BOARDS_LIST,
   TOGGLE_BOARDS_DIALOG,
 } = ACTION_TYPES.BOARDS;
 
@@ -43,7 +44,7 @@ export default function boards(
   action,
 ) {
   const {
-    name, newName, bg, board,
+    name, newName, bg, board, content,
   } = (action && action.payload) || '';
   const boardId = board || uniqid();
   const newState = {
@@ -54,6 +55,11 @@ export default function boards(
     newState.boardNames = ['INBOX'];
   }
   switch (action.type) {
+    case UPDATE_BOARDS_LIST:
+      return {
+        ...state,
+        ...content,
+      };
     case TOGGLE_BOARDS_DIALOG:
       return {
         ...state,

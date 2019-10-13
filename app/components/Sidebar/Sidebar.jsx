@@ -17,8 +17,8 @@ import {
 import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
+import GistSync from 'Containers/GistSync';
 import LabelFilter from 'UI/LabelFilter';
-import TooltipData from 'UI/tooltipsContent';
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
@@ -156,19 +156,17 @@ class Sidebar extends Component {
               labelFilterFuncs={labelFilterFuncs}
             />
           </Collapsible>
+
+          <GistSync
+            onClick={() => {
+              toggleSettings();
+            }}
+          />
           <Box direction="column">
-            <Text size="small" className="help">
-              Markdown Guide
-              <Tooltip
-                text={TooltipData.markdown.text}
-                title={TooltipData.markdown.title}
-              />
-            </Text>
             <Text size="small" className="help">
               Keyboard Shortcuts
               <Tooltip
-                text={TooltipData.keyboard.text}
-                title={TooltipData.keyboard.title}
+                data="keyboard-shortcuts"
               />
             </Text>
           </Box>
@@ -200,7 +198,7 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
                 <FormPrevious color="brand" />
-                <Text size="large">mdyna</Text>
+                <Text size="large">Mdyna</Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
@@ -212,7 +210,7 @@ class Sidebar extends Component {
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
             title="Add card"
-            text="Hotkey: A"
+            text="Add card (Use 'A' hotkey)"
             onClick={() => {
               toggleEditor(true);
             }}
@@ -249,7 +247,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open mdyna settings UI"
+            text="Open Mdyna settings interface"
             onClick={() => {
               toggleSettings();
             }}
@@ -263,6 +261,16 @@ class Sidebar extends Component {
               this.expandMenu();
             }}
           />
+          {!sidebarExpanded && (
+            <GistSync
+              badge
+              skipLogin
+              classname="sidebar-tooltip"
+              onClick={() => {
+                toggleSettings();
+              }}
+            />
+          )}
           {this.collapsibleSidebar()}
         </Box>
       </React.Fragment>

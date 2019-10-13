@@ -3,10 +3,8 @@ export const getLocalState = () => {
   const userState = window.cardStorage.get('state');
   const boards = userState && userState.boards;
   const boardNames = boards && boards.boardNames;
-  let boardList = [];
-  if (boards && boards.boardList && boards.boardList.length) {
-    boardList = boards && boards.boardList;
-  }
+  const boardList = (boards && boards.boardList) || {};
+
   return {
     ...userState,
     boards: {
@@ -24,6 +22,10 @@ export const getLocalState = () => {
     },
     settings: {
       codeTheme: settings && settings.codeTheme,
+      githubUserName: settings && settings.githubUserName,
+      gistId: settings && settings.gistId,
+      deletedCards: settings && settings.deletedCards,
+      githubPassword: settings && settings.githubPassword,
       cardsPerPage: settings && settings.cardsPerPage,
       cwd: settings && settings.cwd,
     },

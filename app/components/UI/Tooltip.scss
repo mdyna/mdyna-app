@@ -1,29 +1,17 @@
 @import "../../style.scss";
 
 .tip-icon {
-  margin-left: 5px;
-  border-radius: 50px;
-  box-shadow: none !important;
+  border-radius: 10px;
   padding: 2px !important;
 }
-.tooltip {
-  color: $font-color !important;
-  font-family: Helvetica;
-  border-radius: 10px;
-
-  h2 {
-    margin: 5px !important;
-  }
-
-  ul {
-    margin: 0 10px !important;
-  }
-
-
-  title {
-    font-size:1.5rem;
-  }
-  &:after {
-    content: none;
-  }
+.keyboard {
+  color: #6a7a8f;
+  font-weight: 700;
+  padding: 2px;
+  border: 1pt solid #6a7a8f;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+}
+.keyboard-desc {
+  margin-right: 5px;
 }

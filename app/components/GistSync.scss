@@ -1,0 +1,13 @@
+.sync {
+  input {
+    margin: 5px auto;
+  }
+  &.collapsed {
+    div:first-of-type {
+      height: 0;
+    }
+  }
+  &.expanded {
+    flex-direction: column;
+  }
+}

@@ -129,7 +129,7 @@ export default class CardList extends PureComponent {
     return (
       (filteredCards.length
         && filteredCards.map(card => (
-          <CardItem hasCardBar card={card} key={`${card.title}-card`} />
+          <CardItem hasCardBar card={card} key={`${card.id}-card`} />
         )))
       || null
     );

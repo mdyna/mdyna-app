@@ -1,0 +1,8 @@
+.loader {
+  height: 32px !important;
+  margin: 5px auto;
+  svg {
+    animation: rotation 2s infinite linear;
+    max-width: 30px;
+  }
+}
