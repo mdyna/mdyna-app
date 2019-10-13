@@ -54,7 +54,8 @@
 
   code {
     > span {
-      -webkit-text-stroke: 1px #ffffffaa;
+      color: #ddd;
+      mix-blend-mode: difference;
     }
   }
 
