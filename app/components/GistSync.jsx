@@ -5,6 +5,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import TextInput from 'UI/TextInput';
 import { Github, Sync, Down } from 'grommet-icons';
 import Gists from 'Utils/gistsService';
+import Tooltip from 'UI/Tooltip';
 import Loader from 'UI/Loader';
 import Button from 'UI/Button';
 import cx from 'classnames';
@@ -99,7 +100,8 @@ class GistSync extends PureComponent {
             onClick();
           }}
         >
-          <Github color={isAuthenticated ? 'brand' : 'accent-2'} />
+        <Tooltip text="Sync your cards with a Github Gist" icon={<Github color={isAuthenticated ? 'brand' : 'accent-2'} />}/>
+
         </Button>
         {isAuthenticated && gistId && (
           <Button onClick={() => syncCards()}>
