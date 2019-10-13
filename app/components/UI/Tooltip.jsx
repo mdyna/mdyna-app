@@ -6,6 +6,38 @@ import cx from 'classnames';
 
 import './Tooltip.scss'; // eslint-disable-line
 
+const KeyboardShortcuts = () => (
+  <Box className="keyboard-shortcuts">
+    Keyboard Shortcuts
+    <Box direction="row" justify="between">
+      <Box className="keyboard">A</Box>
+      <Box className="keyboard-desc">Add a new note</Box>
+    </Box>
+    <Box direction="row" justify="between">
+      <Box className="keyboard">CTRL+P</Box>
+      <Box className="keyboard-desc">Search cards per label or title</Box>
+    </Box>
+    <Box direction="row" justify="between">
+      <Box className="keyboard">Arrow Right</Box>
+      <Box className="keyboard-desc">Next board page</Box>
+    </Box>
+    <Box direction="row" justify="between">
+      <Box className="keyboard">Arrow Left</Box>
+      <Box className="keyboard-desc">Previous board page</Box>
+    </Box>
+    <Box direction="row" justify="between">
+      <Box className="keyboard">CTRL+ENTER</Box>
+/
+      <Box className="keyboard">CTRL+S</Box>
+      <Box className="keyboard-desc">Save card while editing</Box>
+    </Box>
+    <Box direction="row" justify="between">
+      <Box className="keyboard">ESC</Box>
+      <Box className="keyboard-desc">Unfocus card</Box>
+    </Box>
+  </Box>
+);
+
 class Tooltip extends PureComponent {
   state = {
     hover: false,
@@ -15,7 +47,13 @@ class Tooltip extends PureComponent {
 
   render() {
     const {
-      title, icon, onClick, className, text, children,
+      title,
+      icon,
+      onClick,
+      className,
+      text,
+      children,
+      data,
     } = this.props;
     const { hover } = this.state;
 
@@ -51,6 +89,7 @@ class Tooltip extends PureComponent {
               background="neutral-2"
               round={{ size: 'medium', corner: 'left' }}
             >
+              {data === 'keyboard-shortcuts' && <KeyboardShortcuts />}
               {text
                 ? (typeof text === 'string' && text) || (
                 <ul>
@@ -74,14 +113,16 @@ Tooltip.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
+  data: PropTypes.string,
   title: PropTypes.string,
 };
 
 Tooltip.defaultProps = {
   text: '',
+  data: '',
   className: '',
   children: <React.Fragment />,
   icon: <Help color="brand" />,
   onClick: null,
-  title: 'Help',
+  title: '',
 };
