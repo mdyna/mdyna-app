@@ -1,6 +1,6 @@
 {
   "name": "mdyna",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "A notes application with markdown support, build with React and Electron",
   "homepage": "https://mdyna.dev",
   "main": "main.js",
