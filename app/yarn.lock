@@ -1223,6 +1223,11 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
   integrity sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
 
+exenv@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
+
 extend@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
@@ -2223,6 +2228,11 @@ react-dom@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
+react-from-dom@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-from-dom/-/react-from-dom-0.2.3.tgz#33f176684daa518cf083a527805830a87bce9574"
+  integrity sha512-ApFBEi/Ksd9d4X51EP9xwmLz+hJvizw/voBfXhIY696Oy7GmkC5uIOjddYJ3i12xEDRxPmIMzOjiVdEXVGaH2w==
+
 react-hot-loader@3.0.0-beta.6:
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"
@@ -2239,6 +2249,14 @@ react-immutable-proptypes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
   integrity sha1-Aj1vObsVyXwHHp5g0A0TbqxfoLQ=
+
+react-inlinesvg@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/react-inlinesvg/-/react-inlinesvg-1.1.7.tgz#6b09e5c27d47be0c1a80f614c20906c616bad7b4"
+  integrity sha512-scDmCAErob7CyaUGKYPUo9tPL7yYL2o9NRqj/p+3I8XFR5rZYK9x2YHfNCY3BCleSqPVlhGjPsTKceRL3baJgA==
+  dependencies:
+    exenv "^1.2.2"
+    react-from-dom "^0.2.3"
 
 react-is@^16.3.2, react-is@^16.6.0:
   version "16.7.0"
