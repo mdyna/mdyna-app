@@ -9,7 +9,7 @@
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
-    "create-icons": "electron-icon-maker --input=.//app/assets/logo.svg --output=./resources/",
+    "create-icons": "electron-icon-maker --input=./resources/MdynaLogo.png --output=./resources/",
     "electron-builder": "electron-builder",
     "install-all": "rm -rf ./node_modules && yarn install && cd app && rm -rf ./node_modules && yarn install",
     "pack-asar": "./node_modules/.bin/asar pack mdyna app.asar",
