@@ -76,7 +76,7 @@ app.on('ready', () => {
       devTools: true,
       textAreasAreResizable: false,
     },
-    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogo.png'),
   });
 
   const splash = new BrowserWindow({
@@ -86,7 +86,7 @@ app.on('ready', () => {
     minHeight: 400,
     transparent: true,
     frame: false,
-    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogo.png'),
   });
 
   splash.loadURL(`file://${__dirname}/splash.html`);
