@@ -1,11 +1,12 @@
 /* eslint-disable */
 import React, { PureComponent } from 'react';
-import { ReactComponent as Logo } from 'Assets/logo.svg';
+import SVG from 'react-inlinesvg';
+import Logo from 'Assets/logo.svg';
 class AppHeader extends PureComponent {
   render() {
     return (
       <header>
-        <Logo />
+        <SVG src={Logo} />
         {this.props.children}
       </header>
     );

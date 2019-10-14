@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
+// eslint-disable-next-line
+import SVG from 'react-inlinesvg';
+import Logo from 'Assets/logo.svg';
 import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
@@ -196,7 +199,10 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
                 <FormPrevious color="brand" />
-                <Text size="large">MDyna</Text>
+                <Text size="large">
+                  <SVG src={Logo} style={{ width: 32 }} />
+                  MDyna
+                </Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
