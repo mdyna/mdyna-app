@@ -69,7 +69,7 @@ app.on('ready', () => {
     show: false,
     center: true,
     frame: false,
-    title: 'mdyna',
+    title: 'MDyna',
     nodeIntegrationInWorker: true,
     titleBarStyle: 'hidden',
     webPreferences: {

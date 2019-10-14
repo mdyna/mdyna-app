@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to mdyna 👋</h1>
+<h1 align="center">Welcome to MDyna 👋</h1>
 <p>
   <img src="https://img.shields.io/badge/version-0.7.15-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/Mdyna/Mdyna-app#readme">

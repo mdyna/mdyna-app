@@ -165,9 +165,7 @@ class Sidebar extends Component {
           <Box direction="column">
             <Text size="small" className="help">
               Keyboard Shortcuts
-              <Tooltip
-                data="keyboard-shortcuts"
-              />
+              <Tooltip data="keyboard-shortcuts" />
             </Text>
           </Box>
         </Box>
@@ -198,7 +196,7 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
                 <FormPrevious color="brand" />
-                <Text size="large">Mdyna</Text>
+                <Text size="large">MDyna</Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
@@ -247,7 +245,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open Mdyna settings interface"
+            text="Open MDyna settings interface"
             onClick={() => {
               toggleSettings();
             }}

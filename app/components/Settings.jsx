@@ -30,7 +30,7 @@ const renderAppInfo = () => (
   <Box direction="column" background="dark-1" className="app-info" responsive>
     <Header>
       <Text size="xxlarge" as="h1">
-        Mdyna
+        MDyna
       </Text>
       <Text>{window.appVersion}</Text>
     </Header>

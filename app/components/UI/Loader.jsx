@@ -7,7 +7,7 @@ class Loader extends PureComponent {
   render() {
     return (
       <div className="loader">
-        <Update className="App-logo" alt="Mdyna-loader" color="brand" />
+        <Update className="App-logo" alt="MDyna-loader" color="brand" />
       </div>
     );
   }

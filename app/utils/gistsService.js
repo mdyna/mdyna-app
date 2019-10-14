@@ -169,14 +169,14 @@ class GistsService {
             }),
           },
         },
-        description: 'Mdyna Cards',
+        description: 'MDyna Cards',
         public: false,
       });
       if (newGist) {
         const gistList = await this.getUserGists();
         if (gistList) {
           const newGistIds = gistList.filter(
-            gist => gist.description === 'Mdyna Cards',
+            gist => gist.description === 'MDyna Cards',
           );
           return newGistIds && newGistIds[0].id;
         }
