@@ -14,6 +14,10 @@
     padding: 5px auto;
     .label-button {
       margin: 3px;
+      span {
+        font-size: 18px;
+        font-weight: 500;
+      }
     }
   }
 }

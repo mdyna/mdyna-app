@@ -22,8 +22,6 @@ class LabelFilter extends Component {
             className="label-button"
             onClick={() => labelFunc(label.title)}
             key={`key-${i}`}
-            color={(labelFilterActive && 'accent-3') || 'accent-1'}
-            hoverIndicator="light-1"
             plain
             primary
           >

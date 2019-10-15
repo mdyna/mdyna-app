@@ -18,7 +18,7 @@ class Labels extends Component {
             color: labelFilterActive ? tc(color).darken(15) : color,
             border: labelFilterActive && `2px solid ${tc(color).darken(15)}`,
             backgroundColor: !transparent && '#333333AA',
-            borderRadius: '50px',
+            borderRadius: '10px',
             cursor: 'pointer',
             padding: '5px',
           }}
@@ -36,7 +36,7 @@ class Labels extends Component {
         style={{
           color,
           backgroundColor: !transparent && '#333333AA',
-          borderRadius: '50px',
+          borderRadius: '10px',
           padding: '5px',
         }}
         key={`label-${label.title || label}`}
