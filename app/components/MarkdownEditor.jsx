@@ -2,12 +2,20 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Editor from 'rich-markdown-editor';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
+import ImgurService from 'Utils/imgurService.js';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
 
 const Markdown = new MarkdownSerializer();
 class MarkdownEditor extends React.PureComponent {
+  static async uploadImg(img) {
+    const link = await ImgurService.uploadFile(img);
+    return link;
+  }
+
   editorRef = React.createRef();
 
   componentDidUpdate(prevProps) {
@@ -54,6 +62,7 @@ class MarkdownEditor extends React.PureComponent {
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
+        uploadImage={async img => MarkdownEditor.uploadImg(img)}
         defaultValue={value}
         onSave={() => onSave(card)}
         onChange={val => this.handleChange(val)}
