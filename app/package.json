@@ -23,8 +23,6 @@
     "grommet-icons": "^4.2.0",
     "grommet-styles": "^0.2.0",
     "grommet-theme-v1": "^0.1.2",
-    "imgur": "^0.3.1",
-    "imgur-uploader": "^4.2.1",
     "immutable": "3.8.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.6.0",
