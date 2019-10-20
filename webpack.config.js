@@ -16,7 +16,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist', 'web'),
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.json'],
     alias: {
       Components: path.resolve(__dirname, 'app/components'),
       Containers: path.resolve(__dirname, 'app/containers'),

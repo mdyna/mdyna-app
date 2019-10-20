@@ -3,6 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
+import emoji from 'emoji-dictionary';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
 
@@ -14,14 +15,17 @@ class MarkdownEditor extends React.PureComponent {
     const { value, readOnly } = this.props;
     if (value !== prevProps.value && readOnly) {
       this.editorRef.current.setState({
-        editorValue: Markdown.deserialize(value),
+        editorValue: Markdown.deserialize(this.emojiSupport(value)),
       });
     }
   }
 
+  emojiSupport = text => text.replace(/:\w+:/gi, name => name && emoji.getUnicode(name));
+
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
-    const rawValue = value();
+
+    const rawValue = this.emojiSupport(value());
     if (onChange && rawValue) {
       const { title, text } = card;
       const rawValueTitle = rawValue && rawValue.match(new RegExp(/^(.*)$/m))[0];

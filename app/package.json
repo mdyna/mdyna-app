@@ -16,6 +16,8 @@
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
+    "emoji-dictionary": "^1.0.10",
+    "emojilib": "^2.4.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "gists": "^2.0.0",
     "grommet": "^2.7.1",
@@ -27,6 +29,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-emoji-render": "^1.0.0",
     "react-hot-loader": "3.0.0-beta.6",
     "react-keyboard-event-handler": "^1.4.1",
     "react-masonry-css": "https://github.com/dmorais92/react-masonry-css.git",
