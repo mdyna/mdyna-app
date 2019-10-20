@@ -15,12 +15,12 @@ class MarkdownEditor extends React.PureComponent {
     const { value, readOnly } = this.props;
     if (value !== prevProps.value && readOnly) {
       this.editorRef.current.setState({
-        editorValue: Markdown.deserialize(this.emojiSupport(value)),
+        editorValue: Markdown.deserialize(value),
       });
     }
   }
 
-  emojiSupport = text => text.replace(/:\w+:/gi, name => name && emoji.getUnicode(name));
+  emojiSupport = text => text.replace(/:\w+:/gi, name => (name && emoji.getUnicode(name)) || name);
 
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
@@ -34,8 +34,8 @@ class MarkdownEditor extends React.PureComponent {
       if (handledTitle && handledTitle !== title) {
         changeTitle(handledTitle);
       }
-      if (handledValue && handledValue !== text) {
-        onChange(handledValue);
+      if (handledValue && String(handledValue).trim() !== text) {
+        onChange(String(handledValue).trim());
       }
     }
   };
@@ -58,7 +58,7 @@ class MarkdownEditor extends React.PureComponent {
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
-        defaultValue={value}
+        defaultValue={this.emojiSupport(`${value}:wink:`)}
         onSave={() => onSave(card)}
         onChange={val => this.handleChange(val)}
         onSearchLink={async (term) => {
