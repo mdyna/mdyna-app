@@ -41,6 +41,7 @@
     "redux-logger": "^3.0.6",
     "rich-markdown-editor": "^9.8.8",
     "riek": "^1.1.0",
+    "slate-instant-replace": "^0.1.11",
     "slate-md-serializer": "^5.4.3-1",
     "styled-components": "^4.3.2",
     "tinycolor2": "^1.4.1",

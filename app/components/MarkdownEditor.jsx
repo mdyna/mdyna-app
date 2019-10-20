@@ -1,11 +1,28 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import InstantReplace from 'slate-instant-replace';
+import { toArray } from 'react-emoji-render';
+import emoji from 'emoji-dictionary';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
-import emoji from 'emoji-dictionary';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
+
+const parseEmojis = (value) => {
+  const emojisArray = toArray(value);
+  const newValue = emojisArray.reduce((previous, current) => {
+    if (typeof current === 'string') return previous + current;
+    return previous + current.props.children;
+  }, '');
+  return newValue;
+};
+
+// Transformation function
+const AddEmojis = (editor, lastWord) => {
+  editor.moveFocusBackward(lastWord.length); // select last word
+  editor.insertText(parseEmojis(lastWord)); // replace it
+};
 
 const Markdown = new MarkdownSerializer();
 class MarkdownEditor extends React.PureComponent {
@@ -50,6 +67,8 @@ class MarkdownEditor extends React.PureComponent {
       codeTheme = 'DRA',
       whiteMode,
     } = this.props;
+
+    const plugins = [InstantReplace(AddEmojis)];
     const palette = getPalette(whiteMode);
     const editorTheme = getEditorTheme(palette);
     return (
@@ -58,8 +77,9 @@ class MarkdownEditor extends React.PureComponent {
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
-        defaultValue={this.emojiSupport(`${value}:wink:`)}
+        defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}
+        plugins={plugins}
         onChange={val => this.handleChange(val)}
         onSearchLink={async (term) => {
           console.log('Searched link: ', term);
