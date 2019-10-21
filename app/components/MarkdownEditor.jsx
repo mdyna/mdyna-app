@@ -86,15 +86,6 @@ class MarkdownEditor extends React.PureComponent {
           }),
         ]}
         onChange={val => this.handleChange(val)}
-        onSearchLink={async (term) => {
-          console.log('Searched link: ', term);
-          return [
-            {
-              title: term,
-              url: 'localhost',
-            },
-          ];
-        }}
         theme={{
           ...editorTheme,
           ...getCodeTheme(codeTheme),
