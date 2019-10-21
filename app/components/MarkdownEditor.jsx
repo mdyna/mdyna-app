@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
+import AutoReplace from 'slate-plugins/packages/@axioscode/slate-auto-replace/lib/slate-auto-replace';
 import PropTypes from 'prop-types';
-import InstantReplace from 'slate-instant-replace';
 import { toArray } from 'react-emoji-render';
 import emoji from 'emoji-dictionary';
 import Editor from 'rich-markdown-editor';
@@ -15,13 +15,7 @@ const parseEmojis = (value) => {
     if (typeof current === 'string') return previous + current;
     return previous + current.props.children;
   }, '');
-  return newValue;
-};
-
-// Transformation function
-const AddEmojis = (editor, lastWord) => {
-  editor.moveFocusBackward(lastWord.length); // select last word
-  editor.insertText(parseEmojis(lastWord)); // replace it
+  return newValue !== value ? newValue : null;
 };
 
 const Markdown = new MarkdownSerializer();
@@ -67,8 +61,6 @@ class MarkdownEditor extends React.PureComponent {
       codeTheme = 'DRA',
       whiteMode,
     } = this.props;
-
-    const plugins = [InstantReplace(AddEmojis)];
     const palette = getPalette(whiteMode);
     const editorTheme = getEditorTheme(palette);
     return (
@@ -79,7 +71,20 @@ class MarkdownEditor extends React.PureComponent {
         autoFocus={!readOnly}
         defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}
-        plugins={plugins}
+        plugins={[
+          AutoReplace({
+            trigger: 'space',
+            before: /:\w+:/gi,
+            change: (changes, e, matches) => {
+              const rawEmoji = matches && matches.before && matches.before[0];
+              const emojiString = rawEmoji.split(':')[1];
+              if (emojiString) {
+                changes.moveFocusBackward(rawEmoji.length); // select last word
+                changes.insertText(parseEmojis(rawEmoji));
+              }
+            },
+          }),
+        ]}
         onChange={val => this.handleChange(val)}
         onSearchLink={async (term) => {
           console.log('Searched link: ', term);

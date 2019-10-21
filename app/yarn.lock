@@ -2787,11 +2787,6 @@ slate-hotkeys@^0.2.9:
     is-hotkey "0.1.4"
     slate-dev-environment "^0.2.2"
 
-slate-instant-replace@^0.1.11:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/slate-instant-replace/-/slate-instant-replace-0.1.11.tgz#e2888d402fbe8c1e17e6ad9de592c5df4fac3a4c"
-  integrity sha512-DMFaMBrvPMvLsmfjL7jByeEw2FM6ZR4DwP2a3pSRwJhwswFcT7LarCeC94qOxT41Ik/Qu6K+IwMCjAnF+UHlFg==
-
 slate-md-serializer@5.4.3-1, slate-md-serializer@^5.4.3-1:
   version "5.4.3-1"
   resolved "https://registry.yarnpkg.com/slate-md-serializer/-/slate-md-serializer-5.4.3-1.tgz#311bf90300230f6f8aeeac464fa8694be3eb88c8"
@@ -2810,6 +2805,10 @@ slate-plain-serializer@^0.7.1:
   version "0.7.10"
   resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.7.10.tgz#bc4a6942cf52fde826019bb1095dffd0dac8cc08"
   integrity sha512-/QvMCQ0F3NzbnuoW+bxsLIChPdRgxBjQeGhYhpRGTVvlZCLOmfDvavhN6fHsuEwkvdwOmocNF30xT1WVlmibYg==
+
+"slate-plugins@https://github.com/mdyna/slate-plugins.git":
+  version "0.1.0"
+  resolved "https://github.com/mdyna/slate-plugins.git#b7329674787ec9bef339b0c027cd3e13d943c1e0"
 
 slate-prop-types@^0.5.32:
   version "0.5.41"
