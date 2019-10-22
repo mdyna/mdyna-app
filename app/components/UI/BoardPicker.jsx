@@ -3,6 +3,7 @@ import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Projects, Add } from 'grommet-icons';
 import PropTypes from 'prop-types';
+import Button from 'UI/Button';
 import { validateBoards } from '../BoardsDialog';
 
 import './BoardPicker.scss';
@@ -29,23 +30,23 @@ export default class BoardPicker extends Component {
       boardNames,
       addButton,
       createBoard,
-      value,
     } = this.props;
     return (
       <Menu
         icon={(
-          <Projects
-            color="brand"
-            style={{
-              verticalAlign: 'bottom',
-              margin: '0 5px',
-            }}
-          />
+          <Button>
+            <Projects
+              color="brand"
+              style={{
+                verticalAlign: 'bottom',
+              }}
+            />
+          </Button>
 )}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label={value || 'Boards'}
+        label=""
         dropAlign={{ top: 'bottom' }}
         items={[
           {
@@ -103,7 +104,6 @@ export default class BoardPicker extends Component {
 BoardPicker.propTypes = {
   onClick: PropTypes.func.isRequired,
   addButton: PropTypes.bool,
-  value: PropTypes.string,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
   boards: PropTypes.array,
@@ -111,7 +111,6 @@ BoardPicker.propTypes = {
 };
 
 BoardPicker.defaultProps = {
-  value: '',
   boardNames: [],
   addButton: false,
   boards: {},
