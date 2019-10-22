@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import { toArray } from 'react-emoji-render';
 import emoji from 'emoji-dictionary';
 import Editor from 'rich-markdown-editor';
-// eslint-disable-next-line
-import { ipcRenderer } from 'electron';
 import ImgurService from 'Utils/imgurService';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';

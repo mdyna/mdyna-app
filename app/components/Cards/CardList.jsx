@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
-import { Add, Previous, Next } from 'grommet-icons';
+import {
+  Add, Previous, Next, Download as Export,
+} from 'grommet-icons';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
@@ -12,6 +16,10 @@ import BoardPicker from 'UI/BoardPicker';
 import './CardList.scss'; // eslint-disable-line
 
 export default class CardList extends PureComponent {
+
+    static callFolderPicker() {
+      ipcRenderer.send('EXPORT_BOARD');
+    }
   state = {
     pageView: 1,
     pageIndex: 0,
@@ -170,6 +178,7 @@ export default class CardList extends PureComponent {
           boards={boards}
           toggleBoardsDialog={toggleBoardsDialog}
         />
+        <Export color="brand" onClick={() => CardList.callFolderPicker()} />
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length

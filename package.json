@@ -87,6 +87,7 @@
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
+    "fs-jetpack": "^2.2.3",
     "global": "^4.4.0",
     "lint-staged": "^8.1.0",
     "lodash": "^4.17.15"

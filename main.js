@@ -3,6 +3,7 @@
 const electron = require('electron');
 // eslint-disable-next-line
 const { dialog, ipcMain, remote } = require('electron');
+const jetpack = require('fs-jetpack');
 const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
@@ -231,6 +232,29 @@ app.on('ready', () => {
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
 
+  // * EXPORT BOARD EVENT
+  ipcMain.on('EXPORT_BOARD', () => {
+    dialog.showOpenDialog(
+      {
+        properties: ['openFile', 'openDirectory'],
+      },
+      (files) => {
+        const exportDirectory = files && files[0];
+        if (exportDirectory) {
+          logger.log('Exporting cards to ', exportDirectory);
+          const userCards = cardStorage.get('state').cards;
+          for (let i = 0; i <= userCards.length; i += 1) {
+            const card = userCards[i];
+            if (card) {
+              const cardTitle = card && card.title;
+              logger.log('Exporting card ', cardTitle);
+              jetpack.write(`${exportDirectory}/${cardTitle}.md`, card.text);
+            }
+          }
+        }
+      },
+    );
+  });
   // * CHANGE CWD EVENT
   ipcMain.on('CHANGED-CWD', () => {
     logger.info('CURRENT WORKING DIRECTORY CHANGED');
