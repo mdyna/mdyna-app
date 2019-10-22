@@ -12,7 +12,7 @@ import './BoardPicker.scss';
 
 const ManageBoardsLabel = styled.span`
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   align-items: center;
 `;
 

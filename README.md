@@ -28,6 +28,8 @@
 - Dark Mode
 - Tag notes with labels
 - Cloud syncing through custom directory
+- Github gist sync
+- Export notes as markdown files
 
 ## Install
 
