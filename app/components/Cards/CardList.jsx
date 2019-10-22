@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
+import Tooltip from 'UI/Tooltip';
 import {
   Add, Previous, Next, Download as Export,
 } from 'grommet-icons';
@@ -179,10 +180,12 @@ export default class CardList extends PureComponent {
           boards={boards}
           toggleBoardsDialog={toggleBoardsDialog}
         />
-        <Export
-          color="brand"
-          onClick={() => CardList.callFolderPicker(activeBoardId)}
-        />
+        <Button onClick={() => CardList.callFolderPicker(activeBoardId)}>
+          <Tooltip
+            icon={<Export color="brand" />}
+            text="Export all cards from this board as Markdown files"
+          />
+        </Button>
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length
