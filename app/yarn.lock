@@ -1117,10 +1117,62 @@ electron@^3.0.0:
     electron-download "^4.1.0"
     extract-zip "^1.0.3"
 
+emoji-chars@^1.0.0:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/emoji-chars/-/emoji-chars-1.0.11.tgz#62e6842fb54c9caf5a59d4dedd9cdd553c903d4d"
+  integrity sha512-HV1y9gerCCoOVpTlhmDUtsNRFzRODQ3XE7ro70z4V07/ksMG13MJJAmY6ntgC2kB3DfMsG21CNOgxCidXRp2oA==
+  dependencies:
+    emoji-unicode-map "^1.0.0"
+
+emoji-dictionary@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/emoji-dictionary/-/emoji-dictionary-1.0.10.tgz#bc9ca0b4155ef5e50345d101f0ff6739abb1929e"
+  integrity sha512-L39WB4+2a1bZWTYGQ77favpIIPodbWb9Qm+nxR282+mT0dYUzwZmouk6CfzVaJNIS4oXUJOkNZrsBugTlmUU5A==
+  dependencies:
+    emoji-chars "^1.0.0"
+    emoji-name-map "^1.0.0"
+    emoji-names "^1.0.1"
+    emoji-unicode-map "^1.0.0"
+    emojilib "^2.0.2"
+
+emoji-name-map@^1.0.0, emoji-name-map@^1.1.0:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/emoji-name-map/-/emoji-name-map-1.2.8.tgz#4bd5c6bfe3ae4bffc7d8ff60c0da57a91df3a0b4"
+  integrity sha512-UxX9lJXCmwqLaRCkprtXZAEMDNk0z7IbNaUJ51gZouq7/9j2IiqsrmUGo/fLd2YgwZFElWlItsjQo86fz4l2zA==
+  dependencies:
+    emojilib "^2.0.2"
+    iterate-object "^1.3.1"
+    map-o "^2.0.1"
+
+emoji-names@^1.0.1:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/emoji-names/-/emoji-names-1.0.11.tgz#15b4fea6adb3add447602e7d359cf370d025c23d"
+  integrity sha512-fEUbbAeVbrXmPDHPY1B5r460K1pWVPV+rYLOPART6fpBaMxpFTUhsIXOmIXxbLJLWFYYKby7GGgoqdldZrUPFA==
+  dependencies:
+    emoji-name-map "^1.0.0"
+
+emoji-regex@^6.4.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
+  integrity sha512-PAHp6TxrCy7MGMFidro8uikr+zlJJKJ/Q6mm2ExZ7HwkyR9lSVFfE3kt36qcwa24BQL7y0G9axycGjK1A/0uNQ==
+
 emoji-regex@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
   integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
+
+emoji-unicode-map@^1.0.0:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/emoji-unicode-map/-/emoji-unicode-map-1.1.10.tgz#060d165496e70a78f428447c2ea222ffc70aaa2f"
+  integrity sha512-03aFWD+dsWbl0JpzWGYQ5z9xsJH47uykUbYjmTKdNbZjtAUiLGTQmFBJUMI0/jW0GjiK/zSkivjkRuPqcdfNIw==
+  dependencies:
+    emoji-name-map "^1.1.0"
+    iterate-object "^1.3.1"
+
+emojilib@^2.0.2, emojilib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/emojilib/-/emojilib-2.4.0.tgz#ac518a8bb0d5f76dda57289ccb2fdf9d39ae721e"
+  integrity sha512-5U0rVMU5Y2n2+ykNLQqMoqklN9ICBT/KsvC1Gz6vqHbz2AXXGkG+Pm5rMWk/8Vjrr/mY9985Hi8DYzn1F09Nyw==
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -1724,6 +1776,11 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+iterate-object@^1.3.0, iterate-object@^1.3.1:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/iterate-object/-/iterate-object-1.3.3.tgz#c58e60f7f0caefa2d382027a484b215988a7a296"
+  integrity sha512-DximWbkke36cnrSfNJv6bgcB2QOMV9PRD2FiowwzCoMsh8RupFLdbNIzWe+cVDWT+NIMNJgGlB1dGxP6kpzGtA==
+
 jest-docblock@^21.0.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.2.0.tgz#51529c3b30d5fd159da60c27ceedc195faf8d414"
@@ -1817,6 +1874,16 @@ lodash-es@^4.2.1:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
 
+lodash.flatten@^4.2.0, lodash.flatten@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
+  integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
+
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+  integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
+
 lodash@^4.1.1, lodash@^4.17.10, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
@@ -1841,6 +1908,13 @@ loud-rejection@^1.0.0:
   dependencies:
     currently-unhandled "^0.4.1"
     signal-exit "^3.0.0"
+
+map-o@^2.0.1:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/map-o/-/map-o-2.0.9.tgz#7e7b4bc7b192fd3ca2cda230eaf9d8e3dd5f86ce"
+  integrity sha512-oYdT5amkNO06ZS/+x6qQ6SAz+/k9lByczvBZn8RKnwzWOb9FDlb1NCwBTtjOmloeh4sOuxkxeGf0s2ruSUieEg==
+  dependencies:
+    iterate-object "^1.3.0"
 
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
@@ -2227,6 +2301,17 @@ react-dom@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.6"
+
+react-emoji-render@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-emoji-render/-/react-emoji-render-1.0.0.tgz#696a6a2b3fa6a5ea1e5c186ccd9cbf9232d9b638"
+  integrity sha512-14iNQ1bOqijkIwfmuYMnG0lew2GJhRmSEPEYi7Dc3RDgklaXXwbLB0bmJF/0LUpDH1hy3I1H3EyrKb//FdwCmg==
+  dependencies:
+    classnames "^2.2.5"
+    emoji-regex "^6.4.1"
+    lodash.flatten "^4.4.0"
+    prop-types "^15.5.8"
+    string-replace-to-array "^1.0.1"
 
 react-from-dom@^0.2.3:
   version "0.2.3"
@@ -2721,6 +2806,10 @@ slate-plain-serializer@^0.7.1:
   resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.7.10.tgz#bc4a6942cf52fde826019bb1095dffd0dac8cc08"
   integrity sha512-/QvMCQ0F3NzbnuoW+bxsLIChPdRgxBjQeGhYhpRGTVvlZCLOmfDvavhN6fHsuEwkvdwOmocNF30xT1WVlmibYg==
 
+"slate-plugins@https://github.com/mdyna/slate-plugins.git":
+  version "0.1.0"
+  resolved "https://github.com/mdyna/slate-plugins.git#b7329674787ec9bef339b0c027cd3e13d943c1e0"
+
 slate-prop-types@^0.5.32:
   version "0.5.41"
   resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.5.41.tgz#42031881e2fef4fa978a96b9aad84b093b4a5219"
@@ -2872,6 +2961,15 @@ stackframe@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
   integrity sha1-M6qE8Rd6VUjIk1Uzy/6zQgl19aQ=
+
+string-replace-to-array@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/string-replace-to-array/-/string-replace-to-array-1.0.3.tgz#c93eba999a5ee24d731aebbaf5aba36b5f18f7bf"
+  integrity sha1-yT66mZpe4k1zGuu69auja18Y978=
+  dependencies:
+    invariant "^2.2.1"
+    lodash.flatten "^4.2.0"
+    lodash.isstring "^4.0.1"
 
 string-width@^1.0.1:
   version "1.0.2"

@@ -1,10 +1,22 @@
 import React from 'react';
 import cx from 'classnames';
+import AutoReplace from 'slate-plugins/packages/@axioscode/slate-auto-replace/lib/slate-auto-replace';
 import PropTypes from 'prop-types';
+import { toArray } from 'react-emoji-render';
+import emoji from 'emoji-dictionary';
 import Editor from 'rich-markdown-editor';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
+
+const parseEmojis = (value) => {
+  const emojisArray = toArray(value);
+  const newValue = emojisArray.reduce((previous, current) => {
+    if (typeof current === 'string') return previous + current;
+    return previous + current.props.children;
+  }, '');
+  return newValue !== value ? newValue : null;
+};
 
 const Markdown = new MarkdownSerializer();
 class MarkdownEditor extends React.PureComponent {
@@ -19,9 +31,12 @@ class MarkdownEditor extends React.PureComponent {
     }
   }
 
+  emojiSupport = text => text.replace(/:\w+:/gi, name => (name && emoji.getUnicode(name)) || name);
+
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
-    const rawValue = value();
+
+    const rawValue = this.emojiSupport(value());
     if (onChange && rawValue) {
       const { title, text } = card;
       const rawValueTitle = rawValue && rawValue.match(new RegExp(/^(.*)$/m))[0];
@@ -30,8 +45,8 @@ class MarkdownEditor extends React.PureComponent {
       if (handledTitle && handledTitle !== title) {
         changeTitle(handledTitle);
       }
-      if (handledValue && handledValue !== text) {
-        onChange(handledValue);
+      if (handledValue && String(handledValue).trim() !== text) {
+        onChange(String(handledValue).trim());
       }
     }
   };
@@ -54,18 +69,23 @@ class MarkdownEditor extends React.PureComponent {
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
-        defaultValue={value}
+        defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}
-        onChange={val => this.handleChange(val)}
-        onSearchLink={async (term) => {
-          console.log('Searched link: ', term);
-          return [
-            {
-              title: term,
-              url: 'localhost',
+        plugins={[
+          AutoReplace({
+            trigger: 'space',
+            before: /:\w+:/gi,
+            change: (changes, e, matches) => {
+              const rawEmoji = matches && matches.before && matches.before[0];
+              const emojiString = rawEmoji.split(':')[1];
+              if (emojiString) {
+                changes.moveFocusBackward(rawEmoji.length); // select last word
+                changes.insertText(parseEmojis(rawEmoji));
+              }
             },
-          ];
-        }}
+          }),
+        ]}
+        onChange={val => this.handleChange(val)}
         theme={{
           ...editorTheme,
           ...getCodeTheme(codeTheme),
