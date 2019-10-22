@@ -17,7 +17,6 @@
     "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
     "emoji-dictionary": "^1.0.10",
-    "emojilib": "^2.4.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "gists": "^2.0.0",
     "grommet": "^2.7.1",
