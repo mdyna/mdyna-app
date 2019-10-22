@@ -233,13 +233,15 @@ app.on('ready', () => {
   global.userStorage = userStorage;
 
   // * EXPORT BOARD EVENT
-  ipcMain.on('EXPORT_BOARD', () => {
+  ipcMain.on('EXPORT_BOARD', (e, board) => {
+    logger.log('Exporting cards from ', board, ' board');
     dialog.showOpenDialog(
       {
         properties: ['openFile', 'openDirectory'],
       },
       (files) => {
         const exportDirectory = files && files[0];
+        const exportAllCards = Boolean(board === 'INBOX');
         if (exportDirectory) {
           logger.log('Exporting cards to ', exportDirectory);
           const userCards = cardStorage.get('state').cards;
@@ -247,8 +249,11 @@ app.on('ready', () => {
             const card = userCards[i];
             if (card) {
               const cardTitle = card && card.title;
-              logger.log('Exporting card ', cardTitle);
-              jetpack.write(`${exportDirectory}/${cardTitle}.md`, card.text);
+              const cardPath = path.join(exportDirectory, `${cardTitle}.md`);
+              if (exportAllCards || card.board === board) {
+                logger.log('Exporting card ', cardTitle, 'to', cardPath);
+                jetpack.write(cardPath, card.text);
+              }
             }
           }
         }

@@ -39,6 +39,7 @@ function mapStateToProps(state) {
     boardNames: state.boards.boardNames,
     boards: state.boards.boardList,
     activeBoard: activeBoardName,
+    activeBoardId: state.filters.activeBoard,
     cardsPerPage: state.settings.cardsPerPage,
   };
 }

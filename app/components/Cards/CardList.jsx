@@ -16,10 +16,10 @@ import BoardPicker from 'UI/BoardPicker';
 import './CardList.scss'; // eslint-disable-line
 
 export default class CardList extends PureComponent {
+  static callFolderPicker(board) {
+    ipcRenderer.send('EXPORT_BOARD', board);
+  }
 
-    static callFolderPicker() {
-      ipcRenderer.send('EXPORT_BOARD');
-    }
   state = {
     pageView: 1,
     pageIndex: 0,
@@ -152,6 +152,7 @@ export default class CardList extends PureComponent {
       boardNames,
       createBoard,
       toggleBoardsDialog,
+      activeBoardId,
       boards,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
@@ -178,7 +179,10 @@ export default class CardList extends PureComponent {
           boards={boards}
           toggleBoardsDialog={toggleBoardsDialog}
         />
-        <Export color="brand" onClick={() => CardList.callFolderPicker()} />
+        <Export
+          color="brand"
+          onClick={() => CardList.callFolderPicker(activeBoardId)}
+        />
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length
@@ -278,6 +282,7 @@ CardList.propTypes = {
   createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
+  activeBoardId: PropTypes.string,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
@@ -288,6 +293,7 @@ CardList.defaultProps = {
   cardsPerPage: 8,
   boards: {},
   labelFilters: [],
+  activeBoardId: '',
   boardNames: [],
   searchInput: '',
   cards: [],
