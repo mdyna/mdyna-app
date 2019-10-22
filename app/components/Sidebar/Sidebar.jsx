@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
+// eslint-disable-next-line
+import SVG from 'react-inlinesvg';
+import Logo from 'Assets/logo.svg';
 import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
@@ -165,9 +168,7 @@ class Sidebar extends Component {
           <Box direction="column">
             <Text size="small" className="help">
               Keyboard Shortcuts
-              <Tooltip
-                data="keyboard-shortcuts"
-              />
+              <Tooltip data="keyboard-shortcuts" />
             </Text>
           </Box>
         </Box>
@@ -198,7 +199,10 @@ class Sidebar extends Component {
             {sidebarExpanded ? (
               <Button onClick={() => toggleSidebar()} className="title-button">
                 <FormPrevious color="brand" />
-                <Text size="large">Mdyna</Text>
+                <Text size="large">
+                  <SVG src={Logo} style={{ width: 32 }} />
+                  MDyna
+                </Text>
               </Button>
             ) : (
               <Button onClick={() => toggleSidebar()} className="title-button">
@@ -247,7 +251,7 @@ class Sidebar extends Component {
             className={classnames('sidebar-tooltip')}
             icon={<Configure color="brand" />}
             title="Settings"
-            text="Open Mdyna settings interface"
+            text="Open MDyna settings interface"
             onClick={() => {
               toggleSettings();
             }}

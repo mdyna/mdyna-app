@@ -3,6 +3,7 @@
 const electron = require('electron');
 // eslint-disable-next-line
 const { dialog, ipcMain, remote } = require('electron');
+const jetpack = require('fs-jetpack');
 const path = require('path');
 const Storage = require('electron-store');
 const logger = require('electron-log');
@@ -69,14 +70,14 @@ app.on('ready', () => {
     show: false,
     center: true,
     frame: false,
-    title: 'mdyna',
+    title: 'MDyna',
     nodeIntegrationInWorker: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       devTools: true,
       textAreasAreResizable: false,
     },
-    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogo.png'),
   });
 
   const splash = new BrowserWindow({
@@ -86,7 +87,7 @@ app.on('ready', () => {
     minHeight: 400,
     transparent: true,
     frame: false,
-    icon: path.join(__dirname, 'resources/MdynaLogoCircle.png'),
+    icon: path.join(__dirname, 'resources/MdynaLogo.png'),
   });
 
   splash.loadURL(`file://${__dirname}/splash.html`);
@@ -231,6 +232,34 @@ app.on('ready', () => {
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
 
+  // * EXPORT BOARD EVENT
+  ipcMain.on('EXPORT_BOARD', (e, board) => {
+    logger.log('Exporting cards from ', board, ' board');
+    dialog.showOpenDialog(
+      {
+        properties: ['openFile', 'openDirectory'],
+      },
+      (files) => {
+        const exportDirectory = files && files[0];
+        const exportAllCards = Boolean(board === 'INBOX');
+        if (exportDirectory) {
+          logger.log('Exporting cards to ', exportDirectory);
+          const userCards = cardStorage.get('state').cards;
+          for (let i = 0; i <= userCards.length; i += 1) {
+            const card = userCards[i];
+            if (card) {
+              const cardTitle = card && card.title;
+              const cardPath = path.join(exportDirectory, `${cardTitle}.md`);
+              if (exportAllCards || card.board === board) {
+                logger.log('Exporting card ', cardTitle, 'to', cardPath);
+                jetpack.write(cardPath, card.text);
+              }
+            }
+          }
+        }
+      },
+    );
+  });
   // * CHANGE CWD EVENT
   ipcMain.on('CHANGED-CWD', () => {
     logger.info('CURRENT WORKING DIRECTORY CHANGED');

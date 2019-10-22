@@ -5,9 +5,8 @@ import uniqid from 'uniqid';
 import { Box, Text } from 'grommet';
 import { RIEInput } from 'riek';
 import cx from 'classnames';
-import {
-  Add, Projects, Edit, Trash,
-} from 'grommet-icons';
+import { Add, Edit, Trash } from 'grommet-icons';
+import BoardsIcon from 'UI/BoardsIcon';
 import Error from 'UI/Error';
 import Button from 'UI/Button';
 
@@ -107,12 +106,7 @@ class BoardsDialog extends PureComponent {
               board
             )}
             <Button onClick={() => changeActiveBoard(this.getBoardId(board))}>
-              <Projects
-                color={
-                  (activeBoard === this.getBoardId(board) && 'accent-3')
-                  || 'brand'
-                }
-              />
+              <BoardsIcon />
             </Button>
             {board !== 'INBOX' && (
               <Button
@@ -139,7 +133,7 @@ class BoardsDialog extends PureComponent {
       <Box className="boards-dialog" direction="column" background="dark-2">
         <Box direction="row" align="center" justify="between">
           <Text size="xlarge">
-            <Projects color="brand" />
+            <BoardsIcon />
             Boards
           </Text>
           {toggleBoardsDialog && (

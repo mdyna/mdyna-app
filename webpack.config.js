@@ -16,7 +16,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist', 'web'),
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.json'],
     alias: {
       Components: path.resolve(__dirname, 'app/components'),
       Containers: path.resolve(__dirname, 'app/containers'),
@@ -86,7 +86,7 @@ module.exports = {
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'url-loader?limit=10000&mimetype=image/svg+xml',
+        use: 'svg-inline-loader',
       },
     ],
   },

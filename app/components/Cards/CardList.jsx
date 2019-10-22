@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
-import { Add, Previous, Next } from 'grommet-icons';
+import Tooltip from 'UI/Tooltip';
+import {
+  Add, Previous, Next, Download as Export,
+} from 'grommet-icons';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
@@ -12,6 +17,10 @@ import BoardPicker from 'UI/BoardPicker';
 import './CardList.scss'; // eslint-disable-line
 
 export default class CardList extends PureComponent {
+  static callFolderPicker(board) {
+    ipcRenderer.send('EXPORT_BOARD', board);
+  }
+
   state = {
     pageView: 1,
     pageIndex: 0,
@@ -144,6 +153,7 @@ export default class CardList extends PureComponent {
       boardNames,
       createBoard,
       toggleBoardsDialog,
+      activeBoardId,
       boards,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
@@ -170,6 +180,12 @@ export default class CardList extends PureComponent {
           boards={boards}
           toggleBoardsDialog={toggleBoardsDialog}
         />
+        <Button onClick={() => CardList.callFolderPicker(activeBoardId)}>
+          <Tooltip
+            icon={<Export color="brand" />}
+            text="Export all cards from this board as Markdown files"
+          />
+        </Button>
         {this.renderAddNoteButton()}
         <Text align="center" size="medium">
           {cardItems && cardItems.length
@@ -269,6 +285,7 @@ CardList.propTypes = {
   createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
+  activeBoardId: PropTypes.string,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
@@ -279,6 +296,7 @@ CardList.defaultProps = {
   cardsPerPage: 8,
   boards: {},
   labelFilters: [],
+  activeBoardId: '',
   boardNames: [],
   searchInput: '',
   cards: [],

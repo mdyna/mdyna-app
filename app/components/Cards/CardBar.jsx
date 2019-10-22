@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Archive, Trash, Edit, View,
-} from 'grommet-icons';
+import { Archive, Trash, Edit } from 'grommet-icons';
+import FocusIcon from 'UI/FocusIcon';
 import { toast } from 'react-toastify';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
@@ -52,7 +51,9 @@ class CardBar extends PureComponent {
               >
                 <Tooltip
                   text="Focus this card"
-                  icon={<View color={isFocused ? 'accent-3' : card.color} />}
+                  icon={
+                    <FocusIcon color={isFocused ? 'accent-3' : card.color} />
+                  }
                 />
               </Button>
               <Button
