@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
-import { Projects, Add } from 'grommet-icons';
+import { Add } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import Button from 'UI/Button';
+import BoardsIcon from 'UI/BoardsIcon';
+import styled from 'styled-components';
 import { validateBoards } from '../BoardsDialog';
 
 import './BoardPicker.scss';
+
+const ManageBoardsLabel = styled.span`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`;
 
 export default class BoardPicker extends Component {
   getBoardId(boardName) {
@@ -35,33 +43,22 @@ export default class BoardPicker extends Component {
       <Menu
         icon={(
           <Button>
-            <Projects
-              color="brand"
-              style={{
-                verticalAlign: 'bottom',
-              }}
-            />
+            <BoardsIcon />
           </Button>
 )}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label=""
+        label="Boards"
         dropAlign={{ top: 'bottom' }}
         items={[
           {
             label: (
-              <Text>
+              <ManageBoardsLabel>
                 Manage Boards
                 {' '}
-                <Projects
-                  color="brand"
-                  style={{
-                    verticalAlign: 'bottom',
-                    margin: '0 5px',
-                  }}
-                />
-              </Text>
+                <BoardsIcon />
+              </ManageBoardsLabel>
             ),
             onClick: () => toggleBoardsDialog(),
           },
