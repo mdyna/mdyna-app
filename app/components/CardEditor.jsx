@@ -176,8 +176,8 @@ export default class CardEditor extends Component {
     if (validateFields(editorSettings)) {
       this.handleLabels();
       toggleEditor();
-      const newCard = { ...editorSettings, startDate: new Date() };
       if (editorSettings.newCard) {
+        const newCard = { ...editorSettings, startDate: new Date() };
         addCard(newCard);
       } else {
         this.updateCard(editorSettings);

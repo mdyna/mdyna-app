@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { toArray } from 'react-emoji-render';
 import emoji from 'emoji-dictionary';
 import Editor from 'rich-markdown-editor';
+// eslint-disable-next-line
+import { ipcRenderer } from 'electron';
+import ImgurService from 'Utils/imgurService';
 import MarkdownSerializer from 'slate-md-serializer';
 import { getPalette } from '../themes/themeBuilder';
 import { getCodeTheme, getEditorTheme } from './MarkdownEditorThemes';
@@ -20,6 +23,11 @@ const parseEmojis = (value) => {
 
 const Markdown = new MarkdownSerializer();
 class MarkdownEditor extends React.PureComponent {
+  static async uploadImg(img) {
+    const link = await ImgurService.uploadFile(img);
+    return link;
+  }
+
   editorRef = React.createRef();
 
   componentDidUpdate(prevProps) {
@@ -69,6 +77,7 @@ class MarkdownEditor extends React.PureComponent {
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
         autoFocus={!readOnly}
+        uploadImage={async img => MarkdownEditor.uploadImg(img)}
         defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}
         plugins={[
