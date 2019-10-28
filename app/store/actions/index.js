@@ -38,32 +38,27 @@ export const editCard = card => ({
   type: ACTION_TYPES.CARD.EDIT_CARD,
   card,
 });
+export const changeCardSetting = (prop, value, cardId) => ({
+  type: ACTION_TYPES.CARD.CHANGE_CARD_SETTING,
+  prop,
+  value,
+  cardId,
+  meta: {
+    debounce: {
+      time: (prop === 'editingText' || prop === 'editingTitle') && 250,
+    },
+  },
+});
 
 const CARD = {
   addCard,
   saveCard,
   toggleCard,
   changeTitle,
+  changeCardSetting,
   updateCardList,
   editCard,
   removeCard,
-};
-
-// ──── EDITOR ACTIONS ────────────────────────────────────────────────────────────────────
-
-export const changeCardSetting = (prop, value) => ({
-  type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
-  prop,
-  value,
-  meta: {
-    debounce: {
-      time: (prop === 'text' || prop === 'labels' || prop === 'title') && 500,
-    },
-  },
-});
-
-const CARD_EDITOR = {
-  changeCardSetting,
 };
 
 // ──── SETTINGS ACTIONS ──────────────────────────────────────────────────────────────────
@@ -275,7 +270,6 @@ const FILTERS = {
 export default {
   FILTERS,
   SETTINGS,
-  CARD_EDITOR,
   BOARDS,
   LABEL,
   CARD,

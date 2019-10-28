@@ -15,7 +15,6 @@ import Button from 'UI/Button';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
-import MdynaCard from './CardItem';
 
 export default class CardList extends PureComponent {
   static callFolderPicker(board) {
@@ -95,9 +94,7 @@ export default class CardList extends PureComponent {
     return (
       <Button
         onClick={() => {
-          addCard({
-            color: MdynaCard.getRandomColor(),
-          });
+          addCard();
         }}
         className="page-control add-note-btn"
       >
@@ -221,7 +218,7 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      cards, toggleEditor, searchInput, cardsPerPage,
+      cards, addCard, searchInput, cardsPerPage,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -239,10 +236,7 @@ export default class CardList extends PureComponent {
     };
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
-        <KeyboardEventHandler
-          handleKeys={['a']}
-          onKeyEvent={() => toggleEditor(true)}
-        />
+        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => addCard()} />
         {this.renderCardControls(cardItems)}
         {cards.length ? (
           <React.Fragment>
@@ -280,7 +274,7 @@ export default class CardList extends PureComponent {
 }
 
 CardList.propTypes = {
-  toggleEditor: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.array,
@@ -290,7 +284,6 @@ CardList.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
   activeBoard: PropTypes.string.isRequired,
-  addCard: PropTypes.func.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,

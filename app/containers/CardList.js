@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
-import CardList from '../components/Cards/CardList';
+import CardList from 'Components/Cards/CardList';
+import MdynaCard from 'Components/Cards/CardItem';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard } = FILTERS;
@@ -18,7 +19,12 @@ function mapDispatchToProps(dispatch) {
       dispatch(createBoard(board));
     },
     addCard: (card) => {
-      dispatch(addCard(card));
+      dispatch(
+        addCard({
+          card,
+          color: (card && card.color) || MdynaCard.getRandomColor(),
+        }),
+      );
     },
   };
 }

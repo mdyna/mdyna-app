@@ -72,7 +72,7 @@ class Sidebar extends Component {
       addLabelFilter,
       removeLabelFilter,
       sidebarExpanded,
-      toggleEditor,
+      addCard,
       toggleBoardsDialog,
       toggleSettings,
       toggleArchivedFilter,
@@ -87,7 +87,7 @@ class Sidebar extends Component {
     return (
       <Collapsible direction="horizontal" open={sidebarExpanded}>
         <Box direction="column" align="end">
-          <Button onClick={() => toggleEditor(true)} className="add-note-btn">
+          <Button onClick={() => addCard()} className="add-note-btn">
             <AddCircle color="brand" />
             <Text className="menu-label">Add Card</Text>
           </Button>
@@ -181,7 +181,7 @@ class Sidebar extends Component {
       sidebarExpanded,
       toggleSidebar,
       toggleSettings,
-      toggleEditor,
+      addCard,
       toggleArchivedFilter,
       toggleBoardsDialog,
       archivedFilterOn,
@@ -216,7 +216,7 @@ class Sidebar extends Component {
             title="Add card"
             text="Add card (Use 'A' hotkey)"
             onClick={() => {
-              toggleEditor(true);
+              addCard();
             }}
           />
           <Tooltip
@@ -291,7 +291,7 @@ Sidebar.propTypes = {
   toggleSidebar: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
-  toggleEditor: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
   toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
   sorting: PropTypes.string,

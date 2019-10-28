@@ -8,8 +8,13 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
+import MdynaCard from 'Components/Cards/CardItem';
 
-const { SETTINGS, FILTERS, BOARDS } = ACTIONS;
+const {
+  SETTINGS, FILTERS, BOARDS, CARD,
+} = ACTIONS;
+
+const { addCard } = CARD;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
@@ -67,6 +72,14 @@ function mapDispatchToProps(dispatch) {
     },
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
+    },
+    addCard: (card) => {
+      dispatch(
+        addCard({
+          card,
+          color: (card && card.color) || MdynaCard.getRandomColor(),
+        }),
+      );
     },
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));

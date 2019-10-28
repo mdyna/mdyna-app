@@ -37,6 +37,16 @@ class MdynaCard extends PureComponent {
 
   name = 'Mdyna Card';
 
+  getCardContent() {
+    const { card } = this.props;
+    const {
+      isEditing, text, title, editingText, editingTitle,
+    } = card;
+    return !isEditing
+      ? { title, text }
+      : { title: editingTitle, text: editingText };
+  }
+
   scrollToCard() {
     // eslint-disable-next-line
     ReactDOM.findDOMNode(this).scrollIntoView({
@@ -90,9 +100,11 @@ class MdynaCard extends PureComponent {
     } = this.props;
     const { isHovered } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
+    const cardContent = this.getCardContent();
     const color = (card && card.color)
       || (changeCardSetting
-        && changeCardSetting('color', MdynaCard.getRandomColor()));
+        && changeCardSetting('color', MdynaCard.getRandomColor()),
+      card.id);
     const cardActions = {
       toggleCard,
       removeCard,
@@ -129,7 +141,8 @@ ${card.text}`;
         }
         style={{
           backgroundColor: color,
-          transition: 'width 0.5s ease-in',
+          transition: 'all 0.5s ease-in',
+          border: card.isEditing && `2px solid ${tinycolor(color).darken(25)}`,
           filter:
             (isHovered
               && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
@@ -153,14 +166,14 @@ ${card.text}`;
 
         <Editor
           readOnly={!card.isEditing}
-          card={card}
-          defaultValue={card.text}
+          card={{ ...card, title: cardContent.title, text: cardContent.text }}
+          defaultValue={cardContent.text}
           onSave={c => saveCard(c, isFocused)}
           codeTheme={codeTheme}
-          changeTitle={val => changeCardSetting('title', val)}
+          changeTitle={val => changeCardSetting('editingTitle', val, card.id)}
           whiteMode={whiteMode}
-          value={getCardText(card.title, card.text)}
-          onChange={val => changeCardSetting('text', val)}
+          value={getCardText(cardContent.title, cardContent.text)}
+          onChange={val => changeCardSetting('editingText', val, card.id)}
           theme={{
             backgroundColor: 'transparent',
           }}

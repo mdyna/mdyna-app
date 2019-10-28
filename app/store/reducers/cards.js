@@ -7,6 +7,7 @@ const {
   REMOVE_CARD,
   TOGGLE_CARD,
   SAVE_CARD,
+  CHANGE_CARD_SETTING,
   EDIT_CARD,
   CHANGE_TITLE,
   UPDATE_CARD_LIST,
@@ -32,6 +33,16 @@ export default function cards(state = [], action) {
       ];
     case REMOVE_CARD:
       return state.filter(card => card.id !== action.card.id);
+    case CHANGE_CARD_SETTING:
+      return state.map((card) => {
+        if (card.id === action.cardId) {
+          const newCard = { ...card };
+          newCard[action.prop] = action.value;
+          return newCard;
+        }
+        return card;
+      });
+
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
@@ -41,6 +52,10 @@ export default function cards(state = [], action) {
             id: cardId,
             lastEditDate: new Date(),
             isEditing: false,
+            text: action.card.editingText,
+            title: action.card.editingTitle,
+            editingText: '',
+            editingTitle: '',
           };
         }
         return card;
@@ -77,7 +92,7 @@ export default function cards(state = [], action) {
             editingTitle: card.title,
           };
         }
-        return card;
+        return { ...card, isEditing: false };
       });
     /*
     case GENERATE_LINK:

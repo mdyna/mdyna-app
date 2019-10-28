@@ -4,17 +4,15 @@ import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
+  CARD, LABEL, FILTERS, SETTINGS,
 } = ACTIONS;
-
-const { changeCardSetting } = CARD_EDITOR;
 
 const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
 const {
-  removeCard, toggleCard, saveCard, editCard,
+  removeCard, toggleCard, saveCard, editCard, changeCardSetting,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
@@ -26,14 +24,14 @@ function mapDispatchToProps(dispatch) {
       dispatch(updateDeletedCards(card.id));
       await Gists.updateDeletedCards(card.id);
     },
+    changeCardSetting: (prop, value, cardId) => {
+      dispatch(changeCardSetting(prop, value, cardId));
+    },
     editCard: (card) => {
       dispatch(editCard(card));
     },
     toggleCard: (card) => {
       dispatch(toggleCard(card));
-    },
-    changeCardSetting: (setting, card) => {
-      dispatch(changeCardSetting(setting, card));
     },
     saveCard: (card, isFocused) => {
       dispatch(saveCard(card));
