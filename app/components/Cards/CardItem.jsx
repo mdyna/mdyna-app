@@ -13,19 +13,6 @@ import CardBar from './CardBar';
 
 import './CardItem.scss'; // eslint-disable-line
 
-export const COLOR_SAMPLES = [
-  '#ff8a80',
-  '#ff80ab',
-  '#ea80fc',
-  '#8c9eff',
-  '#80d8ff',
-  '#a7ffeb',
-  '#b9f6ca',
-  '#fff475',
-  '#ffd180',
-  '#a7c0cd',
-];
-
 const COLOR_LABELS = {
   '#ff8a80': 'red',
   '#ff80ab': 'pink',
@@ -40,6 +27,10 @@ const COLOR_LABELS = {
 };
 
 class MdynaCard extends PureComponent {
+  static getRandomColor() {
+    return sample(Object.keys(COLOR_LABELS));
+  }
+
   state = {
     isHovered: false,
   };
@@ -96,13 +87,13 @@ class MdynaCard extends PureComponent {
       readOnly,
       labelFilters,
       whiteMode,
-      newCard,
-      editorSettings,
       codeTheme,
     } = this.props;
     const { isHovered } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
-    const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
+    const color = (card && card.color)
+      || (changeCardSetting
+        && changeCardSetting('color', MdynaCard.getRandomColor()));
     const cardActions = {
       toggleCard,
       removeCard,
@@ -165,7 +156,7 @@ ${card.text}`;
           readOnly={readOnly}
           card={card}
           defaultValue={card.text}
-          onSave={c => saveCard(c, isFocused, newCard, editorSettings)}
+          onSave={c => saveCard(c, isFocused)}
           codeTheme={codeTheme}
           changeTitle={val => changeCardSetting('title', val)}
           whiteMode={whiteMode}
@@ -183,9 +174,7 @@ ${card.text}`;
 export default MdynaCard;
 
 MdynaCard.propTypes = {
-  editorSettings: PropTypes.object,
   card: PropTypes.object.isRequired,
-  newCard: PropTypes.bool,
   isFocused: PropTypes.bool,
   readOnly: PropTypes.bool,
   codeTheme: PropTypes.string,
@@ -206,13 +195,11 @@ MdynaCard.propTypes = {
 
 MdynaCard.defaultProps = {
   changeCardSetting: null,
-  newCard: false,
   removeCard: null,
   saveCard: null,
   editCard: null,
   isFocused: false,
   codeTheme: 'Default',
-  editorSettings: {},
   whiteMode: false,
   addLabelFilter: null,
   removeLabelFilter: null,

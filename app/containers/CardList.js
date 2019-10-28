@@ -2,15 +2,12 @@ import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from '../components/Cards/CardList';
 
-const { CARD_EDITOR, FILTERS, BOARDS } = ACTIONS;
-const { toggleEditor } = CARD_EDITOR;
+const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard } = FILTERS;
+const { addCard } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 function mapDispatchToProps(dispatch) {
   return {
-    toggleEditor: () => {
-      dispatch(toggleEditor());
-    },
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
     },
@@ -19,6 +16,9 @@ function mapDispatchToProps(dispatch) {
     },
     createBoard: (board) => {
       dispatch(createBoard(board));
+    },
+    addCard: (card) => {
+      dispatch(addCard(card));
     },
   };
 }

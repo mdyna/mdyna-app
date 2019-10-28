@@ -9,9 +9,7 @@ import {
   SORTING_BY_TITLE,
 } from 'Utils/globals';
 
-const {
-  SETTINGS, FILTERS, BOARDS, CARD_EDITOR,
-} = ACTIONS;
+const { SETTINGS, FILTERS, BOARDS } = ACTIONS;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
@@ -21,8 +19,6 @@ const {
   deleteBoard,
   changeBoardName,
 } = BOARDS;
-
-const { toggleEditor } = CARD_EDITOR;
 
 const {
   searchCards,
@@ -53,9 +49,6 @@ function mapDispatchToProps(dispatch) {
     },
     toggleSidebar: () => {
       dispatch(toggleSidebar());
-    },
-    toggleEditor: () => {
-      dispatch(toggleEditor());
     },
     focusCard: () => {
       dispatch(focusCard(false));
@@ -127,7 +120,6 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
-    modalOpen: state.editor.toggleEditor,
     boards: state.boards.boardList,
     boardNames: state.boards.boardNames,
     boardsDialogOpen: state.boards.boardsDialogOpen,

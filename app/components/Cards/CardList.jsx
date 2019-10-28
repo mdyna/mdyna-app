@@ -15,6 +15,7 @@ import Button from 'UI/Button';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
+import MdynaCard from './CardItem';
 
 export default class CardList extends PureComponent {
   static callFolderPicker(board) {
@@ -89,12 +90,14 @@ export default class CardList extends PureComponent {
   }
 
   renderAddNoteButton() {
-    const { toggleEditor } = this.props;
+    const { addCard } = this.props;
 
     return (
       <Button
         onClick={() => {
-          toggleEditor(true);
+          addCard({
+            color: MdynaCard.getRandomColor(),
+          });
         }}
         className="page-control add-note-btn"
       >
@@ -287,6 +290,7 @@ CardList.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
   activeBoard: PropTypes.string.isRequired,
+  addCard: PropTypes.func.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,

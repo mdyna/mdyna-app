@@ -34,6 +34,11 @@ export const updateCardList = content => ({
   content,
 });
 
+export const editCard = card => ({
+  type: ACTION_TYPES.CARD.EDIT_CARD,
+  card,
+});
+
 const CARD = {
   addCard,
   saveCard,
@@ -44,10 +49,6 @@ const CARD = {
 };
 
 // ──── EDITOR ACTIONS ────────────────────────────────────────────────────────────────────
-
-export const toggleEditor = () => ({
-  type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
-});
 
 export const changeCardSetting = (prop, value) => ({
   type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
@@ -60,14 +61,7 @@ export const changeCardSetting = (prop, value) => ({
   },
 });
 
-export const editCard = card => ({
-  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
-  card,
-});
-
 const CARD_EDITOR = {
-  toggleEditor,
-  editCard,
   changeCardSetting,
 };
 
