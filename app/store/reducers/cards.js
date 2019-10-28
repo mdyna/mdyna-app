@@ -7,6 +7,7 @@ const {
   REMOVE_CARD,
   TOGGLE_CARD,
   SAVE_CARD,
+  EDIT_CARD,
   CHANGE_TITLE,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
@@ -35,7 +36,12 @@ export default function cards(state = [], action) {
       return state.map((card) => {
         if (card.id === action.card.id) {
           const cardId = String(card.id).length < 5 ? uniqid() : card.id;
-          return { ...action.card, id: cardId, lastEditDate: new Date() };
+          return {
+            ...action.card,
+            id: cardId,
+            lastEditDate: new Date(),
+            isEditing: false,
+          };
         }
         return card;
       });
@@ -55,6 +61,20 @@ export default function cards(state = [], action) {
           return {
             ...card,
             completed: !card.completed && !card.archived,
+          };
+        }
+        return card;
+      });
+    case EDIT_CARD:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: true,
+            editingText: card.text,
+            editingTitle: card.title,
           };
         }
         return card;

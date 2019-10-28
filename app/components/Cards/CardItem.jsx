@@ -84,7 +84,6 @@ class MdynaCard extends PureComponent {
       removeLabel,
       addLabelFilter,
       removeLabelFilter,
-      readOnly,
       labelFilters,
       whiteMode,
       codeTheme,
@@ -153,7 +152,7 @@ ${card.text}`;
         {this.renderCardDate()}
 
         <Editor
-          readOnly={readOnly}
+          readOnly={!card.isEditing}
           card={card}
           defaultValue={card.text}
           onSave={c => saveCard(c, isFocused)}
@@ -176,7 +175,6 @@ export default MdynaCard;
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   isFocused: PropTypes.bool,
-  readOnly: PropTypes.bool,
   codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
@@ -204,7 +202,6 @@ MdynaCard.defaultProps = {
   addLabelFilter: null,
   removeLabelFilter: null,
   removeLabel: null,
-  readOnly: true,
   labelFilters: [],
   focusCard: null,
   toggleCard: null,

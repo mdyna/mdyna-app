@@ -64,7 +64,7 @@ class Tooltip extends PureComponent {
     return (
       <React.Fragment>
         <Box
-          onClick={() => onClick()}
+          onClick={() => onClick && onClick()}
           className={cx('tip-icon', className)}
           ref={this.TooltipRef}
           target={icon}

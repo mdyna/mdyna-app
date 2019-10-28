@@ -45,6 +45,7 @@ const CARD = {
   toggleCard,
   changeTitle,
   updateCardList,
+  editCard,
   removeCard,
 };
 

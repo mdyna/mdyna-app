@@ -7,13 +7,15 @@ const {
   CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
 } = ACTIONS;
 
-const { editCard, changeCardSetting } = CARD_EDITOR;
+const { changeCardSetting } = CARD_EDITOR;
 
 const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
-const { removeCard, toggleCard, saveCard } = CARD;
+const {
+  removeCard, toggleCard, saveCard, editCard,
+} = CARD;
 
 const { updateDeletedCards } = SETTINGS;
 
