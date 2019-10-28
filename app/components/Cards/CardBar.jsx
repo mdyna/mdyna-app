@@ -36,7 +36,7 @@ class CardBar extends PureComponent {
               <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
                 <Tooltip
                   icon={<Edit color={card.color} />}
-                  text="Edit this card"
+                  text="Edit this card (You can also double click the card)"
                 />
               </Button>
               <Button
