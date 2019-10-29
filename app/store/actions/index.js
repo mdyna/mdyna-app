@@ -11,6 +11,11 @@ import ACTION_TYPES from './actionTypes';
 export const addCard = card => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
   card,
+  meta: {
+    debounce: {
+      time: 1000,
+    },
+  },
 });
 export const saveCard = card => ({
   type: ACTION_TYPES.CARD.SAVE_CARD,
