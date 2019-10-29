@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
+import { Checkmark, Close } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
+import Button from 'UI/Button';
 import Editor from 'Components/MarkdownEditor';
 import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
@@ -163,7 +165,18 @@ ${card.text}`;
           color={color}
         />
         {this.renderCardDate()}
-
+        {card.isEditing && (
+          <Box direction="row" justify="evenly">
+            <Button hoverIndicator={false} color="accent-3">
+              Submit
+              <Checkmark color="accent-3" size="18px" />
+            </Button>
+            <Button hoverIndicator={false} color="accent-2">
+              Discard
+              <Close color="accent-2" size="18px" />
+            </Button>
+          </Box>
+        )}
         <Editor
           readOnly={!card.isEditing}
           card={{ ...card, title: cardContent.title, text: cardContent.text }}
