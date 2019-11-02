@@ -29,14 +29,43 @@ function mapDispatchToProps(dispatch) {
       dispatch(updateDeletedCards(card.id));
       await Gists.updateDeletedCards(card.id);
     },
-    changeCardSetting: (prop, value, cardId) => {
+    changeCardSetting: (prop, value, cardId, isFocused, card) => {
       dispatch(changeCardSetting(prop, value, cardId));
+      if (isFocused) {
+        const editedCard = { ...card };
+        editedCard[prop] = value;
+        dispatch(focusCard(editedCard));
+      }
     },
-    discardCardChanges: (card) => {
+    discardCardChanges: (card, isFocused) => {
       dispatch(discardCardChanges(card));
+      if (isFocused) {
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: false,
+            editingText: '',
+            editingColor: '',
+            editingLabels: '',
+            editingTitle: '',
+          }),
+        );
+      }
     },
-    editCard: (card) => {
+    editCard: (card, isFocused) => {
       dispatch(editCard(card));
+      if (isFocused && !card.isEditing) {
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: !card.isEditing,
+            editingText: card.text,
+            editingLabels: card.labels,
+            editingColor: card.color,
+            editingTitle: card.title,
+          }),
+        );
+      }
     },
     toggleCard: (card) => {
       dispatch(toggleCard(card));
@@ -44,7 +73,16 @@ function mapDispatchToProps(dispatch) {
     saveCard: (card, isFocused) => {
       dispatch(saveCard(card));
       if (isFocused) {
-        dispatch(focusCard(card));
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: false,
+            text: card.editingText || card.text,
+            color: card.editingColor || card.color,
+            labels: card.editingLabels || card.labels,
+            title: card.editingTitle || card.title,
+          }),
+        );
       }
     },
     addLabel: (val) => {

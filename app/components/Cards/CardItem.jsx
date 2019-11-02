@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ import CardEditor from './CardEditor';
 
 import './CardItem.scss'; // eslint-disable-line
 
-class MdynaCard extends PureComponent {
+class MdynaCard extends Component {
   name = 'Mdyna Card';
 
   getCardContent() {
@@ -81,9 +81,10 @@ class MdynaCard extends PureComponent {
     } = this.props;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardContent = this.getCardContent();
-    const color = (card && card.color)
-      || (changeCardSetting && changeCardSetting('color', getRandomColor()),
-      card.id);
+    const color = (card && card.editingColor)
+      || card.color
+      || (changeCardSetting
+        && changeCardSetting('color', getRandomColor(), card.id, isFocused, card));
     const cardActions = {
       toggleCard,
       removeCard,
@@ -107,7 +108,7 @@ ${card.text}`;
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
-          cardActions.editCard(card);
+          cardActions.editCard(card, isFocused);
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item')}
         style={{
@@ -124,12 +125,13 @@ ${card.text}`;
           handleKeys={['esc']}
           onKeyEvent={(key) => {
             if (card.isEditing && key === 'esc') {
-              discardCardChanges(card);
+              discardCardChanges(card, Boolean(isFocused));
             }
           }}
         >
           <CardBar
             card={card}
+            color={color}
             isFocused={Boolean(isFocused)}
             cardActions={hasCardBar ? cardActions : ''}
             cardItem={this}
@@ -144,9 +146,12 @@ ${card.text}`;
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor
-              onSubmit={c => saveCard(c)}
+              onSubmit={c => saveCard(c, isFocused)}
               card={card}
-              onDiscard={() => discardCardChanges(card)}
+              color={color}
+              isFocused={isFocused}
+              onChange={changeCardSetting}
+              onDiscard={c => discardCardChanges(c, Boolean(isFocused))}
             />
           )}
           <Editor
@@ -155,10 +160,12 @@ ${card.text}`;
             defaultValue={cardContent.text}
             onSave={c => saveCard(c, isFocused)}
             codeTheme={codeTheme}
-            changeTitle={val => changeCardSetting('editingTitle', val, card.id)}
+            changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
+            }
             whiteMode={whiteMode}
             value={getCardText(cardContent.title, cardContent.text)}
-            onChange={val => changeCardSetting('editingText', val, card.id)}
+            onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
+            }
             theme={{
               backgroundColor: 'transparent',
             }}

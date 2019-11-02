@@ -53,6 +53,12 @@ export default function cards(state = [], action) {
             isEditing: false,
             text: action.card.text,
             title: action.card.title,
+            labels: action.card.labels,
+            color: action.card.color,
+            editingColor: '',
+            editingLabels: [],
+            editingText: '',
+            editingTitle: '',
           };
         }
         return card;
@@ -68,7 +74,11 @@ export default function cards(state = [], action) {
             lastEditDate: new Date(),
             isEditing: false,
             text: action.card.editingText,
+            labels: action.card.editingLabels,
+            color: action.card.editingColor,
             title: action.card.editingTitle,
+            editingColor: '',
+            editingLabels: [],
             editingText: '',
             editingTitle: '',
           };
@@ -103,6 +113,8 @@ export default function cards(state = [], action) {
             ...action.card,
             id: cardId,
             isEditing: true,
+            editingLabels: card.labels,
+            editingColor: card.color,
             editingText: card.text,
             editingTitle: card.title,
           };
