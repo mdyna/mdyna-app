@@ -72,11 +72,13 @@ class MdynaCard extends Component {
       focusCard,
       editCard,
       removeLabel,
+      addLabel,
       discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
       labelFilters,
       whiteMode,
+      globalLabels,
       codeTheme,
     } = this.props;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
@@ -151,6 +153,13 @@ ${card.text}`;
               color={color}
               isFocused={isFocused}
               onChange={changeCardSetting}
+              labelPickerProps={{
+                onAdd: addLabel,
+                onRemove: removeLabel,
+                cardLabels: card.labels,
+                onChange: v => changeCardSetting('labels', v, card.id, isFocused, card),
+                globalLabels,
+              }}
               onDiscard={c => discardCardChanges(c, Boolean(isFocused))}
             />
           )}
@@ -194,6 +203,8 @@ MdynaCard.propTypes = {
   removeLabel: PropTypes.func,
   changeCardSetting: PropTypes.func,
   focusCard: PropTypes.func,
+  globalLabels: PropTypes.array,
+  addLabel: PropTypes.func.isRequired,
   addLabelFilter: PropTypes.func,
   removeLabelFilter: PropTypes.func,
 };
@@ -204,6 +215,7 @@ MdynaCard.defaultProps = {
   saveCard: null,
   editCard: null,
   isFocused: false,
+  globalLabels: [],
   codeTheme: 'Default',
   whiteMode: false,
   addLabelFilter: null,

@@ -1,108 +1,146 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextInput } from 'grommet';
+import { Box, Keyboard, TextInput } from 'grommet';
+import Button from 'Components/UI/Button';
+import { Tag } from 'grommet-icons';
 import { camelCase, snakeCase, startCase } from 'lodash';
 
-const LabelPicker = (props) => {
-  const {
-    label, labels, value, onChange, setting,
-  } = props;
-  const [labelInput, changeValue] = useState('');
-  const [labelCount, setCount] = useState(0);
+const TagInput = ({
+  globalLabels = [],
+  onAdd,
+  onChange,
+  onRemove,
+  value,
+  suggestions,
+}) => {
+  console.log(value, globalLabels);
+  const [currentTag, setCurrentTag] = React.useState('');
+  const [box, setBox] = React.useState();
+  const boxRef = React.useCallback(setBox, []);
 
-  const getSuggestions = () => {
-    const inputLabels = labelInput.split(' ');
-    const lastLabel = inputLabels[inputLabels.length - 1];
-    const lastLabelLength = lastLabel.length;
-    const userLabels = labels && labels.map(d => d.title);
-    return userLabels
-      .filter(
-        d => d.slice(0, lastLabelLength) === lastLabel
-          && inputLabels.indexOf(d) === -1,
-      )
-      .slice(0, 5);
-  };
-
-  const changeStringSplit = (schema, val) => {
-    const { prefixer, splitters } = schema;
-    const settingName = schema.settingName || 'labels';
-    const result = [];
-    for (
-      let splitterIndex = 0;
-      splitterIndex < splitters.length;
-      splitterIndex += 1
-    ) {
-      const splitter = splitters[splitterIndex];
-      const splitVals = val.split(splitter);
-      if (splitVals.length !== labelCount) {
-        setCount(labelCount);
-      }
-      for (let i = 0; i < splitVals.length; i += 1) {
-        const splitVal = splitVals[i].trim();
-        if (splitVal && splitter !== splitVal && splitVal !== prefixer) {
-          result.push(`${prefixer}${camelCase(splitVal)}`);
-        }
-      }
+  const updateCurrentTag = (event) => {
+    setCurrentTag(event.target.value);
+    if (onChange) {
+      onChange(event);
     }
-    const newLabels = result.map(d => ({
-      title: d,
-    }));
-    onChange(camelCase(settingName), newLabels);
   };
+
+  const onAddTag = (tag) => {
+    if (onAdd) {
+      onAdd(tag);
+    }
+  };
+
+  const onEnter = () => {
+    if (currentTag.length) {
+      onAddTag(currentTag);
+      setCurrentTag('');
+    }
+  };
+
+  const renderValue = () => value.map((v, index) => (
+    <Tag
+      margin="xxsmall"
+      key={`${v}${index + 0}`}
+      onRemove={() => onRemove(v)}
+    >
+      {v}
+    </Tag>
+  ));
 
   return (
-    <TextInput
-      key={label}
-      id={snakeCase(label)}
-      suggestions={
-        labels
-        && getSuggestions(labels.map(d => ({ label: d.title, value: d.title })))
-      }
-      focus={false}
-      defaultValue={
-        value
-          ? `${value
-            .map(d => d.title)
-            .join(' ')
-            .trim()} #`
-          : '#'
-      }
-      onSelect={(e) => {
-        const selectedValue = `${labelInput.substring(
-          0,
-          labelInput.lastIndexOf(' '),
-        )} ${e.suggestion} #`;
-        if (selectedValue) {
-          changeStringSplit(setting, selectedValue);
-          changeValue(selectedValue);
-          e.target.value = selectedValue;
-        }
-      }}
-      placeHolder={startCase(label)}
-      onChange={(e) => {
-        if (e.target.value) {
-          changeStringSplit(setting, e.target.value);
-          changeValue(e.target.value);
-        }
-      }}
-    />
+    <Keyboard onEnter={onEnter}>
+      <Box
+        direction="row"
+        align="center"
+        pad={{ horizontal: 'xsmall' }}
+        border="all"
+        ref={boxRef}
+        wrap
+      >
+        {value.length > 0 && renderValue()}
+        <Box flex style={{ minWidth: '120px' }}>
+          <TextInput
+            type="search"
+            plain
+            dropTarget={box}
+            suggestions={suggestions}
+            onChange={updateCurrentTag}
+            value={currentTag}
+            onSelect={(event) => {
+              event.stopPropagation();
+              onAddTag(event.suggestion);
+            }}
+          />
+        </Box>
+      </Box>
+    </Keyboard>
+  );
+};
+
+const LabelPicker = (props) => {
+  const { globalLabels, cardLabels } = props;
+  console.log(globalLabels);
+
+  const [selectedTags, setSelectedTags] = React.useState(cardLabels);
+  const [suggestions, setSuggestions] = React.useState(globalLabels);
+  const [inputHidden, toggleInput] = useState(true);
+
+  const onRemoveTag = (tag) => {
+    const removeIndex = selectedTags.indexOf(tag);
+    const newTags = [...selectedTags];
+    if (removeIndex >= 0) {
+      newTags.splice(removeIndex, 1);
+    }
+    setSelectedTags(newTags);
+  };
+
+  const onAddTag = tag => setSelectedTags([...selectedTags, tag]);
+
+  const onFilterSuggestion = v => setSuggestions(
+    globalLabels.filter(
+      suggestion => suggestion
+          && suggestion.toLowerCase().indexOf(v && v.toLowerCase()) >= 0,
+    ),
+  );
+
+  return (
+    <React.Fragment>
+      <Button
+        className="color-picker-button"
+        onClick={() => toggleInput(!inputHidden)}
+        primary
+        color="accent-1"
+      >
+        <Tag color="brand" />
+      </Button>
+      {!inputHidden && (
+        <TagInput
+          placeholder="Search for aliases..."
+          suggestions={suggestions}
+          value={selectedTags}
+          onRemove={onRemoveTag}
+          onAdd={onAddTag}
+          onChange={v => onFilterSuggestion(v.target.value)}
+        />
+      )}
+    </React.Fragment>
   );
 };
 
 LabelPicker.propTypes = {
-  label: PropTypes.string,
-  setting: PropTypes.object,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  labels: PropTypes.array,
-  onChange: PropTypes.func,
+  globalLabels: PropTypes.array,
+  cardLabels: PropTypes.array,
+  onChange: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 LabelPicker.defaultProps = {
-  label: '',
-  setting: {},
+  cardLabels: [],
   value: '',
-  labels: [''],
-  onChange: null,
+  globalLabels: [''],
 };
 
 export default LabelPicker;

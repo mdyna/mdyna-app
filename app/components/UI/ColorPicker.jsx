@@ -16,7 +16,7 @@ const Input = (props) => {
         className="color-picker-button"
         onClick={() => expandColors(!colorsExpanded)}
         primary
-        color="dark-2"
+        color="accent-1"
       >
         <Paint color="brand" />
       </Button>

@@ -108,6 +108,7 @@ function mapStateToProps(state) {
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     labelFilters: state.filters.labelFilters,
+    globalLabels: state.labels.map(l => l.title),
     codeTheme: state.settings.codeTheme,
   };
 }
