@@ -76,7 +76,7 @@ class MarkdownEditor extends React.PureComponent {
         ref={this.editorRef}
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
-        autoFocus={!readOnly}
+        autoFocus
         uploadImage={async img => MarkdownEditor.uploadImg(img)}
         defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}

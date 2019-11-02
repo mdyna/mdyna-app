@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
 import CardEditor from './CardEditor';
@@ -137,41 +138,50 @@ ${card.text}`;
             || null,
         }}
       >
-        <CardBar
-          card={card}
-          isFocused={Boolean(isFocused)}
-          cardActions={hasCardBar ? cardActions : ''}
-          cardItem={this}
-          title={card.title}
-        />
-        <Labels
-          labelFuncs={labelFuncs}
-          labelFilters={labelFilters}
-          labels={card.labels}
-          color={color}
-        />
-        {this.renderCardDate()}
-        {card.isEditing && (
-          <CardEditor
-            onSubmit={c => saveCard(c)}
-            card={card}
-            onDiscard={() => discardCardChanges(card)}
-          />
-        )}
-        <Editor
-          readOnly={!card.isEditing}
-          card={{ ...card, title: cardContent.title, text: cardContent.text }}
-          defaultValue={cardContent.text}
-          onSave={c => saveCard(c, isFocused)}
-          codeTheme={codeTheme}
-          changeTitle={val => changeCardSetting('editingTitle', val, card.id)}
-          whiteMode={whiteMode}
-          value={getCardText(cardContent.title, cardContent.text)}
-          onChange={val => changeCardSetting('editingText', val, card.id)}
-          theme={{
-            backgroundColor: 'transparent',
+        <KeyboardEventHandler
+          handleKeys={['esc']}
+          onKeyEvent={(key) => {
+            if (card.isEditing && key === 'esc') {
+              discardCardChanges(card);
+            }
           }}
-        />
+        >
+          <CardBar
+            card={card}
+            isFocused={Boolean(isFocused)}
+            cardActions={hasCardBar ? cardActions : ''}
+            cardItem={this}
+            title={card.title}
+          />
+          <Labels
+            labelFuncs={labelFuncs}
+            labelFilters={labelFilters}
+            labels={card.labels}
+            color={color}
+          />
+          {this.renderCardDate()}
+          {card.isEditing && (
+            <CardEditor
+              onSubmit={c => saveCard(c)}
+              card={card}
+              onDiscard={() => discardCardChanges(card)}
+            />
+          )}
+          <Editor
+            readOnly={!card.isEditing}
+            card={{ ...card, title: cardContent.title, text: cardContent.text }}
+            defaultValue={cardContent.text}
+            onSave={c => saveCard(c, isFocused)}
+            codeTheme={codeTheme}
+            changeTitle={val => changeCardSetting('editingTitle', val, card.id)}
+            whiteMode={whiteMode}
+            value={getCardText(cardContent.title, cardContent.text)}
+            onChange={val => changeCardSetting('editingText', val, card.id)}
+            theme={{
+              backgroundColor: 'transparent',
+            }}
+          />
+        </KeyboardEventHandler>
       </Box>
     );
   }
