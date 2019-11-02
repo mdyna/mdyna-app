@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
-import { Checkmark, Close } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
-import Button from 'UI/Button';
 import Editor from 'Components/MarkdownEditor';
 import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
@@ -34,10 +31,6 @@ class MdynaCard extends PureComponent {
     return sample(Object.keys(COLOR_LABELS));
   }
 
-  state = {
-    isHovered: false,
-  };
-
   name = 'Mdyna Card';
 
   getCardContent() {
@@ -50,13 +43,13 @@ class MdynaCard extends PureComponent {
       : { title: editingTitle, text: editingText };
   }
 
+  /*
   scrollToCard() {
-    // eslint-disable-next-line
     ReactDOM.findDOMNode(this).scrollIntoView({
       behavior: 'smooth',
       block: 'center',
     });
-  }
+  } */
 
   renderCardDate() {
     const { card } = this.props;
@@ -102,7 +95,6 @@ class MdynaCard extends PureComponent {
       whiteMode,
       codeTheme,
     } = this.props;
-    const { isHovered } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardContent = this.getCardContent();
     const color = (card && card.color)
@@ -135,20 +127,12 @@ ${card.text}`;
           cardActions.editCard(card);
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item')}
-        onMouseEnter={() => this.setState({
-          isHovered: true,
-        })
-        }
-        onMouseLeave={() => this.setState({
-          isHovered: false,
-        })
-        }
         style={{
           backgroundColor: color,
           transition: 'all 0.5s ease-in',
           border: card.isEditing && `2px solid ${tinycolor(color).darken(25)}`,
           filter:
-            (isHovered
+            (card.isEditing
               && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
             || null,
         }}
@@ -202,6 +186,7 @@ MdynaCard.propTypes = {
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
+  discardCardChanges: PropTypes.func.isRequired,
   editCard: PropTypes.func,
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
