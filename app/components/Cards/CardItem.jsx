@@ -11,6 +11,7 @@ import Button from 'UI/Button';
 import Editor from 'Components/MarkdownEditor';
 import { convertDateToLocaleString } from 'Utils/dates';
 import CardBar from './CardBar';
+import CardEditor from './CardEditor';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
 import './CardItem.scss'; // eslint-disable-line
@@ -166,16 +167,7 @@ ${card.text}`;
         />
         {this.renderCardDate()}
         {card.isEditing && (
-          <Box direction="row" justify="evenly">
-            <Button hoverIndicator={false} color="accent-3">
-              Submit
-              <Checkmark color="accent-3" size="18px" />
-            </Button>
-            <Button hoverIndicator={false} color="accent-2">
-              Discard
-              <Close color="accent-2" size="18px" />
-            </Button>
-          </Box>
+          <CardEditor onSubmit={c => saveCard(c)} card={card} />
         )}
         <Editor
           readOnly={!card.isEditing}
