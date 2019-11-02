@@ -33,9 +33,13 @@ class CardBar extends PureComponent {
         <div className="card-bar">
           {cardActions && (
             <div className="buttons-container">
-              <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
+              <Button
+                active={card.isEditing}
+                hoverIndicator="dark-1"
+                onClick={() => editCard(card)}
+              >
                 <Tooltip
-                  icon={<Edit color={card.color} />}
+                  icon={<Edit color={card.isEditing ? 'brand' : card.color} />}
                   text="Edit this card (You can also double click the card)"
                 />
               </Button>
@@ -51,9 +55,7 @@ class CardBar extends PureComponent {
               >
                 <Tooltip
                   text="Focus this card"
-                  icon={
-                    <FocusIcon color={isFocused ? 'accent-3' : card.color} />
-                  }
+                  icon={<FocusIcon color={isFocused ? null : card.color} />}
                 />
               </Button>
               <Button
