@@ -23,7 +23,18 @@ class CardEditor extends PureComponent {
     const { editingColor, editingLabels } = this.state;
 
     return (
-      <Box direction="row" justify="evenly">
+      <Box
+        direction="row"
+        justify="evenly"
+        style={{
+          border: `1px solid ${tinycolor(card.color).darken(10)}`,
+          borderRadius: '10px',
+          position: 'sticky',
+          zIndex: 10,
+          top: '10px',
+          background: `${card.color}aa`,
+        }}
+      >
         <Button
           hoverIndicator={false}
           color="accent-3"
