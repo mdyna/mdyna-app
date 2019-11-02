@@ -3,35 +3,18 @@ import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { convertDateToLocaleString } from 'Utils/dates';
+import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardBar from './CardBar';
 import CardEditor from './CardEditor';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
 import './CardItem.scss'; // eslint-disable-line
 
-const COLOR_LABELS = {
-  '#ff8a80': 'red',
-  '#ff80ab': 'pink',
-  '#ea80fc': 'purple',
-  '#8c9eff': 'dark-blue',
-  '#80d8ff': 'light-blue',
-  '#a7ffeb': 'mdyna-green',
-  '#b9f6ca': 'green',
-  '#fff475': 'yellow',
-  '#ffd180': 'orange',
-  '#a7c0cd': 'grey',
-};
-
 class MdynaCard extends PureComponent {
-  static getRandomColor() {
-    return sample(Object.keys(COLOR_LABELS));
-  }
-
   name = 'Mdyna Card';
 
   getCardContent() {
@@ -99,8 +82,7 @@ class MdynaCard extends PureComponent {
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardContent = this.getCardContent();
     const color = (card && card.color)
-      || (changeCardSetting
-        && changeCardSetting('color', MdynaCard.getRandomColor()),
+      || (changeCardSetting && changeCardSetting('color', getRandomColor()),
       card.id);
     const cardActions = {
       toggleCard,

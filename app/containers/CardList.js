@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
-import MdynaCard from 'Components/Cards/CardItem';
+import { getRandomColor } from 'Utils/colors';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard } = FILTERS;
@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         addCard({
           card,
-          color: (card && card.color) || MdynaCard.getRandomColor(),
+          color: (card && card.color) || getRandomColor(),
         }),
       );
     },

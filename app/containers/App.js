@@ -8,7 +8,7 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
-import MdynaCard from 'Components/Cards/CardItem';
+import { getRandomColor } from 'Utils/colors';
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
@@ -77,7 +77,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         addCard({
           card,
-          color: (card && card.color) || MdynaCard.getRandomColor(),
+          color: (card && card.color) || getRandomColor(),
         }),
       );
     },

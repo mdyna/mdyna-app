@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Collapsible, Box } from 'grommet';
+import { COLOR_LABELS } from 'Utils/colors';
 import camelCase from 'lodash/camelCase';
 import cx from 'classnames';
 import Button from 'UI/Button';
 import './ColorPicker.scss';
 
 const Input = (props) => {
-  const {
-    colors, value, onChange, label,
-  } = props;
+  const { value, onChange, label } = props;
+  const colors = Object.keys(COLOR_LABELS);
   const [colorsExpanded, expandColors] = useState(false);
 
   return (
