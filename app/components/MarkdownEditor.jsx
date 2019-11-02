@@ -30,7 +30,10 @@ class MarkdownEditor extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const { value, readOnly } = this.props;
-    if (value !== prevProps.value && readOnly) {
+    if (
+      (value !== prevProps.value && readOnly)
+      || readOnly !== prevProps.readOnly
+    ) {
       this.editorRef.current.setState({
         editorValue: Markdown.deserialize(value),
       });
@@ -41,7 +44,6 @@ class MarkdownEditor extends React.PureComponent {
 
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
-
     const rawValue = this.emojiSupport(value());
     if (onChange && rawValue) {
       const { title, text } = card;
