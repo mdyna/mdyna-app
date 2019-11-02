@@ -12,7 +12,12 @@ const { addLabel, removeLabel } = LABEL;
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
 const {
-  removeCard, toggleCard, saveCard, editCard, changeCardSetting,
+  removeCard,
+  toggleCard,
+  saveCard,
+  editCard,
+  changeCardSetting,
+  discardCardChanges,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
@@ -26,6 +31,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeCardSetting: (prop, value, cardId) => {
       dispatch(changeCardSetting(prop, value, cardId));
+    },
+    discardCardChanges: (card) => {
+      dispatch(discardCardChanges(card));
     },
     editCard: (card) => {
       dispatch(editCard(card));

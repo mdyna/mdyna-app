@@ -38,7 +38,10 @@ export const updateCardList = content => ({
   type: ACTION_TYPES.CARD.UPDATE_CARD_LIST,
   content,
 });
-
+export const discardCardChanges = card => ({
+  type: ACTION_TYPES.CARD.DISCARD_CHANGES,
+  card,
+});
 export const editCard = card => ({
   type: ACTION_TYPES.CARD.EDIT_CARD,
   card,
@@ -61,6 +64,7 @@ const CARD = {
   toggleCard,
   changeTitle,
   changeCardSetting,
+  discardCardChanges,
   updateCardList,
   editCard,
   removeCard,

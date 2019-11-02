@@ -19,7 +19,7 @@ class CardEditor extends PureComponent {
   name = 'Card Editor';
 
   render() {
-    const { card, onSubmit } = this.props;
+    const { card, onSubmit, onDiscard } = this.props;
     const { editingColor, editingLabels } = this.state;
 
     return (
@@ -37,7 +37,11 @@ class CardEditor extends PureComponent {
           Submit
           <Checkmark color="accent-3" size="18px" />
         </Button>
-        <Button hoverIndicator={false} color="accent-2">
+        <Button
+          hoverIndicator={false}
+          color="accent-2"
+          onClick={() => onDiscard()}
+        >
           Discard
           <Close color="accent-2" size="18px" />
         </Button>
@@ -51,6 +55,7 @@ export default CardEditor;
 CardEditor.propTypes = {
   card: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onDiscard: PropTypes.func.isRequired,
 };
 
 CardEditor.defaultProps = {};

@@ -95,6 +95,7 @@ class MdynaCard extends PureComponent {
       focusCard,
       editCard,
       removeLabel,
+      discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
       labelFilters,
@@ -167,7 +168,11 @@ ${card.text}`;
         />
         {this.renderCardDate()}
         {card.isEditing && (
-          <CardEditor onSubmit={c => saveCard(c)} card={card} />
+          <CardEditor
+            onSubmit={c => saveCard(c)}
+            card={card}
+            onDiscard={() => discardCardChanges(card)}
+          />
         )}
         <Editor
           readOnly={!card.isEditing}

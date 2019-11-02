@@ -8,6 +8,7 @@ const {
   TOGGLE_CARD,
   SAVE_CARD,
   CHANGE_CARD_SETTING,
+  DISCARD_CHANGES,
   EDIT_CARD,
   CHANGE_TITLE,
   UPDATE_CARD_LIST,
@@ -39,6 +40,20 @@ export default function cards(state = [], action) {
           const newCard = { ...card };
           newCard[action.prop] = action.value;
           return newCard;
+        }
+        return card;
+      });
+    case DISCARD_CHANGES:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: false,
+            text: action.card.text,
+            title: action.card.title,
+          };
         }
         return card;
       });
