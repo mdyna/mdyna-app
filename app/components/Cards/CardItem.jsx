@@ -156,8 +156,7 @@ ${card.text}`;
               labelPickerProps={{
                 onAdd: addLabel,
                 onRemove: removeLabel,
-                cardLabels: card.labels,
-                onChange: v => changeCardSetting('labels', v, card.id, isFocused, card),
+                cardLabels: card.editingLabels,
                 globalLabels,
               }}
               onDiscard={c => discardCardChanges(c, Boolean(isFocused))}

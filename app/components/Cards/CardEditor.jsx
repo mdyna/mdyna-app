@@ -36,7 +36,10 @@ class CardEditor extends PureComponent {
           value={color}
           onChange={c => onChange('editingColor', c, card.id, isFocused, card)}
         />
-        <LabelPicker {...labelPickerProps} />
+        <LabelPicker
+          {...labelPickerProps}
+          onChange={c => onChange('editingLabels', c, card.id, isFocused, card)}
+        />
         <Box
           direction="row"
           justify="evenly"

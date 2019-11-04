@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Keyboard, TextInput } from 'grommet';
-import Button from 'Components/UI/Button';
+import Button from 'UI/Button';
+import { Label } from 'UI/Labels';
 import { Tag } from 'grommet-icons';
 import { camelCase, snakeCase, startCase } from 'lodash';
 
@@ -13,7 +14,6 @@ const TagInput = ({
   value,
   suggestions,
 }) => {
-  console.log(value, globalLabels);
   const [currentTag, setCurrentTag] = React.useState('');
   const [box, setBox] = React.useState();
   const boxRef = React.useCallback(setBox, []);
@@ -39,13 +39,13 @@ const TagInput = ({
   };
 
   const renderValue = () => value.map((v, index) => (
-    <Tag
-      margin="xxsmall"
+    <Label
       key={`${v}${index + 0}`}
-      onRemove={() => onRemove(v)}
-    >
-      {v}
-    </Tag>
+      onClick={() => {
+        onRemove(v);
+      }}
+      label={(v && v.title) || v}
+    />
   ));
 
   return (
@@ -79,8 +79,9 @@ const TagInput = ({
 };
 
 const LabelPicker = (props) => {
-  const { globalLabels, cardLabels } = props;
-  console.log(globalLabels);
+  const {
+    globalLabels, cardLabels, onRemove, onAdd, onChange,
+  } = props;
 
   const [selectedTags, setSelectedTags] = React.useState(cardLabels);
   const [suggestions, setSuggestions] = React.useState(globalLabels);
@@ -92,17 +93,25 @@ const LabelPicker = (props) => {
     if (removeIndex >= 0) {
       newTags.splice(removeIndex, 1);
     }
+    onChange([...cardLabels.filter(l => l.title !== tag.title)]);
+    onRemove({ title: tag });
     setSelectedTags(newTags);
   };
 
-  const onAddTag = tag => setSelectedTags([...selectedTags, tag]);
+  const onAddTag = (tag) => {
+    onAdd({ title: tag });
+    onChange([...(cardLabels || []), { title: tag }]);
+    setSelectedTags([...selectedTags, tag]);
+  };
 
-  const onFilterSuggestion = v => setSuggestions(
-    globalLabels.filter(
-      suggestion => suggestion
+  const onFilterSuggestion = (v) => {
+    setSuggestions(
+      globalLabels.filter(
+        suggestion => suggestion
           && suggestion.toLowerCase().indexOf(v && v.toLowerCase()) >= 0,
-    ),
-  );
+      ),
+    );
+  };
 
   return (
     <React.Fragment>
