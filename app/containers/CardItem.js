@@ -4,12 +4,14 @@ import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD, LABEL, FILTERS, SETTINGS,
+  CARD, LABEL, FILTERS, SETTINGS, BOARDS,
 } = ACTIONS;
 
 const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
+
+const { toggleBoardsDialog, createBoard } = BOARDS;
 
 const {
   removeCard,
@@ -36,6 +38,9 @@ function mapDispatchToProps(dispatch) {
         editedCard[prop] = value;
         dispatch(focusCard(editedCard));
       }
+    },
+    toggleBoardsDialog: () => {
+      dispatch(toggleBoardsDialog());
     },
     discardCardChanges: (card, isFocused) => {
       dispatch(discardCardChanges(card));
@@ -100,6 +105,9 @@ function mapDispatchToProps(dispatch) {
     focusCard: (card) => {
       dispatch(focusCard(card));
     },
+    createBoard: (board) => {
+      dispatch(createBoard(board));
+    },
   };
 }
 
@@ -107,6 +115,8 @@ function mapStateToProps(state) {
   return {
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
+    boardNames: state.boards.boardNames,
+    boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,
     globalLabels: state.labels.map(l => l.title),
     codeTheme: state.settings.codeTheme,

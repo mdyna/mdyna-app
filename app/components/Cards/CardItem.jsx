@@ -79,6 +79,10 @@ class MdynaCard extends Component {
       labelFilters,
       whiteMode,
       globalLabels,
+      createBoard,
+      boards,
+      boardNames,
+      toggleBoardsDialog,
       codeTheme,
     } = this.props;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
@@ -160,6 +164,12 @@ ${card.text}`;
                 color,
                 globalLabels,
               }}
+              boardPickerProps={{
+                createBoard,
+                boards,
+                boardNames,
+                toggleBoardsDialog,
+              }}
               onDiscard={c => discardCardChanges(c, Boolean(isFocused))}
             />
           )}
@@ -206,6 +216,10 @@ MdynaCard.propTypes = {
   globalLabels: PropTypes.array,
   addLabel: PropTypes.func.isRequired,
   addLabelFilter: PropTypes.func,
+  createBoard: PropTypes.func.isRequired,
+  boards: PropTypes.array.isRequired,
+  boardNames: PropTypes.array.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func,
 };
 

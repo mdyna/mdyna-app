@@ -31,6 +31,20 @@ export default class BoardPicker extends Component {
     return 'INBOX';
   }
 
+  getBoardName(boardId) {
+    const { boards } = this.props;
+    if (boardId === 'INBOX') {
+      return 'INBOX';
+    }
+    for (let i = 0; i < boards.length; i += 1) {
+      const board = boards[i];
+      if (boardId === board.id) {
+        return board.name;
+      }
+    }
+    return null;
+  }
+
   render() {
     const {
       onClick,
@@ -38,6 +52,7 @@ export default class BoardPicker extends Component {
       boardNames,
       addButton,
       createBoard,
+      value,
     } = this.props;
     return (
       <Menu
@@ -49,7 +64,7 @@ export default class BoardPicker extends Component {
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label="Boards"
+        label={this.getBoardName(value) || 'Board'}
         dropAlign={{ top: 'bottom' }}
         items={[
           {
@@ -88,10 +103,12 @@ export default class BoardPicker extends Component {
               />
             ),
           },
-          ...boardNames.map(board => ({
-            label: board,
-            onClick: () => onClick(this.getBoardId(board)),
-          })),
+          ...boardNames.map(
+            board => board && {
+              label: board,
+              onClick: () => onClick(this.getBoardId(board)),
+            },
+          ),
         ]}
       />
     );
@@ -103,6 +120,7 @@ BoardPicker.propTypes = {
   addButton: PropTypes.bool,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
+  value: PropTypes.string,
   boards: PropTypes.array,
   toggleBoardsDialog: PropTypes.func.isRequired,
 };
@@ -110,6 +128,7 @@ BoardPicker.propTypes = {
 BoardPicker.defaultProps = {
   boardNames: [],
   addButton: false,
+  value: null,
   boards: {},
   createBoard: null,
 };

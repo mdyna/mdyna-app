@@ -4,6 +4,7 @@ import { Box } from 'grommet';
 import { Checkmark, Close } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import ColorPicker from 'UI/ColorPicker';
+import BoardPicker from 'UI/BoardPicker';
 import LabelPicker from 'UI/LabelPicker';
 import Button from 'UI/Button';
 
@@ -14,6 +15,7 @@ class CardEditor extends PureComponent {
     const {
       card,
       labelPickerProps,
+      boardPickerProps,
       onSubmit,
       onDiscard,
       onChange,
@@ -51,6 +53,12 @@ class CardEditor extends PureComponent {
             {...labelPickerProps}
             onChange={c => onChange('editingLabels', c, card.id, isFocused, card)
             }
+          />
+          <BoardPicker
+            addButton
+            value={card.board}
+            onClick={c => onChange('board', c, card.id, isFocused, card)}
+            {...boardPickerProps}
           />
         </Box>
         <Box
@@ -93,6 +101,7 @@ CardEditor.propTypes = {
   card: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   labelPickerProps: PropTypes.object.isRequired,
+  boardPickerProps: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isFocused: PropTypes.bool,
   onDiscard: PropTypes.func.isRequired,
