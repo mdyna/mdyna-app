@@ -157,6 +157,7 @@ ${card.text}`;
                 onAdd: addLabel,
                 onRemove: removeLabel,
                 cardLabels: card.editingLabels,
+                color,
                 globalLabels,
               }}
               onDiscard={c => discardCardChanges(c, Boolean(isFocused))}

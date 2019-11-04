@@ -32,14 +32,27 @@ class CardEditor extends PureComponent {
           background: `${color}aa`,
         }}
       >
-        <ColorPicker
-          value={color}
-          onChange={c => onChange('editingColor', c, card.id, isFocused, card)}
-        />
-        <LabelPicker
-          {...labelPickerProps}
-          onChange={c => onChange('editingLabels', c, card.id, isFocused, card)}
-        />
+        <Box
+          direction="row"
+          justify="evenly"
+          background="accent-1"
+          style={{
+            border: `1px solid ${tinycolor(color).darken(10)}`,
+            borderRadius: '10px',
+          }}
+          wrap
+        >
+          <ColorPicker
+            value={color}
+            onChange={c => onChange('editingColor', c, card.id, isFocused, card)
+            }
+          />
+          <LabelPicker
+            {...labelPickerProps}
+            onChange={c => onChange('editingLabels', c, card.id, isFocused, card)
+            }
+          />
+        </Box>
         <Box
           direction="row"
           justify="evenly"

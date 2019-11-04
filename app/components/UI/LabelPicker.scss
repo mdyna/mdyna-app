@@ -1,0 +1,10 @@
+.label-picker-input {
+  top: 50px;
+  width: fit-content;
+  border-radius: 10px !important;
+}
+.label-picker {
+  > * {
+    z-index: 500000;
+  }
+}

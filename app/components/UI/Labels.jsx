@@ -11,8 +11,10 @@ export const Label = ({
       backgroundColor: !transparent && '#333333AA',
       borderRadius: '10px',
       margin: '0 5px',
+      cursor: 'pointer',
       padding: '5px',
     }}
+    tabIndex={-1}
     role="button"
     onClick={onClick}
   >

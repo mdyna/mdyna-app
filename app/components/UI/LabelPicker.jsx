@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { Box, Keyboard, TextInput } from 'grommet';
 import Button from 'UI/Button';
 import { Label } from 'UI/Labels';
-import { Tag } from 'grommet-icons';
+import { Tag, Close } from 'grommet-icons';
 import { camelCase, snakeCase, startCase } from 'lodash';
+
+import './LabelPicker.scss';
 
 const TagInput = ({
   globalLabels = [],
   onAdd,
+  color,
   onChange,
   onRemove,
   value,
@@ -41,10 +44,16 @@ const TagInput = ({
   const renderValue = () => value.map((v, index) => (
     <Label
       key={`${v}${index + 0}`}
+      color={color}
       onClick={() => {
         onRemove(v);
       }}
-      label={(v && v.title) || v}
+      label={(
+        <React.Fragment>
+          {(v && v.title) || v}
+          <Close color="accent-2" size="12px" />
+        </React.Fragment>
+)}
     />
   ));
 
@@ -54,6 +63,9 @@ const TagInput = ({
         direction="row"
         align="center"
         pad={{ horizontal: 'xsmall' }}
+        margin="xsmall"
+        className="label-picker-input"
+        background="dark-2"
         border="all"
         ref={boxRef}
         wrap
@@ -80,7 +92,7 @@ const TagInput = ({
 
 const LabelPicker = (props) => {
   const {
-    globalLabels, cardLabels, onRemove, onAdd, onChange,
+    globalLabels, cardLabels, onRemove, onAdd, onChange, color,
   } = props;
 
   const [selectedTags, setSelectedTags] = React.useState(cardLabels);
@@ -116,7 +128,7 @@ const LabelPicker = (props) => {
   return (
     <React.Fragment>
       <Button
-        className="color-picker-button"
+        className="label-picker-button"
         onClick={() => toggleInput(!inputHidden)}
         primary
         color="accent-1"
@@ -127,7 +139,9 @@ const LabelPicker = (props) => {
         <TagInput
           placeholder="Search for aliases..."
           suggestions={suggestions}
+          plain
           value={selectedTags}
+          color={color}
           onRemove={onRemoveTag}
           onAdd={onAddTag}
           onChange={v => onFilterSuggestion(v.target.value)}
@@ -138,9 +152,9 @@ const LabelPicker = (props) => {
 };
 
 LabelPicker.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   globalLabels: PropTypes.array,
   cardLabels: PropTypes.array,
+  color: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
@@ -148,7 +162,7 @@ LabelPicker.propTypes = {
 
 LabelPicker.defaultProps = {
   cardLabels: [],
-  value: '',
+  color: null,
   globalLabels: [''],
 };
 
