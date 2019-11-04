@@ -4,18 +4,12 @@ import { Box, Keyboard, TextInput } from 'grommet';
 import Button from 'UI/Button';
 import { Label } from 'UI/Labels';
 import { Tag, Close } from 'grommet-icons';
-import { camelCase, snakeCase, startCase } from 'lodash';
+import { camelCase } from 'lodash';
 
 import './LabelPicker.scss';
 
 const TagInput = ({
-  globalLabels = [],
-  onAdd,
-  color,
-  onChange,
-  onRemove,
-  value,
-  suggestions,
+  onAdd, color, onChange, onRemove, value, suggestions,
 }) => {
   const [currentTag, setCurrentTag] = React.useState('');
   const [box, setBox] = React.useState();
@@ -41,21 +35,22 @@ const TagInput = ({
     }
   };
 
-  const renderValue = () => value.map((v, index) => (
-    <Label
-      key={`${v}${index + 0}`}
-      color={color}
-      onClick={() => {
-        onRemove(v);
-      }}
-      label={(
-        <React.Fragment>
-          {(v && v.title) || v}
-          <Close color="accent-2" size="12px" />
-        </React.Fragment>
+  const renderValue = () => value.map
+    && value.map((v, index) => (
+      <Label
+        key={`${v}${index + 0}`}
+        color={color}
+        onClick={() => {
+          onRemove(v);
+        }}
+        label={(
+          <React.Fragment>
+            {(v && v.title) || v}
+            <Close color="accent-2" size="12px" />
+          </React.Fragment>
 )}
-    />
-  ));
+      />
+    ));
 
   return (
     <Keyboard onEnter={onEnter}>
@@ -65,7 +60,7 @@ const TagInput = ({
         pad={{ horizontal: 'xsmall' }}
         margin="xsmall"
         className="label-picker-input"
-        background="dark-2"
+        background="dark-1"
         border="all"
         ref={boxRef}
         wrap
@@ -90,6 +85,20 @@ const TagInput = ({
   );
 };
 
+TagInput.propTypes = {
+  onAdd: PropTypes.func.isRequired,
+  color: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.array,
+  onRemove: PropTypes.func.isRequired,
+  suggestions: PropTypes.array,
+};
+TagInput.defaultProps = {
+  value: [],
+  suggestions: [],
+  color: '',
+};
+
 const LabelPicker = (props) => {
   const {
     globalLabels, cardLabels, onRemove, onAdd, onChange, color,
@@ -99,21 +108,30 @@ const LabelPicker = (props) => {
   const [suggestions, setSuggestions] = React.useState(globalLabels);
   const [inputHidden, toggleInput] = useState(true);
 
+  const transformTag = (tag) => {
+    const newTag = camelCase(tag);
+    return newTag.startsWith('#') ? newTag : `#${newTag}`;
+  };
+
   const onRemoveTag = (tag) => {
-    const removeIndex = selectedTags.indexOf(tag);
+    const labelTitle = transformTag(tag.title || tag);
+    const removeIndex = selectedTags.map(t => t.title).indexOf(labelTitle);
     const newTags = [...selectedTags];
     if (removeIndex >= 0) {
       newTags.splice(removeIndex, 1);
     }
-    onChange([...cardLabels.filter(l => l.title !== tag.title)]);
-    onRemove({ title: tag });
+    onChange([...cardLabels.filter(l => l.title !== labelTitle)]);
+    onRemove({ title: labelTitle });
     setSelectedTags(newTags);
   };
 
   const onAddTag = (tag) => {
-    onAdd({ title: tag });
-    onChange([...(cardLabels || []), { title: tag }]);
-    setSelectedTags([...selectedTags, tag]);
+    const labelTitle = transformTag(tag);
+    if (selectedTags.indexOf(labelTitle) === -1) {
+      onAdd({ title: labelTitle });
+      onChange([...(cardLabels || []), { title: labelTitle }]);
+      setSelectedTags([...selectedTags, labelTitle]);
+    }
   };
 
   const onFilterSuggestion = (v) => {
