@@ -78,9 +78,11 @@ class Tooltip extends PureComponent {
         </Box>
         {this.TooltipRef.current && hover && (
           <Drop
-            align={{ left: 'right' }}
+            align={{ top: 'bottom' }}
             target={this.TooltipRef.current}
             plain
+            responsive={false}
+            elevation="none"
           >
             <Box
               margin="xsmall"
