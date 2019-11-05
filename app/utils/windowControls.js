@@ -1,4 +1,4 @@
-import logo from '../../resources/MdynaLogo.png';
+import logo from '../../resources/Logo.png';
 
 export default function handleWindowControls(remote) {
   function init() {
