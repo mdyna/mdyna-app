@@ -4,5 +4,8 @@
 .twitter-picker {
   position: absolute !important;
   top: 58px;
-  background-color: #dddddddd !important;
+  background: inherit !important;
+  input {
+    height: 30px !important;
+  }
 }

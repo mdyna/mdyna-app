@@ -60,7 +60,7 @@ const TagInput = ({
         pad={{ horizontal: 'xsmall' }}
         margin="xsmall"
         className="label-picker-input"
-        background="dark-1"
+        background="dark-2"
         border="all"
         ref={boxRef}
         wrap

@@ -64,7 +64,7 @@ export default class BoardPicker extends Component {
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label={this.getBoardName(value) || 'Board'}
+        label={<Text color="brand">{this.getBoardName(value) || 'Board'}</Text>}
         dropAlign={{ top: 'bottom' }}
         items={[
           {
