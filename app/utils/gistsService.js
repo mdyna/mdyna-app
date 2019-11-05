@@ -78,9 +78,16 @@ class GistsService {
   }
 
   async getCurrentGist() {
-    const gist = await this.gists.get(this.gistId);
-    if (gist && gist.body && gist.body.files && gist.body.files['mdyna.json']) {
-      return JSON.parse(gist.body.files['mdyna.json'].content) || {};
+    if (this.gists) {
+      const gist = await this.gists.get(this.gistId);
+      if (
+        gist
+        && gist.body
+        && gist.body.files
+        && gist.body.files['mdyna.json']
+      ) {
+        return JSON.parse(gist.body.files['mdyna.json'].content) || {};
+      }
     }
     return '';
   }
