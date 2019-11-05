@@ -78,7 +78,7 @@ class GistsService {
   }
 
   async getCurrentGist() {
-    if (this.gists) {
+    if (this.gists && this.gists.get) {
       const gist = await this.gists.get(this.gistId);
       if (
         gist

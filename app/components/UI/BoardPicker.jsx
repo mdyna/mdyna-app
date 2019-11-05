@@ -3,14 +3,13 @@ import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Add } from 'grommet-icons';
 import PropTypes from 'prop-types';
-import Button from 'UI/Button';
 import BoardsIcon from 'UI/BoardsIcon';
 import styled from 'styled-components';
 import { validateBoards } from '../BoardsDialog';
 
 import './BoardPicker.scss';
 
-const ManageBoardsLabel = styled.span`
+const BoardMenuHeader = styled.span`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -56,11 +55,7 @@ export default class BoardPicker extends Component {
     } = this.props;
     return (
       <Menu
-        icon={(
-          <Button>
-            <BoardsIcon />
-          </Button>
-)}
+        icon={<BoardsIcon />}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
@@ -69,11 +64,11 @@ export default class BoardPicker extends Component {
         items={[
           {
             label: (
-              <ManageBoardsLabel>
+              <BoardMenuHeader>
                 Manage Boards
                 {' '}
                 <BoardsIcon />
-              </ManageBoardsLabel>
+              </BoardMenuHeader>
             ),
             onClick: () => toggleBoardsDialog(),
           },

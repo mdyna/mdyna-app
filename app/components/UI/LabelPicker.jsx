@@ -8,8 +8,13 @@ import { camelCase } from 'lodash';
 
 import './LabelPicker.scss';
 
-const TagInput = ({
-  onAdd, color, onChange, onRemove, value, suggestions,
+const LabelInput = ({
+  onAdd,
+  color,
+  onChange,
+  onRemove,
+  value,
+  suggestions,
 }) => {
   const [currentTag, setCurrentTag] = React.useState('');
   const [box, setBox] = React.useState();
@@ -74,6 +79,7 @@ const TagInput = ({
             suggestions={suggestions}
             onChange={updateCurrentTag}
             value={currentTag}
+            autoFocus
             onSelect={(event) => {
               event.stopPropagation();
               onAddTag(event.suggestion);
@@ -85,7 +91,7 @@ const TagInput = ({
   );
 };
 
-TagInput.propTypes = {
+LabelInput.propTypes = {
   onAdd: PropTypes.func.isRequired,
   color: PropTypes.string,
   onChange: PropTypes.func.isRequired,
@@ -93,7 +99,7 @@ TagInput.propTypes = {
   onRemove: PropTypes.func.isRequired,
   suggestions: PropTypes.array,
 };
-TagInput.defaultProps = {
+LabelInput.defaultProps = {
   value: [],
   suggestions: [],
   color: '',
@@ -154,9 +160,9 @@ const LabelPicker = (props) => {
         <Tag color="brand" />
       </Button>
       {!inputHidden && (
-        <TagInput
+        <LabelInput
           placeholder="Search for aliases..."
-          suggestions={suggestions}
+          suggestions={suggestions.splice(0, 10)}
           plain
           value={selectedTags}
           color={color}
