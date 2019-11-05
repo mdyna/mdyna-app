@@ -5,5 +5,5 @@
   "accent": ["#33485a", "#ff2d55", "#19b6c2"],
   "neutral": ["#333333", "#dddddd"],
   "dark": ["#1f222e", "#13141a", "#15171f"],
-  "light": ["#dadada", "bdbdbd"]
+  "light": ["#dadada", "#bdbdbd"]
 }

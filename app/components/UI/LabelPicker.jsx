@@ -65,7 +65,7 @@ const LabelInput = ({
         pad={{ horizontal: 'xsmall' }}
         margin="xsmall"
         className="label-picker-input"
-        background="dark-2"
+        background="accent-1"
         border="all"
         ref={boxRef}
         wrap
