@@ -89,12 +89,12 @@ export default class CardList extends PureComponent {
   }
 
   renderAddNoteButton() {
-    const { addCard } = this.props;
+    const { addCard, activeBoardId } = this.props;
 
     return (
       <Button
         onClick={() => {
-          addCard();
+          addCard(activeBoardId);
         }}
         className="page-control add-note-btn"
       >
@@ -218,7 +218,11 @@ export default class CardList extends PureComponent {
 
   render() {
     const {
-      cards, addCard, searchInput, cardsPerPage,
+      cards,
+      addCard,
+      searchInput,
+      cardsPerPage,
+      activeBoardId,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -236,7 +240,10 @@ export default class CardList extends PureComponent {
     };
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
-        <KeyboardEventHandler handleKeys={['a']} onKeyEvent={() => addCard()} />
+        <KeyboardEventHandler
+          handleKeys={['a']}
+          onKeyEvent={() => addCard(activeBoardId)}
+        />
         {this.renderCardControls(cardItems)}
         {cards.length ? (
           <React.Fragment>
