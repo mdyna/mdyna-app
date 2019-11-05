@@ -124,7 +124,7 @@ class Mdyna extends PureComponent {
                   toggleSettings();
                 }
               }}
-              className="note-layer"
+              className="layer"
             >
               {modalMode === MODAL_MODES.SETTINGS && <Settings />}
             </Layer>
