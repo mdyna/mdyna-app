@@ -74,6 +74,7 @@ class Mdyna extends PureComponent {
             <Box direction="column" fill="horizontal">
               <SearchInput
                 hidden={isFocused}
+                activeBoard={activeBoard}
                 titles={
                   (cards && cards.length && cards.map(c => c.title)) || ['']
                 }

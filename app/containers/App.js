@@ -73,13 +73,8 @@ function mapDispatchToProps(dispatch) {
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
     },
-    addCard: (card) => {
-      dispatch(
-        addCard({
-          card,
-          color: (card && card.color) || getRandomColor(),
-        }),
-      );
+    addCard: (board) => {
+      dispatch(addCard(board));
     },
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));

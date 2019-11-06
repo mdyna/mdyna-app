@@ -8,9 +8,9 @@ import ACTION_TYPES from './actionTypes';
 
 // ──── CARD ACTIONS ──────────────────────────────────────────────────────────────────────
 
-export const addCard = card => ({
+export const addCard = board => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
-  card,
+  board,
   meta: {
     debounce: {
       time: 1000,

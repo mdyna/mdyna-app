@@ -1,5 +1,5 @@
 import ACTION_TYPES from 'Store/actions/actionTypes';
-import unNest from 'Utils/nest';
+import { getRandomColor } from 'Utils/colors';
 import uniqid from 'uniqid';
 
 const {
@@ -16,20 +16,40 @@ const {
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
-const cardTitle = action => unNest(action, 'card.title') || 'Untitled Card';
+const NEW_CARD_TEMPLATE = {
+  title: 'New card',
+  text: '## Double click to edit card',
+  editingText: `
+  ## Shortcuts
+  - ESC to discard changes
+  - Ctrl+Enter to save changes
+`,
+};
+
 export default function cards(state = [], action) {
+  const randomColor = getRandomColor();
   switch (action.type) {
     case UPDATE_CARD_LIST:
       return [...action.content];
     case ADD_CARD:
       return [
-        ...state,
+        ...state.map(c => ({
+          ...c,
+          isEditing: false,
+        })),
         {
           ...action.card,
-          title: cardTitle(action),
           lastEditDate: new Date(),
           id: uniqid(),
           archived: false,
+          title: NEW_CARD_TEMPLATE.title,
+          text: NEW_CARD_TEMPLATE.editingText,
+          board: action.board || 'INBOX',
+          color: randomColor,
+          isEditing: true,
+          editingColor: randomColor,
+          editingTitle: NEW_CARD_TEMPLATE.title,
+          editingText: NEW_CARD_TEMPLATE.editingText,
         },
       ];
     case REMOVE_CARD:

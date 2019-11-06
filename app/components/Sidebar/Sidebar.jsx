@@ -75,6 +75,7 @@ class Sidebar extends Component {
       addCard,
       toggleBoardsDialog,
       toggleSettings,
+      activeBoard,
       toggleArchivedFilter,
       archivedFilterOn,
       sorting,
@@ -89,7 +90,7 @@ class Sidebar extends Component {
         <Box direction="column" align="end">
           <Button
             hoverIndicator="accent-1"
-            onClick={() => addCard()}
+            onClick={() => addCard(activeBoard)}
             className="add-note-btn"
           >
             <AddCircle color="brand" />
@@ -204,6 +205,7 @@ class Sidebar extends Component {
       addCard,
       toggleArchivedFilter,
       toggleBoardsDialog,
+      activeBoard,
       archivedFilterOn,
     } = this.props;
 
@@ -244,7 +246,7 @@ class Sidebar extends Component {
             title="Add card"
             text="Add card (Use 'A' hotkey)"
             onClick={() => {
-              addCard();
+              addCard(activeBoard);
             }}
           />
           <Tooltip
@@ -320,6 +322,7 @@ Sidebar.propTypes = {
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
   addCard: PropTypes.func.isRequired,
+  activeBoard: PropTypes.string,
   toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
   sorting: PropTypes.string,
@@ -330,6 +333,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   labelFilters: [],
   sidebarExpanded: false,
+  activeBoard: 'INBOX',
   archivedFilterOn: false,
   sorting: SORTING_BY_DATE,
   order: DESCENDING_ORDER,
