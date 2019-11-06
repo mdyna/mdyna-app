@@ -20,6 +20,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "global-require": 0,
     "guard-for-in": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/forbid-prop-types": "off",

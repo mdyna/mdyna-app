@@ -30,7 +30,10 @@ class MarkdownEditor extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const { value, readOnly } = this.props;
-    if (value !== prevProps.value && readOnly) {
+    if (
+      (value !== prevProps.value && readOnly)
+      || readOnly !== prevProps.readOnly
+    ) {
       this.editorRef.current.setState({
         editorValue: Markdown.deserialize(value),
       });
@@ -41,7 +44,6 @@ class MarkdownEditor extends React.PureComponent {
 
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
-
     const rawValue = this.emojiSupport(value());
     if (onChange && rawValue) {
       const { title, text } = card;
@@ -74,7 +76,7 @@ class MarkdownEditor extends React.PureComponent {
         ref={this.editorRef}
         className={cx(className, 'mdyna-md', 'card-content')}
         readOnly={readOnly}
-        autoFocus={!readOnly}
+        autoFocus
         uploadImage={async img => MarkdownEditor.uploadImg(img)}
         defaultValue={this.emojiSupport(value)}
         onSave={() => onSave(card)}
@@ -86,8 +88,13 @@ class MarkdownEditor extends React.PureComponent {
               const rawEmoji = matches && matches.before && matches.before[0];
               const emojiString = rawEmoji.split(':')[1];
               if (emojiString) {
-                changes.moveFocusBackward(rawEmoji.length); // select last word
-                changes.insertText(parseEmojis(rawEmoji));
+                const parsedEmoji = parseEmojis(rawEmoji);
+                if (parsedEmoji) {
+                  changes.moveFocusBackward(rawEmoji.length); // select last word
+                  changes.insertText(parsedEmoji);
+                } else {
+                  changes.insertText(' ');
+                }
               }
             },
           }),

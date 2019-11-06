@@ -3,14 +3,13 @@ import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Add } from 'grommet-icons';
 import PropTypes from 'prop-types';
-import Button from 'UI/Button';
 import BoardsIcon from 'UI/BoardsIcon';
 import styled from 'styled-components';
 import { validateBoards } from '../BoardsDialog';
 
 import './BoardPicker.scss';
 
-const ManageBoardsLabel = styled.span`
+const BoardMenuHeader = styled.span`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -31,6 +30,20 @@ export default class BoardPicker extends Component {
     return 'INBOX';
   }
 
+  getBoardName(boardId) {
+    const { boards } = this.props;
+    if (boardId === 'INBOX') {
+      return 'INBOX';
+    }
+    for (let i = 0; i < boards.length; i += 1) {
+      const board = boards[i];
+      if (boardId === board.id) {
+        return board.name;
+      }
+    }
+    return null;
+  }
+
   render() {
     const {
       onClick,
@@ -38,27 +51,24 @@ export default class BoardPicker extends Component {
       boardNames,
       addButton,
       createBoard,
+      value,
     } = this.props;
     return (
       <Menu
-        icon={(
-          <Button>
-            <BoardsIcon />
-          </Button>
-)}
+        icon={<BoardsIcon />}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label="Boards"
+        label={<Text color="brand">{this.getBoardName(value) || 'Board'}</Text>}
         dropAlign={{ top: 'bottom' }}
         items={[
           {
             label: (
-              <ManageBoardsLabel>
+              <BoardMenuHeader>
                 Manage Boards
                 {' '}
                 <BoardsIcon />
-              </ManageBoardsLabel>
+              </BoardMenuHeader>
             ),
             onClick: () => toggleBoardsDialog(),
           },
@@ -88,10 +98,12 @@ export default class BoardPicker extends Component {
               />
             ),
           },
-          ...boardNames.map(board => ({
-            label: board,
-            onClick: () => onClick(this.getBoardId(board)),
-          })),
+          ...boardNames.map(
+            board => board && {
+              label: board,
+              onClick: () => onClick(this.getBoardId(board)),
+            },
+          ),
         ]}
       />
     );
@@ -103,6 +115,7 @@ BoardPicker.propTypes = {
   addButton: PropTypes.bool,
   createBoard: PropTypes.func,
   boardNames: PropTypes.array,
+  value: PropTypes.string,
   boards: PropTypes.array,
   toggleBoardsDialog: PropTypes.func.isRequired,
 };
@@ -110,6 +123,7 @@ BoardPicker.propTypes = {
 BoardPicker.defaultProps = {
   boardNames: [],
   addButton: false,
+  value: null,
   boards: {},
   createBoard: null,
 };

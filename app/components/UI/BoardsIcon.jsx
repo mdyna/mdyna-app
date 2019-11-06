@@ -14,8 +14,7 @@ const StyledBoardsIcon = styled(BoardsIcon)`
   vertical-align: bottom;
   margin: 5px;
   path {
-    stroke-width: 12px;
-    fill: ${props => props.theme.global.colors.brand};
+    stroke-width: 24px;
     stroke: ${props => props.theme.global.colors.brand};
   }
   rect {

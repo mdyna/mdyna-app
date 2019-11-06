@@ -78,9 +78,16 @@ class GistsService {
   }
 
   async getCurrentGist() {
-    const gist = await this.gists.get(this.gistId);
-    if (gist && gist.body && gist.body.files && gist.body.files['mdyna.json']) {
-      return JSON.parse(gist.body.files['mdyna.json'].content) || {};
+    if (this.gists && this.gists.get) {
+      const gist = await this.gists.get(this.gistId);
+      if (
+        gist
+        && gist.body
+        && gist.body.files
+        && gist.body.files['mdyna.json']
+      ) {
+        return JSON.parse(gist.body.files['mdyna.json'].content) || {};
+      }
     }
     return '';
   }
@@ -138,20 +145,22 @@ class GistsService {
   }
 
   async updateGistContent(content) {
-    try {
-      await this.gists.edit(this.gistId, {
-        files: {
-          'mdyna.json': {
-            content: JSON.stringify({
-              ...content,
-            }),
+    if (this.gists && this.gists.edit) {
+      try {
+        await this.gists.edit(this.gistId, {
+          files: {
+            'mdyna.json': {
+              content: JSON.stringify({
+                ...content,
+              }),
+            },
           },
-        },
-      });
-      return content;
-    } catch (e) {
-      if (e.message) {
-        Error.throwError('Could not sync with Gist (1)');
+        });
+        return content;
+      } catch (e) {
+        if (e.message) {
+          Error.throwError('Could not sync with Gist (1)');
+        }
       }
     }
     return null;

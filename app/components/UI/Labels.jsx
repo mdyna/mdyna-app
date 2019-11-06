@@ -2,6 +2,38 @@ import React, { Component } from 'react';
 import tc from 'tinycolor2';
 import PropTypes from 'prop-types';
 
+export const Label = ({
+  onClick, color, label, transparent,
+}) => (
+  <span
+    style={{
+      color,
+      backgroundColor: !transparent && '#333333AA',
+      borderRadius: '10px',
+      margin: '0 5px',
+      cursor: 'pointer',
+      padding: '5px',
+    }}
+    tabIndex={-1}
+    role="button"
+    onClick={onClick}
+  >
+    {label}
+  </span>
+);
+
+Label.defaultProps = {
+  color: '#000',
+  transparent: false,
+  onClick: null,
+  label: '',
+};
+Label.propTypes = {
+  onClick: PropTypes.func,
+  transparent: PropTypes.bool,
+  label: PropTypes.oneOf(PropTypes.object, PropTypes.string),
+  color: PropTypes.string,
+};
 class Labels extends Component {
   renderLabelText(label) {
     const {

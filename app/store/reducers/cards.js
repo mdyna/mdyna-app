@@ -1,5 +1,5 @@
 import ACTION_TYPES from 'Store/actions/actionTypes';
-import unNest from 'Utils/nest';
+import { getRandomColor } from 'Utils/colors';
 import uniqid from 'uniqid';
 
 const {
@@ -7,35 +7,102 @@ const {
   REMOVE_CARD,
   TOGGLE_CARD,
   SAVE_CARD,
+  CHANGE_CARD_SETTING,
+  DISCARD_CHANGES,
+  EDIT_CARD,
   CHANGE_TITLE,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
 
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
-const cardTitle = action => unNest(action, 'card.title') || 'Untitled Card';
+const NEW_CARD_TEMPLATE = {
+  title: 'New card',
+  text: `
+  ## Shortcuts
+  - ESC to **Discard Changes**
+  - Ctrl+Enter to **Save Changes**
+  - Double click on card to **Edit**
+  - A to **Add**
+`,
+};
+
 export default function cards(state = [], action) {
+  const randomColor = getRandomColor();
   switch (action.type) {
     case UPDATE_CARD_LIST:
       return [...action.content];
     case ADD_CARD:
       return [
-        ...state,
+        ...state.map(c => ({
+          ...c,
+          isEditing: false,
+        })),
         {
           ...action.card,
-          title: cardTitle(action),
           lastEditDate: new Date(),
           id: uniqid(),
           archived: false,
+          title: NEW_CARD_TEMPLATE.title,
+          text: NEW_CARD_TEMPLATE.text,
+          board: action.board || 'INBOX',
+          color: randomColor,
+          isEditing: true,
+          editingColor: randomColor,
+          editingTitle: NEW_CARD_TEMPLATE.title,
+          editingText: NEW_CARD_TEMPLATE.text,
         },
       ];
     case REMOVE_CARD:
       return state.filter(card => card.id !== action.card.id);
+    case CHANGE_CARD_SETTING:
+      return state.map((card) => {
+        if (card.id === action.cardId) {
+          const newCard = { ...card };
+          newCard[action.prop] = action.value;
+          return newCard;
+        }
+        return card;
+      });
+    case DISCARD_CHANGES:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: false,
+            text: action.card.text,
+            title: action.card.title,
+            labels: action.card.labels,
+            color: action.card.color,
+            editingColor: '',
+            editingLabels: [],
+            editingText: '',
+            editingTitle: '',
+          };
+        }
+        return card;
+      });
+
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
           const cardId = String(card.id).length < 5 ? uniqid() : card.id;
-          return { ...action.card, id: cardId, lastEditDate: new Date() };
+          return {
+            ...action.card,
+            id: cardId,
+            lastEditDate: new Date(),
+            isEditing: false,
+            text: action.card.editingText,
+            labels: action.card.editingLabels,
+            color: action.card.editingColor,
+            title: action.card.editingTitle,
+            editingColor: '',
+            editingLabels: [],
+            editingText: '',
+            editingTitle: '',
+          };
         }
         return card;
       });
@@ -58,6 +125,22 @@ export default function cards(state = [], action) {
           };
         }
         return card;
+      });
+    case EDIT_CARD:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: true,
+            editingLabels: card.labels,
+            editingColor: card.color,
+            editingText: card.text,
+            editingTitle: card.title,
+          };
+        }
+        return { ...card, isEditing: false };
       });
     /*
     case GENERATE_LINK:

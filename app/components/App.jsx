@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
-import CardEditor from 'Containers/CardEditor';
 import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
 import SideBar from './Sidebar/Sidebar';
@@ -16,9 +15,9 @@ import { getTheme } from '../themes/themeBuilder';
 /* eslint-disable */
 import './App.scss';
 
-function getModalMode(editor, settings) {
-  return (editor && 'editor') || (settings && 'settings') || false;
-}
+const MODAL_MODES = {
+  SETTINGS: 'SETTINGS',
+};
 
 class Mdyna extends PureComponent {
   searchBar = React.createRef();
@@ -30,8 +29,6 @@ class Mdyna extends PureComponent {
       sorting,
       settingsModal,
       whiteMode,
-      modalOpen,
-      toggleEditor,
       deleteBoard,
       createBoard,
       searchInput,
@@ -47,7 +44,7 @@ class Mdyna extends PureComponent {
       boardNames,
       toggleSettings,
     } = this.props;
-    const modalMode = getModalMode(modalOpen, settingsModal);
+    const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
       <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
         <ToastContainer
@@ -77,6 +74,7 @@ class Mdyna extends PureComponent {
             <Box direction="column" fill="horizontal">
               <SearchInput
                 hidden={isFocused}
+                activeBoard={activeBoard}
                 titles={
                   (cards && cards.length && cards.map(c => c.title)) || ['']
                 }
@@ -123,16 +121,13 @@ class Mdyna extends PureComponent {
               }}
               full
               onEsc={() => {
-                if (modalMode === 'editor') {
-                  toggleEditor();
-                } else if (modalMode === 'settings') {
+                if (modalMode === MODAL_MODES.SETTINGS) {
                   toggleSettings();
                 }
               }}
-              className="note-layer"
+              className="layer"
             >
-              {modalMode === 'editor' && <CardEditor />}
-              {modalMode === 'settings' && <Settings />}
+              {modalMode === MODAL_MODES.SETTINGS && <Settings />}
             </Layer>
           )}
         </ErrorBoundary>
