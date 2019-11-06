@@ -11,12 +11,12 @@ import {
   FormNext,
   FormPrevious,
   Up,
-  Projects,
   Descend as Sort,
   AddCircle,
   Archive,
   Configure,
 } from 'grommet-icons';
+import BoardsIcon from 'UI/BoardsIcon';
 import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
@@ -100,7 +100,7 @@ class Sidebar extends Component {
             hoverIndicator="accent-1"
             onClick={() => toggleBoardsDialog()}
           >
-            <Projects color="brand" />
+            <BoardsIcon color="brand" />
             <Text className="menu-label">Boards</Text>
           </Button>
           <Button
@@ -250,7 +250,7 @@ class Sidebar extends Component {
             }}
           />
           <Tooltip
-            icon={<Projects color="brand" />}
+            icon={<BoardsIcon color="brand" />}
             className={classnames('sidebar-tooltip')}
             title="Manage boards"
             text="Add, delete or edit boards"
