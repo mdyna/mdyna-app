@@ -3,6 +3,9 @@
 .tip-icon {
   border-radius: 10px;
   padding: 2px !important;
+  > * {
+    pointer-events: none;
+  }
 }
 .keyboard {
   color: #6a7a8f;

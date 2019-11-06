@@ -8,10 +8,13 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
+import { getRandomColor } from 'Utils/colors';
 
 const {
-  SETTINGS, FILTERS, BOARDS, CARD_EDITOR,
+  SETTINGS, FILTERS, BOARDS, CARD,
 } = ACTIONS;
+
+const { addCard } = CARD;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
@@ -21,8 +24,6 @@ const {
   deleteBoard,
   changeBoardName,
 } = BOARDS;
-
-const { toggleEditor } = CARD_EDITOR;
 
 const {
   searchCards,
@@ -54,9 +55,6 @@ function mapDispatchToProps(dispatch) {
     toggleSidebar: () => {
       dispatch(toggleSidebar());
     },
-    toggleEditor: () => {
-      dispatch(toggleEditor());
-    },
     focusCard: () => {
       dispatch(focusCard(false));
     },
@@ -74,6 +72,14 @@ function mapDispatchToProps(dispatch) {
     },
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
+    },
+    addCard: (card) => {
+      dispatch(
+        addCard({
+          card,
+          color: (card && card.color) || getRandomColor(),
+        }),
+      );
     },
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));
@@ -127,7 +133,6 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     archivedFilterOn: state.filters.archivedFilterOn,
     sidebarExpanded: state.style.sidebarExpanded,
-    modalOpen: state.editor.toggleEditor,
     boards: state.boards.boardList,
     boardNames: state.boards.boardNames,
     boardsDialogOpen: state.boards.boardsDialogOpen,

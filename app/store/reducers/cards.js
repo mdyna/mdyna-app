@@ -7,6 +7,9 @@ const {
   REMOVE_CARD,
   TOGGLE_CARD,
   SAVE_CARD,
+  CHANGE_CARD_SETTING,
+  DISCARD_CHANGES,
+  EDIT_CARD,
   CHANGE_TITLE,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
@@ -31,11 +34,54 @@ export default function cards(state = [], action) {
       ];
     case REMOVE_CARD:
       return state.filter(card => card.id !== action.card.id);
+    case CHANGE_CARD_SETTING:
+      return state.map((card) => {
+        if (card.id === action.cardId) {
+          const newCard = { ...card };
+          newCard[action.prop] = action.value;
+          return newCard;
+        }
+        return card;
+      });
+    case DISCARD_CHANGES:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: false,
+            text: action.card.text,
+            title: action.card.title,
+            labels: action.card.labels,
+            color: action.card.color,
+            editingColor: '',
+            editingLabels: [],
+            editingText: '',
+            editingTitle: '',
+          };
+        }
+        return card;
+      });
+
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
           const cardId = String(card.id).length < 5 ? uniqid() : card.id;
-          return { ...action.card, id: cardId, lastEditDate: new Date() };
+          return {
+            ...action.card,
+            id: cardId,
+            lastEditDate: new Date(),
+            isEditing: false,
+            text: action.card.editingText,
+            labels: action.card.editingLabels,
+            color: action.card.editingColor,
+            title: action.card.editingTitle,
+            editingColor: '',
+            editingLabels: [],
+            editingText: '',
+            editingTitle: '',
+          };
         }
         return card;
       });
@@ -58,6 +104,22 @@ export default function cards(state = [], action) {
           };
         }
         return card;
+      });
+    case EDIT_CARD:
+      return state.map((card) => {
+        if (card.id === action.card.id) {
+          const cardId = String(card.id).length < 5 ? uniqid() : card.id;
+          return {
+            ...action.card,
+            id: cardId,
+            isEditing: true,
+            editingLabels: card.labels,
+            editingColor: card.color,
+            editingText: card.text,
+            editingTitle: card.title,
+          };
+        }
+        return { ...card, isEditing: false };
       });
     /*
     case GENERATE_LINK:

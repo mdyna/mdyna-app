@@ -72,7 +72,7 @@ class Sidebar extends Component {
       addLabelFilter,
       removeLabelFilter,
       sidebarExpanded,
-      toggleEditor,
+      addCard,
       toggleBoardsDialog,
       toggleSettings,
       toggleArchivedFilter,
@@ -87,11 +87,18 @@ class Sidebar extends Component {
     return (
       <Collapsible direction="horizontal" open={sidebarExpanded}>
         <Box direction="column" align="end">
-          <Button onClick={() => toggleEditor(true)} className="add-note-btn">
+          <Button
+            hoverIndicator="accent-1"
+            onClick={() => addCard()}
+            className="add-note-btn"
+          >
             <AddCircle color="brand" />
             <Text className="menu-label">Add Card</Text>
           </Button>
-          <Button onClick={() => toggleBoardsDialog()}>
+          <Button
+            hoverIndicator="accent-1"
+            onClick={() => toggleBoardsDialog()}
+          >
             <Projects color="brand" />
             <Text className="menu-label">Boards</Text>
           </Button>
@@ -103,12 +110,16 @@ class Sidebar extends Component {
             <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
             <Text className="menu-label">Archive</Text>
           </Button>
-          <Button onClick={() => this.expandSortingOptions()}>
+          <Button
+            hoverIndicator="accent-1"
+            onClick={() => this.expandSortingOptions()}
+          >
             <Sort color="brand" className="sort-icon" />
             <Text className="menu-label">Sort Cards </Text>
           </Button>
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
+              hoverIndicator="accent-1"
               className={classnames(sorting === SORTING_BY_TITLE && 'active')}
               plain={sorting !== SORTING_BY_TITLE}
               onClick={() => changeSorting(
@@ -126,6 +137,7 @@ class Sidebar extends Component {
               By Title
             </Button>
             <Button
+              hoverIndicator="accent-1"
               plain={sorting !== SORTING_BY_DATE}
               onClick={() => changeSorting(
                 SORTING_BY_DATE,
@@ -143,11 +155,19 @@ class Sidebar extends Component {
               By Date
             </Button>
           </Collapsible>
-          <Button plain onClick={() => toggleSettings()}>
+          <Button
+            hoverIndicator="accent-1"
+            plain
+            onClick={() => toggleSettings()}
+          >
             <Configure color="brand" />
             <Text className="menu-label">Settings</Text>
           </Button>
-          <Button plain onClick={() => this.expandLabelFilters()}>
+          <Button
+            hoverIndicator="accent-1"
+            plain
+            onClick={() => this.expandLabelFilters()}
+          >
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
           </Button>
@@ -181,7 +201,7 @@ class Sidebar extends Component {
       sidebarExpanded,
       toggleSidebar,
       toggleSettings,
-      toggleEditor,
+      addCard,
       toggleArchivedFilter,
       toggleBoardsDialog,
       archivedFilterOn,
@@ -197,7 +217,11 @@ class Sidebar extends Component {
         >
           <Box direction="row" className="menu-controller">
             {sidebarExpanded ? (
-              <Button onClick={() => toggleSidebar()} className="title-button">
+              <Button
+                hoverIndicator="accent-1"
+                onClick={() => toggleSidebar()}
+                className="title-button"
+              >
                 <FormPrevious color="brand" />
                 <Text size="large">
                   <SVG src={Logo} style={{ width: 32 }} />
@@ -205,7 +229,11 @@ class Sidebar extends Component {
                 </Text>
               </Button>
             ) : (
-              <Button onClick={() => toggleSidebar()} className="title-button">
+              <Button
+                hoverIndicator="accent-1"
+                onClick={() => toggleSidebar()}
+                className="title-button"
+              >
                 <FormNext color="brand" />
               </Button>
             )}
@@ -216,7 +244,7 @@ class Sidebar extends Component {
             title="Add card"
             text="Add card (Use 'A' hotkey)"
             onClick={() => {
-              toggleEditor(true);
+              addCard();
             }}
           />
           <Tooltip
@@ -291,7 +319,7 @@ Sidebar.propTypes = {
   toggleSidebar: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func.isRequired,
-  toggleEditor: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
   toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
   sorting: PropTypes.string,

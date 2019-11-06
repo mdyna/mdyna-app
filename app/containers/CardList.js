@@ -1,16 +1,24 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
-import CardList from '../components/Cards/CardList';
+import CardList from 'Components/Cards/CardList';
+import { getRandomColor } from 'Utils/colors';
 
-const { CARD_EDITOR, FILTERS, BOARDS } = ACTIONS;
-const { toggleEditor } = CARD_EDITOR;
+const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard } = FILTERS;
+const { addCard } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
+
+const NEW_CARD_TEMPLATE = {
+  title: 'New card',
+  text: `
+  ## Shortcuts
+  - ESC to discard changes
+  - Ctrl+Enter to save changes
+`,
+  editingText: '## Double click to edit card',
+};
 function mapDispatchToProps(dispatch) {
   return {
-    toggleEditor: () => {
-      dispatch(toggleEditor());
-    },
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
     },
@@ -19,6 +27,19 @@ function mapDispatchToProps(dispatch) {
     },
     createBoard: (board) => {
       dispatch(createBoard(board));
+    },
+    addCard: (activeBoard) => {
+      dispatch(
+        addCard({
+          title: NEW_CARD_TEMPLATE.title,
+          text: NEW_CARD_TEMPLATE.text,
+          board: activeBoard,
+          color: getRandomColor(),
+          isEditing: true,
+          editingTitle: NEW_CARD_TEMPLATE.title,
+          editingText: NEW_CARD_TEMPLATE.editingText,
+        }),
+      );
     },
   };
 }

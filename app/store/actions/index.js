@@ -11,6 +11,11 @@ import ACTION_TYPES from './actionTypes';
 export const addCard = card => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
   card,
+  meta: {
+    debounce: {
+      time: 1000,
+    },
+  },
 });
 export const saveCard = card => ({
   type: ACTION_TYPES.CARD.SAVE_CARD,
@@ -33,42 +38,36 @@ export const updateCardList = content => ({
   type: ACTION_TYPES.CARD.UPDATE_CARD_LIST,
   content,
 });
+export const discardCardChanges = card => ({
+  type: ACTION_TYPES.CARD.DISCARD_CHANGES,
+  card,
+});
+export const editCard = card => ({
+  type: ACTION_TYPES.CARD.EDIT_CARD,
+  card,
+});
+export const changeCardSetting = (prop, value, cardId) => ({
+  type: ACTION_TYPES.CARD.CHANGE_CARD_SETTING,
+  prop,
+  value,
+  cardId,
+  meta: {
+    debounce: {
+      time: (prop === 'editingText' || prop === 'editingTitle') && 250,
+    },
+  },
+});
 
 const CARD = {
   addCard,
   saveCard,
   toggleCard,
   changeTitle,
-  updateCardList,
-  removeCard,
-};
-
-// ──── EDITOR ACTIONS ────────────────────────────────────────────────────────────────────
-
-export const toggleEditor = () => ({
-  type: ACTION_TYPES.CARD_EDITOR.TOGGLE_EDITOR,
-});
-
-export const changeCardSetting = (prop, value) => ({
-  type: ACTION_TYPES.CARD_EDITOR.ON_CHANGE,
-  prop,
-  value,
-  meta: {
-    debounce: {
-      time: (prop === 'text' || prop === 'labels' || prop === 'title') && 500,
-    },
-  },
-});
-
-export const editCard = card => ({
-  type: ACTION_TYPES.CARD_EDITOR.EDIT_CARD,
-  card,
-});
-
-const CARD_EDITOR = {
-  toggleEditor,
-  editCard,
   changeCardSetting,
+  discardCardChanges,
+  updateCardList,
+  editCard,
+  removeCard,
 };
 
 // ──── SETTINGS ACTIONS ──────────────────────────────────────────────────────────────────
@@ -243,6 +242,11 @@ export const searchCards = value => ({
 export const focusCard = card => ({
   type: ACTION_TYPES.FILTERS.FOCUS_CARD,
   card,
+  meta: {
+    debounce: {
+      time: 500,
+    },
+  },
 });
 
 export const changeActiveBoard = board => ({
@@ -280,7 +284,6 @@ const FILTERS = {
 export default {
   FILTERS,
   SETTINGS,
-  CARD_EDITOR,
   BOARDS,
   LABEL,
   CARD,

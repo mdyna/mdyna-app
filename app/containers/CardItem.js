@@ -4,17 +4,22 @@ import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD_EDITOR, CARD, LABEL, FILTERS, SETTINGS,
+  CARD, LABEL, FILTERS, SETTINGS, BOARDS,
 } = ACTIONS;
-
-const { editCard, toggleEditor } = CARD_EDITOR;
 
 const { addLabel, removeLabel } = LABEL;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
+const { toggleBoardsDialog, createBoard } = BOARDS;
+
 const {
-  removeCard, toggleCard, addCard, saveCard,
+  removeCard,
+  toggleCard,
+  saveCard,
+  editCard,
+  changeCardSetting,
+  discardCardChanges,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
@@ -26,21 +31,63 @@ function mapDispatchToProps(dispatch) {
       dispatch(updateDeletedCards(card.id));
       await Gists.updateDeletedCards(card.id);
     },
-    editCard: (card) => {
+    changeCardSetting: (prop, value, cardId, isFocused, card) => {
+      dispatch(changeCardSetting(prop, value, cardId));
+      if (isFocused) {
+        const editedCard = { ...card };
+        editedCard[prop] = value;
+        dispatch(focusCard(editedCard));
+      }
+    },
+    toggleBoardsDialog: () => {
+      dispatch(toggleBoardsDialog());
+    },
+    discardCardChanges: (card, isFocused) => {
+      dispatch(discardCardChanges(card));
+      if (isFocused) {
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: false,
+            editingText: '',
+            editingColor: '',
+            editingLabels: '',
+            editingTitle: '',
+          }),
+        );
+      }
+    },
+    editCard: (card, isFocused) => {
       dispatch(editCard(card));
+      if (isFocused && !card.isEditing) {
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: !card.isEditing,
+            editingText: card.text,
+            editingLabels: card.labels,
+            editingColor: card.color,
+            editingTitle: card.title,
+          }),
+        );
+      }
     },
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    saveCard: (card, isFocused, newCard, editorSettings) => {
-      dispatch(toggleEditor());
-      if (newCard) {
-        dispatch(addCard(editorSettings));
-      } else {
-        dispatch(saveCard(card));
-      }
+    saveCard: (card, isFocused) => {
+      dispatch(saveCard(card));
       if (isFocused) {
-        dispatch(focusCard(card));
+        dispatch(
+          focusCard({
+            ...card,
+            isEditing: false,
+            text: card.editingText || card.text,
+            color: card.editingColor || card.color,
+            labels: card.editingLabels || card.labels,
+            title: card.editingTitle || card.title,
+          }),
+        );
       }
     },
     addLabel: (val) => {
@@ -58,6 +105,9 @@ function mapDispatchToProps(dispatch) {
     focusCard: (card) => {
       dispatch(focusCard(card));
     },
+    createBoard: (board) => {
+      dispatch(createBoard(board));
+    },
   };
 }
 
@@ -65,9 +115,11 @@ function mapStateToProps(state) {
   return {
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
+    boardNames: state.boards.boardNames,
+    boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,
+    globalLabels: state.labels.map(l => l.title),
     codeTheme: state.settings.codeTheme,
-    newCard: state.editor.newCard,
   };
 }
 

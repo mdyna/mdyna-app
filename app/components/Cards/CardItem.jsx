@@ -1,58 +1,39 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import sample from 'lodash/sample';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
 import { convertDateToLocaleString } from 'Utils/dates';
+import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardBar from './CardBar';
+import CardEditor from './CardEditor';
 // import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
 import './CardItem.scss'; // eslint-disable-line
 
-export const COLOR_SAMPLES = [
-  '#ff8a80',
-  '#ff80ab',
-  '#ea80fc',
-  '#8c9eff',
-  '#80d8ff',
-  '#a7ffeb',
-  '#b9f6ca',
-  '#fff475',
-  '#ffd180',
-  '#a7c0cd',
-];
-
-const COLOR_LABELS = {
-  '#ff8a80': 'red',
-  '#ff80ab': 'pink',
-  '#ea80fc': 'purple',
-  '#8c9eff': 'dark-blue',
-  '#80d8ff': 'light-blue',
-  '#a7ffeb': 'mdyna-green',
-  '#b9f6ca': 'green',
-  '#fff475': 'yellow',
-  '#ffd180': 'orange',
-  '#a7c0cd': 'grey',
-};
-
-class MdynaCard extends PureComponent {
-  state = {
-    isHovered: false,
-  };
-
+class MdynaCard extends Component {
   name = 'Mdyna Card';
 
+  getCardContent() {
+    const { card } = this.props;
+    const {
+      isEditing, text, title, editingText, editingTitle,
+    } = card;
+    return !isEditing
+      ? { title, text }
+      : { title: editingTitle, text: editingText };
+  }
+
+  /*
   scrollToCard() {
-    // eslint-disable-next-line
     ReactDOM.findDOMNode(this).scrollIntoView({
       behavior: 'smooth',
       block: 'center',
     });
-  }
+  } */
 
   renderCardDate() {
     const { card } = this.props;
@@ -91,18 +72,25 @@ class MdynaCard extends PureComponent {
       focusCard,
       editCard,
       removeLabel,
+      addLabel,
+      discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
-      readOnly,
       labelFilters,
       whiteMode,
-      newCard,
-      editorSettings,
+      globalLabels,
+      createBoard,
+      boards,
+      boardNames,
+      toggleBoardsDialog,
       codeTheme,
     } = this.props;
-    const { isHovered } = this.state;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
-    const color = (card && card.color) || changeCardSetting('color', sample(COLOR_SAMPLES));
+    const cardContent = this.getCardContent();
+    const color = (card && card.editingColor)
+      || card.color
+      || (changeCardSetting
+        && changeCardSetting('color', getRandomColor(), card.id, isFocused, card));
     const cardActions = {
       toggleCard,
       removeCard,
@@ -126,55 +114,82 @@ ${card.text}`;
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
-          cardActions.editCard(card);
+          cardActions.editCard(card, isFocused);
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item')}
-        onMouseEnter={() => this.setState({
-          isHovered: true,
-        })
-        }
-        onMouseLeave={() => this.setState({
-          isHovered: false,
-        })
-        }
         style={{
           backgroundColor: color,
-          transition: 'width 0.5s ease-in',
+          transition: 'all 0.5s ease-in',
+          border: card.isEditing && `2px solid ${tinycolor(color).darken(25)}`,
           filter:
-            (isHovered
+            (card.isEditing
               && `drop-shadow(1px -3px 3px ${tinycolor(color).darken(25)})`)
             || null,
         }}
       >
-        <CardBar
-          card={card}
-          isFocused={Boolean(isFocused)}
-          cardActions={hasCardBar ? cardActions : ''}
-          cardItem={this}
-          title={card.title}
-        />
-        <Labels
-          labelFuncs={labelFuncs}
-          labelFilters={labelFilters}
-          labels={card.labels}
-          color={color}
-        />
-        {this.renderCardDate()}
-
-        <Editor
-          readOnly={readOnly}
-          card={card}
-          defaultValue={card.text}
-          onSave={c => saveCard(c, isFocused, newCard, editorSettings)}
-          codeTheme={codeTheme}
-          changeTitle={val => changeCardSetting('title', val)}
-          whiteMode={whiteMode}
-          value={getCardText(card.title, card.text)}
-          onChange={val => changeCardSetting('text', val)}
-          theme={{
-            backgroundColor: 'transparent',
+        <KeyboardEventHandler
+          handleKeys={['esc']}
+          onKeyEvent={(key) => {
+            if (card.isEditing && key === 'esc') {
+              discardCardChanges(card, Boolean(isFocused));
+            }
           }}
-        />
+        >
+          <CardBar
+            card={card}
+            color={color}
+            isFocused={Boolean(isFocused)}
+            cardActions={hasCardBar ? cardActions : ''}
+            cardItem={this}
+            title={card.title}
+          />
+          <Labels
+            labelFuncs={labelFuncs}
+            labelFilters={labelFilters}
+            labels={card.labels}
+            color={color}
+          />
+          {this.renderCardDate()}
+          {card.isEditing && (
+            <CardEditor
+              onSubmit={c => saveCard(c, isFocused)}
+              card={card}
+              color={color}
+              isFocused={isFocused}
+              onChange={changeCardSetting}
+              labelPickerProps={{
+                onAdd: addLabel,
+                onRemove: removeLabel,
+                cardLabels: card.editingLabels,
+                color,
+                globalLabels,
+              }}
+              boardPickerProps={{
+                createBoard,
+                boards,
+                boardNames,
+                toggleBoardsDialog,
+              }}
+              onDiscard={c => discardCardChanges(c, Boolean(isFocused))}
+            />
+          )}
+          <Editor
+            readOnly={!card.isEditing}
+            card={{ ...card, title: cardContent.title, text: cardContent.text }}
+            defaultValue={cardContent.text}
+            onSave={c => saveCard(c, isFocused)}
+            codeTheme={codeTheme}
+            changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
+            }
+            whiteMode={whiteMode}
+            value={getCardText(cardContent.title, cardContent.text)}
+            onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
+            }
+            theme={{
+              backgroundColor: 'transparent',
+            }}
+          />
+        </KeyboardEventHandler>
       </Box>
     );
   }
@@ -183,15 +198,13 @@ ${card.text}`;
 export default MdynaCard;
 
 MdynaCard.propTypes = {
-  editorSettings: PropTypes.object,
   card: PropTypes.object.isRequired,
-  newCard: PropTypes.bool,
   isFocused: PropTypes.bool,
-  readOnly: PropTypes.bool,
   codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,
   saveCard: PropTypes.func,
   hasCardBar: PropTypes.bool,
+  discardCardChanges: PropTypes.func.isRequired,
   editCard: PropTypes.func,
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
@@ -200,24 +213,28 @@ MdynaCard.propTypes = {
   removeLabel: PropTypes.func,
   changeCardSetting: PropTypes.func,
   focusCard: PropTypes.func,
+  globalLabels: PropTypes.array,
+  addLabel: PropTypes.func.isRequired,
   addLabelFilter: PropTypes.func,
+  createBoard: PropTypes.func.isRequired,
+  boards: PropTypes.array.isRequired,
+  boardNames: PropTypes.array.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func,
 };
 
 MdynaCard.defaultProps = {
   changeCardSetting: null,
-  newCard: false,
   removeCard: null,
   saveCard: null,
   editCard: null,
   isFocused: false,
+  globalLabels: [],
   codeTheme: 'Default',
-  editorSettings: {},
   whiteMode: false,
   addLabelFilter: null,
   removeLabelFilter: null,
   removeLabel: null,
-  readOnly: true,
   labelFilters: [],
   focusCard: null,
   toggleCard: null,

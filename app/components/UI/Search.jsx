@@ -24,7 +24,7 @@ export default class SearchComponent extends PureComponent {
       const suggestions = [];
       for (let i = 0; i < 5; i += 1) {
         const title = titles[i];
-        if (title) {
+        if (title && title.toLowerCase) {
           if (title.toLowerCase().startsWith(defaultValue.toLowerCase())) {
             suggestions.push(title);
           }

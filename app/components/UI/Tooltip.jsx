@@ -64,7 +64,7 @@ class Tooltip extends PureComponent {
     return (
       <React.Fragment>
         <Box
-          onClick={() => onClick()}
+          onClick={() => onClick && onClick()}
           className={cx('tip-icon', className)}
           ref={this.TooltipRef}
           target={icon}
@@ -78,9 +78,11 @@ class Tooltip extends PureComponent {
         </Box>
         {this.TooltipRef.current && hover && (
           <Drop
-            align={{ left: 'right' }}
+            align={{ top: 'bottom' }}
             target={this.TooltipRef.current}
             plain
+            responsive={false}
+            elevation="none"
           >
             <Box
               margin="xsmall"

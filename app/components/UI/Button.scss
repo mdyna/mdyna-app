@@ -1,14 +1,10 @@
 button.button {
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 10px !important;
   padding: 5px;
   margin: 5px 0;
-  &.icon {
-    padding: 20px;
-  }
   svg {
     margin: 0 5px;
     vertical-align: middle;
   }
-
 }

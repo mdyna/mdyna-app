@@ -7,21 +7,14 @@ import './Button.scss'; // eslint-disable-line
 class MdynaButton extends PureComponent {
   render() {
     const {
-      children,
-      className,
-      color,
-      icon,
-      hoverIndicator,
-      ariaLabel,
-      ...otherProps
+      children, className, color, ariaLabel, ...otherProps
     } = this.props;
     return (
       <Button
-        hoverIndicator={hoverIndicator}
         a11yTitle={ariaLabel || 'Button'}
         aria-label={ariaLabel}
         color={color}
-        className={cx('button', className, icon && 'icon')}
+        className={cx('button', className)}
         {...otherProps}
       >
         {children}
@@ -39,18 +32,14 @@ MdynaButton.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  icon: PropTypes.bool,
   color: PropTypes.string,
-  hoverIndicator: PropTypes.string,
   ariaLabel: PropTypes.string,
 };
 
 MdynaButton.defaultProps = {
   children: [],
   className: '',
-  hoverIndicator: 'accent-1',
   ariaLabel: 'Button',
-  icon: false,
   color: 'brand',
 };
 

@@ -24,7 +24,9 @@ class CardBar extends PureComponent {
   }
 
   render() {
-    const { card, cardActions, isFocused } = this.props;
+    const {
+      card, cardActions, isFocused, color,
+    } = this.props;
     const {
       editCard, toggleCard, removeCard, focusCard,
     } = cardActions;
@@ -33,10 +35,14 @@ class CardBar extends PureComponent {
         <div className="card-bar">
           {cardActions && (
             <div className="buttons-container">
-              <Button hoverIndicator="dark-1" onClick={() => editCard(card)}>
+              <Button
+                active={card.isEditing}
+                hoverIndicator="dark-1"
+                onClick={() => editCard(card, isFocused)}
+              >
                 <Tooltip
-                  icon={<Edit color={card.color} />}
-                  text="Edit this card"
+                  icon={<Edit color={card.isEditing ? 'brand' : color} />}
+                  text="Edit this card (You can also double click the card)"
                 />
               </Button>
               <Button
@@ -51,9 +57,7 @@ class CardBar extends PureComponent {
               >
                 <Tooltip
                   text="Focus this card"
-                  icon={
-                    <FocusIcon color={isFocused ? 'accent-3' : card.color} />
-                  }
+                  icon={<FocusIcon color={isFocused ? null : color} />}
                 />
               </Button>
               <Button
@@ -65,9 +69,9 @@ class CardBar extends PureComponent {
                   icon={(
                     <Archive
                       style={{
-                        transition: 'all 0.5s',
+                        transition: 'all 0.5s ease-in',
                       }}
-                      color={card.color}
+                      color={color}
                     />
 )}
                   text="Archive card"
@@ -82,9 +86,9 @@ class CardBar extends PureComponent {
                   icon={(
                     <Trash
                       style={{
-                        stroke: card.color,
+                        stroke: color,
                       }}
-                      color={card.color}
+                      color={color}
                     />
 )}
                   text="Delete card (Permanent)"
@@ -103,6 +107,7 @@ export default CardBar;
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
   isFocused: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
   cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
     .isRequired,
 };
