@@ -88,8 +88,13 @@ class MarkdownEditor extends React.PureComponent {
               const rawEmoji = matches && matches.before && matches.before[0];
               const emojiString = rawEmoji.split(':')[1];
               if (emojiString) {
-                changes.moveFocusBackward(rawEmoji.length); // select last word
-                changes.insertText(parseEmojis(rawEmoji));
+                const parsedEmoji = parseEmojis(rawEmoji);
+                if (parsedEmoji) {
+                  changes.moveFocusBackward(rawEmoji.length); // select last word
+                  changes.insertText(parsedEmoji);
+                } else {
+                  changes.insertText(' ');
+                }
               }
             },
           }),
