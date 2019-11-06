@@ -18,11 +18,12 @@ const {
 
 const NEW_CARD_TEMPLATE = {
   title: 'New card',
-  text: '## Double click to edit card',
-  editingText: `
+  text: `
   ## Shortcuts
-  - ESC to discard changes
-  - Ctrl+Enter to save changes
+  - ESC to **Discard Changes**
+  - Ctrl+Enter to **Save Changes**
+  - Double click on card to **Edit**
+  - A to **Add**
 `,
 };
 
@@ -43,13 +44,13 @@ export default function cards(state = [], action) {
           id: uniqid(),
           archived: false,
           title: NEW_CARD_TEMPLATE.title,
-          text: NEW_CARD_TEMPLATE.editingText,
+          text: NEW_CARD_TEMPLATE.text,
           board: action.board || 'INBOX',
           color: randomColor,
           isEditing: true,
           editingColor: randomColor,
           editingTitle: NEW_CARD_TEMPLATE.title,
-          editingText: NEW_CARD_TEMPLATE.editingText,
+          editingText: NEW_CARD_TEMPLATE.text,
         },
       ];
     case REMOVE_CARD:
