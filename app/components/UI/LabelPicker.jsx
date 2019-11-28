@@ -28,6 +28,7 @@ const LabelInput = ({
   };
 
   const onAddTag = (tag) => {
+    setCurrentTag('');
     if (onAdd) {
       onAdd(tag);
     }
@@ -36,7 +37,6 @@ const LabelInput = ({
   const onEnter = () => {
     if (currentTag.length) {
       onAddTag(currentTag);
-      setCurrentTag('');
     }
   };
 
