@@ -187,31 +187,39 @@ export default class CardList extends PureComponent {
           />
         </Button>
         {this.renderAddNoteButton()}
-        <Text align="center" size="medium">
-          {cardItems && cardItems.length
-            ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
-            : '0'}
-        </Text>
-        <Button
-          className={cx('page-control', pageIndex === 0 && 'disabled')}
-          onClick={() => this.getPreviousCards()}
-        >
-          <KeyboardEventHandler
-            handleKeys={['left']}
-            onKeyEvent={() => this.getPreviousCards()}
-          />
-          <Previous color="brand" />
-        </Button>
-        <Button
-          onClick={() => this.getNextCards()}
-          className={cx('page-control', !hasMore && 'disabled')}
-        >
-          <KeyboardEventHandler
-            handleKeys={['right']}
-            onKeyEvent={() => this.getNextCards()}
-          />
-          <Next color="brand" />
-        </Button>
+        {cardItems && cardItems.length ? (
+          <>
+            <Text align="center" size="medium">
+              {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
+            </Text>
+            {pageIndex !== 0 && (
+              <Button
+                className={cx('page-control', pageIndex === 0 && 'disabled')}
+                onClick={() => this.getPreviousCards()}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['left']}
+                  onKeyEvent={() => this.getPreviousCards()}
+                />
+                <Previous color="brand" />
+              </Button>
+            )}
+            {hasMore && (
+              <Button
+                onClick={() => this.getNextCards()}
+                className={cx('page-control', !hasMore && 'disabled')}
+              >
+                <KeyboardEventHandler
+                  handleKeys={['right']}
+                  onKeyEvent={() => this.getNextCards()}
+                />
+                <Next color="brand" />
+              </Button>
+            )}
+          </>
+        ) : (
+          ''
+        )}
       </Box>
     );
   }
