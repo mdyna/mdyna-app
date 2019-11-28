@@ -38,7 +38,7 @@ class CardBar extends PureComponent {
               <Button
                 active={card.isEditing}
                 hoverIndicator="dark-1"
-                onClick={() => editCard(card, isFocused)}
+                onClick={() => !card.isEditing && editCard(card, isFocused)}
               >
                 <Tooltip
                   icon={<Edit color={card.isEditing ? 'brand' : color} />}

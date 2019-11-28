@@ -114,7 +114,9 @@ ${card.text}`;
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
-          cardActions.editCard(card, isFocused);
+          if (!card.isEditing) {
+            cardActions.editCard(card, isFocused);
+          }
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item')}
         style={{
