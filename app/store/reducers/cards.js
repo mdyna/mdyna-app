@@ -140,7 +140,14 @@ export default function cards(state = [], action) {
             editingTitle: card.title,
           };
         }
-        return { ...card, isEditing: false };
+        return {
+          ...card,
+          isEditing: false,
+          editingColor: '',
+          editingLabels: [],
+          editingText: '',
+          editingTitle: '',
+        };
       });
     /*
     case GENERATE_LINK:
