@@ -71,7 +71,7 @@ const LabelInput = ({
         wrap
       >
         {value.length > 0 && renderValue()}
-        <Box flex style={{ minWidth: '120px' }}>
+        <Box flex style={{ minWidth: '120px', color }}>
           <TextInput
             type="search"
             plain
