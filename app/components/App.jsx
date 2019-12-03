@@ -7,7 +7,7 @@ import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
-import SideBar from './Sidebar/Sidebar';
+import SideBar from './Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from './BoardsDialog';
 import { getTheme } from '../themes/themeBuilder';

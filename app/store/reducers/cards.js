@@ -46,10 +46,16 @@ export default function cards(state = [], action) {
           id: uniqid(),
           archived: false,
           title: unNest(action, 'card.title') || NEW_CARD_TEMPLATE.title,
-          text: unNest(action, 'card.text') || NEW_CARD_TEMPLATE.text,
+          text:
+            unNest(action, 'card.text')
+            || (!unNest(action, 'card.title') && NEW_CARD_TEMPLATE.text)
+            || 'Empty card',
           board: action.board || unNest(action, 'card.title') || 'INBOX',
           color: randomColor,
-          isEditing: !unNest(action, 'card.text') && true,
+          isEditing:
+            !unNest(action, 'card.title')
+            && !unNest(action, 'card.text')
+            && true,
           editingColor: randomColor,
           editingTitle: NEW_CARD_TEMPLATE.title,
           editingText: NEW_CARD_TEMPLATE.text,
