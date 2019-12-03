@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, Select } from 'grommet';
 import { toast } from 'react-toastify';
+// eslint-disable-next-line
 import { capitalize } from 'lodash';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';

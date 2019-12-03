@@ -10,4 +10,7 @@
   &.expanded {
     flex-direction: column;
   }
+  button {
+    align-self: flex-start !important;
+  }
 }
