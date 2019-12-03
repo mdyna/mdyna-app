@@ -60,6 +60,19 @@ export default class CardList extends PureComponent {
     }
   }
 
+  addNewCard() {
+    const { addCard, activeBoardId } = this.props;
+    const { pageView } = this.state;
+    addCard(activeBoardId).then(() => {
+      if (pageView !== 1) {
+        this.setState({
+          pageView: 1,
+          pageIndex: 0,
+        });
+      }
+    });
+  }
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
@@ -89,12 +102,10 @@ export default class CardList extends PureComponent {
   }
 
   renderAddNoteButton() {
-    const { addCard, activeBoardId } = this.props;
-
     return (
       <Button
         onClick={() => {
-          addCard(activeBoardId);
+          this.addNewCard();
         }}
         className="page-control add-note-btn"
       >
@@ -225,13 +236,7 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const {
-      cards,
-      addCard,
-      searchInput,
-      cardsPerPage,
-      activeBoardId,
-    } = this.props;
+    const { cards, searchInput, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -250,7 +255,7 @@ export default class CardList extends PureComponent {
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
           handleKeys={['a']}
-          onKeyEvent={() => addCard(activeBoardId)}
+          onKeyEvent={() => this.addNewCard()}
         />
         {this.renderCardControls(cardItems)}
         {cards.length ? (

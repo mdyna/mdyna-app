@@ -17,9 +17,10 @@ const {
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
 const NEW_CARD_TEMPLATE = {
-  title: 'New card',
+  title: '',
   text: `
-  ## Shortcuts
+  ## New card
+  ### Shortcuts
   - ESC to **Discard Changes**
   - Ctrl+Enter to **Save Changes**
   - Double click on card to **Edit**
@@ -73,7 +74,7 @@ export default function cards(state = [], action) {
             id: cardId,
             isEditing: false,
             text: action.card.text,
-            title: action.card.title,
+            title: action.card.title || 'Untitled card',
             labels: action.card.labels,
             color: action.card.color,
             editingColor: '',

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
-import { getRandomColor } from 'Utils/colors';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard } = FILTERS;
@@ -19,9 +18,7 @@ function mapDispatchToProps(dispatch) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    addCard: (activeBoard) => {
-      dispatch(addCard(activeBoard));
-    },
+    addCard: activeBoard => dispatch(addCard(activeBoard)),
   };
 }
 function mapStateToProps(state) {
