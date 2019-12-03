@@ -1,4 +1,5 @@
 import ACTION_TYPES from 'Store/actions/actionTypes';
+import unNest from 'Utils/nest';
 import { getRandomColor } from 'Utils/colors';
 import uniqid from 'uniqid';
 
@@ -44,11 +45,11 @@ export default function cards(state = [], action) {
           lastEditDate: new Date(),
           id: uniqid(),
           archived: false,
-          title: NEW_CARD_TEMPLATE.title,
-          text: NEW_CARD_TEMPLATE.text,
-          board: action.board || 'INBOX',
+          title: unNest(action, 'card.title') || NEW_CARD_TEMPLATE.title,
+          text: unNest(action, 'card.text') || NEW_CARD_TEMPLATE.text,
+          board: action.board || unNest(action, 'card.title') || 'INBOX',
           color: randomColor,
-          isEditing: true,
+          isEditing: !unNest(action, 'card.text') && true,
           editingColor: randomColor,
           editingTitle: NEW_CARD_TEMPLATE.title,
           editingText: NEW_CARD_TEMPLATE.text,

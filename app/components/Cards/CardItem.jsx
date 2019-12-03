@@ -76,6 +76,7 @@ class MdynaCard extends Component {
       discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
+      duplicateCard,
       labelFilters,
       whiteMode,
       globalLabels,
@@ -94,6 +95,7 @@ class MdynaCard extends Component {
     const cardActions = {
       toggleCard,
       removeCard,
+      duplicateCard,
       editCard,
       focusCard,
       removeLabel,
@@ -201,6 +203,7 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
+  duplicateCard: PropTypes.func.isRequired,
   isFocused: PropTypes.bool,
   codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,

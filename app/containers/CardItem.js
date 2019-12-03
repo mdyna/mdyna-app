@@ -20,12 +20,16 @@ const {
   editCard,
   changeCardSetting,
   discardCardChanges,
+  addCard,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
 
 function mapDispatchToProps(dispatch) {
   return {
+    duplicateCard: (card) => {
+      dispatch(addCard(card.board, card));
+    },
     removeCard: async (card) => {
       dispatch(removeCard(card));
       dispatch(updateDeletedCards(card.id));

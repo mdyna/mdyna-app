@@ -37,7 +37,11 @@ class CardBar extends PureComponent {
     } = this.props;
     const { moreExpanded } = this.state;
     const {
-      editCard, toggleCard, removeCard, focusCard,
+      editCard,
+      toggleCard,
+      removeCard,
+      focusCard,
+      duplicateCard,
     } = cardActions;
     return (
       <React.Fragment>
@@ -123,6 +127,7 @@ class CardBar extends PureComponent {
                         Duplicate
                       </Box>
                     ),
+                    onClick: () => duplicateCard(card),
                   },
                 ]}
                 icon={<More color={color} />}
