@@ -17,6 +17,7 @@ const {
   syncCardsSuccess,
   syncCardsFail,
   syncCards,
+  desyncGh,
 } = SETTINGS;
 
 const { updateCardList } = CARD;
@@ -58,6 +59,10 @@ function mapDispatchToProps(dispatch) {
         toast.error('Error logging into Github, please check your credentials');
         return [];
       }
+      return [];
+    },
+    desyncGh: () => {
+      dispatch(desyncGh());
     },
     syncCards: () => syncCardsProp(dispatch),
     updateGist: (id) => {

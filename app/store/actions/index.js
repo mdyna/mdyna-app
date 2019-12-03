@@ -119,6 +119,10 @@ export const loginToGhFail = () => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_FAIL,
 });
 
+export const desyncGh = () => ({
+  type: ACTION_TYPES.SETTINGS.DESYNC_GH,
+});
+
 export const loginToGh = (username, pw) => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH,
   payload: {
@@ -153,6 +157,7 @@ const SETTINGS = {
   toggleWhiteMode,
   toggleSidebar,
   updateDeletedCards,
+  desyncGh,
   changeCwd,
 };
 

@@ -88,6 +88,7 @@ class GistSync extends PureComponent {
       syncCards,
       syncSuccess,
       badge,
+      desyncGh,
     } = this.props;
     const {
       expanded, inputUsername, inputPw, gistList,
@@ -167,7 +168,7 @@ class GistSync extends PureComponent {
             )
           )}
         </Collapsible>
-        <Box direction="column">
+        <Box direction="column" align="start">
           {(isAuthenticated && (
             <React.Fragment>
               <Button onClick={() => this.expandGists(!expanded)}>
@@ -182,6 +183,9 @@ class GistSync extends PureComponent {
                   </React.Fragment>
                 ))
                   || 'Sync'}
+              </Button>
+              <Button color="accent-2" onClick={() => desyncGh()}>
+                Desync Github
               </Button>
             </React.Fragment>
           )) || (
@@ -198,7 +202,7 @@ class GistSync extends PureComponent {
               Connect with GitHub
             </Button>
           )}
-          {(loadingGitHub || syncing) && <Loader />}
+          {(loadingGitHub || syncing) && githubUserName && <Loader />}
         </Box>
       </Box>
     );
@@ -214,6 +218,7 @@ GistSync.propTypes = {
   gistId: PropTypes.string.isRequired,
   lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
+  desyncGh: PropTypes.func.isRequired,
   loadingGitHub: PropTypes.bool.isRequired,
   syncing: PropTypes.bool.isRequired,
   syncSuccess: PropTypes.bool.isRequired,

@@ -11,6 +11,7 @@ const {
   LOGIN_TO_GH,
   LOGIN_TO_GH_SUCCESS,
   LOGIN_TO_GH_FAIL,
+  DESYNC_GH,
   SYNC_CARDS,
   SYNC_CARDS_SUCCESS,
   SYNC_CARDS_FAIL,
@@ -64,6 +65,14 @@ function settingsReducer(
         loadingGitHub: false,
       };
     case LOGIN_TO_GH_FAIL:
+      return {
+        ...state,
+        githubAuthOn: false,
+        githubUserName: '',
+        githubPassword: '',
+        loadingGitHub: false,
+      };
+    case DESYNC_GH:
       return {
         ...state,
         githubAuthOn: false,
