@@ -31,7 +31,7 @@ Label.defaultProps = {
 Label.propTypes = {
   onClick: PropTypes.func,
   transparent: PropTypes.bool,
-  label: PropTypes.oneOf(PropTypes.object, PropTypes.string),
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   color: PropTypes.string,
 };
 class Labels extends Component {
