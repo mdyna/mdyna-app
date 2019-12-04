@@ -79,7 +79,7 @@ function mapDispatchToProps(dispatch) {
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    saveCard: (card, isFocused) => {
+    saveCard: (card, isFocused) => new Promise((resolve) => {
       dispatch(saveCard(card));
       if (isFocused) {
         dispatch(
@@ -93,7 +93,8 @@ function mapDispatchToProps(dispatch) {
           }),
         );
       }
-    },
+      resolve();
+    }),
     addLabel: (val) => {
       dispatch(addLabel(val));
     },

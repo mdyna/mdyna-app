@@ -17,11 +17,15 @@ import './CardItem.scss'; // eslint-disable-line
 
 class MdynaCard extends Component {
   static scrollToCard(hashtag) {
-    // eslint-disable-next-line
-    ReactDOM.findDOMNode(hashtag).scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
+    if (hashtag) {
+      // eslint-disable-next-line
+      ReactDOM.findDOMNode(hashtag).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    } else {
+      document.querySelector('#root').scrollTo(0, 0);
+    }
   }
 
   name = 'Mdyna Card';
@@ -34,6 +38,11 @@ class MdynaCard extends Component {
     return !isEditing
       ? { title, text }
       : { title: editingTitle, text: editingText };
+  }
+
+  saveCardContent(card) {
+    const { saveCard, isFocused } = this.props;
+    saveCard(card, isFocused).then(() => MdynaCard.scrollToCard());
   }
 
   renderCardDate() {
@@ -67,7 +76,6 @@ class MdynaCard extends Component {
       hasCardBar,
       changeCardSetting,
       toggleCard,
-      saveCard,
       isFocused,
       removeCard,
       focusCard,
@@ -157,7 +165,7 @@ ${card.text}`;
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor
-              onSubmit={c => saveCard(c, isFocused)}
+              onSubmit={c => this.saveCardContent(c)}
               card={card}
               color={color}
               isFocused={isFocused}
@@ -182,7 +190,9 @@ ${card.text}`;
             readOnly={!card.isEditing}
             card={{ ...card, title: cardContent.title, text: cardContent.text }}
             defaultValue={cardContent.text}
-            onSave={c => saveCard(c, isFocused)}
+            onSave={(c) => {
+              this.saveCardContent(c);
+            }}
             codeTheme={codeTheme}
             changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
             }
