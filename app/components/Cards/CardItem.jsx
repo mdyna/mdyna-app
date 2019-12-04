@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
@@ -15,6 +16,14 @@ import CardEditor from './CardEditor';
 import './CardItem.scss'; // eslint-disable-line
 
 class MdynaCard extends Component {
+  static scrollToCard(hashtag) {
+    // eslint-disable-next-line
+    ReactDOM.findDOMNode(hashtag).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }
+
   name = 'Mdyna Card';
 
   getCardContent() {
@@ -26,14 +35,6 @@ class MdynaCard extends Component {
       ? { title, text }
       : { title: editingTitle, text: editingText };
   }
-
-  /*
-  scrollToCard() {
-    ReactDOM.findDOMNode(this).scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  } */
 
   renderCardDate() {
     const { card } = this.props;
@@ -186,6 +187,7 @@ ${card.text}`;
             changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
             }
             whiteMode={whiteMode}
+            onClickHeader={tag => MdynaCard.scrollToCard(tag)}
             value={getCardText(cardContent.title, cardContent.text)}
             onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
             }

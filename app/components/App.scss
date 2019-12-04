@@ -143,6 +143,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   height: calc(100vh - 32px);
+  scroll-behavior: smooth;
 }
 .mdyna-app {
   margin: 0;
