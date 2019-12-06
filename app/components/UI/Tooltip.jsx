@@ -18,6 +18,10 @@ const KeyboardShortcuts = () => (
       <Box className="keyboard-desc">Search cards per label or title</Box>
     </Box>
     <Box direction="row" justify="between">
+      <Box className="keyboard">CTRL+V</Box>
+      <Box className="keyboard-desc">Add a note from clipboard</Box>
+    </Box>
+    <Box direction="row" justify="between">
       <Box className="keyboard">Arrow Right</Box>
       <Box className="keyboard-desc">Next board page</Box>
     </Box>

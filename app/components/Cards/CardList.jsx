@@ -263,10 +263,12 @@ export default class CardList extends PureComponent {
               navigator.clipboard
                 .readText()
                 .then((text) => {
-                  this.addNewCard({
-                    text: `# ${text}`,
-                    editingText: `# ${text}`,
-                  });
+                  if (text) {
+                    this.addNewCard({
+                      text: `# ${text}`,
+                      editingText: `# ${text}`,
+                    });
+                  }
                 })
                 .catch((err) => {
                   console.log('Something went wrong', err);
