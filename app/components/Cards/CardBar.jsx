@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Archive, Trash, Edit, More, Clone,
+  Archive, Trash, Edit, More, Clone, Copy,
 } from 'grommet-icons';
 import { Menu, Box } from 'grommet';
 import FocusIcon from 'UI/FocusIcon';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import { toast } from 'react-toastify';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import './CardBar.scss'; // eslint-disable-line
 
@@ -75,6 +76,24 @@ class CardBar extends PureComponent {
                   text="Delete card (Permanent)"
                 />
               </Button>
+              <CopyToClipboard
+                text={card.text}
+                onCopy={() => toast.info(`${card.title} copied to clipboard`)}
+              >
+                <Button hoverIndicator="dark-1">
+                  <Tooltip
+                    icon={(
+                      <Copy
+                        style={{
+                          stroke: color,
+                        }}
+                        color={color}
+                      />
+)}
+                    text="Copied card content to clipboard"
+                  />
+                </Button>
+              </CopyToClipboard>
               <Menu
                 open={moreExpanded}
                 dropBackground="dark-1"
