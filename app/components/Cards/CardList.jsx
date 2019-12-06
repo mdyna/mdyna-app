@@ -60,10 +60,11 @@ export default class CardList extends PureComponent {
     }
   }
 
-  addNewCard() {
+  addNewCard(card = {}) {
     const { addCard, activeBoardId } = this.props;
     const { pageView } = this.state;
-    addCard(activeBoardId).then(() => {
+
+    addCard(activeBoardId, card).then(() => {
       if (pageView !== 1) {
         this.setState({
           pageView: 1,
@@ -254,8 +255,24 @@ export default class CardList extends PureComponent {
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
-          handleKeys={['a']}
-          onKeyEvent={() => this.addNewCard()}
+          handleKeys={['a', 'ctrl + v']}
+          onKeyEvent={(key) => {
+            if (key === 'a') {
+              this.addNewCard();
+            } else {
+              navigator.clipboard
+                .readText()
+                .then((text) => {
+                  this.addNewCard({
+                    text: `# ${text}`,
+                    editingText: `# ${text}`,
+                  });
+                })
+                .catch((err) => {
+                  console.log('Something went wrong', err);
+                });
+            }
+          }}
         />
         {this.renderCardControls(cardItems)}
         {cards.length ? (

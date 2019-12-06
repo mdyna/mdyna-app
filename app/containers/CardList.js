@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    addCard: activeBoard => dispatch(addCard(activeBoard)),
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)),
   };
 }
 function mapStateToProps(state) {
