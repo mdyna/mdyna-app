@@ -28,6 +28,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.8.6",
     "react-color": "^2.17.3",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.8.6",
     "react-emoji-render": "^1.0.0",
     "react-hot-loader": "3.0.0-beta.6",
