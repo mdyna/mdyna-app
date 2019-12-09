@@ -24,6 +24,7 @@ class LabelFilter extends Component {
             key={`key-${i}`}
             plain
             primary
+            color={!labelFilterActive ? 'brand' : 'accent-3'}
           >
             <Labels label={{ title: label.title }} transparent />
           </Button>
