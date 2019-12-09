@@ -186,19 +186,19 @@ const LABEL = {
 
 // ──── FAV ACTIONS ─────────────────────────────────────────────────────────────────────
 
-export const addFav = label => ({
+export const addFav = payload => ({
   type: ACTION_TYPES.FAV.ADD_FAV,
-  label,
+  payload,
 });
 
-export const removeFav = label => ({
+export const removeFav = payload => ({
   type: ACTION_TYPES.FAV.REMOVE_FAV,
-  label,
+  payload,
 });
 
-export const updateFavList = content => ({
+export const updateFavList = payload => ({
   type: ACTION_TYPES.FAV.UPDATE_FAV_LIST,
-  content,
+  payload,
 });
 
 const FAV = {

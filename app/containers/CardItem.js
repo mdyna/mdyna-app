@@ -4,10 +4,12 @@ import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD, LABEL, FILTERS, SETTINGS, BOARDS,
+  CARD, LABEL, FILTERS, SETTINGS, BOARDS, FAV,
 } = ACTIONS;
 
 const { addLabel, removeLabel } = LABEL;
+
+const { addFav, removeFav } = FAV;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
@@ -29,6 +31,12 @@ function mapDispatchToProps(dispatch) {
   return {
     duplicateCard: (card) => {
       dispatch(addCard(card.board, card));
+    },
+    addFav: (card) => {
+      dispatch(addFav(card));
+    },
+    removeFav: (card) => {
+      dispatch(removeFav(card));
     },
     removeCard: async (card) => {
       dispatch(removeCard(card));
@@ -118,6 +126,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
+    favs: state.favs.map(f => f.title),
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     boardNames: state.boards.boardNames,
