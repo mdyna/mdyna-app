@@ -1,11 +1,11 @@
 .label-filter-box {
   border-radius: 10px;
+  border: none;
   display: flex;
-  flex-flow: row nowrap;
-  margin: 10px 5px;
   .label-box {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
+    padding: 5px;
     justify-content: flex-start;
     align-items: baseline;
     overflow-y: auto;
@@ -13,6 +13,7 @@
     max-height: 25vh;
     padding: 5px auto;
     .label-button {
+      min-height: 32px;
       margin: 3px;
       span {
         font-size: 18px;

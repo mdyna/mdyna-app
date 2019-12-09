@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
-import sort from 'lodash/sortBy';
+import sort from 'lodash/sortBy'; // eslint-disable-line
 import Labels from 'UI/Labels';
 import Button from 'UI/Button';
 
@@ -40,7 +40,7 @@ class LabelFilter extends Component {
     return (
       (labels && labels.length && (
         <div className="label-filter-box">
-          <Box border={{ color: 'brand' }} className="label-box">
+          <Box background="accent-1" className="label-box">
             {this.renderClickableLabels()}
           </Box>
         </div>
