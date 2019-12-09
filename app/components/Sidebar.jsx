@@ -182,7 +182,6 @@ class Sidebar extends Component {
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
           </Button>
-
           <Box className="expandable-menu" background="accent-1">
             <Collapsible direction="vertical" open={labelFiltersExpanded}>
               <LabelFilter

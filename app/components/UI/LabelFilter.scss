@@ -2,6 +2,7 @@
   border-radius: 10px;
   border: none;
   display: flex;
+  margin-left: 15px;
   .label-box {
     display: flex;
     flex-flow: column nowrap;
@@ -11,6 +12,7 @@
     overflow-y: auto;
     border-radius: 10px;
     max-height: 25vh;
+    width: 100%;
     padding: 5px auto;
     .label-button {
       min-height: 32px;
