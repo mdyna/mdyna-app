@@ -29,6 +29,7 @@
     margin: 5px 0;
   }
   &.expanded {
+    padding: 10px 0;
     width: 200px;
     .sidebar-tooltip {
       opacity: 0;
@@ -41,6 +42,14 @@
       opacity: 1 !important;
       font-size: 14px !important;
     }
+    .expandable-menu {
+      width: 100%;
+    }
+    .sorting-options {
+      > div {
+        margin-left: 15px;
+      }
+    }
   }
   .sidebar-tooltip {
     opacity: 1;
@@ -50,21 +59,23 @@
   }
   > div > div > .button {
     width: 100%;
+    border-radius: 3px !important;
   }
   .menu-controller .button {
     width: 100%;
     font-weight: 300;
   }
   button {
+    text-align: start;
     font-weight: 700;
     font-size: 14px;
+    border-radius: 3px !important;
     padding: 3px;
     span {
       transition: all 0.5s;
     }
 
     &.active {
-      border-radius: 10px;
       svg {
         transition: all 0.5s;
         &.descending {

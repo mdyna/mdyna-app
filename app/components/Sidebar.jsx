@@ -65,7 +65,7 @@ class Sidebar extends Component {
     });
   }
 
-  collapsibleSidebar() {
+  expandedSidebar() {
     const {
       labelFilters,
       changeSorting,
@@ -86,7 +86,9 @@ class Sidebar extends Component {
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Box style={{ display: sidebarExpanded ? 'initial' : 'none' }}>
+      <Box
+        style={{ display: sidebarExpanded ? 'initial' : 'none', width: '100%' }}
+      >
         <Box direction="column" align="end">
           <Button
             hoverIndicator="accent-1"
@@ -118,44 +120,52 @@ class Sidebar extends Component {
             <Sort color="brand" className="sort-icon" />
             <Text className="menu-label">Sort Cards </Text>
           </Button>
-          <Collapsible direction="vertical" open={sortingOptionsExpanded}>
-            <Button
-              hoverIndicator="accent-1"
-              className={classnames(sorting === SORTING_BY_TITLE && 'active')}
-              plain={sorting !== SORTING_BY_TITLE}
-              onClick={() => changeSorting(
-                SORTING_BY_TITLE,
-                this.getSortingOrder(SORTING_BY_TITLE),
-              )
-              }
-            >
-              <Up
-                color="brand"
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Title
-            </Button>
-            <Button
-              hoverIndicator="accent-1"
-              plain={sorting !== SORTING_BY_DATE}
-              onClick={() => changeSorting(
-                SORTING_BY_DATE,
-                this.getSortingOrder(SORTING_BY_DATE),
-              )
-              }
-              className={classnames(sorting === SORTING_BY_DATE && 'active')}
-            >
-              <Up
-                color="brand"
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Date
-            </Button>
-          </Collapsible>
+
+          <Box
+            className="expandable-menu sorting-options"
+            background="accent-1"
+          >
+            <Collapsible direction="vertical" open={sortingOptionsExpanded}>
+              <Button
+                hoverIndicator="accent-3"
+                className={classnames(sorting === SORTING_BY_TITLE && 'active')}
+                plain={sorting !== SORTING_BY_TITLE}
+                active={sorting === SORTING_BY_TITLE}
+                onClick={() => changeSorting(
+                  SORTING_BY_TITLE,
+                  this.getSortingOrder(SORTING_BY_TITLE),
+                )
+                }
+              >
+                <Up
+                  color="brand"
+                  className={classnames(
+                    order === DESCENDING_ORDER && 'descending',
+                  )}
+                />
+                By Title
+              </Button>
+              <Button
+                hoverIndicator="accent-3"
+                active={sorting === SORTING_BY_DATE}
+                plain={sorting !== SORTING_BY_DATE}
+                onClick={() => changeSorting(
+                  SORTING_BY_DATE,
+                  this.getSortingOrder(SORTING_BY_DATE),
+                )
+                }
+                className={classnames(sorting === SORTING_BY_DATE && 'active')}
+              >
+                <Up
+                  color="brand"
+                  className={classnames(
+                    order === DESCENDING_ORDER && 'descending',
+                  )}
+                />
+                By Date
+              </Button>
+            </Collapsible>
+          </Box>
           <Button
             hoverIndicator="accent-1"
             plain
@@ -173,13 +183,15 @@ class Sidebar extends Component {
             <Text className="menu-label">Filter Labels</Text>
           </Button>
 
-          <Collapsible direction="vertical" open={labelFiltersExpanded}>
-            <LabelFilter
-              labels={labels}
-              labelFilters={labelFilters}
-              labelFilterFuncs={labelFilterFuncs}
-            />
-          </Collapsible>
+          <Box className="expandable-menu" background="accent-1">
+            <Collapsible direction="vertical" open={labelFiltersExpanded}>
+              <LabelFilter
+                labels={labels}
+                labelFilters={labelFilters}
+                labelFilterFuncs={labelFilterFuncs}
+              />
+            </Collapsible>
+          </Box>
 
           <GistSync
             onClick={() => {
@@ -310,7 +322,7 @@ class Sidebar extends Component {
               }}
             />
           )}
-          {this.collapsibleSidebar()}
+          {this.expandedSidebar()}
         </Box>
       </React.Fragment>
     );
