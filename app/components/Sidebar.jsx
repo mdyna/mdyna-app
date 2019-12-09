@@ -86,7 +86,7 @@ class Sidebar extends Component {
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Collapsible direction="horizontal" open={sidebarExpanded}>
+      <Box style={{ display: sidebarExpanded ? 'initial' : 'none' }}>
         <Box direction="column" align="end">
           <Button
             hoverIndicator="accent-1"
@@ -193,7 +193,7 @@ class Sidebar extends Component {
             </Text>
           </Box>
         </Box>
-      </Collapsible>
+      </Box>
     );
   }
 
@@ -240,61 +240,66 @@ class Sidebar extends Component {
               </Button>
             )}
           </Box>
-          <Tooltip
-            icon={<AddCircle color="brand" />}
-            className={classnames('sidebar-tooltip', 'add-note-btn')}
-            title="Add card"
-            text="Add card (Use 'A' hotkey)"
-            onClick={() => {
-              addCard(activeBoard);
-            }}
-          />
-          <Tooltip
-            icon={<BoardsIcon color="brand" />}
-            className={classnames('sidebar-tooltip')}
-            title="Manage boards"
-            text="Add, delete or edit boards"
-            onClick={() => {
-              toggleBoardsDialog();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Archive color={archivedFilterOn ? 'accent-1' : 'brand'} />}
-            title="Show Archive"
-            text="See your archived cards"
-            onClick={() => {
-              toggleArchivedFilter(!archivedFilterOn);
-            }}
-          />
-          <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
-            icon={<Sort color="brand" />}
-            title="Sort cards"
-            text="Open sorting options"
-            onClick={() => {
-              this.expandMenu();
-              this.expandSortingOptions();
-            }}
-          />
-          <Tooltip
-            className={classnames('sidebar-tooltip')}
-            icon={<Configure color="brand" />}
-            title="Settings"
-            text="Open MDyna settings interface"
-            onClick={() => {
-              toggleSettings();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Filter color="brand" />}
-            title="Filter cards"
-            text="Filter cards by label"
-            onClick={() => {
-              this.expandMenu();
-            }}
-          />
+          <Box
+            direction="column"
+            style={{ display: !sidebarExpanded ? 'initial' : 'none' }}
+          >
+            <Tooltip
+              icon={<AddCircle color="brand" />}
+              className={classnames('sidebar-tooltip', 'add-note-btn')}
+              title="Add card"
+              text="Add card (Use 'A' hotkey)"
+              onClick={() => {
+                addCard(activeBoard);
+              }}
+            />
+            <Tooltip
+              icon={<BoardsIcon color="brand" />}
+              className={classnames('sidebar-tooltip')}
+              title="Manage boards"
+              text="Add, delete or edit boards"
+              onClick={() => {
+                toggleBoardsDialog();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Archive color={archivedFilterOn ? 'accent-1' : 'brand'} />}
+              title="Show Archive"
+              text="See your archived cards"
+              onClick={() => {
+                toggleArchivedFilter(!archivedFilterOn);
+              }}
+            />
+            <Tooltip
+              className={classnames('sidebar-tooltip', 'sort-icon')}
+              icon={<Sort color="brand" />}
+              title="Sort cards"
+              text="Open sorting options"
+              onClick={() => {
+                this.expandMenu();
+                this.expandSortingOptions();
+              }}
+            />
+            <Tooltip
+              className={classnames('sidebar-tooltip')}
+              icon={<Configure color="brand" />}
+              title="Settings"
+              text="Open MDyna settings interface"
+              onClick={() => {
+                toggleSettings();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Filter color="brand" />}
+              title="Filter cards"
+              text="Filter cards by label"
+              onClick={() => {
+                this.expandMenu();
+              }}
+            />
+          </Box>
           {!sidebarExpanded && (
             <GistSync
               badge

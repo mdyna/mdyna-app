@@ -3,6 +3,8 @@
 .sidebar {
   opacity: 0.9;
   border-radius: 0px 10px 10px 0px;
+  border: 1px solid;
+  border-left: none;
   width: 50px;
   transition: width 0.5s;
   padding: 10px 5px;
