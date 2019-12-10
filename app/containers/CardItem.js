@@ -33,7 +33,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(addCard(card.board, card));
     },
     addFav: (card) => {
-      dispatch(addFav(card));
+      dispatch(addFav(card.id));
     },
     removeFav: (card) => {
       dispatch(removeFav(card));
@@ -126,7 +126,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    favs: state.favs.map(f => f.id),
+    favs: state.favs,
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     boardNames: state.boards.boardNames,

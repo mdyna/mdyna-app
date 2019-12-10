@@ -19,8 +19,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const favIds = state.favs.map(f => f.id);
-  const favs = state.cards.filter(c => favIds.indexOf(c.id) !== -1);
+  const favs = state.cards.filter(c => state.favs.indexOf(c.id) !== -1);
   return {
     favs,
   };
