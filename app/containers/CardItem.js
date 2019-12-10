@@ -126,7 +126,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    favs: state.favs.map(f => f.title),
+    favs: state.favs.map(f => f.id),
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     boardNames: state.boards.boardNames,

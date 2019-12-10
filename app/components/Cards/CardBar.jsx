@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Archive, Trash, Edit, More, Clone, Copy,
+  Archive, Trash, Edit, More, Clone, Copy, Star,
 } from 'grommet-icons';
 import { Menu, Box } from 'grommet';
 import FocusIcon from 'UI/FocusIcon';
@@ -34,12 +34,13 @@ class CardBar extends PureComponent {
 
   render() {
     const {
-      card, cardActions, isFocused, color,
+      card, cardActions, isFocused, color, isFaved,
     } = this.props;
     const { moreExpanded } = this.state;
     const {
       editCard,
       toggleCard,
+      favCard,
       removeCard,
       focusCard,
       duplicateCard,
@@ -76,6 +77,19 @@ class CardBar extends PureComponent {
                   text="Delete card (Permanent)"
                 />
               </Button>
+              <Button hoverIndicator="dark-1" onClick={() => favCard(card)}>
+                <Tooltip
+                  icon={(
+                    <Star
+                      style={{
+                        stroke: (isFaved && 'brand') || color,
+                      }}
+                      color={(isFaved && 'brand') || color}
+                    />
+)}
+                  text="Favorite card"
+                />
+              </Button>
               <CopyToClipboard
                 text={card.text}
                 onCopy={() => toast.info(`${card.title} copied to clipboard`)}
@@ -90,7 +104,7 @@ class CardBar extends PureComponent {
                         color={color}
                       />
 )}
-                    text="Copied card content to clipboard"
+                    text="Copy card content to clipboard"
                   />
                 </Button>
               </CopyToClipboard>
@@ -163,6 +177,7 @@ export default CardBar;
 
 CardBar.propTypes = {
   card: PropTypes.object.isRequired,
+  isFaved: PropTypes.bool.isRequired,
   isFocused: PropTypes.bool.isRequired,
   color: PropTypes.string.isRequired,
   cardActions: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
