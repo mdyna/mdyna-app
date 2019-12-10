@@ -14,6 +14,7 @@ import {
   Descend as Sort,
   AddCircle,
   Archive,
+  Star,
   Configure,
 } from 'grommet-icons';
 import BoardsIcon from 'UI/BoardsIcon';
@@ -21,6 +22,7 @@ import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import GistSync from 'Containers/GistSync';
+import Favs from 'Containers/Favs';
 import LabelFilter from 'UI/LabelFilter';
 import {
   SORTING_BY_TITLE,
@@ -34,6 +36,7 @@ import './Sidebar.scss';
 class Sidebar extends Component {
   state = {
     sortingOptionsExpanded: false,
+    favsExpanded: false,
     labelFiltersExpanded: false,
   };
 
@@ -65,6 +68,13 @@ class Sidebar extends Component {
     });
   }
 
+  expandFavs() {
+    const { favsExpanded } = this.state;
+    this.setState({
+      favsExpanded: !favsExpanded,
+    });
+  }
+
   expandedSidebar() {
     const {
       labelFilters,
@@ -82,7 +92,11 @@ class Sidebar extends Component {
       order,
       labels,
     } = this.props;
-    const { sortingOptionsExpanded, labelFiltersExpanded } = this.state;
+    const {
+      sortingOptionsExpanded,
+      labelFiltersExpanded,
+      favsExpanded,
+    } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
@@ -105,6 +119,20 @@ class Sidebar extends Component {
             <BoardsIcon color="brand" />
             <Text className="menu-label">Boards</Text>
           </Button>
+
+          <Button
+            hoverIndicator="accent-1"
+            plain
+            onClick={() => this.expandFavs()}
+          >
+            <Star color="brand" />
+            <Text className="menu-label">Favorites</Text>
+          </Button>
+          <Box className="expandable-menu" background="accent-1">
+            <Collapsible direction="vertical" open={favsExpanded}>
+              <Favs />
+            </Collapsible>
+          </Box>
           <Button
             onClick={() => toggleArchivedFilter(!archivedFilterOn)}
             color={(archivedFilterOn && 'accent-3') || 'brand'}
@@ -266,7 +294,7 @@ class Sidebar extends Component {
             />
             <Tooltip
               icon={<BoardsIcon color="brand" />}
-              className={classnames('sidebar-tooltip')}
+              className="sidebar-tooltip"
               title="Manage boards"
               text="Add, delete or edit boards"
               onClick={() => {
@@ -275,7 +303,17 @@ class Sidebar extends Component {
             />
             <Tooltip
               className="sidebar-tooltip"
-              icon={<Archive color={archivedFilterOn ? 'accent-1' : 'brand'} />}
+              icon={<Star color="brand" />}
+              title="Favorites"
+              text="Open your favorites and quickly focus on them"
+              onClick={() => {
+                this.expandMenu();
+                this.expandFavs();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
               title="Show Archive"
               text="See your archived cards"
               onClick={() => {
@@ -293,7 +331,7 @@ class Sidebar extends Component {
               }}
             />
             <Tooltip
-              className={classnames('sidebar-tooltip')}
+              className="sidebar-tooltip"
               icon={<Configure color="brand" />}
               title="Settings"
               text="Open MDyna settings interface"
@@ -308,6 +346,7 @@ class Sidebar extends Component {
               text="Filter cards by label"
               onClick={() => {
                 this.expandMenu();
+                this.expandLabelFilters();
               }}
             />
           </Box>
