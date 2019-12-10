@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Grommet, Box, Layer } from 'grommet';
+import { Box } from 'grommet';
 import { Star } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import Button from 'UI/Button';
+
+import './Favorites.scss';
 
 class Favorites extends PureComponent {
   render() {
@@ -10,21 +12,27 @@ class Favorites extends PureComponent {
     const favoriteButtons = [];
     for (let i = 0; i < favs.length; i += 1) {
       favoriteButtons.push(
-        <Button hoverIndicator="accent-3" onClick={() => focusCard(favs[i])}>
+        <Box direction="row" hoverIndicator="accent-3">
           <Button
             plain
-            style={{ padding: 0, marginRight: 5 }}
+            className="remove-btn"
             hoverIndicator="accent-2"
             onClick={() => removeFav(favs[i])}
           >
             <Star color="brand" />
           </Button>
-          {favs[i].title}
-        </Button>,
+          <Button
+            hoverIndicator="accent-3"
+            className="focus-btn"
+            onClick={() => focusCard(favs[i])}
+          >
+            {favs[i].title}
+          </Button>
+        </Box>,
       );
     }
     return (
-      <Box style={{ paddingLeft: '15px' }} direction="column">
+      <Box className="favs-container" direction="column">
         {favoriteButtons}
       </Box>
     );
@@ -33,6 +41,8 @@ class Favorites extends PureComponent {
 
 Favorites.propTypes = {
   favs: PropTypes.array,
+  focusCard: PropTypes.func.isRequired,
+  removeFav: PropTypes.func.isRequired,
 };
 
 Favorites.defaultProps = {
