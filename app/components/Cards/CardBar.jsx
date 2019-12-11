@@ -90,24 +90,6 @@ class CardBar extends PureComponent {
                   text="Favorite card"
                 />
               </Button>
-              <CopyToClipboard
-                text={card.text}
-                onCopy={() => toast.info(`${card.title} copied to clipboard`)}
-              >
-                <Button hoverIndicator="dark-1">
-                  <Tooltip
-                    icon={(
-                      <Copy
-                        style={{
-                          stroke: color,
-                        }}
-                        color={color}
-                      />
-)}
-                    text="Copy card content to clipboard"
-                  />
-                </Button>
-              </CopyToClipboard>
               <Menu
                 open={moreExpanded}
                 dropBackground="dark-1"
@@ -146,6 +128,31 @@ class CardBar extends PureComponent {
                         toast.info('Press ESC to show all cards');
                       }
                     },
+                  },
+                  {
+                    label: (
+                      <CopyToClipboard
+                        text={card.text}
+                        onCopy={() => toast.info(`${card.title} copied to clipboard`)
+                        }
+                      >
+                        <Box
+                          style={{ minWidth: '100px' }}
+                          align="center"
+                          wrap={false}
+                          direction="row"
+                          justify="between"
+                        >
+                          <Copy
+                            style={{
+                              stroke: color,
+                            }}
+                            color={color}
+                          />
+                          Copy Text
+                        </Box>
+                      </CopyToClipboard>
+                    ),
                   },
                   {
                     label: (
