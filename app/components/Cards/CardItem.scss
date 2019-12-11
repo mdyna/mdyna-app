@@ -74,6 +74,9 @@
     h5,
     h6 {
       font-weight: 600;
+      > div {
+        max-width: 100%;
+      }
     }
     li input {
       height: 18px;
