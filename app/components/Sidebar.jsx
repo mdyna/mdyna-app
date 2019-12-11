@@ -14,7 +14,7 @@ import {
   Descend as Sort,
   AddCircle,
   Archive,
-  Star,
+  Pin,
   Configure,
 } from 'grommet-icons';
 import BoardsIcon from 'UI/BoardsIcon';
@@ -125,7 +125,7 @@ class Sidebar extends Component {
             plain
             onClick={() => this.expandFavs()}
           >
-            <Star color="brand" />
+            <Pin color="brand" />
             <Text className="menu-label">Favorites</Text>
           </Button>
           <Box className="expandable-menu" background="accent-1">
@@ -303,7 +303,7 @@ class Sidebar extends Component {
             />
             <Tooltip
               className="sidebar-tooltip"
-              icon={<Star color="brand" />}
+              icon={<Pin color="brand" />}
               title="Favorites"
               text="Open your favorites and quickly focus on them"
               onClick={() => {

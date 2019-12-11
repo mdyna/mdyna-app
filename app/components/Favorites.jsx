@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Box } from 'grommet';
-import { Star } from 'grommet-icons';
+import { Pin } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import Button from 'UI/Button';
 
@@ -19,7 +19,7 @@ class Favorites extends PureComponent {
             hoverIndicator="accent-2"
             onClick={() => removeFav(favs[i])}
           >
-            <Star color="brand" />
+            <Pin color="brand" />
           </Button>
           <Button
             hoverIndicator="accent-3"

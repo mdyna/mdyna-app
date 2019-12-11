@@ -8,7 +8,7 @@ export default function labels(state = [], action) {
     case UPDATE_FAV_LIST:
       return [...action.payload];
     case REMOVE_FAV:
-      return state.filter(f => f.title !== action.payload.title);
+      return state.filter(f => f !== action.payload.id);
     default:
       return state;
   }
