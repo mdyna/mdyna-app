@@ -184,6 +184,29 @@ const LABEL = {
   updateLabelList,
 };
 
+// ──── FAV ACTIONS ─────────────────────────────────────────────────────────────────────
+
+export const addFav = payload => ({
+  type: ACTION_TYPES.FAV.ADD_FAV,
+  payload,
+});
+
+export const removeFav = payload => ({
+  type: ACTION_TYPES.FAV.REMOVE_FAV,
+  payload,
+});
+
+export const updateFavList = payload => ({
+  type: ACTION_TYPES.FAV.UPDATE_FAV_LIST,
+  payload,
+});
+
+const FAV = {
+  addFav,
+  removeFav,
+  updateFavList,
+};
+
 // ──── BOARDS ────────────────────────────────────────────────────────────────────────────
 
 export const createBoard = name => ({
@@ -290,6 +313,7 @@ const FILTERS = {
 export default {
   FILTERS,
   SETTINGS,
+  FAV,
   BOARDS,
   LABEL,
   CARD,

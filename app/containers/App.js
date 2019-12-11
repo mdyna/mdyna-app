@@ -8,7 +8,6 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
-import { getRandomColor } from 'Utils/colors';
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,

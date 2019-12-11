@@ -90,11 +90,15 @@ class MdynaCard extends Component {
       whiteMode,
       globalLabels,
       createBoard,
+      addFav,
+      removeFav,
       boards,
       boardNames,
       toggleBoardsDialog,
       codeTheme,
+      favs,
     } = this.props;
+    const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardContent = this.getCardContent();
     const color = (card && card.editingColor)
@@ -103,6 +107,7 @@ class MdynaCard extends Component {
         && changeCardSetting('color', getRandomColor(), card.id, isFocused, card));
     const cardActions = {
       toggleCard,
+      favCard: cardIsFaved ? removeFav : addFav,
       removeCard,
       duplicateCard,
       editCard,
@@ -151,6 +156,7 @@ ${card.text}`;
           <CardBar
             card={card}
             color={color}
+            isFaved={Boolean(cardIsFaved)}
             isFocused={Boolean(isFocused)}
             cardActions={hasCardBar ? cardActions : ''}
             cardItem={this}
@@ -223,11 +229,14 @@ MdynaCard.propTypes = {
   hasCardBar: PropTypes.bool,
   discardCardChanges: PropTypes.func.isRequired,
   editCard: PropTypes.func,
+  favs: PropTypes.array,
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
   whiteMode: PropTypes.bool,
   removeLabel: PropTypes.func,
+  addFav: PropTypes.func.isRequired,
+  removeFav: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func,
   focusCard: PropTypes.func,
   globalLabels: PropTypes.array,
@@ -243,6 +252,7 @@ MdynaCard.propTypes = {
 MdynaCard.defaultProps = {
   changeCardSetting: null,
   removeCard: null,
+  favs: [],
   saveCard: null,
   editCard: null,
   isFocused: false,

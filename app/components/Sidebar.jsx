@@ -14,6 +14,7 @@ import {
   Descend as Sort,
   AddCircle,
   Archive,
+  Pin,
   Configure,
 } from 'grommet-icons';
 import BoardsIcon from 'UI/BoardsIcon';
@@ -21,6 +22,7 @@ import classnames from 'classnames';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import GistSync from 'Containers/GistSync';
+import Favs from 'Containers/Favs';
 import LabelFilter from 'UI/LabelFilter';
 import {
   SORTING_BY_TITLE,
@@ -34,6 +36,7 @@ import './Sidebar.scss';
 class Sidebar extends Component {
   state = {
     sortingOptionsExpanded: false,
+    favsExpanded: false,
     labelFiltersExpanded: false,
   };
 
@@ -65,7 +68,14 @@ class Sidebar extends Component {
     });
   }
 
-  collapsibleSidebar() {
+  expandFavs() {
+    const { favsExpanded } = this.state;
+    this.setState({
+      favsExpanded: !favsExpanded,
+    });
+  }
+
+  expandedSidebar() {
     const {
       labelFilters,
       changeSorting,
@@ -82,11 +92,17 @@ class Sidebar extends Component {
       order,
       labels,
     } = this.props;
-    const { sortingOptionsExpanded, labelFiltersExpanded } = this.state;
+    const {
+      sortingOptionsExpanded,
+      labelFiltersExpanded,
+      favsExpanded,
+    } = this.state;
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Collapsible direction="horizontal" open={sidebarExpanded}>
+      <Box
+        style={{ display: sidebarExpanded ? 'initial' : 'none', width: '100%' }}
+      >
         <Box direction="column" align="end">
           <Button
             hoverIndicator="accent-1"
@@ -103,6 +119,20 @@ class Sidebar extends Component {
             <BoardsIcon color="brand" />
             <Text className="menu-label">Boards</Text>
           </Button>
+
+          <Button
+            hoverIndicator="accent-1"
+            plain
+            onClick={() => this.expandFavs()}
+          >
+            <Pin color="brand" />
+            <Text className="menu-label">Favorites</Text>
+          </Button>
+          <Box className="expandable-menu" background="accent-1">
+            <Collapsible direction="vertical" open={favsExpanded}>
+              <Favs />
+            </Collapsible>
+          </Box>
           <Button
             onClick={() => toggleArchivedFilter(!archivedFilterOn)}
             color={(archivedFilterOn && 'accent-3') || 'brand'}
@@ -118,44 +148,52 @@ class Sidebar extends Component {
             <Sort color="brand" className="sort-icon" />
             <Text className="menu-label">Sort Cards </Text>
           </Button>
-          <Collapsible direction="vertical" open={sortingOptionsExpanded}>
-            <Button
-              hoverIndicator="accent-1"
-              className={classnames(sorting === SORTING_BY_TITLE && 'active')}
-              plain={sorting !== SORTING_BY_TITLE}
-              onClick={() => changeSorting(
-                SORTING_BY_TITLE,
-                this.getSortingOrder(SORTING_BY_TITLE),
-              )
-              }
-            >
-              <Up
-                color="brand"
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Title
-            </Button>
-            <Button
-              hoverIndicator="accent-1"
-              plain={sorting !== SORTING_BY_DATE}
-              onClick={() => changeSorting(
-                SORTING_BY_DATE,
-                this.getSortingOrder(SORTING_BY_DATE),
-              )
-              }
-              className={classnames(sorting === SORTING_BY_DATE && 'active')}
-            >
-              <Up
-                color="brand"
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Date
-            </Button>
-          </Collapsible>
+
+          <Box
+            className="expandable-menu sorting-options"
+            background="accent-1"
+          >
+            <Collapsible direction="vertical" open={sortingOptionsExpanded}>
+              <Button
+                hoverIndicator="accent-3"
+                className={classnames(sorting === SORTING_BY_TITLE && 'active')}
+                plain={sorting !== SORTING_BY_TITLE}
+                active={sorting === SORTING_BY_TITLE}
+                onClick={() => changeSorting(
+                  SORTING_BY_TITLE,
+                  this.getSortingOrder(SORTING_BY_TITLE),
+                )
+                }
+              >
+                <Up
+                  color="brand"
+                  className={classnames(
+                    order === DESCENDING_ORDER && 'descending',
+                  )}
+                />
+                By Title
+              </Button>
+              <Button
+                hoverIndicator="accent-3"
+                active={sorting === SORTING_BY_DATE}
+                plain={sorting !== SORTING_BY_DATE}
+                onClick={() => changeSorting(
+                  SORTING_BY_DATE,
+                  this.getSortingOrder(SORTING_BY_DATE),
+                )
+                }
+                className={classnames(sorting === SORTING_BY_DATE && 'active')}
+              >
+                <Up
+                  color="brand"
+                  className={classnames(
+                    order === DESCENDING_ORDER && 'descending',
+                  )}
+                />
+                By Date
+              </Button>
+            </Collapsible>
+          </Box>
           <Button
             hoverIndicator="accent-1"
             plain
@@ -172,14 +210,15 @@ class Sidebar extends Component {
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
           </Button>
-
-          <Collapsible direction="vertical" open={labelFiltersExpanded}>
-            <LabelFilter
-              labels={labels}
-              labelFilters={labelFilters}
-              labelFilterFuncs={labelFilterFuncs}
-            />
-          </Collapsible>
+          <Box className="expandable-menu" background="accent-1">
+            <Collapsible direction="vertical" open={labelFiltersExpanded}>
+              <LabelFilter
+                labels={labels}
+                labelFilters={labelFilters}
+                labelFilterFuncs={labelFilterFuncs}
+              />
+            </Collapsible>
+          </Box>
 
           <GistSync
             onClick={() => {
@@ -193,7 +232,7 @@ class Sidebar extends Component {
             </Text>
           </Box>
         </Box>
-      </Collapsible>
+      </Box>
     );
   }
 
@@ -240,61 +279,77 @@ class Sidebar extends Component {
               </Button>
             )}
           </Box>
-          <Tooltip
-            icon={<AddCircle color="brand" />}
-            className={classnames('sidebar-tooltip', 'add-note-btn')}
-            title="Add card"
-            text="Add card (Use 'A' hotkey)"
-            onClick={() => {
-              addCard(activeBoard);
-            }}
-          />
-          <Tooltip
-            icon={<BoardsIcon color="brand" />}
-            className={classnames('sidebar-tooltip')}
-            title="Manage boards"
-            text="Add, delete or edit boards"
-            onClick={() => {
-              toggleBoardsDialog();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Archive color={archivedFilterOn ? 'accent-1' : 'brand'} />}
-            title="Show Archive"
-            text="See your archived cards"
-            onClick={() => {
-              toggleArchivedFilter(!archivedFilterOn);
-            }}
-          />
-          <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
-            icon={<Sort color="brand" />}
-            title="Sort cards"
-            text="Open sorting options"
-            onClick={() => {
-              this.expandMenu();
-              this.expandSortingOptions();
-            }}
-          />
-          <Tooltip
-            className={classnames('sidebar-tooltip')}
-            icon={<Configure color="brand" />}
-            title="Settings"
-            text="Open MDyna settings interface"
-            onClick={() => {
-              toggleSettings();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Filter color="brand" />}
-            title="Filter cards"
-            text="Filter cards by label"
-            onClick={() => {
-              this.expandMenu();
-            }}
-          />
+          <Box
+            direction="column"
+            style={{ display: !sidebarExpanded ? 'initial' : 'none' }}
+          >
+            <Tooltip
+              icon={<AddCircle color="brand" />}
+              className={classnames('sidebar-tooltip', 'add-note-btn')}
+              title="Add card"
+              text="Add card (Use 'A' hotkey)"
+              onClick={() => {
+                addCard(activeBoard);
+              }}
+            />
+            <Tooltip
+              icon={<BoardsIcon color="brand" />}
+              className="sidebar-tooltip"
+              title="Manage boards"
+              text="Add, delete or edit boards"
+              onClick={() => {
+                toggleBoardsDialog();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Pin color="brand" />}
+              title="Favorites"
+              text="Open your favorites and quickly focus on them"
+              onClick={() => {
+                this.expandMenu();
+                this.expandFavs();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
+              title="Show Archive"
+              text="See your archived cards"
+              onClick={() => {
+                toggleArchivedFilter(!archivedFilterOn);
+              }}
+            />
+            <Tooltip
+              className={classnames('sidebar-tooltip', 'sort-icon')}
+              icon={<Sort color="brand" />}
+              title="Sort cards"
+              text="Open sorting options"
+              onClick={() => {
+                this.expandMenu();
+                this.expandSortingOptions();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Configure color="brand" />}
+              title="Settings"
+              text="Open MDyna settings interface"
+              onClick={() => {
+                toggleSettings();
+              }}
+            />
+            <Tooltip
+              className="sidebar-tooltip"
+              icon={<Filter color="brand" />}
+              title="Filter cards"
+              text="Filter cards by label"
+              onClick={() => {
+                this.expandMenu();
+                this.expandLabelFilters();
+              }}
+            />
+          </Box>
           {!sidebarExpanded && (
             <GistSync
               badge
@@ -305,7 +360,7 @@ class Sidebar extends Component {
               }}
             />
           )}
-          {this.collapsibleSidebar()}
+          {this.expandedSidebar()}
         </Box>
       </React.Fragment>
     );
