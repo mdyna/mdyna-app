@@ -33,7 +33,7 @@ class Favorites extends PureComponent {
     }
     return (
       <Box className="favs-container" direction="column">
-        {favoriteButtons}
+        {favs && favs.length ? favoriteButtons : 'No favorite cards'}
       </Box>
     );
   }
