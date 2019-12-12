@@ -79,14 +79,7 @@ class CardBar extends PureComponent {
               </Button>
               <Button hoverIndicator="dark-1" onClick={() => favCard(card)}>
                 <Tooltip
-                  icon={(
-                    <Pin
-                      style={{
-                        stroke: (isFaved && 'brand') || color,
-                      }}
-                      color={(isFaved && 'brand') || color}
-                    />
-)}
+                  icon={<Pin color={(isFaved && 'brand') || color} />}
                   text="Favorite card"
                 />
               </Button>
