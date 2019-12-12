@@ -3,7 +3,7 @@ import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
-const { changeActiveBoard } = FILTERS;
+const { changeActiveBoard, focusCard } = FILTERS;
 const { addCard } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
@@ -18,7 +18,14 @@ function mapDispatchToProps(dispatch, ownProps) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => ownProps.searchCards('')),
+
+    focusCard: (card) => {
+      dispatch(focusCard(card));
+    },
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
+      ownProps.searchCards('');
+      dispatch(focusCard());
+    }),
   };
 }
 function mapStateToProps(state) {
