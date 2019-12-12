@@ -7,7 +7,7 @@ const { changeActiveBoard } = FILTERS;
 const { addCard } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)),
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => ownProps.searchCards('')),
   };
 }
 function mapStateToProps(state) {

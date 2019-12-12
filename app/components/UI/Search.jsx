@@ -14,15 +14,12 @@ export default class SearchComponent extends PureComponent {
 
   render() {
     const {
-      /* searchInput, */ onChange,
-      searchBar,
-      titles,
-      hidden,
+      onChange, searchBar, titles, hidden,
     } = this.props;
     const { defaultValue } = this.state;
     const getSuggestions = () => {
       const suggestions = [];
-      for (let i = 0; i < 5; i += 1) {
+      for (let i = 0; i < titles.length; i += 1) {
         const title = titles[i];
         if (title && title.toLowerCase) {
           if (title.toLowerCase().startsWith(defaultValue.toLowerCase())) {
@@ -30,7 +27,10 @@ export default class SearchComponent extends PureComponent {
           }
         }
       }
-      return suggestions.length ? suggestions : [''];
+      if (suggestions.length) {
+        suggestions.length = 5;
+      }
+      return !defaultValue ? [] : suggestions;
     };
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>

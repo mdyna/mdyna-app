@@ -72,9 +72,7 @@ function mapDispatchToProps(dispatch) {
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
     },
-    addCard: (board) => {
-      dispatch(addCard(board));
-    },
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => dispatch(searchCards(''))),
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));
     },
