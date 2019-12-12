@@ -292,7 +292,9 @@ export default class CardList extends PureComponent {
             ) : (
               <Box alignSelf="center" align="center" className="no-notes-box">
                 <Text tag="h1" size="xl">
-                  No cards to present
+                  {(searchInput
+                    && 'No cards in this board match your search')
+                    || 'No cards in this board. Press A to add a new card.'}
                 </Text>
               </Box>
             )}

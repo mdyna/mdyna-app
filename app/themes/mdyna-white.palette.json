@@ -2,7 +2,7 @@
   "brand": "#40C0CB",
   "background": "#E9EFF2",
   "text": "#4ECDC4",
-  "accent": ["#556270", "#d73a49", "#259EAE"],
+  "accent": ["#556270", "#d73a49", "#1de9b6"],
   "neutral": ["#333333", "#dddddd"],
   "dark": ["#677A81", "#4c5061", "#dadada"],
   "light": ["#dadada", "#bdbdbd"]
