@@ -128,7 +128,7 @@ class Sidebar extends Component {
             <Pin color="brand" />
             <Text className="menu-label">Favorites</Text>
           </Button>
-          <Box className="expandable-menu" background="accent-1">
+          <Box className="expandable-menu" background="dark-1">
             <Collapsible direction="vertical" open={favsExpanded}>
               <Favs />
             </Collapsible>
@@ -136,7 +136,7 @@ class Sidebar extends Component {
           <Button
             onClick={() => toggleArchivedFilter(!archivedFilterOn)}
             color={(archivedFilterOn && 'accent-3') || 'brand'}
-            hoverIndicator={(archivedFilterOn && 'brand') || 'accent-1'}
+            hoverIndicator="accent-1"
           >
             <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
             <Text className="menu-label">Archive</Text>
@@ -149,16 +149,11 @@ class Sidebar extends Component {
             <Text className="menu-label">Sort Cards </Text>
           </Button>
 
-          <Box
-            className="expandable-menu sorting-options"
-            background="accent-1"
-          >
+          <Box className="expandable-menu sorting-options" background="dark-1">
             <Collapsible direction="vertical" open={sortingOptionsExpanded}>
               <Button
-                hoverIndicator="accent-3"
-                className={classnames(sorting === SORTING_BY_TITLE && 'active')}
-                plain={sorting !== SORTING_BY_TITLE}
-                active={sorting === SORTING_BY_TITLE}
+                color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
+                hoverIndicator="accent-1"
                 onClick={() => changeSorting(
                   SORTING_BY_TITLE,
                   this.getSortingOrder(SORTING_BY_TITLE),
@@ -166,7 +161,9 @@ class Sidebar extends Component {
                 }
               >
                 <Up
-                  color="brand"
+                  color={
+                    (sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'
+                  }
                   className={classnames(
                     order === DESCENDING_ORDER && 'descending',
                   )}
@@ -174,18 +171,16 @@ class Sidebar extends Component {
                 By Title
               </Button>
               <Button
-                hoverIndicator="accent-3"
-                active={sorting === SORTING_BY_DATE}
-                plain={sorting !== SORTING_BY_DATE}
+                hoverIndicator="accent-1"
                 onClick={() => changeSorting(
                   SORTING_BY_DATE,
                   this.getSortingOrder(SORTING_BY_DATE),
                 )
                 }
-                className={classnames(sorting === SORTING_BY_DATE && 'active')}
+                color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
               >
                 <Up
-                  color="brand"
+                  color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
                   className={classnames(
                     order === DESCENDING_ORDER && 'descending',
                   )}
@@ -210,7 +205,7 @@ class Sidebar extends Component {
             <Filter color="brand" />
             <Text className="menu-label">Filter Labels</Text>
           </Button>
-          <Box className="expandable-menu" background="accent-1">
+          <Box className="expandable-menu" background="dark-1">
             <Collapsible direction="vertical" open={labelFiltersExpanded}>
               <LabelFilter
                 labels={labels}
