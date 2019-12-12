@@ -37,7 +37,7 @@ export default class SearchComponent extends PureComponent {
         <Search color="brand" />
         <TextInput
           className="mdyna-search"
-          suggestions={hidden ? [''] : getSuggestions()}
+          suggestions={hidden ? [] : getSuggestions()}
           placeholder="Search cards (Ctrl+P)"
           onChange={(e) => {
             if (!hidden) {
