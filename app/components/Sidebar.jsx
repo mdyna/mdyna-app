@@ -239,6 +239,7 @@ class Sidebar extends Component {
       addCard,
       toggleArchivedFilter,
       toggleBoardsDialog,
+      isFocused,
       activeBoard,
       archivedFilterOn,
     } = this.props;
@@ -246,7 +247,11 @@ class Sidebar extends Component {
     return (
       <React.Fragment>
         <Box
-          className={classnames('sidebar', sidebarExpanded && 'expanded')}
+          className={classnames(
+            'sidebar',
+            sidebarExpanded && 'expanded',
+            isFocused && 'focused',
+          )}
           direction="column"
           alignContent="end"
           background="dark-2"
@@ -367,6 +372,7 @@ Sidebar.propTypes = {
   addLabelFilter: PropTypes.func.isRequired,
   toggleArchivedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
+  isFocused: PropTypes.bool,
   archivedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
@@ -383,6 +389,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   labelFilters: [],
   sidebarExpanded: false,
+  isFocused: false,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
   sorting: SORTING_BY_DATE,
