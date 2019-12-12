@@ -8,9 +8,12 @@ import './Favorites.scss';
 
 class Favorites extends PureComponent {
   render() {
-    const { favs, focusCard, removeFav } = this.props;
+    const {
+      favs, focusCard, removeFav, focusedCardId,
+    } = this.props;
     const favoriteButtons = [];
     for (let i = 0; i < favs.length; i += 1) {
+      const cardIsFocused = Boolean(focusedCardId === favs[i].id);
       favoriteButtons.push(
         <Box direction="row" hoverIndicator="accent-3">
           <Button
@@ -23,8 +26,9 @@ class Favorites extends PureComponent {
           </Button>
           <Button
             hoverIndicator="accent-3"
+            color={cardIsFocused && 'accent-3'}
             className="focus-btn"
-            onClick={() => focusCard(favs[i])}
+            onClick={() => focusCard(cardIsFocused ? false : favs[i])}
           >
             {favs[i].title}
           </Button>
@@ -42,11 +46,13 @@ class Favorites extends PureComponent {
 Favorites.propTypes = {
   favs: PropTypes.array,
   focusCard: PropTypes.func.isRequired,
+  focusedCardId: PropTypes.string,
   removeFav: PropTypes.func.isRequired,
 };
 
 Favorites.defaultProps = {
   favs: [],
+  focusedCardId: '',
 };
 
 export default Favorites;
