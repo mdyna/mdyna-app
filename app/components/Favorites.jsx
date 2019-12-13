@@ -34,7 +34,7 @@ class Favorites extends PureComponent {
             className="focus-btn"
             onClick={() => focusCard(cardIsFocused ? false : favs[i])}
           >
-            {favs[i].title}
+            {favs[i].title && favs[i].title.slice(0, 20)}
           </Button>
         </Box>,
       );
