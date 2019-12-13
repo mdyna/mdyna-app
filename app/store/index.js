@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash'; // eslint-disable-line
 import createDebounce from 'redux-debounced';
 import MdynaApp from './reducers';
 import { getLocalState, saveState } from './localStorage';
@@ -20,6 +20,7 @@ store.subscribe(
         cards: store.getState().cards,
         labels: store.getState().labels,
         boards: store.getState().boards,
+        favs: store.getState().favs,
       },
       {
         codeTheme: store.getState().settings.codeTheme,
@@ -44,6 +45,7 @@ export const getUserData = () => ({
   labels: store.getState().labels,
   deletedCards: store.getState().settings.deletedCards,
   boards: store.getState().boards,
+  favs: store.getState().favs,
 });
 
 export default store;

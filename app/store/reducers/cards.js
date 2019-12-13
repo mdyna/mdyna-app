@@ -1,4 +1,5 @@
 import ACTION_TYPES from 'Store/actions/actionTypes';
+import unNest from 'Utils/nest';
 import { getRandomColor } from 'Utils/colors';
 import uniqid from 'uniqid';
 
@@ -17,9 +18,10 @@ const {
 // const saveId = (card, cardList) => card.id || addId(cardList);
 
 const NEW_CARD_TEMPLATE = {
-  title: 'New card',
+  title: '',
   text: `
-  ## Shortcuts
+  ## New card
+  ### Shortcuts
   - ESC to **Discard Changes**
   - Ctrl+Enter to **Save Changes**
   - Double click on card to **Edit**
@@ -43,11 +45,17 @@ export default function cards(state = [], action) {
           lastEditDate: new Date(),
           id: uniqid(),
           archived: false,
-          title: NEW_CARD_TEMPLATE.title,
-          text: NEW_CARD_TEMPLATE.text,
-          board: action.board || 'INBOX',
+          title: unNest(action, 'card.title') || NEW_CARD_TEMPLATE.title,
+          text:
+            unNest(action, 'card.text')
+            || (!unNest(action, 'card.title') && NEW_CARD_TEMPLATE.text)
+            || 'Empty card',
+          board: action.board || unNest(action, 'card.title') || 'INBOX',
           color: randomColor,
-          isEditing: true,
+          isEditing:
+            !unNest(action, 'card.title')
+            && !unNest(action, 'card.text')
+            && true,
           editingColor: randomColor,
           editingTitle: NEW_CARD_TEMPLATE.title,
           editingText: NEW_CARD_TEMPLATE.text,
@@ -73,7 +81,7 @@ export default function cards(state = [], action) {
             id: cardId,
             isEditing: false,
             text: action.card.text,
-            title: action.card.title,
+            title: action.card.title || 'Untitled card',
             labels: action.card.labels,
             color: action.card.color,
             editingColor: '',
@@ -97,7 +105,7 @@ export default function cards(state = [], action) {
             text: action.card.editingText,
             labels: action.card.editingLabels,
             color: action.card.editingColor,
-            title: action.card.editingTitle,
+            title: action.card.editingTitle || 'Untitled card',
             editingColor: '',
             editingLabels: [],
             editingText: '',
@@ -140,7 +148,14 @@ export default function cards(state = [], action) {
             editingTitle: card.title,
           };
         }
-        return { ...card, isEditing: false };
+        return {
+          ...card,
+          isEditing: false,
+          editingColor: '',
+          editingLabels: [],
+          editingText: '',
+          editingTitle: '',
+        };
       });
     /*
     case GENERATE_LINK:

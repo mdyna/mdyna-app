@@ -60,6 +60,20 @@ export default class CardList extends PureComponent {
     }
   }
 
+  addNewCard(card = {}) {
+    const { addCard, activeBoardId } = this.props;
+    const { pageView } = this.state;
+
+    addCard(activeBoardId, card).then(() => {
+      if (pageView !== 1) {
+        this.setState({
+          pageView: 1,
+          pageIndex: 0,
+        });
+      }
+    });
+  }
+
   matchNoteLabelsWithLabelFilter(labels) {
     const { labelFilters, searchInput } = this.props;
     if (labelFilters.length) {
@@ -89,12 +103,10 @@ export default class CardList extends PureComponent {
   }
 
   renderAddNoteButton() {
-    const { addCard, activeBoardId } = this.props;
-
     return (
       <Button
         onClick={() => {
-          addCard(activeBoardId);
+          this.addNewCard();
         }}
         className="page-control add-note-btn"
       >
@@ -153,77 +165,90 @@ export default class CardList extends PureComponent {
       boardNames,
       createBoard,
       toggleBoardsDialog,
+      focusCard,
       activeBoardId,
       boards,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
-      <Box
-        className={cx('card-list-controls', isFocused && 'hidden')}
-        background="dark-1"
-      >
-        <Text
-          style={{
-            display: boardsExpanded ? 'none' : 'initial',
-          }}
-          align="center"
-          size="xxlarge"
-        >
-          {activeBoard}
-        </Text>
-        <BoardPicker
-          addButton
-          createBoard={createBoard}
-          onClick={changeActiveBoard}
-          boardNames={boardNames}
-          boards={boards}
-          toggleBoardsDialog={toggleBoardsDialog}
-        />
-        <Button onClick={() => CardList.callFolderPicker(activeBoardId)}>
-          <Tooltip
-            icon={<Export color="brand" />}
-            text="Export all cards from this board as Markdown files"
-          />
-        </Button>
-        {this.renderAddNoteButton()}
-        <Text align="center" size="medium">
-          {cardItems && cardItems.length
-            ? `${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`
-            : '0'}
-        </Text>
-        <Button
-          className={cx('page-control', pageIndex === 0 && 'disabled')}
-          onClick={() => this.getPreviousCards()}
-        >
-          <KeyboardEventHandler
-            handleKeys={['left']}
-            onKeyEvent={() => this.getPreviousCards()}
-          />
-          <Previous color="brand" />
-        </Button>
-        <Button
-          onClick={() => this.getNextCards()}
-          className={cx('page-control', !hasMore && 'disabled')}
-        >
-          <KeyboardEventHandler
-            handleKeys={['right']}
-            onKeyEvent={() => this.getNextCards()}
-          />
-          <Next color="brand" />
-        </Button>
+      <Box className={cx('card-list-controls')} background="dark-1">
+        {isFocused ? (
+          <Button color="accent-2" onClick={() => focusCard()}>
+            <Text>Unfocus</Text>
+            <br />
+            <Text size="small">(Esc)</Text>
+          </Button>
+        ) : (
+          <>
+            <Text
+              style={{
+                display: boardsExpanded ? 'none' : 'initial',
+              }}
+              align="center"
+              size="xxlarge"
+            >
+              {activeBoard}
+            </Text>
+            <BoardPicker
+              addButton
+              createBoard={createBoard}
+              onClick={changeActiveBoard}
+              boardNames={boardNames}
+              boards={boards}
+              toggleBoardsDialog={toggleBoardsDialog}
+            />
+            <Button onClick={() => CardList.callFolderPicker(activeBoardId)}>
+              <Tooltip
+                icon={<Export color="brand" />}
+                text="Export all cards from this board as Markdown files"
+              />
+            </Button>
+            {this.renderAddNoteButton()}
+            {cardItems && cardItems.length ? (
+              <>
+                <Text align="center" size="medium">
+                  {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
+                </Text>
+                {pageIndex !== 0 && (
+                  <Button
+                    className={cx(
+                      'page-control',
+                      pageIndex === 0 && 'disabled',
+                    )}
+                    onClick={() => this.getPreviousCards()}
+                  >
+                    <KeyboardEventHandler
+                      handleKeys={['left']}
+                      onKeyEvent={() => this.getPreviousCards()}
+                    />
+                    <Previous color="brand" />
+                  </Button>
+                )}
+                {hasMore && (
+                  <Button
+                    onClick={() => this.getNextCards()}
+                    className={cx('page-control', !hasMore && 'disabled')}
+                  >
+                    <KeyboardEventHandler
+                      handleKeys={['right']}
+                      onKeyEvent={() => this.getNextCards()}
+                    />
+                    <Next color="brand" />
+                  </Button>
+                )}
+              </>
+            ) : (
+              ''
+            )}
+          </>
+        )}
       </Box>
     );
   }
 
   render() {
-    const {
-      cards,
-      addCard,
-      searchInput,
-      cardsPerPage,
-      activeBoardId,
-    } = this.props;
+    const { cards, searchInput, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -241,8 +266,32 @@ export default class CardList extends PureComponent {
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
-          handleKeys={['a']}
-          onKeyEvent={() => addCard(activeBoardId)}
+          handleKeys={['a', 'ctrl + v']}
+          onKeyEvent={(key) => {
+            if (key === 'a') {
+              this.addNewCard();
+            } else {
+              navigator.clipboard
+                .readText()
+                .then((cardText) => {
+                  if (cardText) {
+                    const rawTitle = cardText.match(/^(.*)$/m)[0] || '';
+                    const rawText = cardText.replace(rawTitle, '');
+                    const text = rawText.trim();
+                    const title = rawTitle.trim();
+                    this.addNewCard({
+                      text,
+                      editingText: text,
+                      title,
+                      editingTitle: title,
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log('Something went wrong', err);
+                });
+            }
+          }}
         />
         {this.renderCardControls(cardItems)}
         {cards.length ? (
@@ -260,7 +309,9 @@ export default class CardList extends PureComponent {
             ) : (
               <Box alignSelf="center" align="center" className="no-notes-box">
                 <Text tag="h1" size="xl">
-                  No cards to present
+                  {(searchInput
+                    && 'No cards in this board match your search')
+                    || 'No cards in this board. Press A to add a new card.'}
                 </Text>
               </Box>
             )}
@@ -289,6 +340,7 @@ CardList.propTypes = {
   createBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
+  focusCard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,

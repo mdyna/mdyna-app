@@ -8,9 +8,10 @@ import ACTION_TYPES from './actionTypes';
 
 // ──── CARD ACTIONS ──────────────────────────────────────────────────────────────────────
 
-export const addCard = board => ({
+export const addCard = (board, card) => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
   board,
+  card,
   meta: {
     debounce: {
       time: 1000,
@@ -118,6 +119,10 @@ export const loginToGhFail = () => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH_FAIL,
 });
 
+export const desyncGh = () => ({
+  type: ACTION_TYPES.SETTINGS.DESYNC_GH,
+});
+
 export const loginToGh = (username, pw) => ({
   type: ACTION_TYPES.SETTINGS.LOGIN_TO_GH,
   payload: {
@@ -152,6 +157,7 @@ const SETTINGS = {
   toggleWhiteMode,
   toggleSidebar,
   updateDeletedCards,
+  desyncGh,
   changeCwd,
 };
 
@@ -176,6 +182,29 @@ const LABEL = {
   addLabel,
   removeLabel,
   updateLabelList,
+};
+
+// ──── FAV ACTIONS ─────────────────────────────────────────────────────────────────────
+
+export const addFav = payload => ({
+  type: ACTION_TYPES.FAV.ADD_FAV,
+  payload,
+});
+
+export const removeFav = payload => ({
+  type: ACTION_TYPES.FAV.REMOVE_FAV,
+  payload,
+});
+
+export const updateFavList = payload => ({
+  type: ACTION_TYPES.FAV.UPDATE_FAV_LIST,
+  payload,
+});
+
+const FAV = {
+  addFav,
+  removeFav,
+  updateFavList,
 };
 
 // ──── BOARDS ────────────────────────────────────────────────────────────────────────────
@@ -284,6 +313,7 @@ const FILTERS = {
 export default {
   FILTERS,
   SETTINGS,
+  FAV,
   BOARDS,
   LABEL,
   CARD,

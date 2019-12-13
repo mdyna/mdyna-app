@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
-import { getRandomColor } from 'Utils/colors';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
-const { changeActiveBoard } = FILTERS;
+const { changeActiveBoard, focusCard } = FILTERS;
 const { addCard } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
@@ -19,9 +18,14 @@ function mapDispatchToProps(dispatch) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    addCard: (activeBoard) => {
-      dispatch(addCard(activeBoard));
+
+    focusCard: (card) => {
+      dispatch(focusCard(card));
     },
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
+      ownProps.searchCards('');
+      dispatch(focusCard());
+    }),
   };
 }
 function mapStateToProps(state) {

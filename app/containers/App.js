@@ -8,7 +8,6 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
-import { getRandomColor } from 'Utils/colors';
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
@@ -73,9 +72,10 @@ function mapDispatchToProps(dispatch) {
     addLabelFilter: (val) => {
       dispatch(addLabelFilter(val));
     },
-    addCard: (board) => {
-      dispatch(addCard(board));
-    },
+    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
+      dispatch(searchCards(''));
+      dispatch(focusCard());
+    }),
     removeLabelFilter: (val) => {
       dispatch(removeLabelFilter(val));
     },

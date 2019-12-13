@@ -28,6 +28,7 @@ const LabelInput = ({
   };
 
   const onAddTag = (tag) => {
+    setCurrentTag('');
     if (onAdd) {
       onAdd(tag);
     }
@@ -36,7 +37,6 @@ const LabelInput = ({
   const onEnter = () => {
     if (currentTag.length) {
       onAddTag(currentTag);
-      setCurrentTag('');
     }
   };
 
@@ -71,7 +71,7 @@ const LabelInput = ({
         wrap
       >
         {value.length > 0 && renderValue()}
-        <Box flex style={{ minWidth: '120px' }}>
+        <Box flex style={{ minWidth: '120px', color }}>
           <TextInput
             type="search"
             plain

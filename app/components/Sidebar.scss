@@ -1,14 +1,17 @@
-@import "../../style.scss";
+@import "../style.scss";
 
 .sidebar {
   opacity: 0.9;
   border-radius: 0px 10px 10px 0px;
-  width: 50px;
-  transition: width 0.5s;
+  border: 1px solid;
+  border-left: none;
+  transition: all 0.5s;
   padding: 10px 5px;
   position: sticky;
-  top: 50px;
   margin-right: 10px;
+  margin-top: 0px;
+  top: 50px;
+  align-items: center;
   overflow: hidden !important;
   flex-flow: column wrap;
   height: 90vh;
@@ -16,6 +19,9 @@
     transition: all 0.5s;
     opacity: 0;
     font-size: 0px !important;
+  }
+  &.focused {
+    margin-top: 50px;
   }
 
   .help {
@@ -26,6 +32,7 @@
     margin: 5px 0;
   }
   &.expanded {
+    padding: 10px 0;
     width: 200px;
     .sidebar-tooltip {
       opacity: 0;
@@ -38,6 +45,14 @@
       opacity: 1 !important;
       font-size: 14px !important;
     }
+    .expandable-menu {
+      width: 100%;
+    }
+    .sorting-options {
+      > div {
+        margin-left: 15px;
+      }
+    }
   }
   .sidebar-tooltip {
     opacity: 1;
@@ -47,21 +62,23 @@
   }
   > div > div > .button {
     width: 100%;
+    border-radius: 3px !important;
   }
   .menu-controller .button {
     width: 100%;
     font-weight: 300;
   }
   button {
+    text-align: start;
     font-weight: 700;
     font-size: 14px;
+    border-radius: 3px !important;
     padding: 3px;
     span {
       transition: all 0.5s;
     }
 
     &.active {
-      border-radius: 10px;
       svg {
         transition: all 0.5s;
         &.descending {

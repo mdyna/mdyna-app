@@ -56,6 +56,13 @@ function loadBoards(boards) {
   };
 }
 
+function loadFavs(favs) {
+  logger.log('LOADING FAVS', favs);
+  if (favs && favs.length) {
+    return [...new Set(favs)];
+  }
+  return [];
+}
 // To avoid being garbage collected
 let mainWindow;
 
@@ -166,7 +173,7 @@ app.on('ready', () => {
   const cardStorageBoardList = cardStorageState
     && cardStorageState.boards
     && cardStorageState.boards.boardList;
-
+  const cardStorageFavs = (cardStorageState && cardStorageState.favs) || [];
   const convertedBoards = [];
   if (!Array.isArray(cardStorageBoardList)) {
     const contentBoards = (cardStorageBoardList && Object.keys(cardStorageBoardList)) || [];
@@ -185,6 +192,7 @@ app.on('ready', () => {
   }
 
   const tempBoards = tempState && tempState.boards && tempState.boards.boardList;
+  const tempFavs = (tempState && tempState.favs) || [];
   if (
     (tempState && Object.keys(tempState).length)
     || (userCardsInStorage && userCardsInStorage.length)
@@ -202,6 +210,7 @@ app.on('ready', () => {
     cardStorage.set('state', {
       cards: currentCards || tempState.cards,
       labels: loadLabels(currentCards) || [],
+      favs: loadFavs([...cardStorageFavs, ...tempFavs]),
       boards: loadBoards([
         ...(userStorageBoardList || []),
         ...convertedBoards,
@@ -212,7 +221,7 @@ app.on('ready', () => {
     // * Clear tmp/state key
     userStorage.delete('tmp/state');
   } else {
-    logger.log('MASHING USR STATE');
+    logger.log('MASHING USR STATE', userState);
     const userStorageBoardList = userState && userState.boards && userState.boards.boardList;
     const uniqCards = getUniqCardsById([
       ...userCardsInStorage,
@@ -220,6 +229,11 @@ app.on('ready', () => {
     ]) || tempState.cards;
     cardStorage.set('state', {
       cards: uniqCards,
+      favs: loadFavs([
+        ...((userState && userState.favs) || []),
+        ...cardStorageFavs,
+        ...tempFavs,
+      ]),
       labels: loadLabels(uniqCards) || [],
       boards: loadBoards([
         ...(userStorageBoardList || []),

@@ -4,10 +4,12 @@ import Gists from 'Utils/gistsService';
 import CardItem from '../components/Cards/CardItem';
 
 const {
-  CARD, LABEL, FILTERS, SETTINGS, BOARDS,
+  CARD, LABEL, FILTERS, SETTINGS, BOARDS, FAV,
 } = ACTIONS;
 
 const { addLabel, removeLabel } = LABEL;
+
+const { addFav, removeFav } = FAV;
 
 const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
 
@@ -20,12 +22,22 @@ const {
   editCard,
   changeCardSetting,
   discardCardChanges,
+  addCard,
 } = CARD;
 
 const { updateDeletedCards } = SETTINGS;
 
 function mapDispatchToProps(dispatch) {
   return {
+    duplicateCard: (card) => {
+      dispatch(addCard(card.board, card));
+    },
+    addFav: (card) => {
+      dispatch(addFav(card.id));
+    },
+    removeFav: (card) => {
+      dispatch(removeFav(card));
+    },
     removeCard: async (card) => {
       dispatch(removeCard(card));
       dispatch(updateDeletedCards(card.id));
@@ -75,7 +87,7 @@ function mapDispatchToProps(dispatch) {
     toggleCard: (card) => {
       dispatch(toggleCard(card));
     },
-    saveCard: (card, isFocused) => {
+    saveCard: (card, isFocused) => new Promise((resolve) => {
       dispatch(saveCard(card));
       if (isFocused) {
         dispatch(
@@ -89,7 +101,8 @@ function mapDispatchToProps(dispatch) {
           }),
         );
       }
-    },
+      resolve();
+    }),
     addLabel: (val) => {
       dispatch(addLabel(val));
     },
@@ -113,6 +126,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
+    favs: state.favs,
     isFocused: state.filters.isFocused,
     whiteMode: state.style.whiteMode,
     boardNames: state.boards.boardNames,

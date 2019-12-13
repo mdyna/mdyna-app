@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
@@ -15,6 +16,18 @@ import CardEditor from './CardEditor';
 import './CardItem.scss'; // eslint-disable-line
 
 class MdynaCard extends Component {
+  static scrollToCard(hashtag) {
+    if (hashtag) {
+      // eslint-disable-next-line
+      ReactDOM.findDOMNode(hashtag).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    } else {
+      document.querySelector('#root').scrollTo(0, 0);
+    }
+  }
+
   name = 'Mdyna Card';
 
   getCardContent() {
@@ -27,13 +40,10 @@ class MdynaCard extends Component {
       : { title: editingTitle, text: editingText };
   }
 
-  /*
-  scrollToCard() {
-    ReactDOM.findDOMNode(this).scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  } */
+  saveCardContent(card) {
+    const { saveCard, isFocused } = this.props;
+    saveCard(card, isFocused).then(() => MdynaCard.scrollToCard());
+  }
 
   renderCardDate() {
     const { card } = this.props;
@@ -66,7 +76,6 @@ class MdynaCard extends Component {
       hasCardBar,
       changeCardSetting,
       toggleCard,
-      saveCard,
       isFocused,
       removeCard,
       focusCard,
@@ -76,15 +85,20 @@ class MdynaCard extends Component {
       discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
+      duplicateCard,
       labelFilters,
       whiteMode,
       globalLabels,
       createBoard,
+      addFav,
+      removeFav,
       boards,
       boardNames,
       toggleBoardsDialog,
       codeTheme,
+      favs,
     } = this.props;
+    const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardContent = this.getCardContent();
     const color = (card && card.editingColor)
@@ -93,7 +107,9 @@ class MdynaCard extends Component {
         && changeCardSetting('color', getRandomColor(), card.id, isFocused, card));
     const cardActions = {
       toggleCard,
+      favCard: cardIsFaved ? removeFav : addFav,
       removeCard,
+      duplicateCard,
       editCard,
       focusCard,
       removeLabel,
@@ -114,7 +130,9 @@ ${card.text}`;
         role="button"
         tabIndex={0}
         onDoubleClick={() => {
-          cardActions.editCard(card, isFocused);
+          if (!card.isEditing) {
+            cardActions.editCard(card, isFocused);
+          }
         }}
         className={classnames(className, COLOR_LABELS[color], 'card-item')}
         style={{
@@ -138,6 +156,7 @@ ${card.text}`;
           <CardBar
             card={card}
             color={color}
+            isFaved={Boolean(cardIsFaved)}
             isFocused={Boolean(isFocused)}
             cardActions={hasCardBar ? cardActions : ''}
             cardItem={this}
@@ -152,7 +171,7 @@ ${card.text}`;
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor
-              onSubmit={c => saveCard(c, isFocused)}
+              onSubmit={c => this.saveCardContent(c)}
               card={card}
               color={color}
               isFocused={isFocused}
@@ -177,11 +196,14 @@ ${card.text}`;
             readOnly={!card.isEditing}
             card={{ ...card, title: cardContent.title, text: cardContent.text }}
             defaultValue={cardContent.text}
-            onSave={c => saveCard(c, isFocused)}
+            onSave={(c) => {
+              this.saveCardContent(c);
+            }}
             codeTheme={codeTheme}
             changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
             }
             whiteMode={whiteMode}
+            onClickHeader={tag => MdynaCard.scrollToCard(tag)}
             value={getCardText(cardContent.title, cardContent.text)}
             onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
             }
@@ -199,6 +221,7 @@ export default MdynaCard;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
+  duplicateCard: PropTypes.func.isRequired,
   isFocused: PropTypes.bool,
   codeTheme: PropTypes.string,
   toggleCard: PropTypes.func,
@@ -206,11 +229,14 @@ MdynaCard.propTypes = {
   hasCardBar: PropTypes.bool,
   discardCardChanges: PropTypes.func.isRequired,
   editCard: PropTypes.func,
+  favs: PropTypes.array,
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
   whiteMode: PropTypes.bool,
   removeLabel: PropTypes.func,
+  addFav: PropTypes.func.isRequired,
+  removeFav: PropTypes.func.isRequired,
   changeCardSetting: PropTypes.func,
   focusCard: PropTypes.func,
   globalLabels: PropTypes.array,
@@ -226,6 +252,7 @@ MdynaCard.propTypes = {
 MdynaCard.defaultProps = {
   changeCardSetting: null,
   removeCard: null,
+  favs: [],
   saveCard: null,
   editCard: null,
   isFocused: false,

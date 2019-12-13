@@ -65,6 +65,7 @@ class MarkdownEditor extends React.PureComponent {
       readOnly,
       onSave,
       className,
+      onClickHeader,
       card,
       codeTheme = 'DRA',
       whiteMode,
@@ -99,6 +100,7 @@ class MarkdownEditor extends React.PureComponent {
             },
           }),
         ]}
+        onClickHeader={onClickHeader}
         onChange={val => this.handleChange(val)}
         theme={{
           ...editorTheme,
@@ -110,10 +112,10 @@ class MarkdownEditor extends React.PureComponent {
 }
 
 export default MarkdownEditor;
-
 MarkdownEditor.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onClickHeader: PropTypes.func,
   changeTitle: PropTypes.func,
   card: PropTypes.object,
   onSave: PropTypes.func,
@@ -125,6 +127,7 @@ MarkdownEditor.propTypes = {
 
 MarkdownEditor.defaultProps = {
   value: '',
+  onClickHeader: null,
   onChange: null,
   changeTitle: null,
   onSave: null,

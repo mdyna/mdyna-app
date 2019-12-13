@@ -960,7 +960,7 @@ concat-stream@1.6.2:
   resolved "https://registry.yarnpkg.com/consolidated-events/-/consolidated-events-2.0.2.tgz#da8d8f8c2b232831413d9e190dc11669c79f4a91"
   integrity sha512-2/uRVMdRypf5z/TW/ncD/66l75P5hH2vM/GR8Jf8HLc2xnfJtmina6F6du8+v4Z2vTrMo7jC+W1tmEEuuELgkQ==
 
-copy-to-clipboard@^3.0.8:
+copy-to-clipboard@^3, copy-to-clipboard@^3.0.8:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.2.0.tgz#d2724a3ccbfed89706fac8a894872c979ac74467"
   integrity sha512-eOZERzvCmxS8HWzugj4Uxl8OJxa7T2k1Gi0X5qavwydHIfuSHq2dTD09LOg/XyGq4Zpb5IsR/2OJ5lbOegz78w==
@@ -978,9 +978,9 @@ core-js@^2.4.0:
   integrity sha512-NdBPF/RVwPW6jr0NCILuyN9RiqLo2b1mddWHkUL+VnvcB7dzlnBJ1bXYntjpTGOgkZiiLWj2JxmOr7eGE3qK6g==
 
 core-js@^3.1.2:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.2.1.tgz#cd41f38534da6cc59f7db050fe67307de9868b09"
-  integrity sha512-Qa5XSVefSVPRxy2XfUC13WbvqkxhkwB3ve+pgCQveNgYzbM/UxZeu1dcOX/xr4UmfUd+muuvsaxilQzCyUurMw==
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.7.tgz#57c35937da80fe494fbc3adcf9cf3dc00eb86b34"
+  integrity sha512-qaPVGw30J1wQ0GR3GvoPqlGf9GZfKKF4kFC7kiHlcsPTqH3txrs9crCp3ZiMAXuSenhz89Jnl4GZs/67S5VOSg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -1983,7 +1983,7 @@ lodash.isstring@^4.0.1:
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
   integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
 
-lodash@^4.0.1, lodash@^4.1.1, lodash@^4.17.10, lodash@^4.17.15:
+lodash@^4.0.1, lodash@^4.1.1, lodash@^4.17.10:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -2217,10 +2217,10 @@ object.values@^1.1.0:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-outline-icons@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/outline-icons/-/outline-icons-1.9.0.tgz#e17d998272209846aa3277ad7ed7063fc4dae984"
-  integrity sha512-Uzh1aP9Js+9ieOrvZpyPjFOaVBjpC+OFzF1pRi5jemYpH6kiA236i7itv0OdLX6KFDpybP6b6OWrCVDle5RXLQ==
+outline-icons@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/outline-icons/-/outline-icons-1.10.0.tgz#3c8e6957429e2b04c9d0fc72fe72e473813ce5bd"
+  integrity sha512-1o3SnjzawEIh+QkZ6GHxPckuV+Tk5m5R2tjGY0CtosF3YA7JbgQ2jQrZdQsrqLzLa1j07f1bTEbAjGdbnunLpg==
 
 paged-request@^1.0.2:
   version "1.0.2"
@@ -2437,6 +2437,14 @@ react-color@^2.17.3:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
+react-copy-to-clipboard@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.2.tgz#d82a437e081e68dfca3761fbd57dbf2abdda1316"
+  integrity sha512-/2t5mLMMPuN5GmdXo6TebFa8IoFxZ+KTDDqYhcDm0PhkgEzSxVvIX26G20s1EB02A4h2UZgwtfymZ3lGJm0OLg==
+  dependencies:
+    copy-to-clipboard "^3"
+    prop-types "^15.5.8"
+
 react-deep-force-update@^2.0.1:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.1.3.tgz#740612322e617bcced38f61794a4af75dc3d98e7"
@@ -2535,9 +2543,9 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles
   resolved "https://github.com/dmorais92/react-masonry-css.git#dc3a78b1fe295aec2324b4e91331140ee0ab6fbc"
 
 react-medium-image-zoom@^3.0.16:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/react-medium-image-zoom/-/react-medium-image-zoom-3.1.1.tgz#6e48901e5e899fad4483e9a7251ad9a8e81ded23"
-  integrity sha512-nAbQLFJtRTrdizsYZ5zlsjY+irXpFT0JC16jo4BXIlWH5KPerFkZoU5AWnDw6TOjRaqOVKr5lsjcUt/xC2zMwA==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-medium-image-zoom/-/react-medium-image-zoom-3.1.2.tgz#5ac4441f1d424bd9680a25bfc2591be3d7704a42"
+  integrity sha512-werjufn5o4ytdyvJNzfqXCilovDhMyREH0qeJhCjV5brNAyfV7anZmvpFc3FApbuVXwBkzHMuQkV2z/GyEQatg==
 
 react-outside-click-handler@^1.3.0:
   version "1.3.0"
@@ -2827,10 +2835,9 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-rich-markdown-editor@^9.8.8:
-  version "9.8.8"
-  resolved "https://registry.yarnpkg.com/rich-markdown-editor/-/rich-markdown-editor-9.8.8.tgz#52ff282f82d6bd79ee6e975afb4b68448dcc6d4f"
-  integrity sha512-eJa/w33gAMgo8zhytiTjNFEW0dNzMCbbK7YcR8HnY1cCVNc00SAWewLRJmmDucjpqSW93PJMNc8U8MhWsBPNdw==
+"rich-markdown-editor@https://github.com/mdyna/rich-markdown-editor.git":
+  version "9.10.0"
+  resolved "https://github.com/mdyna/rich-markdown-editor.git#674db86b7362b56d1a279b77aa325aaad9019134"
   dependencies:
     "@domoinc/slate-edit-table" "^0.22.2"
     "@tommoor/slate-edit-list" "0.19.0-0"
@@ -2845,7 +2852,7 @@ rich-markdown-editor@^9.8.8:
     eslint-plugin-prettier "^2.6.0"
     golery-slate-prism "0.6.0-golery.2"
     lodash "^4.17.11"
-    outline-icons "^1.9.0"
+    outline-icons "^1.10.0"
     prismjs "^1.16.0"
     react-autosize-textarea "^6.0.0"
     react-keydown "^1.9.10"
@@ -2854,7 +2861,8 @@ rich-markdown-editor@^9.8.8:
     slate "^0.45.0"
     slate-collapse-on-escape "^0.8.1"
     slate-drop-or-paste-images "^0.9.1"
-    slate-md-serializer "5.4.3-1"
+    slate-instant-replace "^0.1.13"
+    slate-md-serializer "5.4.4"
     slate-paste-linkify "^0.7.0"
     slate-react "^0.21.20"
     slate-schema-violations "^0.1.39"
@@ -2925,9 +2933,9 @@ single-line-log@^1.1.2:
     string-width "^1.0.1"
 
 slate-base64-serializer@^0.2.102:
-  version "0.2.111"
-  resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.2.111.tgz#22ba7d32aa4650f6bbd25c26ffe11f5d021959d6"
-  integrity sha512-pEsbxz4msVSCCCkn7rX+lHXxUj/oddcR4VsIYwWeQQLm9Uw7Ovxja4rQ/hVFcQqoU2DIjITRwBR9pv3RyS+PZQ==
+  version "0.2.112"
+  resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.2.112.tgz#791d04a0ae7b9796844f068a904e185f2afc91f9"
+  integrity sha512-Vo94bkCq8cbFj7Lutdh2RaM9S4WlLxnnMqZPKGUyefklUN4q2EzM/WUH7s9CIlLUH1qRfC/b0V25VJZr5XXTzA==
   dependencies:
     isomorphic-base64 "^1.0.2"
 
@@ -2970,7 +2978,19 @@ slate-hotkeys@^0.2.9:
     is-hotkey "0.1.4"
     slate-dev-environment "^0.2.2"
 
-slate-md-serializer@5.4.3-1, slate-md-serializer@^5.4.3-1:
+slate-instant-replace@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/slate-instant-replace/-/slate-instant-replace-0.1.13.tgz#03a2c908253c399a1ca5d6922a93867eb186c69b"
+  integrity sha512-jesj33+TUgrmcVKGBy6QgqORaAq55hSuFmBOv70iNjif0CHqK9CapWfHOLg8N8HWw+VAX0YpSaqy/lAQSSmwWg==
+
+slate-md-serializer@5.4.4:
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/slate-md-serializer/-/slate-md-serializer-5.4.4.tgz#b0b55f7ab1dc9ed2159c6f97852594a81a5b76e9"
+  integrity sha512-9jPScUSaDVDZLGf6NaKlxgdZYXeqr3PvK2/ueUAdXJ/lkW98UGFUOZBh1GSjnX6xBJpdGnwXjKZ6SeW3s7tF/Q==
+  dependencies:
+    hashtag-regex "^2.0.0"
+
+slate-md-serializer@^5.4.3-1:
   version "5.4.3-1"
   resolved "https://registry.yarnpkg.com/slate-md-serializer/-/slate-md-serializer-5.4.3-1.tgz#311bf90300230f6f8aeeac464fa8694be3eb88c8"
   integrity sha512-00jkxy1lp/d44Kkyn8/xlkiJj6WF22259Brvurv/GDYtKwE58dr7LAX0URM1E3wpT+Z6X9+kJJGsO6ECgp6lMw==
@@ -2985,18 +3005,18 @@ slate-paste-linkify@^0.7.0:
     is-url "^1.2.2"
 
 slate-plain-serializer@^0.7.1:
-  version "0.7.10"
-  resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.7.10.tgz#bc4a6942cf52fde826019bb1095dffd0dac8cc08"
-  integrity sha512-/QvMCQ0F3NzbnuoW+bxsLIChPdRgxBjQeGhYhpRGTVvlZCLOmfDvavhN6fHsuEwkvdwOmocNF30xT1WVlmibYg==
+  version "0.7.11"
+  resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.7.11.tgz#74ff6eb949e9fbd92ad98ed833d74d5082f2688b"
+  integrity sha512-vzXQ68GiHHcTUcAB6ggf2qN/sX9BoLs77SMHacp5Gkg+oHAA/NxRzRH4efDAhpiJqfJZDrA3rQySK6+Y7KAuwg==
 
 "slate-plugins@https://github.com/mdyna/slate-plugins.git":
   version "0.1.0"
   resolved "https://github.com/mdyna/slate-plugins.git#b7329674787ec9bef339b0c027cd3e13d943c1e0"
 
 slate-prop-types@^0.5.32:
-  version "0.5.41"
-  resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.5.41.tgz#42031881e2fef4fa978a96b9aad84b093b4a5219"
-  integrity sha512-fLcXlugO9btF5b/by+dA+n8fn2mET75VGWltqFNxGdl6ncyBtrGspWA7mLVRFSqQWOS/Ig4A3URCRumOBBCUfQ==
+  version "0.5.42"
+  resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.5.42.tgz#4ec444cc67ee1d338536ed3213dcbf9a7a0eaa25"
+  integrity sha512-3n3556FDs9/cyhRdDMryVB1PJvWeu+p3dx9TvHtONybud4tfulWk4r175JoVWcFZCUFGFQK7IbObUbz1MWNKCg==
 
 slate-react-placeholder@^0.1.20:
   version "0.1.20"
@@ -3045,9 +3065,9 @@ slate@^0.45.0:
     type-of "^2.0.1"
 
 slugify@^1.3.4:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.3.5.tgz#90210678818b6d533cb060083aed0e8238133508"
-  integrity sha512-5VCnH7aS13b0UqWOs7Ef3E5rkhFe8Od+cp7wybFv5mv/sYSRkucZlJX0bamAJky7b2TTtGvrJBWVdpdEicsSrA==
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.3.6.tgz#ba5fd6159b570fe4811d02ea9b1f4906677638c3"
+  integrity sha512-wA9XS475ZmGNlEnYYLPReSfuz/c3VQsEMoU43mi6OnKMCdbnFXd4/Yg7J0lBv8jkPolacMpOrWEaoYxuE1+hoQ==
 
 source-map-resolve@^0.5.2:
   version "0.5.2"
