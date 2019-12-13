@@ -273,11 +273,17 @@ export default class CardList extends PureComponent {
             } else {
               navigator.clipboard
                 .readText()
-                .then((text) => {
-                  if (text) {
+                .then((cardText) => {
+                  if (cardText) {
+                    const rawTitle = cardText.match(/^(.*)$/m)[0] || '';
+                    const rawText = cardText.replace(rawTitle, '');
+                    const text = rawText.trim();
+                    const title = rawTitle.trim();
                     this.addNewCard({
-                      text: `# ${text}`,
-                      editingText: `# ${text}`,
+                      text,
+                      editingText: text,
+                      title,
+                      editingTitle: title,
                     });
                   }
                 })
