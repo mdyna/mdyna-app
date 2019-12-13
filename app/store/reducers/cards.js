@@ -105,7 +105,7 @@ export default function cards(state = [], action) {
             text: action.card.editingText,
             labels: action.card.editingLabels,
             color: action.card.editingColor,
-            title: action.card.editingTitle,
+            title: action.card.editingTitle || 'Untitled card',
             editingColor: '',
             editingLabels: [],
             editingText: '',
