@@ -15,7 +15,11 @@ class Favorites extends PureComponent {
     for (let i = 0; i < favs.length; i += 1) {
       const cardIsFocused = Boolean(focusedCardId === favs[i].id);
       favoriteButtons.push(
-        <Box direction="row" hoverIndicator="accent-3">
+        <Box
+          direction="row"
+          hoverIndicator="accent-3"
+          key={`fav-${favs[i].id}`}
+        >
           <Button
             plain
             className="remove-btn"
@@ -26,7 +30,7 @@ class Favorites extends PureComponent {
           </Button>
           <Button
             hoverIndicator="accent-3"
-            color={cardIsFocused && 'accent-3'}
+            color={(cardIsFocused && 'accent-3') || 'brand'}
             className="focus-btn"
             onClick={() => focusCard(cardIsFocused ? false : favs[i])}
           >
