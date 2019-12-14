@@ -311,6 +311,7 @@ class Sidebar extends PureComponent {
       toggleSettings,
       isFocused,
     } = this.props;
+    console.log(this.props);
 
     return (
       <Box
