@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
 import BoardsIcon from 'UI/BoardsIcon';
+import BoardPicker from 'UI/BoardPicker';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -101,6 +102,7 @@ class MdynaCard extends Component {
     } = this.props;
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
+    const cardBoardName = BoardPicker.getBoardName(card.board, boards);
     const cardContent = this.getCardContent();
     const color = (card && card.editingColor)
       || card.color
@@ -169,13 +171,14 @@ ${card.text}`;
             labels={card.labels}
             color={color}
           />
-          <Box className="board-indicator">
-            <Text color={color}>
-              <BoardsIcon />
-              INBOX
-              {' '}
-            </Text>
-          </Box>
+          {cardBoardName !== 'INBOX' && (
+            <Box className="board-indicator">
+              <Text color={color}>
+                <BoardsIcon />
+                {cardBoardName}
+              </Text>
+            </Box>
+          )}
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor

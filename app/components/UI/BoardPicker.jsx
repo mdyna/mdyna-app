@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Add } from 'grommet-icons';
@@ -15,7 +15,7 @@ const BoardMenuHeader = styled.span`
   align-items: center;
 `;
 
-export default class BoardPicker extends Component {
+export default class BoardPicker extends PureComponent {
   getBoardId(boardName) {
     const { boards } = this.props;
     if (boardName === 'INBOX') {
@@ -30,8 +30,7 @@ export default class BoardPicker extends Component {
     return 'INBOX';
   }
 
-  getBoardName(boardId) {
-    const { boards } = this.props;
+  static getBoardName(boardId, boards) {
     if (boardId === 'INBOX') {
       return 'INBOX';
     }
@@ -41,7 +40,7 @@ export default class BoardPicker extends Component {
         return board.name;
       }
     }
-    return null;
+    return 'INBOX';
   }
 
   render() {
@@ -49,6 +48,7 @@ export default class BoardPicker extends Component {
       onClick,
       toggleBoardsDialog,
       boardNames,
+      boards,
       addButton,
       createBoard,
       value,
@@ -59,7 +59,11 @@ export default class BoardPicker extends Component {
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label={<Text color="brand">{this.getBoardName(value) || 'Board'}</Text>}
+        label={(
+          <Text color="brand">
+            {BoardPicker.getBoardName(value, boards) || 'Board'}
+          </Text>
+)}
         dropAlign={{ top: 'bottom' }}
         items={[
           {
