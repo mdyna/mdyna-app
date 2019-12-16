@@ -99,9 +99,7 @@ class Mdyna extends PureComponent {
             }}
           />
           <Box fill="vertical" direction="row">
-            <div className="sidebar-wrapper">
-              <SideBar gridArea="menu" {...SIDEBAR_PROPS} />
-            </div>
+            <SideBar gridArea="menu" {...SIDEBAR_PROPS} />
             <Box direction="column" fill="horizontal">
               <SearchInput
                 hidden={isFocused}

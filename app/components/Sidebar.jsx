@@ -86,7 +86,7 @@ class Sidebar extends PureComponent {
     } = this.props;
     return (
       <Box>
-        <Box direction="column" align="end">
+        <Box direction="column" align="end" width="100%">
           <Tooltip
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
@@ -183,7 +183,7 @@ class Sidebar extends PureComponent {
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Box direction="column" align="end">
+      <Box direction="column" align="start">
         <Button
           hoverIndicator="accent-1"
           onClick={() => addCard(activeBoard)}
@@ -218,14 +218,14 @@ class Sidebar extends PureComponent {
           <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
           <Text className="menu-label">Archive</Text>
         </Button>
-        {archivedFilterOn && (
-          <Box className="expandable-menu sorting-options" background="dark-1">
+
+        <Box className="expandable-menu sub-menu" background="dark-1">
+          <Collapsible direction="vertical" open={archivedFilterOn}>
             <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
-              {' '}
               Clear Archive
             </Button>
-          </Box>
-        )}
+          </Collapsible>
+        </Box>
         <Button
           hoverIndicator="accent-1"
           onClick={() => this.expandSortingOptions()}
@@ -234,7 +234,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Sort Cards </Text>
         </Button>
 
-        <Box className="expandable-menu sorting-options" background="dark-1">
+        <Box className="expandable-menu sub-menu" background="dark-1">
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
               color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
