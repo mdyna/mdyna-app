@@ -10,11 +10,10 @@
   position: sticky;
   margin-right: 10px;
   width: 50px;
-  margin-top: 50px;
+  margin-top: 0px;
   top: 50px;
   align-items: center;
-  overflow: hidden !important;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   height: 90vh;
   .menu-label {
     transition: all 0.5s;
