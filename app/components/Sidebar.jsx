@@ -173,6 +173,7 @@ class Sidebar extends PureComponent {
       sorting,
       order,
       labels,
+      clearArchive,
     } = this.props;
     const {
       sortingOptionsExpanded,
@@ -217,6 +218,14 @@ class Sidebar extends PureComponent {
           <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
           <Text className="menu-label">Archive</Text>
         </Button>
+        {archivedFilterOn && (
+          <Box className="expandable-menu sorting-options" background="dark-1">
+            <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
+              {' '}
+              Clear Archive
+            </Button>
+          </Box>
+        )}
         <Button
           hoverIndicator="accent-1"
           onClick={() => this.expandSortingOptions()}
@@ -311,7 +320,6 @@ class Sidebar extends PureComponent {
       toggleSettings,
       isFocused,
     } = this.props;
-    console.log(this.props);
 
     return (
       <Box
@@ -377,6 +385,7 @@ Sidebar.propTypes = {
   activeBoard: PropTypes.string,
   toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
+  clearArchive: PropTypes.func.isRequired,
   sorting: PropTypes.string,
   order: PropTypes.string,
   changeSorting: PropTypes.func.isRequired,

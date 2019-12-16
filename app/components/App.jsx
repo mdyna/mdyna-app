@@ -51,12 +51,14 @@ class Mdyna extends PureComponent {
       labels,
       archivedFilterOn,
       toggleSidebar,
+      clearArchive,
       changeSorting,
     } = this.props;
     // ! TODO: STOP THIS NONSENSE
     /* eslint-enable */
     const SIDEBAR_PROPS = {
       labelFilters,
+      clearArchive,
       addLabelFilter,
       toggleArchivedFilter,
       sidebarExpanded,

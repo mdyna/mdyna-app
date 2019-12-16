@@ -8,12 +8,13 @@ import {
   DESCENDING_ORDER,
   SORTING_BY_TITLE,
 } from 'Utils/globals';
+import { toast } from 'react-toastify';
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
 } = ACTIONS;
 
-const { addCard } = CARD;
+const { addCard, clearArchive } = CARD;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
@@ -51,6 +52,9 @@ function mapDispatchToProps(dispatch) {
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
     },
+    clearArchive: () => {
+      dispatch(clearArchive()).then(() => toast.info('Cleared archived cards'));
+    },
     toggleSidebar: () => {
       dispatch(toggleSidebar());
     },
@@ -87,8 +91,8 @@ function sortCards(cards, sorting, order, showArchived, activeBoard) {
     ? cards.filter(card => card && card.board === activeBoard)
     : cards;
   const filteredCards = showArchived
-    ? filteredByBoard.filter(card => card && (card.archived || card.completed))
-    : filteredByBoard.filter(card => card && !card.archived && !card.completed);
+    ? filteredByBoard.filter(card => card && card.archived)
+    : filteredByBoard.filter(card => card && !card.archived);
   const sortingType = `${sorting}-${order}`;
   switch (sortingType) {
     case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
