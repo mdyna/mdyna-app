@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import { Box } from 'grommet';
+import { Box, Text } from 'grommet';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
+import BoardsIcon from 'UI/BoardsIcon';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -168,6 +169,13 @@ ${card.text}`;
             labels={card.labels}
             color={color}
           />
+          <Box className="board-indicator">
+            <Text color={color}>
+              <BoardsIcon />
+              INBOX
+              {' '}
+            </Text>
+          </Box>
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor
