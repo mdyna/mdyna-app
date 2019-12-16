@@ -10,13 +10,9 @@ const BoardsIcon = ({ className }) => (
 );
 
 const StyledBoardsIcon = styled(BoardsIcon)`
-  width: 24px;
   vertical-align: bottom;
+  width: 24px;
   path {
-    stroke-width: 24px;
-    stroke: ${props => props.theme.global.colors.brand};
-  }
-  rect {
     stroke-width: 24px;
     stroke: ${props => props.theme.global.colors.brand};
   }
