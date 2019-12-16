@@ -43,6 +43,9 @@ export const discardCardChanges = card => ({
   type: ACTION_TYPES.CARD.DISCARD_CHANGES,
   card,
 });
+export const clearArchive = () => ({
+  type: ACTION_TYPES.CARD.CLEAR_ARCHIVE,
+});
 export const editCard = card => ({
   type: ACTION_TYPES.CARD.EDIT_CARD,
   card,
@@ -66,6 +69,7 @@ const CARD = {
   changeTitle,
   changeCardSetting,
   discardCardChanges,
+  clearArchive,
   updateCardList,
   editCard,
   removeCard,
