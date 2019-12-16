@@ -314,20 +314,11 @@ class Sidebar extends PureComponent {
   }
 
   render() {
-    const {
-      sidebarExpanded,
-      toggleSidebar,
-      toggleSettings,
-      isFocused,
-    } = this.props;
+    const { sidebarExpanded, toggleSidebar, toggleSettings } = this.props;
 
     return (
       <Box
-        className={classnames(
-          'sidebar',
-          sidebarExpanded && 'expanded',
-          isFocused && 'focused',
-        )}
+        className={classnames('sidebar', sidebarExpanded && 'expanded')}
         direction="column"
         alignContent="end"
         background="dark-2"
@@ -376,7 +367,6 @@ Sidebar.propTypes = {
   addLabelFilter: PropTypes.func.isRequired,
   toggleArchivedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
-  isFocused: PropTypes.bool,
   archivedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
@@ -394,7 +384,6 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   labelFilters: [],
   sidebarExpanded: false,
-  isFocused: false,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
   sorting: SORTING_BY_DATE,

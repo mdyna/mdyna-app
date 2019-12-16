@@ -53,7 +53,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(toggleBoardsDialog());
     },
     clearArchive: () => {
-      dispatch(clearArchive()).then(() => toast.info('Cleared archived cards'));
+      dispatch(clearArchive());
+      toast.info('Cleared archived cards');
     },
     toggleSidebar: () => {
       dispatch(toggleSidebar());

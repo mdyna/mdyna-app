@@ -10,7 +10,7 @@
   position: sticky;
   margin-right: 10px;
   width: 50px;
-  margin-top: 0px;
+  margin-top: 50px;
   top: 50px;
   align-items: center;
   flex-flow: column nowrap;
@@ -20,10 +20,6 @@
     opacity: 0;
     font-size: 0px !important;
   }
-  &.focused {
-    margin-top: 50px;
-  }
-
   .help {
     display: flex;
     flex-flow: row nowrap;
