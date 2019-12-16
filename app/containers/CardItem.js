@@ -132,6 +132,7 @@ function mapStateToProps(state) {
     boardNames: state.boards.boardNames,
     boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,
+    activeBoardId: state.filters.activeBoard,
     globalLabels: state.labels.map(l => l.title),
     codeTheme: state.settings.codeTheme,
   };

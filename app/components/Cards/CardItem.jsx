@@ -95,6 +95,7 @@ class MdynaCard extends Component {
       addFav,
       removeFav,
       boards,
+      activeBoardId,
       boardNames,
       toggleBoardsDialog,
       codeTheme,
@@ -171,7 +172,7 @@ ${card.text}`;
             labels={card.labels}
             color={color}
           />
-          {cardBoardName !== 'INBOX' && (
+          {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
             <Box className="board-indicator">
               <Text color={color}>
                 <BoardsIcon />
@@ -258,6 +259,7 @@ MdynaCard.propTypes = {
   boardNames: PropTypes.array.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func,
+  activeBoardId: PropTypes.string.isRequired,
 };
 
 MdynaCard.defaultProps = {
