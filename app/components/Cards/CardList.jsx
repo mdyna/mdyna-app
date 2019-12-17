@@ -5,7 +5,7 @@ import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import Tooltip from 'UI/Tooltip';
 import {
-  Add, Previous, Next, Download as Export,
+  Add, Previous, Next, Upload as Export, Download,
 } from 'grommet-icons';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
@@ -15,10 +15,13 @@ import Button from 'UI/Button';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
-
 export default class CardList extends PureComponent {
   static callFolderPicker(board) {
     ipcRenderer.send('EXPORT_BOARD', board);
+  }
+
+  static importFiles() {
+    ipcRenderer.send('IMPORT_FILES');
   }
 
   state = {
@@ -204,6 +207,12 @@ export default class CardList extends PureComponent {
                 text="Export all cards from this board as Markdown files"
               />
             </Button>
+            <Button onClick={() => CardList.importFiles()}>
+              <Tooltip
+                icon={<Download color="brand" />}
+                text="Import md files to MDyna"
+              />
+            </Button>
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
               <>
@@ -248,7 +257,13 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { cards, searchInput, cardsPerPage } = this.props;
+    const {
+      cards,
+      searchInput,
+      cardsPerPage,
+      addCard,
+      activeBoardId,
+    } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -263,6 +278,16 @@ export default class CardList extends PureComponent {
       992: cardComponents.length > 1 ? 2 : 1,
       768: 1,
     };
+
+    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, files) => {
+      files.forEach(async (card) => {
+        await addCard(activeBoardId, {
+          ...card,
+          editingText: card.text,
+          editingTitle: card.title,
+        });
+      });
+    });
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
