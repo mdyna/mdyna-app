@@ -86,7 +86,7 @@ class Sidebar extends PureComponent {
     } = this.props;
     return (
       <Box>
-        <Box direction="column" align="end">
+        <Box direction="column" align="end" width="100%">
           <Tooltip
             icon={<AddCircle color="brand" />}
             className={classnames('sidebar-tooltip', 'add-note-btn')}
@@ -173,6 +173,7 @@ class Sidebar extends PureComponent {
       sorting,
       order,
       labels,
+      clearArchive,
     } = this.props;
     const {
       sortingOptionsExpanded,
@@ -182,7 +183,7 @@ class Sidebar extends PureComponent {
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Box direction="column" align="end">
+      <Box direction="column" align="start">
         <Button
           hoverIndicator="accent-1"
           onClick={() => addCard(activeBoard)}
@@ -217,6 +218,14 @@ class Sidebar extends PureComponent {
           <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
           <Text className="menu-label">Archive</Text>
         </Button>
+
+        <Box className="expandable-menu sub-menu" background="dark-1">
+          <Collapsible direction="vertical" open={archivedFilterOn}>
+            <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
+              Clear Archive
+            </Button>
+          </Collapsible>
+        </Box>
         <Button
           hoverIndicator="accent-1"
           onClick={() => this.expandSortingOptions()}
@@ -225,7 +234,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Sort Cards </Text>
         </Button>
 
-        <Box className="expandable-menu sorting-options" background="dark-1">
+        <Box className="expandable-menu sub-menu" background="dark-1">
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
               color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
@@ -305,21 +314,11 @@ class Sidebar extends PureComponent {
   }
 
   render() {
-    const {
-      sidebarExpanded,
-      toggleSidebar,
-      toggleSettings,
-      isFocused,
-    } = this.props;
-    console.log(this.props);
+    const { sidebarExpanded, toggleSidebar, toggleSettings } = this.props;
 
     return (
       <Box
-        className={classnames(
-          'sidebar',
-          sidebarExpanded && 'expanded',
-          isFocused && 'focused',
-        )}
+        className={classnames('sidebar', sidebarExpanded && 'expanded')}
         direction="column"
         alignContent="end"
         background="dark-2"
@@ -368,7 +367,6 @@ Sidebar.propTypes = {
   addLabelFilter: PropTypes.func.isRequired,
   toggleArchivedFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
-  isFocused: PropTypes.bool,
   archivedFilterOn: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
@@ -377,6 +375,7 @@ Sidebar.propTypes = {
   activeBoard: PropTypes.string,
   toggleSettings: PropTypes.func.isRequired,
   labels: PropTypes.array,
+  clearArchive: PropTypes.func.isRequired,
   sorting: PropTypes.string,
   order: PropTypes.string,
   changeSorting: PropTypes.func.isRequired,
@@ -385,7 +384,6 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   labelFilters: [],
   sidebarExpanded: false,
-  isFocused: false,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
   sorting: SORTING_BY_DATE,

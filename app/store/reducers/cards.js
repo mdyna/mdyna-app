@@ -9,6 +9,7 @@ const {
   TOGGLE_CARD,
   SAVE_CARD,
   CHANGE_CARD_SETTING,
+  CLEAR_ARCHIVE,
   DISCARD_CHANGES,
   EDIT_CARD,
   CHANGE_TITLE,
@@ -92,7 +93,8 @@ export default function cards(state = [], action) {
         }
         return card;
       });
-
+    case CLEAR_ARCHIVE:
+      return state.filter(card => !card.archived);
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
@@ -129,7 +131,7 @@ export default function cards(state = [], action) {
         if (card.id === action.card.id) {
           return {
             ...card,
-            completed: !card.completed && !card.archived,
+            archived: !card.archived,
           };
         }
         return card;

@@ -10,21 +10,16 @@
   position: sticky;
   margin-right: 10px;
   width: 50px;
-  margin-top: 0px;
+  margin-top: 50px;
   top: 50px;
   align-items: center;
-  overflow: hidden !important;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   height: 90vh;
   .menu-label {
     transition: all 0.5s;
     opacity: 0;
     font-size: 0px !important;
   }
-  &.focused {
-    margin-top: 50px;
-  }
-
   .help {
     display: flex;
     flex-flow: row nowrap;
@@ -35,6 +30,9 @@
   &.expanded {
     padding: 10px 0;
     width: 200px;
+    > div > button {
+      width: 100%;
+    }
     .sidebar-tooltip {
       opacity: 0;
       height: 0;
@@ -49,7 +47,7 @@
     .expandable-menu {
       width: 100%;
     }
-    .sorting-options {
+    .sub-menu {
       > div {
         margin-left: 15px;
       }
