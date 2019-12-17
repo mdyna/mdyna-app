@@ -29,6 +29,12 @@ export default class CardList extends PureComponent {
     pageIndex: 0,
   };
 
+  componentDidMount() {
+    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, importedCards) => {
+      this.importCards(importedCards);
+    });
+  }
+
   componentDidUpdate() {
     const { cards, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
@@ -61,6 +67,11 @@ export default class CardList extends PureComponent {
         pageView: pageView - 1,
       });
     }
+  }
+
+  importCards(importedCards) {
+    const { activeBoardId, importCards } = this.props;
+    importCards(importedCards.map(c => ({ ...c, board: activeBoardId })));
   }
 
   addNewCard(card = {}) {
@@ -257,13 +268,7 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const {
-      cards,
-      searchInput,
-      cardsPerPage,
-      addCard,
-      activeBoardId,
-    } = this.props;
+    const { cards, searchInput, cardsPerPage } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -279,15 +284,6 @@ export default class CardList extends PureComponent {
       768: 1,
     };
 
-    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, files) => {
-      files.forEach(async (card) => {
-        await addCard(activeBoardId, {
-          ...card,
-          editingText: card.text,
-          editingTitle: card.title,
-        });
-      });
-    });
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
@@ -367,6 +363,7 @@ CardList.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   focusCard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
+  importCards: PropTypes.func.isRequired,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
