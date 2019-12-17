@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 // eslint-disable-next-line
-import { ipcRenderer } from 'electron';
-// eslint-disable-next-line
 import SVG from 'react-inlinesvg';
 import Logo from 'Assets/logo.svg';
 import PropTypes from 'prop-types';
