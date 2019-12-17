@@ -288,12 +288,17 @@ app.on('ready', () => {
           const fileTitle = filePath.split('/')
             && filePath.split('/').length
             && filePath.split('/')[filePath.split('/').length - 1];
-          cards.push({
-            title: fileTitle,
-            text: file,
-          });
+          const fileExtension = filePath.split('.')
+            && filePath.split('.').length
+            && filePath.split('.')[filePath.split('.').length - 1];
+          if (fileExtension.toLowerCase() === 'md') {
+            cards.push({
+              title: fileTitle.split('.')[0],
+              text: file,
+            });
+          }
+          logger.log('IMPORTING CARDS', fileTitle, fileExtension);
         }
-        logger.log('IMPORTING CARDS', event.sender);
         event.sender.send('IMPORT_FILES_REPLY', cards);
       },
     );
