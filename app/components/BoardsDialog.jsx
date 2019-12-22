@@ -31,6 +31,24 @@ class BoardsDialog extends PureComponent {
     deletionStages: {},
   };
 
+  componentDidMount() {
+    const { deletionStages } = this.state;
+    const { boardNames } = this.props;
+    if (Object.keys(deletionStages).length === 0) {
+      for (let i = 0; i < boardNames.length; i += 1) {
+        const board = boardNames[i];
+        if (deletionStages[board] === undefined) {
+          this.setState({
+            deletionStages: {
+              ...deletionStages,
+              [board]: 0,
+            },
+          });
+        }
+      }
+    }
+  }
+
   getError(componentName) {
     if (componentName) {
       this.setState({
@@ -80,14 +98,7 @@ class BoardsDialog extends PureComponent {
 
   renderDeletionFunnel(board) {
     const { deletionStages } = this.state;
-    if (deletionStages[board] === undefined) {
-      this.setState({
-        deletionStages: {
-          ...deletionStages,
-          [board]: 0,
-        },
-      });
-    }
+
     const boardDeletionStage = deletionStages[board];
     switch (boardDeletionStage) {
       default:
