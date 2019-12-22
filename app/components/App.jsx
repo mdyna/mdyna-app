@@ -158,7 +158,9 @@ class Mdyna extends PureComponent {
               }}
               className="layer"
             >
-              {modalMode === MODAL_MODES.SETTINGS && <Settings />}
+              {modalMode === MODAL_MODES.SETTINGS && (
+                <Settings deleteBoard={deleteBoard} />
+              )}
             </Layer>
           )}
         </ErrorBoundary>
