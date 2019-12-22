@@ -53,6 +53,7 @@ export default class BoardPicker extends PureComponent {
       createBoard,
       value,
     } = this.props;
+    const currentBoardName = BoardPicker.getBoardName(value, boards);
     return (
       <Menu
         icon={<BoardsIcon />}
@@ -61,7 +62,7 @@ export default class BoardPicker extends PureComponent {
         dropBackground="dark-2"
         label={(
           <Text color="brand">
-            {BoardPicker.getBoardName(value, boards) || 'Board'}
+            {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
           </Text>
 )}
         dropAlign={{ top: 'bottom' }}

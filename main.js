@@ -274,7 +274,36 @@ app.on('ready', () => {
       },
     );
   });
-  // * CHANGE CWD EVENT
+  // * IMPORT FILES EVENT
+  ipcMain.on('IMPORT_FILES', (event) => {
+    dialog.showOpenDialog(
+      {
+        properties: ['openFile', 'multiSelections'],
+      },
+      (files) => {
+        const cards = [];
+        for (let i = 0; i < files.length; i += 1) {
+          const filePath = files[i];
+          const file = jetpack.read(filePath);
+          const fileTitle = filePath.split('/')
+            && filePath.split('/').length
+            && filePath.split('/')[filePath.split('/').length - 1];
+          const fileExtension = filePath.split('.')
+            && filePath.split('.').length
+            && filePath.split('.')[filePath.split('.').length - 1];
+          if (fileExtension.toLowerCase() === 'md') {
+            cards.push({
+              title: fileTitle.split('.')[0],
+              text: file,
+            });
+          }
+          logger.log('IMPORTING CARDS', fileTitle, fileExtension);
+        }
+        event.sender.send('IMPORT_FILES_REPLY', cards);
+      },
+    );
+  });
+
   ipcMain.on('CHANGED-CWD', () => {
     logger.info('CURRENT WORKING DIRECTORY CHANGED');
     const currentUserState = cardStorage.get('state');

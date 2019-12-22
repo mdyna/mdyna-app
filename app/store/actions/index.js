@@ -18,6 +18,10 @@ export const addCard = (board, card) => ({
     },
   },
 });
+export const importCards = cards => ({
+  type: ACTION_TYPES.CARD.IMPORT_CARDS,
+  payload: cards,
+});
 export const saveCard = card => ({
   type: ACTION_TYPES.CARD.SAVE_CARD,
   card,
@@ -67,6 +71,7 @@ const CARD = {
   saveCard,
   toggleCard,
   changeTitle,
+  importCards,
   changeCardSetting,
   discardCardChanges,
   clearArchive,

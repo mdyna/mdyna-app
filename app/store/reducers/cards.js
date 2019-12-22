@@ -13,6 +13,7 @@ const {
   DISCARD_CHANGES,
   EDIT_CARD,
   CHANGE_TITLE,
+  IMPORT_CARDS,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
 
@@ -32,9 +33,21 @@ const NEW_CARD_TEMPLATE = {
 
 export default function cards(state = [], action) {
   const randomColor = getRandomColor();
+
+  const convertImportedCards = importedCards => importedCards.map(c => ({
+    ...c,
+    editingTitle: c.title,
+    editingText: c.text,
+    lastEditDate: new Date(),
+    id: uniqid(),
+    archived: false,
+    color: getRandomColor(),
+  }));
   switch (action.type) {
     case UPDATE_CARD_LIST:
       return [...action.content];
+    case IMPORT_CARDS:
+      return [...state, ...convertImportedCards(action.payload)];
     case ADD_CARD:
       return [
         ...state.map(c => ({
