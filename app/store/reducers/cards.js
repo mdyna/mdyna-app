@@ -13,6 +13,8 @@ const {
   DISCARD_CHANGES,
   EDIT_CARD,
   CHANGE_TITLE,
+  DELETE_BOARD_CARDS,
+  KEEP_BOARD_CARDS,
   IMPORT_CARDS,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
@@ -44,6 +46,15 @@ export default function cards(state = [], action) {
     color: getRandomColor(),
   }));
   switch (action.type) {
+    case DELETE_BOARD_CARDS:
+      return [...state.filter(c => c.board !== action.payload)];
+    case KEEP_BOARD_CARDS:
+      return [
+        ...state.map(c => ({
+          ...c,
+          board: 'INBOX',
+        })),
+      ];
     case UPDATE_CARD_LIST:
       return [...action.content];
     case IMPORT_CARDS:
