@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import { Box } from 'grommet';
+import { Box, Text } from 'grommet';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
+import BoardsIcon from 'UI/BoardsIcon';
+import BoardPicker from 'UI/BoardPicker';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -87,12 +89,14 @@ class MdynaCard extends Component {
       removeLabelFilter,
       duplicateCard,
       labelFilters,
+      changeActiveBoard,
       whiteMode,
       globalLabels,
       createBoard,
       addFav,
       removeFav,
       boards,
+      activeBoardId,
       boardNames,
       toggleBoardsDialog,
       codeTheme,
@@ -100,6 +104,7 @@ class MdynaCard extends Component {
     } = this.props;
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
+    const cardBoardName = BoardPicker.getBoardName(card.board, boards);
     const cardContent = this.getCardContent();
     const color = (card && card.editingColor)
       || card.color
@@ -168,6 +173,17 @@ ${card.text}`;
             labels={card.labels}
             color={color}
           />
+          {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
+            <Box
+              className="board-indicator"
+              onClick={() => changeActiveBoard(card.board)}
+            >
+              <Text color={color}>
+                <BoardsIcon />
+                {cardBoardName}
+              </Text>
+            </Box>
+          )}
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor
@@ -178,7 +194,6 @@ ${card.text}`;
               onChange={changeCardSetting}
               labelPickerProps={{
                 onAdd: addLabel,
-                onRemove: removeLabel,
                 cardLabels: card.editingLabels,
                 color,
                 globalLabels,
@@ -245,8 +260,10 @@ MdynaCard.propTypes = {
   createBoard: PropTypes.func.isRequired,
   boards: PropTypes.array.isRequired,
   boardNames: PropTypes.array.isRequired,
+  changeActiveBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func,
+  activeBoardId: PropTypes.string.isRequired,
 };
 
 MdynaCard.defaultProps = {

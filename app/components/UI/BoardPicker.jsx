@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
 import { Add } from 'grommet-icons';
@@ -13,9 +13,15 @@ const BoardMenuHeader = styled.span`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-between;
+  min-width: 150px;
+  font-weight: 700;
+  svg {
+    margin: 0 !important;
+  }
 `;
 
-export default class BoardPicker extends Component {
+export default class BoardPicker extends PureComponent {
   getBoardId(boardName) {
     const { boards } = this.props;
     if (boardName === 'INBOX') {
@@ -30,8 +36,7 @@ export default class BoardPicker extends Component {
     return 'INBOX';
   }
 
-  getBoardName(boardId) {
-    const { boards } = this.props;
+  static getBoardName(boardId, boards) {
     if (boardId === 'INBOX') {
       return 'INBOX';
     }
@@ -41,7 +46,7 @@ export default class BoardPicker extends Component {
         return board.name;
       }
     }
-    return null;
+    return 'INBOX';
   }
 
   render() {
@@ -49,23 +54,29 @@ export default class BoardPicker extends Component {
       onClick,
       toggleBoardsDialog,
       boardNames,
+      boards,
       addButton,
       createBoard,
       value,
     } = this.props;
+    const currentBoardName = BoardPicker.getBoardName(value, boards);
     return (
       <Menu
         icon={<BoardsIcon />}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
-        label={<Text color="brand">{this.getBoardName(value) || 'Board'}</Text>}
+        label={(
+          <Text color="brand">
+            {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
+          </Text>
+)}
         dropAlign={{ top: 'bottom' }}
         items={[
           {
             label: (
               <BoardMenuHeader>
-                Manage Boards
+                <span>Manage</span>
                 {' '}
                 <BoardsIcon />
               </BoardMenuHeader>
@@ -89,10 +100,10 @@ export default class BoardPicker extends Component {
                   defaultValue: '',
                 }}
                 value={(
-                  <Text>
-                    Add board
+                  <BoardMenuHeader>
+                    <span>Add</span>
                     <Add color="brand" />
-                  </Text>
+                  </BoardMenuHeader>
 )}
                 propName="name"
               />

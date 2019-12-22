@@ -5,7 +5,7 @@ import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import Tooltip from 'UI/Tooltip';
 import {
-  Add, Previous, Next, Download as Export,
+  Add, Previous, Next, Upload as Export, Download,
 } from 'grommet-icons';
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
@@ -15,16 +15,25 @@ import Button from 'UI/Button';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
-
 export default class CardList extends PureComponent {
   static callFolderPicker(board) {
     ipcRenderer.send('EXPORT_BOARD', board);
+  }
+
+  static importFiles() {
+    ipcRenderer.send('IMPORT_FILES');
   }
 
   state = {
     pageView: 1,
     pageIndex: 0,
   };
+
+  componentDidMount() {
+    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, importedCards) => {
+      this.importCards(importedCards);
+    });
+  }
 
   componentDidUpdate() {
     const { cards, cardsPerPage } = this.props;
@@ -58,6 +67,11 @@ export default class CardList extends PureComponent {
         pageView: pageView - 1,
       });
     }
+  }
+
+  importCards(importedCards) {
+    const { activeBoardId, importCards } = this.props;
+    importCards(importedCards.map(c => ({ ...c, board: activeBoardId })));
   }
 
   addNewCard(card = {}) {
@@ -204,6 +218,12 @@ export default class CardList extends PureComponent {
                 text="Export all cards from this board as Markdown files"
               />
             </Button>
+            <Button onClick={() => CardList.importFiles()}>
+              <Tooltip
+                icon={<Download color="brand" />}
+                text="Import md files to MDyna"
+              />
+            </Button>
             {this.renderAddNoteButton()}
             {cardItems && cardItems.length ? (
               <>
@@ -263,6 +283,7 @@ export default class CardList extends PureComponent {
       992: cardComponents.length > 1 ? 2 : 1,
       768: 1,
     };
+
     return (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
@@ -342,6 +363,7 @@ CardList.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   focusCard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
+  importCards: PropTypes.func.isRequired,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,

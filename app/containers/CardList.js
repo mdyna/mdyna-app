@@ -4,7 +4,7 @@ import CardList from 'Components/Cards/CardList';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard, focusCard } = FILTERS;
-const { addCard } = CARD;
+const { addCard, importCards } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -18,7 +18,9 @@ function mapDispatchToProps(dispatch, ownProps) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-
+    importCards: (cards) => {
+      dispatch(importCards(cards));
+    },
     focusCard: (card) => {
       dispatch(focusCard(card));
     },

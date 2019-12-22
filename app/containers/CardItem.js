@@ -11,7 +11,12 @@ const { addLabel, removeLabel } = LABEL;
 
 const { addFav, removeFav } = FAV;
 
-const { focusCard, addLabelFilter, removeLabelFilter } = FILTERS;
+const {
+  focusCard,
+  addLabelFilter,
+  removeLabelFilter,
+  changeActiveBoard,
+} = FILTERS;
 
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
@@ -37,6 +42,9 @@ function mapDispatchToProps(dispatch) {
     },
     removeFav: (card) => {
       dispatch(removeFav(card));
+    },
+    changeActiveBoard: (boardId) => {
+      dispatch(changeActiveBoard(boardId));
     },
     removeCard: async (card) => {
       dispatch(removeCard(card));
@@ -132,6 +140,7 @@ function mapStateToProps(state) {
     boardNames: state.boards.boardNames,
     boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,
+    activeBoardId: state.filters.activeBoard,
     globalLabels: state.labels.map(l => l.title),
     codeTheme: state.settings.codeTheme,
   };

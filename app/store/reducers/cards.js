@@ -9,9 +9,13 @@ const {
   TOGGLE_CARD,
   SAVE_CARD,
   CHANGE_CARD_SETTING,
+  CLEAR_ARCHIVE,
   DISCARD_CHANGES,
   EDIT_CARD,
   CHANGE_TITLE,
+  DELETE_BOARD_CARDS,
+  KEEP_BOARD_CARDS,
+  IMPORT_CARDS,
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
 
@@ -31,9 +35,30 @@ const NEW_CARD_TEMPLATE = {
 
 export default function cards(state = [], action) {
   const randomColor = getRandomColor();
+
+  const convertImportedCards = importedCards => importedCards.map(c => ({
+    ...c,
+    editingTitle: c.title,
+    editingText: c.text,
+    lastEditDate: new Date(),
+    id: uniqid(),
+    archived: false,
+    color: getRandomColor(),
+  }));
   switch (action.type) {
+    case DELETE_BOARD_CARDS:
+      return [...state.filter(c => c.board !== action.payload)];
+    case KEEP_BOARD_CARDS:
+      return [
+        ...state.map(c => ({
+          ...c,
+          board: 'INBOX',
+        })),
+      ];
     case UPDATE_CARD_LIST:
       return [...action.content];
+    case IMPORT_CARDS:
+      return [...state, ...convertImportedCards(action.payload)];
     case ADD_CARD:
       return [
         ...state.map(c => ({
@@ -92,7 +117,8 @@ export default function cards(state = [], action) {
         }
         return card;
       });
-
+    case CLEAR_ARCHIVE:
+      return state.filter(card => !card.archived);
     case SAVE_CARD:
       return state.map((card) => {
         if (card.id === action.card.id) {
@@ -129,7 +155,7 @@ export default function cards(state = [], action) {
         if (card.id === action.card.id) {
           return {
             ...card,
-            completed: !card.completed && !card.archived,
+            archived: !card.archived,
           };
         }
         return card;

@@ -18,6 +18,10 @@ export const addCard = (board, card) => ({
     },
   },
 });
+export const importCards = cards => ({
+  type: ACTION_TYPES.CARD.IMPORT_CARDS,
+  payload: cards,
+});
 export const saveCard = card => ({
   type: ACTION_TYPES.CARD.SAVE_CARD,
   card,
@@ -43,9 +47,20 @@ export const discardCardChanges = card => ({
   type: ACTION_TYPES.CARD.DISCARD_CHANGES,
   card,
 });
+export const clearArchive = () => ({
+  type: ACTION_TYPES.CARD.CLEAR_ARCHIVE,
+});
 export const editCard = card => ({
   type: ACTION_TYPES.CARD.EDIT_CARD,
   card,
+});
+export const keepBoardCards = board => ({
+  type: ACTION_TYPES.CARD.KEEP_BOARD_CARDS,
+  payload: board,
+});
+export const deleteBoardCards = board => ({
+  type: ACTION_TYPES.CARD.DELETE_BOARD_CARDS,
+  payload: board,
 });
 export const changeCardSetting = (prop, value, cardId) => ({
   type: ACTION_TYPES.CARD.CHANGE_CARD_SETTING,
@@ -61,11 +76,15 @@ export const changeCardSetting = (prop, value, cardId) => ({
 
 const CARD = {
   addCard,
+  deleteBoardCards,
+  keepBoardCards,
   saveCard,
   toggleCard,
   changeTitle,
+  importCards,
   changeCardSetting,
   discardCardChanges,
+  clearArchive,
   updateCardList,
   editCard,
   removeCard,

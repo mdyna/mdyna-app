@@ -14,10 +14,10 @@
     width: fit-content;
     align-self: flex-start;
     align-items: center;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     transition: all 0.5s;
-    margin: 0 5px 5px;
-    height: 60px;
+    margin: 20px 5px;
+    justify-content: space-evenly;
     &.hidden {
       opacity: 0;
       height: 0;

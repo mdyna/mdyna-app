@@ -11,6 +11,23 @@
   div > * {
     border-radius: initial;
   }
+  .board-indicator {
+    cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    span {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      background-color: #333333aa;
+      padding: 3px;
+      border-radius: 5px;
+    }
+    svg {
+      margin-right: 5px;
+    }
+  }
 
   @include breakpoint(small) {
     min-width: auto;

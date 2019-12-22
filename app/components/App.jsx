@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from './BoardsDialog';
 import { getTheme } from '../themes/themeBuilder';
 
-/* eslint-disable */
 import './App.scss';
 
 const MODAL_MODES = {
@@ -21,7 +20,7 @@ const MODAL_MODES = {
 
 class Mdyna extends PureComponent {
   searchBar = React.createRef();
-
+  /* eslint-disable */
   render() {
     const {
       cards,
@@ -42,8 +41,40 @@ class Mdyna extends PureComponent {
       toggleBoardsDialog,
       isFocused,
       boardNames,
+      addLabelFilter,
+      labelFilters,
       toggleSettings,
+      toggleArchivedFilter,
+      sidebarExpanded,
+      removeLabelFilter,
+      addCard,
+      labels,
+      archivedFilterOn,
+      toggleSidebar,
+      clearArchive,
+      changeSorting,
     } = this.props;
+    // ! TODO: STOP THIS NONSENSE
+    /* eslint-enable */
+    const SIDEBAR_PROPS = {
+      labelFilters,
+      clearArchive,
+      addLabelFilter,
+      toggleArchivedFilter,
+      sidebarExpanded,
+      isFocused,
+      archivedFilterOn,
+      toggleSidebar,
+      toggleBoardsDialog,
+      removeLabelFilter,
+      addCard,
+      activeBoard,
+      toggleSettings,
+      labels,
+      sorting,
+      order,
+      changeSorting,
+    };
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
       <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
@@ -59,7 +90,7 @@ class Mdyna extends PureComponent {
         <ErrorBoundary>
           <KeyboardEventHandler
             handleKeys={['ctrl+p', 'esc']}
-            onKeyEvent={key => {
+            onKeyEvent={(key) => {
               if (isFocused && key === 'esc') {
                 focusCard(null);
               } else if (key === 'ctrl+p') {
@@ -68,14 +99,13 @@ class Mdyna extends PureComponent {
             }}
           />
           <Box fill="vertical" direction="row">
-            <div className="sidebar-wrapper">
-              <SideBar gridArea="menu" {...this.props} />
-            </div>
+            <SideBar gridArea="menu" {...SIDEBAR_PROPS} />
             <Box direction="column" fill="horizontal">
               <SearchInput
                 hidden={isFocused}
                 activeBoard={activeBoard}
                 titles={
+                  /* eslint-disable-next-line */
                   (cards && cards.length && cards.map(c => c.title)) || ['']
                 }
                 onChange={e => searchCards(e)}
@@ -99,7 +129,7 @@ class Mdyna extends PureComponent {
           {boardsDialogOpen && (
             <Layer
               className="boards-dialog-layer"
-              modal={true}
+              modal
               onClickOutside={() => toggleBoardsDialog()}
               onEsc={() => toggleBoardsDialog()}
             >
@@ -128,7 +158,9 @@ class Mdyna extends PureComponent {
               }}
               className="layer"
             >
-              {modalMode === MODAL_MODES.SETTINGS && <Settings />}
+              {modalMode === MODAL_MODES.SETTINGS && (
+                <Settings deleteBoard={deleteBoard} />
+              )}
             </Layer>
           )}
         </ErrorBoundary>
@@ -139,6 +171,7 @@ class Mdyna extends PureComponent {
 
 Mdyna.defaultProps = {
   whiteMode: false,
+  cards: [],
 };
 
 export default Mdyna;

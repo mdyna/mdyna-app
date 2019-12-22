@@ -4,6 +4,7 @@
   display: flex;
   margin-left: 15px;
   .label-box {
+    overflow-x: hidden;
     display: flex;
     flex-flow: column nowrap;
     padding: 5px;

@@ -10,7 +10,6 @@ const BoardsIcon = ({ className }) => <SVG className={className} src={Focus} />;
 const StyledBoardsIcon = styled(BoardsIcon)`
   width: 32px;
   vertical-align: bottom;
-  margin: 5px;
   path {
     stroke-width: 12px;
     fill: ${props => props.color || props.theme.global.colors.brand};
