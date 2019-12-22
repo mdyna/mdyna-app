@@ -28,7 +28,7 @@ class BoardsDialog extends PureComponent {
     errorId: 0,
     error: false,
     // eslint-disable-next-line
-    deletionStage: [],
+    deletionStages: {},
   };
 
   getError(componentName) {
@@ -67,37 +67,32 @@ class BoardsDialog extends PureComponent {
     deleteBoard(boardId, keepCards);
   }
 
-  updateDeletionStage(boardDeletionStage, index) {
-    const { deletionStage } = this.state;
-    const getNewDeletionStage = stage => deletionStage.map((s, i) => (i === index ? stage : s));
-    if (boardDeletionStage) {
-      this.setState({ deletionStage: getNewDeletionStage(0) });
-    } else {
-      this.setState({ deletionStage: getNewDeletionStage(1) });
-    }
+  updateDeletionStage(board) {
+    const { deletionStages } = this.state;
+    const boardDeletionStage = deletionStages[board];
+    const newDeletionStages = {
+      ...deletionStages,
+      [board]: boardDeletionStage === 1 ? 0 : 1,
+    };
+
+    this.setState({ deletionStages: newDeletionStages });
   }
 
-  renderDeletionFunnel(board, index) {
-    const { boardNames } = this.props;
-    const { deletionStage } = this.state;
-    if (!deletionStage || !deletionStage.length) {
-      const newDeletionStages = [];
-      for (let i = 0; i <= boardNames.length; i += 1) {
-        if (boardNames[i]) {
-          newDeletionStages.push(0);
-        }
-      }
+  renderDeletionFunnel(board) {
+    const { deletionStages } = this.state;
+    if (deletionStages[board] === undefined) {
       this.setState({
-        deletionStage: newDeletionStages,
+        deletionStages: {
+          ...deletionStages,
+          [board]: 0,
+        },
       });
     }
-    const boardDeletionStage = deletionStage[index];
+    const boardDeletionStage = deletionStages[board];
     switch (boardDeletionStage) {
       default:
         return (
-          <Button
-            onClick={() => this.updateDeletionStage(boardDeletionStage, index)}
-          >
+          <Button onClick={() => this.updateDeletionStage(board)}>
             <Trash color="accent-2" />
           </Button>
         );
@@ -109,7 +104,7 @@ class BoardsDialog extends PureComponent {
               hoverIndicator="accent-2"
               onClick={() => {
                 this.deleteBoard(board, true);
-                this.updateDeletionStage(boardDeletionStage, index);
+                this.updateDeletionStage(board);
               }}
             >
               Keep Cards
@@ -120,7 +115,7 @@ class BoardsDialog extends PureComponent {
               hoverIndicator="accent-2"
               onClick={() => {
                 this.deleteBoard(board, false);
-                this.updateDeletionStage(boardDeletionStage, index);
+                this.updateDeletionStage(board);
               }}
             >
               Discard Cards
@@ -128,8 +123,7 @@ class BoardsDialog extends PureComponent {
 
             <Button
               hoverIndicator="brand"
-              onClick={() => this.updateDeletionStage(boardDeletionStage, index)
-              }
+              onClick={() => this.updateDeletionStage(board)}
             >
               Cancel
             </Button>
@@ -147,7 +141,7 @@ class BoardsDialog extends PureComponent {
     } = this.props;
     return (
       <Box className="boards-table" direction="column">
-        {boardNames.map((board, index) => (
+        {boardNames.map(board => (
           <Box
             direction="row"
             key={`${board}-board-row`}
@@ -189,7 +183,7 @@ class BoardsDialog extends PureComponent {
             <Button onClick={() => changeActiveBoard(this.getBoardId(board))}>
               <BoardsIcon />
             </Button>
-            {board !== 'INBOX' && this.renderDeletionFunnel(board, index)}
+            {board !== 'INBOX' && this.renderDeletionFunnel(board)}
           </Box>
         ))}
       </Box>
