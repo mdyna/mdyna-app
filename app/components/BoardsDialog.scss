@@ -25,6 +25,14 @@
   .error-input {
     border-color: #8b0f19 !important;
   }
+  .board-deletion-confirmation {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 50%;
+    button {
+      margin: 0 5px;
+    }
+  }
   .editing-board {
     background: none;
     padding: 10px;
@@ -38,6 +46,7 @@
   }
   .board-input {
     padding: 10px;
+    width: 50%;
     cursor: pointer;
   }
   .boards-row {
@@ -57,6 +66,6 @@
   }
   svg {
     vertical-align: bottom;
-    margin: 0 10px;
+    margin: 0 10px !important;
   }
 }

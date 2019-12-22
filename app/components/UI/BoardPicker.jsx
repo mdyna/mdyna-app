@@ -13,6 +13,12 @@ const BoardMenuHeader = styled.span`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-between;
+  min-width: 150px;
+  font-weight: 700;
+  svg {
+    margin: 0 !important;
+  }
 `;
 
 export default class BoardPicker extends PureComponent {
@@ -70,7 +76,7 @@ export default class BoardPicker extends PureComponent {
           {
             label: (
               <BoardMenuHeader>
-                Manage Boards
+                <span>Manage</span>
                 {' '}
                 <BoardsIcon />
               </BoardMenuHeader>
@@ -94,10 +100,10 @@ export default class BoardPicker extends PureComponent {
                   defaultValue: '',
                 }}
                 value={(
-                  <Text>
-                    Add board
+                  <BoardMenuHeader>
+                    <span>Add</span>
                     <Add color="brand" />
-                  </Text>
+                  </BoardMenuHeader>
 )}
                 propName="name"
               />

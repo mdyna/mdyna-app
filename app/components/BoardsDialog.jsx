@@ -102,24 +102,24 @@ class BoardsDialog extends PureComponent {
         );
       case 1:
         return (
-          <Box direction="row">
+          <Box direction="row" className="board-deletion-confirmation">
             <Button
+              color="accent-2"
               onClick={() => {
                 this.deleteBoard(board, true);
                 this.updateDeletionStage(boardDeletionStage, index);
               }}
             >
-              <Trash color="accent-2" />
               Keep Cards
             </Button>
 
             <Button
+              color="accent-2"
               onClick={() => {
                 this.deleteBoard(board, false);
                 this.updateDeletionStage(boardDeletionStage, index);
               }}
             >
-              <Trash color="accent-2" />
               Discard Cards
             </Button>
 
@@ -127,7 +127,7 @@ class BoardsDialog extends PureComponent {
               onClick={() => this.updateDeletionStage(boardDeletionStage, index)
               }
             >
-              {'< Back'}
+              Cancel
             </Button>
           </Box>
         );
