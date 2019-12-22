@@ -89,6 +89,7 @@ class MdynaCard extends Component {
       removeLabelFilter,
       duplicateCard,
       labelFilters,
+      changeActiveBoard,
       whiteMode,
       globalLabels,
       createBoard,
@@ -173,7 +174,10 @@ ${card.text}`;
             color={color}
           />
           {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
-            <Box className="board-indicator">
+            <Box
+              className="board-indicator"
+              onClick={() => changeActiveBoard(card.board)}
+            >
               <Text color={color}>
                 <BoardsIcon />
                 {cardBoardName}
@@ -190,7 +194,6 @@ ${card.text}`;
               onChange={changeCardSetting}
               labelPickerProps={{
                 onAdd: addLabel,
-                onRemove: removeLabel,
                 cardLabels: card.editingLabels,
                 color,
                 globalLabels,
@@ -257,6 +260,7 @@ MdynaCard.propTypes = {
   createBoard: PropTypes.func.isRequired,
   boards: PropTypes.array.isRequired,
   boardNames: PropTypes.array.isRequired,
+  changeActiveBoard: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   removeLabelFilter: PropTypes.func,
   activeBoardId: PropTypes.string.isRequired,

@@ -12,6 +12,7 @@
     border-radius: initial;
   }
   .board-indicator {
+    cursor: pointer;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
