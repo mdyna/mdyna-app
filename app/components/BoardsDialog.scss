@@ -27,10 +27,11 @@
   }
   .board-deletion-confirmation {
     display: flex;
-    flex-flow: row nowrap;
-    width: 50%;
+    flex-flow: row wrap;
+    flex: 1;
     button {
       margin: 0 5px;
+      min-width: 90px;
     }
   }
   .editing-board {
@@ -53,6 +54,9 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 700;
+    button {
+      flex: 1;
+    }
   }
   .boards-table {
     margin: 20px 0px;

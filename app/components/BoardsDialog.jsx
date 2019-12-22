@@ -27,6 +27,7 @@ class BoardsDialog extends PureComponent {
   state = {
     errorId: 0,
     error: false,
+    // eslint-disable-next-line
     deletionStage: [],
   };
 
@@ -82,7 +83,7 @@ class BoardsDialog extends PureComponent {
     if (!deletionStage || !deletionStage.length) {
       const newDeletionStages = [];
       for (let i = 0; i <= boardNames.length; i += 1) {
-        if (boardNames[i] !== 'INBOX') {
+        if (boardNames[i]) {
           newDeletionStages.push(0);
         }
       }
@@ -105,6 +106,7 @@ class BoardsDialog extends PureComponent {
           <Box direction="row" className="board-deletion-confirmation">
             <Button
               color="accent-2"
+              hoverIndicator="accent-2"
               onClick={() => {
                 this.deleteBoard(board, true);
                 this.updateDeletionStage(boardDeletionStage, index);
@@ -115,6 +117,7 @@ class BoardsDialog extends PureComponent {
 
             <Button
               color="accent-2"
+              hoverIndicator="accent-2"
               onClick={() => {
                 this.deleteBoard(board, false);
                 this.updateDeletionStage(boardDeletionStage, index);
@@ -124,6 +127,7 @@ class BoardsDialog extends PureComponent {
             </Button>
 
             <Button
+              hoverIndicator="brand"
               onClick={() => this.updateDeletionStage(boardDeletionStage, index)
               }
             >
