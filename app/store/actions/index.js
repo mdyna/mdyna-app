@@ -54,6 +54,14 @@ export const editCard = card => ({
   type: ACTION_TYPES.CARD.EDIT_CARD,
   card,
 });
+export const keepBoardCards = board => ({
+  type: ACTION_TYPES.CARD.KEEP_BOARD_CARDS,
+  payload: board,
+});
+export const deleteBoardCards = board => ({
+  type: ACTION_TYPES.CARD.DELETE_BOARD_CARDS,
+  payload: board,
+});
 export const changeCardSetting = (prop, value, cardId) => ({
   type: ACTION_TYPES.CARD.CHANGE_CARD_SETTING,
   prop,
@@ -68,6 +76,8 @@ export const changeCardSetting = (prop, value, cardId) => ({
 
 const CARD = {
   addCard,
+  deleteBoardCards,
+  keepBoardCards,
   saveCard,
   toggleCard,
   changeTitle,
