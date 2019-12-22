@@ -62,7 +62,7 @@ export default class BoardPicker extends PureComponent {
         dropBackground="dark-2"
         label={(
           <Text color="brand">
-            {(currentBoardName !== 'INBOX' && currentBoardName) || 'Board'}
+            {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
           </Text>
 )}
         dropAlign={{ top: 'bottom' }}
