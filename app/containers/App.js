@@ -14,7 +14,9 @@ const {
   SETTINGS, FILTERS, BOARDS, CARD,
 } = ACTIONS;
 
-const { addCard, clearArchive } = CARD;
+const {
+  addCard, clearArchive, deleteBoardCards, keepBoardCards,
+} = CARD;
 
 const { toggleSidebar, toggleSettings } = SETTINGS;
 
@@ -46,8 +48,13 @@ function mapDispatchToProps(dispatch) {
     createBoard: (board) => {
       dispatch(createBoard(board));
     },
-    deleteBoard: (board) => {
+    deleteBoard: (board, keepCards) => {
       dispatch(deleteBoard(board));
+      if (keepCards) {
+        dispatch(keepBoardCards(board));
+      } else {
+        dispatch(deleteBoardCards(board));
+      }
     },
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
