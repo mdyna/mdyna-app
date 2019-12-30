@@ -1,12 +1,8 @@
-const {
-  app, dialog, ipcMain, remote,
-} = require('electron');
+const { app, dialog, ipcMain } = require('electron');
+const Storage = require('electron-store');
 const jetpack = require('fs-jetpack');
 const path = require('path');
 const logger = require('electron-log');
-
-const getCwd = storage => (storage && storage.cwd)
-  || ((remote && remote.app) || app).getPath('userData');
 
 module.exports = function startEventListeners(storages, cwd, mainWindow) {
   const { userStorage, cardStorage } = storages;
@@ -72,7 +68,7 @@ module.exports = function startEventListeners(storages, cwd, mainWindow) {
   ipcMain.on('CHANGED-CWD', () => {
     logger.info('CURRENT WORKING DIRECTORY CHANGED');
     const currentUserState = cardStorage.get('state');
-    const newCwd = getCwd(userStorage.get('settings'));
+    const newCwd = userStorage.get('settings').cwd;
     const newCardStorage = new Storage({
       name: 'mdyna-card-data',
       newCwd,

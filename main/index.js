@@ -78,6 +78,7 @@ app.on('ready', () => {
   const userStorage = new Storage({
     cwd: getCwd(),
   });
+
   const userSettings = userStorage.get('settings');
   const cwd = getCwd(userSettings);
   const userState = userStorage.get('state');
@@ -96,19 +97,11 @@ app.on('ready', () => {
     && cardStorageState.boards.boardList;
   const cardStorageFavs = (cardStorageState && cardStorageState.favs) || [];
   const convertedBoards = [];
-  if (!Array.isArray(cardStorageBoardList)) {
-    const contentBoards = (cardStorageBoardList && Object.keys(cardStorageBoardList)) || [];
-    for (let i = 0; i < contentBoards.length; i += 1) {
-      convertedBoards.push(contentBoards);
-    }
-  } else {
-    for (let i = 0; i < cardStorageBoardList.length; i += 1) {
-      const contentBoard = cardStorageBoardList[i];
-      if (
-        convertedBoards.map(cb => cb.name).indexOf(contentBoard.name) === -1
-      ) {
-        convertedBoards.push(contentBoard);
-      }
+
+  for (let i = 0; i < cardStorageBoardList.length; i += 1) {
+    const contentBoard = cardStorageBoardList[i];
+    if (convertedBoards.map(cb => cb.name).indexOf(contentBoard.name) === -1) {
+      convertedBoards.push(contentBoard);
     }
   }
 
