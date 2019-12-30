@@ -3,11 +3,11 @@ export const getLocalState = () => {
   const userState = window.cardStorage.get('state');
   const favs = userState && userState.favs;
   const boards = userState && userState.boards;
+  if (boards && boards.boardNames && boards.boardNames.indexOf('INBOX') !== 0) {
+    boards.boardNames.unshift('INBOX');
+  }
   const boardNames = [...new Set((boards && boards.boardNames) || [])];
   const boardList = (boards && boards.boardList) || [];
-  if (boardNames.indexOf('INBOX') === -1) {
-    boardNames.unshift('INBOX');
-  }
 
   return {
     ...userState,
