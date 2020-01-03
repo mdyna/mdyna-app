@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Grommet, Box, Layer } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ToastContainer } from 'react-toastify';
-import Loader from 'UI/Loader';
+// import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
@@ -24,8 +24,6 @@ class Mdyna extends PureComponent {
   render() {
     const {
       cards,
-      order,
-      sorting,
       settingsModal,
       whiteMode,
       deleteBoard,
@@ -81,18 +79,7 @@ class Mdyna extends PureComponent {
                 searchBar={this.searchBar}
                 searchInput={searchInput}
               />
-              {cards ? (
-                <CardList
-                  isFocused={Boolean(isFocused)}
-                  gridArea="card-list"
-                  cards={cards}
-                  searchCards={searchCards}
-                  order={order}
-                  sorting={sorting}
-                />
-              ) : (
-                <Loader />
-              )}
+              <CardList gridArea="card-list" />
             </Box>
           </Box>
           {boardsDialogOpen && (
