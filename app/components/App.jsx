@@ -7,7 +7,7 @@ import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
 import SearchInput from 'UI/Search';
-import SideBar from './Sidebar';
+import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from './BoardsDialog';
 import { getTheme } from '../themes/themeBuilder';
@@ -41,40 +41,9 @@ class Mdyna extends PureComponent {
       toggleBoardsDialog,
       isFocused,
       boardNames,
-      addLabelFilter,
-      labelFilters,
       toggleSettings,
-      toggleArchivedFilter,
-      sidebarExpanded,
-      removeLabelFilter,
-      addCard,
-      labels,
-      archivedFilterOn,
-      toggleSidebar,
-      clearArchive,
-      changeSorting,
     } = this.props;
-    // ! TODO: STOP THIS NONSENSE
-    /* eslint-enable */
-    const SIDEBAR_PROPS = {
-      labelFilters,
-      clearArchive,
-      addLabelFilter,
-      toggleArchivedFilter,
-      sidebarExpanded,
-      isFocused,
-      archivedFilterOn,
-      toggleSidebar,
-      toggleBoardsDialog,
-      removeLabelFilter,
-      addCard,
-      activeBoard,
-      toggleSettings,
-      labels,
-      sorting,
-      order,
-      changeSorting,
-    };
+    // ! TODO: STOP THIS NONSENSEL
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
       <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
@@ -90,7 +59,7 @@ class Mdyna extends PureComponent {
         <ErrorBoundary>
           <KeyboardEventHandler
             handleKeys={['ctrl+p', 'esc']}
-            onKeyEvent={(key) => {
+            onKeyEvent={key => {
               if (isFocused && key === 'esc') {
                 focusCard(null);
               } else if (key === 'ctrl+p') {
@@ -99,7 +68,7 @@ class Mdyna extends PureComponent {
             }}
           />
           <Box fill="vertical" direction="row">
-            <SideBar gridArea="menu" {...SIDEBAR_PROPS} />
+            <Sidebar gridArea="menu" />
             <Box direction="column" fill="horizontal">
               <SearchInput
                 hidden={isFocused}
