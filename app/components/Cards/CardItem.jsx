@@ -53,11 +53,19 @@ class MdynaCard extends Component {
   }
 
   toggleDiscardDialog() {
+    const { card, isFocused, discardCardChanges } = this.props;
     const { discardDialogOpen } = this.state;
 
-    this.setState({
-      discardDialogOpen: !discardDialogOpen,
-    });
+    const {
+      isEditing, text, title, editingText, editingTitle,
+    } = card;
+    if (isEditing && (text !== editingText || editingTitle !== title)) {
+      this.setState({
+        discardDialogOpen: !discardDialogOpen,
+      });
+    } else {
+      discardCardChanges(card, Boolean(isFocused));
+    }
   }
 
   renderCardDate() {
@@ -241,6 +249,7 @@ ${card.text}`;
               onChange={changeCardSetting}
               labelPickerProps={{
                 onAdd: addLabel,
+                onRemove: removeLabel,
                 cardLabels: card.editingLabels,
                 color,
                 globalLabels,
