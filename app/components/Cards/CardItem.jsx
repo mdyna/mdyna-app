@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
-import { Box, Text } from 'grommet';
+import { Box, Text, Layer } from 'grommet';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
 import BoardsIcon from 'UI/BoardsIcon';
 import BoardPicker from 'UI/BoardPicker';
+import Button from 'UI/Button';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -32,6 +33,10 @@ class MdynaCard extends Component {
 
   name = 'Mdyna Card';
 
+  state = {
+    discardDialogOpen: false,
+  };
+
   getCardContent() {
     const { card } = this.props;
     const {
@@ -45,6 +50,22 @@ class MdynaCard extends Component {
   saveCardContent(card) {
     const { saveCard, isFocused } = this.props;
     saveCard(card, isFocused).then(() => MdynaCard.scrollToCard());
+  }
+
+  toggleDiscardDialog() {
+    const { card, isFocused, discardCardChanges } = this.props;
+    const { discardDialogOpen } = this.state;
+
+    const {
+      isEditing, text, title, editingText, editingTitle,
+    } = card;
+    if (isEditing && (text !== editingText || editingTitle !== title)) {
+      this.setState({
+        discardDialogOpen: !discardDialogOpen,
+      });
+    } else {
+      discardCardChanges(card, Boolean(isFocused));
+    }
   }
 
   renderCardDate() {
@@ -84,7 +105,6 @@ class MdynaCard extends Component {
       editCard,
       removeLabel,
       addLabel,
-      discardCardChanges,
       addLabelFilter,
       removeLabelFilter,
       duplicateCard,
@@ -92,6 +112,7 @@ class MdynaCard extends Component {
       changeActiveBoard,
       whiteMode,
       globalLabels,
+      discardCardChanges,
       createBoard,
       addFav,
       removeFav,
@@ -102,6 +123,7 @@ class MdynaCard extends Component {
       codeTheme,
       favs,
     } = this.props;
+    const { discardDialogOpen } = this.state;
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardBoardName = BoardPicker.getBoardName(card.board, boards);
@@ -150,11 +172,44 @@ ${card.text}`;
             || null,
         }}
       >
+        {discardDialogOpen && (
+          <Layer
+            className="discard-confirmation"
+            onEsc={() => this.toggleDiscardDialog()}
+            onClickOutside={() => this.toggleDiscardDialog()}
+          >
+            <Text>
+              Are you sure you want to discard the changes made to
+              {' '}
+              {card.title}
+              {' '}
+              ?
+            </Text>
+            <Box direction="row" justify="end" align="end">
+              <Button
+                onClick={() => {
+                  this.toggleDiscardDialog();
+                  discardCardChanges(card, Boolean(isFocused));
+                }}
+                color="accent-2"
+              >
+                Discard
+              </Button>
+              <Button
+                onClick={() => {
+                  this.toggleDiscardDialog();
+                }}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Layer>
+        )}
         <KeyboardEventHandler
           handleKeys={['esc']}
           onKeyEvent={(key) => {
             if (card.isEditing && key === 'esc') {
-              discardCardChanges(card, Boolean(isFocused));
+              this.toggleDiscardDialog();
             }
           }}
         >
@@ -194,6 +249,7 @@ ${card.text}`;
               onChange={changeCardSetting}
               labelPickerProps={{
                 onAdd: addLabel,
+                onRemove: removeLabel,
                 cardLabels: card.editingLabels,
                 color,
                 globalLabels,
@@ -204,7 +260,7 @@ ${card.text}`;
                 boardNames,
                 toggleBoardsDialog,
               }}
-              onDiscard={c => discardCardChanges(c, Boolean(isFocused))}
+              onDiscard={() => this.toggleDiscardDialog()}
             />
           )}
           <Editor

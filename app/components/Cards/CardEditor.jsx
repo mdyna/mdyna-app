@@ -41,6 +41,7 @@ class CardEditor extends PureComponent {
           style={{
             border: `1px solid ${tinycolor(color).darken(10)}`,
             borderRadius: '10px',
+            paddingBottom: '5px',
           }}
           wrap
         >
@@ -79,7 +80,11 @@ class CardEditor extends PureComponent {
             }
           >
             Submit
-            <Checkmark color="accent-3" size="18px" />
+            <Checkmark
+              color="accent-3"
+              size="18px"
+              style={{ margin: '0 5px' }}
+            />
           </Button>
           <Button
             hoverIndicator={false}
@@ -87,7 +92,7 @@ class CardEditor extends PureComponent {
             onClick={() => onDiscard(card, isFocused)}
           >
             Discard
-            <Close color="accent-2" size="18px" />
+            <Close color="accent-2" size="18px" style={{ margin: '0 5px' }} />
           </Button>
         </Box>
       </Box>

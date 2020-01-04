@@ -3,6 +3,7 @@ const {
   remote, app, BrowserWindow, shell,
 } = require('electron');
 const path = require('path');
+const os = require('os');
 const Storage = require('electron-store');
 const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
@@ -159,6 +160,8 @@ app.on('ready', () => {
   }
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
+  const controlsStyle = os.type().includes('Windows') ? 'Windows' : 'Linux';
+  global.controlsStyle = controlsStyle;
   startEventListeners({ cardStorage, userStorage }, cwd, mainWindow);
 
   // if main window is ready to show, then destroy the splash window and show up the main window
@@ -179,7 +182,6 @@ app.on('ready', () => {
   });
 
   global.appVersion = `v.${app.getVersion()}`;
-  global.serverHost = 'http://localhost:7000';
   const env = process.env.NODE_ENV || 'PROD';
   logger.warn('ELECTRON RUNNING IN', env);
   logger.info('LOADED USER STATE', cardStorage.get('state'));
