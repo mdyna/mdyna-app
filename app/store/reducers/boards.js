@@ -58,6 +58,7 @@ export default function boards(
     ...new Set([
       ...((state && state.boardNames) || []),
       ...((content && content.boardNames) || []),
+      'INBOX',
     ]),
   ];
   const convertedBoards = [];

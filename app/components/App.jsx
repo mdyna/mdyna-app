@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Grommet, Box, Layer } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ToastContainer } from 'react-toastify';
-import Loader from 'UI/Loader';
+// import Loader from 'UI/Loader';
 import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
-import SearchInput from 'UI/Search';
-import SideBar from './Sidebar';
+import SearchInput from 'Containers/Search';
+import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
-import BoardsDialog from './BoardsDialog';
+import BoardsDialog from 'Containers/Boards';
 import { getTheme } from '../themes/themeBuilder';
 
 import './App.scss';
@@ -20,61 +21,18 @@ const MODAL_MODES = {
 
 class Mdyna extends PureComponent {
   searchBar = React.createRef();
-  /* eslint-disable */
+
   render() {
     const {
-      cards,
-      order,
-      sorting,
       settingsModal,
       whiteMode,
-      deleteBoard,
-      createBoard,
-      searchInput,
-      searchCards,
-      changeActiveBoard,
-      activeBoard,
       focusCard,
       boardsDialogOpen,
-      changeBoardName,
-      boards,
       toggleBoardsDialog,
       isFocused,
-      boardNames,
-      addLabelFilter,
-      labelFilters,
       toggleSettings,
-      toggleArchivedFilter,
-      sidebarExpanded,
-      removeLabelFilter,
-      addCard,
-      labels,
-      archivedFilterOn,
-      toggleSidebar,
-      clearArchive,
-      changeSorting,
     } = this.props;
-    // ! TODO: STOP THIS NONSENSE
-    /* eslint-enable */
-    const SIDEBAR_PROPS = {
-      labelFilters,
-      clearArchive,
-      addLabelFilter,
-      toggleArchivedFilter,
-      sidebarExpanded,
-      isFocused,
-      archivedFilterOn,
-      toggleSidebar,
-      toggleBoardsDialog,
-      removeLabelFilter,
-      addCard,
-      activeBoard,
-      toggleSettings,
-      labels,
-      sorting,
-      order,
-      changeSorting,
-    };
+    // ! TODO: STOP THIS NONSENSEL
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
       <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
@@ -99,31 +57,10 @@ class Mdyna extends PureComponent {
             }}
           />
           <Box fill="vertical" direction="row">
-            <SideBar gridArea="menu" {...SIDEBAR_PROPS} />
+            <Sidebar gridArea="menu" />
             <Box direction="column" fill="horizontal">
-              <SearchInput
-                hidden={isFocused}
-                activeBoard={activeBoard}
-                titles={
-                  /* eslint-disable-next-line */
-                  (cards && cards.length && cards.map(c => c.title)) || ['']
-                }
-                onChange={e => searchCards(e)}
-                searchBar={this.searchBar}
-                searchInput={searchInput}
-              />
-              {cards ? (
-                <CardList
-                  isFocused={Boolean(isFocused)}
-                  gridArea="card-list"
-                  cards={cards}
-                  searchCards={searchCards}
-                  order={order}
-                  sorting={sorting}
-                />
-              ) : (
-                <Loader />
-              )}
+              <SearchInput searchBar={this.searchBar} />
+              <CardList gridArea="card-list" />
             </Box>
           </Box>
           {boardsDialogOpen && (
@@ -133,16 +70,7 @@ class Mdyna extends PureComponent {
               onClickOutside={() => toggleBoardsDialog()}
               onEsc={() => toggleBoardsDialog()}
             >
-              <BoardsDialog
-                activeBoard={activeBoard}
-                boards={boards}
-                boardNames={boardNames}
-                createBoard={createBoard}
-                deleteBoard={deleteBoard}
-                changeActiveBoard={changeActiveBoard}
-                toggleBoardsDialog={toggleBoardsDialog}
-                changeBoardName={changeBoardName}
-              />
+              <BoardsDialog />
             </Layer>
           )}
           {modalMode && (
@@ -158,9 +86,7 @@ class Mdyna extends PureComponent {
               }}
               className="layer"
             >
-              {modalMode === MODAL_MODES.SETTINGS && (
-                <Settings deleteBoard={deleteBoard} />
-              )}
+              {modalMode === MODAL_MODES.SETTINGS && <Settings />}
             </Layer>
           )}
         </ErrorBoundary>
@@ -168,10 +94,18 @@ class Mdyna extends PureComponent {
     );
   }
 }
+Mdyna.propTypes = {
+  settingsModal: PropTypes.bool.isRequired,
+  whiteMode: PropTypes.bool,
+  boardsDialogOpen: PropTypes.bool.isRequired,
+  isFocused: PropTypes.bool.isRequired,
+  focusCard: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
+  toggleSettings: PropTypes.func.isRequired,
+};
 
 Mdyna.defaultProps = {
   whiteMode: false,
-  cards: [],
 };
 
 export default Mdyna;

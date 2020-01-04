@@ -1,13 +1,20 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
+import {
+  SORTING_BY_DATE,
+  ASCENDING_ORDER,
+  DESCENDING_ORDER,
+  SORTING_BY_TITLE,
+} from 'Utils/globals';
+import { convertToTime } from 'Utils/dates';
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
-const { changeActiveBoard, focusCard } = FILTERS;
+const { changeActiveBoard, focusCard, searchCards } = FILTERS;
 const { addCard, importCards } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
@@ -25,11 +32,43 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(focusCard(card));
     },
     addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
-      ownProps.searchCards('');
+      dispatch(searchCards(''));
       dispatch(focusCard());
     }),
+    searchCards: (val) => {
+      dispatch(searchCards(val));
+    },
   };
 }
+
+function sortCards(cards, sorting, order, showArchived, activeBoard) {
+  const filteredByBoard = activeBoard && activeBoard !== 'INBOX'
+    ? cards.filter(card => card && card.board === activeBoard)
+    : cards;
+  const filteredCards = showArchived
+    ? filteredByBoard.filter(card => card && card.archived)
+    : filteredByBoard.filter(card => card && !card.archived);
+  const sortingType = `${sorting}-${order}`;
+  switch (sortingType) {
+    case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
+      return filteredCards.sort(
+        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
+      );
+    case `${SORTING_BY_DATE}-${ASCENDING_ORDER}`:
+      return filteredCards.sort(
+        (a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]),
+      );
+    case `${SORTING_BY_TITLE}-${ASCENDING_ORDER}`:
+      return filteredCards.sort((a, b) => a.title.localeCompare(b.title));
+    case `${SORTING_BY_TITLE}-${DESCENDING_ORDER}`:
+      return filteredCards.sort((a, b) => b.title.localeCompare(a.title));
+    default:
+      return filteredCards.sort(
+        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
+      );
+  }
+}
+
 function mapStateToProps(state) {
   const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
   let activeBoardName = 'INBOX';
@@ -39,16 +78,31 @@ function mapStateToProps(state) {
       activeBoardName = board.name;
     }
   }
+
+  const cards = state.filters.isFocused
+    ? [state.filters.focusedCard]
+    : sortCards(
+      state.cards,
+      (state.filters && state.filters.sorting) || SORTING_BY_DATE,
+      (state.filters && state.filters.order) || DESCENDING_ORDER,
+      (state.filters && state.filters.archivedFilterOn) || false,
+      (state.filters && state.filters.activeBoard) || false,
+    );
+
   return {
-    searchInput: state.filters.searchInput,
-    archivedFilterOn: state.filters.archivedFilterOn,
-    sidebarExpanded: state.style.sidebarExpanded,
-    labelFilters: state.filters.labelFilters,
-    boardNames: state.boards.boardNames,
-    boards: state.boards.boardList,
+    cards,
     activeBoard: activeBoardName,
     activeBoardId: state.filters.activeBoard,
+    archivedFilterOn: state.filters.archivedFilterOn,
+    boardNames: state.boards.boardNames,
+    isFocused: state.filters.isFocused || false,
+    boards: state.boards.boardList,
     cardsPerPage: state.settings.cardsPerPage,
+    order: state.filters.order || DESCENDING_ORDER,
+    sorting: state.filters.sorting || SORTING_BY_DATE,
+    labelFilters: state.filters.labelFilters,
+    searchInput: state.filters.searchInput,
+    sidebarExpanded: state.style.sidebarExpanded,
   };
 }
 

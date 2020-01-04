@@ -158,20 +158,20 @@ class Sidebar extends PureComponent {
 
   expandedSidebar() {
     const {
-      labelFilters,
-      changeSorting,
-      addLabelFilter,
-      removeLabelFilter,
+      activeBoard,
       addCard,
+      addLabelFilter,
+      archivedFilterOn,
+      changeSorting,
+      clearArchive,
+      labelFilters,
+      labels,
+      order,
+      removeLabelFilter,
+      sorting,
+      toggleArchivedFilter,
       toggleBoardsDialog,
       toggleSettings,
-      activeBoard,
-      toggleArchivedFilter,
-      archivedFilterOn,
-      sorting,
-      order,
-      labels,
-      clearArchive,
     } = this.props;
     const {
       sortingOptionsExpanded,
@@ -361,32 +361,32 @@ class Sidebar extends PureComponent {
 }
 
 Sidebar.propTypes = {
-  labelFilters: PropTypes.array,
-  addLabelFilter: PropTypes.func.isRequired,
-  toggleArchivedFilter: PropTypes.func.isRequired,
-  sidebarExpanded: PropTypes.bool,
-  archivedFilterOn: PropTypes.bool,
-  toggleSidebar: PropTypes.func.isRequired,
-  toggleBoardsDialog: PropTypes.func.isRequired,
-  removeLabelFilter: PropTypes.func.isRequired,
-  addCard: PropTypes.func.isRequired,
   activeBoard: PropTypes.string,
-  toggleSettings: PropTypes.func.isRequired,
-  labels: PropTypes.array,
-  clearArchive: PropTypes.func.isRequired,
-  sorting: PropTypes.string,
-  order: PropTypes.string,
+  addCard: PropTypes.func.isRequired,
+  addLabelFilter: PropTypes.func.isRequired,
+  archivedFilterOn: PropTypes.bool,
   changeSorting: PropTypes.func.isRequired,
+  clearArchive: PropTypes.func.isRequired,
+  labelFilters: PropTypes.array,
+  labels: PropTypes.array,
+  order: PropTypes.string,
+  removeLabelFilter: PropTypes.func.isRequired,
+  sidebarExpanded: PropTypes.bool,
+  sorting: PropTypes.string,
+  toggleArchivedFilter: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
+  toggleSettings: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 Sidebar.defaultProps = {
-  labelFilters: [],
-  sidebarExpanded: false,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
-  sorting: SORTING_BY_DATE,
-  order: DESCENDING_ORDER,
+  labelFilters: [],
   labels: [],
+  order: DESCENDING_ORDER,
+  sidebarExpanded: false,
+  sorting: SORTING_BY_DATE,
 };
 
 export default Sidebar;

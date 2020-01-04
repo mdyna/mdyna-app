@@ -33,6 +33,11 @@
     > div > button {
       width: 100%;
     }
+    .button {
+      svg {
+        margin: 0 5px;
+      }
+    }
     .sidebar-tooltip {
       opacity: 0;
       height: 0;
