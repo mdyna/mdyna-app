@@ -41,6 +41,7 @@ class CardEditor extends PureComponent {
           style={{
             border: `1px solid ${tinycolor(color).darken(10)}`,
             borderRadius: '10px',
+            paddingBottom: '5px',
           }}
           wrap
         >
