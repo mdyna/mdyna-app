@@ -9,7 +9,7 @@ import Settings from 'Containers/Settings';
 import SearchInput from 'Containers/Search';
 import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
-import BoardsDialog from './BoardsDialog';
+import BoardsDialog from 'Containers/Boards';
 import { getTheme } from '../themes/themeBuilder';
 
 import './App.scss';
@@ -76,16 +76,7 @@ class Mdyna extends PureComponent {
               onClickOutside={() => toggleBoardsDialog()}
               onEsc={() => toggleBoardsDialog()}
             >
-              <BoardsDialog
-                activeBoard={activeBoard}
-                boards={boards}
-                boardNames={boardNames}
-                createBoard={createBoard}
-                deleteBoard={deleteBoard}
-                changeActiveBoard={changeActiveBoard}
-                toggleBoardsDialog={toggleBoardsDialog}
-                changeBoardName={changeBoardName}
-              />
+              <BoardsDialog />
             </Layer>
           )}
           {modalMode && (
