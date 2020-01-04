@@ -9,7 +9,8 @@ const {
   changeCodeTheme,
   changeCardsPerPage,
 } = ACTIONS.SETTINGS;
-const { createBoard, changeBoardName } = ACTIONS.BOARDS;
+const { createBoard, deleteBoard, changeBoardName } = ACTIONS.BOARDS;
+const { deleteBoardCards, keepBoardCards } = ACTIONS.CARD;
 const { changeActiveBoard } = ACTIONS.FILTERS;
 
 function mapDispatchToProps(dispatch) {
@@ -31,6 +32,14 @@ function mapDispatchToProps(dispatch) {
     },
     createBoard: (board) => {
       dispatch(createBoard(board));
+    },
+    deleteBoard: (board, keepCards) => {
+      dispatch(deleteBoard(board));
+      if (keepCards) {
+        dispatch(keepBoardCards(board));
+      } else {
+        dispatch(deleteBoardCards(board));
+      }
     },
     changeActiveBoard: (board) => {
       dispatch(changeActiveBoard(board));

@@ -14,7 +14,7 @@ const { changeActiveBoard, focusCard, searchCards } = FILTERS;
 const { addCard, importCards } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
     toggleBoardsDialog: () => {
       dispatch(toggleBoardsDialog());
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(focusCard(card));
     },
     addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
-      ownProps.searchCards('');
+      dispatch(searchCards(''));
       dispatch(focusCard());
     }),
     searchCards: (val) => {
