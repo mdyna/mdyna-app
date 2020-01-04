@@ -16,6 +16,10 @@ const { loadBoards, loadFavs, loadLabels } = require('./loaders');
 const { startEventListeners } = require('./events');
 const { runUpdater } = require('./updater');
 
+const splitDir = __dirname.split('/');
+splitDir.length -= 1;
+// eslint-disable-next-line
+__dirname = splitDir.join('/');
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname, {
   electron: path.join(__dirname, 'node_modules', 'app', 'electron', 'dist'),
