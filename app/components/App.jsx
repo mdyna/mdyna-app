@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Grommet, Box, Layer } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ToastContainer } from 'react-toastify';
@@ -20,22 +21,15 @@ const MODAL_MODES = {
 
 class Mdyna extends PureComponent {
   searchBar = React.createRef();
-  /* eslint-disable */
+
   render() {
     const {
       settingsModal,
       whiteMode,
-      deleteBoard,
-      createBoard,
-      changeActiveBoard,
-      activeBoard,
       focusCard,
       boardsDialogOpen,
-      changeBoardName,
-      boards,
       toggleBoardsDialog,
       isFocused,
-      boardNames,
       toggleSettings,
     } = this.props;
     // ! TODO: STOP THIS NONSENSEL
@@ -54,7 +48,7 @@ class Mdyna extends PureComponent {
         <ErrorBoundary>
           <KeyboardEventHandler
             handleKeys={['ctrl+p', 'esc']}
-            onKeyEvent={key => {
+            onKeyEvent={(key) => {
               if (isFocused && key === 'esc') {
                 focusCard(null);
               } else if (key === 'ctrl+p') {
@@ -92,9 +86,7 @@ class Mdyna extends PureComponent {
               }}
               className="layer"
             >
-              {modalMode === MODAL_MODES.SETTINGS && (
-                <Settings deleteBoard={deleteBoard} />
-              )}
+              {modalMode === MODAL_MODES.SETTINGS && <Settings />}
             </Layer>
           )}
         </ErrorBoundary>
@@ -102,10 +94,18 @@ class Mdyna extends PureComponent {
     );
   }
 }
+Mdyna.propTypes = {
+  settingsModal: PropTypes.bool.isRequired,
+  whiteMode: PropTypes.bool,
+  boardsDialogOpen: PropTypes.bool.isRequired,
+  isFocused: PropTypes.bool.isRequired,
+  focusCard: PropTypes.func.isRequired,
+  toggleBoardsDialog: PropTypes.func.isRequired,
+  toggleSettings: PropTypes.func.isRequired,
+};
 
 Mdyna.defaultProps = {
   whiteMode: false,
-  cards: [],
 };
 
 export default Mdyna;
