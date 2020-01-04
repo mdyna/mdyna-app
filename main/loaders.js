@@ -33,15 +33,25 @@ function loadLabels(cards) {
 function loadBoards(boards) {
   logger.log('LOADING BOARDS', boards);
   const boardNames = ['INBOX'];
+  const boardList = [
+    {
+      name: 'INBOX',
+      cards: 'all',
+      bg: 'default',
+      labels: 'all',
+    },
+  ];
   for (let i = 0; i < boards.length; i += 1) {
-    const { name } = boards[i];
-    if (name) {
+    const board = boards[i];
+    const { name } = board;
+    if (name && name !== 'INBOX') {
+      boardList.push(board);
       boardNames.push(name);
     }
   }
 
   return {
-    boardList: [...new Set(boards)],
+    boardList,
     boardNames: [...new Set(boardNames)],
   };
 }
