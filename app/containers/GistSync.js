@@ -47,13 +47,18 @@ function mapDispatchToProps(dispatch) {
       try {
         dispatch(loginToGh(username, pw));
         Gists.loginToGh(username, pw);
-        const gistList = await Gists.getUserGists(username);
-        if (gistList && gistList.length) {
-          dispatch(loginToGhSuccess());
-          return gistList;
+        try {
+          const gistList = await Gists.getUserGists(username);
+          if (gistList && gistList.length) {
+            dispatch(loginToGhSuccess());
+            return gistList;
+          }
+        } catch {
+          toast.error(
+            'Error logging into Github, please check your credentials',
+          );
+          dispatch(loginToGhFail());
         }
-        toast.error('Error logging into Github, please check your credentials');
-        dispatch(loginToGhFail());
       } catch {
         dispatch(loginToGhFail());
         toast.error('Error logging into Github, please check your credentials');
