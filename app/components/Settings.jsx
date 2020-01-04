@@ -28,7 +28,7 @@ import { CODE_THEMES } from './MarkdownEditorThemes';
 import './Settings.scss';
 
 const renderAppInfo = () => (
-  <Box direction="column" background="dark-1" className="app-info" responsive>
+  <Box direction="row" background="dark-1" className="app-info" responsive>
     <Header>
       <Text size="xxlarge" as="h1">
         MDyna
@@ -96,7 +96,6 @@ class Settings extends PureComponent {
         </Button>
         <ErrorBoundary>
           <Box direction="row" justify="center" className="settings-layout">
-            {renderAppInfo()}
             <Box
               direction="column"
               background="dark-2"
@@ -111,27 +110,27 @@ class Settings extends PureComponent {
                 Appearence
               </Text>
               <Box direction="row" className="settings-section">
-                <Box direction="column">
-                  <Text>Application theme</Text>
-                  <Button
-                    color="brand"
+                <Button
+                  color="brand"
+                  onClick={() => {
+                    toast.success(`Switched to ${newTheme} theme`);
+                    toggleWhiteMode(!whiteMode);
+                  }}
+                >
+                  <Tooltip
+                    icon={<Brush color="brand" />}
+                    title="Set theme"
+                    text={`Switch to ${newTheme} theme`}
                     onClick={() => {
-                      toast.success(`Switched to ${newTheme} theme`);
+                      toast.success(`Switched to ${newTheme}`);
                       toggleWhiteMode(!whiteMode);
                     }}
-                  >
-                    <Tooltip
-                      icon={<Brush color="brand" />}
-                      title="Set theme"
-                      text={`Switch to ${newTheme} theme`}
-                      onClick={() => {
-                        toast.success(`Switched to ${newTheme}`);
-                        toggleWhiteMode(!whiteMode);
-                      }}
-                    />
-                    <Text>{`${capitalize(newTheme)} Theme`}</Text>
-                  </Button>
-                </Box>
+                  />
+                  <Text>
+                    Switch to
+                    {` ${capitalize(newTheme)} Theme`}
+                  </Text>
+                </Button>
                 <Box direction="column">
                   <Text>Cards per page</Text>
                   <Select
@@ -177,6 +176,7 @@ class Settings extends PureComponent {
                 changeActiveBoard={changeActiveBoard}
                 changeBoardName={changeBoardName}
               />
+              {renderAppInfo()}
             </Box>
           </Box>
         </ErrorBoundary>

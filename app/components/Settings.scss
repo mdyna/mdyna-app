@@ -24,7 +24,6 @@
     padding: 20px;
     border-radius: 10px;
     margin: 30px 20px;
-    flex-flow: column;
     align-items: center;
 
     justify-content: flex-start;
@@ -77,12 +76,7 @@
         max-width: 50%;
       }
     }
-    button {
-      border: 1px solid;
-      border-radius: 10px;
-      align-items: center;
-      align-self: flex-end;
-    }
+
     .tip-icon {
       svg {
         width: 32px;
