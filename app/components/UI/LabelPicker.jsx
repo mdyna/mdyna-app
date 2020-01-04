@@ -4,6 +4,7 @@ import { Box, Keyboard, TextInput } from 'grommet';
 import Button from 'UI/Button';
 import { Label } from 'UI/Labels';
 import { Tag, Close } from 'grommet-icons';
+// eslint-disable-next-line
 import { camelCase } from 'lodash';
 
 import './LabelPicker.scss';

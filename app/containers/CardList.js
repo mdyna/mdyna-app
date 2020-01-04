@@ -88,9 +88,11 @@ function mapStateToProps(state) {
       (state.filters && state.filters.archivedFilterOn) || false,
       (state.filters && state.filters.activeBoard) || false,
     );
+  const isEditing = Boolean(cards.filter(c => c.isEditing).length);
 
   return {
     cards,
+    isEditing,
     activeBoard: activeBoardName,
     activeBoardId: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,

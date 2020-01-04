@@ -181,6 +181,7 @@ export default class CardList extends PureComponent {
       toggleBoardsDialog,
       focusCard,
       activeBoardId,
+      isEditing,
       boards,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
@@ -238,10 +239,12 @@ export default class CardList extends PureComponent {
                     )}
                     onClick={() => this.getPreviousCards()}
                   >
-                    <KeyboardEventHandler
-                      handleKeys={['left']}
-                      onKeyEvent={() => this.getPreviousCards()}
-                    />
+                    {!isEditing && (
+                      <KeyboardEventHandler
+                        handleKeys={['left']}
+                        onKeyEvent={() => this.getPreviousCards()}
+                      />
+                    )}
                     <Previous color="brand" />
                   </Button>
                 )}
@@ -250,10 +253,12 @@ export default class CardList extends PureComponent {
                     onClick={() => this.getNextCards()}
                     className={cx('page-control', !hasMore && 'disabled')}
                   >
-                    <KeyboardEventHandler
-                      handleKeys={['right']}
-                      onKeyEvent={() => this.getNextCards()}
-                    />
+                    {!isEditing && (
+                      <KeyboardEventHandler
+                        handleKeys={['right']}
+                        onKeyEvent={() => this.getNextCards()}
+                      />
+                    )}
                     <Next color="brand" />
                   </Button>
                 )}
@@ -364,6 +369,7 @@ CardList.propTypes = {
   focusCard: PropTypes.func.isRequired,
   activeBoardId: PropTypes.string,
   importCards: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   activeBoard: PropTypes.string.isRequired,
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
