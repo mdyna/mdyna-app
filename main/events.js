@@ -1,10 +1,11 @@
+// eslint-disable-next-line
 const { app, dialog, ipcMain } = require('electron');
 const Storage = require('electron-store');
 const jetpack = require('fs-jetpack');
 const path = require('path');
 const logger = require('electron-log');
 
-module.exports = function startEventListeners(storages, cwd, mainWindow) {
+exports.startEventListeners = (storages, cwd, mainWindow) => {
   const { userStorage, cardStorage } = storages;
 
   // * EXPORT BOARD EVENT

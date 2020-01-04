@@ -42,7 +42,7 @@
       "dist/web/",
       "node_modules/",
       "splash.html",
-      "main/index.js",
+      "main/**",
       "package.json",
       "resources/icons/**",
       "resources/**"

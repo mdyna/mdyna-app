@@ -1,6 +1,10 @@
 // Basic init
 const {
-  remote, app, BrowserWindow, shell,
+  remote,
+  app,
+  BrowserWindow,
+  shell,
+  // eslint-disable-next-line
 } = require('electron');
 const path = require('path');
 const os = require('os');
@@ -9,8 +13,8 @@ const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
 const uniqBy = require('lodash/uniqBy');
 const { loadBoards, loadFavs, loadLabels } = require('./loaders');
-const startEventListeners = require('./events');
-const runUpdater = require('./updater');
+const { startEventListeners } = require('./events');
+const { runUpdater } = require('./updater');
 
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname, {

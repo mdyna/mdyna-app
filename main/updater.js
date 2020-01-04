@@ -1,8 +1,9 @@
 const { autoUpdater } = require('electron-updater');
 const logger = require('electron-log');
+// eslint-disable-next-line
 const { dialog } = require('electron');
 
-module.exports = function runUpdater() {
+exports.runUpdater = () => {
   autoUpdater.logger = logger;
 
   autoUpdater.on('update-available', (arg) => {

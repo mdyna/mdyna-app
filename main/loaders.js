@@ -65,8 +65,6 @@ function loadFavs(favs) {
 }
 // To avoid being garbage collected
 
-module.exports = {
-  loadBoards,
-  loadFavs,
-  loadLabels,
-};
+exports.loadBoards = loadBoards;
+exports.loadFavs = loadFavs;
+exports.loadLabels = loadLabels;
