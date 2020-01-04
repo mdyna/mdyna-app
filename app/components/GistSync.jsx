@@ -33,24 +33,26 @@ class GistSync extends PureComponent {
           && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
             <= syncTimer,
     );
-    if (!skipLogin) {
-      if ((githubUserName, githubPassword) && !hasSyncedRecently(1)) {
-        this.authToGithub(githubUserName, githubPassword);
-        this.updateGist(gistId);
+    if (githubUserName && githubPassword) {
+      this.authToGithub(githubUserName, githubPassword, gistId);
+      if (!skipLogin) {
+        if (!hasSyncedRecently(1)) {
+          this.updateGist(gistId);
+        }
       }
     }
   }
 
-  async authToGithub(username, pw) {
+  async authToGithub(username, pw, gistId) {
     const { loginToGh } = this.props;
-    const gistList = await loginToGh(username, pw);
+    const gistList = await loginToGh(username, pw, gistId);
     this.setState({ gistList });
   }
 
   async expandGists(expanded) {
     const { githubUserName } = this.props;
     if (expanded && githubUserName) {
-      const gistList = await Gists.getUserGists();
+      const gistList = await Gists.getUserGists(githubUserName);
       if (gistList && gistList.length) {
         this.setState({
           expanded,
@@ -144,7 +146,7 @@ class GistSync extends PureComponent {
                   handleKeys={['enter']}
                   onKeyEvent={(key) => {
                     if (key === 'enter') {
-                      this.authToGithub(inputUsername, inputPw);
+                      this.authToGithub(inputUsername, inputPw, gistId);
                     }
                   }}
                 >
@@ -161,7 +163,8 @@ class GistSync extends PureComponent {
                     onChange={val => this.setState({ inputPw: val })}
                   />
                   <Button
-                    onClick={() => this.authToGithub(inputUsername, inputPw)}
+                    onClick={() => this.authToGithub(inputUsername, inputPw, gistId)
+                    }
                   >
                     Login
                   </Button>

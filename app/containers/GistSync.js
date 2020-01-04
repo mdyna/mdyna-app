@@ -43,22 +43,17 @@ const syncCardsProp = async (dispatch) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginToGh: async (username, pw) => {
+    loginToGh: async (username, pw, gistId) => {
       try {
         dispatch(loginToGh(username, pw));
-        Gists.loginToGh(username, pw);
-        try {
-          const gistList = await Gists.getUserGists(username);
-          if (gistList && gistList.length) {
-            dispatch(loginToGhSuccess());
-            return gistList;
-          }
-        } catch {
-          toast.error(
-            'Error logging into Github, please check your credentials',
-          );
-          dispatch(loginToGhFail());
+        Gists.loginToGh(username, pw, gistId);
+        const gistList = await Gists.getUserGists(username);
+        if (gistList && gistList.length) {
+          dispatch(loginToGhSuccess());
+          return gistList;
         }
+        toast.error('Error logging into Github, please check your credentials');
+        dispatch(loginToGhFail());
       } catch {
         dispatch(loginToGhFail());
         toast.error('Error logging into Github, please check your credentials');

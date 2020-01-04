@@ -1,6 +1,7 @@
 import Gists from 'gists';
 import Error from 'UI/Error';
 import unNest from 'Utils/nest';
+// eslint-disable-next-line
 import uniqBy from 'lodash/uniqBy';
 import { getUserData } from 'Store';
 
@@ -21,10 +22,11 @@ class GistsService {
     this.syncGist();
   }
 
-  loginToGh(username, pw) {
+  loginToGh(username, pw, gistId) {
     try {
       this.username = username;
       this.pw = pw;
+      this.gistId = gistId;
       this.gists = new Gists({
         username,
         password: pw,
