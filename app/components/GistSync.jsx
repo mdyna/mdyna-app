@@ -51,10 +51,12 @@ class GistSync extends PureComponent {
     const { githubUserName } = this.props;
     if (expanded && githubUserName) {
       const gistList = await Gists.getUserGists();
-      this.setState({
-        expanded,
-        gistList,
-      });
+      if (gistList && gistList.length) {
+        this.setState({
+          expanded,
+          gistList,
+        });
+      }
     } else {
       this.setState({
         expanded,
