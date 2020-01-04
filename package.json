@@ -5,7 +5,7 @@
   "homepage": "https://mdyna.dev",
   "main": "main/index.js",
   "scripts": {
-    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw",
+    "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -m",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
     "build-webpack": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
     "copy-package-files": "rm -rf release && mkdir release && cp dist/*.AppImage release && cp dist/*.deb release && cp dist/*.exe release",
@@ -67,6 +67,15 @@
         "releaseType": "release"
       }
     },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg",
+      "icon": "icons/png",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      }
+    },
     "linux": {
       "target": [
         "deb",
@@ -81,7 +90,6 @@
     }
   },
   "dependencies": {
-    "electron": "^4.2.12",
     "electron-log": "^2.2.17",
     "electron-reload": "^1.2.2",
     "electron-store": "^2.0.0",
@@ -91,6 +99,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "electron": "^4.2.12",
     "@babel/core": "^7.4.0",
     "babel-eslint": "^10.0.2",
     "cross-env": "5.0.0",
