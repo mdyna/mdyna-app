@@ -41,8 +41,8 @@
       if (window.require) {
         var electron = require("electron");
         var appVersion = electron.remote.getGlobal("appVersion");
-        var serverHost = electron.remote.getGlobal("serverHost");
         var cardStorage = electron.remote.getGlobal("cardStorage");
+        var controlsStyle = electron.remote.getGlobal("controlsStyle");
         var userStorage = electron.remote.getGlobal("userStorage");
         var cwd = electron.remote.getGlobal("cwd");
       }
@@ -93,6 +93,15 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <footer></footer>
+    <footer>
+      <script>
+        if (controlsStyle) {
+          var controls = document.getElementById("window-controls");
+          var titlebar = document.getElementById("titlebar");
+          controls.classList.add(controlsStyle);
+          titlebar.classList.add(controlsStyle);
+        }
+      </script>
+    </footer>
   </body>
 </html>
