@@ -32,11 +32,17 @@ function loadLabels(cards) {
 
 function loadBoards(boards) {
   logger.log('LOADING BOARDS', boards);
+  const boardNames = ['INBOX'];
+  for (let i = 0; i < boards.length; i += 1) {
+    const { name } = boards[i];
+    if (name) {
+      boardNames.push(name);
+    }
+  }
 
   return {
     boardList: [...new Set(boards)],
-    boardNames:
-      boards && boards ? [...boards.map(b => b && b.name)] : ['INBOX'],
+    boardNames: [...new Set(boardNames)],
   };
 }
 
