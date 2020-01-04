@@ -12,14 +12,10 @@ const Storage = require('electron-store');
 const logger = require('electron-log');
 const { autoUpdater } = require('electron-updater');
 const uniqBy = require('lodash/uniqBy');
-const { loadBoards, loadFavs, loadLabels } = require('./loaders');
-const { startEventListeners } = require('./events');
-const { runUpdater } = require('./updater');
+const { loadBoards, loadFavs, loadLabels } = require('./main/loaders');
+const { startEventListeners } = require('./main/events');
+const { runUpdater } = require('./main/updater');
 
-const splitDir = __dirname.split('/');
-splitDir.length -= 1;
-// eslint-disable-next-line
-__dirname = splitDir.join('/');
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname, {
   electron: path.join(__dirname, 'node_modules', 'app', 'electron', 'dist'),

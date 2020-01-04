@@ -3,7 +3,7 @@
   "version": "0.17.3",
   "description": "A notes application with markdown support, build with React and Electron",
   "homepage": "https://mdyna.dev",
-  "main": "main/index.js",
+  "main": "index.js",
   "scripts": {
     "build-dist": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -lw",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
@@ -16,8 +16,8 @@
     "pack-build": "yarn build-dist && yarn copy-package-files",
     "publish-app": "yarn build-dist --publish always",
     "reset": "yarn && cd app && yarn",
-    "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main/index.js\"",
-    "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./main/index.js",
+    "start": "rm -rf ./dist && export NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./index.js\"",
+    "start-electron": "yarn build-electron && export NODE_ENV=PROD && electron --debug ./index.js",
     "test": "lint-staged",
     "version:patch": "yarn version --new-version patch",
     "version:minor": "yarn version --new-version minor",
@@ -43,6 +43,7 @@
       "node_modules/",
       "splash.html",
       "main/**",
+      "index.js",
       "package.json",
       "resources/icons/**",
       "resources/**"
