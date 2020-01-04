@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Keyboard, TextInput } from 'grommet';
 import Button from 'UI/Button';
@@ -114,6 +114,10 @@ const LabelPicker = (props) => {
   const [suggestions, setSuggestions] = React.useState(globalLabels);
   const [inputHidden, toggleInput] = useState(true);
 
+  useEffect(() => {
+    setSelectedTags(cardLabels);
+  }, [cardLabels]);
+
   const transformTag = (tag) => {
     const newTag = camelCase(tag);
     return newTag.startsWith('#') ? newTag : `#${newTag}`;
@@ -126,7 +130,7 @@ const LabelPicker = (props) => {
     if (removeIndex >= 0) {
       newTags.splice(removeIndex, 1);
     }
-    onChange([...cardLabels.filter(l => l.title !== labelTitle)]);
+    onChange(cardLabels.filter(l => l.title !== labelTitle));
     onRemove({ title: labelTitle });
     setSelectedTags(newTags);
   };
