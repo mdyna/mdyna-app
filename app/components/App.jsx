@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
-import SearchInput from 'UI/Search';
+import SearchInput from 'Containers/Search';
 import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from './BoardsDialog';
@@ -23,13 +23,10 @@ class Mdyna extends PureComponent {
   /* eslint-disable */
   render() {
     const {
-      cards,
       settingsModal,
       whiteMode,
       deleteBoard,
       createBoard,
-      searchInput,
-      searchCards,
       changeActiveBoard,
       activeBoard,
       focusCard,
@@ -68,17 +65,7 @@ class Mdyna extends PureComponent {
           <Box fill="vertical" direction="row">
             <Sidebar gridArea="menu" />
             <Box direction="column" fill="horizontal">
-              <SearchInput
-                hidden={isFocused}
-                activeBoard={activeBoard}
-                titles={
-                  /* eslint-disable-next-line */
-                  (cards && cards.length && cards.map(c => c.title)) || ['']
-                }
-                onChange={e => searchCards(e)}
-                searchBar={this.searchBar}
-                searchInput={searchInput}
-              />
+              <SearchInput searchBar={this.searchBar} />
               <CardList gridArea="card-list" />
             </Box>
           </Box>
