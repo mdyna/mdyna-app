@@ -45,7 +45,7 @@
     flex-flow: row wrap;
   }
   .settings-container {
-    height: 100%;
+    overflow: scroll;
     flex: 1 1;
     border-radius: 10px;
     padding: 20px 20px 40px 20px;

@@ -48,6 +48,14 @@ export default function boards(
   } = (action && action.payload) || '';
   const boardId = board || uniqid();
   const newState = {
+    boardList: [
+      {
+        name: 'INBOX',
+        cards: 'all',
+        bg: 'default',
+        labels: 'all',
+      },
+    ],
     ...state,
   };
 
