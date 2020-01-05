@@ -8,7 +8,7 @@ import {
   Add, Previous, Next, Upload as Export, Download,
 } from 'grommet-icons';
 // eslint-disable-next-line
-import { ipcRenderer } from 'electron';
+// import { ipcRenderer } from 'electron';
 import cx from 'classnames';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
@@ -16,13 +16,6 @@ import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
 export default class CardList extends PureComponent {
-  static callFolderPicker(board) {
-    ipcRenderer.send('EXPORT_BOARD', board);
-  }
-
-  static importFiles() {
-    ipcRenderer.send('IMPORT_FILES');
-  }
 
   state = {
     pageView: 1,
@@ -30,9 +23,7 @@ export default class CardList extends PureComponent {
   };
 
   componentDidMount() {
-    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, importedCards) => {
-      this.importCards(importedCards);
-    });
+
   }
 
   componentDidUpdate() {

@@ -72,7 +72,7 @@ function sortCards(cards, sorting, order, showArchived, activeBoard) {
 function mapStateToProps(state) {
   const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
   let activeBoardName = 'INBOX';
-  for (let i = 0; i < state.boards.boardList.length; i += 1) {
+  for (let i = 0; i < state?.boards?.boardList?.length || 0; i += 1) {
     const board = state.boards.boardList[i];
     if (board && board.id === activeBoard) {
       activeBoardName = board.name;

@@ -7,7 +7,6 @@ import { capitalize } from 'lodash';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
 // eslint-disable-next-line
-import { ipcRenderer } from 'electron';
 import {
   Brush,
   Configure,
@@ -162,7 +161,6 @@ class Settings extends PureComponent {
                   className="menu-label"
                   onChange={(value) => {
                     changeCwd(value);
-                    ipcRenderer.send('CHANGED-CWD');
                   }}
                 />
                 <GistSync skipLogin />

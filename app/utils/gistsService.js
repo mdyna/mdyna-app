@@ -1,4 +1,4 @@
-import Gists from 'gists';
+// import Gists from 'gists';
 import Error from 'UI/Error';
 import unNest from 'Utils/nest';
 // eslint-disable-next-line
@@ -27,10 +27,7 @@ class GistsService {
       this.username = username;
       this.pw = pw;
       this.gistId = gistId;
-      this.gists = new Gists({
-        username,
-        password: pw,
-      });
+      this.gists = '';
     } catch {
       Error.throwError('Could not login to GitHub. Check your credentials.');
     }

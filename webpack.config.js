@@ -27,7 +27,7 @@ module.exports = {
     },
   },
   devtool: 'source-map',
-  target: 'electron-renderer',
+  target: 'web',
   module: {
     rules: [
       {

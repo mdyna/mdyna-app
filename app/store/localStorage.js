@@ -1,6 +1,7 @@
 export const getLocalState = () => {
-  const settings = window.userStorage.get('settings');
-  const userState = window.cardStorage.get('state');
+  const settings = window?.userStorage?.get('settings')
+    || window.localStorage.getItem('settings');
+  const userState = window?.cardStorage?.get('state') || window.localStorage.getItem('state');
   const favs = userState && userState.favs;
   const boards = userState && userState.boards;
 
@@ -30,8 +31,10 @@ export const getLocalState = () => {
 
 export const saveState = (state, settings) => {
   try {
-    window.userStorage.set('settings', settings);
-    window.cardStorage.set('state', state);
+    window?.userStorage?.set('settings', settings)
+      || window?.localStorage?.setItem('settings', settings);
+    window?.cardStorage?.set('state', state)
+      || window?.localStorage?.setItem('state', state);
   } catch (err) {
     /* eslint-disable-next-line  */
     console.log(err);
