@@ -30,8 +30,6 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       # install dependencies
       - run: yarn install-all
-      # run tests!
-      - run: yarn test
 
       - save_cache:
           paths:
