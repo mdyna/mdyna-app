@@ -5,7 +5,7 @@
   "homepage": "https://mdyna.dev",
   "main": "index.js",
   "scripts": {
-    "build-dist-windows": "SET NODE_ENV=PROD && rm -rf ./dist && yarn build-electron-window && electron-builder -w",
+    "build-dist-windows": "SET NODE_ENV=PROD && rm -rf ./dist && yarn build-electron-windows && electron-builder -w",
     "build-dist-linux": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -l",
     "build-dist-mac": "export NODE_ENV=PROD && rm -rf ./dist && yarn build-electron && electron-builder -m",
     "build-electron": "export NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
