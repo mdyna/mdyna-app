@@ -72,6 +72,15 @@
         "releaseType": "release"
       }
     },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg",
+      "icon": "icons/png",
+      "publish": {
+        "provider": "github",
+        "releaseType": "release"
+      }
+    },
     "linux": {
       "target": [
         "deb",
