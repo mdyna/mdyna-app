@@ -120,7 +120,7 @@
     "cross-env": "5.0.0",
     "css-loader": "^2.1.1",
     "electron": "^4.2.12",
-    "electron-builder": "^20.38.2",
+    "electron-builder": "22.0.0",
     "electron-icon-maker": "0.0.4",
     "eslint": "^5.0.0",
     "eslint-config-airbnb": "^17.1.0",
