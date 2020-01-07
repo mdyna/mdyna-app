@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macOS-10.14]
+        os: [macOS-latest]
 
     steps:
       - name: Context
@@ -32,7 +32,6 @@ jobs:
         run: |
           yarn install-all
       - name: Publish macOS
-        if: matrix.os == 'macOS-10.14'
         run: |
           yarn publish-app-mac
       - name: Cleanup artifacts
@@ -40,11 +39,6 @@ jobs:
         run: |
           mkdir artifacts
           mv "dist/(*.exe,*.deb,*.AppImage,*.dmg)" artifacts || true
-      - name: Cleanup artifacts Win
-        if: matrix.os == 'windows-latest'
-        run: |
-          mkdir artifacts
-          mv dist/*.exe artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:

@@ -72,7 +72,7 @@
     },
     "mac": {
       "category": "public.app-category.productivity",
-      "target": "dmg",
+      "target": "pkg",
       "icon": "icons/png",
       "publish": {
         "provider": "github",
