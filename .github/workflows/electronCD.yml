@@ -24,7 +24,7 @@ jobs:
           node-version: 10.x
       - name: Remove Perl
         run: |
-          brew remove perl
+          brew uninstall --ignore-dependencies perl
       - name: Check Perl
         run: |
           which perl
