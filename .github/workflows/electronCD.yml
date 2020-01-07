@@ -1,4 +1,4 @@
-name: Electron CD
+name: macOS CD
 
 on: [push]
 
@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-10.14]
+        os: [macOS-10.14]
 
     steps:
       - name: Context
@@ -22,6 +22,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
+      - name: Remove Perl
+        run: |
+          brew remove perl
+      - name: Check Perl
+        run: |
+          which perl
       - name: yarn install
         run: |
           yarn install-all
