@@ -25,14 +25,6 @@ jobs:
       - name: yarn install
         run: |
           yarn install-all
-      - name: Publish Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          yarn publish-app-windows
-      - name: Publish Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          yarn publish-app-linuxdir
       - name: Publish macOS
         if: matrix.os == 'macOS-10.14'
         run: |
