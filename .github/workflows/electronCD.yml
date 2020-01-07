@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-latest, macOS-10.14]
 
     steps:
       - name: Context
@@ -34,7 +34,7 @@ jobs:
         run: |
           yarn publish-app-linuxdir
       - name: Publish macOS
-        if: matrix.os == 'macOS-latest'
+        if: matrix.os == 'macOS-10.14'
         run: |
           yarn publish-app-mac
       - name: Cleanup artifacts
