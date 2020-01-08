@@ -102,11 +102,14 @@ app.on('ready', () => {
     && cardStorageState.boards.boardList;
   const cardStorageFavs = (cardStorageState && cardStorageState.favs) || [];
   const convertedBoards = [];
-
-  for (let i = 0; i < cardStorageBoardList.length; i += 1) {
-    const contentBoard = cardStorageBoardList[i];
-    if (convertedBoards.map(cb => cb.name).indexOf(contentBoard.name) === -1) {
-      convertedBoards.push(contentBoard);
+  if (cardStorageBoardList) {
+    for (let i = 0; i < cardStorageBoardList.length; i += 1) {
+      const contentBoard = cardStorageBoardList[i];
+      if (
+        convertedBoards.map(cb => cb.name).indexOf(contentBoard.name) === -1
+      ) {
+        convertedBoards.push(contentBoard);
+      }
     }
   }
 
