@@ -167,8 +167,22 @@ app.on('ready', () => {
   }
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
-  const controlsStyle = os.type().includes('Windows') ? 'Windows' : 'Linux';
-  global.controlsStyle = controlsStyle;
+  let controlStyle = null;
+  const osType = os.type();
+  if (osType) {
+    switch (osType) {
+      case 'Darwin':
+        controlStyle = null;
+        break;
+      case 'Windows_NT':
+        controlStyle = 'Windows';
+        break;
+      default:
+        controlStyle = 'Linux';
+        break;
+    }
+  }
+  global.controlsStyle = controlStyle;
   startEventListeners({ cardStorage, userStorage }, cwd, mainWindow);
 
   // if main window is ready to show, then destroy the splash window and show up the main window
