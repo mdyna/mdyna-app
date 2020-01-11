@@ -100,6 +100,11 @@
           var titlebar = document.getElementById("titlebar");
           controls.classList.add(controlsStyle);
           titlebar.classList.add(controlsStyle);
+        } else {
+          var controls = document.getElementById("window-controls");
+          var titlebar = document.getElementById("titlebar");
+          controls.parentNode.removeChild(controls);
+          titlebar.parentNode.removeChild(titlebar);
         }
       </script>
     </footer>
