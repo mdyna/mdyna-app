@@ -4,6 +4,7 @@ const {
   app,
   BrowserWindow,
   shell,
+  Menu,
   // eslint-disable-next-line
 } = require('electron');
 const path = require('path');
@@ -168,21 +169,44 @@ app.on('ready', () => {
   global.cardStorage = cardStorage;
   global.userStorage = userStorage;
   let controlStyle = null;
-  const osType = os.type();
+  const osType = os.type().toLowerCase();
   if (osType) {
     switch (osType) {
-      case 'Darwin':
+      case 'darwin':
         controlStyle = null;
         break;
-      case 'Windows_NT':
+      case 'windows_nt':
         controlStyle = 'Windows';
         break;
       default:
         controlStyle = 'Linux';
         break;
     }
+    if (osType.includes('windows')) {
+      controlStyle = 'Windows';
+    }
   }
   global.controlsStyle = controlStyle;
+  if (osType === 'darwin') {
+    Menu.setApplicationMenu(
+      Menu.buildFromTemplate([
+        {
+          label: 'Edit',
+          submenu: [
+            { role: 'undo' },
+            { role: 'redo' },
+            { type: 'separator' },
+            { role: 'cut' },
+            { role: 'copy' },
+            { role: 'paste' },
+            { role: 'pasteandmatchstyle' },
+            { role: 'delete' },
+            { role: 'selectall' },
+          ],
+        },
+      ]),
+    );
+  }
   startEventListeners({ cardStorage, userStorage }, cwd, mainWindow);
 
   // if main window is ready to show, then destroy the splash window and show up the main window
@@ -205,11 +229,11 @@ app.on('ready', () => {
   global.appVersion = `v.${app.getVersion()}`;
   const env = process.env.NODE_ENV || 'PROD';
   logger.warn('ELECTRON RUNNING IN', env);
-  logger.info('LOADED USER STATE', cardStorage.get('state'));
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
   } else {
     mainWindow.loadURL('http://localhost:8080/dist/web');
+    logger.info('LOADED USER STATE', cardStorage.get('state'));
   }
 });
 
