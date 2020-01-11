@@ -38,7 +38,7 @@
     ]
   },
   "build": {
-    "productName": "mdyna",
+    "productName": "MDyna",
     "appId": "com.electron.mdyna",
     "files": [
       "dist/web/",
