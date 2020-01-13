@@ -68,6 +68,22 @@ const cardListSelector = createSelector(
     )),
 );
 
+const boardLabelsSelector = createSelector(
+  cardsSelector,
+  activeBoardSelector,
+  (cards, activeBoard) => {
+    const labels = [];
+    const boardCards = cards.filter(c => (activeBoard !== 'INBOX' ? c.board === activeBoard : true));
+    for (let i = 0; i < boardCards.length; i += 1) {
+      const card = boardCards[i];
+      if (card.labels) {
+        labels.push(...card.labels);
+      }
+    }
+    return [...new Set(labels)];
+  },
+);
+
 const isEditingSelector = createSelector(
   cardsSelector,
   (cards) => {
@@ -86,11 +102,19 @@ const favCardsSelector = createSelector(
   favsSelector,
   (cards, favs) => cards.filter(c => favs.indexOf(c.id) !== -1),
 );
+
+const titlesSelector = createSelector(
+  cardsSelector,
+  cards => [...new Set(cards?.map(c => c.title))],
+);
+
 const SELECTORS = {
   cardListSelector,
   isEditingSelector,
   favCardsSelector,
   activeBoardNameSelector,
+  titlesSelector,
+  boardLabelsSelector,
 };
 
 export default SELECTORS;
