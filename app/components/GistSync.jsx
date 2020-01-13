@@ -154,13 +154,15 @@ class GistSync extends PureComponent {
                   <TextInput
                     label="Username"
                     value={inputUsername}
-                    onChange={val => this.setState({ inputUsername: val })}
+                    onChange={val => this.setState({ inputUsername: val.target.value })
+                    }
                   />
                   <TextInput
                     label="Password"
                     value={inputPw}
                     type="password"
-                    onChange={val => this.setState({ inputPw: val })}
+                    onChange={val => this.setState({ inputPw: val.target.value })
+                    }
                   />
                   <Button
                     onClick={() => this.authToGithub(inputUsername, inputPw, gistId)
