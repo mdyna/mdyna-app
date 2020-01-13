@@ -7,32 +7,21 @@ import Tooltip from 'UI/Tooltip';
 import {
   Add, Previous, Next, Upload as Export, Download,
 } from 'grommet-icons';
-// eslint-disable-next-line
-import { ipcRenderer } from 'electron';
 import cx from 'classnames';
+import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
 import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
 export default class CardList extends PureComponent {
-  static callFolderPicker(board) {
-    ipcRenderer.send('EXPORT_BOARD', board);
-  }
-
-  static importFiles() {
-    ipcRenderer.send('IMPORT_FILES');
-  }
-
   state = {
     pageView: 1,
     pageIndex: 0,
   };
 
   componentDidMount() {
-    ipcRenderer.on('IMPORT_FILES_REPLY', async (e, importedCards) => {
-      this.importCards(importedCards);
-    });
+    importFilesListener(cards => this.importCards(cards));
   }
 
   componentDidUpdate() {
@@ -213,13 +202,13 @@ export default class CardList extends PureComponent {
               boards={boards}
               toggleBoardsDialog={toggleBoardsDialog}
             />
-            <Button onClick={() => CardList.callFolderPicker(activeBoardId)}>
+            <Button onClick={() => callFolderPicker(activeBoardId)}>
               <Tooltip
                 icon={<Export color="brand" />}
                 text="Export all cards from this board as Markdown files"
               />
             </Button>
-            <Button onClick={() => CardList.importFiles()}>
+            <Button onClick={() => importFiles()}>
               <Tooltip
                 icon={<Download color="brand" />}
                 text="Import md files to MDyna"

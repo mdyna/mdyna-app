@@ -6,8 +6,6 @@ import { toast } from 'react-toastify';
 import { capitalize } from 'lodash';
 import ErrorBoundary from 'UI/Error';
 import Header from 'UI/Header';
-// eslint-disable-next-line
-import { ipcRenderer } from 'electron';
 import {
   Brush,
   Configure,
@@ -18,6 +16,7 @@ import {
   MailOption,
   Note,
 } from 'grommet-icons';
+import { changeCwdEvent } from 'Utils/events';
 import Tooltip from 'UI/Tooltip';
 import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
@@ -162,7 +161,7 @@ class Settings extends PureComponent {
                   className="menu-label"
                   onChange={(value) => {
                     changeCwd(value);
-                    ipcRenderer.send('CHANGED-CWD');
+                    changeCwdEvent();
                   }}
                 />
                 <GistSync skipLogin />
