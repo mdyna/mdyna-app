@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import Search from 'UI/Search';
-import ACTIONS from 'Store/actions/';
+import ACTIONS from 'Store/actions';
+import Selectors from 'Store/selectors';
+
+const { titlesSelector } = Selectors;
 
 const { FILTERS } = ACTIONS;
 
@@ -15,11 +18,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  const titles = titlesSelector(state);
   return {
     searchInput: state.filters.searchInput,
     activeBoard: state.filters.activeBoard,
     hidden: state.filters.isFocused,
-    titles: [...new Set(state.cards?.map(c => c.title))],
+    titles,
   };
 }
 
