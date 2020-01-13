@@ -14,9 +14,8 @@ import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardBar from './CardBar';
 import CardEditor from './CardEditor';
-// import assertTaskAlerts from '../../utils/assertTaskAlerts';
 
-import './CardItem.scss'; // eslint-disable-line
+import './CardItem.scss';
 
 class MdynaCard extends Component {
   static scrollToCard(hashtag) {
