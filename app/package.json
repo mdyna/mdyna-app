@@ -41,6 +41,7 @@
     "redux": "^3.7.2",
     "redux-debounced": "^0.5.0",
     "redux-logger": "^3.0.6",
+    "reselect": "^4.0.0",
     "rich-markdown-editor": "https://github.com/mdyna/rich-markdown-editor.git",
     "riek": "^1.1.0",
     "slate-md-serializer": "^5.4.3-1",

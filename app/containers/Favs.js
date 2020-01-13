@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import Favorites from 'Components/Favorites';
+import Selectors from 'Store/selectors';
 
+const { favCardsSelector } = Selectors;
 const { FAV, FILTERS } = ACTIONS;
 
 const { removeFav } = FAV;
@@ -19,7 +21,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const favs = state.cards.filter(c => state.favs.indexOf(c.id) !== -1);
+  const favs = favCardsSelector(state);
   return {
     favs,
     focusedCardId: state.filters.focusedCard && state.filters.focusedCard.id,

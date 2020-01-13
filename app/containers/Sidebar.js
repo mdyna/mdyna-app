@@ -3,6 +3,9 @@ import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
 import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
 import { toast } from 'react-toastify';
+import Selectors from 'Store/selectors';
+
+const { boardLabelsSelector } = Selectors;
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
@@ -61,11 +64,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  const labels = boardLabelsSelector(state);
   return {
     activeBoard: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
     labelFilters: state.filters.labelFilters,
-    labels: state.labels,
+    labels,
     order: state.filters.order || DESCENDING_ORDER,
     sidebarExpanded: state.style.sidebarExpanded,
     sorting: state.filters.sorting || SORTING_BY_DATE,

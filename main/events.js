@@ -5,11 +5,18 @@ const jetpack = require('fs-jetpack');
 const path = require('path');
 const logger = require('electron-log');
 
+const EVENTS = {
+  EXPORT_BOARD: 'EXPORT_BOARD',
+  IMPORT_FILES_REPLY: 'IMPORT_FILES_REPLY',
+  IMPORT_FILES: 'IMPORT_FILES',
+  CHANGED_CWD: 'CHANGED_CWD',
+};
+
 exports.startEventListeners = (storages, cwd, mainWindow) => {
   const { userStorage, cardStorage } = storages;
 
   // * EXPORT BOARD EVENT
-  ipcMain.on('EXPORT_BOARD', (e, board) => {
+  ipcMain.on(EVENTS.EXPORT_BOARD, (e, board) => {
     logger.log('Exporting cards from ', board, ' board');
     dialog.showOpenDialog(
       {
@@ -37,7 +44,7 @@ exports.startEventListeners = (storages, cwd, mainWindow) => {
     );
   });
   // * IMPORT FILES EVENT
-  ipcMain.on('IMPORT_FILES', (event) => {
+  ipcMain.on(EVENTS.IMPORT_FILES, (event) => {
     dialog.showOpenDialog(
       {
         properties: ['openFile', 'multiSelections'],
@@ -66,7 +73,7 @@ exports.startEventListeners = (storages, cwd, mainWindow) => {
     );
   });
 
-  ipcMain.on('CHANGED-CWD', () => {
+  ipcMain.on(EVENTS.CHANGED_CWD, () => {
     logger.info('CURRENT WORKING DIRECTORY CHANGED');
     const currentUserState = cardStorage.get('state');
     const newCwd = userStorage.get('settings').cwd;

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextInput } from 'grommet';
+// eslint-disable-next-line
 import { startCase, snakeCase } from 'lodash';
 
 const Input = (props) => {
   const {
-    label, value, onChange, type,
+    label, value, onChange, type, ...otherProps
   } = props;
   return (
     <TextInput
@@ -15,7 +16,8 @@ const Input = (props) => {
       defaultValue={value || ''}
       type={type}
       placeholder={startCase(label)}
-      onChange={e => onChange(e.target.value)}
+      onChange={e => onChange(e)}
+      {...otherProps}
     />
   );
 };

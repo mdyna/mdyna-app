@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { TextInput } from 'grommet';
+
+import TextInput from 'UI/TextInput';
 import { Search } from 'grommet-icons';
 
 import './Search.scss';

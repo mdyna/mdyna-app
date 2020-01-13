@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
-import {
-  SORTING_BY_DATE,
-  ASCENDING_ORDER,
-  DESCENDING_ORDER,
-  SORTING_BY_TITLE,
-} from 'Utils/globals';
-import { convertToTime } from 'Utils/dates';
+import Selectors from 'Store/selectors';
+import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
+
+const {
+  cardListSelector,
+  isEditingSelector,
+  activeBoardNameSelector,
+} = Selectors;
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const { changeActiveBoard, focusCard, searchCards } = FILTERS;
@@ -41,59 +42,15 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function sortCards(cards, sorting, order, showArchived, activeBoard) {
-  const filteredByBoard = activeBoard && activeBoard !== 'INBOX'
-    ? cards.filter(card => card && card.board === activeBoard)
-    : cards;
-  const filteredCards = showArchived
-    ? filteredByBoard.filter(card => card && card.archived)
-    : filteredByBoard.filter(card => card && !card.archived);
-  const sortingType = `${sorting}-${order}`;
-  switch (sortingType) {
-    case `${SORTING_BY_DATE}-${DESCENDING_ORDER}`:
-      return filteredCards.sort(
-        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
-      );
-    case `${SORTING_BY_DATE}-${ASCENDING_ORDER}`:
-      return filteredCards.sort(
-        (a, b) => convertToTime(a[sorting]) - convertToTime(b[sorting]),
-      );
-    case `${SORTING_BY_TITLE}-${ASCENDING_ORDER}`:
-      return filteredCards.sort((a, b) => a.title.localeCompare(b.title));
-    case `${SORTING_BY_TITLE}-${DESCENDING_ORDER}`:
-      return filteredCards.sort((a, b) => b.title.localeCompare(a.title));
-    default:
-      return filteredCards.sort(
-        (a, b) => convertToTime(b[sorting]) - convertToTime(a[sorting]),
-      );
-  }
-}
-
 function mapStateToProps(state) {
-  const activeBoard = (state.filters && state.filters.activeBoard) || 'INBOX';
-  let activeBoardName = 'INBOX';
-  for (let i = 0; i < state.boards.boardList.length; i += 1) {
-    const board = state.boards.boardList[i];
-    if (board && board.id === activeBoard) {
-      activeBoardName = board.name;
-    }
-  }
-
-  const cards = state.filters.isFocused
-    ? [state.filters.focusedCard]
-    : sortCards(
-      state.cards,
-      (state.filters && state.filters.sorting) || SORTING_BY_DATE,
-      (state.filters && state.filters.order) || DESCENDING_ORDER,
-      (state.filters && state.filters.archivedFilterOn) || false,
-      (state.filters && state.filters.activeBoard) || false,
-    );
-  const isEditing = Boolean(cards.filter(c => c.isEditing).length);
+  const cards = cardListSelector(state);
+  const isEditing = isEditingSelector(state);
+  const activeBoard = activeBoardNameSelector(state);
 
   return {
     cards,
     isEditing,
-    activeBoard: activeBoardName,
+    activeBoard,
     activeBoardId: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
     boardNames: state.boards.boardNames,
