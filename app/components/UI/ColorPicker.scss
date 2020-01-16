@@ -2,13 +2,23 @@
   max-width: fit-content;
 }
 .twitter-picker {
-  position: absolute !important;
-  top: 58px;
-  background: inherit !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
   input {
     height: 30px !important;
   }
   span {
     cursor: pointer;
+  }
+  div > div {
+    display: none !important;
+    input {
+      border-radius: 5px !important;
+    }
+  }
+  div > div ~ div {
+    display: initial !important;
   }
 }
