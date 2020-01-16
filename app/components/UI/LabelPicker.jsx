@@ -42,23 +42,32 @@ const LabelInput = ({
     }
   };
 
-  const renderValue = () => value.map
-    && value.map((v, index) => (
-      <Label
-        key={`${v}${index + 0}`}
-        color={color}
-        onClick={() => {
-          onRemove(v);
-        }}
-        label={(
-          <React.Fragment>
-            {(v && v.title) || v}
-            <Close color="accent-2" size="12px" />
-          </React.Fragment>
+  const renderValue = () => {
+    const titles = [];
+    const Labels = [];
+    for (let i = 0; i < value.length; i += 1) {
+      const v = value[i];
+      if (titles.indexOf(v.title) === -1) {
+        titles.push(v.title);
+        Labels.push(
+          <Label
+            key={`${v}${i + 0}`}
+            color={color}
+            onClick={() => {
+              onRemove(v);
+            }}
+            label={(
+              <React.Fragment>
+                {(v && v.title) || v}
+                <Close color="accent-2" size="12px" />
+              </React.Fragment>
 )}
-      />
-    ));
-
+          />,
+        );
+      }
+    }
+    return Labels;
+  };
   return (
     <Keyboard onEnter={onEnter}>
       <Box
