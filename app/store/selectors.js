@@ -58,7 +58,7 @@ const cardListSelector = createSelector(
   cardsSelector,
   filtersSelector,
   (cards, filters) => (filters.isFocused
-    ? filters.focusedCard
+    ? [filters.focusedCard]
     : sortCards(
       cards,
       filters.sorting || SORTING_BY_DATE,
