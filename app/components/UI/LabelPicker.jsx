@@ -165,7 +165,7 @@ const LabelPicker = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <Box flex direction="row" justify="start">
       <Button
         className="label-picker-button"
         onClick={() => toggleInput(!inputHidden)}
@@ -186,7 +186,7 @@ const LabelPicker = (props) => {
           onChange={v => onFilterSuggestion(v.target.value)}
         />
       )}
-    </React.Fragment>
+    </Box>
   );
 };
 

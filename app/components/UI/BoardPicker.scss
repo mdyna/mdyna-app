@@ -1,8 +1,8 @@
 .boards-menu {
   border-radius: 10px;
   div {
-    padding: 0px;
-    justify-content: flex-start;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
   span {
     margin: 0 !important;

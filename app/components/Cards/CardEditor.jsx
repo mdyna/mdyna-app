@@ -27,6 +27,7 @@ class CardEditor extends PureComponent {
         direction="column"
         justify="evenly"
         style={{
+          borderRadius: 10,
           position: 'sticky',
           zIndex: 10,
           top: '10px',
@@ -35,7 +36,7 @@ class CardEditor extends PureComponent {
         }}
       >
         <Box
-          direction="row"
+          direction="column"
           justify="evenly"
           background="accent-1"
           style={{
