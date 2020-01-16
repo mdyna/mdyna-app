@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Keyboard } from 'grommet';
-import TextInput from 'UI/TextInput';
+import { Box, Keyboard, TextInput } from 'grommet';
+// import TextInput from 'UI/TextInput';
 import Button from 'UI/Button';
 import { Label } from 'UI/Labels';
 import { Tag, Close } from 'grommet-icons';

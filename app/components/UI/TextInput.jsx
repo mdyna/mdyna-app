@@ -13,7 +13,7 @@ const Input = (props) => {
       focus={false}
       key={label}
       id={snakeCase(label)}
-      defaultValue={value || ''}
+      defaultValue={value}
       type={type}
       placeholder={startCase(label)}
       onChange={e => onChange(e)}
