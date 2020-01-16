@@ -9,34 +9,42 @@ import './Tooltip.scss'; // eslint-disable-line
 const KeyboardShortcuts = () => (
   <Box className="keyboard-shortcuts">
     Keyboard Shortcuts
-    <Box direction="row" justify="between">
-      <Box className="keyboard">A</Box>
+    <Box direction="row" justify="start">
+      <kbd>A</kbd>
       <Box className="keyboard-desc">Add a new note</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">CTRL+P</Box>
+    <Box direction="row" justify="start">
+      <kbd>CTRL</kbd>
++
+      <kbd>P</kbd>
       <Box className="keyboard-desc">Search cards per label or title</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">CTRL+V</Box>
+    <Box direction="row" justify="start">
+      <kbd>CTRL</kbd>
++
+      <kbd>V</kbd>
       <Box className="keyboard-desc">Add a note from clipboard</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">Arrow Right</Box>
+    <Box direction="row" justify="start">
+      <kbd>&rarr;</kbd>
       <Box className="keyboard-desc">Next board page</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">Arrow Left</Box>
+    <Box direction="row" justify="start">
+      <kbd>&larr;</kbd>
       <Box className="keyboard-desc">Previous board page</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">CTRL+ENTER</Box>
+    <Box direction="row" justify="start">
+      <kbd>CTRL</kbd>
++
+      <kbd>ENTER</kbd>
 /
-      <Box className="keyboard">CTRL+S</Box>
+      <kbd>CTRL</kbd>
+      <kbd>S</kbd>
++
       <Box className="keyboard-desc">Save card while editing</Box>
     </Box>
-    <Box direction="row" justify="between">
-      <Box className="keyboard">ESC</Box>
+    <Box direction="row" justify="start">
+      <kbd>ESC</kbd>
       <Box className="keyboard-desc">Unfocus card</Box>
     </Box>
   </Box>
