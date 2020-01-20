@@ -191,6 +191,37 @@ app.on('ready', () => {
     Menu.setApplicationMenu(
       Menu.buildFromTemplate([
         {
+          label: 'MDyna',
+          submenu: [
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideothers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' },
+          ],
+        },
+        {
+          label: 'File',
+          submenu: [{ role: 'close' }],
+        },
+        {
+          label: 'View',
+          submenu: [
+            { role: 'reload' },
+            { role: 'forcereload' },
+            { role: 'toggledevtools' },
+            { type: 'separator' },
+            { role: 'resetzoom' },
+            { role: 'zoomin' },
+            { role: 'zoomout' },
+            { type: 'separator' },
+            { role: 'togglefullscreen' },
+          ],
+        },
+        {
           label: 'Edit',
           submenu: [
             { role: 'undo' },
@@ -202,6 +233,17 @@ app.on('ready', () => {
             { role: 'pasteandmatchstyle' },
             { role: 'delete' },
             { role: 'selectall' },
+          ],
+        },
+        {
+          label: 'Window',
+          submenu: [
+            { role: 'minimize' },
+            { role: 'zoom' },
+            { type: 'separator' },
+            { role: 'front' },
+            { type: 'separator' },
+            { role: 'window' },
           ],
         },
       ]),
