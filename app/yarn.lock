@@ -944,14 +944,14 @@ core-js@^1.0.0:
   integrity sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
 
 core-js@^2.4.0:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.2.tgz#267988d7268323b349e20b4588211655f0e83944"
-  integrity sha512-NdBPF/RVwPW6jr0NCILuyN9RiqLo2b1mddWHkUL+VnvcB7dzlnBJ1bXYntjpTGOgkZiiLWj2JxmOr7eGE3qK6g==
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
+  integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
 
 core-js@^3.1.2:
-  version "3.4.7"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.7.tgz#57c35937da80fe494fbc3adcf9cf3dc00eb86b34"
-  integrity sha512-qaPVGw30J1wQ0GR3GvoPqlGf9GZfKKF4kFC7kiHlcsPTqH3txrs9crCp3ZiMAXuSenhz89Jnl4GZs/67S5VOSg==
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.4.tgz#440a83536b458114b9cb2ac1580ba377dc470647"
+  integrity sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -1291,9 +1291,9 @@ esrever@^0.2.0:
   integrity sha1-lunSj08bGnZ4TNXUkOquAQ50B7g=
 
 esutils@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
-  integrity sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
+  integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
 exenv@^1.2.2:
   version "1.2.2"
@@ -2036,9 +2036,9 @@ ms@2.0.0:
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
 ms@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
-  integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+  integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
 needle@^2.1.1, needle@^2.2.2:
   version "2.4.0"
@@ -2116,9 +2116,9 @@ object.assign@^4.1.0:
     object-keys "^1.0.11"
 
 outline-icons@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/outline-icons/-/outline-icons-1.10.0.tgz#3c8e6957429e2b04c9d0fc72fe72e473813ce5bd"
-  integrity sha512-1o3SnjzawEIh+QkZ6GHxPckuV+Tk5m5R2tjGY0CtosF3YA7JbgQ2jQrZdQsrqLzLa1j07f1bTEbAjGdbnunLpg==
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/outline-icons/-/outline-icons-1.12.0.tgz#baa8f34c59a64285d43868eb3b37038b5a50b6ec"
+  integrity sha512-7uR26jzlD0U/EOB28fvgeZbcAgH2S6GOVQh+0+heLM5EbRcJ63SzUo4WsvDGeMNtRzJx73oRUve78a0rTzXbJg==
 
 paged-request@^1.0.2:
   version "1.0.2"
@@ -2217,9 +2217,9 @@ pretty-bytes@^1.0.2:
     meow "^3.1.0"
 
 prismjs@^1.16.0:
-  version "1.17.1"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
-  integrity sha512-PrEDJAFdUGbOP6xK/UsfkC5ghJsPJviKgnQOoxaDbBjwc8op68Quupwt1DeAFoG8GImPhiKXAvvsH7wDSLsu1Q==
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.19.0.tgz#713afbd45c3baca4b321569f2df39e17e729d4dc"
+  integrity sha512-IVFtbW9mCWm9eOIaEkNyo2Vl4NnEifis2GQ7/MLRG5TQe6t+4Sj9J5QWI9i3v+SS43uZBlCAOn+zYTVYQcPXJw==
   optionalDependencies:
     clipboard "^2.0.0"
 
@@ -2400,10 +2400,15 @@ react-is@^16.3.2, react-is@^16.6.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
   integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
 
-react-is@^16.7.0, react-is@^16.8.1:
+react-is@^16.7.0:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
+
+react-is@^16.8.1:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
+  integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
 react-keyboard-event-handler@^1.4.1:
   version "1.4.1"
@@ -2709,8 +2714,8 @@ resolve-url@^0.2.1:
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
 "rich-markdown-editor@https://github.com/mdyna/rich-markdown-editor.git":
-  version "9.10.0"
-  resolved "https://github.com/mdyna/rich-markdown-editor.git#674db86b7362b56d1a279b77aa325aaad9019134"
+  version "9.11.2"
+  resolved "https://github.com/mdyna/rich-markdown-editor.git#541bb621dbf2fd9298bb3f69a9da9e22441a1b3d"
   dependencies:
     "@domoinc/slate-edit-table" "^0.22.2"
     "@tommoor/slate-edit-list" "0.19.0-0"
@@ -2734,7 +2739,7 @@ resolve-url@^0.2.1:
     slate "^0.45.0"
     slate-collapse-on-escape "^0.8.1"
     slate-drop-or-paste-images "^0.9.1"
-    slate-instant-replace "^0.1.13"
+    slate-instant-replace "^0.1.14"
     slate-md-serializer "5.4.4"
     slate-paste-linkify "^0.7.0"
     slate-react "^0.21.20"
@@ -2851,10 +2856,10 @@ slate-hotkeys@^0.2.9:
     is-hotkey "0.1.4"
     slate-dev-environment "^0.2.2"
 
-slate-instant-replace@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/slate-instant-replace/-/slate-instant-replace-0.1.13.tgz#03a2c908253c399a1ca5d6922a93867eb186c69b"
-  integrity sha512-jesj33+TUgrmcVKGBy6QgqORaAq55hSuFmBOv70iNjif0CHqK9CapWfHOLg8N8HWw+VAX0YpSaqy/lAQSSmwWg==
+slate-instant-replace@^0.1.14:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/slate-instant-replace/-/slate-instant-replace-0.1.15.tgz#91c40c355e369780c4680c1abbe9b417b7787fe2"
+  integrity sha512-HK+AI4P4CPXTbMMRAd92+O5z61Ah5XcrOH5qU8NZXDGpw/GMrJFBD7+go5aowSdsqfZhnszUouAuCBmHzTrETg==
 
 slate-md-serializer@5.4.4:
   version "5.4.4"

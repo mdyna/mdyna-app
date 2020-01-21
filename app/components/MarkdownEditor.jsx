@@ -45,6 +45,7 @@ class MarkdownEditor extends React.PureComponent {
   handleChange = (value) => {
     const { onChange, changeTitle, card } = this.props;
     const rawValue = this.emojiSupport(value());
+    console.log('cenas');
     if (onChange && rawValue) {
       const { title, text } = card;
       const rawValueTitle = rawValue && rawValue.match(new RegExp(/^(.*)$/m))[0];
@@ -71,6 +72,7 @@ class MarkdownEditor extends React.PureComponent {
       whiteMode,
     } = this.props;
     const palette = getPalette(whiteMode);
+    console.log('rerunder');
     const editorTheme = getEditorTheme(palette);
     return (
       <Editor
@@ -80,7 +82,7 @@ class MarkdownEditor extends React.PureComponent {
         autoFocus
         uploadImage={async img => MarkdownEditor.uploadImg(img)}
         defaultValue={this.emojiSupport(value)}
-        onSave={() => onSave(card)}
+        onSave={() => !console.log('sav') && onSave(card)}
         plugins={[
           AutoReplace({
             trigger: 'space',
@@ -101,7 +103,7 @@ class MarkdownEditor extends React.PureComponent {
           }),
         ]}
         onClickHeader={onClickHeader}
-        onChange={val => this.handleChange(val)}
+        onChange={val => !console.log('val') && this.handleChange(val)}
         theme={{
           ...editorTheme,
           ...getCodeTheme(codeTheme),

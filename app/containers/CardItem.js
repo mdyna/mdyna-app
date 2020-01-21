@@ -53,6 +53,7 @@ function mapDispatchToProps(dispatch) {
     },
     changeCardSetting: (prop, value, cardId, isFocused, card) => {
       dispatch(changeCardSetting(prop, value, cardId));
+      console.log('readonly change');
       if (isFocused) {
         const editedCard = { ...card };
         editedCard[prop] = value;
