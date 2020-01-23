@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Box, Collapsible, Menu } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import TextInput from 'UI/TextInput';
-import { Github, Sync, Down } from 'grommet-icons';
+import {
+  Github, Sync, Down, Close,
+} from 'grommet-icons';
 import Gists from 'Utils/gistsService';
 import Tooltip from 'UI/Tooltip';
 import Loader from 'UI/Loader';
@@ -186,12 +188,13 @@ class GistSync extends PureComponent {
                 <Sync color="brand" />
                 {(syncSuccess && lastSyncDate && (
                   <React.Fragment>
-                    {`last sync at ${lastSyncDate}`}
+                    {`Last Sync: ${lastSyncDate}`}
                   </React.Fragment>
                 ))
                   || 'Sync'}
               </Button>
               <Button color="accent-2" onClick={() => desyncGh()}>
+                <Close color="accent-2" />
                 Desync Github
               </Button>
             </React.Fragment>
