@@ -15,33 +15,29 @@
   </a>
 </p>
 
-> A notes application which supports markdown syntax. Build with React and Electron.
+> MDyna is a markdown notes application that syncs with Github gists, and much more
 
 ### 🏠 [Homepage](https://mdyna.dev)
+Linux and Windows Build:
 [![CircleCI](https://circleci.com/gh/mdyna/mdyna-app/tree/master.svg?style=svg)](https://circleci.com/gh/mdyna/mdyna-app/tree/master)
+MacOS Build
+![GitHub Actions status](https://github.com/mdyna/mdyna-app/workflows/macOS%20CD/badge.svg)
+Landing Page:
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3c3367fc-b80c-4829-af8a-02fac5f9f979/deploy-status)](https://app.netlify.com/sites/mdyna/deploys)
+[![GitHub release date](https://img.shields.io/github/release-date/mdyna/mdyna-app.svg)](https://github.com/mdyna/mdyna-app/releases)
 
 ## Main Features
 
 - Git Flavoured Markdown (GFM) support
+- macOs + Windows + Linux
 - Code syntax highlighting for several languages
 - Dark Mode
 - Tag notes with labels
+- Organize cards through boards
 - Cloud syncing through custom directory
 - Github gist sync
-- Export notes as markdown files
-
-## Install
-
-```sh
-yarn install-all
-```
-
-## Usage
-
-```sh
-yarn start
-```
+- Export boards as markdown files
+- Import .md files from directory
 
 ## Author
 
@@ -51,8 +47,10 @@ yarn start
 * Github: [@mdyna](https://github.com/mdyna)
 
 ## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://spectrum.chat/mdyna/bugs?tab=posts).
+http://mdyna.dev/
+Contributions, issues and feature requests are welcome!<br />
+Feel free to check our community page [issues page](https://spectrum.chat/mdyna/bugs?tab=posts).<br/>
+You can also open an issue via [Github issues](https://github.com/mdyna/mdyna-app/issues)
 
 ## Show your support
 
