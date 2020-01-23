@@ -72,9 +72,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     desyncGh: () => {
       dispatch(desyncGh());
     },
-    syncCards: () => !hasSyncedRecently(1) && syncCardsProp(dispatch),
+    syncCards: () => !hasSyncedRecently(1) && syncCardsProp(dispatch) || toast.warn('Cards were synced recently'),
     updateGist: (id) => {
-      console.log(hasSyncedRecently(1), lastSyncDate);
       if (!hasSyncedRecently(1)) {
         Gists.updateGistId(id);
         syncCardsProp(dispatch);

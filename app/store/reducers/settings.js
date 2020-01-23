@@ -70,6 +70,7 @@ function settingsReducer(
         githubAuthOn: false,
         githubUserName: '',
         githubPassword: '',
+        lastSyncDate: null,
         loadingGitHub: false,
       };
     case DESYNC_GH:
@@ -79,6 +80,7 @@ function settingsReducer(
         githubUserName: '',
         githubPassword: '',
         loadingGitHub: false,
+        lastSyncDate: null,
       };
     case LOGIN_TO_GH:
       return {
@@ -102,7 +104,6 @@ function settingsReducer(
     case SYNC_CARDS_FAIL:
       return {
         ...state,
-        lastSyncDate: new Date(),
         syncSuccess: false,
         syncing: false,
       };
