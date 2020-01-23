@@ -28,37 +28,27 @@ import './Settings.scss';
 
 const renderAppInfo = () => (
   <Box direction="row" background="dark-1" className="app-info" responsive>
-    <Header>
-      <Text size="xxlarge" as="h1">
+    <Box direction="row" justify="between" align="center">
+      <Header>
+        <Text size="xxlarge" as="h1">
         MDyna
-      </Text>
-      <Text>{window.appVersion}</Text>
-    </Header>
-    <Text size="large" color="brand">
-      <a href="https://mdyna.dev">
-        <Globe color="brand" />
+        </Text>
+        <Text>{window.appVersion}</Text>
+      </Header>
+      <Text size="large" color="brand">
+        <a href="https://mdyna.dev">
+          <Globe color="brand" />
         Website
-      </a>
-    </Text>
-    <Text size="large" color="brand">
-      <ChatOption color="brand" />
-      <a href="https://spectrum.chat/mdyna/">Community</a>
-    </Text>
-    <Text size="large" color="brand">
-      <Github color="brand" />
-      <a href="https://github.com/mdyna/mdyna-app/">GitHub</a>
-    </Text>
-    <Box align="center" direction="column" className="credits">
-      <Text>Created by David Morais</Text>
-      <a href="https://twitter.com/Psybork">
-        <Twitter color="brand" />
-      </a>
-      <a href="https://github.com/dmorais92">
+        </a>
+      </Text>
+      <Text size="large" color="brand">
+        <ChatOption color="brand" />
+        <a href="https://spectrum.chat/mdyna/">Community</a>
+      </Text>
+      <Text size="large" color="brand">
         <Github color="brand" />
-      </a>
-      <a href="mailto:davidmorais92@gmail.com">
-        <MailOption color="brand" />
-      </a>
+        <a href="https://github.com/mdyna/mdyna-app/">GitHub</a>
+      </Text>
     </Box>
   </Box>
 );
@@ -96,6 +86,19 @@ class Settings extends PureComponent {
           X
         </Button>
         <ErrorBoundary>
+          {renderAppInfo()}
+          <Box align="center" direction="row" justify="between" className="credits">
+            <Text>Created by David Morais</Text>
+            <a href="https://twitter.com/Psybork">
+              <Twitter color="brand" />
+            </a>
+            <a href="https://github.com/dmorais92">
+              <Github color="brand" />
+            </a>
+            <a href="mailto:davidmorais92@gmail.com">
+              <MailOption color="brand" />
+            </a>
+          </Box>
           <Box direction="row" justify="center" className="settings-layout">
             <Box
               direction="column"
@@ -181,7 +184,6 @@ class Settings extends PureComponent {
                 changeActiveBoard={changeActiveBoard}
                 changeBoardName={changeBoardName}
               />
-              {renderAppInfo()}
             </Box>
           </Box>
         </ErrorBoundary>
