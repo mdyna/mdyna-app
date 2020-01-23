@@ -57,6 +57,8 @@ function mapStateToProps(state) {
     codeTheme: state.settings.codeTheme,
     settingsModal: state.settings.settingsModal,
     whiteMode: state.style.whiteMode,
+    lastSyncDate: state.settings.lastSyncDate,
+    githubAuthOn: state.settings.githubAuthOn || false,
     boards: state.boards.boardList,
     boardNames: state.boards.boardNames,
     cardsPerPage: state.settings.cardsPerPage,

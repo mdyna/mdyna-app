@@ -77,6 +77,8 @@ class Settings extends PureComponent {
       deleteBoard,
       activeBoard,
       changeBoardName,
+      lastSyncDate,
+      githubAuthOn,
       changeCwd,
       boards,
       cwd,
@@ -164,7 +166,11 @@ class Settings extends PureComponent {
                     changeCwdEvent();
                   }}
                 />
-                <GistSync skipLogin />
+                <GistSync
+                  skipLogin
+                  lastSyncDate={lastSyncDate}
+                  githubAuthOn={githubAuthOn}
+                />
               </Box>
               <BoardsDialog
                 activeBoard={activeBoard}
@@ -196,6 +202,8 @@ Settings.propTypes = {
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,
   activeBoard: PropTypes.string.isRequired,
+  lastSyncDate: PropTypes.bool.isRequired,
+  githubAuthOn: PropTypes.object.isRequired,
   boardNames: PropTypes.array,
   cwd: PropTypes.string,
   changeCodeTheme: PropTypes.func,

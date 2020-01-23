@@ -41,25 +41,28 @@ const syncCardsProp = async (dispatch) => {
   }
 };
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
+  const { isLoggedIn, lastSyncDate } = ownProps;
   return {
     loginToGh: async (username, pw, gistId) => {
-      try {
-        dispatch(loginToGh(username, pw));
-        Gists.loginToGh(username, pw, gistId);
-        const gistList = await Gists.getUserGists(username);
-        if (gistList && gistList.length) {
-          dispatch(loginToGhSuccess());
-          return gistList;
+      if (!isLoggedIn) {
+        try {
+          dispatch(loginToGh(username, pw));
+          Gists.loginToGh(username, pw, gistId);
+          const gistList = await Gists.getUserGists(username);
+          if (gistList && gistList.length) {
+            dispatch(loginToGhSuccess());
+            return gistList;
+          }
+          toast.error('Error logging into Github, please check your credentials');
+          dispatch(loginToGhFail());
+        } catch {
+          dispatch(loginToGhFail());
+          toast.error('Error logging into Github, please check your credentials');
+          return null;
         }
-        toast.error('Error logging into Github, please check your credentials');
-        dispatch(loginToGhFail());
-      } catch {
-        dispatch(loginToGhFail());
-        toast.error('Error logging into Github, please check your credentials');
-        return [];
+        return null;
       }
-      return [];
     },
     desyncGh: () => {
       dispatch(desyncGh());
