@@ -42,10 +42,16 @@ const syncCardsProp = async (dispatch) => {
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
-  const { isLoggedIn, lastSyncDate } = ownProps;
+  const { githubAuthOn, lastSyncDate } = ownProps;
+  // TODO Move this to utils #DRY
+  const hasSyncedRecently = syncTimer => Boolean(
+    lastSyncDate
+        && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
+          <= syncTimer,
+  );
   return {
     loginToGh: async (username, pw, gistId) => {
-      if (!isLoggedIn) {
+      if (!githubAuthOn) {
         try {
           dispatch(loginToGh(username, pw));
           Gists.loginToGh(username, pw, gistId);
@@ -59,19 +65,21 @@ function mapDispatchToProps(dispatch, ownProps) {
         } catch {
           dispatch(loginToGhFail());
           toast.error('Error logging into Github, please check your credentials');
-          return null;
         }
-        return null;
       }
+      return null;
     },
     desyncGh: () => {
       dispatch(desyncGh());
     },
-    syncCards: () => syncCardsProp(dispatch),
+    syncCards: () => !hasSyncedRecently(1) && syncCardsProp(dispatch),
     updateGist: (id) => {
-      Gists.updateGistId(id);
-      syncCardsProp(dispatch);
-      dispatch(updateGist(id));
+      console.log(hasSyncedRecently(1), lastSyncDate);
+      if (!hasSyncedRecently(1)) {
+        Gists.updateGistId(id);
+        syncCardsProp(dispatch);
+        dispatch(updateGist(id));
+      }
     },
   };
 }

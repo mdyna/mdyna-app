@@ -80,8 +80,6 @@ class Sidebar extends PureComponent {
       toggleSettings,
       activeBoard,
       toggleArchivedFilter,
-      lastSyncDate,
-      githubAuthOn,
       archivedFilterOn,
     } = this.props;
     return (
@@ -378,8 +376,8 @@ Sidebar.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
   labelFilters: PropTypes.array,
-  lastSyncDate: PropTypes.bool,
-  githubAuthOn: PropTypes.object,
+  lastSyncDate: PropTypes.object.isRequired,
+  githubAuthOn: PropTypes.bool.isRequired,
   labels: PropTypes.array,
   order: PropTypes.string,
   removeLabelFilter: PropTypes.func.isRequired,
