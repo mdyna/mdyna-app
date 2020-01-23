@@ -7,6 +7,15 @@ import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
 class LabelFilter extends Component {
+  clearLabels() {
+    const { labelFilters, labelFilterFuncs } = this.props;
+    const { removeLabelFilter } = labelFilterFuncs;
+    for (let i = 0; i < labelFilters.length; i += 1) {
+      const label = labelFilters[i];
+      removeLabelFilter(label);
+    }
+  }
+
   renderClickableLabels() {
     const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
@@ -35,14 +44,17 @@ class LabelFilter extends Component {
   }
 
   render() {
-    const { labels } = this.props;
+    const { labels, labelFilters } = this.props;
     return (
       (labels && labels.length && (
-        <div className="label-filter-box">
-          <Box background="dark-1" className="label-box">
-            {this.renderClickableLabels()}
-          </Box>
-        </div>
+        <>
+          {labelFilters && labelFilters.length && <Button className="remove-btn" onClick={() => this.clearLabels()} color="accent-2">{`Clear (${labelFilters.length})`}</Button> || ''}
+          <div className="label-filter-box">
+            <Box background="dark-1" className="label-box">
+              {this.renderClickableLabels()}
+            </Box>
+          </div>
+        </>
       ))
       || ''
     );
