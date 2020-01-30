@@ -262,7 +262,9 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { cards, searchInput, cardsPerPage } = this.props;
+    const {
+      cards, searchInput, cardsPerPage, isFocused,
+    } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
     const cardComponents = cardItems
@@ -313,6 +315,7 @@ export default class CardList extends PureComponent {
           <React.Fragment>
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
+                {!isFocused && (
                 <Masonry
                   breakpointCols={BREAKPOINTS}
                   className="card-list-grid"
@@ -320,6 +323,7 @@ export default class CardList extends PureComponent {
                 >
                   {cardComponents}
                 </Masonry>
+                ) || cardComponents}
               </div>
             ) : (
               <Box alignSelf="center" align="center" className="no-notes-box">

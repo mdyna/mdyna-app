@@ -20,6 +20,9 @@
   flex-flow: column nowrap !important;
   min-width: 300px;
   color: $note-font-color;
+  &.focused {
+    width: 100%;
+  }
   div > * {
     border-radius: initial;
   }

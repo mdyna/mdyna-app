@@ -160,7 +160,7 @@ ${card.text}`;
             cardActions.editCard(card, isFocused);
           }
         }}
-        className={classnames(className, COLOR_LABELS[color], 'card-item')}
+        className={classnames(className, COLOR_LABELS[color], 'card-item', isFocused && 'focused')}
         style={{
           backgroundColor: color,
           transition: 'all 0.5s ease-in',
