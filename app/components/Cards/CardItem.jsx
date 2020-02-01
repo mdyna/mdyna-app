@@ -289,6 +289,10 @@ ${card.text}`;
 
 export default MdynaCard;
 
+MdynaCard.whyDidYouRender = {
+  logOnDifferentValues: true,
+};
+
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,
   duplicateCard: PropTypes.func.isRequired,

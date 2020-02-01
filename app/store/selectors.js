@@ -108,10 +108,14 @@ const titlesSelector = createSelector(
   cards => [...new Set(cards?.map(c => c.title))],
 );
 
+const labelsSelector = state => state.labels;
+const globalLabelsSelector = createSelector(labelsSelector, labels => labels.map(l => l.title));
+
 const SELECTORS = {
   cardListSelector,
   isEditingSelector,
   favCardsSelector,
+  globalLabelsSelector,
   activeBoardNameSelector,
   titlesSelector,
   boardLabelsSelector,

@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import Gists from 'Utils/gistsService';
+import Selectors from 'Store/selectors';
 import CardItem from '../components/Cards/CardItem';
+
+const {
+  globalLabelsSelector,
+} = Selectors;
 
 const {
   CARD, LABEL, FILTERS, SETTINGS, BOARDS, FAV,
@@ -141,7 +146,7 @@ function mapStateToProps(state) {
     boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,
     activeBoardId: state.filters.activeBoard,
-    globalLabels: state.labels.map(l => l.title),
+    globalLabels: globalLabelsSelector(state),
     codeTheme: state.settings.codeTheme,
   };
 }

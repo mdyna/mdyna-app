@@ -43,14 +43,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const cards = cardListSelector(state);
-  const isEditing = isEditingSelector(state);
-  const activeBoard = activeBoardNameSelector(state);
-
   return {
-    cards,
-    isEditing,
-    activeBoard,
+    cards: cardListSelector(state),
+    isEditing: isEditingSelector(state),
+    activeBoard: activeBoardNameSelector(state),
     activeBoardId: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
     boardNames: state.boards.boardNames,

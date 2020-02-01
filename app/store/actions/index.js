@@ -290,11 +290,6 @@ export const searchCards = value => ({
 export const focusCard = card => ({
   type: ACTION_TYPES.FILTERS.FOCUS_CARD,
   card,
-  meta: {
-    debounce: {
-      time: 500,
-    },
-  },
 });
 
 export const changeActiveBoard = board => ({

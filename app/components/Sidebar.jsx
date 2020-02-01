@@ -376,7 +376,7 @@ Sidebar.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
   labelFilters: PropTypes.array,
-  lastSyncDate: PropTypes.object.isRequired,
+  lastSyncDate: PropTypes.object,
   githubAuthOn: PropTypes.bool.isRequired,
   labels: PropTypes.array,
   order: PropTypes.string,
@@ -390,6 +390,7 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
+  lastSyncDate: null,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
   labelFilters: [],

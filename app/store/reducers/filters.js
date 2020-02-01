@@ -47,7 +47,7 @@ export default function filters(
     case FOCUS_CARD:
       return {
         ...state,
-        focusedCard: action.card,
+        focusedCard: action.card || null,
         isFocused: Boolean(action.card && action.card.id),
       };
     case REMOVE_LABEL_FILTER:
