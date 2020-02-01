@@ -1,5 +1,7 @@
 import MdynaPalette from './mdyna.palette.json';
 import WhitePalette from './mdyna-white.palette.json';
+import BlackPalette from './black.palette.json';
+import SynthPalette from './synth.palette.json';
 
 const ThemeBuilder = colors => colors && {
   global: {
@@ -129,6 +131,8 @@ export default ThemeBuilder;
 const PALETTE = {
   dark: MdynaPalette,
   white: WhitePalette,
+  black: BlackPalette,
+  synth: SynthPalette,
 };
 
 export const getPalette = theme => PALETTE[theme];
