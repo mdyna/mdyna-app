@@ -5,6 +5,86 @@
   img {
     width: 100px;
   }
+  #dark-theme-picker {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100px;
+    border: 2px solid #1de9b6;
+    .main {
+      background-color: #1de9b6;
+      width: 50%;
+      height: 24px;
+    }
+    .secondary {
+      background-color: #15171f;
+      width: 50%;
+      height: 24px;
+    }
+  }
+  #white-theme-picker {
+    display: flex;
+    width: 100px;
+    flex-flow: row nowrap;
+    border: 2px solid #4ECDC4;
+    .main {
+      background-color: #40C0CB;
+      width: 50%;
+      height: 24px;
+    }
+    .secondary {
+      background-color: #E9EFF2;
+      width: 50%;
+      height: 24px;
+    }
+  }
+  #black-theme-picker {
+    display: flex;
+    width: 100px;
+    flex-flow: row nowrap;
+    border: 2px solid #dadada;
+    .main {
+      background-color: #0b0b0d;
+      width: 50%;
+      height: 24px;
+    }
+    .secondary {
+      background-color: #333333;
+      width: 50%;
+      height: 24px;
+    }
+  }
+  #synth-theme-picker {
+    display: flex;
+    width: 100px;
+    flex-flow: row nowrap;
+    border: 2px solid #00ccfd;
+    .main {
+      background-color: #400d59;
+      width: 50%;
+      height: 24px;
+    }
+    .secondary {
+      background-color: #791e94;
+      width: 50%;
+      height: 24px;
+    }
+  }
+  #flat-theme-picker {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100px;
+    border: 2px solid #000;
+    .main {
+      background-color: #fafafa;
+      width: 50%;
+      height: 24px;
+    }
+    .secondary {
+      background-color: #000;
+      width: 50%;
+      height: 24px;
+    }
+  }
   button {
     align-self: flex-end;
     margin: 5px;
@@ -64,9 +144,9 @@
     h2 {
       margin: 15px 10px;
       svg {
-        width: 24px;
-        vertical-align: middle;
         height: 24px;
+        height: 24px;
+        vertical-align: middle;
       }
     }
     .settings-section {

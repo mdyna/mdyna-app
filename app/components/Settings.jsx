@@ -119,6 +119,10 @@ class Settings extends PureComponent {
                   }}
                 >
                   <Text>
+                    <div id="dark-theme-picker">
+                      <div className="main" />
+                      <div className="secondary" />
+                    </div>
                   MDyna Dark
                   </Text>
                 </Button>
@@ -130,6 +134,10 @@ class Settings extends PureComponent {
                   }}
                 >
                   <Text>
+                    <div id="white-theme-picker">
+                      <div className="main" />
+                      <div className="secondary" />
+                    </div>
                   MDyna White
                   </Text>
                 </Button>
@@ -141,6 +149,10 @@ class Settings extends PureComponent {
                   }}
                 >
                   <Text>
+                    <div id="black-theme-picker">
+                      <div className="main" />
+                      <div className="secondary" />
+                    </div>
                   Black
                   </Text>
                 </Button>
@@ -152,6 +164,10 @@ class Settings extends PureComponent {
                   }}
                 >
                   <Text>
+                    <div id="synth-theme-picker">
+                      <div className="main" />
+                      <div className="secondary" />
+                    </div>
                   Synth
                   </Text>
                 </Button>
@@ -163,6 +179,10 @@ class Settings extends PureComponent {
                   }}
                 >
                   <Text>
+                    <div id="flat-theme-picker">
+                      <div className="main" />
+                      <div className="secondary" />
+                    </div>
                   Flat White
                   </Text>
                 </Button>
