@@ -10,6 +10,11 @@ import store from './store';
 
 let MdynaStore = store;
 
+if (window.env === 'DEV') {
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  whyDidYouRender(React);
+}
+
 const render = Component => {
   store.getState();
   handleWindowControls();
@@ -24,6 +29,7 @@ const render = Component => {
 render(Root);
 registerServiceWorker();
 handleWindowControls(remote);
+
 
 if (module.hot) {
   module.hot.accept('./config/Root', () => {
