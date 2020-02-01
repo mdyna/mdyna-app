@@ -2,6 +2,7 @@ import MdynaPalette from './mdyna.palette.json';
 import WhitePalette from './mdyna-white.palette.json';
 import BlackPalette from './black.palette.json';
 import SynthPalette from './synth.palette.json';
+import FlatWhitePalette from './flat-white.palette.json';
 
 const ThemeBuilder = colors => colors && {
   global: {
@@ -133,6 +134,7 @@ const PALETTE = {
   white: WhitePalette,
   black: BlackPalette,
   synth: SynthPalette,
+  flat: FlatWhitePalette,
 };
 
 export const getPalette = theme => PALETTE[theme];

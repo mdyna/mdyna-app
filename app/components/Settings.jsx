@@ -155,6 +155,17 @@ class Settings extends PureComponent {
                   Synth
                   </Text>
                 </Button>
+                <Button
+                  color="brand"
+                  onClick={() => {
+                    toast.success('Switched to Synth theme');
+                    changeTheme('flat');
+                  }}
+                >
+                  <Text>
+                  Flat White
+                  </Text>
+                </Button>
               </Box>
               <Box direction="row" className="settings-section">
                 <Box direction="column">
