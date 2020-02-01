@@ -175,10 +175,19 @@ export default class CardList extends PureComponent {
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+
     return (
       <Box className={cx('card-list-controls')} background="dark-1">
         {isFocused ? (
           <Button color="accent-2" onClick={() => focusCard()}>
+            <KeyboardEventHandler
+              handleKeys={['esc']}
+              onKeyEvent={(key) => {
+                if (key === 'esc') {
+                  focusCard();
+                }
+              }}
+            />
             <Text>Unfocus</Text>
             <br />
             <Text size="small">(Esc)</Text>
@@ -349,6 +358,10 @@ export default class CardList extends PureComponent {
     );
   }
 }
+
+CardList.whyDidYouRender = {
+  logOnDifferentValues: true,
+};
 
 CardList.propTypes = {
   addCard: PropTypes.func.isRequired,

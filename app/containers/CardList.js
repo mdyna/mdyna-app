@@ -61,7 +61,6 @@ function mapStateToProps(state) {
     sorting: state.filters.sorting || SORTING_BY_DATE,
     labelFilters: state.filters.labelFilters,
     searchInput: state.filters.searchInput,
-    sidebarExpanded: state.style.sidebarExpanded,
   };
 }
 

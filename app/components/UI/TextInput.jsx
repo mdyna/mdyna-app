@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { TextInput } from 'grommet';
 // eslint-disable-next-line
 import { startCase, snakeCase } from 'lodash';
 
-const Input = (props) => {
+const Input = forwardRef((props, ref) => {
   const {
     label, value, onChange, type, ...otherProps
   } = props;
@@ -17,10 +17,11 @@ const Input = (props) => {
       type={type}
       placeholder={startCase(label)}
       onChange={e => onChange(e)}
+      ref={ref}
       {...otherProps}
     />
   );
-};
+});
 
 Input.propTypes = {
   label: PropTypes.string,

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import TextInput from 'UI/TextInput';
 import { Search } from 'grommet-icons';
 
@@ -13,9 +14,11 @@ export default class SearchComponent extends PureComponent {
     defaultValue: this.props.searchInput || '',
   };
 
+  searchBar = React.createRef();
+
   render() {
     const {
-      onChange, searchBar, titles, hidden,
+      onChange, titles, hidden,
     } = this.props;
     const { defaultValue } = this.state;
     const getSuggestions = () => {
@@ -35,6 +38,15 @@ export default class SearchComponent extends PureComponent {
     };
     return (
       <div className={cx(hidden && 'hidden', 'search-wrapper')}>
+        <KeyboardEventHandler
+          handleKeys={['ctrl+p', 'esc']}
+          onKeyEvent={(key) => {
+            if (key === 'ctrl+p') {
+              console.log(this.searchBar);
+              this.searchBar.current.focus();
+            }
+          }}
+        />
         <Search color="brand" />
         <TextInput
           className="mdyna-search"
@@ -46,7 +58,7 @@ export default class SearchComponent extends PureComponent {
               onChange(e.target.value);
             }
           }}
-          ref={searchBar}
+          ref={this.searchBar}
           onSelect={(e) => {
             if (!hidden) {
               this.setState({ defaultValue: e.suggestion });
@@ -64,7 +76,6 @@ SearchComponent.propTypes = {
   searchInput: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   hidden: PropTypes.bool,
-  searchBar: PropTypes.object,
   titles: PropTypes.array,
 };
 
@@ -72,5 +83,4 @@ SearchComponent.defaultProps = {
   titles: [],
   hidden: false,
   searchInput: '',
-  searchBar: null,
 };

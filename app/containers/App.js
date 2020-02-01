@@ -26,7 +26,6 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    isFocused: state.filters.isFocused || false,
     boardsDialogOpen: state.boards.boardsDialogOpen || false,
     settingsModal: state.settings.settingsModal || false,
     whiteMode: state.style.whiteMode,
