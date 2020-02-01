@@ -1,4 +1,7 @@
 // Basic init
+// eslint-disable-next-line
+const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+
 const {
   remote,
   app,
@@ -17,11 +20,13 @@ const { loadBoards, loadFavs, loadLabels } = require('./main/loaders');
 const { startEventListeners } = require('./main/events');
 const { runUpdater } = require('./main/updater');
 
+
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname, {
   electron: path.join(__dirname, 'node_modules', 'app', 'electron', 'dist'),
 });
 
+const env = process.env.NODE_ENV || 'PROD';
 const MDYNA_WINDOW_OPTIONS = {
   width: 1024,
   height: 900,
@@ -53,12 +58,21 @@ const SPLASH_WINDOW_OPTIONS = {
 // To avoid being garbage collected
 let mainWindow;
 
-app.on('ready', () => {
+app.on('ready', async () => {
   logger.log('Main Electron Logs');
   logger.error('Main Electron Logs');
   mainWindow = new BrowserWindow(MDYNA_WINDOW_OPTIONS);
 
   const splash = new BrowserWindow(SPLASH_WINDOW_OPTIONS);
+
+
+  if (env === 'DEV') {
+    await
+    installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log('An error occurred: ', err));
+  }
+
 
   splash.loadURL(`file://${__dirname}/splash.html`);
   splash.show();
@@ -269,7 +283,6 @@ app.on('ready', () => {
   });
 
   global.appVersion = `v.${app.getVersion()}`;
-  const env = process.env.NODE_ENV || 'PROD';
   logger.warn('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
