@@ -109,7 +109,7 @@ class MdynaCard extends PureComponent {
       duplicateCard,
       labelFilters,
       changeActiveBoard,
-      whiteMode,
+      theme,
       globalLabels,
       discardCardChanges,
       createBoard,
@@ -272,7 +272,7 @@ ${card.text}`;
             codeTheme={codeTheme}
             changeTitle={val => changeCardSetting('editingTitle', val, card.id, isFocused, card)
             }
-            whiteMode={whiteMode}
+            appTheme={theme}
             onClickHeader={tag => MdynaCard.scrollToCard(tag)}
             value={getCardText(cardContent.title, cardContent.text)}
             onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
@@ -305,7 +305,7 @@ MdynaCard.propTypes = {
   labelFilters: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   removeCard: PropTypes.func,
-  whiteMode: PropTypes.bool,
+  theme: PropTypes.string,
   removeLabel: PropTypes.func,
   addFav: PropTypes.func.isRequired,
   removeFav: PropTypes.func.isRequired,
@@ -332,7 +332,7 @@ MdynaCard.defaultProps = {
   isFocused: false,
   globalLabels: [],
   codeTheme: 'Default',
-  whiteMode: false,
+  theme: 'dark',
   addLabelFilter: null,
   removeLabelFilter: null,
   removeLabel: null,

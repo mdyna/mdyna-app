@@ -141,7 +141,7 @@ function mapStateToProps(state) {
   return {
     favs: state.favs,
     isFocused: state.filters.isFocused,
-    whiteMode: state.style.whiteMode,
+    theme: state.style.theme,
     boardNames: state.boards.boardNames,
     boards: state.boards.boardList,
     labelFilters: state.filters.labelFilters,

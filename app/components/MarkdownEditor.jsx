@@ -68,9 +68,9 @@ class MarkdownEditor extends React.PureComponent {
       onClickHeader,
       card,
       codeTheme = 'DRA',
-      whiteMode,
+      appTheme,
     } = this.props;
-    const palette = getPalette(whiteMode);
+    const palette = getPalette(appTheme);
     const editorTheme = getEditorTheme(palette);
     return (
       <Editor
@@ -121,7 +121,7 @@ MarkdownEditor.propTypes = {
   onSave: PropTypes.func,
   className: PropTypes.string,
   codeTheme: PropTypes.string,
-  whiteMode: PropTypes.bool,
+  appTheme: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 
@@ -134,6 +134,6 @@ MarkdownEditor.defaultProps = {
   className: '',
   codeTheme: '',
   readOnly: true,
-  whiteMode: false,
+  appTheme: 'dark',
   card: {},
 };

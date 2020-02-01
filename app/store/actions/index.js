@@ -106,8 +106,9 @@ export const changeCardsPerPage = value => ({
   payload: value,
 });
 
-export const toggleWhiteMode = () => ({
-  type: ACTION_TYPES.SETTINGS.TOGGLE_WHITE_MODE,
+export const changeTheme = theme => ({
+  type: ACTION_TYPES.SETTINGS.CHANGE_THEME,
+  payload: theme,
 });
 
 export const toggleSidebar = () => ({
@@ -162,6 +163,7 @@ export const updateDeletedCards = cardId => ({
   payload: cardId,
 });
 
+
 const SETTINGS = {
   changeCodeTheme,
   toggleSettings,
@@ -169,11 +171,11 @@ const SETTINGS = {
   loginToGhSuccess,
   loginToGhFail,
   loginToGh,
+  changeTheme,
   syncCardsSuccess,
   syncCardsFail,
   syncCards,
   updateGist,
-  toggleWhiteMode,
   toggleSidebar,
   updateDeletedCards,
   desyncGh,

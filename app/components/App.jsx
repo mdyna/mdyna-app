@@ -22,7 +22,7 @@ class Mdyna extends PureComponent {
   render() {
     const {
       settingsModal,
-      whiteMode,
+      theme,
       boardsDialogOpen,
       toggleBoardsDialog,
       toggleSettings,
@@ -30,7 +30,7 @@ class Mdyna extends PureComponent {
     // ! TODO: STOP THIS NONSENSEL
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
-      <Grommet className="mdyna-app" theme={getTheme(whiteMode)}>
+      <Grommet className="mdyna-app" theme={getTheme(theme)}>
         <ToastContainer
           style={{
             top: 50,
@@ -87,14 +87,14 @@ Mdyna.whyDidYouRender = {
 
 Mdyna.propTypes = {
   settingsModal: PropTypes.bool.isRequired,
-  whiteMode: PropTypes.bool,
+  theme: PropTypes.string,
   boardsDialogOpen: PropTypes.bool.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   toggleSettings: PropTypes.func.isRequired,
 };
 
 Mdyna.defaultProps = {
-  whiteMode: false,
+  theme: 'dark',
 };
 
 export default Mdyna;

@@ -17,7 +17,6 @@ import {
   Note,
 } from 'grommet-icons';
 import { changeCwdEvent } from 'Utils/events';
-import Tooltip from 'UI/Tooltip';
 import GistSync from 'Containers/GistSync';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
@@ -55,9 +54,7 @@ const renderAppInfo = () => (
 class Settings extends PureComponent {
   render() {
     const {
-      whiteMode,
       toggleSettings,
-      toggleWhiteMode,
       changeCodeTheme,
       cardsPerPage,
       changeCardsPerPage,
@@ -66,6 +63,7 @@ class Settings extends PureComponent {
       createBoard,
       deleteBoard,
       activeBoard,
+      changeTheme,
       changeBoardName,
       lastSyncDate,
       githubAuthOn,
@@ -74,7 +72,6 @@ class Settings extends PureComponent {
       cwd,
       boardNames,
     } = this.props;
-    const newTheme = whiteMode ? 'dark' : 'white';
     return (
       <Box className="settings" direction="column">
         <Button
@@ -111,30 +108,55 @@ class Settings extends PureComponent {
               </Text>
               <Text size="large" as="h2">
                 <Brush color="brand" />
-                Appearence
+                Theme
               </Text>
               <Box direction="row" className="settings-section">
                 <Button
                   color="brand"
                   onClick={() => {
-                    toast.success(`Switched to ${newTheme} theme`);
-                    toggleWhiteMode(!whiteMode);
+                    toast.success('Switched to Dark theme');
+                    changeTheme('dark');
                   }}
                 >
-                  <Tooltip
-                    icon={<Brush color="brand" />}
-                    title="Set theme"
-                    text={`Switch to ${newTheme} theme`}
-                    onClick={() => {
-                      toast.success(`Switched to ${newTheme}`);
-                      toggleWhiteMode(!whiteMode);
-                    }}
-                  />
                   <Text>
-                    Switch to
-                    {` ${capitalize(newTheme)} Theme`}
+                  MDyna Dark
                   </Text>
                 </Button>
+                <Button
+                  color="brand"
+                  onClick={() => {
+                    toast.success('Switched to White theme');
+                    changeTheme('white');
+                  }}
+                >
+                  <Text>
+                  MDyna White
+                  </Text>
+                </Button>
+                <Button
+                  color="brand"
+                  onClick={() => {
+                    toast.success('Switched to Black theme');
+                    changeTheme('black');
+                  }}
+                >
+                  <Text>
+                  Black
+                  </Text>
+                </Button>
+                <Button
+                  color="brand"
+                  onClick={() => {
+                    toast.success('Switched to Synth theme');
+                    changeTheme('synth');
+                  }}
+                >
+                  <Text>
+                  Synth
+                  </Text>
+                </Button>
+              </Box>
+              <Box direction="row" className="settings-section">
                 <Box direction="column">
                   <Text>Cards per page</Text>
                   <Select
@@ -195,7 +217,6 @@ class Settings extends PureComponent {
 Settings.whyDidYouRender = true;
 
 Settings.propTypes = {
-  whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
   toggleSettings: PropTypes.func,
   createBoard: PropTypes.func.isRequired,
@@ -204,7 +225,7 @@ Settings.propTypes = {
   boards: PropTypes.array.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   codeTheme: PropTypes.string,
-  toggleWhiteMode: PropTypes.func,
+  changeTheme: PropTypes.func,
   activeBoard: PropTypes.string.isRequired,
   lastSyncDate: PropTypes.object,
   githubAuthOn: PropTypes.bool.isRequired,
@@ -216,7 +237,6 @@ Settings.propTypes = {
 };
 
 Settings.defaultProps = {
-  whiteMode: false,
   changeCardsPerPage: null,
   lastSyncDate: null,
   changeCwd: null,
@@ -224,7 +244,7 @@ Settings.defaultProps = {
   toggleSettings: null,
   changeCodeTheme: null,
   codeTheme: 'Default',
-  toggleWhiteMode: false,
+  changeTheme: false,
   cwd: '',
   cardsPerPage: 8,
 };

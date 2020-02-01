@@ -28,7 +28,7 @@ function mapStateToProps(state) {
   return {
     boardsDialogOpen: state.boards.boardsDialogOpen || false,
     settingsModal: state.settings.settingsModal || false,
-    whiteMode: state.style.whiteMode,
+    theme: state.style.theme,
   };
 }
 

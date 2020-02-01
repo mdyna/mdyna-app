@@ -3,7 +3,7 @@ import Settings from 'Components/Settings';
 import ACTIONS from 'Store/actions/';
 
 const {
-  toggleWhiteMode,
+  changeTheme,
   changeCwd,
   toggleSettings,
   changeCodeTheme,
@@ -21,8 +21,8 @@ function mapDispatchToProps(dispatch) {
     toggleSettings: () => {
       dispatch(toggleSettings());
     },
-    toggleWhiteMode: () => {
-      dispatch(toggleWhiteMode());
+    changeTheme: (theme) => {
+      dispatch(changeTheme(theme));
     },
     changeCardsPerPage: (val) => {
       dispatch(changeCardsPerPage(val));
@@ -56,7 +56,7 @@ function mapStateToProps(state) {
     activeBoard: state.filters.activeBoard,
     codeTheme: state.settings.codeTheme,
     settingsModal: state.settings.settingsModal,
-    whiteMode: state.style.whiteMode,
+    theme: state.style.theme,
     lastSyncDate: state.settings.lastSyncDate,
     githubAuthOn: state.settings.githubAuthOn || false,
     boards: state.boards.boardList,

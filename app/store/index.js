@@ -24,7 +24,7 @@ store.subscribe(
       },
       {
         codeTheme: store.getState().settings.codeTheme,
-        whiteMode: store.getState().style.whiteMode,
+        theme: store.getState().style.theme,
         githubUserName: store.getState().settings.githubUserName,
         gistId: store.getState().settings.gistId,
         githubPassword: store.getState().settings.githubPassword,

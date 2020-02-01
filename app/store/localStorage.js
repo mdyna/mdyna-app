@@ -14,7 +14,7 @@ export const getLocalState = () => {
       activeBoard: settings && settings.activeBoard,
     },
     style: {
-      whiteMode: settings && settings.whiteMode,
+      theme: settings && settings.theme,
     },
     settings: {
       codeTheme: settings && settings.codeTheme,

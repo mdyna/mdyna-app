@@ -1,19 +1,23 @@
 import ACTION_TYPES from '../actions/actionTypes';
 
-const { TOGGLE_WHITE_MODE, TOGGLE_SIDEBAR } = ACTION_TYPES.SETTINGS;
+const { TOGGLE_WHITE_MODE, TOGGLE_SIDEBAR, CHANGE_THEME } = ACTION_TYPES.SETTINGS;
+const THEMES = {
+  DARK: 'dark',
+  WHITE: 'dark',
+};
 
-function toggleWhiteMode(
+function styleReducer(
   state = {
-    whiteMode: false,
+    theme: THEMES.DARK,
     sidebarExpanded: false,
   },
   action,
 ) {
   switch (action.type) {
-    case TOGGLE_WHITE_MODE:
+    case CHANGE_THEME:
       return {
         ...state,
-        whiteMode: !state.whiteMode,
+        theme: action.payload,
       };
     case TOGGLE_SIDEBAR:
       return {
@@ -25,4 +29,4 @@ function toggleWhiteMode(
   }
 }
 
-export default toggleWhiteMode;
+export default styleReducer;
