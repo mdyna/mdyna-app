@@ -294,7 +294,7 @@ export default class CardList extends PureComponent {
         <KeyboardEventHandler
           handleKeys={['a', 'ctrl + v']}
           onKeyEvent={(key) => {
-            if (key === 'a') {
+            if (key === 'a' && !isFocused) {
               this.addNewCard();
             } else {
               navigator.clipboard

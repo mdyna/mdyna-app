@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Keyboard, TextInput } from 'grommet';
-// import TextInput from 'UI/TextInput';
+import { Box, TextInput } from 'grommet';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Button from 'UI/Button';
 import { Label } from 'UI/Labels';
 import { Tag, Close } from 'grommet-icons';
@@ -69,7 +69,14 @@ const LabelInput = ({
     return Labels;
   };
   return (
-    <Keyboard onEnter={onEnter}>
+    <KeyboardEventHandler
+      handleKeys={['enter']}
+      onKeyEvent={(key) => {
+        if (key === 'enter') {
+          onEnter();
+        }
+      }}
+    >
       <Box
         direction="row"
         align="center"
@@ -98,7 +105,7 @@ const LabelInput = ({
           />
         </Box>
       </Box>
-    </Keyboard>
+    </KeyboardEventHandler>
   );
 };
 
