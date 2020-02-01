@@ -283,6 +283,7 @@ app.on('ready', async () => {
   });
 
   global.appVersion = `v.${app.getVersion()}`;
+  global.env = env;
   logger.warn('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);

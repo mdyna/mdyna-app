@@ -40,6 +40,7 @@
     <script>
       if (window.require) {
         var electron = require("electron");
+        var env = electron.remote.getGlobal("env");
         var appVersion = electron.remote.getGlobal("appVersion");
         var cardStorage = electron.remote.getGlobal("cardStorage");
         var controlsStyle = electron.remote.getGlobal("controlsStyle");
