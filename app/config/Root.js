@@ -6,7 +6,7 @@ export default class Root extends Component {
   render() {
     return (
       <Router>
-        <Route path="/" component={Mdyna} />
+        <Route path="/" component={() => <Mdyna />} />
       </Router>
     );
   }

@@ -256,6 +256,8 @@ class BoardsDialog extends PureComponent {
   }
 }
 
+BoardsDialog.whyDidYouRender = true;
+
 BoardsDialog.propTypes = {
   changeActiveBoard: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,

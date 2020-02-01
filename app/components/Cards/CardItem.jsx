@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import tinycolor from 'tinycolor2';
 import { Box, Text, Layer } from 'grommet';
@@ -17,7 +17,7 @@ import CardEditor from './CardEditor';
 
 import './CardItem.scss';
 
-class MdynaCard extends Component {
+class MdynaCard extends PureComponent {
   static scrollToCard(hashtag) {
     if (hashtag) {
       // eslint-disable-next-line
@@ -289,9 +289,7 @@ ${card.text}`;
 
 export default MdynaCard;
 
-MdynaCard.whyDidYouRender = {
-  logOnDifferentValues: true,
-};
+MdynaCard.whyDidYouRender = true;
 
 MdynaCard.propTypes = {
   card: PropTypes.object.isRequired,

@@ -359,9 +359,7 @@ export default class CardList extends PureComponent {
   }
 }
 
-CardList.whyDidYouRender = {
-  logOnDifferentValues: true,
-};
+CardList.whyDidYouRender = true;
 
 CardList.propTypes = {
   addCard: PropTypes.func.isRequired,

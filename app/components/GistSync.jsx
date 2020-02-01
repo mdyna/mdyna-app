@@ -219,6 +219,8 @@ class GistSync extends PureComponent {
   }
 }
 
+GistSync.whyDidYouRender = true;
+
 GistSync.propTypes = {
   badge: PropTypes.bool,
   onClick: PropTypes.func,

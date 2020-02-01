@@ -192,6 +192,8 @@ class Settings extends PureComponent {
   }
 }
 
+Settings.whyDidYouRender = true;
+
 Settings.propTypes = {
   whiteMode: PropTypes.bool,
   changeCwd: PropTypes.func,
@@ -204,7 +206,7 @@ Settings.propTypes = {
   codeTheme: PropTypes.string,
   toggleWhiteMode: PropTypes.func,
   activeBoard: PropTypes.string.isRequired,
-  lastSyncDate: PropTypes.object.isRequired,
+  lastSyncDate: PropTypes.object,
   githubAuthOn: PropTypes.bool.isRequired,
   boardNames: PropTypes.array,
   cwd: PropTypes.string,
@@ -216,6 +218,7 @@ Settings.propTypes = {
 Settings.defaultProps = {
   whiteMode: false,
   changeCardsPerPage: null,
+  lastSyncDate: null,
   changeCwd: null,
   boardNames: [],
   toggleSettings: null,

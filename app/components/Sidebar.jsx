@@ -368,6 +368,8 @@ class Sidebar extends PureComponent {
   }
 }
 
+Sidebar.whyDidYouRender = true;
+
 Sidebar.propTypes = {
   activeBoard: PropTypes.string,
   addCard: PropTypes.func.isRequired,

@@ -47,6 +47,8 @@ class Favorites extends PureComponent {
   }
 }
 
+Favorites.whyDidYouRender = true;
+
 Favorites.propTypes = {
   favs: PropTypes.array,
   focusCard: PropTypes.func.isRequired,
