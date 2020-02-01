@@ -98,6 +98,7 @@
   "dependencies": {
     "electron-log": "^2.2.17",
     "electron-reload": "^1.2.2",
+    "electron-devtools-installer": "^2.2.4",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
     "fs-jetpack": "^2.2.3",
