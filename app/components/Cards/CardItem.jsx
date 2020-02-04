@@ -122,6 +122,7 @@ class MdynaCard extends PureComponent {
       codeTheme,
       favs,
     } = this.props;
+    console.warn(card.title);
     const { discardDialogOpen } = this.state;
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
