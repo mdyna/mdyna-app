@@ -12,11 +12,6 @@ export const addCard = (board, card) => ({
   type: ACTION_TYPES.CARD.ADD_CARD,
   board,
   card,
-  meta: {
-    debounce: {
-      time: 1000,
-    },
-  },
 });
 export const importCards = cards => ({
   type: ACTION_TYPES.CARD.IMPORT_CARDS,
