@@ -47,6 +47,7 @@ class Labels extends Component {
       return (
         <span
           style={{
+            // TODO: Use styled components or scss to convert do these
             color: labelFilterActive ? tc(color).darken(15) : color,
             border: labelFilterActive && `2px solid ${tc(color).darken(15)}`,
             backgroundColor: !transparent && '#333333AA',
@@ -88,6 +89,7 @@ class Labels extends Component {
         style={{
           display: 'flex',
           flexFlow: 'row wrap',
+          width: '75%',
         }}
       >
         {labels && labels.length

@@ -122,7 +122,6 @@ class MdynaCard extends PureComponent {
       codeTheme,
       favs,
     } = this.props;
-    console.warn(card.title);
     const { discardDialogOpen } = this.state;
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
@@ -222,15 +221,18 @@ ${card.text}`;
             cardItem={this}
             title={card.title}
           />
-          <Labels
-            labelFuncs={labelFuncs}
-            labelFilters={labelFilters}
-            labels={card.labels}
-            color={color}
-          />
-          {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
+          <Box direction="row">
+            <Labels
+              labelFuncs={labelFuncs}
+              labelFilters={labelFilters}
+              labels={card.isEditing ? card.editingLabels : card.labels}
+              color={color}
+            />
+            {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
             <Box
               className="board-indicator"
+              alignSelf="start"
+              direction="row"
               onClick={() => changeActiveBoard(card.board)}
             >
               <Text color={color}>
@@ -238,7 +240,8 @@ ${card.text}`;
                 {cardBoardName}
               </Text>
             </Box>
-          )}
+            )}
+          </Box>
           {this.renderCardDate()}
           {card.isEditing && (
             <CardEditor

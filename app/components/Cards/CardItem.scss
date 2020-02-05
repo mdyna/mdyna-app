@@ -29,9 +29,6 @@
   }
   .board-indicator {
     cursor: pointer;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
     span {
       display: flex;
       flex-flow: row nowrap;
