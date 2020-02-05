@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grommet, Box, Layer } from 'grommet';
 import { ToastContainer } from 'react-toastify';
@@ -10,7 +10,8 @@ import SearchInput from 'Containers/Search';
 import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from 'Containers/Boards';
-import { getTheme } from '../themes/themeBuilder';
+import ApplyTheme from 'Utils/titlebarTheme';
+import { getTheme, getPalette } from '../themes/themeBuilder';
 
 import './App.scss';
 
@@ -18,11 +19,34 @@ const MODAL_MODES = {
   SETTINGS: 'SETTINGS',
 };
 
-class Mdyna extends PureComponent {
+class Mdyna extends Component {
+  componentDidMount() {
+    const { palette } = this;
+    ApplyTheme(palette);
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevTheme = prevProps.theme;
+    const { theme } = this.props;
+    if (theme !== prevTheme) {
+      const { palette } = this;
+      ApplyTheme(palette);
+    }
+  }
+
+  get palette() {
+    const { theme } = this.props;
+    return getPalette(theme);
+  }
+
+  get theme() {
+    const { theme } = this.props;
+    return getTheme(theme);
+  }
+
   render() {
     const {
       settingsModal,
-      theme,
       boardsDialogOpen,
       toggleBoardsDialog,
       toggleSettings,
@@ -30,7 +54,7 @@ class Mdyna extends PureComponent {
     // ! TODO: STOP THIS NONSENSEL
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
-      <Grommet className="mdyna-app" theme={getTheme(theme)}>
+      <Grommet className="mdyna-app" theme={this.theme}>
         <ToastContainer
           style={{
             top: 50,

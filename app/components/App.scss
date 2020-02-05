@@ -36,7 +36,7 @@ p {
 }
 
 body {
-  background: $background;
+  background: transparent;
   border: 1px solid $background;
   overflow-y: hidden;
 }
@@ -81,13 +81,13 @@ body {
   &.Windows {
     background-color: #0f1116;
   }
+  font-weight: 700;
   display: block;
   z-index: 15;
   position: fixed;
   height: 32px;
   width: calc(100% - 2px);
   padding: 4px;
-  color: $accent;
   font-family: Helvetica;
   #drag-region {
     .title {
