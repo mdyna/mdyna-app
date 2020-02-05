@@ -44,11 +44,11 @@ const LabelInput = ({
   const renderValue = () => {
     const titles = [];
     const Labels = [];
-    console.log(value);
     for (let i = 0; i < value.length; i += 1) {
       const v = value[i];
-      if (titles.indexOf(v.title) === -1) {
-        titles.push(v.title);
+      const title = (v && v.title) || v;
+      if (titles.indexOf(title) === -1) {
+        titles.push(title);
         Labels.push(
           <Label
             key={`${v}${i + 0}`}
@@ -58,7 +58,7 @@ const LabelInput = ({
             }}
             label={(
               <React.Fragment>
-                {(v && v.title) || v}
+                {title}
                 <Close color="accent-2" size="12px" />
               </React.Fragment>
 )}
@@ -68,7 +68,6 @@ const LabelInput = ({
     }
     return Labels;
   };
-  console.log('CURRENT TAG VALUE', currentTag);
   return (
     <KeyboardEventHandler
       handleKeys={['enter']}
