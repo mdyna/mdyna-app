@@ -30,6 +30,9 @@
   .board-indicator {
     cursor: pointer;
     span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
