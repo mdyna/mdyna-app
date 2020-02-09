@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import CardList from 'Components/Cards/CardList';
@@ -32,10 +33,11 @@ function mapDispatchToProps(dispatch) {
     focusCard: (card) => {
       dispatch(focusCard(card));
     },
-    addCard: (activeBoard, card) => dispatch(addCard(activeBoard, card)).then(() => {
+    addCard: (activeBoard, card) => {
+      dispatch(addCard(activeBoard, card));
       dispatch(searchCards(''));
       dispatch(focusCard());
-    }),
+    },
     searchCards: (val) => {
       dispatch(searchCards(val));
     },
@@ -63,4 +65,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CardList);
+)(React.memo(CardList));
