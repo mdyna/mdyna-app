@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
@@ -64,12 +65,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  const labels = boardLabelsSelector(state);
   return {
     activeBoard: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
     labelFilters: state.filters.labelFilters,
-    labels,
+    labels: boardLabelsSelector(state),
     order: state.filters.order || DESCENDING_ORDER,
     lastSyncDate: state.settings.lastSyncDate,
     githubAuthOn: state.settings.githubAuthOn || false,
@@ -81,4 +81,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Sidebar);
+)(React.memo(Sidebar));

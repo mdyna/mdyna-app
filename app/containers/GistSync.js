@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import GistSync from 'Components/GistSync';
@@ -100,4 +101,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GistSync);
+)(React.memo(GistSync));
