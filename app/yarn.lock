@@ -3799,6 +3799,13 @@ slate-md-serializer@5.4.4:
   dependencies:
     hashtag-regex "^2.0.0"
 
+slate-md-serializer@^5.4.3-1:
+  version "5.4.3-1"
+  resolved "https://registry.yarnpkg.com/slate-md-serializer/-/slate-md-serializer-5.4.3-1.tgz#311bf90300230f6f8aeeac464fa8694be3eb88c8"
+  integrity sha512-00jkxy1lp/d44Kkyn8/xlkiJj6WF22259Brvurv/GDYtKwE58dr7LAX0URM1E3wpT+Z6X9+kJJGsO6ECgp6lMw==
+  dependencies:
+    hashtag-regex "^2.0.0"
+
 slate-paste-linkify@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/slate-paste-linkify/-/slate-paste-linkify-0.7.0.tgz#42adf3a3b40c88086c201666a5b203140da5a6ae"
