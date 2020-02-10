@@ -43,7 +43,6 @@
     "reselect": "^4.0.0",
     "rich-markdown-editor": "https://github.com/mdyna/rich-markdown-editor.git",
     "riek": "^1.1.0",
-    "slate-md-serializer": "^5.4.3-1",
     "slate-plugins": "https://github.com/mdyna/slate-plugins.git",
     "styled-components": "^4.3.2",
     "tinycolor2": "^1.4.1",
