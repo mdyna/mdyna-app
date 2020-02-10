@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import Gists from 'Utils/gistsService';
@@ -154,4 +155,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CardItem);
+)(React.memo(CardItem));

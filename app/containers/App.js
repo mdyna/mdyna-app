@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import App from 'Components/App';
 import ACTIONS from 'Store/actions/';
@@ -35,4 +36,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(React.memo(App));

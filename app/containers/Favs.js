@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
 import Favorites from 'Components/Favorites';
@@ -31,4 +32,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Favorites);
+)(React.memo(Favorites));

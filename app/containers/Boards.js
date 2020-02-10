@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import BoardsDialog from 'Components/BoardsDialog';
 import ACTIONS from 'Store/actions/';
@@ -52,4 +53,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(BoardsDialog);
+)(React.memo(BoardsDialog));
