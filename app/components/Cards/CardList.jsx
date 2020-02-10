@@ -67,14 +67,14 @@ export default class CardList extends PureComponent {
     const { addCard, activeBoardId } = this.props;
     const { pageView } = this.state;
 
-    addCard(activeBoardId, card).then(() => {
-      if (pageView !== 1) {
-        this.setState({
-          pageView: 1,
-          pageIndex: 0,
-        });
-      }
-    });
+    addCard(activeBoardId, card);
+
+    if (pageView !== 1) {
+      this.setState({
+        pageView: 1,
+        pageIndex: 0,
+      });
+    }
   }
 
   matchNoteLabelsWithLabelFilter(labels) {
