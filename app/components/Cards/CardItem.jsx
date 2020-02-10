@@ -258,7 +258,7 @@ class MdynaCard extends PureComponent {
           )}
           <Editor
             readOnly={!card.isEditing}
-            card={cardContent}
+            card={cardProps}
             onSave={(c) => {
               this.saveCardContent(c);
             }}
