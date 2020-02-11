@@ -66,6 +66,7 @@ class CardEditor extends PureComponent {
         props: boardPickerProps,
         icon: <BoardsIcon />,
       },
+      /*
       {
         label: 'Board',
         formControl: propName => (
@@ -81,14 +82,6 @@ class CardEditor extends PureComponent {
         props: boardPickerProps,
         icon: <BoardsIcon />,
       },
-      /*
-      {
-        label: 'Color',
-        formControl: (props) => <ColorPicker {...props}/>,
-        propName: 'editingColor',
-        value: color,
-        props: {},
-      },
       */
     ];
   }
@@ -103,9 +96,14 @@ class CardEditor extends PureComponent {
         justify="start"
         background="accent-1"
         style={{
-          height: 'fit-content',
+          width: c.half ? 'auto' : 565,
+          height: c.half ? 55 : 'auto',
           padding: 10,
           border: `1px solid ${tinycolor(color).darken(10)}`,
+          margin: 5,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
           borderRadius: '10px',
         }}
       >
@@ -145,7 +143,7 @@ class CardEditor extends PureComponent {
           background: `${color}aa`,
         }}
       >
-        <Box direction="row" wrap style={{ width: 'fit-content' }}>
+        <Box direction="row" wrap style={{ maxWidth: 800 }}>
           <Box direction="column">
             {this.renderCardPickers(fullWidthControls)}
           </Box>

@@ -67,7 +67,11 @@ export default class BoardPicker extends PureComponent {
         dropBackground="dark-2"
         icon={<Down color="brand" />}
         label={(
-          <Text color="brand">
+          <Text
+            color="brand"
+            style={{
+            }}
+          >
             {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
           </Text>
 )}

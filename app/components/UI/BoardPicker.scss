@@ -1,10 +1,15 @@
 .boards-menu {
   border-radius: 10px;
+  width: fit-content !important;
   div {
     flex-direction: row-reverse;
     justify-content: flex-end;
   }
   span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
     margin: 0 !important;
   }
 }
