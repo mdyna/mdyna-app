@@ -9,9 +9,10 @@ const Input = (props) => {
   const { value, onChange } = props;
   const colors = Object.keys(COLOR_LABELS);
   return (
-    <Box direction="row" justify="start" background="transparent">
+    <Box direction="row" justify="start" background="transparent" style={{ padding: 5 }}>
       <TwitterPicker
         triangle="hide"
+        width="auto"
         color={value}
         onChange={c => onChange(c.hex)}
         colors={colors}

@@ -84,7 +84,7 @@ const LabelInput = ({
         wrap
       >
         {value.length > 0 && renderValue()}
-        <Box style={{ color }}>
+        <Box style={{ color, width: '100%' }}>
           <TextInput
             type="search"
             plain

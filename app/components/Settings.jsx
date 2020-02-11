@@ -15,6 +15,7 @@ import {
   Twitter,
   MailOption,
   Note,
+  Close,
 } from 'grommet-icons';
 import { changeCwdEvent } from 'Utils/events';
 import GistSync from 'Containers/GistSync';
@@ -77,10 +78,9 @@ class Settings extends PureComponent {
         <Button
           color="accent-2"
           className="discard-btn"
-          hoverIndicator="accent-2"
           onClick={() => toggleSettings()}
         >
-          X
+          <Close color="accent-2" />
         </Button>
         <ErrorBoundary>
           {renderAppInfo()}

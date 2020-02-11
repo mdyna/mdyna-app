@@ -93,11 +93,11 @@ class CardEditor extends PureComponent {
         justify="start"
         background="accent-1"
         style={{
-          width: c.half ? 'auto' : 565,
+          width: c.half ? 'auto' : 585,
           height: c.half ? 55 : 'auto',
           padding: 10,
           border: `1px solid ${tinycolor(color).darken(10)}`,
-          margin: 5,
+          margin: '5px 5px 0 0',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -137,7 +137,7 @@ class CardEditor extends PureComponent {
           background: `${color}aa`,
         }}
       >
-        <Box direction="row" wrap style={{ maxWidth: 800 }}>
+        <Box direction="row" wrap style={{ maxWidth: 900 }}>
           <Box direction="column">
             {this.renderCardPickers(fullWidthControls)}
           </Box>
@@ -149,7 +149,7 @@ class CardEditor extends PureComponent {
           direction="row"
           justify="start"
         >
-          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: 10 }}>
+          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: '10px 10px 0 0' }}>
             <Button
               hoverIndicator={false}
               color="accent-3"
@@ -166,7 +166,7 @@ class CardEditor extends PureComponent {
               />
             </Button>
           </Box>
-          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: 10 }}>
+          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: '10px 10px 0 0' }}>
             <Button
               hoverIndicator={false}
               background="accent-1"
