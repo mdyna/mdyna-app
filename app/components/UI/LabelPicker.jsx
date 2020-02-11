@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from 'grommet';
 import LabelInput from 'UI/LabelInput';
 // eslint-disable-next-line
 import { camelCase } from 'lodash';
-
-import './LabelPicker.scss';
-
 
 const LabelPicker = (props) => {
   const {

@@ -4,10 +4,6 @@ import { Box, TextInput } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { Label } from 'UI/Labels';
 import { Close } from 'grommet-icons';
-// eslint-disable-next-line
-import { camelCase } from 'lodash';
-
-import './LabelPicker.scss';
 
 const LabelInput = ({
   onAdd,
@@ -81,9 +77,8 @@ const LabelInput = ({
       <Box
         direction="row"
         align="center"
-        className="label-picker-input"
         background="accent-1"
-        style={{ borderRadius: 10 }}
+        style={{ borderRadius: 10, paddingTop: 5 }}
         border="all"
         ref={boxRef}
         wrap

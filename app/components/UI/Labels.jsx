@@ -10,7 +10,7 @@ export const Label = ({
       color,
       backgroundColor: !transparent && '#333333AA',
       borderRadius: '10px',
-      margin: '0 5px',
+      margin: '5px',
       cursor: 'pointer',
       padding: '5px',
     }}
