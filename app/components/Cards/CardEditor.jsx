@@ -62,6 +62,22 @@ class CardEditor extends PureComponent {
           />
         ),
         propName: 'board',
+        half: true,
+        props: boardPickerProps,
+        icon: <BoardsIcon />,
+      },
+      {
+        label: 'Board',
+        formControl: propName => (
+          <BoardPicker
+            addButton
+            value={card.board}
+            onClick={c => onChange(propName, c, card.id, isFocused, card)}
+            {...boardPickerProps}
+          />
+        ),
+        propName: 'board',
+        half: true,
         props: boardPickerProps,
         icon: <BoardsIcon />,
       },
@@ -78,13 +94,26 @@ class CardEditor extends PureComponent {
   }
 
   renderCardPickers() {
+    const { color } = this.props;
     const cardControls = this.cardPickers();
     return (
-      <Box direction="column" wrap>
+      <Box direction="column" wrap style={{ maxWidth: 700 }}>
         {cardControls.map(c => (
-          <Box direction="row">
+          <Box
+            key={`${c.label}-picker`}
+            direction="row"
+            align="center"
+            justify="between"
+            background="accent-1"
+            style={{
+              padding: 10,
+              border: `1px solid ${tinycolor(color).darken(10)}`,
+              borderRadius: '10px',
+              width: c.half ? '50%' : '100%',
+            }}
+          >
             {c.icon}
-            <Text>{c.label}</Text>
+            <Text weight="bold" margin="0px 10px" color="brand">{c.label}</Text>
             {c.formControl(c.propName)}
           </Box>
         ))}
@@ -113,19 +142,7 @@ class CardEditor extends PureComponent {
           background: `${color}aa`,
         }}
       >
-        <Box
-          direction="column"
-          justify="evenly"
-          background="accent-1"
-          style={{
-            border: `1px solid ${tinycolor(color).darken(10)}`,
-            borderRadius: '10px',
-            paddingBottom: '5px',
-          }}
-          wrap
-        >
-          {this.renderCardPickers()}
-        </Box>
+        {this.renderCardPickers()}
         <Box
           direction="row"
           justify="evenly"

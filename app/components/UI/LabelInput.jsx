@@ -80,8 +80,6 @@ const LabelInput = ({
       <Box
         direction="row"
         align="center"
-        pad={{ horizontal: 'xsmall' }}
-        margin="xsmall"
         className="label-picker-input"
         background="accent-1"
         border="all"

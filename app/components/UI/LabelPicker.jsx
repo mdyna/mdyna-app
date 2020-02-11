@@ -58,18 +58,16 @@ const LabelPicker = (props) => {
   };
 
   return (
-    <Box flex direction="row" justify="start">
-      <LabelInput
-        placeholder="Search for aliases..."
-        suggestions={suggestions.splice(0, 10)}
-        plain
-        value={selectedTags}
-        color={color}
-        onRemove={onRemoveTag}
-        onAdd={onAddTag}
-        onChange={v => onFilterSuggestion(v.target.value)}
-      />
-    </Box>
+    <LabelInput
+      placeholder="Search for aliases..."
+      suggestions={suggestions.splice(0, 10)}
+      plain
+      value={selectedTags}
+      color={color}
+      onRemove={onRemoveTag}
+      onAdd={onAddTag}
+      onChange={v => onFilterSuggestion(v.target.value)}
+    />
   );
 };
 
