@@ -1,11 +1,9 @@
-.color-picker-button {
-  max-width: fit-content;
-}
+
 .twitter-picker {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  width: 100% !important;
+  width: fit-content;
   input {
     height: 30px !important;
   }
