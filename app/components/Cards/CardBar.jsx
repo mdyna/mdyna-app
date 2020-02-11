@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Archive, Trash, Edit, More, Clone, Copy, Pin,
+  Archive, Trash, Edit, MoreVertical, Clone, Copy, Pin,
 } from 'grommet-icons';
 import { Menu, Box } from 'grommet';
 import FocusIcon from 'UI/FocusIcon';
@@ -123,7 +123,7 @@ class CardBar extends PureComponent {
             onClick: () => duplicateCard(card),
           },
         ]}
-        icon={<More color={color} />}
+        icon={<MoreVertical color={color} />}
       />
     );
   }
@@ -134,52 +134,54 @@ class CardBar extends PureComponent {
     } = this.props;
     const {
       editCard,
+      focusCard,
       favCard,
       removeCard,
     } = cardActions;
     return (
-      <React.Fragment>
-        <div className="card-bar">
-          {cardActions && (
-            <div className="buttons-container">
-              <Button
-                active={card.isEditing}
-                hoverIndicator="dark-1"
-                onClick={() => !card.isEditing && editCard(card, isFocused)}
-              >
-                <Tooltip
-                  icon={<Edit color={card.isEditing ? 'brand' : color} />}
-                  text="Edit this card (You can also double click the card)"
-                />
-              </Button>
-              <Button
-                hoverIndicator="dark-1"
-                onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)
+      <div className="card-bar">
+        {cardActions && (
+        <Box direction="row">
+          <Button
+            active={card.isEditing}
+            hoverIndicator="dark-1"
+            onClick={() => !card.isEditing && editCard(card, isFocused)}
+          >
+            <Tooltip
+              icon={<Edit color={card.isEditing ? 'brand' : color} />}
+              text="Edit this card (You can also double click the card)"
+            />
+          </Button>
+          <Button
+            hoverIndicator="dark-1"
+            onClick={() => this.removeCard(card, removeCard, cardActions.removeLabel)
                 }
-              >
-                <Tooltip
-                  icon={(
-                    <Trash
-                      style={{
-                        stroke: color,
-                      }}
-                      color={color}
-                    />
+          >
+            <Tooltip
+              icon={(
+                <Trash
+                  style={{
+                    stroke: color,
+                  }}
+                  color={color}
+                />
 )}
-                  text="Delete card (Permanent)"
-                />
-              </Button>
-              <Button hoverIndicator="dark-1" onClick={() => favCard(card)}>
-                <Tooltip
-                  icon={<Pin color={(isFaved && 'brand') || color} />}
-                  text="Favorite card"
-                />
-              </Button>
-              {this.renderExpandableMenu()}
-            </div>
-          )}
-        </div>
-      </React.Fragment>
+              text="Delete card (Permanent)"
+            />
+          </Button>
+          <Button hoverIndicator="dark-1" onClick={() => favCard(card)}>
+            <Tooltip
+              icon={<Pin color={(isFaved && 'brand') || color} />}
+              text="Favorite card"
+            />
+          </Button>
+          <Button hoverIndicator="dark-1" onClick={() => focusCard(card)}>
+            <FocusIcon color={isFocused ? null : color} />
+          </Button>
+          {this.renderExpandableMenu()}
+        </Box>
+        )}
+      </div>
     );
   }
 }
