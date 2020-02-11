@@ -93,31 +93,29 @@ class CardEditor extends PureComponent {
     ];
   }
 
-  renderCardPickers() {
+  renderCardPickers(cardControls) {
     const { color } = this.props;
-    const cardControls = this.cardPickers();
-    return (
-      <Box direction="column" wrap style={{ maxWidth: 700 }}>
-        {cardControls.map(c => (
-          <Box
-            key={`${c.label}-picker`}
-            direction="row"
-            align="center"
-            justify="between"
-            background="accent-1"
-            style={{
-              padding: 10,
-              border: `1px solid ${tinycolor(color).darken(10)}`,
-              borderRadius: '10px',
-              width: c.half ? '50%' : '100%',
-            }}
-          >
-            {c.icon}
-            <Text weight="bold" margin="0px 10px" color="brand">{c.label}</Text>
-            {c.formControl(c.propName)}
-          </Box>
-        ))}
+    return (cardControls.map(c => (
+      <Box
+        key={`${c.label}-picker`}
+        direction="row"
+        align="center"
+        justify="start"
+        background="accent-1"
+        style={{
+          height: 'fit-content',
+          padding: 10,
+          border: `1px solid ${tinycolor(color).darken(10)}`,
+          borderRadius: '10px',
+        }}
+      >
+        {c.icon}
+        <Text weight="bold" margin="0px 10px" color="brand">{c.label}</Text>
+        <Box width="100%">
+          {c.formControl(c.propName)}
+        </Box>
       </Box>
+    ))
     );
   }
 
@@ -129,6 +127,11 @@ class CardEditor extends PureComponent {
       color,
       isFocused,
     } = this.props;
+
+    const cardControls = this.cardPickers();
+    const fullWidthControls = [];
+    const halfWidthControls = [];
+    cardControls.forEach(control => (control.half ? halfWidthControls.push(control) : fullWidthControls.push(control)));
     return (
       <Box
         direction="column"
@@ -142,7 +145,14 @@ class CardEditor extends PureComponent {
           background: `${color}aa`,
         }}
       >
-        {this.renderCardPickers()}
+        <Box direction="row" wrap style={{ width: 'fit-content' }}>
+          <Box direction="column">
+            {this.renderCardPickers(fullWidthControls)}
+          </Box>
+          <Box direction="row" wrap justify="between" alignSelf="end">
+            {this.renderCardPickers(halfWidthControls)}
+          </Box>
+        </Box>
         <Box
           direction="row"
           justify="evenly"

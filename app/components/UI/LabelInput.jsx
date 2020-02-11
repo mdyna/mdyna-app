@@ -70,6 +70,7 @@ const LabelInput = ({
   };
   return (
     <KeyboardEventHandler
+      style={{ width: '100%' }}
       handleKeys={['enter']}
       onKeyEvent={(key) => {
         if (key === 'enter') {
@@ -82,18 +83,20 @@ const LabelInput = ({
         align="center"
         className="label-picker-input"
         background="accent-1"
+        style={{ borderRadius: 10 }}
         border="all"
         ref={boxRef}
         wrap
       >
         {value.length > 0 && renderValue()}
-        <Box flex style={{ minWidth: '120px', color }}>
+        <Box style={{ color }}>
           <TextInput
             type="search"
             plain
             dropTarget={box}
             suggestions={suggestions}
             onChange={updateCurrentTag}
+            color="inherit"
             value={currentTag}
             autoFocus
             onSelect={(event) => {

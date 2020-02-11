@@ -71,7 +71,7 @@ export default class BoardPicker extends PureComponent {
             {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
           </Text>
 )}
-        dropAlign={{ top: 'bottom' }}
+        dropAlign={{ top: 'left' }}
         items={[
           {
             label: (
