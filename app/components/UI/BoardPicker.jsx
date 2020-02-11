@@ -60,6 +60,7 @@ export default class BoardPicker extends PureComponent {
       value,
     } = this.props;
     const currentBoardName = BoardPicker.getBoardName(value, boards);
+    const truncatedBoardName = currentBoardName.length > 10 ? `${currentBoardName.substring(0, 7)}...` : currentBoardName;
     return (
       <Menu
         justifyContent="center"
@@ -69,10 +70,8 @@ export default class BoardPicker extends PureComponent {
         label={(
           <Text
             color="brand"
-            style={{
-            }}
           >
-            {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
+            {(currentBoardName !== 'INBOX' && truncatedBoardName) || ''}
           </Text>
 )}
         dropAlign={{ top: 'left' }}
