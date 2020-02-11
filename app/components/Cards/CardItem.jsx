@@ -231,13 +231,13 @@ ${text}`;
             {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
             <Box
               className="board-indicator"
-              alignSelf="start"
-              direction="row"
               onClick={() => changeActiveBoard(card.board)}
             >
-              <Text color={color}>
+              <Text color={color} className="board-indicator-text">
                 <BoardsIcon />
-                {cardBoardName}
+                <Text>
+                  {cardBoardName}
+                </Text>
               </Text>
             </Box>
             )}

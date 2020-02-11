@@ -1,5 +1,7 @@
+@import "../../style.scss";
+
 .card-bar {
-  background-color: #333333;
+  background-color: $note-font-color;
   border-radius: 10px;
   width: fit-content;
   opacity: 0.9;
