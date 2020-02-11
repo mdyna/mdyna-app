@@ -175,7 +175,7 @@ class CardBar extends PureComponent {
               text="Favorite card"
             />
           </Button>
-          <Button hoverIndicator="dark-1" onClick={() => focusCard(card)}>
+          <Button hoverIndicator="dark-1" onClick={() => (isFocused ? focusCard() : focusCard(card))}>
             <FocusIcon color={isFocused ? null : color} />
           </Button>
           {this.renderExpandableMenu()}
