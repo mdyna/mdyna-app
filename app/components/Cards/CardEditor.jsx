@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
 import tinycolor from 'tinycolor2';
-import { Box } from 'grommet';
-import { Checkmark, Close } from 'grommet-icons';
+import { Box, Text } from 'grommet';
+import {
+  Checkmark, Close, Tag, Paint,
+} from 'grommet-icons';
 import PropTypes from 'prop-types';
+
+
+import BoardsIcon from 'UI/BoardsIcon';
 import ColorPicker from 'UI/ColorPicker';
 import BoardPicker from 'UI/BoardPicker';
 import LabelPicker from 'UI/LabelPicker';
@@ -11,14 +16,87 @@ import Button from 'UI/Button';
 class CardEditor extends PureComponent {
   name = 'Card Editor';
 
+  cardPickers() {
+    const {
+      labelPickerProps,
+      boardPickerProps,
+      onChange,
+      color,
+      card,
+      isFocused,
+    } = this.props;
+    return [
+      {
+        label: 'Color',
+        formControl: propName => (
+          <ColorPicker
+            value={color}
+            onChange={c => onChange(propName, c, card.id, isFocused, card)
+          }
+          />
+        ),
+        propName: 'editingColor',
+        icon: <Paint color="brand" />,
+        props: {},
+      },
+      {
+        label: 'Label',
+        formControl: propName => (
+          <LabelPicker
+            {...labelPickerProps}
+            onChange={c => onChange(propName, c, card.id, isFocused, card)
+          }
+          />
+        ),
+        propName: 'editingLabels',
+        icon: <Tag color="brand" />,
+      },
+      {
+        label: 'Board',
+        formControl: propName => (
+          <BoardPicker
+            addButton
+            value={card.board}
+            onClick={c => onChange(propName, c, card.id, isFocused, card)}
+            {...boardPickerProps}
+          />
+        ),
+        propName: 'board',
+        props: boardPickerProps,
+        icon: <BoardsIcon />,
+      },
+      /*
+      {
+        label: 'Color',
+        formControl: (props) => <ColorPicker {...props}/>,
+        propName: 'editingColor',
+        value: color,
+        props: {},
+      },
+      */
+    ];
+  }
+
+  renderCardPickers() {
+    const cardControls = this.cardPickers();
+    return (
+      <Box direction="column" wrap>
+        {cardControls.map(c => (
+          <Box direction="row">
+            {c.icon}
+            <Text>{c.label}</Text>
+            {c.formControl(c.propName)}
+          </Box>
+        ))}
+      </Box>
+    );
+  }
+
   render() {
     const {
       card,
-      labelPickerProps,
-      boardPickerProps,
       onSubmit,
       onDiscard,
-      onChange,
       color,
       isFocused,
     } = this.props;
@@ -46,22 +124,7 @@ class CardEditor extends PureComponent {
           }}
           wrap
         >
-          <ColorPicker
-            value={color}
-            onChange={c => onChange('editingColor', c, card.id, isFocused, card)
-            }
-          />
-          <LabelPicker
-            {...labelPickerProps}
-            onChange={c => onChange('editingLabels', c, card.id, isFocused, card)
-            }
-          />
-          <BoardPicker
-            addButton
-            value={card.board}
-            onClick={c => onChange('board', c, card.id, isFocused, card)}
-            {...boardPickerProps}
-          />
+          {this.renderCardPickers()}
         </Box>
         <Box
           direction="row"
