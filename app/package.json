@@ -21,7 +21,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "gists": "^2.0.0",
     "grommet": "^2.7.1",
-    "grommet-icons": "^4.2.0",
+    "grommet-icons": "^4.4.0",
     "grommet-styles": "^0.2.0",
     "grommet-theme-v1": "^0.1.2",
     "immutable": "3.8.1",
