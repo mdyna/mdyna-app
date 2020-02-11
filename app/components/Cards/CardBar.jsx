@@ -139,7 +139,7 @@ class CardBar extends PureComponent {
       removeCard,
     } = cardActions;
     return (
-      <div className="card-bar">
+      <Box direction="row" wrap={false} className="card-bar" justify="between">
         {cardActions && (
         <Box direction="row">
           <Button
@@ -181,7 +181,7 @@ class CardBar extends PureComponent {
           {this.renderExpandableMenu()}
         </Box>
         )}
-      </div>
+      </Box>
     );
   }
 }
