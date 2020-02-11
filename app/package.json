@@ -4,7 +4,8 @@
   "description": "MDyna application isolated front-end",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "keywords": [
     "MDyna",
@@ -25,6 +26,8 @@
     "grommet-styles": "^0.2.0",
     "grommet-theme-v1": "^0.1.2",
     "immutable": "3.8.1",
+    "patch-package": "^6.2.0",
+    "postinstall-postinstall": "^2.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.12.0",
     "react-color": "^2.17.3",
