@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
-import { Add } from 'grommet-icons';
+import { Add, Down } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import BoardsIcon from 'UI/BoardsIcon';
 import styled from 'styled-components';
@@ -62,10 +62,10 @@ export default class BoardPicker extends PureComponent {
     const currentBoardName = BoardPicker.getBoardName(value, boards);
     return (
       <Menu
-        icon={<BoardsIcon />}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
+        icon={<Down color="brand" />}
         label={(
           <Text color="brand">
             {(currentBoardName !== 'INBOX' && currentBoardName) || ''}

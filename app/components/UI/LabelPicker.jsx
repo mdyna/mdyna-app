@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
-import Button from 'UI/Button';
 import LabelInput from 'UI/LabelInput';
-import { Tag } from 'grommet-icons';
 // eslint-disable-next-line
 import { camelCase } from 'lodash';
 
@@ -17,7 +15,6 @@ const LabelPicker = (props) => {
 
   const [selectedTags, setSelectedTags] = React.useState(cardLabels);
   const [suggestions, setSuggestions] = React.useState(globalLabels);
-  const [inputHidden, toggleInput] = useState(true);
 
   useEffect(() => {
     setSelectedTags(cardLabels);
@@ -62,26 +59,16 @@ const LabelPicker = (props) => {
 
   return (
     <Box flex direction="row" justify="start">
-      <Button
-        className="label-picker-button"
-        onClick={() => toggleInput(!inputHidden)}
-        primary
-        color="accent-1"
-      >
-        <Tag color="brand" />
-      </Button>
-      {!inputHidden && (
-        <LabelInput
-          placeholder="Search for aliases..."
-          suggestions={suggestions.splice(0, 10)}
-          plain
-          value={selectedTags}
-          color={color}
-          onRemove={onRemoveTag}
-          onAdd={onAddTag}
-          onChange={v => onFilterSuggestion(v.target.value)}
-        />
-      )}
+      <LabelInput
+        placeholder="Search for aliases..."
+        suggestions={suggestions.splice(0, 10)}
+        plain
+        value={selectedTags}
+        color={color}
+        onRemove={onRemoveTag}
+        onAdd={onAddTag}
+        onChange={v => onFilterSuggestion(v.target.value)}
+      />
     </Box>
   );
 };
