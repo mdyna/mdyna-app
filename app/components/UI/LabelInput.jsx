@@ -54,8 +54,8 @@ const LabelInput = ({
             }}
             label={(
               <React.Fragment>
-                {title}
                 <Close color="accent-2" size="12px" />
+                {title}
               </React.Fragment>
 )}
           />,

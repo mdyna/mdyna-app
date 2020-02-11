@@ -13,6 +13,9 @@ export const Label = ({
       margin: '5px',
       cursor: 'pointer',
       padding: '5px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     }}
     tabIndex={-1}
     role="button"
