@@ -6,7 +6,6 @@ import {
 } from 'grommet-icons';
 import PropTypes from 'prop-types';
 
-
 import BoardsIcon from 'UI/BoardsIcon';
 import ColorPicker from 'UI/ColorPicker';
 import BoardPicker from 'UI/BoardPicker';
@@ -31,8 +30,7 @@ class CardEditor extends PureComponent {
         formControl: propName => (
           <ColorPicker
             value={color}
-            onChange={c => onChange(propName, c, card.id, isFocused, card)
-          }
+            onChange={c => onChange(propName, c, card.id, isFocused, card)}
           />
         ),
         propName: 'editingColor',
@@ -44,8 +42,7 @@ class CardEditor extends PureComponent {
         formControl: propName => (
           <LabelPicker
             {...labelPickerProps}
-            onChange={c => onChange(propName, c, card.id, isFocused, card)
-          }
+            onChange={c => onChange(propName, c, card.id, isFocused, card)}
           />
         ),
         propName: 'editingLabels',
@@ -88,7 +85,7 @@ class CardEditor extends PureComponent {
 
   renderCardPickers(cardControls) {
     const { color } = this.props;
-    return (cardControls.map(c => (
+    return cardControls.map(c => (
       <Box
         key={`${c.label}-picker`}
         direction="row"
@@ -108,28 +105,25 @@ class CardEditor extends PureComponent {
         }}
       >
         {c.icon}
-        <Text weight="bold" margin="0px 10px" color="brand">{c.label}</Text>
-        <Box width="100%">
-          {c.formControl(c.propName)}
-        </Box>
+        <Text weight="bold" margin="0px 10px" color="brand">
+          {c.label}
+        </Text>
+        <Box width="100%">{c.formControl(c.propName)}</Box>
       </Box>
-    ))
-    );
+    ));
   }
 
   render() {
     const {
-      card,
-      onSubmit,
-      onDiscard,
-      color,
-      isFocused,
+      card, onSubmit, onDiscard, color, isFocused,
     } = this.props;
 
     const cardControls = this.cardPickers();
     const fullWidthControls = [];
     const halfWidthControls = [];
-    cardControls.forEach(control => (control.half ? halfWidthControls.push(control) : fullWidthControls.push(control)));
+    cardControls.forEach(control => (control.half
+      ? halfWidthControls.push(control)
+      : fullWidthControls.push(control)));
     return (
       <Box
         direction="column"
@@ -153,36 +147,36 @@ class CardEditor extends PureComponent {
         </Box>
         <Box
           direction="row"
-          justify="evenly"
-          background="accent-1"
-          style={{
-            border: `1px solid ${tinycolor(color).darken(10)}`,
-            borderRadius: '10px',
-          }}
+          justify="start"
         >
-          <Button
-            hoverIndicator={false}
-            color="accent-3"
-            onClick={() => onSubmit({
-              ...card,
-            })
-            }
-          >
-            Submit
-            <Checkmark
+          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: 10 }}>
+            <Button
+              hoverIndicator={false}
               color="accent-3"
-              size="18px"
-              style={{ margin: '0 5px' }}
-            />
-          </Button>
-          <Button
-            hoverIndicator={false}
-            color="accent-2"
-            onClick={() => onDiscard(card, isFocused)}
-          >
-            Discard
-            <Close color="accent-2" size="18px" style={{ margin: '0 5px' }} />
-          </Button>
+              onClick={() => onSubmit({
+                ...card,
+              })
+              }
+            >
+              Submit
+              <Checkmark
+                color="accent-3"
+                size="18px"
+                style={{ margin: '0 5px' }}
+              />
+            </Button>
+          </Box>
+          <Box background="accent-1" style={{ borderRadius: 10, padding: 5, margin: 10 }}>
+            <Button
+              hoverIndicator={false}
+              background="accent-1"
+              color="accent-2"
+              onClick={() => onDiscard(card, isFocused)}
+            >
+              Discard
+              <Close color="accent-2" size="18px" style={{ margin: '0 5px' }} />
+            </Button>
+          </Box>
         </Box>
       </Box>
     );
