@@ -12,6 +12,7 @@ const BoardsIcon = ({ className }) => (
 const StyledBoardsIcon = styled(BoardsIcon)`
   vertical-align: bottom;
   min-width: 24px;
+  max-width: 24px;
   path {
     stroke-width: 24px;
     stroke: ${props => props.theme.global.colors.brand};
