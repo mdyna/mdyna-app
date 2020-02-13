@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import tinycolor from 'tinycolor2';
 import { Box, Text } from 'grommet';
 import {
-  Checkmark, Close, Tag, Paint,
+  Checkmark, Close, Tag, Paint, Test,
 } from 'grommet-icons';
 import PropTypes from 'prop-types';
 
@@ -10,6 +10,7 @@ import BoardsIcon from 'UI/BoardsIcon';
 import ColorPicker from 'UI/ColorPicker';
 import BoardPicker from 'UI/BoardPicker';
 import LabelPicker from 'UI/LabelPicker';
+import TemplatePicker from 'UI/TemplatePicker';
 import Button from 'UI/Button';
 
 class CardEditor extends PureComponent {
@@ -63,23 +64,16 @@ class CardEditor extends PureComponent {
         props: boardPickerProps,
         icon: <BoardsIcon />,
       },
-      /*
       {
-        label: 'Board',
-        formControl: propName => (
-          <BoardPicker
-            addButton
-            value={card.board}
-            onClick={c => onChange(propName, c, card.id, isFocused, card)}
-            {...boardPickerProps}
+        label: 'Template',
+        formControl: () => (
+          <TemplatePicker
+            onClick={c => onChange('editingText', c, card.id, isFocused, card)}
           />
         ),
-        propName: 'board',
         half: true,
-        props: boardPickerProps,
-        icon: <BoardsIcon />,
+        icon: <Test color="brand" />,
       },
-      */
     ];
   }
 
@@ -130,9 +124,7 @@ class CardEditor extends PureComponent {
         justify="evenly"
         style={{
           borderRadius: 10,
-          position: 'sticky',
           zIndex: 10,
-          top: '10px',
           transition: 'all 0.5s ease-in',
           background: `${color}aa`,
         }}
