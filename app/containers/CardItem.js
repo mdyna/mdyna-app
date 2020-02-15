@@ -59,7 +59,7 @@ function mapDispatchToProps(dispatch) {
     },
     changeCardSetting: (prop, value, cardId, isFocused, card) => {
       dispatch(changeCardSetting(prop, value, cardId));
-      if (isFocused && (prop === 'editingColor' || prop === 'board')) {
+      if (isFocused) {
         const editedCard = { ...card };
         editedCard[prop] = value;
         dispatch(focusCard(editedCard));

@@ -140,7 +140,16 @@ class MdynaCard extends PureComponent {
       focusCard,
       removeLabel,
     };
-    const cardProps = { ...card, title: cardContent.title, text: cardContent.text };
+    const getCardText = (title, text) => {
+      if (title && text) {
+        return `# ${title}
+${text}`;
+      }
+      if (title && !text) {
+        return `# ${title}`;
+      }
+      return text;
+    };
     return (
       <Box
         key={card.id}
@@ -209,6 +218,7 @@ class MdynaCard extends PureComponent {
             isFaved={Boolean(cardIsFaved)}
             isFocused={Boolean(isFocused)}
             cardActions={hasCardBar ? cardActions : ''}
+            cardItem={this}
             title={card.title}
           />
           <Box direction="row">
@@ -258,7 +268,8 @@ class MdynaCard extends PureComponent {
           )}
           <Editor
             readOnly={!card.isEditing}
-            card={cardProps}
+            card={{ ...card, title: cardContent.title, text: cardContent.text }}
+            defaultValue={cardContent.text}
             onSave={(c) => {
               this.saveCardContent(c);
             }}
@@ -267,6 +278,7 @@ class MdynaCard extends PureComponent {
             }
             appTheme={theme}
             onClickHeader={tag => MdynaCard.scrollToCard(tag)}
+            value={getCardText(cardContent.title, cardContent.text)}
             onChange={val => changeCardSetting('editingText', val, card.id, isFocused, card)
             }
             theme={{
