@@ -35,8 +35,7 @@ const LabelPicker = (props) => {
 
   const onAddTag = (tag) => {
     const labelTitle = transformTag(tag);
-    const labelTitles = selectedTags.map(t => t.title);
-
+    const labelTitles = selectedTags.map(t => t.title || t);
     if (labelTitles.indexOf(labelTitle) === -1) {
       onAdd({ title: labelTitle });
       onChange([...(cardLabels || []), { title: labelTitle }]);
