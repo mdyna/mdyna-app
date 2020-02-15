@@ -68,7 +68,7 @@ class CardEditor extends PureComponent {
         label: 'Template',
         formControl: () => (
           <TemplatePicker
-            onClick={c => onChange('editingText', c, card.id, isFocused, card)}
+            onClick={c => onChange('template', c, card.id, isFocused, card)}
           />
         ),
         half: true,

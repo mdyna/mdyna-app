@@ -12,7 +12,6 @@ export default class TemplatePicker extends PureComponent {
       onClick,
     } = this.props;
     const templateKeys = Object.keys(TEMPLATES);
-    console.log();
     return (
       <Menu
         justifyContent="center"

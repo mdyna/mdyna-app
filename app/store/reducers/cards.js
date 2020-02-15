@@ -92,7 +92,13 @@ export default function cards(state = [], action) {
       return state.map((card) => {
         if (card.id === action.cardId) {
           const newCard = { ...card };
-          newCard[action.prop] = action.value;
+          if (action.prop === 'template') {
+            newCard.templated = true;
+            newCard.editingText = action.value;
+          } else {
+            newCard.templated = false;
+            newCard[action.prop] = action.value;
+          }
           return newCard;
         }
         return card;
