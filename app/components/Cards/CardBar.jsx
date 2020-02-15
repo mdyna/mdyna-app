@@ -7,6 +7,7 @@ import { Menu, Box } from 'grommet';
 import FocusIcon from 'UI/FocusIcon';
 import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
+import getCardText, { getCardContent } from 'Utils/getCardText';
 import { toast } from 'react-toastify';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -30,6 +31,11 @@ class CardBar extends PureComponent {
   removeCard(card, removeCardFunc, removeLabelFunc) {
     this.handleLabels(removeLabelFunc);
     removeCardFunc(card);
+  }
+
+  clibpoardContent() {
+    const { card } = this.props;
+    return getCardContent(card);
   }
 
   renderExpandableMenu() {
@@ -85,8 +91,8 @@ class CardBar extends PureComponent {
           {
             label: (
               <CopyToClipboard
-                text={card.text}
-                onCopy={() => toast.info(`${card.title} copied to clipboard`)
+                text={getCardText(this.clibpoardContent().title, this.clibpoardContent().text)}
+                onCopy={() => toast.info(`${getCardContent(card).title} copied to clipboard`)
               }
               >
                 <Box
