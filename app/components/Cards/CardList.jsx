@@ -5,7 +5,7 @@ import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import Tooltip from 'UI/Tooltip';
 import {
-  Add, Previous, Next, Upload as Export, Download,
+  Add, Previous, Next, Upload as Export, Download, Close,
 } from 'grommet-icons';
 import cx from 'classnames';
 import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
@@ -179,7 +179,7 @@ export default class CardList extends PureComponent {
     return (
       <Box className={cx('card-list-controls')} background="dark-1">
         {isFocused ? (
-          <Button color="accent-2" onClick={() => focusCard()}>
+          <Button plain onClick={() => focusCard()}>
             <KeyboardEventHandler
               handleKeys={['esc']}
               onKeyEvent={(key) => {
@@ -188,9 +188,10 @@ export default class CardList extends PureComponent {
                 }
               }}
             />
-            <Text>Unfocus</Text>
-            <br />
-            <Text size="small">(Esc)</Text>
+            <Box direction="column" align="center">
+              <Close color="accent-2" />
+              <Text size="small" color="accent-2">(Esc)</Text>
+            </Box>
           </Button>
         ) : (
           <>
