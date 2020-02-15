@@ -29,10 +29,11 @@ class MarkdownEditor extends React.PureComponent {
   editorRef = React.createRef();
 
   componentDidUpdate(prevProps) {
-    const { value, readOnly } = this.props;
+    const { value, readOnly, card } = this.props;
+    const { templated } = card;
     if (
       (value !== prevProps.value && readOnly)
-      || readOnly !== prevProps.readOnly
+      || readOnly !== prevProps.readOnly || templated
     ) {
       this.editorRef.current.setState({
         editorValue: Markdown.deserialize(value),
