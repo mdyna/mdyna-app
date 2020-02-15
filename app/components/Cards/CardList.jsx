@@ -5,7 +5,7 @@ import Masonry from 'react-masonry-css';
 import { Box, Text } from 'grommet';
 import Tooltip from 'UI/Tooltip';
 import {
-  Add, Previous, Next, Upload as Export, Download,
+  Add, Previous, Next, Upload as Export, Download, Close,
 } from 'grommet-icons';
 import cx from 'classnames';
 import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
@@ -56,6 +56,13 @@ export default class CardList extends PureComponent {
         pageView: pageView - 1,
       });
     }
+  }
+
+  jumpToFirst() {
+    this.setState({
+      pageView: 1,
+      pageIndex: 0,
+    });
   }
 
   importCards(importedCards) {
@@ -179,7 +186,7 @@ export default class CardList extends PureComponent {
     return (
       <Box className={cx('card-list-controls')} background="dark-1">
         {isFocused ? (
-          <Button color="accent-2" onClick={() => focusCard()}>
+          <Button plain onClick={() => focusCard()}>
             <KeyboardEventHandler
               handleKeys={['esc']}
               onKeyEvent={(key) => {
@@ -188,9 +195,10 @@ export default class CardList extends PureComponent {
                 }
               }}
             />
-            <Text>Unfocus</Text>
-            <br />
-            <Text size="small">(Esc)</Text>
+            <Box direction="column" align="center">
+              <Close color="accent-2" />
+              <Text size="small" color="accent-2">(Esc)</Text>
+            </Box>
           </Button>
         ) : (
           <>
@@ -229,6 +237,17 @@ export default class CardList extends PureComponent {
                 <Text align="center" size="medium">
                   {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
                 </Text>
+                {pageIndex >= 2 && (
+                  <Button
+                    className={cx(
+                      'page-control',
+                      pageIndex === 0 && 'disabled',
+                    )}
+                    onClick={() => this.jumpToFirst()}
+                  >
+                    <Text size="xsmall" color="brand">Jump to first</Text>
+                  </Button>
+                )}
                 {pageIndex !== 0 && (
                   <Button
                     className={cx(

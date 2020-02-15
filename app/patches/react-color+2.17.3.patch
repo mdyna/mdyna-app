@@ -1,0 +1,14 @@
+diff --git a/node_modules/react-color/lib/components/twitter/Twitter.js b/node_modules/react-color/lib/components/twitter/Twitter.js
+index 3db92f2..05024f5 100644
+--- a/node_modules/react-color/lib/components/twitter/Twitter.js
++++ b/node_modules/react-color/lib/components/twitter/Twitter.js
+@@ -55,9 +55,6 @@ var Twitter = exports.Twitter = function Twitter(_ref) {
+         borderRadius: '4px',
+         position: 'relative'
+       },
+-      body: {
+-        padding: '15px 9px 9px 15px'
+-      },
+       label: {
+         fontSize: '18px',
+         color: '#fff'

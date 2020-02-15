@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, Menu } from 'grommet';
 import { RIEInput } from 'riek';
-import { Add } from 'grommet-icons';
+import { Add, Down } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import BoardsIcon from 'UI/BoardsIcon';
 import styled from 'styled-components';
@@ -60,15 +60,18 @@ export default class BoardPicker extends PureComponent {
       value,
     } = this.props;
     const currentBoardName = BoardPicker.getBoardName(value, boards);
+    const truncatedBoardName = currentBoardName.length > 10 ? `${currentBoardName.substring(0, 7)}...` : currentBoardName;
     return (
       <Menu
-        icon={<BoardsIcon />}
         justifyContent="center"
         className="boards-menu"
         dropBackground="dark-2"
+        icon={<Down color="brand" />}
         label={(
-          <Text color="brand">
-            {(currentBoardName !== 'INBOX' && currentBoardName) || ''}
+          <Text
+            color="brand"
+          >
+            {(currentBoardName !== 'INBOX' && truncatedBoardName) || ''}
           </Text>
 )}
         dropAlign={{ top: 'bottom' }}

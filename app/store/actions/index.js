@@ -64,7 +64,7 @@ export const changeCardSetting = (prop, value, cardId) => ({
   cardId,
   meta: {
     debounce: {
-      time: (prop === 'editingText' || prop === 'editingTitle') && 250,
+      time: (prop === 'editingText') && 250,
     },
   },
 });

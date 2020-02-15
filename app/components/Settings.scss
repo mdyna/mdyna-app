@@ -91,7 +91,10 @@
     display: flex;
     &.discard-btn {
       border: 1px solid #8b0f19 !important;
-      padding: 10px 10px 15px 10px;
+      padding: 10px;
+      svg {
+        margin: 0 0 10px 0;
+      }
     }
     span {
       font-size: 1.2em;

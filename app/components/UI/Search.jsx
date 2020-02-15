@@ -42,7 +42,6 @@ export default class SearchComponent extends PureComponent {
           handleKeys={['ctrl+p', 'esc']}
           onKeyEvent={(key) => {
             if (key === 'ctrl+p') {
-              console.log(this.searchBar);
               this.searchBar.current.focus();
             }
           }}

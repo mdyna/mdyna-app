@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
-import { throttle } from 'lodash'; // eslint-disable-line
+import { debounce } from 'lodash'; // eslint-disable-line
 import createDebounce from 'redux-debounced';
 import MdynaApp from './reducers';
 import { getLocalState, saveState } from './localStorage';
@@ -17,7 +17,6 @@ const saveStateToStorage = () => {
   const {
     cards, labels, boards, favs, settings, style, filters,
   } = store.getState();
-
   saveState(
     {
       cards,
@@ -42,7 +41,7 @@ const saveStateToStorage = () => {
 };
 
 store.subscribe(
-  throttle(saveStateToStorage, 5000),
+  debounce(saveStateToStorage, 5000),
 );
 
 export const getUserData = () => ({

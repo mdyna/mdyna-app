@@ -11,6 +11,7 @@ import BoardPicker from 'UI/BoardPicker';
 import Button from 'UI/Button';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
+import getCardText, { getCardContent } from 'Utils/getCardText';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardBar from './CardBar';
 import CardEditor from './CardEditor';
@@ -35,16 +36,6 @@ class MdynaCard extends PureComponent {
   state = {
     discardDialogOpen: false,
   };
-
-  getCardContent() {
-    const { card } = this.props;
-    const {
-      isEditing, text, title, editingText, editingTitle,
-    } = card;
-    return !isEditing
-      ? { title, text }
-      : { title: editingTitle, text: editingText };
-  }
 
   saveCardContent(card) {
     const { saveCard, isFocused } = this.props;
@@ -126,7 +117,7 @@ class MdynaCard extends PureComponent {
     const cardIsFaved = favs.indexOf(card && card.id) !== -1;
     const labelFuncs = { addLabelFilter, removeLabelFilter };
     const cardBoardName = BoardPicker.getBoardName(card.board, boards);
-    const cardContent = this.getCardContent();
+    const cardContent = getCardContent(card);
     const color = (card && card.editingColor)
       || card.color
       || (changeCardSetting
@@ -139,16 +130,6 @@ class MdynaCard extends PureComponent {
       editCard,
       focusCard,
       removeLabel,
-    };
-    const getCardText = (title, text) => {
-      if (title && text) {
-        return `# ${card.title}
-${card.text}`;
-      }
-      if (title && !text) {
-        return `# ${card.title}`;
-      }
-      return text;
     };
     return (
       <Box
@@ -231,13 +212,13 @@ ${card.text}`;
             {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
             <Box
               className="board-indicator"
-              alignSelf="start"
-              direction="row"
               onClick={() => changeActiveBoard(card.board)}
             >
-              <Text color={color}>
+              <Text color={color} className="board-indicator-text">
                 <BoardsIcon />
-                {cardBoardName}
+                <Text>
+                  {cardBoardName}
+                </Text>
               </Text>
             </Box>
             )}

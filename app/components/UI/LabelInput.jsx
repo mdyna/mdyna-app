@@ -4,10 +4,6 @@ import { Box, TextInput } from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { Label } from 'UI/Labels';
 import { Close } from 'grommet-icons';
-// eslint-disable-next-line
-import { camelCase } from 'lodash';
-
-import './LabelPicker.scss';
 
 const LabelInput = ({
   onAdd,
@@ -58,8 +54,8 @@ const LabelInput = ({
             }}
             label={(
               <React.Fragment>
-                {title}
                 <Close color="accent-2" size="12px" />
+                {title}
               </React.Fragment>
 )}
           />,
@@ -70,6 +66,7 @@ const LabelInput = ({
   };
   return (
     <KeyboardEventHandler
+      style={{ width: '100%' }}
       handleKeys={['enter']}
       onKeyEvent={(key) => {
         if (key === 'enter') {
@@ -80,22 +77,21 @@ const LabelInput = ({
       <Box
         direction="row"
         align="center"
-        pad={{ horizontal: 'xsmall' }}
-        margin="xsmall"
-        className="label-picker-input"
         background="accent-1"
+        style={{ borderRadius: 10, paddingTop: 5 }}
         border="all"
         ref={boxRef}
         wrap
       >
         {value.length > 0 && renderValue()}
-        <Box flex style={{ minWidth: '120px', color }}>
+        <Box style={{ color, width: '100%' }}>
           <TextInput
             type="search"
             plain
             dropTarget={box}
             suggestions={suggestions}
             onChange={updateCurrentTag}
+            color="inherit"
             value={currentTag}
             autoFocus
             onSelect={(event) => {
