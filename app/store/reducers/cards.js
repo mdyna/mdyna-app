@@ -1,6 +1,7 @@
 import ACTION_TYPES from 'Store/actions/actionTypes';
 import unNest from 'Utils/nest';
 import { getRandomColor } from 'Utils/colors';
+import { NEW_CARD_TEMPLATE } from 'Utils/getCardText';
 import uniqid from 'uniqid';
 
 const {
@@ -19,19 +20,6 @@ const {
   UPDATE_CARD_LIST,
 } = ACTION_TYPES.CARD;
 
-// const saveId = (card, cardList) => card.id || addId(cardList);
-
-const NEW_CARD_TEMPLATE = {
-  title: '',
-  text: `
-  ## New card
-  ### Shortcuts
-  - ESC to **Discard Changes**
-  - Ctrl+Enter to **Save Changes**
-  - Double click on card to **Edit**
-  - A to **Add**
-`,
-};
 
 export default function cards(state = [], action) {
   const randomColor = getRandomColor();
@@ -52,7 +40,7 @@ export default function cards(state = [], action) {
       return [
         ...state.map(c => ({
           ...c,
-          board: 'INBOX',
+          board: NEW_CARD_TEMPLATE.board,
         })),
       ];
     case UPDATE_CARD_LIST:
@@ -75,7 +63,7 @@ export default function cards(state = [], action) {
             unNest(action, 'card.text')
             || (!unNest(action, 'card.title') && NEW_CARD_TEMPLATE.text)
             || 'Empty card',
-          board: action.board || unNest(action, 'card.title') || 'INBOX',
+          board: action.board || unNest(action, 'card.title') || NEW_CARD_TEMPLATE.board,
           color: randomColor,
           isEditing:
             !unNest(action, 'card.title')
@@ -112,7 +100,7 @@ export default function cards(state = [], action) {
             id: cardId,
             isEditing: false,
             text: action.card.text,
-            title: action.card.title || 'Untitled card',
+            title: action.card.title,
             labels: action.card.labels,
             color: action.card.color,
             editingColor: '',
@@ -137,7 +125,7 @@ export default function cards(state = [], action) {
             text: action.card.editingText,
             labels: action.card.editingLabels,
             color: action.card.editingColor,
-            title: action.card.editingTitle || 'Untitled card',
+            title: action.card.editingTitle,
             editingColor: '',
             editingLabels: [],
             editingText: '',

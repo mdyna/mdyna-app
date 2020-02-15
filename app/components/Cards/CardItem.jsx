@@ -11,6 +11,7 @@ import BoardPicker from 'UI/BoardPicker';
 import Button from 'UI/Button';
 import { convertDateToLocaleString } from 'Utils/dates';
 import { COLOR_LABELS, getRandomColor } from 'Utils/colors';
+import getCardText from 'Utils/getCardText';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import CardBar from './CardBar';
 import CardEditor from './CardEditor';
@@ -139,16 +140,6 @@ class MdynaCard extends PureComponent {
       editCard,
       focusCard,
       removeLabel,
-    };
-    const getCardText = (title, text) => {
-      if (title && text) {
-        return `# ${title}
-${text}`;
-      }
-      if (title && !text) {
-        return `# ${title}`;
-      }
-      return text;
     };
     return (
       <Box
