@@ -58,6 +58,13 @@ export default class CardList extends PureComponent {
     }
   }
 
+  jumpToFirst() {
+    this.setState({
+      pageView: 1,
+      pageIndex: 0,
+    });
+  }
+
   importCards(importedCards) {
     const { activeBoardId, importCards } = this.props;
     importCards(importedCards.map(c => ({ ...c, board: activeBoardId })));
@@ -230,6 +237,17 @@ export default class CardList extends PureComponent {
                 <Text align="center" size="medium">
                   {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
                 </Text>
+                {pageIndex >= 2 && (
+                  <Button
+                    className={cx(
+                      'page-control',
+                      pageIndex === 0 && 'disabled',
+                    )}
+                    onClick={() => this.jumpToFirst()}
+                  >
+                    <Text size="xsmall" color="brand">Jump to first</Text>
+                  </Button>
+                )}
                 {pageIndex !== 0 && (
                   <Button
                     className={cx(
