@@ -18,8 +18,8 @@ export const getCardContent = (card) => {
     isEditing, text, title, editingText, editingTitle,
   } = card;
   return !isEditing
-    ? { title, text }
-    : { title: editingTitle, text: editingText };
+    ? { title: title || editingTitle, text: text || editingText }
+    : { title: editingTitle || text, text: editingText || text };
 };
 
 const getCardText = (title = NEW_CARD_TEMPLATE.title, text = NEW_CARD_TEMPLATE.text) => `# ${title}
