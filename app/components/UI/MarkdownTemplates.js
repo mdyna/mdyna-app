@@ -14,6 +14,26 @@ const TEMPLATES = {
 
 `,
   },
+  releaseNotes: {
+    title: 'Release Notes',
+    text: `# Release Notes
+## V 1.0
+---
+
+### Features 🚀
+
+* Templates 😄
+   * We've added 5 generic templates and will be expanding this feature in the future
+* Another feature
+* Cool stuff
+
+
+### Bugs 🐞
+
+* Messy bug was solved
+* The team solved an issue which was causing bugs to appear 😕
+`,
+  },
   taskList: {
     title: 'Task List',
     text: `# Task List
@@ -48,6 +68,7 @@ console.log("notice the blank line before this function?");
     title: 'README',
     text: `# README
 > MDyna is a markdown notes application that syncs with Github gists, and much more
+---
 ## 🏠 Homepage
 
 Visit our Landing Page [here](https://mdyna.dev)
