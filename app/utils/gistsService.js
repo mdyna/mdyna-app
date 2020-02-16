@@ -88,10 +88,15 @@ class GistsService {
         && gist.body.files
         && gist.body.files['mdyna.json']
       ) {
-        return JSON.parse(gist.body.files['mdyna.json'].content) || {};
+        try {
+          const content = JSON.parse(gist.body.files['mdyna.json'].content);
+          return content;
+        } catch (e) {
+          return {};
+        }
       }
     }
-    return '';
+    return {};
   }
 
   getDeletedCards() {
@@ -152,9 +157,7 @@ class GistsService {
         await this.gists.edit(this.gistId, {
           files: {
             'mdyna.json': {
-              content: JSON.stringify({
-                ...content,
-              }),
+              content: JSON.stringify(content),
             },
           },
         });

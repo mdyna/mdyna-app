@@ -40,7 +40,7 @@ class GistSync extends PureComponent {
     if (githubUserName && githubPassword) {
       this.authToGithub(githubUserName, githubPassword, gistId);
       if (!skipLogin) {
-        if (!hasSyncedRecently(1)) {
+        if (!hasSyncedRecently(0.5)) {
           this.updateGist(gistId);
         }
       }

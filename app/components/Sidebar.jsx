@@ -378,7 +378,7 @@ Sidebar.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
   labelFilters: PropTypes.array,
-  lastSyncDate: PropTypes.object,
+  lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
   labels: PropTypes.array.isRequired,
   order: PropTypes.string,

@@ -258,7 +258,7 @@ Settings.propTypes = {
   codeTheme: PropTypes.string,
   changeTheme: PropTypes.func,
   activeBoard: PropTypes.string.isRequired,
-  lastSyncDate: PropTypes.object,
+  lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
   boardNames: PropTypes.array,
   cwd: PropTypes.string,
