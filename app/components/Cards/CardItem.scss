@@ -27,6 +27,10 @@
   div > * {
     border-radius: initial;
   }
+  hr {
+    border-bottom: 1px solid $note-font-color;
+    margin-bottom: 5px;
+  }
   .board-indicator {
     cursor: pointer;
       .board-indicator-text {
