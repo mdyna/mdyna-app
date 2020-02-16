@@ -1,7 +1,7 @@
 const TEMPLATES = {
   schedule: {
     title: 'Weekly Schedule',
-    text: `
+    text: `# Weekly Schedule
 | Day/Hours | 10 AM | 12 AM | 2 PM | 4 PM  | 6 PM |
 |:--- |:--- |:--- |:--- |:--- |:--- |
 | **Monday** |  |  |  |  |  |
@@ -16,7 +16,7 @@ const TEMPLATES = {
   },
   taskList: {
     title: 'Task List',
-    text: `
+    text: `# Task List
 [ ] UI Adjustments
 [ ] Add Metadata to Landing Page
 [ ] Add query paremeter
@@ -25,7 +25,8 @@ const TEMPLATES = {
   },
   snippet: {
     title: 'Code Snippets',
-    text: `## Ruby
+    text: `# Code Snippets
+## Ruby
 
 \`\`\`ruby
 require 'redcarpet'
@@ -45,7 +46,7 @@ console.log("notice the blank line before this function?");
   },
   readme: {
     title: 'README',
-    text: `
+    text: `# README
 > MDyna is a markdown notes application that syncs with Github gists, and much more
 ## 🏠 Homepage
 
