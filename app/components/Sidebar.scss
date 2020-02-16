@@ -96,6 +96,8 @@
     width: 100%;
     button {
       width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
       border: none;
     }
   }

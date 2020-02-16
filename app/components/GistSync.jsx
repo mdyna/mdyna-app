@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Collapsible, Menu } from 'grommet';
+import {
+  Box, Collapsible, Menu, Text,
+} from 'grommet';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import TextInput from 'UI/TextInput';
 import {
@@ -121,7 +123,7 @@ class GistSync extends PureComponent {
         )}
       </Box>
     ) : (
-      <Box className={cx('sync', (expanded && 'expanded') || 'collapsed')}>
+      <Box className={cx('sync', (expanded && 'expanded') || (!syncSuccess && !lastSyncDate && 'collapsed'))}>
         <Collapsible
           className="collapse"
           direction="horizontal"
@@ -187,9 +189,10 @@ class GistSync extends PureComponent {
               <Button onClick={() => syncCards()}>
                 <Sync color="brand" />
                 {(syncSuccess && lastSyncDate && (
-                  <React.Fragment>
-                    {`Last Sync: ${lastSyncDate}`}
-                  </React.Fragment>
+                  <Box direction="column">
+                    Last Sync
+                    <Text color="brand" size="xsmall">{lastSyncDate}</Text>
+                  </Box>
                 ))
                   || 'Sync'}
               </Button>
