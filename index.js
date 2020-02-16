@@ -14,12 +14,9 @@ const path = require('path');
 const os = require('os');
 const Storage = require('electron-store');
 const logger = require('electron-log');
-const { autoUpdater } = require('electron-updater');
 const uniqBy = require('lodash/uniqBy');
 const { loadBoards, loadFavs, loadLabels } = require('./main/loaders');
 const { startEventListeners } = require('./main/events');
-const { runUpdater } = require('./main/updater');
-
 
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname, {
@@ -76,8 +73,6 @@ app.on('ready', async () => {
 
   splash.loadURL(`file://${__dirname}/splash.html`);
   splash.show();
-
-  runUpdater();
 
   const { webContents } = mainWindow;
 
@@ -269,9 +264,6 @@ app.on('ready', async () => {
   mainWindow.on('ready-to-show', () => {
     splash.destroy();
     mainWindow.show();
-
-    logger.info(autoUpdater.checkForUpdatesAndNotify());
-    logger.info('checkForUpdatesAndNotify');
   });
   mainWindow.on('focus', () => {
     splash.destroy();

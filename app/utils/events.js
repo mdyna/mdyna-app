@@ -7,6 +7,7 @@ const EVENTS = {
   IMPORT_FILES_REPLY: 'IMPORT_FILES_REPLY',
   IMPORT_FILES: 'IMPORT_FILES',
   CHANGED_CWD: 'CHANGED_CWD',
+  CHECK_UPDATES: 'CHECK_UPDATES',
   UPDATE_AVAILABLE: 'UPDATE_AVAILABLE',
   UPDATE_NOT_AVAILABLE: 'UPDATE_NOT_AVAILABLE',
 };
@@ -30,6 +31,7 @@ export const importFilesListener = (callback) => {
 };
 
 export const updatesListener = () => {
+  ipcRenderer.send(EVENTS.CHECK_UPDATES);
   ipcRenderer.on(EVENTS.UPDATE_AVAILABLE, () => {
     toast.warn('Update available !');
   });

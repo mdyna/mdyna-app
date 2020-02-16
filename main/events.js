@@ -4,17 +4,26 @@ const Storage = require('electron-store');
 const jetpack = require('fs-jetpack');
 const path = require('path');
 const logger = require('electron-log');
+const { runUpdater } = require('./updater');
 
 const EVENTS = {
   EXPORT_BOARD: 'EXPORT_BOARD',
   IMPORT_FILES_REPLY: 'IMPORT_FILES_REPLY',
   IMPORT_FILES: 'IMPORT_FILES',
   CHANGED_CWD: 'CHANGED_CWD',
+  CHECK_UPDATES: 'CHECK_UPDATES',
   UPDATE_AVAILABLE: 'UPDATE_AVAILABLE',
+  UPDATE_NOT_AVAILABLE: 'UPDATE_NOT_AVAILABLE',
 };
 
 exports.startEventListeners = (storages, cwd, mainWindow) => {
   const { userStorage, cardStorage } = storages;
+
+  ipcMain.on(EVENTS.CHECK_UPDATES, (event) => {
+    if (event && event.sender) {
+      runUpdater(event.sender);
+    }
+  });
 
   // * EXPORT BOARD EVENT
   ipcMain.on(EVENTS.EXPORT_BOARD, (e, board) => {
