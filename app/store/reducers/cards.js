@@ -82,7 +82,9 @@ export default function cards(state = [], action) {
           const newCard = { ...card };
           if (action.prop === 'template') {
             newCard.templated = true;
-            newCard.editingText = action.value;
+            // eslint-disable-next-line prefer-destructuring
+            newCard.editingTitle = action.value.match(new RegExp(/^#{1,6}\s(\w.*)/m))[0].replace('# ', '');
+            newCard.editingText = action.value.replace(newCard.editingTitle, '');
           } else {
             newCard.templated = false;
             newCard[action.prop] = action.value;

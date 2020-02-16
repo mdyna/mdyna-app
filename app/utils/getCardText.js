@@ -1,6 +1,6 @@
 
 export const NEW_CARD_TEMPLATE = {
-  title: '',
+  title: 'Untitled Card',
   board: 'INBOX',
   text: `
 ## New card
@@ -18,11 +18,11 @@ export const getCardContent = (card) => {
     isEditing, text, title, editingText, editingTitle,
   } = card;
   return !isEditing
-    ? { title: title || editingTitle, text: text || editingText }
-    : { title: editingTitle || text, text: editingText || text };
+    ? { title, text }
+    : { title: editingTitle, text: editingText };
 };
 
-const getCardText = (title = NEW_CARD_TEMPLATE.title, text = NEW_CARD_TEMPLATE.text) => `# ${title}
+const getCardText = (title, text) => `# ${title}
 ${text}`;
 
 export default getCardText;
