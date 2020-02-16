@@ -62,6 +62,13 @@ function mapDispatchToProps(dispatch) {
       if (isFocused) {
         const editedCard = { ...card };
         editedCard[prop] = value;
+        if (prop === 'template') {
+          editedCard.templated = true;
+          editedCard.editingText = value;
+        } else {
+          editedCard.templated = false;
+          editedCard[prop] = value;
+        }
         dispatch(focusCard(editedCard));
       }
     },
