@@ -1,11 +1,14 @@
 // eslint-disable-next-line
 import { ipcRenderer } from 'electron';
+import { toast } from 'react-toastify';
 
 const EVENTS = {
   EXPORT_BOARD: 'EXPORT_BOARD',
   IMPORT_FILES_REPLY: 'IMPORT_FILES_REPLY',
   IMPORT_FILES: 'IMPORT_FILES',
   CHANGED_CWD: 'CHANGED_CWD',
+  UPDATE_AVAILABLE: 'UPDATE_AVAILABLE',
+  UPDATE_NOT_AVAILABLE: 'UPDATE_NOT_AVAILABLE',
 };
 
 export const changeCwdEvent = () => {
@@ -23,5 +26,14 @@ export const importFiles = () => {
 export const importFilesListener = (callback) => {
   ipcRenderer.on(EVENTS.IMPORT_FILES_REPLY, async (e, importedCards) => {
     callback(importedCards);
+  });
+};
+
+export const updatesListener = () => {
+  ipcRenderer.on(EVENTS.UPDATE_AVAILABLE, () => {
+    toast.warn('Update available !');
+  });
+  ipcRenderer.on(EVENTS.UPDATE_NOT_AVAILABLE, () => {
+    toast.success('MDyna is up to date');
   });
 };

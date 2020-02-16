@@ -1,4 +1,5 @@
-const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require('electron-updater');// eslint-disable-next-line
+const { ipcMain } = require('electron');
 const logger = require('electron-log');
 // eslint-disable-next-line
 const { dialog } = require('electron');
@@ -9,11 +10,13 @@ exports.runUpdater = () => {
   autoUpdater.on('update-available', (arg) => {
     logger.info('update-available');
     logger.info(arg);
+    ipcMain.send('UPDATE_AVAILABLE');
   });
 
   autoUpdater.on('update-not-available', (arg) => {
     logger.info('update-not-available');
     logger.info(arg);
+    ipcMain.send('UPDATE_NOT_AVAILABLE');
   });
 
   autoUpdater.on('download-progress', (arg) => {

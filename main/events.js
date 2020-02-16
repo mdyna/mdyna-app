@@ -10,6 +10,7 @@ const EVENTS = {
   IMPORT_FILES_REPLY: 'IMPORT_FILES_REPLY',
   IMPORT_FILES: 'IMPORT_FILES',
   CHANGED_CWD: 'CHANGED_CWD',
+  UPDATE_AVAILABLE: 'UPDATE_AVAILABLE',
 };
 
 exports.startEventListeners = (storages, cwd, mainWindow) => {

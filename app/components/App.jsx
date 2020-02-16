@@ -11,6 +11,7 @@ import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from 'Containers/Boards';
 import ApplyTheme from 'Utils/titlebarTheme';
+import { updatesListener } from 'Utils/events';
 import { getTheme, getPalette } from '../themes/themeBuilder';
 
 import './App.scss';
@@ -23,6 +24,7 @@ class Mdyna extends Component {
   componentDidMount() {
     const { palette } = this;
     ApplyTheme(palette);
+    updatesListener();
   }
 
   componentDidUpdate(prevProps) {
