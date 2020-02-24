@@ -137,6 +137,7 @@ class GistsService {
       labels: uniqUserLabels,
       lastSync: new Date(),
     };
+    console.log(content);
     await this.updateGistContent(content);
     return content;
   }

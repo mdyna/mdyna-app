@@ -30,19 +30,11 @@ class GistSync extends PureComponent {
       githubPassword,
       gistId,
       skipLogin,
-      lastSyncDate,
     } = this.props;
-    const hasSyncedRecently = syncTimer => Boolean(
-      lastSyncDate
-          && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
-            <= syncTimer,
-    );
     if (githubUserName && githubPassword) {
       this.authToGithub(githubUserName, githubPassword, gistId);
       if (!skipLogin) {
-        if (!hasSyncedRecently(0.5)) {
-          this.updateGist(gistId);
-        }
+        this.updateGist(gistId);
       }
     }
   }
@@ -123,7 +115,7 @@ class GistSync extends PureComponent {
         )}
       </Box>
     ) : (
-      <Box className={cx('sync', (expanded && 'expanded') || (!syncSuccess && !lastSyncDate && 'collapsed'))}>
+      <Box className={cx('sync', (expanded && 'expanded') || 'collapsed')}>
         <Collapsible
           className="collapse"
           direction="horizontal"
