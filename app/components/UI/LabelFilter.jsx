@@ -34,7 +34,7 @@ class LabelFilter extends Component {
             primary
             color={!labelFilterActive ? 'brand' : 'accent-3'}
           >
-            <Labels label={{ title: label.title }} transparent />
+            <Labels label={{ title: label.title }} transparent active={labelFilterActive} />
           </Button>
         );
         clickableLabels.push(labelElement);
