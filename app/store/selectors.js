@@ -80,7 +80,7 @@ const boardLabelsSelector = createSelector(
         labels.push(...card.labels);
       }
     }
-    return [...new Set(labels)];
+    return [...new Set(labels.map(l => l.title))].map(uniqL => ({ title: uniqL }));
   },
 );
 
