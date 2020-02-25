@@ -1,9 +1,9 @@
 {
-  "brand": "#111",
+  "brand": "#f5f6fa",
   "background": "#fafafa",
-  "text": "#000",
-  "accent": ["#aaa", "#ff0000", "#000"],
-  "neutral": ["#333333", "#dddddd"],
-  "dark": ["#f1f1f1", "#ddd", "#fafafa"],
-  "light": ["#dadada", "#bdbdbd"]
+  "text": "#b2bec3",
+  "accent": ["#4b4b4b", "#ff4d4d", "#636e72"],
+  "neutral": ["#3d3d3d", "#dddddd"],
+  "dark": ["#2d3436", "#718093", "#dfe6e9"],
+  "light": ["#dadada", "#fafafa"]
 }

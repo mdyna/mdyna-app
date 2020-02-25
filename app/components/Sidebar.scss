@@ -34,6 +34,9 @@
       width: 100%;
     }
     .button {
+      &:hover {
+        color: currentColor;
+      }
       svg {
         margin: 0 5px;
       }
