@@ -353,7 +353,6 @@ class Sidebar extends PureComponent {
           <GistSync
             githubAuthOn={githubAuthOn}
             badge
-            skipLogin
             classname="sidebar-tooltip"
             onClick={() => {
               toggleSettings();

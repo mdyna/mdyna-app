@@ -222,7 +222,6 @@ class Settings extends PureComponent {
                   }}
                 />
                 <GistSync
-                  skipLogin
                   githubAuthOn={githubAuthOn}
                 />
               </Box>
