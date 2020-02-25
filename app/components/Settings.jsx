@@ -66,7 +66,6 @@ class Settings extends PureComponent {
       activeBoard,
       changeTheme,
       changeBoardName,
-      lastSyncDate,
       githubAuthOn,
       changeCwd,
       boards,
@@ -129,7 +128,7 @@ class Settings extends PureComponent {
                 <Button
                   color="brand"
                   onClick={() => {
-                    toast.success('Switched to White theme');
+                    toast.success('Switched to Light theme');
                     changeTheme('white');
                   }}
                 >
@@ -174,7 +173,7 @@ class Settings extends PureComponent {
                 <Button
                   color="brand"
                   onClick={() => {
-                    toast.success('Switched to Synth theme');
+                    toast.success('Switched to White theme');
                     changeTheme('flat');
                   }}
                 >
@@ -223,8 +222,6 @@ class Settings extends PureComponent {
                   }}
                 />
                 <GistSync
-                  skipLogin
-                  lastSyncDate={lastSyncDate}
                   githubAuthOn={githubAuthOn}
                 />
               </Box>
@@ -258,7 +255,6 @@ Settings.propTypes = {
   codeTheme: PropTypes.string,
   changeTheme: PropTypes.func,
   activeBoard: PropTypes.string.isRequired,
-  lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
   boardNames: PropTypes.array,
   cwd: PropTypes.string,
@@ -269,7 +265,6 @@ Settings.propTypes = {
 
 Settings.defaultProps = {
   changeCardsPerPage: null,
-  lastSyncDate: null,
   changeCwd: null,
   boardNames: [],
   toggleSettings: null,

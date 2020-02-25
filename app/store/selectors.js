@@ -57,15 +57,24 @@ const filtersSelector = state => state.filters;
 const cardListSelector = createSelector(
   cardsSelector,
   filtersSelector,
-  (cards, filters) => (filters.isFocused
-    ? [filters.focusedCard]
-    : sortCards(
-      cards,
-      filters.sorting || SORTING_BY_DATE,
-      filters.order || DESCENDING_ORDER,
-      filters.archivedFilterOn || false,
-      filters.activeBoard || false,
-    )),
+  (cards, filters) => {
+    const cardList = filters.isFocused
+      ? [filters.focusedCard]
+      : sortCards(
+        cards,
+        filters.sorting || SORTING_BY_DATE,
+        filters.order || DESCENDING_ORDER,
+        filters.archivedFilterOn || false,
+        filters.activeBoard || false,
+      );
+    const hideText = c => !filters.isFocused && !c.isEditing && (c.text.length > 500);
+    return cardList.map(c => ({
+      ...c,
+      text: hideText(c) ? c.text.slice(0, 500) : c.text,
+      fullText: hideText(c) ? c.text : '',
+      seeMore: hideText(c),
+    }));
+  },
 );
 
 const boardLabelsSelector = createSelector(
@@ -80,7 +89,9 @@ const boardLabelsSelector = createSelector(
         labels.push(...card.labels);
       }
     }
-    return [...new Set(labels)];
+    return [...new Set(labels.map(l => l.title))].map(uniqL => ({
+      title: uniqL,
+    }));
   },
 );
 
@@ -109,7 +120,10 @@ const titlesSelector = createSelector(
 );
 
 const labelsSelector = state => state.labels;
-const globalLabelsSelector = createSelector(labelsSelector, labels => labels.map(l => l.title));
+const globalLabelsSelector = createSelector(
+  labelsSelector,
+  labels => labels.map(l => l.title),
+);
 
 const SELECTORS = {
   cardListSelector,

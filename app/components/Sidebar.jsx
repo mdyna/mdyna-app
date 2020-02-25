@@ -168,7 +168,6 @@ class Sidebar extends PureComponent {
       labels,
       order,
       removeLabelFilter,
-      lastSyncDate,
       githubAuthOn,
       sorting,
       toggleArchivedFilter,
@@ -299,7 +298,6 @@ class Sidebar extends PureComponent {
         </Box>
 
         <GistSync
-          lastSyncDate={lastSyncDate}
           githubAuthOn={githubAuthOn}
           onClick={() => {
             toggleSettings();
@@ -317,7 +315,7 @@ class Sidebar extends PureComponent {
 
   render() {
     const {
-      sidebarExpanded, toggleSidebar, toggleSettings, lastSyncDate, githubAuthOn,
+      sidebarExpanded, toggleSidebar, toggleSettings, githubAuthOn,
     } = this.props;
 
     return (
@@ -353,10 +351,8 @@ class Sidebar extends PureComponent {
         {sidebarExpanded ? this.expandedSidebar() : this.collapsedSidebar()}
         {!sidebarExpanded && (
           <GistSync
-            lastSyncDate={lastSyncDate}
             githubAuthOn={githubAuthOn}
             badge
-            skipLogin
             classname="sidebar-tooltip"
             onClick={() => {
               toggleSettings();
@@ -378,7 +374,6 @@ Sidebar.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
   labelFilters: PropTypes.array,
-  lastSyncDate: PropTypes.string,
   githubAuthOn: PropTypes.bool.isRequired,
   labels: PropTypes.array.isRequired,
   order: PropTypes.string,
@@ -392,7 +387,6 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-  lastSyncDate: null,
   activeBoard: 'INBOX',
   archivedFilterOn: false,
   labelFilters: [],

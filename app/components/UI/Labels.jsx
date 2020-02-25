@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import tc from 'tinycolor2';
 import PropTypes from 'prop-types';
+import { Text } from 'grommet';
 
 export const Label = ({
-  onClick, color, label, transparent,
+  onClick, color, label, transparent, active,
 }) => (
-  <span
+  <Text
+    color={color || active && 'accent-2' || 'dark-1'}
     style={{
-      color,
       backgroundColor: !transparent && '#333333AA',
       borderRadius: '10px',
       margin: '2px 5px',
@@ -22,25 +23,27 @@ export const Label = ({
     onClick={onClick}
   >
     {label}
-  </span>
+  </Text>
 );
 
 Label.defaultProps = {
-  color: '#000',
+  color: '',
   transparent: false,
   onClick: null,
+  active: false,
   label: '',
 };
 Label.propTypes = {
   onClick: PropTypes.func,
   transparent: PropTypes.bool,
+  active: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   color: PropTypes.string,
 };
 class Labels extends Component {
   renderLabelText(label) {
     const {
-      color, transparent, labelFuncs, labelFilters,
+      color, transparent, labelFuncs, labelFilters, active,
     } = this.props;
     if (labelFuncs && labelFilters) {
       const { addLabelFilter, removeLabelFilter } = labelFuncs;
@@ -48,10 +51,9 @@ class Labels extends Component {
       const labelFunc = labelFilterActive ? removeLabelFilter : addLabelFilter;
       /* eslint-disable */
       return (
-        <span
+        <Text
+          color={color || labelFilterActive && 'accent-2' || 'dark-1'}
           style={{
-            // TODO: Use styled components or scss to convert do these
-            color: labelFilterActive ? tc(color).darken(15) : color,
             border: labelFilterActive && `2px solid ${tc(color).darken(15)}`,
             backgroundColor: !transparent && '#333333AA',
             borderRadius: '10px',
@@ -63,14 +65,14 @@ class Labels extends Component {
           onClick={() => labelFunc(label.title)}
         >
           {label.title || label}
-        </span>
+        </Text>
       );
       /* eslint-enable */
     }
     return (
-      <span
+      <Text
+        color={color || active && 'accent-2' || 'dark-1'}
         style={{
-          color,
           backgroundColor: !transparent && '#333333AA',
           borderRadius: '10px',
           padding: '5px',
@@ -78,7 +80,7 @@ class Labels extends Component {
         key={`label-${label.title || label}`}
       >
         {label.title || label}
-      </span>
+      </Text>
     );
   }
 
@@ -107,6 +109,7 @@ export default Labels;
 
 Labels.propTypes = {
   labels: PropTypes.array,
+  active: PropTypes.bool,
   transparent: PropTypes.bool,
   color: PropTypes.string,
   labelFuncs: PropTypes.object,
@@ -115,9 +118,10 @@ Labels.propTypes = {
 };
 
 Labels.defaultProps = {
-  color: '#000',
+  color: '',
   labelFilters: [],
   labelFuncs: null,
+  active: false,
   label: null,
   transparent: false,
   labels: [],

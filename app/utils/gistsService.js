@@ -54,7 +54,7 @@ class GistsService {
           if (repeatedCard) {
             const repeatedCardIndex = this.uniqCards.indexOf(repeatedCard);
             if (
-              new Date(repeatedCard.lastEditDate) < new Date(cards.lastEditDate)
+              new Date(repeatedCard.lastEditDate) < new Date(card.lastEditDate)
             ) {
               this.uniqCards[repeatedCardIndex] = card;
             }

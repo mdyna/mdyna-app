@@ -43,13 +43,7 @@ const syncCardsProp = async (dispatch) => {
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
-  const { githubAuthOn, lastSyncDate } = ownProps;
-  // TODO Move this to utils #DRY
-  const hasSyncedRecently = syncTimer => Boolean(
-    lastSyncDate
-        && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
-          <= syncTimer,
-  );
+  const { githubAuthOn } = ownProps;
   return {
     loginToGh: async (username, pw, gistId) => {
       if (!githubAuthOn) {
@@ -75,11 +69,9 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     syncCards: () => syncCardsProp(dispatch),
     updateGist: (id) => {
-      if (!hasSyncedRecently(1)) {
-        Gists.updateGistId(id);
-        syncCardsProp(dispatch);
-        dispatch(updateGist(id));
-      }
+      Gists.updateGistId(id);
+      syncCardsProp(dispatch);
+      dispatch(updateGist(id));
     },
   };
 }

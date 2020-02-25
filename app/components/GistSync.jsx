@@ -29,20 +29,18 @@ class GistSync extends PureComponent {
       githubUserName,
       githubPassword,
       gistId,
-      skipLogin,
       lastSyncDate,
     } = this.props;
+
     const hasSyncedRecently = syncTimer => Boolean(
       lastSyncDate
-          && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
-            <= syncTimer,
+        && new Date().getMinutes() - new Date(lastSyncDate).getMinutes()
+          <= syncTimer,
     );
     if (githubUserName && githubPassword) {
       this.authToGithub(githubUserName, githubPassword, gistId);
-      if (!skipLogin) {
-        if (!hasSyncedRecently(0.5)) {
-          this.updateGist(gistId);
-        }
+      if (!hasSyncedRecently(5)) {
+        this.updateGist(gistId);
       }
     }
   }
@@ -123,7 +121,7 @@ class GistSync extends PureComponent {
         )}
       </Box>
     ) : (
-      <Box className={cx('sync', (expanded && 'expanded') || (!syncSuccess && !lastSyncDate && 'collapsed'))}>
+      <Box className={cx('sync', (expanded && 'expanded') || 'collapsed')}>
         <Collapsible
           className="collapse"
           direction="horizontal"
@@ -227,7 +225,6 @@ GistSync.whyDidYouRender = true;
 GistSync.propTypes = {
   badge: PropTypes.bool,
   onClick: PropTypes.func,
-  skipLogin: PropTypes.bool,
   githubUserName: PropTypes.string.isRequired,
   githubPassword: PropTypes.string.isRequired,
   gistId: PropTypes.string.isRequired,
@@ -246,7 +243,6 @@ GistSync.defaultProps = {
   badge: false,
   onClick: null,
   lastSyncDate: '',
-  skipLogin: false,
 };
 
 export default GistSync;

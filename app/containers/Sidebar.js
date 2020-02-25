@@ -72,7 +72,6 @@ function mapStateToProps(state) {
     labelFilters: state.filters.labelFilters,
     labels: boardLabelsSelector(state),
     order: state.filters.order || DESCENDING_ORDER,
-    lastSyncDate: state.settings.lastSyncDate,
     githubAuthOn: state.settings.githubAuthOn || false,
     sidebarExpanded: state.style.sidebarExpanded,
     sorting: state.filters.sorting || SORTING_BY_DATE,
