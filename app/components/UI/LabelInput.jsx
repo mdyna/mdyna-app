@@ -93,7 +93,6 @@ const LabelInput = ({
             onChange={updateCurrentTag}
             color="inherit"
             value={currentTag}
-            autoFocus
             onSelect={(event) => {
               event.stopPropagation();
               onAddTag(event.suggestion);
