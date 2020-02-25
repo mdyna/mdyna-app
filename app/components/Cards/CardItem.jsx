@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Labels from 'UI/Labels';
 import Editor from 'Components/MarkdownEditor';
+import FocusIcon from 'UI/FocusIcon';
 import BoardsIcon from 'UI/BoardsIcon';
 import BoardPicker from 'UI/BoardPicker';
 import Button from 'UI/Button';
@@ -141,7 +142,12 @@ class MdynaCard extends PureComponent {
             cardActions.editCard(card, isFocused);
           }
         }}
-        className={classnames(className, COLOR_LABELS[color], 'card-item', isFocused && 'focused')}
+        className={classnames(
+          className,
+          COLOR_LABELS[color],
+          'card-item',
+          isFocused && 'focused',
+        )}
         style={{
           backgroundColor: color,
           transition: 'all 0.5s ease-in',
@@ -210,17 +216,15 @@ class MdynaCard extends PureComponent {
               color={color}
             />
             {cardBoardName !== 'INBOX' && activeBoardId !== card.board && (
-            <Box
-              className="board-indicator"
-              onClick={() => changeActiveBoard(card.board)}
-            >
-              <Text color={color} className="board-indicator-text">
-                <BoardsIcon />
-                <Text>
-                  {cardBoardName}
+              <Box
+                className="board-indicator"
+                onClick={() => changeActiveBoard(card.board)}
+              >
+                <Text color={color} className="board-indicator-text">
+                  <BoardsIcon />
+                  <Text>{cardBoardName}</Text>
                 </Text>
-              </Text>
-            </Box>
+              </Box>
             )}
           </Box>
           {this.renderCardDate()}
@@ -266,6 +270,14 @@ class MdynaCard extends PureComponent {
               backgroundColor: 'transparent',
             }}
           />
+          {card.seeMore && !isFocused && (
+            <div className="see-more-btn">
+              <Button onClick={() => focusCard({ ...card, text: card.fullText })}>
+              See More
+                <FocusIcon color={color} />
+              </Button>
+            </div>
+          )}
         </KeyboardEventHandler>
       </Box>
     );

@@ -29,6 +29,20 @@
       margin: 5px;
     }
   }
+  .see-more-btn {
+    background-color: #333;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: fit-content;
+    margin: 15px auto;
+    button svg {
+      margin: 0 15px;
+    }
+  }
   .no-notes-box {
     margin-top: 20%;
   }

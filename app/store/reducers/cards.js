@@ -101,7 +101,7 @@ export default function cards(state = [], action) {
             ...action.card,
             id: cardId,
             isEditing: false,
-            text: action.card.text,
+            text: action.card.fullText || action.card.text,
             title: action.card.title,
             labels: action.card.labels,
             color: action.card.color,
@@ -163,10 +163,11 @@ export default function cards(state = [], action) {
           return {
             ...action.card,
             id: cardId,
+            text: card.fullText || card.text,
             isEditing: true,
             editingLabels: card.labels,
             editingColor: card.color,
-            editingText: card.text,
+            editingText: card.fullText || card.text,
             editingTitle: card.title,
           };
         }
