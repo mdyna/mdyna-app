@@ -45,7 +45,7 @@ exports.startEventListeners = (storages, cwd, mainWindow) => {
               const cardPath = path.join(exportDirectory, `${cardTitle}.md`);
               if (exportAllCards || card.board === board) {
                 logger.log('Exporting card ', cardTitle, 'to', cardPath);
-                jetpack.write(cardPath, card.text);
+                jetpack.write(cardPath, card.fullText);
               }
             }
           }
