@@ -35,7 +35,7 @@ class CardBar extends PureComponent {
 
   clibpoardContent() {
     const { card } = this.props;
-    return getCardContent(card);
+    return getCardContent({ ...card, text: card.fullText });
   }
 
   renderExpandableMenu() {
