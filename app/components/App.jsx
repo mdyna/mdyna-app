@@ -53,7 +53,6 @@ class Mdyna extends Component {
       toggleBoardsDialog,
       toggleSettings,
     } = this.props;
-    // ! TODO: STOP THIS NONSENSEL
     const modalMode = settingsModal && MODAL_MODES.SETTINGS;
     return (
       <Grommet className="mdyna-app" theme={this.theme}>

@@ -11,14 +11,7 @@ const {
 } = ACTION_TYPES.BOARDS;
 
 function deleteBoard(boardId, boardList) {
-  const updatedBoardList = [
-    {
-      name: 'INBOX',
-      cards: 'all',
-      bg: 'default',
-      labels: 'all',
-    },
-  ];
+  const updatedBoardList = [];
   for (let i = 0; i < boardList.length; i += 1) {
     const currentBoardId = boardList[i] && boardList[i].id;
     if (currentBoardId && currentBoardId !== boardId) {
