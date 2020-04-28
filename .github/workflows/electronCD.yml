@@ -28,6 +28,9 @@ jobs:
       - name: Check Perl
         run: |
           which perl
+      - name: Install rimraf
+        run: |
+          yarn global add rimraf
       - name: yarn install
         run: |
           yarn install-all
