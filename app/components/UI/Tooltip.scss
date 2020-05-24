@@ -3,9 +3,6 @@
 .tip-icon {
   border-radius: 10px;
   padding: 2px !important;
-  > * {
-    pointer-events: none;
-  }
 }
 kbd {
   background-color: #eee;

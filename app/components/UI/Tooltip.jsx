@@ -66,6 +66,7 @@ class Tooltip extends PureComponent {
       text,
       children,
       data,
+      hoverIndicator,
     } = this.props;
     const { hover } = this.state;
 
@@ -78,6 +79,7 @@ class Tooltip extends PureComponent {
         <Box
           onClick={() => onClick && onClick()}
           className={cx('tip-icon', className)}
+          hoverIndicator={hoverIndicator || null}
           ref={this.TooltipRef}
           target={icon}
           onMouseOver={() => setHover(true)}
@@ -99,9 +101,7 @@ class Tooltip extends PureComponent {
             <Box
               margin="xsmall"
               pad="small"
-              color="accent"
-              background="neutral-2"
-              round={{ size: 'medium', corner: 'left' }}
+              background="neutral-1"
             >
               {data === 'keyboard-shortcuts' && <KeyboardShortcuts />}
               {text
@@ -127,6 +127,7 @@ Tooltip.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
+  hoverIndicator: PropTypes.string,
   data: PropTypes.string,
   title: PropTypes.string,
 };
@@ -134,6 +135,7 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   text: '',
   data: '',
+  hoverIndicator: '',
   className: '',
   children: <React.Fragment />,
   icon: <Help color="brand" />,

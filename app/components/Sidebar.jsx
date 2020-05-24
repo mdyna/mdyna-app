@@ -63,6 +63,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Add Card</Text>
         </Button>
         <Tooltip
+          hoverIndicator="accent-1"
           icon={<AddCircle color="brand" />}
           className={classnames('sidebar-tooltip', 'collapsible')}
           title="Add card"
@@ -80,6 +81,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Boards</Text>
         </Button>
         <Tooltip
+          hoverIndicator="accent-1"
           icon={<BoardsIcon color="brand" />}
           className="sidebar-tooltip"
           title="Manage boards"
@@ -98,6 +100,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Favorites</Text>
         </Button>
         <Tooltip
+          hoverIndicator="accent-1"
           className="sidebar-tooltip"
           icon={<Star color="brand" />}
           title="Favorites"
@@ -122,6 +125,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Archive</Text>
         </Button>
         <Tooltip
+          hoverIndicator="accent-1"
           className="sidebar-tooltip"
           icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
           title="Show Archive"
@@ -147,6 +151,7 @@ class Sidebar extends PureComponent {
           <Text className="menu-label">Settings</Text>
         </Button>
         <Tooltip
+          hoverIndicator="accent-1"
           className="sidebar-tooltip"
           icon={<Configure color="brand" />}
           title="Settings"
