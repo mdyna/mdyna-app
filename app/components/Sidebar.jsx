@@ -4,7 +4,6 @@ import SVG from 'react-inlinesvg';
 import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
-  Filter,
   FormPrevious,
   Up,
   Descend as Sort,
@@ -19,7 +18,6 @@ import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import GistSync from 'Containers/GistSync';
 import Favs from 'Containers/Favs';
-import LabelFilter from 'UI/LabelFilter';
 import {
   SORTING_BY_TITLE,
   SORTING_BY_DATE,
@@ -33,7 +31,6 @@ class Sidebar extends PureComponent {
   state = {
     sortingOptionsExpanded: false,
     favsExpanded: false,
-    labelFiltersExpanded: false,
   };
 
   getSortingOrder = (targetSorting) => {
@@ -50,12 +47,6 @@ class Sidebar extends PureComponent {
     toggleSidebar();
   }
 
-  expandLabelFilters() {
-    const { labelFiltersExpanded } = this.state;
-    this.setState({
-      labelFiltersExpanded: !labelFiltersExpanded,
-    });
-  }
 
   expandSortingOptions() {
     const { sortingOptionsExpanded } = this.state;
@@ -75,14 +66,10 @@ class Sidebar extends PureComponent {
     const {
       activeBoard,
       addCard,
-      addLabelFilter,
       archivedFilterOn,
       changeSorting,
       clearArchive,
-      labelFilters,
-      labels,
       order,
-      removeLabelFilter,
       githubAuthOn,
       sorting,
       toggleArchivedFilter,
@@ -91,10 +78,8 @@ class Sidebar extends PureComponent {
     } = this.props;
     const {
       sortingOptionsExpanded,
-      labelFiltersExpanded,
       favsExpanded,
     } = this.state;
-    const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
       <>
@@ -245,35 +230,6 @@ class Sidebar extends PureComponent {
             toggleSettings();
           }}
         />
-        <Button
-          className="expandable"
-          hoverIndicator="accent-1"
-          plain
-          onClick={() => this.expandLabelFilters()}
-        >
-          <Filter color="brand" />
-          <Text className="menu-label">Filter Labels</Text>
-        </Button>
-        <Tooltip
-          className="sidebar-tooltip"
-          icon={<Filter color="brand" />}
-          title="Filter cards"
-          text="Filter cards by label"
-          onClick={() => {
-            this.expandMenu();
-            this.expandLabelFilters();
-          }}
-        />
-        <Box className="expandable-menu expandable" background="dark-1">
-          <Collapsible direction="vertical" open={labelFiltersExpanded}>
-            <LabelFilter
-              labels={labels}
-              labelFilters={labelFilters}
-              labelFilterFuncs={labelFilterFuncs}
-            />
-          </Collapsible>
-        </Box>
-
         <Box className="sidebar-tooltip">
           <GistSync
             githubAuthOn={githubAuthOn}
@@ -329,15 +285,11 @@ Sidebar.whyDidYouRender = true;
 Sidebar.propTypes = {
   activeBoard: PropTypes.string,
   addCard: PropTypes.func.isRequired,
-  addLabelFilter: PropTypes.func.isRequired,
   archivedFilterOn: PropTypes.bool,
   changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
-  labelFilters: PropTypes.array,
   githubAuthOn: PropTypes.bool.isRequired,
-  labels: PropTypes.array.isRequired,
   order: PropTypes.string,
-  removeLabelFilter: PropTypes.func.isRequired,
   sidebarExpanded: PropTypes.bool,
   sorting: PropTypes.string,
   toggleArchivedFilter: PropTypes.func.isRequired,
@@ -349,7 +301,6 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   activeBoard: 'INBOX',
   archivedFilterOn: false,
-  labelFilters: [],
   order: DESCENDING_ORDER,
   sidebarExpanded: false,
   sorting: SORTING_BY_DATE,

@@ -4,9 +4,7 @@ import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
 import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
 import { toast } from 'react-toastify';
-import Selectors from 'Store/selectors';
 
-const { boardLabelsSelector } = Selectors;
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
@@ -20,8 +18,6 @@ const { toggleBoardsDialog } = BOARDS;
 
 const {
   searchCards,
-  addLabelFilter,
-  removeLabelFilter,
   focusCard,
   changeSorting,
   toggleArchivedFilter,
@@ -51,16 +47,10 @@ function mapDispatchToProps(dispatch) {
     toggleArchivedFilter: (val) => {
       dispatch(toggleArchivedFilter(val));
     },
-    addLabelFilter: (val) => {
-      dispatch(addLabelFilter(val));
-    },
     addCard: (activeBoard, card) => {
       dispatch(addCard(activeBoard, card));
       dispatch(searchCards(''));
       dispatch(focusCard());
-    },
-    removeLabelFilter: (val) => {
-      dispatch(removeLabelFilter(val));
     },
   };
 }
@@ -69,8 +59,6 @@ function mapStateToProps(state) {
   return {
     activeBoard: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
-    labelFilters: state.filters.labelFilters,
-    labels: boardLabelsSelector(state),
     order: state.filters.order || DESCENDING_ORDER,
     githubAuthOn: state.settings.githubAuthOn || false,
     sidebarExpanded: state.style.sidebarExpanded,
