@@ -1,6 +1,6 @@
 .favs-container {
-  padding-left: 15px;
   max-height: 25vh;
+  min-height: 30px;
   overflow-y: auto;
   button {
     min-height: 30px;
@@ -12,8 +12,10 @@
     text-overflow: ellipsis;
   }
   .remove-btn {
-    margin-right: 5px;
     padding: 0;
+    border-radius: 0;
+    margin: 0px 5px 0px 0px !important;
+    max-width: 32px;
     svg {
       height: 18px;
       width: 18px;
