@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 // eslint-disable-next-line
 import SVG from 'react-inlinesvg';
-import Logo from 'Assets/logo.svg';
 import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
   Filter,
-  FormNext,
   FormPrevious,
   Up,
   Descend as Sort,
@@ -73,90 +71,7 @@ class Sidebar extends PureComponent {
     });
   }
 
-  collapsedSidebar() {
-    const {
-      addCard,
-      toggleBoardsDialog,
-      toggleSettings,
-      activeBoard,
-      toggleArchivedFilter,
-      archivedFilterOn,
-    } = this.props;
-    return (
-      <Box>
-        <Box direction="column" align="end" width="100%">
-          <Tooltip
-            icon={<AddCircle color="brand" />}
-            className={classnames('sidebar-tooltip', 'add-note-btn')}
-            title="Add card"
-            text="Add card (Use 'A' hotkey)"
-            onClick={() => {
-              addCard(activeBoard);
-            }}
-          />
-          <Tooltip
-            icon={<BoardsIcon color="brand" />}
-            className="sidebar-tooltip"
-            title="Manage boards"
-            text="Add, delete or edit boards"
-            onClick={() => {
-              toggleBoardsDialog();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Pin color="brand" />}
-            title="Favorites"
-            text="Open your favorites and quickly focus on them"
-            onClick={() => {
-              this.expandMenu();
-              this.expandFavs();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
-            title="Show Archive"
-            text="See your archived cards"
-            onClick={() => {
-              toggleArchivedFilter(!archivedFilterOn);
-            }}
-          />
-          <Tooltip
-            className={classnames('sidebar-tooltip', 'sort-icon')}
-            icon={<Sort color="brand" />}
-            title="Sort cards"
-            text="Open sorting options"
-            onClick={() => {
-              this.expandMenu();
-              this.expandSortingOptions();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Configure color="brand" />}
-            title="Settings"
-            text="Open MDyna settings interface"
-            onClick={() => {
-              toggleSettings();
-            }}
-          />
-          <Tooltip
-            className="sidebar-tooltip"
-            icon={<Filter color="brand" />}
-            title="Filter cards"
-            text="Filter cards by label"
-            onClick={() => {
-              this.expandMenu();
-              this.expandLabelFilters();
-            }}
-          />
-        </Box>
-      </Box>
-    );
-  }
-
-  expandedSidebar() {
+  sidebar() {
     const {
       activeBoard,
       addCard,
@@ -186,17 +101,39 @@ class Sidebar extends PureComponent {
         <Button
           hoverIndicator="accent-1"
           onClick={() => addCard(activeBoard)}
-          className="add-note-btn"
+          className="expandable"
         >
           <AddCircle color="brand" />
           <Text className="menu-label">Add Card</Text>
         </Button>
-        <Button hoverIndicator="accent-1" onClick={() => toggleBoardsDialog()}>
+        <Tooltip
+          icon={<AddCircle color="brand" />}
+          className={classnames('sidebar-tooltip', 'collapsible')}
+          title="Add card"
+          text="Add card (Use 'A' hotkey)"
+          onClick={() => {
+            addCard(activeBoard);
+          }}
+        />
+        <Button
+          className="expandable"
+          hoverIndicator="accent-1"
+          onClick={() => toggleBoardsDialog()}
+        >
           <BoardsIcon color="brand" />
           <Text className="menu-label">Boards</Text>
         </Button>
-
+        <Tooltip
+          icon={<BoardsIcon color="brand" />}
+          className="sidebar-tooltip"
+          title="Manage boards"
+          text="Add, delete or edit boards"
+          onClick={() => {
+            toggleBoardsDialog();
+          }}
+        />
         <Button
+          className="expandable"
           hoverIndicator="accent-1"
           plain
           onClick={() => this.expandFavs()}
@@ -204,12 +141,23 @@ class Sidebar extends PureComponent {
           <Pin color="brand" />
           <Text className="menu-label">Favorites</Text>
         </Button>
-        <Box className="expandable-menu" background="dark-1">
+        <Tooltip
+          className="sidebar-tooltip"
+          icon={<Pin color="brand" />}
+          title="Favorites"
+          text="Open your favorites and quickly focus on them"
+          onClick={() => {
+            this.expandMenu();
+            this.expandFavs();
+          }}
+        />
+        <Box className={classnames('expandable-menu', 'expandable')} background="dark-1">
           <Collapsible direction="vertical" open={favsExpanded}>
             <Favs />
           </Collapsible>
         </Box>
         <Button
+          className="expandable"
           onClick={() => toggleArchivedFilter(!archivedFilterOn)}
           color={(archivedFilterOn && 'accent-3') || 'brand'}
           hoverIndicator="accent-1"
@@ -217,8 +165,16 @@ class Sidebar extends PureComponent {
           <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
           <Text className="menu-label">Archive</Text>
         </Button>
-
-        <Box className="expandable-menu sub-menu" background="dark-1">
+        <Tooltip
+          className="sidebar-tooltip"
+          icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
+          title="Show Archive"
+          text="See your archived cards"
+          onClick={() => {
+            toggleArchivedFilter(!archivedFilterOn);
+          }}
+        />
+        <Box className="expandable-menu sub-menu expandable" background="dark-1">
           <Collapsible direction="vertical" open={archivedFilterOn}>
             <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
               Clear Archive
@@ -226,14 +182,14 @@ class Sidebar extends PureComponent {
           </Collapsible>
         </Box>
         <Button
+          className="expandable"
           hoverIndicator="accent-1"
           onClick={() => this.expandSortingOptions()}
         >
           <Sort color="brand" className="sort-icon" />
           <Text className="menu-label">Sort Cards </Text>
         </Button>
-
-        <Box className="expandable-menu sub-menu" background="dark-1">
+        <Box className="expandable-menu sub-menu expandable" background="dark-1">
           <Collapsible direction="vertical" open={sortingOptionsExpanded}>
             <Button
               color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
@@ -274,12 +230,23 @@ class Sidebar extends PureComponent {
         <Button
           hoverIndicator="accent-1"
           plain
+          className="expandable"
           onClick={() => toggleSettings()}
         >
           <Configure color="brand" />
           <Text className="menu-label">Settings</Text>
         </Button>
+        <Tooltip
+          className="sidebar-tooltip"
+          icon={<Configure color="brand" />}
+          title="Settings"
+          text="Open MDyna settings interface"
+          onClick={() => {
+            toggleSettings();
+          }}
+        />
         <Button
+          className="expandable"
           hoverIndicator="accent-1"
           plain
           onClick={() => this.expandLabelFilters()}
@@ -287,7 +254,17 @@ class Sidebar extends PureComponent {
           <Filter color="brand" />
           <Text className="menu-label">Filter Labels</Text>
         </Button>
-        <Box className="expandable-menu" background="dark-1">
+        <Tooltip
+          className="sidebar-tooltip"
+          icon={<Filter color="brand" />}
+          title="Filter cards"
+          text="Filter cards by label"
+          onClick={() => {
+            this.expandMenu();
+            this.expandLabelFilters();
+          }}
+        />
+        <Box className="expandable-menu expandable" background="dark-1">
           <Collapsible direction="vertical" open={labelFiltersExpanded}>
             <LabelFilter
               labels={labels}
@@ -297,13 +274,22 @@ class Sidebar extends PureComponent {
           </Collapsible>
         </Box>
 
-        <GistSync
-          githubAuthOn={githubAuthOn}
-          onClick={() => {
-            toggleSettings();
-          }}
-        />
-        <Box direction="column">
+        <Box className="sidebar-tooltip">
+          <GistSync
+            githubAuthOn={githubAuthOn}
+            badge
+            onClick={() => {
+              toggleSettings();
+            }}
+          />
+        </Box>
+        <Box direction="column" className="expandable">
+          <GistSync
+            githubAuthOn={githubAuthOn}
+            onClick={() => {
+              toggleSettings();
+            }}
+          />
           <Text size="small" className="help">
             Keyboard Shortcuts
             <Tooltip data="keyboard-shortcuts" />
@@ -313,10 +299,9 @@ class Sidebar extends PureComponent {
     );
   }
 
+
   render() {
-    const {
-      sidebarExpanded, toggleSidebar, toggleSettings, githubAuthOn,
-    } = this.props;
+    const { sidebarExpanded, toggleSidebar } = this.props;
 
     return (
       <Box
@@ -325,40 +310,15 @@ class Sidebar extends PureComponent {
         alignContent="end"
         background="dark-2"
       >
-        <Box direction="row" className="menu-controller">
-          {sidebarExpanded ? (
-            <Button
-              hoverIndicator="accent-1"
-              onClick={() => toggleSidebar()}
-              className="title-button"
-            >
-              <FormPrevious color="brand" />
-              <Text size="large">
-                <SVG src={Logo} style={{ width: 32 }} />
-                MDyna
-              </Text>
-            </Button>
-          ) : (
-            <Button
-              hoverIndicator="accent-1"
-              onClick={() => toggleSidebar()}
-              className="title-button"
-            >
-              <FormNext color="brand" />
-            </Button>
-          )}
-        </Box>
-        {sidebarExpanded ? this.expandedSidebar() : this.collapsedSidebar()}
-        {!sidebarExpanded && (
-          <GistSync
-            githubAuthOn={githubAuthOn}
-            badge
-            classname="sidebar-tooltip"
-            onClick={() => {
-              toggleSettings();
-            }}
-          />
-        )}
+        <Button
+          hoverIndicator="accent-1"
+          className={classnames('title-btn', !sidebarExpanded && 'collapsed')}
+          onClick={() => toggleSidebar()}
+        >
+          <FormPrevious color="brand" />
+          <Text>MDYNA</Text>
+        </Button>
+        {this.sidebar()}
       </Box>
     );
   }

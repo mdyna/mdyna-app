@@ -2,19 +2,40 @@
 
 .sidebar {
   opacity: 0.9;
-  border-radius: 0px 10px 10px 0px;
-  border: 1px solid;
-  border-left: none;
+  border-right: 1px solid;
   transition: width 0.5s;
   padding: 10px 5px;
   position: sticky;
   margin-right: 10px;
   width: 50px;
-  margin-top: 50px;
-  top: 50px;
   align-items: center;
   flex-flow: column nowrap;
-  height: 90vh;
+  height: calc(100vh - 32px);
+  overflow: hidden;
+  .expandable {
+    display: none;
+  }
+  .title-btn {
+    width: 100%;
+    span {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      transition: all 0.5s;
+    }
+    svg {
+      transition: all 0.5s;
+    }
+    &.collapsed {
+      span {
+        font-size: 0px;
+        line-height: 0px;
+      }
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
   .menu-label {
     transition: all 0.5s;
     opacity: 0;
@@ -28,6 +49,9 @@
     margin: 5px 0;
   }
   &.expanded {
+    .expandable {
+      display: initial;
+    }
     padding: 10px 0;
     width: 200px;
     > div > button {
