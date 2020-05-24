@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
-import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
 import { toast } from 'react-toastify';
 
 
@@ -19,7 +18,6 @@ const { toggleBoardsDialog } = BOARDS;
 const {
   searchCards,
   focusCard,
-  changeSorting,
   toggleArchivedFilter,
 } = FILTERS;
 
@@ -41,9 +39,6 @@ function mapDispatchToProps(dispatch) {
     onChange: (val) => {
       dispatch(searchCards(val));
     },
-    changeSorting: (sorting, order) => {
-      dispatch(changeSorting(sorting, order));
-    },
     toggleArchivedFilter: (val) => {
       dispatch(toggleArchivedFilter(val));
     },
@@ -59,10 +54,8 @@ function mapStateToProps(state) {
   return {
     activeBoard: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
-    order: state.filters.order || DESCENDING_ORDER,
     githubAuthOn: state.settings.githubAuthOn || false,
     sidebarExpanded: state.style.sidebarExpanded,
-    sorting: state.filters.sorting || SORTING_BY_DATE,
   };
 }
 

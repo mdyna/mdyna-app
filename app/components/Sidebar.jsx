@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import { Box, Text, Collapsible } from 'grommet';
 import {
   FormPrevious,
-  Up,
-  Descend as Sort,
   AddCircle,
   Archive,
   Star,
@@ -18,28 +16,12 @@ import Tooltip from 'UI/Tooltip';
 import Button from 'UI/Button';
 import GistSync from 'Containers/GistSync';
 import Favs from 'Containers/Favs';
-import {
-  SORTING_BY_TITLE,
-  SORTING_BY_DATE,
-  ASCENDING_ORDER,
-  DESCENDING_ORDER,
-} from 'Utils/globals';
 
 import './Sidebar.scss';
 
 class Sidebar extends PureComponent {
   state = {
-    sortingOptionsExpanded: false,
     favsExpanded: false,
-  };
-
-  getSortingOrder = (targetSorting) => {
-    const { sorting, order } = this.props;
-    const activeSorting = sorting;
-    if (targetSorting === activeSorting) {
-      return order === ASCENDING_ORDER ? DESCENDING_ORDER : ASCENDING_ORDER;
-    }
-    return ASCENDING_ORDER;
   };
 
   expandMenu() {
@@ -47,13 +29,6 @@ class Sidebar extends PureComponent {
     toggleSidebar();
   }
 
-
-  expandSortingOptions() {
-    const { sortingOptionsExpanded } = this.state;
-    this.setState({
-      sortingOptionsExpanded: !sortingOptionsExpanded,
-    });
-  }
 
   expandFavs() {
     const { favsExpanded } = this.state;
@@ -67,17 +42,13 @@ class Sidebar extends PureComponent {
       activeBoard,
       addCard,
       archivedFilterOn,
-      changeSorting,
       clearArchive,
-      order,
       githubAuthOn,
-      sorting,
       toggleArchivedFilter,
       toggleBoardsDialog,
       toggleSettings,
     } = this.props;
     const {
-      sortingOptionsExpanded,
       favsExpanded,
     } = this.state;
 
@@ -167,52 +138,6 @@ class Sidebar extends PureComponent {
           </Collapsible>
         </Box>
         <Button
-          className="expandable"
-          hoverIndicator="accent-1"
-          onClick={() => this.expandSortingOptions()}
-        >
-          <Sort color="brand" className="sort-icon" />
-          <Text className="menu-label">Sort Cards </Text>
-        </Button>
-        <Box className="expandable-menu sub-menu expandable" background="dark-1">
-          <Collapsible direction="vertical" open={sortingOptionsExpanded}>
-            <Button
-              color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
-              hoverIndicator="accent-1"
-              onClick={() => changeSorting(
-                SORTING_BY_TITLE,
-                this.getSortingOrder(SORTING_BY_TITLE),
-              )
-              }
-            >
-              <Up
-                color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Title
-            </Button>
-            <Button
-              hoverIndicator="accent-1"
-              onClick={() => changeSorting(
-                SORTING_BY_DATE,
-                this.getSortingOrder(SORTING_BY_DATE),
-              )
-              }
-              color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
-            >
-              <Up
-                color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
-                className={classnames(
-                  order === DESCENDING_ORDER && 'descending',
-                )}
-              />
-              By Date
-            </Button>
-          </Collapsible>
-        </Box>
-        <Button
           hoverIndicator="accent-1"
           plain
           className="expandable"
@@ -286,12 +211,9 @@ Sidebar.propTypes = {
   activeBoard: PropTypes.string,
   addCard: PropTypes.func.isRequired,
   archivedFilterOn: PropTypes.bool,
-  changeSorting: PropTypes.func.isRequired,
   clearArchive: PropTypes.func.isRequired,
   githubAuthOn: PropTypes.bool.isRequired,
-  order: PropTypes.string,
   sidebarExpanded: PropTypes.bool,
-  sorting: PropTypes.string,
   toggleArchivedFilter: PropTypes.func.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   toggleSettings: PropTypes.func.isRequired,
@@ -301,9 +223,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   activeBoard: 'INBOX',
   archivedFilterOn: false,
-  order: DESCENDING_ORDER,
   sidebarExpanded: false,
-  sorting: SORTING_BY_DATE,
 };
 
 export default Sidebar;
