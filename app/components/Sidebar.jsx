@@ -10,7 +10,7 @@ import {
   Descend as Sort,
   AddCircle,
   Archive,
-  Pin,
+  Star,
   Configure,
 } from 'grommet-icons';
 import BoardsIcon from 'UI/BoardsIcon';
@@ -97,7 +97,7 @@ class Sidebar extends PureComponent {
     const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
-      <Box direction="column" align="start">
+      <>
         <Button
           hoverIndicator="accent-1"
           onClick={() => addCard(activeBoard)}
@@ -138,12 +138,12 @@ class Sidebar extends PureComponent {
           plain
           onClick={() => this.expandFavs()}
         >
-          <Pin color="brand" />
+          <Star color="brand" />
           <Text className="menu-label">Favorites</Text>
         </Button>
         <Tooltip
           className="sidebar-tooltip"
-          icon={<Pin color="brand" />}
+          icon={<Star color="brand" />}
           title="Favorites"
           text="Open your favorites and quickly focus on them"
           onClick={() => {
@@ -295,7 +295,7 @@ class Sidebar extends PureComponent {
             <Tooltip data="keyboard-shortcuts" />
           </Text>
         </Box>
-      </Box>
+      </>
     );
   }
 

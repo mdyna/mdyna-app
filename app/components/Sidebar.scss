@@ -4,7 +4,6 @@
   opacity: 0.9;
   border-right: 1px solid;
   transition: width 0.5s;
-  padding: 10px 5px;
   position: sticky;
   margin-right: 10px;
   width: 50px;
@@ -17,6 +16,8 @@
   }
   .title-btn {
     width: 100%;
+    margin-bottom: 12px !important;
+    text-align: center;
     span {
       font-weight: 700;
       font-size: 18px;
@@ -49,15 +50,16 @@
     margin: 5px 0;
   }
   &.expanded {
+    padding: 0;
+    width: 200px;
     .expandable {
       display: initial;
     }
-    padding: 10px 0;
-    width: 200px;
     > div > button {
       width: 100%;
     }
     .button {
+      margin: 0px;
       &:hover {
         color: currentColor;
       }
@@ -88,13 +90,12 @@
   .sidebar-tooltip {
     opacity: 1;
     transition: all 0.5s;
-    margin: 5px;
+    margin: 3px auto;
     max-width: 28px;
     cursor: pointer;
   }
   > div > div > .button {
     width: 100%;
-    border-radius: 3px !important;
   }
   .menu-controller .button {
     width: 100%;
@@ -104,9 +105,11 @@
     text-align: start;
     font-weight: 700;
     font-size: 14px;
-    border-radius: 3px !important;
+    border-radius: 0px !important;
     padding: 3px;
+    width: 100%;
     span {
+      line-height: 24px;
       transition: all 0.5s;
     }
 
