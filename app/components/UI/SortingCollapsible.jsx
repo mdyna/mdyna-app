@@ -15,8 +15,6 @@ import {
   DESCENDING_ORDER,
 } from 'Utils/globals';
 
-import './SortingCollapsible.scss';
-
 class SortingCollapsible extends PureComponent {
   state = {
     sortingOptionsExpanded: false,

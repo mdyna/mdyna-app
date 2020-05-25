@@ -54,6 +54,14 @@ class Sidebar extends PureComponent {
 
     return (
       <>
+        {
+        //= =======================================================================================
+/*                                                                                      *
+ *                                       Add Card                                       *
+ *                                                                                      */
+//= =======================================================================================
+
+      }
         <Button
           hoverIndicator="accent-1"
           onClick={() => addCard(activeBoard)}
@@ -72,6 +80,14 @@ class Sidebar extends PureComponent {
             addCard(activeBoard);
           }}
         />
+        {
+          //= =======================================================================================
+/*                                                                                      *
+ *                                     Boards Dialog                                    *
+ *                                                                                      */
+//= =======================================================================================
+
+        }
         <Button
           className="expandable"
           hoverIndicator="accent-1"
@@ -90,6 +106,14 @@ class Sidebar extends PureComponent {
             toggleBoardsDialog();
           }}
         />
+        {
+          //= =======================================================================================
+/*                                                                                      *
+ *                                       Favorites                                      *
+ *                                                                                      */
+//= =======================================================================================
+
+        }
         <Button
           className="expandable"
           hoverIndicator="accent-1"
@@ -115,71 +139,97 @@ class Sidebar extends PureComponent {
             <Favs />
           </Collapsible>
         </Box>
-        <Button
-          className="expandable"
-          onClick={() => toggleArchivedFilter(!archivedFilterOn)}
-          color={(archivedFilterOn && 'accent-3') || 'brand'}
-          hoverIndicator="accent-1"
-        >
-          <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
-          <Text className="menu-label">Archive</Text>
-        </Button>
-        <Tooltip
-          hoverIndicator="accent-1"
-          className="sidebar-tooltip"
-          icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
-          title="Show Archive"
-          text="See your archived cards"
-          onClick={() => {
-            toggleArchivedFilter(!archivedFilterOn);
-          }}
-        />
-        <Box className="expandable-menu sub-menu expandable" background="dark-1">
-          <Collapsible direction="vertical" open={archivedFilterOn}>
-            <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
+        <Box className="bottom-section">
+          {
+          //= =======================================================================================
+/*                                                                                      *
+ *                                        Archive                                       *
+ *                                                                                      */
+//= =======================================================================================
+
+        }
+          <Button
+            className="expandable"
+            onClick={() => toggleArchivedFilter(!archivedFilterOn)}
+            color={(archivedFilterOn && 'accent-3') || 'brand'}
+            hoverIndicator="accent-1"
+          >
+            <Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />
+            <Text className="menu-label">Archive</Text>
+          </Button>
+          <Tooltip
+            hoverIndicator="accent-1"
+            className="sidebar-tooltip"
+            icon={<Archive color={archivedFilterOn ? 'accent-3' : 'brand'} />}
+            title="Show Archive"
+            text="See your archived cards"
+            onClick={() => {
+              toggleArchivedFilter(!archivedFilterOn);
+            }}
+          />
+          <Box className="expandable-menu sub-menu expandable" background="dark-1">
+            <Collapsible direction="vertical" open={archivedFilterOn}>
+              <Button hoverIndicator="accent-2" onClick={() => clearArchive()}>
               Clear Archive
-            </Button>
-          </Collapsible>
-        </Box>
-        <Button
-          hoverIndicator="accent-1"
-          plain
-          className="expandable"
-          onClick={() => toggleSettings()}
-        >
-          <Configure color="brand" />
-          <Text className="menu-label">Settings</Text>
-        </Button>
-        <Tooltip
-          hoverIndicator="accent-1"
-          className="sidebar-tooltip"
-          icon={<Configure color="brand" />}
-          title="Settings"
-          text="Open MDyna settings interface"
-          onClick={() => {
-            toggleSettings();
-          }}
-        />
-        <Box className="sidebar-tooltip">
-          <GistSync
-            githubAuthOn={githubAuthOn}
-            badge
+              </Button>
+            </Collapsible>
+          </Box>
+          {
+          //= =======================================================================================
+/*                                                                                      *
+ *                                       Settings                                       *
+ *                                                                                      */
+//= =======================================================================================
+
+        }
+          <Button
+            hoverIndicator="accent-1"
+            plain
+            className="expandable"
+            onClick={() => toggleSettings()}
+          >
+            <Configure color="brand" />
+            <Text className="menu-label">Settings</Text>
+          </Button>
+          <Tooltip
+            hoverIndicator="accent-1"
+            className="sidebar-tooltip"
+            icon={<Configure color="brand" />}
+            title="Settings"
+            text="Open MDyna settings interface"
             onClick={() => {
               toggleSettings();
             }}
           />
-        </Box>
-        <Box direction="column" className="expandable">
-          <GistSync
-            githubAuthOn={githubAuthOn}
-            onClick={() => {
-              toggleSettings();
-            }}
-          />
-          <Text size="small" className="help">
+          {
+          //= =======================================================================================
+/*                                                                                      *
+ *                                       Gist Sync                                      *
+ *                                                                                      */
+//= =======================================================================================
+
+        }
+          <Box className="sidebar-tooltip">
+            <GistSync
+              githubAuthOn={githubAuthOn}
+              badge
+              onClick={() => {
+                toggleSettings();
+              }}
+            />
+          </Box>
+          <Box direction="column" className="expandable">
+            <GistSync
+              githubAuthOn={githubAuthOn}
+              onClick={() => {
+                toggleSettings();
+              }}
+            />
+            <Text size="small" className="help">
             Keyboard Shortcuts
-            <Tooltip data="keyboard-shortcuts" />
-          </Text>
+              <Tooltip data="keyboard-shortcuts" />
+            </Text>
+          </Box>
         </Box>
       </>
     );

@@ -11,6 +11,15 @@
   flex-flow: column nowrap;
   height: calc(100vh - 32px);
   overflow: hidden;
+  .bottom-section {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    padding-bottom: 32px;
+    border-top: 1px solid currentColor;
+    width: 100%;
+  }
   .expandable {
     display: none;
   }
@@ -97,10 +106,6 @@
   > div > div > .button {
     width: 100%;
   }
-  .menu-controller .button {
-    width: 100%;
-    font-weight: 300;
-  }
   button {
     text-align: start;
     font-weight: 700;
@@ -129,15 +134,6 @@
       display: flex;
       flex-flow: row nowrap;
       border: none;
-    }
-  }
-  .menu-label-filter {
-    margin: 5px 0;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    span {
-      font-size: 14px;
     }
   }
 
