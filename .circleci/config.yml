@@ -29,6 +29,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       # install dependencies
+      - run: yarn add rimraf
       - run: yarn install-all
 
       - save_cache:
