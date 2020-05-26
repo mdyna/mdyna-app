@@ -201,7 +201,7 @@ class Settings extends PureComponent {
                   <Text>Code snippets theme</Text>
                   <Select
                     label="Cards per page"
-                    options={['Default', ...Object.keys(CODE_THEMES)]}
+                    options={[...Object.keys(CODE_THEMES)]}
                     value={codeTheme}
                     onChange={({ option }) => changeCodeTheme(option)}
                   />

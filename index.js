@@ -59,6 +59,7 @@ app.on('ready', async () => {
   logger.log('Main Electron Logs');
   logger.error('Main Electron Logs');
   mainWindow = new BrowserWindow(MDYNA_WINDOW_OPTIONS);
+  // mainWindow.webContents.openDevTools();
 
   const splash = new BrowserWindow(SPLASH_WINDOW_OPTIONS);
 
@@ -279,8 +280,6 @@ app.on('ready', async () => {
   logger.warn('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
-  } else {
-    mainWindow.loadURL('http://localhost:8080/dist/web');
     logger.info('LOADED USER STATE', cardStorage.get('state'));
   }
 });
