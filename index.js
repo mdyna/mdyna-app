@@ -280,6 +280,8 @@ app.on('ready', async () => {
   logger.warn('ELECTRON RUNNING IN', env);
   if (env === 'PROD') {
     mainWindow.loadURL(`file://${__dirname}/dist/web/index.html`);
+  } else {
+    mainWindow.loadURL('http://localhost:8080/dist/web');
     logger.info('LOADED USER STATE', cardStorage.get('state'));
   }
 });
