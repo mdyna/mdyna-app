@@ -13,6 +13,7 @@ import CardItem from 'Containers/CardItem';
 
 import Button from 'UI/Button';
 import Search from 'UI/Search';
+import SortingCollapsible from 'UI/SortingCollapsible';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
@@ -185,6 +186,9 @@ export default class CardList extends PureComponent {
       searchCards,
       searchHidden,
       titles,
+      changeSorting,
+      order,
+      sorting,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
@@ -291,6 +295,11 @@ export default class CardList extends PureComponent {
             )}
           </>
         )}
+        <SortingCollapsible
+          changeSorting={changeSorting}
+          order={order}
+          sorting={sorting}
+        />
         <Search
           searchInput={searchInput}
           onChange={searchCards}
@@ -399,6 +408,9 @@ CardList.propTypes = {
   boards: PropTypes.array,
   boardNames: PropTypes.array,
   createBoard: PropTypes.func.isRequired,
+  changeSorting: PropTypes.string.isRequired,
+  order: PropTypes.string.isRequired,
+  sorting: PropTypes.string.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   focusCard: PropTypes.func.isRequired,

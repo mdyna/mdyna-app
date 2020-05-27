@@ -13,7 +13,9 @@ const {
 } = Selectors;
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
-const { changeActiveBoard, focusCard, searchCards } = FILTERS;
+const {
+  changeActiveBoard, focusCard, searchCards, changeSorting,
+} = FILTERS;
 const { addCard, importCards } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
 
@@ -38,6 +40,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(addCard(activeBoard, card));
       dispatch(searchCards(''));
       dispatch(focusCard());
+    },
+    changeSorting: (sorting, order) => {
+      dispatch(changeSorting(sorting, order));
     },
     searchCards: (val) => {
       dispatch(searchCards(val));

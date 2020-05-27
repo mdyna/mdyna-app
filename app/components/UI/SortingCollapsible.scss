@@ -1,0 +1,6 @@
+svg {
+  transition: all 0.5s;
+  &.descending {
+    transform: rotate(180deg);
+  }
+}

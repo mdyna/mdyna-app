@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 // eslint-disable-next-line
 import SVG from 'react-inlinesvg';
 import PropTypes from 'prop-types';
-import { Collapsible } from 'grommet';
+import { Collapsible, Box } from 'grommet';
 import {
   Up,
+  Ascend,
 } from 'grommet-icons';
 import classnames from 'classnames';
 import Button from 'UI/Button';
@@ -14,6 +15,8 @@ import {
   ASCENDING_ORDER,
   DESCENDING_ORDER,
 } from 'Utils/globals';
+
+import './SortingCollapsible.scss';
 
 class SortingCollapsible extends PureComponent {
   state = {
@@ -46,42 +49,49 @@ class SortingCollapsible extends PureComponent {
       sortingOptionsExpanded,
     } = this.state;
     return (
-      <Collapsible direction="vertical" open={sortingOptionsExpanded}>
-        <Button
-          color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
-          hoverIndicator="accent-1"
-          onClick={() => changeSorting(
-            SORTING_BY_TITLE,
-            this.getSortingOrder(SORTING_BY_TITLE),
-          )
-        }
-        >
-          <Up
+      <Box direction="column">
+        <Button hoverIndicator="accent-1" onClick={() => this.expandSortingOptions()}>
+          <Ascend color="brand" />
+          {' '}
+Sort Cards
+        </Button>
+        <Collapsible direction="vertical" open={sortingOptionsExpanded}>
+          <Button
             color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
-            className={classnames(
-              order === DESCENDING_ORDER && 'descending',
-            )}
-          />
-        By Title
-        </Button>
-        <Button
-          hoverIndicator="accent-1"
-          onClick={() => changeSorting(
-            SORTING_BY_DATE,
-            this.getSortingOrder(SORTING_BY_DATE),
-          )
+            hoverIndicator="accent-1"
+            onClick={() => changeSorting(
+              SORTING_BY_TITLE,
+              this.getSortingOrder(SORTING_BY_TITLE),
+            )
         }
-          color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
-        >
-          <Up
+          >
+            <Up
+              color={(sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'}
+              className={classnames(
+                order === DESCENDING_ORDER && 'descending',
+              )}
+            />
+        By Title
+          </Button>
+          <Button
+            hoverIndicator="accent-1"
+            onClick={() => changeSorting(
+              SORTING_BY_DATE,
+              this.getSortingOrder(SORTING_BY_DATE),
+            )
+        }
             color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
-            className={classnames(
-              order === DESCENDING_ORDER && 'descending',
-            )}
-          />
+          >
+            <Up
+              color={(sorting === SORTING_BY_DATE && 'accent-3') || 'brand'}
+              className={classnames(
+                order === DESCENDING_ORDER && 'descending',
+              )}
+            />
         By Date
-        </Button>
-      </Collapsible>
+          </Button>
+        </Collapsible>
+      </Box>
     );
   }
 }
