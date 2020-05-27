@@ -8,6 +8,7 @@ import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
 const {
   cardListSelector,
   isEditingSelector,
+  titlesSelector,
   activeBoardNameSelector,
 } = Selectors;
 
@@ -45,6 +46,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  const titles = titlesSelector(state);
   return {
     cards: cardListSelector(state),
     isEditing: isEditingSelector(state),
@@ -59,6 +61,8 @@ function mapStateToProps(state) {
     sorting: state.filters.sorting || SORTING_BY_DATE,
     labelFilters: state.filters.labelFilters,
     searchInput: state.filters.searchInput,
+    searchHidden: state.filters.isFocused,
+    titles,
   };
 }
 

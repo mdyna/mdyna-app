@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import ErrorBoundary from 'UI/Error';
 import CardList from 'Containers/CardList';
 import Settings from 'Containers/Settings';
-import SearchInput from 'Containers/Search';
 import Sidebar from 'Containers/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import BoardsDialog from 'Containers/Boards';
@@ -70,7 +69,6 @@ class Mdyna extends Component {
           <Box fill="vertical" direction="row">
             <Sidebar gridArea="menu" />
             <Box direction="column" fill="horizontal">
-              <SearchInput />
               <CardList gridArea="card-list" />
             </Box>
           </Box>

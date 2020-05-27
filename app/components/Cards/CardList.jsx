@@ -10,7 +10,9 @@ import {
 import cx from 'classnames';
 import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
 import CardItem from 'Containers/CardItem';
+
 import Button from 'UI/Button';
+import Search from 'UI/Search';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
@@ -179,6 +181,10 @@ export default class CardList extends PureComponent {
       activeBoardId,
       isEditing,
       boards,
+      searchInput,
+      searchCards,
+      searchHidden,
+      titles,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
@@ -285,6 +291,12 @@ export default class CardList extends PureComponent {
             )}
           </>
         )}
+        <Search
+          searchInput={searchInput}
+          onChange={searchCards}
+          hidden={searchHidden}
+          titles={titles}
+        />
       </Box>
     );
   }
@@ -397,6 +409,9 @@ CardList.propTypes = {
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
+  searchCards: PropTypes.func.isRequired,
+  searchHidden: PropTypes.bool,
+  titles: PropTypes.array,
 };
 
 CardList.defaultProps = {
@@ -407,4 +422,6 @@ CardList.defaultProps = {
   boardNames: [],
   searchInput: '',
   cards: [],
+  titles: [],
+  searchHidden: false,
 };
