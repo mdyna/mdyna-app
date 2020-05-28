@@ -14,6 +14,7 @@ import CardItem from 'Containers/CardItem';
 import Button from 'UI/Button';
 import Search from 'UI/Search';
 import SortingCollapsible from 'UI/SortingCollapsible';
+import LabelFilter from 'UI/LabelFilter';
 import BoardPicker from 'UI/BoardPicker';
 
 import './CardList.scss'; // eslint-disable-line
@@ -187,10 +188,15 @@ export default class CardList extends PureComponent {
       searchHidden,
       titles,
       changeSorting,
+      labelFilters,
+      labels,
       order,
+      addLabelFilter,
+      removeLabelFilter,
       sorting,
     } = this.props;
     const { pageView, pageIndex, boardsExpanded } = this.state;
+    const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
 
     return (
@@ -300,6 +306,7 @@ export default class CardList extends PureComponent {
           order={order}
           sorting={sorting}
         />
+        <LabelFilter labelFilterFuncs={labelFilterFuncs} labels={labels} labelFilters={labelFilters} />
         <Search
           searchInput={searchInput}
           onChange={searchCards}
@@ -408,7 +415,7 @@ CardList.propTypes = {
   boards: PropTypes.array,
   boardNames: PropTypes.array,
   createBoard: PropTypes.func.isRequired,
-  changeSorting: PropTypes.string.isRequired,
+  changeSorting: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   sorting: PropTypes.string.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
@@ -421,6 +428,9 @@ CardList.propTypes = {
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
+  labels: PropTypes.array.isRequired,
+  addLabelFilter: PropTypes.func.isRequired,
+  removeLabelFilter: PropTypes.func.isRequired,
   searchCards: PropTypes.func.isRequired,
   searchHidden: PropTypes.bool,
   titles: PropTypes.array,

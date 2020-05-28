@@ -10,11 +10,12 @@ const {
   isEditingSelector,
   titlesSelector,
   activeBoardNameSelector,
+  boardLabelsSelector,
 } = Selectors;
 
 const { FILTERS, BOARDS, CARD } = ACTIONS;
 const {
-  changeActiveBoard, focusCard, searchCards, changeSorting,
+  changeActiveBoard, focusCard, searchCards, changeSorting, addLabelFilter, removeLabelFilter,
 } = FILTERS;
 const { addCard, importCards } = CARD;
 const { toggleBoardsDialog, createBoard } = BOARDS;
@@ -47,6 +48,12 @@ function mapDispatchToProps(dispatch) {
     searchCards: (val) => {
       dispatch(searchCards(val));
     },
+    addLabelFilter: (val) => {
+      dispatch(addLabelFilter(val));
+    },
+    removeLabelFilter: (val) => {
+      dispatch(removeLabelFilter(val));
+    },
   };
 }
 
@@ -56,6 +63,7 @@ function mapStateToProps(state) {
     cards: cardListSelector(state),
     isEditing: isEditingSelector(state),
     activeBoard: activeBoardNameSelector(state),
+    labels: boardLabelsSelector(state),
     activeBoardId: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
     boardNames: state.boards.boardNames,
