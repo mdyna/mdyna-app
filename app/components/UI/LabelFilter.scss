@@ -1,3 +1,7 @@
+
+button {
+  width: fit-content;
+}
 .remove-btn {
   margin: 5px 15px !important;
 }
@@ -7,9 +11,9 @@
   display: flex;
   margin-left: 15px;
   .label-box {
-    overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     padding: 5px;
     justify-content: flex-start;
     align-items: baseline;

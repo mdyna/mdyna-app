@@ -1,12 +1,25 @@
-import React, { Component } from 'react';
-import { Box } from 'grommet';
+import React, { PureComponent } from 'react';
+import { Box, Collapsible } from 'grommet';
+import { Tag } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy'; // eslint-disable-line
 import Labels from 'UI/Labels';
 import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
-class LabelFilter extends Component {
+class LabelFilter extends PureComponent {
+  state = {
+    expanded: false,
+  }
+
+
+  expandLabelFilters() {
+    const { expanded } = this.state;
+    this.setState({
+      expanded: !expanded,
+    });
+  }
+
   clearLabels() {
     const { labelFilters, labelFilterFuncs } = this.props;
     const { removeLabelFilter } = labelFilterFuncs;
@@ -45,18 +58,28 @@ class LabelFilter extends Component {
 
   render() {
     const { labels, labelFilters } = this.props;
+    const { expanded } = this.state;
     return (
-      (labels && labels.length && (
-        <>
-          {labelFilters && labelFilters.length && <Button className="remove-btn" onClick={() => this.clearLabels()} color="accent-2">{`Clear (${labelFilters.length})`}</Button> || ''}
-          <div className="label-filter-box">
-            <Box background="dark-1" className="label-box">
-              {this.renderClickableLabels()}
-            </Box>
-          </div>
-        </>
-      ))
-      || ''
+      <Box direction="column">
+        <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
+          <Tag color="brand" />
+          {' '}
+        Label Filters
+        </Button>
+        <Collapsible open={expanded} direction="vertical">
+          {(labels && labels.length && (
+          <>
+            {labelFilters && labelFilters.length && <Button className="remove-btn" onClick={() => this.clearLabels()} color="accent-2">{`Clear (${labelFilters.length})`}</Button> || ''}
+            <div className="label-filter-box">
+              <Box background="dark-1" className="label-box">
+                {this.renderClickableLabels()}
+              </Box>
+            </div>
+          </>
+          ))
+|| ''}
+        </Collapsible>
+      </Box>
     );
   }
 }
