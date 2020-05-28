@@ -222,8 +222,7 @@ export default class CardList extends PureComponent {
               style={{
                 display: boardsExpanded ? 'none' : 'initial',
               }}
-              align="center"
-              size="xxlarge"
+              weight="bold"
             >
               {activeBoard}
             </Text>
