@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Help } from 'grommet-icons';
-import { Box, Drop } from 'grommet';
+import { Box, Drop, Text } from 'grommet';
 import cx from 'classnames';
 
 import './Tooltip.scss'; // eslint-disable-line
@@ -105,7 +105,7 @@ class Tooltip extends PureComponent {
             >
               {data === 'keyboard-shortcuts' && <KeyboardShortcuts />}
               {text
-                ? (typeof text === 'string' && text) || (
+                ? (typeof text === 'string' && <Text color="brand">{text}</Text>) || (
                 <ul>
                   {text && text.map(block => <li key={block}>{block}</li>)}
                 </ul>
