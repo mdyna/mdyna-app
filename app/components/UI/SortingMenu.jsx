@@ -14,7 +14,6 @@ import {
   DESCENDING_ORDER,
 } from 'Utils/globals';
 
-import './SortingMenu.scss';
 
 class SortingMenu extends PureComponent {
   getSortingOrder = (targetSorting) => {
@@ -35,6 +34,12 @@ class SortingMenu extends PureComponent {
 
   render() {
     const { changeSorting, order, sorting } = this.props;
+    const iconStyle = {
+      transition: 'all 0.5s',
+      transform: order === DESCENDING_ORDER ? 'rotate(180deg)' : 'rotate(0deg)',
+      verticalAlign: 'middle',
+      margin: '0 5px',
+    };
     return (
       <Box direction="column" wrap={false}>
         <Menu
@@ -52,6 +57,9 @@ class SortingMenu extends PureComponent {
               label: (
                 <Text>
                   <Up
+                    style={
+                      iconStyle
+                    }
                     color={
                       (sorting === SORTING_BY_TITLE && 'accent-3') || 'brand'
                     }
@@ -71,6 +79,9 @@ class SortingMenu extends PureComponent {
               label: (
                 <Text>
                   <Up
+                    style={
+                      iconStyle
+                    }
                     color={
                       (sorting === SORTING_BY_DATE && 'accent-3') || 'brand'
                     }

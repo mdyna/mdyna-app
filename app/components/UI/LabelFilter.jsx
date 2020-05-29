@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Box, Collapsible } from 'grommet';
+import { Box, Collapsible, Text } from 'grommet';
 import { Tag } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy'; // eslint-disable-line
@@ -63,8 +63,9 @@ class LabelFilter extends PureComponent {
       <Box direction="column">
         <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
           <Tag color="brand" />
-          {' '}
+          <Text color="brand">
         Label Filters
+          </Text>
         </Button>
         <Collapsible open={expanded} direction="vertical">
           {(labels && labels.length && (
