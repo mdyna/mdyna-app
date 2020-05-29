@@ -60,7 +60,7 @@ class LabelFilter extends PureComponent {
     const { labels, labelFilters } = this.props;
     const { expanded } = this.state;
     return (
-      <Box direction="column">
+      <Box direction="column" style={{ flex: 1 }}>
         <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
           <Tag color="brand" />
           <Text color="brand">
