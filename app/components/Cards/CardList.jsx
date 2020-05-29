@@ -13,7 +13,7 @@ import CardItem from 'Containers/CardItem';
 
 import Button from 'UI/Button';
 import Search from 'UI/Search';
-import SortingCollapsible from 'UI/SortingCollapsible';
+import SortingMenu from 'UI/SortingMenu';
 import LabelFilter from 'UI/LabelFilter';
 import BoardPicker from 'UI/BoardPicker';
 
@@ -300,7 +300,7 @@ export default class CardList extends PureComponent {
             )}
           </>
         )}
-        <SortingCollapsible
+        <SortingMenu
           changeSorting={changeSorting}
           order={order}
           sorting={sorting}
