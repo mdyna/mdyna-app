@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Masonry from 'react-masonry-css';
-import { Box, Text } from 'grommet';
+import { Box, Text, Collapsible } from 'grommet';
 import Tooltip from 'UI/Tooltip';
 import {
-  Add, Previous, Next, Upload as Export, Download, Close,
+  Add, Previous, Next, Upload as Export, Download, Close, List,
 } from 'grommet-icons';
 import cx from 'classnames';
 import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
@@ -23,6 +23,7 @@ export default class CardList extends PureComponent {
   state = {
     pageView: 1,
     pageIndex: 0,
+    miniListExpanded: false,
   };
 
   componentDidMount() {
@@ -267,12 +268,15 @@ export default class CardList extends PureComponent {
     const {
       cards, cardsPerPage, focusedCardId, focusCard, isEditing,
     } = this.props;
-    const { pageIndex, pageView } = this.state;
+    const { pageIndex, pageView, miniListExpanded } = this.state;
 
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
       <Box direction="column" style={{ minWidth: '150px' }}>
-        <Box direction="row">
+        <Box direction="row" align="center" justify="between">
+          <Button onClick={() => this.setState({ miniListExpanded: !miniListExpanded })} hoverIndicator="accent-3">
+            <List color="brand" />
+          </Button>
           <Text align="center" size="medium">
             {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
           </Text>
@@ -319,14 +323,16 @@ export default class CardList extends PureComponent {
           <Text size="xsmall" color="brand">Jump to first</Text>
         </Button>
         )}
+        <Collapsible open={miniListExpanded}>
+          <MiniCardList
+            cards={cards}
+            focusCard={focusCard}
+            focusedCardId={focusedCardId}
+            type="cards"
+            long
+          />
+        </Collapsible>
 
-        <MiniCardList
-          cards={cards}
-          focusCard={focusCard}
-          focusedCardId={focusedCardId}
-          type="cards"
-          long
-        />
       </Box>
     );
   }
