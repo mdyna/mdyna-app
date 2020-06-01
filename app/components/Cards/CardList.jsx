@@ -298,20 +298,20 @@ export default class CardList extends PureComponent {
             ) : (
               ''
             )}
+            <SortingMenu
+              changeSorting={changeSorting}
+              order={order}
+              sorting={sorting}
+            />
+            <LabelFilter labelFilterFuncs={labelFilterFuncs} labels={labels} labelFilters={labelFilters} />
+            <Search
+              searchInput={searchInput}
+              onChange={searchCards}
+              hidden={searchHidden}
+              titles={titles}
+            />
           </>
         )}
-        <SortingMenu
-          changeSorting={changeSorting}
-          order={order}
-          sorting={sorting}
-        />
-        <LabelFilter labelFilterFuncs={labelFilterFuncs} labels={labels} labelFilters={labelFilters} />
-        <Search
-          searchInput={searchInput}
-          onChange={searchCards}
-          hidden={searchHidden}
-          titles={titles}
-        />
       </Box>
     );
   }
