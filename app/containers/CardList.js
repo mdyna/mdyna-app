@@ -74,6 +74,7 @@ function mapStateToProps(state) {
     sorting: state.filters.sorting || SORTING_BY_DATE,
     labelFilters: state.filters.labelFilters,
     searchInput: state.filters.searchInput,
+    focusedCardId: state.filters.focusedCard && state.filters.focusedCard.id,
     searchHidden: state.filters.isFocused,
     titles,
   };

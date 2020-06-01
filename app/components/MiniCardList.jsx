@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Button from 'UI/Button';
 import FocusIcon from 'UI/FocusIcon';
 
-import './Favorites.scss';
+import './MiniCardList.scss';
 
 class MiniCardList extends PureComponent {
   render() {

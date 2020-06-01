@@ -1,15 +1,31 @@
-.favs-container {
+.cards-container {
   max-height: 25vh;
   min-height: 30px;
   overflow-y: auto;
   font-weight: 700;
   font-size: 14px;
   justify-content: center;
-  text-align: center;
-  button {
-    min-height: 30px;
+  text-align: left;
+  &.long {
+    max-height: 70vh;
+    min-width: 150px;
+    justify-content: flex-start;
   }
-  .focus-btn {
+  > div {
+    min-height: 28px;
+  }
+  button {
+    border-radius: 0 !important;
+    min-height: 28px;
+    justify-content: flex-start;
+    svg {
+      height: 24px;
+      margin-right: 5px;
+      width: 24px;
+      vertical-align: middle;
+    }
+  }
+  .focus-btn   {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
