@@ -56,6 +56,19 @@ class LabelFilter extends PureComponent {
     return clickableLabels;
   }
 
+  renderClearBtn() {
+    const { labelFilters } = this.props;
+    return (
+      <Button
+        className="remove-btn"
+        onClick={() => this.clearLabels()}
+        color="accent-2"
+      >
+        {`Clear (${labelFilters.length})`}
+      </Button>
+    );
+  }
+
   render() {
     const { labels, labelFilters } = this.props;
     const { expanded } = this.state;
@@ -67,10 +80,10 @@ class LabelFilter extends PureComponent {
         Label Filters
           </Text>
         </Button>
+        {labelFilters && labelFilters.length && this.renderClearBtn() || ''}
         <Collapsible open={expanded} direction="vertical">
           {(labels && labels.length && (
           <>
-            {labelFilters && labelFilters.length && <Button className="remove-btn" onClick={() => this.clearLabels()} color="accent-2">{`Clear (${labelFilters.length})`}</Button> || ''}
             <div className="label-filter-box">
               <Box background="dark-1" className="label-box">
                 {this.renderClickableLabels()}
