@@ -1,0 +1,146 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\dmora\AppData\Local\Temp\yarn--1590712724868-0.24181193483635588;C:\Users\dmora\dev\mdyna-app\node_modules\.bin;C:\Users\dmora\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Yarn\bin\;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Users\dmora\AppData\Local\Microsoft\WindowsApps;C:\Users\dmora\AppData\Local\Yarn\bin;C:\Users\dmora\AppData\Local\Programs\Microsoft VS Code\bin;C:\tools\Cmder;C:\Users\dmora\AppData\Roaming\npm
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  12.16.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EBUSY: resource busy or locked, unlink 'C:\Users\dmora\dev\mdyna-app\node_modules\electron\dist\chrome_100_percent.pak'
+
+npm manifest: 
+  {
+    "name": "dyna",
+    "version": "0.1.1",
+    "description": "Note notification and productivity app with  markdown support",
+    "main": "main.js",
+    "scripts": {
+      "build-dist": "cross-env NODE_ENV=PROD && rm -rf ./dist && npm run build-electron && electron-builder -l",
+      "build-electron": "cross-env NODE_ENV=PROD && rm -rf ./dist/web && webpack --config webpack.config.electron.js;",
+      "build-webpack": "cross-env NODE_ENV=PROD && rm -rf ./dist/web && webpack --optimize-minimize --config webpack.config.js",
+      "create-icons": "electron-icon-maker --input=./resources/dynaLogoCircle.png --output=./resources/",
+      "install-all": "yarn && cd app && yarn",
+      "electron-builder": "electron-builder",
+      "pack-asar": "./node_modules/.bin/asar pack dyna app.asar",
+      "start": "rm -rf ./dist && cross-env NODE_ENV=DEV && concurrently \"webpack-dev-server --hot --inline\" \"sleep 2 && electron ./main.js\"",
+      "start-electron": "npm run build-electron && cross-env NODE_ENV=PROD && electron --debug ./main.js",
+      "watch": "webpack-dev-server --hot --inline"
+    },
+    "author": {
+      "name": "David Morais",
+      "email": "davidmorais92@gmail.com"
+    },
+    "license": "MIT",
+    "build": {
+      "productName": "dyna",
+      "files": [
+        "dist/web/",
+        "node_modules/",
+        "splash.html",
+        "main.js",
+        "package.json",
+        "resources/icons/**"
+      ],
+      "directories": {
+        "app": ".",
+        "buildResources": "resources"
+      },
+      "appId": "com.electron.dyna",
+      "win": {
+        "target": [
+          {
+            "target": "nsis",
+            "arch": [
+              "x64",
+              "ia32"
+            ]
+          }
+        ],
+        "icon": "resources/icons/win"
+      },
+      "linux": {
+        "target": [
+          "deb",
+          "AppImage"
+        ],
+        "icon": "icons/png",
+        "category": "Development"
+      }
+    },
+    "dependencies": {
+      "cross-env": "5.0.0",
+      "electron-json-storage": "^4.1.2",
+      "electron-reload": "^1.2.2",
+      "webpack-merge": "^4.1.1"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.0.0-beta.49",
+      "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.49",
+      "@babel/polyfill": "^7.0.0-beta.49",
+      "@babel/preset-env": "^7.0.0-beta.49",
+      "@babel/preset-react": "^7.0.0-beta.49",
+      "asar": "^0.14.3",
+      "babel-eslint": "^8.2.3",
+      "babel-loader": "^8.0.0-beta.3",
+      "concurrently": "^3.5.1",
+      "copy-webpack-plugin": "4.0.1",
+      "css-loader": "^0.28.3",
+      "electron": "3.0.0",
+      "electron-builder": "^20.28.4",
+      "electron-icon-maker": "0.0.4",
+      "eslint": "^4.19.1",
+      "eslint-config-airbnb": "15.0.0",
+      "eslint-config-standard": "^10.2.1",
+      "eslint-plugin-import": "2.3.0",
+      "eslint-plugin-jsx-a11y": "^5.0.3",
+      "eslint-plugin-node": "^4.2.2",
+      "eslint-plugin-promise": "^3.5.0",
+      "eslint-plugin-react": "^7.0.1",
+      "eslint-plugin-standard": "^3.0.1",
+      "extract-text-webpack-plugin": "2.1.0",
+      "file-loader": "0.11.1",
+      "html-webpack-plugin": "^2.28.0",
+      "inuit-defaults": "^0.2.3",
+      "node-sass": "^4.9.2",
+      "open-browser-webpack-plugin": "0.0.5",
+      "postcss": "^6.0.1",
+      "postcss-cssnext": "^2.11.0",
+      "postcss-loader": "^2.0.5",
+      "postcss-mixins": "^6.0.0",
+      "prettier-eslint": "^8.8.1",
+      "react": "^16.5.2",
+      "react-addons-test-utils": "15.5.1",
+      "react-hot-loader": "^3.0.0-beta.6",
+      "sass-loader": "^6.0.6",
+      "style-loader": "^0.18.1",
+      "url-loader": "0.5.8",
+      "webpack": "3.3.0",
+      "webpack-dev-server": "2.4.5"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+git@github.com:cyborkonline/dyna.git"
+    },
+    "keywords": [
+      "react",
+      "webpack",
+      "boilerplate",
+      "webpack 3.3",
+      "babel",
+      "es6"
+    ]
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

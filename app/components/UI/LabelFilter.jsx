@@ -32,7 +32,7 @@ class LabelFilter extends PureComponent {
   renderClickableLabels() {
     const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
-    const orderedLabels = sort(labels, d => d.count).reverse();
+    const orderedLabels = sort(labels, d => labelFilters.indexOf(d.title) !== -1, d => d.count).reverse();
     const clickableLabels = [];
     for (let i = 0; i < 10; i += 1) {
       const label = orderedLabels[i];

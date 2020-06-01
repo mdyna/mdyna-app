@@ -275,7 +275,9 @@ class MdynaCard extends PureComponent {
           {card.seeMore && !isFocused && (
             <div className="see-more-btn">
               <Button onClick={() => focusCard({ ...card, text: card.fullText })}>
-              See More
+                <Text color={color}>
+                See More
+                </Text>
                 <FocusIcon color={color} />
               </Button>
             </div>
