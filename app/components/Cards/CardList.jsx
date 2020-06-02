@@ -272,7 +272,7 @@ export default class CardList extends PureComponent {
 
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
-      <Box direction="column" style={{ minWidth: '150px' }}>
+      <Box direction="column" style={{ maxWidth: '25%' }}>
         <Box direction="row" align="center" justify="between">
           <Button onClick={() => this.setState({ miniListExpanded: !miniListExpanded })} hoverIndicator="accent-3">
             <List color="brand" />
@@ -286,6 +286,7 @@ export default class CardList extends PureComponent {
               'page-control',
               pageIndex === 0 && 'disabled',
             )}
+            hoverIndicator="accent-3"
             onClick={() => this.getPreviousCards()}
           >
             {!isEditing && (
@@ -300,6 +301,7 @@ export default class CardList extends PureComponent {
           {hasMore && (
           <Button
             onClick={() => this.getNextCards()}
+            hoverIndicator="accent-3"
             className={cx('page-control', !hasMore && 'disabled')}
           >
             {!isEditing && (
@@ -318,6 +320,7 @@ export default class CardList extends PureComponent {
             'page-control',
             pageIndex === 0 && 'disabled',
           )}
+          hoverIndicator="accent-3"
           onClick={() => this.jumpToFirst()}
         >
           <Text size="xsmall" color="brand">Jump to first</Text>

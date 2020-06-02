@@ -18,7 +18,6 @@ class MiniCardList extends PureComponent {
     }[type];
     const ICON = {
       favs: <Star color="brand" />,
-      cards: <FocusIcon />,
     }[type];
     const listItems = [];
     for (let i = 0; i < cards.length; i += 1) {

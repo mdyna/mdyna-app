@@ -11,7 +11,7 @@
     border-radius: 10px;
     display: flex;
     padding: 5px;
-    width: fit-content;
+    width: 100%;
     align-self: flex-start;
     align-items: center;
     flex-flow: row wrap;
@@ -80,7 +80,7 @@
   .card-list-grid {
     display: flex;
     margin-left: -10px; /* gutter size offset */
-    width: 100%;
+    flex: 1;
   }
   .card-list-card {
     transition: all 0.5s;
