@@ -27,28 +27,30 @@ import { CODE_THEMES } from './MarkdownEditorThemes';
 import './Settings.scss';
 
 const renderAppInfo = () => (
-  <Box direction="row" background="dark-1" className="app-info" responsive>
-    <Box direction="row" justify="between" align="center">
+  <Box direction="row" className="app-info" responsive>
+    <Box direction="row" justify="between" align="start">
       <Header>
         <Text size="xxlarge" as="h1">
         MDyna
         </Text>
         <Text>{window.appVersion}</Text>
       </Header>
-      <Text size="large" color="brand">
-        <a href="https://mdyna.dev">
-          <Globe color="brand" />
+      <Box direction="column">
+        <Text size="large" color="brand">
+          <a href="https://mdyna.dev">
+            <Globe color="brand" />
         Website
-        </a>
-      </Text>
-      <Text size="large" color="brand">
-        <ChatOption color="brand" />
-        <a href="https://spectrum.chat/mdyna/">Community</a>
-      </Text>
-      <Text size="large" color="brand">
-        <Github color="brand" />
-        <a href="https://github.com/mdyna/mdyna-app/">GitHub</a>
-      </Text>
+          </a>
+        </Text>
+        <Text size="large" color="brand">
+          <ChatOption color="brand" />
+          <a href="https://spectrum.chat/mdyna/">Community</a>
+        </Text>
+        <Text size="large" color="brand">
+          <Github color="brand" />
+          <a href="https://github.com/mdyna/mdyna-app/">GitHub</a>
+        </Text>
+      </Box>
     </Box>
   </Box>
 );
@@ -82,6 +84,7 @@ class Settings extends PureComponent {
           <Close color="accent-2" />
         </Button>
         <ErrorBoundary>
+
           {renderAppInfo()}
           <Box align="center" direction="row" justify="between" className="credits">
             <Text>Created by David Morais</Text>

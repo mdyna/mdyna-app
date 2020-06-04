@@ -104,13 +104,8 @@
     margin: 0px 15px 0px 0px;
   }
   .app-info {
-    padding: 50px;
-    border-radius: 10px;
-    margin: 30px 20px;
-    align-items: center;
-    justify-content: flex-start;
     > div {
-      width: 100%;
+      width: fit-content;
     }
     header {
       margin: 0 auto;
