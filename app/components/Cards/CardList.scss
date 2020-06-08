@@ -80,7 +80,7 @@
   .card-list-grid {
     display: flex;
     margin-left: -10px; /* gutter size offset */
-    flex: 1;
+    width: 100%;
   }
   .card-list-card {
     transition: all 0.5s;
