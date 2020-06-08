@@ -75,10 +75,10 @@ class LabelFilter extends PureComponent {
     return (
       <Box direction="column" style={{ flex: 1 }}>
         <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
-          <Tag color="brand" />
           <Text color="brand">
         Label Filters
           </Text>
+          <Tag color="brand" />
         </Button>
         {labelFilters && labelFilters.length && this.renderClearBtn() || ''}
         <Collapsible open={expanded} direction="vertical">

@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import { Box, Text } from 'grommet';
-import { Star } from 'grommet-icons';
-import PropTypes from 'prop-types';
-import Button from 'UI/Button';
-import FocusIcon from 'UI/FocusIcon';
-
 import './MiniCardList.scss';
+
+import { Box, Text } from 'grommet';
+import { Notes, Star } from 'grommet-icons';
+import React, { PureComponent } from 'react';
+
+import Button from 'UI/Button';
+import PropTypes from 'prop-types';
 
 class MiniCardList extends PureComponent {
   render() {
@@ -17,6 +17,7 @@ class MiniCardList extends PureComponent {
       cards: 'Press "A" to add a card',
     }[type];
     const ICON = {
+      cards: <Notes color="brand" />,
       favs: <Star color="brand" />,
     }[type];
     const listItems = [];

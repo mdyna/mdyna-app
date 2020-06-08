@@ -1,9 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
+import React from 'react';
+import Sidebar from 'Components/Sidebar';
+import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,

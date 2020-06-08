@@ -1,29 +1,34 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Masonry from 'react-masonry-css';
-import { Box, Text, Collapsible } from 'grommet';
-import Tooltip from 'UI/Tooltip';
-import {
-  Add, Previous, Next, Upload as Export, Download, Close, List,
-} from 'grommet-icons';
-import cx from 'classnames';
-import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
-import CardItem from 'Containers/CardItem';
+import './CardList.scss'; // eslint-disable-line
 
-import MiniCardList from 'Components/MiniCardList';
+import {
+  Add,
+  Close,
+  Download,
+  Upload as Export,
+  Next,
+  Previous,
+} from 'grommet-icons';
+import { Box, Collapsible, Text } from 'grommet';
+import React, { PureComponent } from 'react';
+import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
+
+import BoardPicker from 'UI/BoardPicker';
 import Button from 'UI/Button';
+import CardItem from 'Containers/CardItem';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import LabelFilter from 'UI/LabelFilter';
+import Masonry from 'react-masonry-css';
+import MiniCardList from 'Components/MiniCardList';
+import PropTypes from 'prop-types';
 import Search from 'UI/Search';
 import SortingMenu from 'UI/SortingMenu';
-import LabelFilter from 'UI/LabelFilter';
-import BoardPicker from 'UI/BoardPicker';
+import Tooltip from 'UI/Tooltip';
+import cx from 'classnames';
 
-import './CardList.scss'; // eslint-disable-line
 export default class CardList extends PureComponent {
   state = {
     pageView: 1,
     pageIndex: 0,
-    miniListExpanded: false,
   };
 
   componentDidMount() {
@@ -172,7 +177,7 @@ export default class CardList extends PureComponent {
     );
   }
 
-  renderCardControls() {
+  renderCardControls(cardItems) {
     const {
       isFocused,
       activeBoard,
@@ -246,12 +251,15 @@ export default class CardList extends PureComponent {
               />
             </Button>
             {this.renderAddNoteButton()}
+
+            {this.renderCardPagination(cardItems)}
             <SortingMenu
               changeSorting={changeSorting}
               order={order}
               sorting={sorting}
             />
             <LabelFilter labelFilterFuncs={labelFilterFuncs} labels={labels} labelFilters={labelFilters} />
+
             <Search
               searchInput={searchInput}
               onChange={searchCards}
@@ -266,17 +274,14 @@ export default class CardList extends PureComponent {
 
   renderCardPagination(cardItems) {
     const {
-      cards, cardsPerPage, focusedCardId, focusCard, isEditing,
+      cardsPerPage, isEditing,
     } = this.props;
-    const { pageIndex, pageView, miniListExpanded } = this.state;
+    const { pageIndex, pageView } = this.state;
 
     const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
     return (
       <Box direction="column" style={{ maxWidth: '25%' }}>
         <Box direction="row" align="center" justify="between">
-          <Button onClick={() => this.setState({ miniListExpanded: !miniListExpanded })} hoverIndicator="accent-3">
-            <List color="brand" />
-          </Button>
           <Text align="center" size="medium">
             {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
           </Text>
@@ -326,23 +331,34 @@ export default class CardList extends PureComponent {
           <Text size="xsmall" color="brand">Jump to first</Text>
         </Button>
         )}
-        <Collapsible open={miniListExpanded}>
-          <MiniCardList
-            cards={cards}
-            focusCard={focusCard}
-            focusedCardId={focusedCardId}
-            type="cards"
-            long
-          />
-        </Collapsible>
-
       </Box>
     );
   }
 
+
+  renderMiniList() {
+    const {
+      cards, focusedCardId, focusCard, open,
+    } = this.props;
+    return (
+
+      <Collapsible open={open}>
+        <MiniCardList
+          cards={cards}
+          focusCard={focusCard}
+          focusedCardId={focusedCardId}
+          type="cards"
+          long
+        />
+      </Collapsible>
+
+    );
+  }
+
+
   render() {
     const {
-      cards, searchInput, cardsPerPage, isFocused,
+      cards, searchInput, cardsPerPage, isFocused, mini,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -359,7 +375,7 @@ export default class CardList extends PureComponent {
       768: 1,
     };
 
-    return (
+    return mini ? this.renderMiniList() : (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
           handleKeys={['a', 'ctrl + v']}
@@ -389,14 +405,13 @@ export default class CardList extends PureComponent {
             }
           }}
         />
-        {this.renderCardControls()}
+        {this.renderCardControls(cardItems)}
         {cards.length ? (
           <React.Fragment>
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 {!isFocused && (
                   <>
-                    {this.renderCardPagination(cardItems)}
                     <Masonry
                       breakpointCols={BREAKPOINTS}
                       className="card-list-grid"
@@ -436,6 +451,8 @@ CardList.whyDidYouRender = true;
 
 CardList.propTypes = {
   addCard: PropTypes.func.isRequired,
+  mini: PropTypes.bool,
+  open: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.array,
@@ -467,9 +484,11 @@ CardList.defaultProps = {
   cardsPerPage: 8,
   boards: {},
   labelFilters: [],
+  open: false,
   activeBoardId: '',
   boardNames: [],
   searchInput: '',
+  mini: false,
   cards: [],
   titles: [],
   focusedCardId: '',

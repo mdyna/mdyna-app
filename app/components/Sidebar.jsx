@@ -1,27 +1,29 @@
-import React, { PureComponent } from 'react';
-// eslint-disable-next-line
-import SVG from 'react-inlinesvg';
-import PropTypes from 'prop-types';
-import { Box, Text, Collapsible } from 'grommet';
+import './Sidebar.scss';
+
 import {
-  FormPrevious,
   AddCircle,
   Archive,
-  Star,
   Configure,
+  FormPrevious,
+  List,
+  Star,
 } from 'grommet-icons';
-import BoardsIcon from 'UI/BoardsIcon';
-import classnames from 'classnames';
-import Tooltip from 'UI/Tooltip';
-import Button from 'UI/Button';
-import GistSync from 'Containers/GistSync';
-import Favs from 'Containers/Favs';
+import { Box, Collapsible, Text } from 'grommet';
+import React, { PureComponent } from 'react';
 
-import './Sidebar.scss';
+import BoardsIcon from 'UI/BoardsIcon';
+import Button from 'UI/Button';
+import CardList from 'Containers/CardList';
+import Favs from 'Containers/Favs';
+import GistSync from 'Containers/GistSync';
+import PropTypes from 'prop-types';
+import Tooltip from 'UI/Tooltip';
+import classnames from 'classnames';
 
 class Sidebar extends PureComponent {
   state = {
     favsExpanded: false,
+    miniListExpanded: false,
   };
 
   expandMenu() {
@@ -37,6 +39,14 @@ class Sidebar extends PureComponent {
     });
   }
 
+  expandMiniList() {
+    const { miniListExpanded } = this.state;
+    this.setState({
+      miniListExpanded: !miniListExpanded,
+    });
+  }
+
+
   sidebar() {
     const {
       activeBoard,
@@ -50,6 +60,7 @@ class Sidebar extends PureComponent {
     } = this.props;
     const {
       favsExpanded,
+      miniListExpanded,
     } = this.state;
 
     return (
@@ -81,7 +92,7 @@ class Sidebar extends PureComponent {
           }}
         />
         {
-          //= =======================================================================================
+//= =======================================================================================
 /*                                                                                      *
  *                                     Boards Dialog                                    *
  *                                                                                      */
@@ -139,6 +150,38 @@ class Sidebar extends PureComponent {
             <Favs />
           </Collapsible>
         </Box>
+        {
+        //= =======================================================================================
+/*                                                                                      *
+ *                                       Card List                                      *
+ *                                                                                      */
+//= =======================================================================================
+        }
+        <Button
+          className="expandable"
+          hoverIndicator="accent-1"
+          plain
+          onClick={() => this.expandMiniList()}
+        >
+          <List color="brand" />
+          <Text className="menu-label">Cards</Text>
+        </Button>
+        <Tooltip
+          hoverIndicator="accent-1"
+          className="sidebar-tooltip"
+          icon={<List color="brand" />}
+          title="Cards"
+          text="Show a list of your cards"
+          onClick={() => {
+            this.expandMenu();
+            this.expandMiniList();
+          }}
+        />
+
+        <Box className={classnames('expandable-menu', 'expandable')} background="dark-1">
+          <CardList mini open={miniListExpanded} />
+        </Box>
+
         <Box className="bottom-section">
           {
           //= =======================================================================================
