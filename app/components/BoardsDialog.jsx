@@ -9,6 +9,7 @@ import { Add, Edit, Trash } from 'grommet-icons';
 import BoardsIcon from 'UI/BoardsIcon';
 import Error from 'UI/Error';
 import Button from 'UI/Button';
+import CloseButton from 'UI/CloseButton';
 
 import './BoardsDialog.scss';
 
@@ -211,14 +212,7 @@ class BoardsDialog extends PureComponent {
             Boards
           </Text>
           {toggleBoardsDialog && (
-            <Button
-              color="accent-2"
-              className="discard-btn"
-              hoverIndicator="accent-2"
-              onClick={() => toggleBoardsDialog()}
-            >
-              X
-            </Button>
+            <CloseButton action={() => toggleBoardsDialog()} />
           )}
         </Box>
         {this.renderBoardsTable()}
