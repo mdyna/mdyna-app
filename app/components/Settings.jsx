@@ -4,21 +4,22 @@ import { Box, Text, Select } from 'grommet';
 import { toast } from 'react-toastify';
 // eslint-disable-next-line
 import { capitalize } from 'lodash';
-import ErrorBoundary from 'UI/Error';
-import Header from 'UI/Header';
 import {
   Brush,
-  Configure,
-  Globe,
   ChatOption,
+  Configure,
   Github,
-  Twitter,
+  Globe,
   MailOption,
   Note,
-  Close,
+  Twitter,
 } from 'grommet-icons';
+
 import { changeCwdEvent } from 'Utils/events';
 import GistSync from 'Containers/GistSync';
+import ErrorBoundary from 'UI/Error';
+import Header from 'UI/Header';
+import CloseButton from 'UI/CloseButton';
 import Button from 'UI/Button';
 import FolderPicker from 'UI/FolderPicker';
 import BoardsDialog from './BoardsDialog';
@@ -76,13 +77,9 @@ class Settings extends PureComponent {
     } = this.props;
     return (
       <Box className="settings" direction="column">
-        <Button
-          color="accent-2"
-          className="discard-btn"
-          onClick={() => toggleSettings()}
-        >
-          <Close color="accent-2" />
-        </Button>
+        <CloseButton
+          action={() => toggleSettings()}
+        />
         <ErrorBoundary>
 
           {renderAppInfo()}
