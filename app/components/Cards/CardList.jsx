@@ -283,7 +283,7 @@ export default class CardList extends PureComponent {
       <Box direction="column" style={{ maxWidth: '25%' }}>
         <Box direction="row" align="center" justify="between">
           <Text align="center" size="medium">
-            {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
+            {`${pageView}/${Math.ceil((cardItems || []).length / cardsPerPage)}`}
           </Text>
           {pageIndex !== 0 && (
           <Button

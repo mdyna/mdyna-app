@@ -26,10 +26,16 @@ button {
     .label-button {
       min-height: 32px;
       margin: 3px;
-      span {
-        font-size: 18px;
-        font-weight: 500;
-      }
     }
+    span {
+      font-weight: 500;
+    }
+  }
+}
+.label-filter {
+  min-width: 300px;
+  span {
+    font-size: 18px;
+    margin: 5 10px;
   }
 }

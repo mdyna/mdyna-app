@@ -73,12 +73,16 @@ class LabelFilter extends PureComponent {
     const { labels, labelFilters } = this.props;
     const { expanded } = this.state;
     return (
-      <Box direction="column" style={{ flex: 1 }}>
+      <Box direction="column" style={{ flex: 1 }} className="label-filter">
         <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
-          <Text color="brand">
+
+          <Box direction="row" wrap={false} align="center">
+            <Text color="brand">
         Label Filters
-          </Text>
-          <Tag color="brand" />
+            </Text>
+            <Tag color="brand" />
+          </Box>
+
         </Button>
         {labelFilters && labelFilters.length && this.renderClearBtn() || ''}
         <Collapsible open={expanded} direction="vertical">
