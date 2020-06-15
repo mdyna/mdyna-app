@@ -1,12 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Sidebar from 'Components/Sidebar';
 import ACTIONS from 'Store/actions/';
-import { SORTING_BY_DATE, DESCENDING_ORDER } from 'Utils/globals';
+import React from 'react';
+import Sidebar from 'Components/Sidebar';
+import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import Selectors from 'Store/selectors';
-
-const { boardLabelsSelector } = Selectors;
 
 const {
   SETTINGS, FILTERS, BOARDS, CARD,
@@ -20,10 +16,7 @@ const { toggleBoardsDialog } = BOARDS;
 
 const {
   searchCards,
-  addLabelFilter,
-  removeLabelFilter,
   focusCard,
-  changeSorting,
   toggleArchivedFilter,
 } = FILTERS;
 
@@ -45,22 +38,13 @@ function mapDispatchToProps(dispatch) {
     onChange: (val) => {
       dispatch(searchCards(val));
     },
-    changeSorting: (sorting, order) => {
-      dispatch(changeSorting(sorting, order));
-    },
     toggleArchivedFilter: (val) => {
       dispatch(toggleArchivedFilter(val));
-    },
-    addLabelFilter: (val) => {
-      dispatch(addLabelFilter(val));
     },
     addCard: (activeBoard, card) => {
       dispatch(addCard(activeBoard, card));
       dispatch(searchCards(''));
       dispatch(focusCard());
-    },
-    removeLabelFilter: (val) => {
-      dispatch(removeLabelFilter(val));
     },
   };
 }
@@ -69,12 +53,8 @@ function mapStateToProps(state) {
   return {
     activeBoard: state.filters.activeBoard,
     archivedFilterOn: state.filters.archivedFilterOn,
-    labelFilters: state.filters.labelFilters,
-    labels: boardLabelsSelector(state),
-    order: state.filters.order || DESCENDING_ORDER,
     githubAuthOn: state.settings.githubAuthOn || false,
     sidebarExpanded: state.style.sidebarExpanded,
-    sorting: state.filters.sorting || SORTING_BY_DATE,
   };
 }
 

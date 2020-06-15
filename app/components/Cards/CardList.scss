@@ -11,13 +11,13 @@
     border-radius: 10px;
     display: flex;
     padding: 5px;
-    width: fit-content;
+    width: 100%;
     align-self: flex-start;
     align-items: center;
     flex-flow: row wrap;
     transition: all 0.5s;
     margin: 20px 5px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     &.hidden {
       opacity: 0;
       height: 0;

@@ -1,3 +1,8 @@
+
+button {
+  width: fit-content;
+  font-size: 18px;
+}
 .remove-btn {
   margin: 5px 15px !important;
 }
@@ -7,24 +12,30 @@
   display: flex;
   margin-left: 15px;
   .label-box {
-    overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     padding: 5px;
     justify-content: flex-start;
     align-items: baseline;
     overflow-y: auto;
     border-radius: 10px;
-    max-height: 25vh;
+    max-height: 100px;
     width: 100%;
     padding: 5px auto;
     .label-button {
       min-height: 32px;
       margin: 3px;
-      span {
-        font-size: 18px;
-        font-weight: 500;
-      }
     }
+    span {
+      font-weight: 500;
+    }
+  }
+}
+.label-filter {
+  min-width: 300px;
+  span {
+    font-size: 18px;
+    margin: 5 10px;
   }
 }

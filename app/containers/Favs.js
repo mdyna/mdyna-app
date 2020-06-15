@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ACTIONS from 'Store/actions';
-import Favorites from 'Components/Favorites';
+import MiniCardList from 'Components/MiniCardList';
 import Selectors from 'Store/selectors';
 
 const { favCardsSelector } = Selectors;
@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch) {
     focusCard: (card) => {
       dispatch(focusCard(card));
     },
-    removeFav: (card) => {
+    onRemove: (card) => {
       dispatch(removeFav(card));
     },
   };
@@ -24,7 +24,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   const favs = favCardsSelector(state);
   return {
-    favs,
+    type: 'favs',
+    cards: favs,
     focusedCardId: state.filters.focusedCard && state.filters.focusedCard.id,
   };
 }
@@ -32,4 +33,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(React.memo(Favorites));
+)(React.memo(MiniCardList));

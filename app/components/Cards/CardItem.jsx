@@ -251,6 +251,7 @@ class MdynaCard extends PureComponent {
               onDiscard={() => this.toggleDiscardDialog()}
             />
           )}
+          {!card.seeMore && (
           <Editor
             readOnly={!card.isEditing}
             card={{ ...card, title: cardContent.title, text: cardContent.text }}
@@ -270,10 +271,13 @@ class MdynaCard extends PureComponent {
               backgroundColor: 'transparent',
             }}
           />
+          ) || <Text size="xxlarge" color="#333" weight="bold" style={{ display: 'flex' }}>{card.title}</Text>}
           {card.seeMore && !isFocused && (
             <div className="see-more-btn">
               <Button onClick={() => focusCard({ ...card, text: card.fullText })}>
-              See More
+                <Text color={color}>
+                See More
+                </Text>
                 <FocusIcon color={color} />
               </Button>
             </div>

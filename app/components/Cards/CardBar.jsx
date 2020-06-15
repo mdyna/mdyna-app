@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Archive, Trash, Edit, MoreVertical, Clone, Copy, Pin,
+  Archive, Trash, Edit, MoreVertical, Clone, Copy, Star,
 } from 'grommet-icons';
 import { Menu, Box } from 'grommet';
 import FocusIcon from 'UI/FocusIcon';
@@ -177,7 +177,7 @@ class CardBar extends PureComponent {
           </Button>
           <Button hoverIndicator="dark-1" onClick={() => favCard(card)}>
             <Tooltip
-              icon={<Pin color={(isFaved && 'brand') || color} />}
+              icon={<Star color={(isFaved && 'brand') || color} />}
               text="Favorite card"
             />
           </Button>

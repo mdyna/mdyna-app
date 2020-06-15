@@ -1,0 +1,42 @@
+.cards-container {
+  max-height: 25vh;
+  min-height: 30px;
+  overflow-y: auto;
+  font-weight: 700;
+  font-size: 14px;
+  justify-content: center;
+  text-align: left;
+
+  > div {
+    min-height: 28px;
+  }
+  button {
+    border-radius: 0 !important;
+    min-height: 28px;
+    justify-content: flex-start;
+    font-weight: 400;
+    svg {
+      height: 24px;
+      margin-right: 15px !important;
+      width: 24px;
+      vertical-align: middle;
+    }
+  }
+  .focus-btn   {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .remove-btn {
+    padding: 0;
+    border-radius: 0;
+    margin: 0px 5px 0px 0px !important;
+    max-width: 32px;
+    svg {
+      height: 18px;
+      width: 18px;
+      vertical-align: text-top;
+    }
+  }
+}

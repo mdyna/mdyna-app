@@ -7,6 +7,7 @@
   margin: 20px;
   height: 48px;
   transition: all 0.5s;
+  min-width: 300px;
   &.hidden {
     opacity: 0;
     width: 0;

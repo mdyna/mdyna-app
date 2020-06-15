@@ -89,13 +89,6 @@
     align-self: flex-end;
     margin: 5px;
     display: flex;
-    &.discard-btn {
-      border: 1px solid #8b0f19 !important;
-      padding: 10px;
-      svg {
-        margin: 0 0 10px 0;
-      }
-    }
     span {
       font-size: 1.2em;
     }
@@ -104,13 +97,8 @@
     margin: 0px 15px 0px 0px;
   }
   .app-info {
-    padding: 50px;
-    border-radius: 10px;
-    margin: 30px 20px;
-    align-items: center;
-    justify-content: flex-start;
     > div {
-      width: 100%;
+      width: fit-content;
     }
     header {
       margin: 0 auto;

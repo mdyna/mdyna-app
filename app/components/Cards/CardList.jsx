@@ -1,19 +1,30 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
-import Masonry from 'react-masonry-css';
-import { Box, Text } from 'grommet';
-import Tooltip from 'UI/Tooltip';
-import {
-  Add, Previous, Next, Upload as Export, Download, Close,
-} from 'grommet-icons';
-import cx from 'classnames';
-import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
-import CardItem from 'Containers/CardItem';
-import Button from 'UI/Button';
-import BoardPicker from 'UI/BoardPicker';
-
 import './CardList.scss'; // eslint-disable-line
+
+import {
+  Add,
+  Close,
+  Download,
+  Upload as Export,
+  Next,
+  Previous,
+} from 'grommet-icons';
+import { Box, Collapsible, Text } from 'grommet';
+import React, { PureComponent } from 'react';
+import { callFolderPicker, importFiles, importFilesListener } from 'Utils/events';
+
+import BoardPicker from 'UI/BoardPicker';
+import Button from 'UI/Button';
+import CardItem from 'Containers/CardItem';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import LabelFilter from 'UI/LabelFilter';
+import Masonry from 'react-masonry-css';
+import MiniCardList from 'Components/MiniCardList';
+import PropTypes from 'prop-types';
+import Search from 'UI/Search';
+import SortingMenu from 'UI/SortingMenu';
+import Tooltip from 'UI/Tooltip';
+import cx from 'classnames';
+
 export default class CardList extends PureComponent {
   state = {
     pageView: 1,
@@ -169,7 +180,6 @@ export default class CardList extends PureComponent {
   renderCardControls(cardItems) {
     const {
       isFocused,
-      cardsPerPage,
       activeBoard,
       changeActiveBoard,
       boardNames,
@@ -177,11 +187,21 @@ export default class CardList extends PureComponent {
       toggleBoardsDialog,
       focusCard,
       activeBoardId,
-      isEditing,
       boards,
+      searchInput,
+      searchCards,
+      searchHidden,
+      titles,
+      changeSorting,
+      labelFilters,
+      labels,
+      order,
+      addLabelFilter,
+      removeLabelFilter,
+      sorting,
     } = this.props;
-    const { pageView, pageIndex, boardsExpanded } = this.state;
-    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+    const { boardsExpanded } = this.state;
+    const labelFilterFuncs = { addLabelFilter, removeLabelFilter };
 
     return (
       <Box className={cx('card-list-controls')} background="dark-1">
@@ -206,8 +226,7 @@ export default class CardList extends PureComponent {
               style={{
                 display: boardsExpanded ? 'none' : 'initial',
               }}
-              align="center"
-              size="xxlarge"
+              weight="bold"
             >
               {activeBoard}
             </Text>
@@ -232,66 +251,114 @@ export default class CardList extends PureComponent {
               />
             </Button>
             {this.renderAddNoteButton()}
-            {cardItems && cardItems.length ? (
-              <>
-                <Text align="center" size="medium">
-                  {`${pageView}/${Math.ceil(cardItems.length / cardsPerPage)}`}
-                </Text>
-                {pageIndex >= 2 && (
-                  <Button
-                    className={cx(
-                      'page-control',
-                      pageIndex === 0 && 'disabled',
-                    )}
-                    onClick={() => this.jumpToFirst()}
-                  >
-                    <Text size="xsmall" color="brand">Jump to first</Text>
-                  </Button>
-                )}
-                {pageIndex !== 0 && (
-                  <Button
-                    className={cx(
-                      'page-control',
-                      pageIndex === 0 && 'disabled',
-                    )}
-                    onClick={() => this.getPreviousCards()}
-                  >
-                    {!isEditing && (
-                      <KeyboardEventHandler
-                        handleKeys={['left']}
-                        onKeyEvent={() => this.getPreviousCards()}
-                      />
-                    )}
-                    <Previous color="brand" />
-                  </Button>
-                )}
-                {hasMore && (
-                  <Button
-                    onClick={() => this.getNextCards()}
-                    className={cx('page-control', !hasMore && 'disabled')}
-                  >
-                    {!isEditing && (
-                      <KeyboardEventHandler
-                        handleKeys={['right']}
-                        onKeyEvent={() => this.getNextCards()}
-                      />
-                    )}
-                    <Next color="brand" />
-                  </Button>
-                )}
-              </>
-            ) : (
-              ''
-            )}
+
+            {this.renderCardPagination(cardItems)}
+            <SortingMenu
+              changeSorting={changeSorting}
+              order={order}
+              sorting={sorting}
+            />
+            <LabelFilter labelFilterFuncs={labelFilterFuncs} labels={labels} labelFilters={labelFilters} />
+
+            <Search
+              searchInput={searchInput}
+              onChange={searchCards}
+              hidden={searchHidden}
+              titles={titles}
+            />
           </>
         )}
       </Box>
     );
   }
 
+  renderCardPagination(cardItems) {
+    const {
+      cardsPerPage, isEditing,
+    } = this.props;
+    const { pageIndex, pageView } = this.state;
+
+    const hasMore = cardItems && cardItems.length > pageIndex + cardsPerPage;
+    return (
+      <Box direction="column" style={{ maxWidth: '25%' }}>
+        <Box direction="row" align="center" justify="between">
+          <Text align="center" size="medium">
+            {`${pageView}/${Math.ceil((cardItems || []).length / cardsPerPage)}`}
+          </Text>
+          {pageIndex !== 0 && (
+          <Button
+            className={cx(
+              'page-control',
+              pageIndex === 0 && 'disabled',
+            )}
+            hoverIndicator="accent-3"
+            onClick={() => this.getPreviousCards()}
+          >
+            {!isEditing && (
+            <KeyboardEventHandler
+              handleKeys={['left']}
+              onKeyEvent={() => this.getPreviousCards()}
+            />
+            )}
+            <Previous color="brand" />
+          </Button>
+          )}
+          {hasMore && (
+          <Button
+            onClick={() => this.getNextCards()}
+            hoverIndicator="accent-3"
+            className={cx('page-control', !hasMore && 'disabled')}
+          >
+            {!isEditing && (
+            <KeyboardEventHandler
+              handleKeys={['right']}
+              onKeyEvent={() => this.getNextCards()}
+            />
+            )}
+            <Next color="brand" />
+          </Button>
+          )}
+        </Box>
+        {pageIndex >= 2 && (
+        <Button
+          className={cx(
+            'page-control',
+            pageIndex === 0 && 'disabled',
+          )}
+          hoverIndicator="accent-3"
+          onClick={() => this.jumpToFirst()}
+        >
+          <Text size="xsmall" color="brand">Jump to first</Text>
+        </Button>
+        )}
+      </Box>
+    );
+  }
+
+
+  renderMiniList() {
+    const {
+      cards, focusedCardId, focusCard, open,
+    } = this.props;
+    return (
+
+      <Collapsible open={open}>
+        <MiniCardList
+          cards={cards}
+          focusCard={focusCard}
+          focusedCardId={focusedCardId}
+          type="cards"
+          long
+        />
+      </Collapsible>
+
+    );
+  }
+
+
   render() {
     const {
-      cards, searchInput, cardsPerPage, isFocused,
+      cards, searchInput, cardsPerPage, isFocused, mini,
     } = this.props;
     const { pageIndex } = this.state;
     const cardItems = this.renderVisibleCards(cards);
@@ -308,7 +375,7 @@ export default class CardList extends PureComponent {
       768: 1,
     };
 
-    return (
+    return mini ? this.renderMiniList() : (
       <Box className="card-list" background="dark-3" responsive direction="row">
         <KeyboardEventHandler
           handleKeys={['a', 'ctrl + v']}
@@ -344,13 +411,15 @@ export default class CardList extends PureComponent {
             {cardComponents && cardComponents.length ? (
               <div className="card-list-pagination">
                 {!isFocused && (
-                <Masonry
-                  breakpointCols={BREAKPOINTS}
-                  className="card-list-grid"
-                  columnClassName="card-list-card"
-                >
-                  {cardComponents}
-                </Masonry>
+                  <>
+                    <Masonry
+                      breakpointCols={BREAKPOINTS}
+                      className="card-list-grid"
+                      columnClassName="card-list-card"
+                    >
+                      {cardComponents}
+                    </Masonry>
+                  </>
                 ) || cardComponents}
               </div>
             ) : (
@@ -382,11 +451,17 @@ CardList.whyDidYouRender = true;
 
 CardList.propTypes = {
   addCard: PropTypes.func.isRequired,
+  mini: PropTypes.bool,
+  open: PropTypes.bool,
   searchInput: PropTypes.string,
   labelFilters: PropTypes.array,
   boards: PropTypes.array,
   boardNames: PropTypes.array,
+  focusedCardId: PropTypes.string,
   createBoard: PropTypes.func.isRequired,
+  changeSorting: PropTypes.func.isRequired,
+  order: PropTypes.string.isRequired,
+  sorting: PropTypes.string.isRequired,
   toggleBoardsDialog: PropTypes.func.isRequired,
   changeActiveBoard: PropTypes.func.isRequired,
   focusCard: PropTypes.func.isRequired,
@@ -397,14 +472,25 @@ CardList.propTypes = {
   cards: PropTypes.array,
   cardsPerPage: PropTypes.number,
   isFocused: PropTypes.bool.isRequired,
+  labels: PropTypes.array.isRequired,
+  addLabelFilter: PropTypes.func.isRequired,
+  removeLabelFilter: PropTypes.func.isRequired,
+  searchCards: PropTypes.func.isRequired,
+  searchHidden: PropTypes.bool,
+  titles: PropTypes.array,
 };
 
 CardList.defaultProps = {
   cardsPerPage: 8,
   boards: {},
   labelFilters: [],
+  open: false,
   activeBoardId: '',
   boardNames: [],
   searchInput: '',
+  mini: false,
   cards: [],
+  titles: [],
+  focusedCardId: '',
+  searchHidden: false,
 };

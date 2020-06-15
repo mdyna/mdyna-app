@@ -1,12 +1,25 @@
-import React, { Component } from 'react';
-import { Box } from 'grommet';
+import React, { PureComponent } from 'react';
+import { Box, Collapsible, Text } from 'grommet';
+import { Tag } from 'grommet-icons';
 import PropTypes from 'prop-types';
 import sort from 'lodash/sortBy'; // eslint-disable-line
 import Labels from 'UI/Labels';
 import Button from 'UI/Button';
 
 import './LabelFilter.scss'; // eslint-disable-line
-class LabelFilter extends Component {
+class LabelFilter extends PureComponent {
+  state = {
+    expanded: false,
+  }
+
+
+  expandLabelFilters() {
+    const { expanded } = this.state;
+    this.setState({
+      expanded: !expanded,
+    });
+  }
+
   clearLabels() {
     const { labelFilters, labelFilterFuncs } = this.props;
     const { removeLabelFilter } = labelFilterFuncs;
@@ -19,7 +32,7 @@ class LabelFilter extends Component {
   renderClickableLabels() {
     const { labels, labelFilters, labelFilterFuncs } = this.props;
     const { addLabelFilter, removeLabelFilter } = labelFilterFuncs;
-    const orderedLabels = sort(labels, d => d.count).reverse();
+    const orderedLabels = sort(labels, d => labelFilters.indexOf(d.title) !== -1, d => d.count).reverse();
     const clickableLabels = [];
     for (let i = 0; i < 10; i += 1) {
       const label = orderedLabels[i];
@@ -43,20 +56,48 @@ class LabelFilter extends Component {
     return clickableLabels;
   }
 
+  renderClearBtn() {
+    const { labelFilters } = this.props;
+    return (
+      <Button
+        className="remove-btn"
+        onClick={() => this.clearLabels()}
+        color="accent-2"
+      >
+        {`Clear (${labelFilters.length})`}
+      </Button>
+    );
+  }
+
   render() {
     const { labels, labelFilters } = this.props;
+    const { expanded } = this.state;
     return (
-      (labels && labels.length && (
-        <>
-          {labelFilters && labelFilters.length && <Button className="remove-btn" onClick={() => this.clearLabels()} color="accent-2">{`Clear (${labelFilters.length})`}</Button> || ''}
-          <div className="label-filter-box">
-            <Box background="dark-1" className="label-box">
-              {this.renderClickableLabels()}
-            </Box>
-          </div>
-        </>
-      ))
-      || ''
+      <Box direction="column" style={{ flex: 1 }} className="label-filter">
+        <Button hoverIndicator="accent-1" onClick={() => this.expandLabelFilters()}>
+
+          <Box direction="row" wrap={false} align="center">
+            <Text color="brand">
+        Label Filters
+            </Text>
+            <Tag color="brand" />
+          </Box>
+
+        </Button>
+        {labelFilters && labelFilters.length && this.renderClearBtn() || ''}
+        <Collapsible open={expanded} direction="vertical">
+          {(labels && labels.length && (
+          <>
+            <div className="label-filter-box">
+              <Box background="dark-1" className="label-box">
+                {this.renderClickableLabels()}
+              </Box>
+            </div>
+          </>
+          ))
+|| ''}
+        </Collapsible>
+      </Box>
     );
   }
 }
