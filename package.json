@@ -5,7 +5,7 @@
   "homepage": "https://mdyna.dev",
   "main": "index.js",
   "scripts": {
-    "build-dist": " rimraf ./dist && cross-env NODE_ENV=PROD yarn build-electron && electron-builder -w",
+    "build-dist": " rimraf ./dist && cross-env NODE_ENV=PROD yarn build-electron && electron-builder -lw",
     "build-dist-mac": "rimraf ./dist && cross-env NODE_ENV=PROD yarn build-electron && electron-builder -m",
     "build-electron": "rimraf ./dist/web && cross-env NODE_ENV=PROD webpack --config webpack.config.electron.js",
     "build-webpack": "rimraf ./dist/web && cross-env NODE_ENV=PROD webpack --optimize-minimize --config webpack.config.js",
