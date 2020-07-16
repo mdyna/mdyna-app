@@ -103,7 +103,7 @@
     "electron-updater": "^4.0.6",
     "fs-jetpack": "^2.2.3",
     "global": "^4.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
