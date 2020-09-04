@@ -145,7 +145,7 @@
     "html-webpack-plugin": "^3.2.0",
     "inuit-defaults": "^0.2.3",
     "lint-staged": "^8.1.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "prettier-eslint": "^9.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
