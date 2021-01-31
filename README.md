@@ -16,6 +16,7 @@
 </p>
 
 > MDyna is a markdown notes application that syncs with Github gists, and much more
+### App is not actively maintained, and I advise you to look for other alternatives for your markdown notes
 
 ### 🏠 [Homepage](https://mdyna.dev)
 Linux and Windows Build:
