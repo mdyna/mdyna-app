@@ -55,7 +55,7 @@
   "author": "David Morais",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^3.0.0",
+    "electron": "^9.4.0",
     "react-inlinesvg": "^1.1.7"
   }
 }
