@@ -125,7 +125,7 @@
     "copy-webpack-plugin": "4.0.1",
     "cross-env": "^7.0.2",
     "css-loader": "^2.1.1",
-    "electron": "^4.2.12",
+    "electron": "^11.5.0",
     "electron-builder": "^22.0.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-icon-maker": "0.0.4",
