@@ -25,7 +25,7 @@ MacOS Build
 ![GitHub Actions status](https://github.com/mdyna/mdyna-app/workflows/macOS%20CD/badge.svg)
 Landing Page:
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3c3367fc-b80c-4829-af8a-02fac5f9f979/deploy-status)](https://app.netlify.com/sites/mdyna/deploys)
-[![GitHub release date](https://img.shields.io/github/release-date/mdyna/mdyna-app.svg)](https://github.com/mdyna/mdyna-app/releases)
+[![GitHub release date](https://img.shields.io/github/release-date/mdyna/mdyna-app.svg)](https://github.com/mdyna/mdyna-app/releases) [![Join the chat at https://gitter.im/davidsmorais/mdyna](https://badges.gitter.im/davidsmorais/mdyna.svg)](https://gitter.im/davidsmorais/mdyna?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Main Features
 
